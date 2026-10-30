@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ff6b9a">
+<title>高舉臺灣之光 🏅｜南一國語 4上 第五課</title>
+<style>
+:root{--ink:#2b2d42;--org:#ff9f1c;--sun:#ffd166;--pink:#ff6b9a;--blue:#4d96ff;--teal:#2a9d8f;--purple:#9b5de5;--green:#52b788}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:#fff6f9;overflow-x:hidden}
+html,body{margin:0;padding:0}
+body{font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",system-ui,sans-serif;color:var(--ink);min-height:100vh;background:linear-gradient(180deg,#ffd6e4 0,#fff6f9 260px);padding-bottom:calc(92px + env(safe-area-inset-bottom))}
+header{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:8px;padding:10px 12px;padding-top:calc(10px + env(safe-area-inset-top));background:rgba(255,107,154,.97);color:#fff}
+header h1{font-size:clamp(17px,4.6vw,26px);margin:0;flex:1;letter-spacing:1px;min-width:0}
+.back{color:#fff;text-decoration:none;font-weight:800;background:rgba(255,255,255,.25);border-radius:999px;padding:8px 12px;font-size:15px;white-space:nowrap}
+.score{background:#fff;color:#b0154a;font-weight:900;border-radius:999px;padding:6px 12px;font-size:17px;white-space:nowrap;box-shadow:0 3px 0 #c2185b}
+.score.pop{animation:pop .5s}@keyframes pop{40%{transform:scale(1.3)}}
+main{max-width:1000px;margin:0 auto;padding:10px}
+section.page{display:none}section.page.active{display:block;animation:fadein .3s}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.card{background:#fff;border-radius:22px;padding:14px;margin:10px 0;box-shadow:0 6px 0 rgba(0,0,0,.1)}
+.card h2{margin:0 0 6px;font-size:clamp(20px,5vw,25px)}.card h3{margin:4px 0 6px;font-size:19px}
+.small{font-size:14px;color:#666;line-height:1.5}
+.lead{font-size:17px;line-height:1.75;margin:6px 0}
+.btn{appearance:none;border:none;border-radius:16px;padding:10px 14px;min-height:50px;font-size:17px;font-weight:800;cursor:pointer;background:var(--blue);color:#fff;box-shadow:0 4px 0 rgba(0,0,0,.22);font-family:inherit;touch-action:manipulation}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.22)}
+.btn.org{background:var(--org)}.btn.pink{background:var(--pink)}.btn.teal{background:var(--teal)}.btn.purple{background:var(--purple)}.btn.gray{background:#8d99ae}.btn.green{background:var(--green)}
+.btn.white{background:#fff;color:var(--ink);border:3px solid #ffd0df}.btn.on{outline:4px solid var(--pink);outline-offset:1px;background:#fff0f5}
+.btn.small{min-height:44px;font-size:15px;padding:6px 10px}
+.btn:disabled{opacity:.4}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0;align-items:center}.cen{justify-content:center}
+.seg{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
+.hidden{display:none!important}
+.bubble{background:#eef4ff;border-radius:18px;padding:12px 14px;font-size:18px;line-height:1.7;min-height:64px;border:3px solid #d6e4ff}
+.bubble b{color:#c1121f}
+.fb{margin-top:8px;border-radius:14px;padding:8px 12px;font-size:17px;line-height:1.55;display:none}
+.fb.show{display:block}.fb.good{background:#d8f3dc}.fb.bad{background:#fff3cd}.fb.info{background:#f3e8ff}
+.done{background:linear-gradient(135deg,#d8f3dc,#fff1a8);border-radius:18px;padding:12px;font-size:18px;line-height:1.6;margin-top:10px}
+.tip{background:#fffbea;border:3px dashed var(--sun);border-radius:16px;padding:8px 12px;font-size:16px;line-height:1.6;margin-top:8px}
+.q{font-size:21px;line-height:1.6;font-weight:800;text-align:center;margin:6px 0;word-break:break-word}
+.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin-top:8px}
+.choices .btn{background:#fff;color:var(--ink);border:3px solid #d6e4ff;font-size:19px;min-height:58px;line-height:1.4}
+.choices .btn.ok{background:#d8f3dc;border-color:#2ec4b6}.choices .btn.no{background:#ffd6dc;border-color:#ff6b9a;animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.prog{display:flex;gap:4px;justify-content:center;margin:4px 0;flex-wrap:wrap}
+.prog i{width:20px;height:10px;border-radius:6px;background:#eee;display:block}.prog i.ok{background:#2ec4b6}.prog i.no{background:#ff6b9a}.prog i.cur{background:var(--sun)}
+table.rec{border-collapse:collapse;width:100%;font-size:16px}
+table.rec td,table.rec th{padding:8px;border-bottom:1px solid #eee;text-align:left;vertical-align:top}
+.statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.stat{background:#ffe6ef;border-radius:16px;padding:10px;text-align:center}.stat b{display:block;font-size:28px;color:#b0154a}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.bdg{background:#eee;border-radius:14px;padding:6px 10px;font-weight:800;color:#999;font-size:15px}.bdg.got{background:linear-gradient(135deg,#ffd166,#ff9f1c);color:#5a3b00}
+.bdg small{display:block;font-weight:600;font-size:12px}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;justify-content:space-around;background:#fff;padding:6px 4px;padding-bottom:calc(6px + env(safe-area-inset-bottom));box-shadow:0 -4px 16px rgba(0,0,0,.15)}
+nav.tabs button{flex:1;min-width:0;border:none;background:none;font-family:inherit;font-size:13px;font-weight:800;color:#666;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 1px;border-radius:14px;cursor:pointer;min-height:60px;touch-action:manipulation}
+nav.tabs button span{font-size:24px;line-height:1}nav.tabs button.on{background:#ffe0eb;color:#b0154a}
+.burst{position:fixed;z-index:99;pointer-events:none;font-size:30px;animation:fly 1.1s ease-out forwards}
+@keyframes fly{to{transform:translate(var(--dx),var(--dy)) rotate(360deg);opacity:0}}
+/* ---- 國語 ---- */
+.info{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:8px 0}
+.info div{background:#fff0f5;border-radius:14px;padding:8px 10px;font-size:16px}.info b{display:block;font-size:13px;color:#b0154a}
+.part{border:3px solid #ffd0df;border-radius:18px;padding:10px 12px;margin:8px 0;background:#fffafc}
+.part h4{margin:0 0 4px;font-size:18px}.part .tag{display:inline-block;background:var(--pink);color:#fff;border-radius:999px;padding:2px 10px;font-size:14px;margin-right:6px}
+.quote{display:inline-block;background:#fff4c2;border-radius:8px;padding:0 6px;margin:2px 0;font-weight:700}
+.cycle{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:520px;margin:8px auto}
+.cycle .btn{min-height:76px;font-size:20px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px;margin:8px 0}
+.steps .btn{color:var(--ink);text-align:left;min-height:56px;font-size:17px}
+.steps .btn.ok{opacity:.45}
+.stepdone{list-style:none;margin:8px 0;padding:0}
+.stepdone li{background:#fff4c2;border-radius:12px;padding:8px 12px;margin:6px 0;font-size:17px;font-weight:700}
+.stepdone li b{display:inline-block;background:var(--pink);color:#fff;border-radius:999px;padding:1px 10px;margin-right:8px}
+.sp{background:#e9f9e5!important;border-color:#95d5b2!important}.su{background:#e3f6ec!important;border-color:#2d6a4f!important}.au{background:#fff4c2!important;border-color:#f4a261!important}.wi{background:#f3ece4!important;border-color:#a98467!important}
+.chargrid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;max-width:560px;margin:0 auto}
+.chargrid button{font-family:"BiauKai","DFKai-SB","TW-Kai","Kaiti TC",KaiTi,serif;font-size:clamp(30px,8vw,44px);aspect-ratio:1/1;min-height:56px;border-radius:16px;border:3px solid #ffd0df;background:#fff;color:var(--ink);cursor:pointer;position:relative;touch-action:manipulation;padding:0}
+.chargrid button.seen{background:#fff0f5}.chargrid button.seen:after{content:"✓";position:absolute;right:4px;top:0;font-size:14px;color:var(--teal);font-family:sans-serif}
+.chargrid button.on{outline:4px solid var(--pink)}
+.cdet{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start;margin-top:10px}
+.bigc{font-family:"BiauKai","DFKai-SB","TW-Kai","Kaiti TC",KaiTi,serif;font-size:96px;line-height:1;width:130px;height:130px;display:flex;align-items:center;justify-content:center;border:3px solid #ff6b9a;border-radius:12px;position:relative;
+ background-image:linear-gradient(#ffd0df,#ffd0df),linear-gradient(#ffd0df,#ffd0df);background-size:100% 2px,2px 100%;background-position:center;background-repeat:no-repeat;flex:0 0 130px}
+.zy{writing-mode:vertical-rl;font-size:18px;font-weight:800;color:#b0154a;letter-spacing:2px}
+.cinfo{flex:1;min-width:200px;font-size:17px;line-height:1.8}
+.chip{display:inline-block;background:#e6f0ff;border-radius:999px;padding:3px 12px;margin:2px 4px 2px 0;font-weight:700}
+.chip.id{background:#fff1d6}
+.padwrap{position:relative;width:260px;height:260px;margin:8px auto;border:3px solid #ff6b9a;border-radius:12px;background:#fff;touch-action:none}
+.padwrap .ghost{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:"BiauKai","DFKai-SB","TW-Kai","Kaiti TC",KaiTi,serif;font-size:210px;color:#f3d3de;pointer-events:none;line-height:1;
+ background-image:linear-gradient(#ffd0df,#ffd0df),linear-gradient(#ffd0df,#ffd0df);background-size:100% 2px,2px 100%;background-position:center;background-repeat:no-repeat}
+.padwrap canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none}
+.wlist{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px}
+.wcard{background:#fffafc;border:3px solid #ffd0df;border-radius:16px;padding:8px 12px;font-size:16px;line-height:1.5}.wcard b{font-size:20px;display:block}
+.match{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,3fr);gap:8px}
+.match .col{display:flex;flex-direction:column;gap:8px}
+.match .btn{background:#fff;color:var(--ink);border:3px solid #d6e4ff;font-size:16px;min-height:56px;line-height:1.35;padding:6px 8px}
+.match .btn.sel{border-color:var(--pink);background:#fff0f5}.match .btn.ok{background:#d8f3dc;border-color:#2ec4b6;opacity:.55}.match .btn.no{animation:shake .4s;border-color:#ff6b9a}
+.formula{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:6px 0}
+.formula span{border-radius:12px;padding:6px 10px;font-weight:800;font-size:17px}
+.f1{background:#ffd6dc}.f2{background:#cfe8ff}.f3{background:#d8f3dc}
+.blank{display:inline-block;min-width:3em;border-bottom:3px solid var(--pink);color:#b0154a}
+.seasonbtns{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+.seasonbtns .btn{color:var(--ink);border:3px solid #ddd;font-size:18px;min-height:64px;padding:6px 2px}
+.bins{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin-top:10px}
+.bin{border-radius:14px;padding:6px 8px;font-size:14px;line-height:1.5;min-height:48px;border:3px solid #eee}
+.bin b{display:block;font-size:15px}
+a.ext{color:#1d4ed8;font-weight:800}
+@media (max-width:420px){.chargrid{gap:6px}.bigc{width:110px;height:110px;flex-basis:110px;font-size:80px}.match .btn{font-size:15px}}
+</style>
+</head>
+<body>
+<header>
+  <a class="back" href="../">← 國語</a>
+  <h1>🏅 高舉臺灣之光</h1>
+  <div class="score" id="score">⭐ 0</div>
+</header>
+<main>
+
+<!-- ============ 課文 ============ -->
+<section class="page active" id="p-read">
+  <div class="card">
+    <h2>📖 第五課 高舉臺灣之光</h2>
+    <div class="info">
+      <div><b>版本</b>南一 國語 4上（第七冊）</div>
+      <div><b>單元</b>第貳單元 超級臺灣隊</div>
+      <div><b>文體</b>書信（寫給郭婞淳的信）</div>
+      <div><b>寫信人</b>平樂國小四年級 毛容文</div>
+    </div>
+    <div class="tip">🏋️ <b>郭婞淳小檔案</b>（課本第 40 頁）：阿美族名 Tana，出生在宜蘭羅東，是舉重國手。2020 東京奧運拿下女子舉重 59 公斤級金牌，曾打破這個量級抓舉、挺舉、總和三項世界紀錄，也當選第 52 屆中華民國十大傑出青年。</div>
+    <p class="small">這是一封信。這裡是用自己的話整理的「重點導讀」，只引用幾個短句；完整課文請看課本第 40～45 頁，也可以掃課本上的 QR code 聽課文朗讀。</p>
+  </div>
+
+  <div class="card">
+    <h3>🗺️ 這封信說了什麼</h3>
+    <div class="part"><h4><span class="tag">開頭</span>為什麼寫這封信</h4>
+      <p class="lead">毛容文向「郭婞淳姐姐」問好，說明老師請大家寫信給<b>心中最欣賞的人</b>，她就選了郭婞淳。</p>
+      <button class="btn white small" data-say="0">🔊 聽導讀</button></div>
+    <div class="part"><h4><span class="tag">佩服</span>個子小，力量大</h4>
+      <p class="lead">郭婞淳<span class="quote">雖然個子小，卻有著大大的力量</span>，克服種種<b>困難</b>，勇於<b>挑戰</b>自我，為臺灣<b>爭光</b>，讓作者<b>佩服</b>不已。</p>
+      <button class="btn white small" data-say="1">🔊 聽導讀</button></div>
+    <div class="part"><h4><span class="tag">震驚</span>汗水和淚水換來的成就</h4>
+      <p class="lead">她體重不到六十<b>公斤</b>，卻打破世界<b>紀錄</b>，讓作者很<b>震驚</b>。作者本來以為她天生力氣大，讀了故事才知道，這是用無數<b>汗水和淚水</b>換來的：她<b>竭</b>盡全力練習，受傷也不輕言放<b>棄</b>。</p>
+      <button class="btn white small" data-say="2">🔊 聽導讀</button></div>
+    <div class="part"><h4><span class="tag">我的經驗</span>練舞的路</h4>
+      <p class="lead">作者從二年級開始練舞，<b>過程</b>很辛苦，常常偷偷哭。但就像郭姐姐一樣，不論成功或失敗，總有<b>家人、老師</b>在背後支持她。</p>
+      <button class="btn white small" data-say="3">🔊 聽導讀</button></div>
+    <div class="part"><h4><span class="tag">期許</span>溫暖的光</h4>
+      <p class="lead">郭婞淳把獎金<b>捐</b>給醫院幫助別人。作者希望自己也能勇敢又有愛心，<span class="quote">為人們舉起一道溫暖的光</span>。最後說：您是令人<b>驕傲</b>的臺灣之光！</p>
+      <button class="btn white small" data-say="4">🔊 聽導讀</button></div>
+  </div>
+
+  <div class="card">
+    <h3>✉️ 信的內容順序</h3>
+    <p class="small">作者先說為什麼寫信，再說佩服和震驚的事，接著分享自己的經驗，最後寫下期許。照課文的順序點一點。</p>
+    <div id="stepBox"></div>
+  </div>
+
+  <div class="card">
+    <h3>🧱 書信格式配一配</h3>
+    <p class="small">一封信有稱謂、問候語、正文、祝福語、署名和日期。這是信的哪個部分？</p>
+    <div id="partQ"></div>
+  </div>
+
+  <div class="card">
+    <h3>🔍 閱讀理解小偵探</h3>
+    <div id="readQ"></div>
+  </div>
+
+  <div class="card">
+    <h3>🔎 找材料，寫人物</h3>
+    <div class="info">
+      <div><b>間接經驗</b>📚 從書本、網路得來</div><div><b>直接經驗</b>🧒 自己的生活經驗</div>
+    </div>
+    <p class="lead">課本第 47 頁：作者寫郭婞淳時，用了從資料讀到的<b>間接經驗</b>（個子小、體重不到六十公斤、打破世界紀錄、努力練習的過程、做的事和說的話），也用了自己練舞的<b>直接經驗</b>。寫人物時，兩種材料都可以用喔！</p>
+  </div>
+</section>
+
+<!-- ============ 生字 ============ -->
+<section class="page" id="p-char">
+  <div class="card">
+    <h2>✍️ 我會寫的字（15 個）</h2>
+    <p class="small">點一個字，看注音、部首、筆畫和造詞。數字是「部首外筆畫／總筆畫」，依課本第 46 頁。</p>
+    <div class="chargrid" id="charGrid"></div>
+    <div class="cdet" id="charDet"></div>
+  </div>
+  <div class="card">
+    <h3>🖌️ 描寫板</h3>
+    <p class="small">用手指照著淡淡的字描一描。筆順可以按上面的「看筆順動畫」到教育部筆順學習網看。</p>
+    <div class="padwrap" id="padWrap"><div class="ghost" id="ghost">困</div><canvas id="pad" width="520" height="520"></canvas></div>
+    <div class="btns cen"><button class="btn gray small" id="padClear">🧽 擦掉</button><button class="btn green" id="padDone">✅ 寫好了</button></div>
+    <div class="fb" id="padFb"></div>
+  </div>
+  <div class="card">
+    <h3>🧠 生字小測驗</h3>
+    <div class="seg" id="cqSeg">
+      <button class="btn white on" data-t="bs">部首</button>
+      <button class="btn white" data-t="tot">筆畫</button>
+      <button class="btn white" data-t="zy">注音</button>
+    </div>
+    <div id="charQ"></div>
+  </div>
+  <div class="card">
+    <h3>👀 形近字選一選</h3>
+    <p class="small">字詞句練習單「分辨形近字」：困／因、爭／掙、紀／記、震／雲。選出句子裡正確的那一個。</p>
+    <div class="tip">🔤 <b>多音字</b>：「挑」在挑戰念 <b>ㄊㄧㄠˇ</b>，在挑食、挑選、挑水念 <b>ㄊㄧㄠ</b>（課本第 47 頁「比一比讀音」、習作第 37 頁）。</div>
+    <div id="lookQ"></div>
+  </div>
+</section>
+
+<!-- ============ 語詞 ============ -->
+<section class="page" id="p-word">
+  <div class="card">
+    <h2>🧩 語詞配對</h2>
+    <p class="small">先點左邊的語詞，再點右邊正確的意思。</p>
+    <div id="matchBox"></div>
+  </div>
+  <div class="card">
+    <h3>📝 選詞填空</h3>
+    <div id="fillQ"></div>
+  </div>
+  <div class="card">
+    <h3>📚 語詞小卡</h3>
+    <div class="wlist" id="wordList"></div>
+    <h3 style="margin-top:12px">💡 生字延伸成語</h3>
+    <div class="wlist" id="idiomList"></div>
+  </div>
+</section>
+
+<!-- ============ 句型 ============ -->
+<section class="page" id="p-pat">
+  <div class="card">
+    <h2>🪄 句型與寫作</h2>
+    <div class="seg" id="patSeg">
+      <button class="btn white on" data-k="phrase">為…的…</button>
+      <button class="btn white" data-k="you">雖然…卻…</button>
+      <button class="btn white" data-k="rhet">直接／間接經驗</button>
+      <button class="btn white" data-k="conj">然而</button>
+    </div>
+  </div>
+  <div class="card" id="patIntro"></div>
+  <div class="card"><div id="patQ"></div></div>
+</section>
+
+<!-- ============ 挑戰 ============ -->
+<section class="page" id="p-game">
+  <div class="card">
+    <h2>🗂️ 經驗分類大挑戰</h2>
+    <p class="small">課本第 44 頁問：作者和郭婞淳兩人的經驗有哪些共同的地方？這件事是郭婞淳的、毛容文的，還是兩人都有？（句子是依課文改寫的）</p>
+    <div id="sortBox"></div>
+  </div>
+  <div class="card">
+    <h2>🏆 第五課綜合挑戰（10 題）</h2>
+    <p class="small">生字、形近字、語詞、句型、直接／間接經驗、然而、信的內容順序通通有！答對 9 題以上拿「挑戰王」徽章。</p>
+    <div id="chBox"></div>
+  </div>
+</section>
+
+<!-- ============ 紀錄 ============ -->
+<section class="page" id="p-rec">
+  <div class="card"><h2>🏆 我的紀錄</h2><div class="statgrid" id="stats"></div><div class="badges" id="badges"></div></div>
+  <div class="card"><h3>🔎 常錯的地方</h3><div id="mist"></div></div>
+  <div class="card"><button class="btn gray" id="resetBtn">清除紀錄</button><p class="small">紀錄只存在這台平板的瀏覽器裡。</p>
+    <p class="small">資料來源：南一版國語 4上 第五課課本（第 40～47 頁：郭婞淳小檔案、〈高舉臺灣之光〉毛容文的信、「我會寫的字」、「比一比讀音」挑、「句子練習」然而、「找材料，寫人物」）、第五課習作（第 34～41 頁），以及老師分享的第五課「字詞句練習單」、「生字成語、四字語詞」和「成語遊樂園」學習單。</p>
+    <p class="small">✏️ <b>自編說明：</b>課文導讀是用自己的話整理的，只引用短句；閱讀理解、信的內容順序、經驗分類、選詞填空、形近字的句子、照樣寫、雖然……卻……（第一題改寫自課文）、直接／間接經驗後四題、然而（第一題是課本例句）和挑戰的題目與例句，都是為了練習自己編寫的，不是課本原文；語詞和成語解釋也改寫成好懂的話；「稱謂、問候語、正文、祝福語、署名、日期」是常用的書信格式名稱，依課本信的排列整理；「第貳單元 超級臺灣隊」是依第四課的單元頁推定。</p></div>
+</section>
+</main>
+
+<nav class="tabs" id="tabs">
+  <button class="on" data-p="p-read"><span>📖</span>課文</button>
+  <button data-p="p-char"><span>✍️</span>生字</button>
+  <button data-p="p-word"><span>🧩</span>語詞</button>
+  <button data-p="p-pat"><span>🪄</span>句型</button>
+  <button data-p="p-game"><span>🎮</span>挑戰</button>
+  <button data-p="p-rec"><span>🏆</span>紀錄</button>
+</nav>
+
+<script id="core">
+var Core=(function(){
+"use strict";
+/* 生字：注音、部首、部首外筆畫、總筆畫依南一 113 學年版課本第 46 頁「我會寫的字」（順序依課文出現先後）
+   造詞參考課文與老師分享的第五課「字詞句練習單」；bf=部首在這個字裡的寫法 */
+var CHARS=[
+ {c:"困",zy:"ㄎㄨㄣˋ",bs:"口",ex:4,tot:7,words:["困難","困境","困住"],tx:"克服種種困難",idiom:"困獸猶鬥",look:"因"},
+ {c:"舉",zy:"ㄐㄩˇ",bs:"臼",ex:10,tot:17,words:["舉重","舉起","舉手"],tx:"成為舉重國手",idiom:"不勝枚舉"},
+ {c:"挑",zy:"ㄊㄧㄠ",bs:"手",bf:"扌",ex:6,tot:9,words:["挑選","挑食","挑戰"],tx:"勇於挑戰自我",idiom:"挑燈夜戰"},
+ {c:"戰",zy:"ㄓㄢˋ",bs:"戈",ex:12,tot:16,words:["挑戰","作戰","戰爭"],tx:"勇於挑戰自我",idiom:"背水一戰"},
+ {c:"爭",zy:"ㄓㄥ",bs:"爪",bf:"爫",ex:4,tot:8,words:["爭光","爭取","競爭"],tx:"努力為臺灣爭光",idiom:"鷸蚌相爭",look:"掙"},
+ {c:"佩",zy:"ㄆㄟˋ",bs:"人",bf:"亻",ex:6,tot:8,words:["佩服","敬佩"],tx:"讓我佩服不已",idiom:""},
+ {c:"斤",zy:"ㄐㄧㄣ",bs:"斤",ex:0,tot:4,words:["公斤","斤兩"],tx:"體重不到六十公斤",idiom:"斤斤計較"},
+ {c:"紀",zy:"ㄐㄧˋ",bs:"糸",ex:3,tot:9,words:["紀錄","年紀","紀念"],tx:"打破世界紀錄",idiom:"目無法紀",look:"記"},
+ {c:"震",zy:"ㄓㄣˋ",bs:"雨",ex:7,tot:15,words:["震驚","地震","震動"],tx:"心中非常震驚",idiom:"威震天下",look:"雲"},
+ {c:"竭",zy:"ㄐㄧㄝˊ",bs:"立",ex:9,tot:14,words:["竭盡全力","枯竭"],tx:"竭盡全力",idiom:"竭澤而漁"},
+ {c:"棄",zy:"ㄑㄧˋ",bs:"木",ex:7,tot:11,words:["放棄","拋棄"],tx:"不輕言放棄",idiom:"自暴自棄"},
+ {c:"程",zy:"ㄔㄥˊ",bs:"禾",ex:7,tot:12,words:["過程","課程","路程"],tx:"過程相當辛苦",idiom:"鵬程萬里"},
+ {c:"捐",zy:"ㄐㄩㄢ",bs:"手",bf:"扌",ex:7,tot:10,words:["捐款","捐贈","捐血"],tx:"把獎金捐給醫院",idiom:"為國捐軀"},
+ {c:"驕",zy:"ㄐㄧㄠ",bs:"馬",ex:12,tot:22,words:["驕傲"],tx:"令人驕傲的臺灣之光",idiom:"天之驕子"},
+ {c:"傲",zy:"ㄠˋ",bs:"人",bf:"亻",ex:11,tot:13,words:["驕傲","傲慢"],tx:"令人驕傲的臺灣之光",idiom:"恃才傲物"}
+];
+var BSFORM={"口":"口","臼":"臼","手":"扌","戈":"戈","爪":"爫","人":"亻","斤":"斤","糸":"糸","雨":"雨","立":"立","木":"木","禾":"禾","馬":"馬"};
+/* 成語：取自「四上第五課生字成語、四字語詞」學習單與「成語遊樂園」第五課，解釋改寫成孩子看得懂的話（「佩」學習單沒有列成語） */
+var IDIOMS={"困獸猶鬥":"被困住的野獸還會拚命掙扎；比喻在困境中仍然奮力抵抗","不勝枚舉":"多到數也數不完","挑燈夜戰":"熬夜做事，很晚還在努力","背水一戰":"沒有退路，只能拚盡全力","鷸蚌相爭":"兩邊爭吵不讓，結果讓別人得到好處","斤斤計較":"連很小的事情都要算得清清楚楚","目無法紀":"膽子很大，不把法律放在眼裡","威震天下":"名聲和威力大到全天下都知道","竭澤而漁":"把水抽乾抓魚；比喻只顧眼前、把資源用光","自暴自棄":"自己不求上進，放棄自己","鵬程萬里":"祝福人前途遠大","為國捐軀":"為了國家犧牲生命","天之驕子":"特別受到看重、很幸運的人","恃才傲物":"仗著自己有才能就驕傲看不起人"};
+/* 形近字：全部取自第五課字詞句練習單「分辨形近字」困／因、爭／掙、紀／記、震／雲（句子自編） */
+var LOOK=[
+ {s:"郭婞淳克服種種＿難，成為舉重國手。",a:"困",b:"因",tip:"「困」是口裡面一個木，像被圍住了：困難、困住。"},
+ {s:"＿為下大雨，運動會延期了。",a:"因",b:"困",tip:"「因」是口裡面一個大：因為、原因。"},
+ {s:"她努力為臺灣＿光。",a:"爭",b:"掙",tip:"「爭」：爭光、爭取、競爭。"},
+ {s:"小鳥用力＿脫網子，飛回天空。",a:"掙",b:"爭",tip:"「掙」有手部（扌），是用力的動作：掙脫、掙扎。"},
+ {s:"爺爺年＿大了，身體還是很健康。",a:"紀",b:"記",tip:"「紀」是糸部：年紀、紀錄、紀念。"},
+ {s:"上課時要認真寫筆＿。",a:"記",b:"紀",tip:"「記」是言部，和說話、寫字有關：筆記、記憶。"},
+ {s:"地＿來的時候，要趕快躲到桌子下。",a:"震",b:"雲",tip:"「震」是雨部，下面是「辰」：地震、震驚。"},
+ {s:"天上的白＿像一團棉花糖。",a:"雲",b:"震",tip:"「雲」是雨部，下面是「云」：雲朵、雲彩。"}
+];
+/* 語詞：src=1 表示出自第五課字詞句練習單「填入適當的語詞」，src=0 為課文中的語詞；解釋都是自己寫的兒童版說明（「競技運動」依課本第 42 頁註解） */
+var WORDS=[
+ {w:"困難",m:"不容易解決的事情",src:1},
+ {w:"挑戰",m:"勇敢面對很難的事，試著突破",src:1},
+ {w:"爭光",m:"努力表現，讓大家感到光榮",src:1},
+ {w:"佩服",m:"覺得對方很厲害，打從心裡尊敬",src:1},
+ {w:"震驚",m:"非常吃驚，心裡受到很大的衝擊",src:1},
+ {w:"放棄",m:"不再繼續做下去",src:1},
+ {w:"過程",m:"事情從開始到結束的經過",src:1},
+ {w:"驕傲",m:"覺得很光榮、很自豪",src:1},
+ {w:"舉重",m:"把很重的槓鈴舉起來的運動",src:0},
+ {w:"公斤",m:"計算重量的單位",src:0},
+ {w:"世界紀錄",m:"全世界比賽中最好的成績",src:0},
+ {w:"竭盡全力",m:"用盡所有的力氣",src:0},
+ {w:"競技運動",m:"比賽性的體育運動",src:0},
+ {w:"樂觀",m:"遇到事情總往好的方面想",src:0},
+ {w:"鼓舞",m:"讓人振作起來，更有勇氣",src:0}
+];
+/* 選詞填空（自編句子，詞語取自字詞句練習單的詞庫） */
+var FILL=[
+ {s:"這題數學很＿＿，我想了好久才想出來。",a:"困難",opts:["困難","驕傲","佩服"]},
+ {s:"哥哥勇敢的＿＿自己，跑完了全程。",a:"挑戰",opts:["挑戰","放棄","震驚"]},
+ {s:"選手在奧運拿下金牌，為國家＿＿。",a:"爭光",opts:["爭光","困難","過程"]},
+ {s:"他每天練琴從不偷懶，大家都很＿＿他。",a:"佩服",opts:["佩服","放棄","困難"]},
+ {s:"聽到大地震的消息，大家都很＿＿。",a:"震驚",opts:["震驚","爭光","挑戰"]},
+ {s:"就算失敗了，也不要輕易＿＿。",a:"放棄",opts:["放棄","佩服","驕傲"]},
+ {s:"做蛋糕的＿＿很有趣，我一步一步跟著學。",a:"過程",opts:["過程","震驚","爭光"]},
+ {s:"妹妹考了一百分，爸媽都為她感到＿＿。",a:"驕傲",opts:["驕傲","困難","挑戰"]},
+ {s:"為了比賽，球隊每天都＿＿全力練習。",a:"竭盡",opts:["竭盡","放棄","震驚"]}
+];
+/* 閱讀理解（依課文內容自編題目） */
+var READ=[
+ {q:"這封信是誰寫給誰的？",a:"毛容文寫給郭婞淳",o:["毛容文寫給郭婞淳","郭婞淳寫給毛容文","老師寫給毛容文"]},
+ {q:"毛容文為什麼寫這封信？",a:"老師要大家寫信給心中最欣賞的人",o:["老師要大家寫信給心中最欣賞的人","她要報名舉重比賽","她要感謝醫院的醫生"]},
+ {q:"信裡說郭婞淳雖然個子小，卻有什麼？",a:"大大的力量",o:["大大的力量","很高的個子","很多玩具"]},
+ {q:"郭婞淳在世界舉重比賽打破了什麼？",a:"世界紀錄",o:["世界紀錄","跳遠紀錄","游泳紀錄"]},
+ {q:"作者一開始以為郭婞淳是怎樣的人？",a:"從小就是個大力士",o:["從小就是個大力士","從小就不愛運動","從小就學跳舞"]},
+ {q:"讀完故事，作者知道這些成就是怎麼來的？",a:"用無數的汗水和淚水換來的",o:["用無數的汗水和淚水換來的","天生就有的","靠運氣得到的"]},
+ {q:"郭婞淳面對困難時是什麼態度？",a:"保持樂觀正面，不輕言放棄",o:["保持樂觀正面，不輕言放棄","遇到困難就放棄","只想休息不練習"]},
+ {q:"作者和郭婞淳有什麼相同的經驗？",a:"練習的過程都很辛苦",o:["練習的過程都很辛苦","都是舉重選手","都住在宜蘭羅東"]},
+ {q:"是什麼給了作者努力下去的勇氣？",a:"家人、老師在背後支持",o:["家人、老師在背後支持","得到很多獎品","每次都成功"]},
+ {q:"郭婞淳把獎金捐給哪裡？",a:"醫院",o:["醫院","銀行","動物園"]},
+ {q:"作者希望自己成為怎樣的人？",a:"有愛心、能為人們舉起溫暖的光的人",o:["有愛心、能為人們舉起溫暖的光的人","全世界最強的大力士","不用練習就會成功的人"]}
+];
+/* 信裡內容的順序（依課文出現的先後，用自己的話整理） */
+var STEPS=[
+ {n:1,w:"開頭",t:"自我介紹，說明為什麼寫這封信"},
+ {n:2,w:"佩服",t:"個子小卻有大大的力量，為臺灣爭光"},
+ {n:3,w:"震驚",t:"她打破世界紀錄，讓作者很震驚"},
+ {n:4,w:"了解",t:"成就是用汗水和淚水換來的"},
+ {n:5,w:"分享",t:"作者說自己練舞的辛苦和勇氣"},
+ {n:6,w:"期許",t:"希望自己也成為有愛心的人"}
+];
+/* 經驗分類（課本第 44 頁旁註：作者和郭婞淳兩人的經驗有哪些共同的地方？分類是自己整理的） */
+var PERIODS=[
+ {k:"kuo",n:"郭婞淳的經驗",e:"🏋️",key:"舉重、紀錄、捐獎金"},
+ {k:"mao",n:"毛容文的經驗",e:"💃",key:"四年級、練舞、寫信"},
+ {k:"both",n:"兩人都有",e:"🤝",key:"辛苦、支持、勇氣"}
+];
+var SORT=[
+ {t:"體重不到六十公斤",s:"kuo"},{t:"打破舉重世界紀錄",s:"kuo"},{t:"把獎金捐給醫院",s:"kuo"},{t:"成為舉重國手",s:"kuo"},
+ {t:"就讀平樂國小四年級",s:"mao"},{t:"從二年級開始練舞",s:"mao"},{t:"練習時常常偷哭",s:"mao"},{t:"寫信給心中最欣賞的人",s:"mao"},
+ {t:"練習的過程很辛苦",s:"both"},{t:"背後有家人、老師支持",s:"both"},{t:"有努力下去的勇氣",s:"both"},{t:"用努力克服困難",s:"both"}
+];
+/* 書信格式（依課本第 41、44 頁信的排列整理；各部分的名稱是常用的書信用語） */
+var PARTS=[
+ {k:"a",n:"稱謂",d:"親愛的郭婞淳姐姐："},
+ {k:"b",n:"問候語",d:"您好"},
+ {k:"c",n:"正文",d:"說明寫信原因、分享想法和經驗的主要內容"},
+ {k:"d",n:"祝福語",d:"敬祝　心想事成"},
+ {k:"e",n:"署名",d:"您的小舉重迷　毛容文　敬上"},
+ {k:"f",n:"日期",d:"民國一一三年十月十日"}
+];
+/* 句型一：照樣寫「為（人們）（舉起）（一道）（溫暖）的（光）」（字詞句練習單「我會照樣寫」）；題目自編 */
+var PHRASE=[
+ {p:"為家人煮一頓＿＿的晚餐。",a:"熱騰騰",o:["熱騰騰","跑步","一條"]},
+ {p:"為同學＿＿一首好聽的歌。",a:"唱",o:["唱","吃","睡"]},
+ {p:"為小狗蓋一間＿＿的小屋。",a:"溫暖",o:["溫暖","吃飯","一張"]},
+ {p:"為奶奶送上一＿＿香香的花。",a:"束",o:["束","隻","輛"]},
+ {p:"為媽媽畫一張＿＿的卡片。",a:"漂亮",o:["漂亮","跳舞","一口"]},
+ {p:"為人們舉起一道溫暖的＿＿。",a:"光",o:["光","山","書"]}
+];
+/* 句型二：雖然……卻……（字詞句練習單「句子練習」）：前後意思相反；題目自編（第一題改寫自課文） */
+var YOU=[
+ {a:"郭婞淳雖然個子小，卻",b:"有著大大的力量",o:["有著大大的力量","個子很小","舉不起東西"]},
+ {a:"這道題目雖然很難，弟弟卻",b:"想出了答案",o:["想出了答案","不會寫","覺得很難"]},
+ {a:"外面雖然下著大雨，我們卻",b:"玩得很開心",o:["玩得很開心","全身溼透","在下雨"]},
+ {a:"小貓雖然很小，卻",b:"很勇敢",o:["很勇敢","很小隻","很迷你"]},
+ {a:"雖然練習很辛苦，她卻",b:"從不放棄",o:["從不放棄","想要放棄","累壞了"]},
+ {a:"這間餐廳雖然不大，卻",b:"坐滿了客人",o:["坐滿了客人","小小的","很擠"]}
+];
+/* 找材料，寫人物（課本第 47 頁）：間接經驗＝從書本或網路得來的材料；直接經驗＝自己的生活經驗。前六題依課本列出的材料，後四題依課文整理 */
+var RHET=[
+ {s:"郭婞淳個子小",a:"間接經驗",o:["直接經驗","間接經驗"],why:"這是從書本或網路得來的材料（課本第 47 頁）。"},
+ {s:"郭婞淳體重不到六十公斤",a:"間接經驗",o:["直接經驗","間接經驗"],why:"這是從書本或網路得來的材料（課本第 47 頁）。"},
+ {s:"郭婞淳打破舉重世界紀錄",a:"間接經驗",o:["直接經驗","間接經驗"],why:"這是從書本或網路得來的材料（課本第 47 頁）。"},
+ {s:"郭婞淳練習舉重的努力過程",a:"間接經驗",o:["直接經驗","間接經驗"],why:"作者是讀了她的故事才知道的（課本第 47 頁）。"},
+ {s:"郭婞淳把獎金捐給醫院時說的話",a:"間接經驗",o:["直接經驗","間接經驗"],why:"這是她做的事、說的話，作者是從資料得知的（課本第 47 頁）。"},
+ {s:"作者練舞時，和郭姐姐有同樣辛苦的經歷",a:"直接經驗",o:["直接經驗","間接經驗"],why:"這是作者自己的生活經驗（課本第 47 頁）。"},
+ {s:"作者從二年級開始練舞",a:"直接經驗",o:["直接經驗","間接經驗"],why:"這是作者自己經歷的事。"},
+ {s:"作者練舞時常常偷哭",a:"直接經驗",o:["直接經驗","間接經驗"],why:"這是作者自己經歷的事。"},
+ {s:"家人、老師在背後支持作者",a:"直接經驗",o:["直接經驗","間接經驗"],why:"這是作者自己生活中的經驗。"},
+ {s:"郭婞淳在東京奧運得到金牌",a:"間接經驗",o:["直接經驗","間接經驗"],why:"課本的小檔案是查資料得來的，屬於間接經驗。"}
+];
+/* 連接詞：然而（課本第 47 頁句子練習：「然而」的後一句和前一句常常是相對的意思）；第一題取自課本例句，其餘自編 */
+var CONJ=[
+ {s:"山頂上的積雪還沒有完全融化，＿＿山坡上的野花已經悄悄換了春裝。",a:"然而",o:["然而","因為","所以"],tip:"前面說還很冷，後面說春天來了，意思相對，用「然而」（課本第 47 頁）。"},
+ {s:"大家都以為他會放棄，＿＿他還是堅持到最後。",a:"然而",o:["然而","所以","因為"],tip:"以為會放棄，結果卻堅持到底，前後相對。"},
+ {s:"因為下大雨，＿＿比賽延期了。",a:"所以",o:["所以","然而","雖然"],tip:"因為……所以……：前面是原因，後面是結果。"},
+ {s:"練習很辛苦，＿＿她始終保持樂觀。",a:"然而",o:["然而","所以","因為"],tip:"辛苦和樂觀是相對的意思，用「然而」。"},
+ {s:"他每天認真練琴，＿＿進步得很快。",a:"所以",o:["所以","然而","雖然"],tip:"認真練琴是原因，進步是結果。"},
+ {s:"＿＿郭婞淳個子小，卻有著大大的力量。",a:"雖然",o:["雖然","所以","然而"],tip:"雖然……卻……：前後意思相反。"}
+];
+function shuffle(a,rnd){rnd=rnd||Math.random;var b=a.slice();for(var i=b.length-1;i>0;i--){var j=Math.floor(rnd()*(i+1));var t=b[i];b[i]=b[j];b[j]=t;}return b;}
+function pick(a,n,rnd){return shuffle(a,rnd).slice(0,n);}
+function charBy(c){for(var i=0;i<CHARS.length;i++)if(CHARS[i].c===c)return CHARS[i];return null;}
+function uniq(a){var o=[];for(var i=0;i<a.length;i++)if(o.indexOf(a[i])<0)o.push(a[i]);return o;}
+function charQ(type,ch,rnd){
+ var opts,ans,q;
+ if(type==="bs"){ans=ch.bs;var all=uniq(CHARS.map(function(x){return x.bs;}).concat(["口","人","木","土"]));
+  opts=[ans].concat(pick(all.filter(function(b){return b!==ans;}),2,rnd));q="「"+ch.c+"」的部首是什麼？";}
+ else if(type==="tot"){ans=String(ch.tot);var d=[ch.tot-2,ch.tot-1,ch.tot+1,ch.tot+2].filter(function(n){return n>0;});
+  opts=[ans].concat(pick(d,2,rnd).map(String));q="「"+ch.c+"」總共幾畫？";}
+ else {ans=ch.zy;var others=CHARS.filter(function(x){return x.c!==ch.c;}).map(function(x){return x.zy;});
+  opts=[ans].concat(pick(uniq(others).filter(function(z){return z!==ans;}),2,rnd));q="「"+ch.c+"」怎麼念？";}
+ return {type:type,c:ch.c,q:q,a:ans,o:shuffle(opts,rnd)};
+}
+function stepQ(rnd){var s=pick(STEPS,1,rnd)[0];var o=[s.t].concat(pick(STEPS.filter(function(x){return x.n!==s.n;}),2,rnd).map(function(x){return x.t;}));
+ return {type:"step",q:"這封信裡，第 "+s.n+" 件事寫什麼？",a:s.t,o:shuffle(o,rnd)};}
+function makeChallenge(rnd){
+ rnd=rnd||Math.random;var out=[],chs=pick(CHARS,3,rnd);
+ out.push(charQ("bs",chs[0],rnd));out.push(charQ("tot",chs[1],rnd));out.push(charQ("zy",chs[2],rnd));
+ var lk=pick(LOOK,2,rnd);lk.forEach(function(l){out.push({type:"look",q:l.s,a:l.a,o:shuffle([l.a,l.b],rnd),tip:l.tip});});
+ var w=pick(WORDS,1,rnd)[0],wo=pick(WORDS.filter(function(x){return x.w!==w.w;}),2,rnd);
+ out.push({type:"word",q:"「"+w.m+"」是哪個語詞？",a:w.w,o:shuffle([w.w,wo[0].w,wo[1].w],rnd)});
+ var r=pick(RHET,1,rnd)[0];out.push({type:"rhet",q:"「"+r.s+"」　這是直接經驗還是間接經驗？",a:r.a,o:shuffle(r.o,rnd),tip:r.why});
+ var p=pick(PHRASE,1,rnd)[0];out.push({type:"phrase",q:p.p.replace("＿＿","（　　）"),a:p.a,o:shuffle(p.o,rnd)});
+ var c=pick(CONJ,1,rnd)[0];out.push({type:"conj",q:c.s.replace("＿＿","（　　）"),a:c.a,o:shuffle(c.o,rnd),tip:c.tip});
+ out.push(stepQ(rnd));
+ return shuffle(out,rnd);
+}
+function check(q,ans){return q.a===ans;}
+function sortCheck(text,period){for(var i=0;i<SORT.length;i++)if(SORT[i].t===text)return SORT[i].s===period;return false;}
+function matchCheck(word,meaning){for(var i=0;i<WORDS.length;i++)if(WORDS[i].w===word)return WORDS[i].m===meaning;return false;}
+/* 故事順序：依序點，回傳 true 表示這一步點對了 */
+function stepCheck(done,n){return n===done+1;}
+function stars(correct,total){if(!total)return 0;var r=correct/total;return r>=1?3:r>=0.7?2:r>=0.4?1:0;}
+var BADGES=[
+ {id:"read",n:"📖 閱讀小達人",d:"閱讀理解全對"},
+ {id:"chars",n:"✍️ 生字小書法家",d:"看完 15 張生字卡"},
+ {id:"write",n:"🖌️ 描紅練習生",d:"在描寫板練習 5 個字"},
+ {id:"words",n:"🧩 語詞配對王",d:"完成一次語詞配對"},
+ {id:"pattern",n:"🪄 句型魔法師",d:"照樣寫、雖然卻、找材料和然而都完成"},
+ {id:"cook",n:"✉️ 寫信小高手",d:"信的內容順序一次排對"},
+ {id:"time",n:"🗂️ 經驗分類王",d:"經驗分類全對"},
+ {id:"champ",n:"🏆 挑戰王",d:"挑戰答對 9 題以上"}
+];
+function badges(st){
+ var g={};st=st||{};
+ if(st.readBest>=READ.length)g.read=1;
+ if(st.seen&&Object.keys(st.seen).length>=CHARS.length)g.chars=1;
+ if(st.wrote&&Object.keys(st.wrote).length>=5)g.write=1;
+ if(st.matchDone>=1)g.words=1;
+ if(st.pat&&st.pat.phrase&&st.pat.you&&st.pat.rhet&&st.pat.conj)g.pattern=1;
+ if(st.cookPerfect>=1)g.cook=1;
+ if(st.timePerfect>=1)g.time=1;
+ if(st.chBest>=9)g.champ=1;
+ return g;
+}
+function lcg(seed){var s=seed>>>0;return function(){s=(s*1664525+1013904223)>>>0;return s/4294967296;};}
+return {CHARS:CHARS,BSFORM:BSFORM,IDIOMS:IDIOMS,LOOK:LOOK,WORDS:WORDS,FILL:FILL,READ:READ,STEPS:STEPS,PERIODS:PERIODS,SORT:SORT,PARTS:PARTS,PHRASE:PHRASE,YOU:YOU,RHET:RHET,CONJ:CONJ,BADGES:BADGES,
+ shuffle:shuffle,pick:pick,charBy:charBy,charQ:charQ,stepQ:stepQ,makeChallenge:makeChallenge,check:check,sortCheck:sortCheck,matchCheck:matchCheck,stepCheck:stepCheck,stars:stars,badges:badges,lcg:lcg};
+})();
+if(typeof module!=="undefined"&&module.exports)module.exports=Core;
+</script>
+<script>
+(function(){
+"use strict";
+if(typeof document==="undefined")return;
+var $=function(id){return document.getElementById(id);};
+var C=Core,KEY="zhTaiwanLightV1";
+function each(list,fn){Array.prototype.forEach.call(list,fn);}
+function fresh(){return {stars:0,readBest:0,seen:{},wrote:{},matchDone:0,pat:{},timePerfect:0,cookPerfect:0,cookDone:0,chBest:0,bad:{},best:{}};}
+var store=fresh();
+try{var raw=localStorage.getItem(KEY);if(raw){var o=JSON.parse(raw);for(var k in o)store[k]=o[k];}}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
+var TN={read:"🔍 閱讀理解",part:"🧱 書信格式",bs:"🧩 部首",tot:"✏️ 筆畫",zy:"🔤 注音",look:"👀 形近字",word:"📚 語詞意思",fill:"📝 選詞填空",phrase:"🪄 為…的…",you:"🔁 雖然…卻…",rhet:"🔎 直接／間接經驗",conj:"🔗 然而",period:"🗂️ 經驗分類",step:"✉️ 信的內容順序"};
+function miss(t){store.bad[t]=(store.bad[t]||0)+1;save();}
+function renderScore(){$("score").textContent="⭐ "+store.stars;}
+function addStars(n,el){if(n<=0)return;store.stars+=n;save();renderScore();var sc=$("score");sc.classList.remove("pop");void sc.offsetWidth;sc.classList.add("pop");
+  if(el&&el.getBoundingClientRect){var r=el.getBoundingClientRect();for(var i=0;i<6;i++){var s=document.createElement("div");s.className="burst";s.textContent=["⭐","✨","🌟"][i%3];
+    s.style.left=(r.left+r.width/2)+"px";s.style.top=(r.top+20)+"px";s.style.setProperty("--dx",(Math.random()*160-80)+"px");s.style.setProperty("--dy",(-60-Math.random()*120)+"px");
+    document.body.appendChild(s);setTimeout(function(x){return function(){if(x.parentNode)x.parentNode.removeChild(x);};}(s),1200);}}}
+var actx=null;function beep(good){try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();(good?[660,880]:[260]).forEach(function(f,i){var o=actx.createOscillator(),g=actx.createGain();o.frequency.value=f;o.type="triangle";g.gain.setValueAtTime(.08,actx.currentTime+i*.08);g.gain.exponentialRampToValueAtTime(.001,actx.currentTime+i*.08+.2);o.connect(g);g.connect(actx.destination);o.start(actx.currentTime+i*.08);o.stop(actx.currentTime+i*.08+.22);});}catch(e){}}
+function say(t){try{if(!window.speechSynthesis)return;speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(String(t).replace(/<[^>]+>/g,"").replace(/＿+/g,"什麼"));u.lang="zh-TW";u.rate=.85;speechSynthesis.speak(u);}catch(e){}}
+function goTab(p){each(document.querySelectorAll("#tabs button"),function(x){x.classList.toggle("on",x.getAttribute("data-p")===p);});
+  each(document.querySelectorAll("section.page"),function(s){s.classList.toggle("active",s.id===p);});
+  if(p==="p-rec")renderRec();window.scrollTo(0,0);}
+each(document.querySelectorAll("#tabs button"),function(b){b.addEventListener("click",function(){goTab(b.getAttribute("data-p"));});});
+
+/* ---------- 通用測驗 ---------- */
+function runQuiz(boxId,make,opt){
+  var box=$(boxId),items=[],i=0,right=0,answered=false;
+  function start(){items=make();i=0;right=0;draw();}
+  function draw(){
+    var it=items[i],h='<div class="prog">';
+    for(var k=0;k<items.length;k++)h+='<i class="'+(k<i?(items[k].ok?"ok":"no"):k===i?"cur":"")+'"></i>';
+    h+='</div><div class="q">'+it.q+'</div><div class="choices"></div><div class="fb"></div><div class="btns cen"><button class="btn org hidden nx">下一題 ➜</button></div>';
+    box.innerHTML=h;answered=false;
+    var ch=box.querySelector(".choices");
+    it.o.forEach(function(op){var b=document.createElement("button");b.className="btn";b.textContent=op;b.addEventListener("click",function(){pickAns(b,op);});ch.appendChild(b);});
+    box.querySelector(".nx").addEventListener("click",function(){i++;if(i<items.length)draw();else finish();});
+  }
+  function pickAns(b,op){
+    if(answered)return;answered=true;var it=items[i],ok=op===it.a,f=box.querySelector(".fb");it.ok=ok;
+    each(box.querySelectorAll(".choices .btn"),function(x){if(x.textContent===it.a)x.classList.add("ok");x.disabled=x!==b&&x.textContent!==it.a;});
+    if(ok){right++;b.classList.add("ok");beep(true);addStars(1,b);f.className="fb show good";f.innerHTML="✅ 答對了！"+(it.tip?" "+it.tip:"");}
+    else{b.classList.add("no");beep(false);miss(it.type||opt.type);f.className="fb show bad";f.innerHTML="再想想：正確答案是「<b>"+it.a+"</b>」。"+(it.tip?" "+it.tip:"");}
+    var nx=box.querySelector(".nx");nx.textContent=i<items.length-1?"下一題 ➜":"看成績 🎉";nx.classList.remove("hidden");
+  }
+  function finish(){
+    var st=C.stars(right,items.length);addStars(st,box);
+    if(opt.best){store.best[opt.best]=Math.max(store.best[opt.best]||0,right);save();}
+    if(opt.onDone)opt.onDone(right,items.length);
+    box.innerHTML='<div class="done">🎉 答對 <b>'+right+'</b> / '+items.length+' 題　'+(st?"再加 "+st+" 顆星！":"")+'<br>'+(right===items.length?"全對！太厲害了！":"錯的地方再看一次課本，再挑戰一次吧！")+'</div><div class="btns cen"><button class="btn pink again">🔄 再玩一次</button></div>';
+    box.querySelector(".again").addEventListener("click",start);
+  }
+  start();
+  return {restart:start};
+}
+
+/* ---------- 課文 ---------- */
+var SAY=["開頭。毛容文向郭婞淳姐姐問好，說明老師請大家寫信給心中最欣賞的人。",
+ "佩服。郭婞淳雖然個子小，卻有著大大的力量，克服困難，勇於挑戰自我，為臺灣爭光。",
+ "震驚與了解。她體重不到六十公斤，卻打破世界紀錄；這些成就是用無數汗水和淚水換來的，她竭盡全力，不輕言放棄。",
+ "我的經驗。作者從二年級開始練舞，過程很辛苦，但總有家人和老師在背後支持。",
+ "期許與祝福。郭婞淳把獎金捐給醫院；作者希望自己也能為人們舉起一道溫暖的光。在我心中，您是令人驕傲的臺灣之光。"];
+each(document.querySelectorAll("[data-say]"),function(b){b.addEventListener("click",function(){say(SAY[+b.getAttribute("data-say")]);});});
+/* 信的內容順序：依序點 */
+function startSteps(){
+  var box=$("stepBox"),done=0,errs=0,items=C.shuffle(C.STEPS);
+  function draw(){
+    var h='<ol class="stepdone">';for(var k=0;k<done;k++)h+='<li><b>'+C.STEPS[k].w+'</b>'+C.STEPS[k].t+'</li>';h+='</ol>';
+    if(done<C.STEPS.length){h+='<div class="q">第 '+(done+1)+' 件事寫什麼？</div><div class="steps">';
+      items.forEach(function(s){h+='<button class="btn white'+(s.n<=done?" ok":"")+'" data-n="'+s.n+'"'+(s.n<=done?" disabled":"")+'>'+s.t+'</button>';});h+='</div><div class="fb" id="stFb"></div>';}
+    else{var st=errs===0?3:errs<=2?2:1;addStars(st,box);store.cookDone=(store.cookDone||0)+1;if(errs===0)store.cookPerfect=(store.cookPerfect||0)+1;save();
+      h+='<div class="done">✉️ 這封信的內容排好了！錯 '+errs+' 次，得到 '+st+' 顆星。'+(errs===0?"一次就排對，你是寫信小高手！":"")+'</div><div class="btns cen"><button class="btn pink" id="stAgain">🔄 再排一次</button></div>';}
+    box.innerHTML=h;
+    if(done>=C.STEPS.length){$("stAgain").addEventListener("click",startSteps);return;}
+    each(box.querySelectorAll(".steps .btn"),function(b){b.addEventListener("click",function(){var n=+b.getAttribute("data-n");if(n<=done)return;
+      if(C.stepCheck(done,n)){beep(true);done++;say(C.STEPS[n-1].w+"，"+C.STEPS[n-1].t);draw();}
+      else{beep(false);errs++;miss("step");var f=$("stFb");f.className="fb show bad";f.textContent="還不是這一個喔！想想課文：先說為什麼寫信，再說佩服和震驚，接著分享自己的經驗，最後是期許。";}});});
+  }
+  draw();
+}
+startSteps();
+runQuiz("partQ",function(){return C.shuffle(C.PARTS).map(function(p){return {q:"「"+p.d+"」<br>這是信的哪個部分？",a:p.n,o:C.PARTS.map(function(x){return x.n;})};});},{type:"part"});
+runQuiz("readQ",function(){return C.READ.map(function(r){return {q:r.q,a:r.a,o:C.shuffle(r.o)};});},{type:"read",best:"read",onDone:function(r){store.readBest=Math.max(store.readBest||0,r);save();}});
+
+/* ---------- 生字 ---------- */
+var cur=C.CHARS[0];
+function moeLink(c){return "https://stroke-order.learningweb.moe.edu.tw/searchW.jsp?WORD="+encodeURIComponent(c);}
+function renderGrid(){var h="";C.CHARS.forEach(function(ch){h+='<button data-c="'+ch.c+'" class="'+(store.seen[ch.c]?"seen ":"")+(ch.c===cur.c?"on":"")+'" aria-label="'+ch.c+'">'+ch.c+'</button>';});$("charGrid").innerHTML=h;
+  each($("charGrid").querySelectorAll("button"),function(b){b.addEventListener("click",function(){showChar(C.charBy(b.getAttribute("data-c")),true);});});}
+function showChar(ch,tap){cur=ch;
+  if(tap&&!store.seen[ch.c]){store.seen[ch.c]=1;save();if(Object.keys(store.seen).length===C.CHARS.length)addStars(3,$("charGrid"));}
+  var bsf=ch.bf&&ch.bf!==ch.bs?"（在這個字裡寫成「"+ch.bf+"」）":"";
+  var h='<div class="bigc">'+ch.c+'</div><div class="zy">'+ch.zy+'</div><div class="cinfo">'+
+   '<div>🧩 部首：<b>'+ch.bs+'</b>'+bsf+'</div><div>✏️ 筆畫：部首外 <b>'+ch.ex+'</b> 畫／總共 <b>'+ch.tot+'</b> 畫</div>'+
+   '<div>📝 造詞：'+ch.words.map(function(w){return '<span class="chip">'+w+'</span>';}).join("")+'</div>'+
+   '<div>📖 課文裡：<span class="quote">'+ch.tx+'</span></div>'+
+   (ch.idiom?'<div>💡 成語：<span class="chip id">'+ch.idiom+'</span><span class="small">'+C.IDIOMS[ch.idiom]+'</span></div>':"")+
+   (ch.look?'<div>👀 小心形近字：「'+ch.c+'」和「'+ch.look+'」長得很像</div>':"")+
+   '<div class="btns"><button class="btn white small" id="sayC">🔊 念一念</button><a class="btn teal small ext" style="color:#fff;text-decoration:none;display:inline-flex;align-items:center" href="'+moeLink(ch.c)+'" target="_blank" rel="noopener">🎬 看筆順動畫</a></div></div>';
+  $("charDet").innerHTML=h;$("sayC").addEventListener("click",function(){say(ch.c+"，"+ch.words.join("，"));});
+  $("ghost").textContent=ch.c;clearPad();renderGrid();}
+/* 描寫板 */
+var pad=$("pad"),ctx=pad.getContext("2d"),drawing=false,ink=0,last=null;
+function clearPad(){ctx.clearRect(0,0,pad.width,pad.height);ink=0;$("padFb").className="fb";}
+function pos(e){var r=pad.getBoundingClientRect();return {x:(e.clientX-r.left)*pad.width/r.width,y:(e.clientY-r.top)*pad.height/r.height};}
+pad.addEventListener("pointerdown",function(e){drawing=true;last=pos(e);try{pad.setPointerCapture(e.pointerId);}catch(x){}e.preventDefault();});
+pad.addEventListener("pointermove",function(e){if(!drawing)return;var p=pos(e);ctx.strokeStyle="#2b2d42";ctx.lineWidth=16;ctx.lineCap="round";ctx.lineJoin="round";ctx.beginPath();ctx.moveTo(last.x,last.y);ctx.lineTo(p.x,p.y);ctx.stroke();ink+=Math.abs(p.x-last.x)+Math.abs(p.y-last.y);last=p;e.preventDefault();});
+function up(){drawing=false;}pad.addEventListener("pointerup",up);pad.addEventListener("pointercancel",up);pad.addEventListener("pointerleave",up);
+$("padClear").addEventListener("click",clearPad);
+$("padDone").addEventListener("click",function(){var f=$("padFb");
+  if(ink<120){f.className="fb show bad";f.innerHTML="先用手指照著淡淡的「"+cur.c+"」描一描喔！";return;}
+  var first=!store.wrote[cur.c];store.wrote[cur.c]=1;save();if(first)addStars(1,$("padDone"));beep(true);
+  f.className="fb show good";f.innerHTML="👍 寫好了「"+cur.c+"」！"+(first?"得到 1 顆星。":"")+" 已練習 "+Object.keys(store.wrote).length+" / "+C.CHARS.length+" 個字。";});
+showChar(cur,false);
+var cqType="bs",cq;
+function makeCQ(){return C.pick(C.CHARS,8).map(function(ch){return C.charQ(cqType,ch);});}
+cq=runQuiz("charQ",makeCQ,{type:"bs"});
+each(document.querySelectorAll("#cqSeg button"),function(b){b.addEventListener("click",function(){cqType=b.getAttribute("data-t");each(document.querySelectorAll("#cqSeg button"),function(x){x.classList.toggle("on",x===b);});cq.restart();});});
+runQuiz("lookQ",function(){return C.shuffle(C.LOOK).slice(0,8).map(function(l){return {q:l.s.replace("＿",'<span class="blank">（　）</span>'),a:l.a,o:C.shuffle([l.a,l.b]),tip:l.tip};});},{type:"look"});
+
+/* ---------- 語詞 ---------- */
+var wh="";C.WORDS.forEach(function(w){wh+='<div class="wcard"><b>'+w.w+'</b>'+w.m+'</div>';});$("wordList").innerHTML=wh;
+var ih="";for(var idm in C.IDIOMS)ih+='<div class="wcard"><b>'+idm+'</b>'+C.IDIOMS[idm]+'</div>';$("idiomList").innerHTML=ih;
+function startMatch(){
+  var set=C.pick(C.WORDS,6),selW=null,left=0,errs=0,box=$("matchBox");
+  box.innerHTML='<div class="match"><div class="col" id="mW"></div><div class="col" id="mM"></div></div><div class="fb" id="mFb"></div>';
+  C.shuffle(set).forEach(function(w){var b=document.createElement("button");b.className="btn";b.textContent=w.w;b.setAttribute("data-w",w.w);
+    b.addEventListener("click",function(){if(b.classList.contains("ok"))return;each(box.querySelectorAll("#mW .btn"),function(x){x.classList.remove("sel");});b.classList.add("sel");selW=w.w;say(w.w);});$("mW").appendChild(b);});
+  C.shuffle(set).forEach(function(w){var b=document.createElement("button");b.className="btn";b.textContent=w.m;
+    b.addEventListener("click",function(){if(b.classList.contains("ok"))return;var f=$("mFb");
+      if(!selW){f.className="fb show info";f.textContent="先點左邊的語詞喔！";return;}
+      if(C.matchCheck(selW,w.m)){beep(true);b.classList.add("ok");var wb=box.querySelector('#mW [data-w="'+selW+'"]');wb.classList.remove("sel");wb.classList.add("ok");b.disabled=true;wb.disabled=true;
+        f.className="fb show good";f.innerHTML="✅ 「"+selW+"」："+w.m;selW=null;left++;
+        if(left===set.length){store.matchDone=(store.matchDone||0)+1;var st=Math.max(1,3-errs);addStars(st,box);
+          box.insertAdjacentHTML("beforeend",'<div class="done">🎉 全部配對完成！錯 '+errs+' 次，得到 '+st+' 顆星。</div><div class="btns cen"><button class="btn pink" id="mAgain">🔄 換一組</button></div>');$("mAgain").addEventListener("click",startMatch);}}
+      else{beep(false);errs++;miss("word");b.classList.remove("no");void b.offsetWidth;b.classList.add("no");f.className="fb show bad";f.textContent="不太對，再想想「"+selW+"」是什麼意思。";}});
+    $("mM").appendChild(b);});
+}
+startMatch();
+runQuiz("fillQ",function(){return C.shuffle(C.FILL).map(function(f){return {q:f.s.replace("＿＿",'<span class="blank">（　　）</span>'),a:f.a,o:C.shuffle(f.opts)};});},{type:"fill"});
+
+/* ---------- 句型 ---------- */
+var INTRO={
+ phrase:'<h3>🪄 照樣寫：為（誰）（做什麼）（數量）（怎樣）的（什麼）</h3><div class="formula"><span class="f1">為人們</span><span class="f2">舉起一道</span><span class="f3">溫暖的光</span></div><p class="lead">課文：為<b>人們</b><b>舉起</b><b>一道</b><b>溫暖</b>的<b>光</b>。（字詞句練習單「我會照樣寫」）<br>先說為了誰，再說做什麼、多少，最後說怎樣的東西。</p><p class="small">選出最適合放進括號的詞（題目自編）。</p>',
+ you:'<h3>🔁 句子練習：雖然……卻……</h3><div class="formula"><span class="f1">雖然個子小</span><span class="f2">卻</span><span class="f3">有著大大的力量</span></div><p class="lead">課文：您<b>雖然</b>個子小，<b>卻</b>有著大大的力量。（字詞句練習單「句子練習」）<br>「卻」後面的意思和前面<b>相反</b>，讓人覺得意外。</p><p class="small">第一題改寫自課文，其餘是自編的。</p>',
+ rhet:'<h3>🔎 找材料，寫人物：直接經驗／間接經驗</h3><div class="formula"><span class="f1">間接經驗</span><span class="f2">書本、網路</span><span class="f3">直接經驗：自己的生活</span></div><p class="lead">課本第 47 頁「找材料，寫人物」：從書本或網路得來的材料是<b>間接經驗</b>，像郭婞淳個子小、打破世界紀錄；自己生活中的經驗是<b>直接經驗</b>，像作者練舞的辛苦。</p><p class="small">前六題依課本列出的材料，後四題依課文整理。</p>',
+ conj:'<h3>🔗 句子練習：然而</h3><div class="formula"><span class="f1">積雪還沒融化</span><span class="f2">然而</span><span class="f3">野花換了春裝</span></div><p class="lead">課本第 47 頁：「然而」後面的句子，和前面的句子常常是<b>相對</b>的意思。<br>如果前面是原因、後面是結果，就要用「所以」。</p><p class="small">第一題是課本例句，其餘是自編的。</p>'};
+var patK="phrase",pq;
+function makePat(){
+  if(patK==="phrase")return C.shuffle(C.PHRASE).map(function(p){return {q:p.p.replace("＿＿",'<span class="blank">（　　）</span>'),a:p.a,o:C.shuffle(p.o),type:"phrase"};});
+  if(patK==="you")return C.shuffle(C.YOU).map(function(y){return {q:y.a+' <span class="blank">（　　）</span>',a:y.b,o:C.shuffle(y.o),tip:"「卻」後面的意思和前面相反：「"+y.b+"」。",type:"you"};});
+  if(patK==="rhet")return C.shuffle(C.RHET).map(function(r){return {q:"「"+r.s+"」<br>這是直接經驗還是間接經驗？",a:r.a,o:C.shuffle(r.o),tip:r.why,type:"rhet"};});
+  return C.shuffle(C.CONJ).map(function(c){return {q:c.s.replace("＿＿",'<span class="blank">（　　）</span>'),a:c.a,o:C.shuffle(c.o),tip:c.tip,type:"conj"};});
+}
+function patIntro(){$("patIntro").innerHTML=INTRO[patK]+(store.pat[patK]?'<p class="small">✅ 這個練習已完成過</p>':"");}
+pq=runQuiz("patQ",makePat,{type:"phrase",onDone:function(){store.pat[patK]=1;save();patIntro();}});
+patIntro();
+each(document.querySelectorAll("#patSeg button"),function(b){b.addEventListener("click",function(){patK=b.getAttribute("data-k");each(document.querySelectorAll("#patSeg button"),function(x){x.classList.toggle("on",x===b);});patIntro();pq.restart();});});
+
+/* ---------- 挑戰：小標題分類 ---------- */
+var PCLS={kuo:"sp",mao:"su",both:"au"};
+function startSort(){
+  var items=C.shuffle(C.SORT),i=0,errs=0,box=$("sortBox"),placed={kuo:[],mao:[],both:[]};
+  function draw(){
+    var h='<div class="prog">';for(var k=0;k<items.length;k++)h+='<i class="'+(k<i?(items[k].ok?"ok":"no"):k===i?"cur":"")+'"></i>';
+    h+='</div>';
+    if(i<items.length){h+='<div class="q">「'+items[i].t+'」</div><div class="seasonbtns">';C.PERIODS.forEach(function(p){h+='<button class="btn '+PCLS[p.k]+'" data-s="'+p.k+'">'+p.e+'<br>'+p.n+'</button>';});h+='</div><div class="fb" id="sFb"></div>';}
+    h+='<div class="bins">';C.PERIODS.forEach(function(p){h+='<div class="bin '+PCLS[p.k]+'"><b>'+p.e+" "+p.n+'</b>'+placed[p.k].join("<br>")+'</div>';});h+='</div>';
+    if(i>=items.length){var st=errs===0?4:errs<=2?2:1;addStars(st,box);if(errs===0){store.timePerfect=(store.timePerfect||0)+1;save();}
+      h+='<div class="done">🎉 分類完成！錯 '+errs+' 次，得到 '+st+' 顆星。'+(errs===0?"全對，你是經驗分類王！":"")+'</div><div class="btns cen"><button class="btn pink" id="sAgain">🔄 再玩一次</button></div>';}
+    box.innerHTML=h;
+    if(i>=items.length){$("sAgain").addEventListener("click",startSort);return;}
+    each(box.querySelectorAll(".seasonbtns .btn"),function(b){b.addEventListener("click",function(){var sk=b.getAttribute("data-s"),it=items[i];
+      if(C.sortCheck(it.t,sk)){beep(true);if(it.ok!==false)it.ok=true;placed[sk].push(it.t);i++;draw();}
+      else{beep(false);errs++;it.ok=false;miss("period");var f=$("sFb");f.className="fb show bad";f.textContent="不是這一類喔！想一想：這是郭婞淳的事、毛容文的事，還是兩個人都有的？";}});});
+  }
+  draw();
+}
+startSort();
+/* ---------- 挑戰：綜合 ---------- */
+runQuiz("chBox",function(){return C.makeChallenge();},{type:"read",onDone:function(r){store.chBest=Math.max(store.chBest||0,r);save();}});
+
+/* ---------- 紀錄 ---------- */
+function renderRec(){
+  var s=store,g=C.badges(s);
+  $("stats").innerHTML='<div class="stat"><b>'+s.stars+'</b>⭐ 星星</div><div class="stat"><b>'+(s.readBest||0)+'/'+C.READ.length+'</b>閱讀理解最佳</div><div class="stat"><b>'+Object.keys(s.seen).length+'/'+C.CHARS.length+'</b>看過的生字</div><div class="stat"><b>'+Object.keys(s.wrote).length+'/'+C.CHARS.length+'</b>描寫過的字</div><div class="stat"><b>'+(s.chBest||0)+'/10</b>挑戰最佳</div><div class="stat"><b>'+Object.keys(s.pat).length+'/4</b>句型完成</div><div class="stat"><b>'+(s.cookDone||0)+'</b>排信的順序次數</div>';
+  $("badges").innerHTML=C.BADGES.map(function(b){return '<div class="bdg'+(g[b.id]?" got":"")+'">'+b.n+'<small>'+b.d+'</small></div>';}).join("");
+  var ks=Object.keys(s.bad).sort(function(a,b){return s.bad[b]-s.bad[a];});
+  $("mist").innerHTML=ks.length?'<table class="rec">'+ks.map(function(k){return "<tr><td>"+(TN[k]||k)+"</td><td>錯 "+s.bad[k]+" 次</td></tr>";}).join("")+"</table>":'<p class="small">還沒有錯題，繼續加油！</p>';
+}
+$("resetBtn").addEventListener("click",function(){if(!confirm("確定要清除這一課的所有紀錄嗎？"))return;store=fresh();save();renderScore();renderGrid();renderRec();});
+renderScore();
+})();
+</script>
+</body>
+</html>
