@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2a9d8f">
+<title>地圖探險王 🗺️｜社會 4上 閱讀生活中的地圖</title>
+<style>
+:root{--ink:#2b2d42;--teal:#2a9d8f;--sun:#ffb703;--pink:#ff6b9a;--blue:#4d96ff;--purple:#9b5de5;--green:#57cc99;--radius:22px}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:#e9f7ef;overflow-x:hidden}
+html,body{margin:0;padding:0}
+body{font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",system-ui,sans-serif;color:var(--ink);min-height:100vh;
+  background:linear-gradient(180deg,#bde0fe 0,#e9f7ef 320px,#e9f7ef 100%);padding-bottom:calc(92px + env(safe-area-inset-bottom))}
+header{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;padding-top:calc(10px + env(safe-area-inset-top));background:rgba(42,157,143,.95);color:#fff;backdrop-filter:blur(6px)}
+header h1{font-size:clamp(17px,4.6vw,26px);margin:0;letter-spacing:1px;flex:1}
+.back{color:#fff;text-decoration:none;font-weight:800;background:rgba(255,255,255,.22);border-radius:999px;padding:8px 12px;font-size:15px;white-space:nowrap}
+.score{background:var(--sun);color:#5a3b00;font-weight:800;border-radius:999px;padding:6px 14px;font-size:18px;white-space:nowrap;box-shadow:0 3px 0 #c98a00}
+.score.pop{animation:pop .5s}@keyframes pop{40%{transform:scale(1.35)}}
+main{max-width:980px;margin:0 auto;padding:12px}
+section.page{display:none;animation:fadein .3s}section.page.active{display:block}
+@keyframes fadein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.card{background:#fff;border-radius:var(--radius);padding:16px;margin:12px 0;box-shadow:0 6px 0 rgba(0,0,0,.12)}
+.card h2{margin:0 0 8px;font-size:clamp(20px,5vw,26px)}.card h3{margin:6px 0;font-size:20px}
+.lead{font-size:18px;line-height:1.7;margin:6px 0}
+.small{font-size:15px;color:#666}
+.tip{background:#fff7d6;border-left:6px solid var(--sun);border-radius:12px;padding:10px 12px;font-size:17px;line-height:1.6;margin:10px 0}
+.tip.blue{background:#e6f0ff;border-color:var(--blue)}.tip.pink{background:#ffe6ef;border-color:var(--pink)}.tip.green{background:#e3f8ec;border-color:var(--teal)}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-start}.row>*{flex:1 1 300px}
+.btn{appearance:none;border:none;border-radius:16px;padding:12px 16px;min-height:52px;font-size:18px;font-weight:800;cursor:pointer;background:var(--blue);color:#fff;box-shadow:0 4px 0 rgba(0,0,0,.22);font-family:inherit;touch-action:manipulation}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.22)}
+.btn.sun{background:var(--sun);color:#5a3b00}.btn.pink{background:var(--pink)}.btn.teal{background:var(--teal)}.btn.purple{background:var(--purple)}.btn.gray{background:#8d99ae}.btn.white{background:#fff;color:var(--ink);border:3px solid #dfe3ff}
+.btn.small{min-height:46px;font-size:16px;padding:8px 12px}
+.btn.on{outline:4px solid var(--sun);outline-offset:1px}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+svg{display:block;max-width:100%;height:auto}
+.mapbox{background:#fff;border:4px solid #cfe8dc;border-radius:18px;overflow:hidden;touch-action:manipulation;user-select:none}
+#p-what .mapbox{max-width:620px;margin:0 auto}
+.hot{cursor:pointer}
+.hl{animation:glow 1s infinite alternate}
+@keyframes glow{from{stroke:#ff6b9a;stroke-width:4}to{stroke:#ffb703;stroke-width:8}}
+.explain{border-radius:18px;padding:14px;background:#f3f4ff;font-size:18px;line-height:1.7;min-height:120px}
+.explain .t{font-size:24px;font-weight:900;margin-bottom:4px}
+.checks{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.chk{border-radius:999px;padding:5px 12px;background:#eee;font-weight:800;color:#999}.chk.got{background:#d8f3dc;color:#1b5e20}
+.types{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.type{border-radius:18px;padding:12px;background:#f6f7ff;border:3px solid #e3e6ff;text-align:center;font-size:16px;line-height:1.55}
+.type b{display:block;font-size:20px;margin:4px 0}
+.type svg{width:120px;height:90px;margin:0 auto}
+.phone{max-width:430px;margin:0 auto;background:#222;border-radius:34px;padding:12px 10px 16px}
+.screen{background:#fff;border-radius:24px;overflow:hidden}
+.ebar{display:flex;gap:6px;padding:8px;background:#f1f3f4;flex-wrap:wrap;align-items:center}
+.ebar input{flex:1 1 0;min-width:0;min-height:44px;border-radius:999px;border:2px solid #ccc;padding:0 14px;font-size:17px;font-family:inherit}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:6px 8px;background:#f1f3f4}
+.chip{flex:0 0 auto;border:2px solid #ccc;background:#fff;border-radius:999px;padding:8px 12px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;min-height:42px}
+.etools{display:flex;justify-content:space-between;align-items:center;padding:8px;gap:6px;flex-wrap:wrap}
+.einfo{padding:8px 12px 12px;font-size:17px;line-height:1.6;min-height:64px}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}
+.opt{border:3px solid #dfe3ff;background:#f6f7ff;border-radius:16px;padding:12px;font-size:18px;font-weight:800;min-height:58px;cursor:pointer;font-family:inherit;color:var(--ink);touch-action:manipulation}
+.opt.right{background:#d8f3dc;border-color:#2ec4b6}.opt.no{background:#ffe0e6;border-color:#ff4d6d}
+.feedback{font-size:18px;line-height:1.6;margin-top:10px;border-radius:14px;padding:10px;display:none}
+.feedback.show{display:block}.feedback.good{background:#d8f3dc}.feedback.bad{background:#fff3cd}
+.qhead{display:flex;justify-content:space-between;align-items:center;font-weight:800;color:#666}
+.qtext{font-size:21px;font-weight:800;line-height:1.5;margin:8px 0}
+.subtabs{display:flex;gap:8px;flex-wrap:wrap}.subtabs .btn{flex:1 1 40%}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.bdg{background:#eee;border-radius:14px;padding:6px 10px;font-weight:800;color:#999;font-size:15px}.bdg.got{background:linear-gradient(135deg,#ffd166,#ff9f1c);color:#5a3b00}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;justify-content:space-around;background:#fff;padding:6px 4px;padding-bottom:calc(6px + env(safe-area-inset-bottom));box-shadow:0 -4px 16px rgba(0,0,0,.18)}
+nav.tabs button{flex:1;border:none;background:none;font-family:inherit;font-size:12px;font-weight:800;color:#666;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;border-radius:14px;cursor:pointer;min-height:60px;touch-action:manipulation}
+nav.tabs button span{font-size:26px;line-height:1}nav.tabs button.on{background:#c7f0e4;color:#14574f}
+@media (min-width:700px){nav.tabs button{font-size:15px}}
+.burst{position:fixed;z-index:99;pointer-events:none;font-size:30px;animation:fly 1.1s ease-out forwards}
+@keyframes fly{to{transform:translate(var(--dx),var(--dy)) rotate(360deg);opacity:0}}
+.big4{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:8px}
+.big4 div{border-radius:16px;padding:10px;text-align:center;font-weight:900;font-size:18px;color:#fff}
+</style>
+</head>
+<body>
+<header>
+  <a class="back" href="../">← 社會</a>
+  <h1>🗺️ 地圖探險王</h1>
+  <div class="score" id="score">⭐ 0</div>
+</header>
+<main>
+
+<!-- ===== 1 什麼是地圖 ===== -->
+<section class="page active" id="p-what">
+  <div class="card">
+    <h2>🗺️ 什麼是地圖？</h2>
+    <p class="small">翰林版 社會 4上・第一單元「家鄉的地圖與運用」・第 1 課「閱讀生活中的地圖」</p>
+    <p class="lead">地圖是<b>根據真實的景物和各種資料</b>畫出來的。它把很大的地方<b>縮小</b>，<b>從天空往下看</b>，再用<b>簡單的符號</b>表示房子、學校、河流……</p>
+    <p class="lead">按按看👇 同一個「快樂鎮」，兩種樣子：</p>
+    <div class="btns">
+      <button class="btn small teal on" id="wSat">🛰️ 從天空拍的照片</button>
+      <button class="btn small purple" id="wMap">🗺️ 畫成地圖</button>
+    </div>
+    <div class="mapbox"><svg id="whatSvg" viewBox="0 0 400 320" aria-label="快樂鎮"></svg></div>
+    <div class="tip" id="whatTip"></div>
+  </div>
+  <div class="card">
+    <h3>🤔 為什麼要用「圖」，不用「文字」？</h3>
+    <p class="lead">圖畫比較<b>一目了然</b>，看一眼就懂，就算是外國人也看得懂符號喔！</p>
+    <div class="tip green">📌 這一課要學會三件事：<br>① 地圖有很多種，要<b>依需求選擇</b>合適的地圖。<br>② 看懂<b>地圖四要素</b>：圖名、方向標、比例尺、圖例。<br>③ 會用<b>電子地圖</b>：放大縮小、搜尋、規畫路線。</div>
+  </div>
+</section>
+
+<!-- ===== 2 四要素 ===== -->
+<section class="page" id="p-four">
+  <div class="card">
+    <h2>🔍 地圖四要素</h2>
+    <p class="lead">打開任何一張地圖，先找這<b>四樣東西</b>！在地圖上<b>點一點</b>找出來👇</p>
+    <div class="row">
+      <div class="mapbox"><svg id="fourSvg" viewBox="0 0 420 504" aria-label="快樂鎮地圖四要素"></svg></div>
+      <div>
+        <div class="explain" id="fourExplain"><div class="t">👆 點地圖上的東西</div>找找看：<b>圖名、方向標、比例尺、圖例</b>在哪裡？</div>
+        <div class="checks" id="fourChecks"></div>
+        <div class="big4">
+          <div style="background:#ff6b9a">圖名<br><small>畫什麼？</small></div>
+          <div style="background:#4d96ff">方向標<br><small>哪邊是北？</small></div>
+          <div style="background:#9b5de5">比例尺<br><small>實際多遠？</small></div>
+          <div style="background:#2a9d8f">圖例<br><small>符號是什麼？</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🧭 方向標實驗室：箭頭轉一轉</h3>
+    <p class="lead">方向標的箭頭指的是<b>北方</b>。箭頭<b>不一定朝上</b>喔！轉轉看，答案會變嗎？</p>
+    <div class="btns" id="rotBtns">
+      <button class="btn small white on" data-r="0">⬆ 北在上</button>
+      <button class="btn small white" data-r="90">➡ 北在右</button>
+      <button class="btn small white" data-r="180">⬇ 北在下</button>
+      <button class="btn small white" data-r="270">⬅ 北在左</button>
+    </div>
+    <div class="row">
+      <div class="mapbox"><svg id="rotSvg" viewBox="0 0 420 504"></svg></div>
+      <div class="explain" id="rotExplain"></div>
+    </div>
+    <div class="tip">📌 一般地圖大多是<b>上北、下南、左西、右東</b>；但一定要先看方向標確認！</div>
+  </div>
+
+  <div class="card">
+    <h3>📏 比例尺測量站</h3>
+    <p class="lead">地圖是<b>縮小</b>畫的。比例尺告訴我們：地圖上的一段長度，<b>實際上有多遠</b>。</p>
+    <div class="small">① 選起點　② 選終點（沿著道路走）</div>
+    <div class="btns" id="scaleFrom"></div>
+    <div class="btns" id="scaleTo"></div>
+    <div class="btns" id="scaleSel">
+      <span style="align-self:center;font-weight:800">比例尺：1 段＝</span>
+      <button class="btn small white on" data-s="100">100 公尺</button>
+      <button class="btn small white" data-s="50">50 公尺</button>
+      <button class="btn small white" data-s="200">200 公尺</button>
+    </div>
+    <div class="row">
+      <div class="mapbox"><svg id="scaleSvg" viewBox="0 0 420 504"></svg></div>
+      <div class="explain" id="scaleExplain"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 3 地圖種類 ===== -->
+<section class="page" id="p-types">
+  <div class="card">
+    <h2>🗂️ 生活中的地圖</h2>
+    <p class="lead">地圖有很多種，<b>用途不一樣</b>。要<b>依照需求</b>選擇合適的地圖！</p>
+    <div class="types" id="typeCards"></div>
+  </div>
+  <div class="card">
+    <h3>🎯 小任務：我該用哪一種地圖？</h3>
+    <div class="qtext" id="tQ"></div>
+    <div class="opts" id="tOpts"></div>
+    <div class="feedback" id="tFb"></div>
+    <div class="btns"><button class="btn" id="tNext" style="display:none">下一題 ➡</button></div>
+  </div>
+</section>
+
+<!-- ===== 4 電子地圖 ===== -->
+<section class="page" id="p-emap">
+  <div class="card">
+    <h2>📱 電子地圖體驗</h2>
+    <p class="lead">爸爸媽媽開車用的導航，就是<b>電子地圖</b>！可以<b>搜尋</b>、<b>放大縮小</b>、<b>切換模式</b>、<b>定位和導航</b>。來玩玩看👇</p>
+    <div class="phone"><div class="screen">
+      <div class="ebar"><span style="font-size:22px">🔍</span><input id="eSearch" placeholder="搜尋：例如 圖書館" aria-label="搜尋地點"><button class="btn small teal" id="eGo">搜尋</button></div>
+      <div class="chips" id="eChips"></div>
+      <div style="position:relative"><svg id="eSvg" viewBox="0 0 400 320" style="width:100%;background:#eee"></svg></div>
+      <div class="etools">
+        <div class="btns" style="margin:0"><button class="btn small white" id="eOut" aria-label="縮小">➖</button><button class="btn small white" id="eIn" aria-label="放大">➕</button></div>
+        <div class="btns" style="margin:0"><button class="btn small purple" id="eMode">🛰️ 衛星模式</button><button class="btn small sun" id="eNav">🧭 導航</button></div>
+      </div>
+      <div class="einfo" id="eInfo"></div>
+    </div></div>
+    <div class="tip blue">✨ 發現了嗎？<br>• <b>放大</b>可以看到更多細節（路名出現了！），<b>縮小</b>可以看到整個地區。<br>• <b>地圖模式</b>像畫出來的圖，有符號和名字；<b>衛星模式</b>像從天空拍的照片，看得到真實的房子和樹林。</div>
+  </div>
+</section>
+
+<!-- ===== 5 挑戰 ===== -->
+<section class="page" id="p-game">
+  <div class="card">
+    <h2>🎮 地圖挑戰站</h2>
+    <div class="subtabs">
+      <button class="btn small pink on" data-g="legend">🧩 圖例配對</button>
+      <button class="btn small teal" data-g="dir">🧭 方位任務</button>
+      <button class="btn small purple" data-g="dist">📏 距離計算</button>
+      <button class="btn small" data-g="quiz">❓ 小博士測驗</button>
+    </div>
+    <div class="badges" id="badges"></div>
+  </div>
+  <div class="card gcard" id="g-legend">
+    <div class="qhead"><span>🧩 圖例配對</span><span id="lgScore"></span></div>
+    <div class="qtext">這個圖例代表什麼地方？</div>
+    <div style="display:flex;justify-content:center"><svg id="lgIcon" viewBox="0 0 120 120" width="120" height="120"></svg></div>
+    <div class="opts" id="lgOpts"></div>
+    <div class="feedback" id="lgFb"></div>
+    <div class="btns"><button class="btn" id="lgNext" style="display:none">下一題 ➡</button></div>
+  </div>
+  <div class="card gcard" id="g-dir" style="display:none">
+    <div class="qhead"><span>🧭 方位任務</span><span id="drScore"></span></div>
+    <div class="qtext" id="drQ"></div>
+    <div class="mapbox"><svg id="drSvg" viewBox="0 0 420 504"></svg></div>
+    <div class="opts" id="drOpts"></div>
+    <div class="feedback" id="drFb"></div>
+    <div class="btns"><button class="btn" id="drNext" style="display:none">下一題 ➡</button></div>
+  </div>
+  <div class="card gcard" id="g-dist" style="display:none">
+    <div class="qhead"><span>📏 距離計算</span><span id="dsScore"></span></div>
+    <div class="qtext" id="dsQ"></div>
+    <div class="mapbox"><svg id="dsSvg" viewBox="0 0 420 504"></svg></div>
+    <div class="opts" id="dsOpts"></div>
+    <div class="feedback" id="dsFb"></div>
+    <div class="btns"><button class="btn" id="dsNext" style="display:none">下一題 ➡</button></div>
+  </div>
+  <div class="card gcard" id="g-quiz" style="display:none">
+    <div class="qhead"><span id="qCount"></span><span id="qScore"></span></div>
+    <div class="qtext" id="qText"></div>
+    <div class="opts" id="qOpts"></div>
+    <div class="feedback" id="qFb"></div>
+    <div class="btns"><button class="btn" id="qNext" style="display:none">下一題 ➡</button></div>
+  </div>
+</section>
+</main>
+
+<nav class="tabs" id="tabs">
+  <button class="on" data-p="p-what"><span>🗺️</span>什麼是地圖</button>
+  <button data-p="p-four"><span>🔍</span>四要素</button>
+  <button data-p="p-types"><span>🗂️</span>地圖種類</button>
+  <button data-p="p-emap"><span>📱</span>電子地圖</button>
+  <button data-p="p-game"><span>🎮</span>挑戰</button>
+</nav>
+
+<script>
+(function(){
+"use strict";
+var $=function(id){return document.getElementById(id);};
+
+/* ---------------- town data ---------------- */
+// places sit on street corners of a grid: col 0..4, row 0..3 (row 0 = top of map)
+var PLACES=[
+ {id:"home",name:"我家",icon:"🏠",c:0,r:3,color:"#ff9f1c"},
+ {id:"school",name:"學校",icon:"🏫",c:2,r:2,color:"#ff6b9a"},
+ {id:"lib",name:"圖書館",icon:"📚",c:2,r:0,color:"#9b5de5"},
+ {id:"park",name:"公園",icon:"🌳",c:4,r:2,color:"#2a9d8f"},
+ {id:"post",name:"郵局",icon:"✉️",c:0,r:2,color:"#e63946"},
+ {id:"hosp",name:"醫院",icon:"🏥",c:2,r:3,color:"#4d96ff"},
+ {id:"station",name:"火車站",icon:"🚉",c:4,r:0,color:"#6c757d"},
+ {id:"shop",name:"便利商店",icon:"🏪",c:3,r:3,color:"#f77f00"}
+];
+var ROADS_H=["北門路","河濱路","中山路","南港路"], ROADS_V=["一街","二街","三街","四街","五街"];
+function X(c){return 40+80*c;} function Y(r){return 40+80*r;}
+function P(id){for(var i=0;i<PLACES.length;i++)if(PLACES[i].id===id)return PLACES[i];return null;}
+function rng(seed){var s=seed;return function(){s=(s*16807)%2147483647;return (s-1)/2147483646;};}
+
+/* draw the town (map coords 0..400 x 0..320) */
+function town(o){
+  o=o||{}; var sat=o.mode==="sat", h="";
+  var R=rng(7);
+  if(sat){
+    h+='<rect width="400" height="320" fill="#6f8f4e"/>';
+    for(var i=0;i<160;i++){h+='<rect x="'+(R()*400).toFixed(0)+'" y="'+(R()*320).toFixed(0)+'" width="'+(6+R()*14).toFixed(0)+'" height="'+(6+R()*14).toFixed(0)+'" fill="'+["#5d7d3f","#7f9b5a","#8a8a5c","#64844a"][i%4]+'" opacity=".7"/>';}
+  }else{ h+='<rect width="400" height="320" fill="#f4f1de"/>'; }
+  // river between row0 and row1
+  var riv="M-5,82 C60,62 110,102 170,80 S280,62 330,84 S390,96 405,80";
+  h+='<path d="'+riv+'" fill="none" stroke="'+(sat?"#2b4f6e":"#74c0fc")+'" stroke-width="16" stroke-linecap="round"/>';
+  if(!sat && o.labels!==false) h+='<text x="138" y="110" font-size="11" fill="#1c7ed6" font-weight="700">快樂溪</text>';
+  // blocks
+  for(var bc=0;bc<4;bc++)for(var br=1;br<3;br++){
+    var bx=X(bc)+8,by=Y(br)+8,bw=64,bh=64;
+    if(bc===3&&br===1){ // park block
+      h+='<rect x="'+bx+'" y="'+by+'" width="'+bw+'" height="'+bh+'" rx="6" fill="'+(sat?"#3f6f2a":"#b7e4c7")+'"/>';
+      if(sat){for(var t=0;t<12;t++){h+='<circle cx="'+(bx+8+R()*48).toFixed(0)+'" cy="'+(by+8+R()*48).toFixed(0)+'" r="'+(5+R()*5).toFixed(0)+'" fill="#2d5a1f"/>';}}
+      continue;
+    }
+    if(sat){
+      h+='<rect x="'+bx+'" y="'+by+'" width="'+bw+'" height="'+bh+'" fill="#9a9a8a"/>';
+      for(var k=0;k<6;k++){h+='<rect x="'+(bx+3+(k%3)*21)+'" y="'+(by+4+Math.floor(k/3)*30)+'" width="18" height="'+(20+R()*6).toFixed(0)+'" fill="'+["#b5543c","#7d7d7d","#c9b79c","#8c4a32","#5e6b73"][Math.floor(R()*5)]+'"/>';}
+      if(bc===1&&br===1){h+='<ellipse cx="'+(bx+32)+'" cy="'+(by+32)+'" rx="28" ry="18" fill="#c4622d"/><ellipse cx="'+(bx+32)+'" cy="'+(by+32)+'" rx="20" ry="10" fill="#4f8a3a"/>';}
+    }else{
+      h+='<rect x="'+bx+'" y="'+by+'" width="'+bw+'" height="'+bh+'" rx="6" fill="#ece4d4"/>';
+    }
+  }
+  // top & bottom strips (row 0 north of river / row 3 south)
+  // roads
+  var rc=sat?"#4a4a4a":"#c9c9c9", rw=sat?"#5c5c5c":"#ffffff";
+  for(var r=0;r<4;r++){h+='<line x1="10" y1="'+Y(r)+'" x2="390" y2="'+Y(r)+'" stroke="'+rc+'" stroke-width="12"/>';}
+  for(var c=0;c<5;c++){h+='<line x1="'+X(c)+'" y1="10" x2="'+X(c)+'" y2="310" stroke="'+rc+'" stroke-width="12"/>';}
+  for(r=0;r<4;r++){h+='<line x1="10" y1="'+Y(r)+'" x2="390" y2="'+Y(r)+'" stroke="'+rw+'" stroke-width="8"/>';}
+  for(c=0;c<5;c++){h+='<line x1="'+X(c)+'" y1="10" x2="'+X(c)+'" y2="310" stroke="'+rw+'" stroke-width="8"/>';}
+  if(o.roadNames&&!sat){
+    for(r=0;r<4;r++)h+='<text x="'+(X(1)+40)+'" y="'+(Y(r)+3.5)+'" font-size="7" fill="#777" text-anchor="middle">'+ROADS_H[r]+'</text>';
+    for(c=0;c<5;c++)h+='<text x="'+(X(c)+3)+'" y="'+(Y(2)+44)+'" font-size="7" fill="#777" transform="rotate(90 '+(X(c)+3)+' '+(Y(2)+44)+')">'+ROADS_V[c]+'</text>';
+  }
+  // route
+  if(o.route){h+='<path d="'+o.route+'" fill="none" stroke="#1a73e8" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/><path d="'+o.route+'" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="4 6"/>';}
+  // places
+  if(!sat){
+    PLACES.forEach(function(p){
+      var x=X(p.c),y=Y(p.r),hl=o.hl&&o.hl.indexOf(p.id)>=0;
+      if(hl)h+='<circle cx="'+x+'" cy="'+y+'" r="21" fill="#ffd166" opacity=".9"/>';
+      h+='<circle cx="'+x+'" cy="'+y+'" r="15" fill="#fff" stroke="'+p.color+'" stroke-width="3"/>';
+      h+='<text x="'+x+'" y="'+(y+6)+'" font-size="16" text-anchor="middle">'+p.icon+'</text>';
+      if(o.labels!==false){var tw=p.name.length*11+8;h+='<rect x="'+(x-tw/2)+'" y="'+(y+16)+'" width="'+tw+'" height="15" rx="7" fill="#fff" opacity=".9"/><text x="'+x+'" y="'+(y+27.5)+'" font-size="11" font-weight="700" text-anchor="middle" fill="#333">'+p.name+'</text>';}
+    });
+  }else if(o.hl){
+    o.hl.forEach(function(id){var p=P(id);h+='<circle cx="'+X(p.c)+'" cy="'+Y(p.r)+'" r="14" fill="none" stroke="#ffd166" stroke-width="4"/>';});
+  }
+  if(o.pin){var pp=P(o.pin);h+='<g transform="translate('+X(pp.c)+','+(Y(pp.r)-18)+')"><path d="M0,0 C-10,-12 -10,-26 0,-26 C10,-26 10,-12 0,0Z" fill="#ea4335" stroke="#fff" stroke-width="2"/><circle cx="0" cy="-17" r="4" fill="#fff"/></g>';}
+  return h;
+}
+
+/* full map figure with the four elements (viewBox 0 0 420 504) */
+function figure(o){
+  o=o||{}; var s=o.scale||100, rot=o.rot||0, hot=o.hot||"", h="";
+  h+='<rect width="420" height="504" fill="#fff"/>';
+  // title
+  h+='<g class="hot" data-hot="title"><rect x="110" y="8" width="200" height="38" rx="12" fill="#ffe6ef" '+(hot==="title"?'class="hl" stroke="#ff6b9a"':'')+'/><text x="210" y="34" font-size="21" font-weight="900" text-anchor="middle" fill="#c9184a">快樂鎮地圖</text></g>';
+  // map
+  h+='<g transform="translate(10,56)"><rect width="400" height="320" fill="#fff"/>'+town({hl:o.hlPlaces,route:o.route,labels:o.labels})+'<rect width="400" height="320" fill="none" stroke="#333" stroke-width="2"/></g>';
+  // north arrow (top-right, outside the map so it never covers a place)
+  h+='<g class="hot" data-hot="north" transform="translate(384,28)"><circle r="25" fill="#fff" stroke="#4d96ff" stroke-width="3" '+(hot==="north"?'class="hl"':'')+'/><g transform="rotate('+rot+')"><polygon points="0,-19 8,6 0,1 -8,6" fill="#e63946"/><polygon points="0,19 8,6 0,1 -8,6" fill="#adb5bd"/><text x="0" y="-20" font-size="11" font-weight="900" text-anchor="middle" fill="#e63946">北</text></g></g>';
+  // scale bar (full width row)
+  h+='<g class="hot" data-hot="scale"><rect x="8" y="382" width="404" height="50" rx="10" fill="#f3e8ff" '+(hot==="scale"?'class="hl" stroke="#9b5de5"':'')+'/>';
+  h+='<text x="20" y="413" font-size="15" font-weight="900" fill="#5a189a">比例尺</text>';
+  h+='<rect x="90" y="396" width="80" height="10" fill="#222"/><rect x="170" y="396" width="80" height="10" fill="#fff" stroke="#222"/>';
+  h+='<g font-size="13" fill="#222" text-anchor="middle"><text x="90" y="424">0</text><text x="170" y="424">'+s+'</text><text x="250" y="424">'+(2*s)+'</text></g><text x="262" y="408" font-size="14" font-weight="800" fill="#222">公尺</text>';
+  h+='<text x="404" y="424" font-size="11" fill="#666" text-anchor="end">黑格＝地圖上一段路</text></g>';
+  // legend (full width row)
+  h+='<g class="hot" data-hot="legend"><rect x="8" y="438" width="404" height="62" rx="10" fill="#e3f8ec" '+(hot==="legend"?'class="hl" stroke="#2a9d8f"':'')+'/>';
+  h+='<text x="20" y="474" font-size="15" font-weight="900" fill="#14574f">圖例</text>';
+  PLACES.forEach(function(p,i){var x=62+(i%4)*76,y=458+Math.floor(i/4)*28;h+='<text x="'+x+'" y="'+(y+5)+'" font-size="16">'+p.icon+'</text><text x="'+(x+21)+'" y="'+(y+3)+'" font-size="12" fill="#222">'+p.name+'</text>';});
+  h+='<line x1="368" y1="455" x2="386" y2="455" stroke="#74c0fc" stroke-width="7"/><text x="390" y="460" font-size="12">河</text>';
+  h+='<line x1="368" y1="483" x2="386" y2="483" stroke="#c9c9c9" stroke-width="7"/><text x="390" y="488" font-size="12">路</text></g>';
+  return h;
+}
+function routePath(a,b){ // walk along row of a, then column of b
+  var A=P(a),B=P(b);return "M"+X(A.c)+","+Y(A.r)+" L"+X(B.c)+","+Y(A.r)+" L"+X(B.c)+","+Y(B.r);
+}
+function blocks(a,b){var A=P(a),B=P(b);return Math.abs(A.c-B.c)+Math.abs(A.r-B.r);}
+var DIRN={0:"北",90:"東",180:"南",270:"西"};
+function dirOf(a,b,rot){ // direction of b as seen from a, for a map whose north arrow is rotated by rot (deg clockwise from up)
+  var A=P(a),B=P(b),dx=B.c-A.c,dy=B.r-A.r,sb;
+  if(dx>0)sb=90;else if(dx<0)sb=270;else if(dy<0)sb=0;else sb=180;
+  return DIRN[((sb-rot)%360+360)%360];
+}
+function alignedPairs(){var out=[];PLACES.forEach(function(a){PLACES.forEach(function(b){if(a!==b&&(a.c===b.c||a.r===b.r))out.push([a.id,b.id]);});});return out;}
+
+/* ---------------- stars ---------------- */
+var KEY="mapStars", stars=0;
+try{stars=parseInt(localStorage.getItem(KEY)||"0",10)||0;}catch(e){}
+var BADGES=[{need:5,label:"🧭 地圖新手"},{need:15,label:"🗺️ 讀圖高手"},{need:30,label:"👑 地圖探險王"}];
+function renderScore(){$("score").textContent="⭐ "+stars;$("badges").innerHTML=BADGES.map(function(b){var g=stars>=b.need;return '<span class="bdg'+(g?" got":"")+'">'+b.label+(g?"":"（"+b.need+"⭐）")+'</span>';}).join("");}
+function addStars(n,el){stars+=n;try{localStorage.setItem(KEY,String(stars));}catch(e){}renderScore();var sc=$("score");sc.classList.remove("pop");void sc.offsetWidth;sc.classList.add("pop");
+  var x=innerWidth/2,y=innerHeight/2;if(el){var r=el.getBoundingClientRect();x=r.left+r.width/2;y=r.top;}burst(x,y);}
+function burst(x,y){var em=["⭐","🗺️","✨","🧭"];for(var i=0;i<10;i++){var s=document.createElement("div");s.className="burst";s.textContent=em[i%4];s.style.left=x+"px";s.style.top=y+"px";var a=Math.random()*6.28,r=60+Math.random()*90;s.style.setProperty("--dx",Math.cos(a)*r+"px");s.style.setProperty("--dy",Math.sin(a)*r+"px");document.body.appendChild(s);setTimeout((function(n){return function(){n.remove();};})(s),1200);}}
+var actx=null;function beep(ok){try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();(ok?[660,880,1100]:[300,220]).forEach(function(f,i){var o=actx.createOscillator(),g=actx.createGain();o.frequency.value=f;o.type="triangle";g.gain.setValueAtTime(.12,actx.currentTime+i*.09);g.gain.exponentialRampToValueAtTime(.001,actx.currentTime+i*.09+.25);o.connect(g);g.connect(actx.destination);o.start(actx.currentTime+i*.09);o.stop(actx.currentTime+i*.09+.3);});}catch(e){}}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function pick(a){return a[Math.floor(Math.random()*a.length)];}
+
+/* ---------------- tabs ---------------- */
+var tabBtns=document.querySelectorAll("#tabs button");
+tabBtns.forEach(function(b){b.addEventListener("click",function(){tabBtns.forEach(function(x){x.classList.toggle("on",x===b);});document.querySelectorAll("section.page").forEach(function(p){p.classList.toggle("active",p.id===b.dataset.p);});window.scrollTo(0,0);});});
+
+/* ---------------- 1. what is a map ---------------- */
+function drawWhat(mode){
+  $("whatSvg").innerHTML=town({mode:mode});
+  $("wSat").classList.toggle("on",mode==="sat");$("wMap").classList.toggle("on",mode!=="sat");
+  $("whatTip").innerHTML=mode==="sat"?"🛰️ 這是<b>衛星影像圖</b>：像從天空拍的照片，看得到真實的屋頂、樹林、河流。可是……哪一棟是學校？哪一棟是郵局？看不太出來！":
+    "🗺️ 畫成<b>地圖</b>後，用<b>簡單的符號</b>（圖例）和<b>名字</b>標出重要的地方，一看就知道學校、郵局、公園在哪裡！";
+}
+$("wSat").addEventListener("click",function(){drawWhat("sat");});
+$("wMap").addEventListener("click",function(){drawWhat("map");});
+drawWhat("sat");
+
+/* ---------------- 2a. four elements ---------------- */
+var FOUR={
+ title:{t:"📛 圖名",c:"#ff6b9a",x:"地圖的<b>名稱或主題</b>，告訴我們這張圖在畫<b>什麼地方、什麼主題</b>。<br>這張是「快樂鎮地圖」。"},
+ north:{t:"🧭 方向標",c:"#4d96ff",x:"用來<b>辨識方位</b>。箭頭（寫著「北」）指的方向就是<b>北方</b>。<br>沒有方向標，就分不清東西南北了！"},
+ scale:{t:"📏 比例尺",c:"#9b5de5",x:"表示地圖<b>縮小的程度</b>，可以用來<b>計算實際距離</b>。<br>這張圖：黑色一格＝實際 100 公尺。"},
+ legend:{t:"🧩 圖例",c:"#2a9d8f",x:"用<b>簡單的符號</b>表示地面上<b>真實的景物</b>。<br>沒有圖例，就看不懂符號代表什麼！"}
+};
+var found={},fourHot="";
+function drawFour(){$("fourSvg").innerHTML=figure({hot:fourHot});
+  $("fourChecks").innerHTML=["title","north","scale","legend"].map(function(k){return '<span class="chk'+(found[k]?" got":"")+'">'+(found[k]?"✅ ":"⬜ ")+FOUR[k].t.slice(3)+'</span>';}).join("");}
+$("fourSvg").addEventListener("click",function(ev){
+  var g=ev.target.closest("[data-hot]");
+  if(!g){$("fourExplain").innerHTML='<div class="t">🤔 這裡是地圖本身</div>試試點<b>上面的名字</b>、<b>右上角的圓圈</b>、<b>左下</b>或<b>右下</b>的方框！';return;}
+  var k=g.getAttribute("data-hot"),f=FOUR[k];fourHot=k;
+  $("fourExplain").innerHTML='<div class="t" style="color:'+f.c+'">'+f.t+'</div>'+f.x;
+  if(!found[k]){found[k]=1;addStars(1,$("fourExplain"));beep(true);
+    if(Object.keys(found).length===4){$("fourExplain").innerHTML+='<div style="margin-top:8px;font-weight:900;color:#2a9d8f">🎉 四要素全部找到了！加碼 2 顆星！</div>';addStars(2);}}
+  drawFour();
+});
+drawFour();
+
+/* ---------------- 2b. rotate north arrow ---------------- */
+var rot=0;
+function drawRot(){
+  $("rotSvg").innerHTML=figure({rot:rot,hlPlaces:["school","lib","park"]});
+  document.querySelectorAll("#rotBtns .btn").forEach(function(b){b.classList.toggle("on",+b.dataset.r===rot);});
+  var d1=dirOf("school","lib",rot), d2=dirOf("school","park",rot);
+  var where={0:"上方",90:"右邊",180:"下方",270:"左邊"}[rot];
+  $("rotExplain").innerHTML='<div class="t">箭頭指向地圖的'+where+'</div>所以<b>地圖的'+where+'是北方</b>。<br>📚 圖書館在學校的 <b style="font-size:24px;color:#e63946">'+d1+'</b> 邊<br>🌳 公園在學校的 <b style="font-size:24px;color:#e63946">'+d2+'</b> 邊<br><span class="small">東西南北的順序是順時針：北 → 東 → 南 → 西</span>';
+}
+document.querySelectorAll("#rotBtns .btn").forEach(function(b){b.addEventListener("click",function(){rot=+b.dataset.r;drawRot();});});
+drawRot();
+
+/* ---------------- 2c. scale ---------------- */
+var sFrom="home",sTo="lib",sScale=100;
+function chipRow(el,cur,cb,label){el.innerHTML='<span style="align-self:center;font-weight:800">'+label+'</span>'+PLACES.map(function(p){return '<button class="btn small white'+(p.id===cur?" on":"")+'" data-id="'+p.id+'">'+p.icon+' '+p.name+'</button>';}).join("");
+  el.querySelectorAll("[data-id]").forEach(function(b){b.addEventListener("click",function(){cb(b.dataset.id);});});}
+function drawScale(){
+  chipRow($("scaleFrom"),sFrom,function(id){sFrom=id;drawScale();},"起點：");
+  chipRow($("scaleTo"),sTo,function(id){sTo=id;drawScale();},"終點：");
+  document.querySelectorAll("#scaleSel [data-s]").forEach(function(b){b.classList.toggle("on",+b.dataset.s===sScale);});
+  var same=sFrom===sTo, n=same?0:blocks(sFrom,sTo);
+  $("scaleSvg").innerHTML=figure({scale:sScale,hlPlaces:[sFrom,sTo],route:same?null:routePath(sFrom,sTo)});
+  if(same){$("scaleExplain").innerHTML='<div class="t">起點和終點一樣喔！</div>換一個終點試試看。';return;}
+  $("scaleExplain").innerHTML='<div class="t">'+P(sFrom).icon+' → '+P(sTo).icon+'</div>沿著藍色路線，地圖上走了 <b>'+n+' 段</b>。<br>比例尺：1 段＝<b>'+sScale+' 公尺</b><br>👉 '+n+' × '+sScale+' ＝ <b style="font-size:26px;color:#9b5de5">'+(n*sScale)+' 公尺</b>'+
+    (sScale!==100?'<br><span class="small">比例尺不同，同樣的地圖長度代表的實際距離也不同！</span>':'');
+}
+document.querySelectorAll("#scaleSel [data-s]").forEach(function(b){b.addEventListener("click",function(){sScale=+b.dataset.s;drawScale();});});
+drawScale();
+
+/* ---------------- 3. map types ---------------- */
+var TYPES=[
+ {id:"admin",name:"行政區域圖",use:"看出地方<b>區域的劃分</b>，例如臺灣有哪些縣市。",svg:'<rect width="120" height="90" fill="#e6f0ff"/><path d="M60,6 C80,10 86,30 82,50 C78,70 66,84 56,86 C46,80 40,62 40,44 C40,24 46,8 60,6Z" fill="#ffd6a5" stroke="#555"/><path d="M42,30 L82,34 M40,50 L82,52 M44,68 L74,70" stroke="#555" stroke-dasharray="3 2" fill="none"/><path d="M60,6 C80,10 86,30 82,34 L42,30 C44,18 50,8 60,6Z" fill="#caffbf" stroke="#555"/><path d="M40,50 L82,52 C80,62 76,68 74,70 L44,68 C42,62 40,56 40,50Z" fill="#bdb2ff" stroke="#555"/>'},
+ {id:"tour",name:"交通觀光導覽圖",use:"標示<b>觀光景點</b>和<b>交通路線</b>，出去玩時最好用。",svg:'<rect width="120" height="90" fill="#fff7d6"/><path d="M10,70 C40,40 70,80 110,20" stroke="#e63946" stroke-width="4" fill="none" stroke-dasharray="7 4"/><text x="14" y="62" font-size="16">🎡</text><text x="52" y="58" font-size="16">⛲</text><text x="92" y="40" font-size="16">🏯</text><text x="70" y="84" font-size="14">🚌</text>'},
+ {id:"emap",name:"電子地圖",use:"在手機、電腦上用，可以<b>搜尋、放大縮小、規畫路線、導航</b>。",svg:'<rect x="34" y="4" width="52" height="82" rx="8" fill="#222"/><rect x="38" y="12" width="44" height="66" fill="#f4f1de"/><path d="M38,40 H82 M60,12 V78" stroke="#ccc" stroke-width="4"/><path d="M46,70 L60,70 L60,26" stroke="#1a73e8" stroke-width="3" fill="none"/><path d="M60,26 c-5,-6 -5,-12 0,-12 c5,0 5,6 0,12z" fill="#ea4335"/>'},
+ {id:"sat",name:"衛星影像圖",use:"像從天空拍的照片，看得到<b>建築物的真實樣子</b>和<b>土地怎麼利用</b>。",svg:'<rect width="120" height="90" fill="#6f8f4e"/><rect x="10" y="10" width="30" height="22" fill="#9a9a8a"/><rect x="48" y="8" width="26" height="30" fill="#b5543c"/><rect x="80" y="12" width="30" height="20" fill="#7d7d7d"/><path d="M0,55 C30,45 60,65 120,50" stroke="#2b4f6e" stroke-width="8" fill="none"/><circle cx="25" cy="75" r="7" fill="#2d5a1f"/><circle cx="40" cy="78" r="6" fill="#2d5a1f"/><rect x="70" y="66" width="34" height="18" fill="#c9b79c"/>'}
+];
+$("typeCards").innerHTML=TYPES.map(function(t){return '<div class="type"><svg viewBox="0 0 120 90">'+t.svg+'</svg><b>'+t.name+'</b>'+t.use+'</div>';}).join("");
+var TQ=[
+ {q:"老師要我們認識「臺灣有哪些縣市」，要看哪一種地圖？",a:"admin"},
+ {q:"全家要去日月潭玩，想知道有哪些景點、怎麼搭車，用哪一種地圖？",a:"tour"},
+ {q:"爸爸開車要去一個沒去過的地址，想要規畫路線、語音導航，用哪一種？",a:"emap"},
+ {q:"想看看學校附近「真實的屋頂和樹林」長什麼樣子，用哪一種？",a:"sat"},
+ {q:"想知道我住的縣市旁邊是哪些縣市，用哪一種？",a:"admin"},
+ {q:"想在手機上搜尋「最近的圖書館」並放大看看附近的路，用哪一種？",a:"emap"},
+ {q:"遊樂區門口的大看板，畫著景點和步道路線，這是哪一種地圖？",a:"tour"},
+ {q:"想觀察一個地方的土地是蓋房子還是種田，用哪一種？",a:"sat"}
+];
+var tOrder=[],ti=0,tDone=false;
+function tShow(){if(ti>=tOrder.length){tOrder=shuffle(TQ);ti=0;}var q=tOrder[ti];tDone=false;$("tQ").textContent=q.q;
+  $("tOpts").innerHTML=shuffle(TYPES).map(function(t){return '<button class="opt" data-id="'+t.id+'">'+t.name+'</button>';}).join("");$("tFb").className="feedback";$("tNext").style.display="none";}
+$("tOpts").addEventListener("click",function(ev){var b=ev.target.closest(".opt");if(!b||tDone)return;tDone=true;var q=tOrder[ti],ok=b.dataset.id===q.a;
+  $("tOpts").querySelectorAll(".opt").forEach(function(o){if(o.dataset.id===q.a)o.classList.add("right");});
+  var T=TYPES.filter(function(t){return t.id===q.a;})[0];
+  if(ok){addStars(1,b);beep(true);}else{b.classList.add("no");beep(false);}
+  $("tFb").className="feedback show "+(ok?"good":"bad");$("tFb").innerHTML=(ok?"✅ 答對了！":"💪 答案是「"+T.name+"」。")+"<br>"+T.name+"："+T.use;$("tNext").style.display="inline-block";});
+$("tNext").addEventListener("click",function(){ti++;tShow();});
+tOrder=shuffle(TQ);tShow();
+
+/* ---------------- 4. e-map ---------------- */
+var eZoom=1,eCenter={x:200,y:160},eSat=false,ePin=null,eRoute=null,eNavMode=false;
+function eDraw(){
+  var w=400/eZoom,h=320/eZoom,x=Math.max(0,Math.min(400-w,eCenter.x-w/2)),y=Math.max(0,Math.min(320-h,eCenter.y-h/2));
+  $("eSvg").setAttribute("viewBox",x.toFixed(1)+" "+y.toFixed(1)+" "+w.toFixed(1)+" "+h.toFixed(1));
+  $("eSvg").innerHTML=town({mode:eSat?"sat":"map",labels:eZoom>=1.5,roadNames:eZoom>=2,pin:ePin,route:eRoute,hl:ePin&&eSat?[ePin]:null});
+  $("eMode").textContent=eSat?"🗺️ 地圖模式":"🛰️ 衛星模式";
+  $("eIn").disabled=eZoom>=3;$("eOut").disabled=eZoom<=1;
+}
+function eInfo(html){$("eInfo").innerHTML=html;}
+function eChips(){$("eChips").innerHTML=PLACES.map(function(p){return '<button class="chip" data-id="'+p.id+'">'+p.icon+' '+p.name+'</button>';}).join("");}
+eChips();
+$("eChips").addEventListener("click",function(ev){var b=ev.target.closest(".chip");if(!b)return;eSelect(b.dataset.id);});
+function eSelect(id){
+  var p=P(id);
+  if(eNavMode){eNavMode=false;if(id==="home"){eInfo("📍 你已經在家了！選別的目的地吧。");return;}
+    eRoute=routePath("home",id);ePin=id;eZoom=1;eCenter={x:200,y:160};var n=blocks("home",id);
+    eInfo("🧭 從 🏠我家 到 "+p.icon+p.name+"：沿著藍色路線走 <b>"+n+" 段路</b>，大約 <b>"+(n*100)+" 公尺</b>。<br><span class='small'>（比例尺：1 段＝100 公尺）</span>");eDraw();return;}
+  ePin=id;eRoute=null;eCenter={x:X(p.c),y:Y(p.r)};if(eZoom<2)eZoom=2;
+  eInfo("📍 找到了！<b>"+p.icon+" "+p.name+"</b>。地圖自動<b>放大</b>到它的位置，旁邊的路名也看得到了。");eDraw();
+}
+$("eGo").addEventListener("click",function(){var q=$("eSearch").value.trim();if(!q){eInfo("請輸入要找的地方，例如「公園」。");return;}
+  var m=PLACES.filter(function(p){return p.name.indexOf(q)>=0||q.indexOf(p.name)>=0;})[0];
+  if(m)eSelect(m.id);else eInfo("😅 找不到「"+q+"」。快樂鎮有："+PLACES.map(function(p){return p.name;}).join("、"));});
+$("eSearch").addEventListener("keydown",function(e){if(e.key==="Enter")$("eGo").click();});
+$("eIn").addEventListener("click",function(){eZoom=Math.min(3,eZoom+0.5);eInfo("➕ 放大：範圍變小，<b>細節變多</b>"+(eZoom>=2?"（路名出現了！）":"")+"。");eDraw();});
+$("eOut").addEventListener("click",function(){eZoom=Math.max(1,eZoom-0.5);eInfo("➖ 縮小：細節變少，但可以看到<b>整個地區的全貌</b>。");eDraw();});
+$("eMode").addEventListener("click",function(){eSat=!eSat;eInfo(eSat?"🛰️ <b>衛星模式</b>：看到真實的屋頂、樹林和河流，但沒有名字和符號。":"🗺️ <b>地圖模式</b>：有道路、符號和名字，找地方比較方便。");eDraw();});
+$("eNav").addEventListener("click",function(){eNavMode=true;eInfo("🧭 <b>導航</b>：從 🏠我家 出發，請在上面<b>點選目的地</b>！");});
+eInfo("👋 試試看：點上面的地點、按 ➕➖、切換衛星模式，或按「導航」！");
+eDraw();
+
+/* ---------------- 5. games ---------------- */
+document.querySelectorAll(".subtabs .btn").forEach(function(b){b.addEventListener("click",function(){
+  document.querySelectorAll(".subtabs .btn").forEach(function(x){x.classList.toggle("on",x===b);});
+  ["legend","dir","dist","quiz"].forEach(function(g){$("g-"+g).style.display=g===b.dataset.g?"block":"none";});});});
+function mcq(o){ // generic multiple-choice helper
+  var done=false;
+  $(o.opts).innerHTML=o.choices.map(function(c,i){return '<button class="opt" data-i="'+i+'">'+c+'</button>';}).join("");
+  $(o.fb).className="feedback";$(o.next).style.display="none";
+  $(o.opts).onclick=function(ev){var b=ev.target.closest(".opt");if(!b||done)return;done=true;var ok=+b.dataset.i===o.answer;
+    $(o.opts).querySelectorAll(".opt").forEach(function(x){if(+x.dataset.i===o.answer)x.classList.add("right");});
+    if(ok){addStars(1,b);beep(true);}else{b.classList.add("no");beep(false);}
+    $(o.fb).className="feedback show "+(ok?"good":"bad");$(o.fb).innerHTML=(ok?"✅ 答對了！":"💪 差一點！")+"<br>"+o.explain;
+    $(o.next).style.display="inline-block";if(o.onAnswer)o.onAnswer(ok);};
+}
+// legend game
+var lgR=0,lgN=0;
+function lgNew(){var p=pick(PLACES);$("lgIcon").innerHTML='<circle cx="60" cy="60" r="50" fill="#fff" stroke="'+p.color+'" stroke-width="6"/><text x="60" y="78" font-size="50" text-anchor="middle">'+p.icon+'</text>';
+  var ch=shuffle([p].concat(shuffle(PLACES.filter(function(x){return x!==p;})).slice(0,3)));
+  $("lgScore").textContent="答對 "+lgR+" / "+lgN;
+  mcq({opts:"lgOpts",fb:"lgFb",next:"lgNext",choices:ch.map(function(x){return x.name;}),answer:ch.indexOf(p),explain:"圖例用簡單的符號表示真實的景物："+p.icon+" ＝ "+p.name+"。",onAnswer:function(ok){lgN++;if(ok)lgR++;$("lgScore").textContent="答對 "+lgR+" / "+lgN;}});}
+$("lgNext").addEventListener("click",lgNew);lgNew();
+// direction game
+var PAIRS=alignedPairs(),drR=0,drN=0;
+function drNew(){var pr=pick(PAIRS),r=drN<3?0:pick([0,0,90,180,270]),A=P(pr[0]),B=P(pr[1]),ans=dirOf(pr[0],pr[1],r);
+  $("drQ").innerHTML=B.icon+" <b>"+B.name+"</b> 在 "+A.icon+" <b>"+A.name+"</b> 的哪一邊？"+(r?'<br><span class="small">⚠️ 注意看方向標！</span>':"");
+  $("drSvg").innerHTML=figure({rot:r,hlPlaces:pr});var ch=["東","南","西","北"];
+  $("drScore").textContent="答對 "+drR+" / "+drN;
+  mcq({opts:"drOpts",fb:"drFb",next:"drNext",choices:ch.map(function(c){return c+"邊";}),answer:ch.indexOf(ans),
+    explain:(r?"方向標的箭頭指向地圖的"+{90:"右邊",180:"下方",270:"左邊"}[r]+"，那邊才是北方。":"方向標箭頭朝上，所以上北、下南、左西、右東。")+" "+B.name+"在"+A.name+"的<b>"+ans+"邊</b>。",
+    onAnswer:function(ok){drN++;if(ok)drR++;$("drScore").textContent="答對 "+drR+" / "+drN;}});}
+$("drNext").addEventListener("click",drNew);drNew();
+// distance game
+var dsR=0,dsN=0;
+function dsNew(){var pr=pick(PAIRS),s=pick([100,100,50,200]),n=blocks(pr[0],pr[1]),A=P(pr[0]),B=P(pr[1]),ans=n*s;
+  $("dsQ").innerHTML="沿著道路，從 "+A.icon+A.name+" 走到 "+B.icon+B.name+"，實際距離大約多少公尺？<br><span class='small'>先看比例尺：1 段＝"+s+" 公尺</span>";
+  $("dsSvg").innerHTML=figure({scale:s,hlPlaces:pr,route:routePath(pr[0],pr[1])});
+  var cand=[ans,ans+s,Math.max(s,ans-s),ans*2,n,(n+1)*s+s].filter(function(v,i,a){return a.indexOf(v)===i;});
+  var ch=shuffle([ans].concat(shuffle(cand.filter(function(v){return v!==ans;})).slice(0,3)));
+  $("dsScore").textContent="答對 "+dsR+" / "+dsN;
+  mcq({opts:"dsOpts",fb:"dsFb",next:"dsNext",choices:ch.map(function(v){return v+" 公尺";}),answer:ch.indexOf(ans),
+    explain:"數一數藍色路線：<b>"+n+" 段</b>。"+n+" × "+s+" ＝ <b>"+ans+" 公尺</b>。",onAnswer:function(ok){dsN++;if(ok)dsR++;$("dsScore").textContent="答對 "+dsR+" / "+dsN;}});}
+$("dsNext").addEventListener("click",dsNew);dsNew();
+// quiz
+var QUIZ=[
+ {q:"地圖是根據什麼畫出來的？",o:["自己的想像","真實的景物和各種資料","隨便畫畫"],a:1,x:"地圖是依據實際景物與各種資料繪製而成的。"},
+ {q:"下列哪一個「不是」地圖四要素？",o:["圖名","比例尺","圖例","門牌號碼"],a:3,x:"地圖四要素是：圖名、方向標、比例尺、圖例。"},
+ {q:"「圖名」告訴我們什麼？",o:["地圖的名稱或主題","實際距離","哪邊是北方"],a:0,x:"圖名是地圖的名稱或主題。"},
+ {q:"「方向標」有什麼用？",o:["計算距離","辨識方位","表示景物"],a:1,x:"方向標用來辨識方位，箭頭指的是北方。"},
+ {q:"「比例尺」有什麼用？",o:["表示地圖縮小的程度，計算實際距離","告訴我們地圖的名字","畫出景物的顏色"],a:0,x:"比例尺代表地圖縮小的比例，可以計算實際距離。"},
+ {q:"「圖例」是什麼？",o:["地圖的作者","用簡單的符號表示真實的景物","地圖的價錢"],a:1,x:"圖例是用簡單符號來表示地面的實際景物。"},
+ {q:"如果地圖上沒有「圖例」，可能會發生什麼事？",o:["看不懂符號代表什麼","找不到北方","不知道地圖的名字"],a:0,x:"沒有圖例，就無法了解符號代表的景物。"},
+ {q:"想知道臺灣分成哪些縣市，最適合看哪一種地圖？",o:["衛星影像圖","行政區域圖","交通觀光導覽圖"],a:1,x:"行政區域圖可以看出區域的劃分。"},
+ {q:"去旅行時想知道景點和交通路線，最適合看？",o:["交通觀光導覽圖","行政區域圖","衛星影像圖"],a:0,x:"交通觀光導覽圖主要標示觀光景點與交通路線。"},
+ {q:"想看到建築物真實的樣子、土地怎麼利用，最適合看？",o:["行政區域圖","衛星影像圖","交通觀光導覽圖"],a:1,x:"衛星影像圖能顯示地表建築的特徵，也能觀測土地利用。"},
+ {q:"我們要怎麼選擇合適的地圖？",o:["選最漂亮的","依照使用的需求","選最大張的"],a:1,x:"依據需求選擇：旅遊用觀光導覽圖、規畫路線用電子地圖……"},
+ {q:"為什麼地圖會有不同的呈現方式？",o:["因為使用需求不同","因為畫的人不同心情","因為紙張大小不同"],a:0,x:"使用需求不同，所以地圖有不同的呈現方式。"},
+ {q:"下列哪一件事，電子地圖「做不到」？",o:["放大、縮小地圖","搜尋地點","規畫路線、導航","幫你把東西送到家"],a:3,x:"電子地圖可以搜尋、放大縮小、切換模式、定位與導航。"},
+ {q:"比例尺 1 段＝100 公尺，地圖上走了 4 段，實際大約多遠？",o:["4 公尺","40 公尺","400 公尺","104 公尺"],a:2,x:"4 × 100 ＝ 400 公尺。"},
+ {q:"是非題：方向標的箭頭一定朝向紙張的上方。",o:["⭕ 對","❌ 錯"],a:1,x:"不一定！要看箭頭指向哪裡，那裡才是北方。"},
+ {q:"是非題：一般的地圖，大多是上北、下南、左西、右東。",o:["⭕ 對","❌ 錯"],a:0,x:"對！但還是要先看方向標確認。"},
+ {q:"是非題：電子地圖放大後，可以看到更多細節。",o:["⭕ 對","❌ 錯"],a:0,x:"放大看細節，縮小看全貌。"},
+ {q:"同一個地方的電子地圖和衛星影像圖，下列何者正確？",o:["標示同樣的地點，但用途不同","兩張完全一樣","衛星影像圖上一定有路名"],a:0,x:"兩張圖標示同樣的地點，卻有不同的用途。"},
+ {q:"圖畫比起文字，有什麼好處？",o:["比較直覺，一目了然","比較難懂","一定比較小"],a:0,x:"圖畫表現直覺、一目了然，外國人也能看懂符號。"},
+ {q:"面對北方站好，你的右手邊是哪個方位？",o:["東方","西方","南方"],a:0,x:"面向北方：右手邊是東、左手邊是西、背後是南。"}
+];
+var qList=[],qi=0,qRight=0,QN=10,quizOver=false;
+function quizStart(){qList=shuffle(QUIZ).slice(0,QN);qi=0;qRight=0;quizOver=false;quizShow();}
+function quizShow(){var q=qList[qi];$("qCount").textContent="第 "+(qi+1)+" / "+QN+" 題";$("qScore").textContent="答對 "+qRight;$("qText").textContent=q.q;
+  mcq({opts:"qOpts",fb:"qFb",next:"qNext",choices:q.o,answer:q.a,explain:q.x,onAnswer:function(ok){if(ok)qRight++;$("qScore").textContent="答對 "+qRight;$("qNext").textContent=qi<QN-1?"下一題 ➡":"看成績 🏆";}});}
+$("qNext").addEventListener("click",function(){
+  if(quizOver){quizStart();return;}
+  if(qi<QN-1){qi++;quizShow();return;}
+  quizOver=true;var msg=qRight>=9?"👑 地圖探險王！太強了！":qRight>=7?"🌟 很棒！快要變成讀圖高手了！":qRight>=5?"🙂 不錯喔！回去看看「四要素」再挑戰！":"💪 加油！先玩玩上面的互動地圖，再回來挑戰！";
+  if(qRight===QN)addStars(3);
+  $("qCount").textContent="完成！";$("qText").textContent="成績：答對 "+qRight+" / "+QN+" 題";$("qOpts").innerHTML="";
+  $("qFb").className="feedback show good";$("qFb").innerHTML=msg+(qRight===QN?"<br>全對加碼 3 顆星！":"");$("qNext").textContent="🔄 再玩一次";});
+quizStart();
+
+renderScore();
+window.__map={dirOf:dirOf,blocks:blocks,alignedPairs:alignedPairs};
+})();
+</script>
+</body>
+</html>
