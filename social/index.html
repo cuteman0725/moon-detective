@@ -42,7 +42,8 @@ footer{text-align:center;color:#888;font-size:14px;margin-top:30px}
 /* 新增課程：在這個陣列加一筆就好 */
 var LESSONS = [
   { unit: "第一單元 家鄉的地圖與運用", lesson: "第1課 閱讀生活中的地圖", icon: "🧭", title: "地圖探險王", href: "reading-maps/", desc: "地圖四要素、地圖種類、電子地圖體驗，還有方位和距離挑戰！" },
-  { unit: "第一單元 家鄉的地圖與運用", lesson: "第2課 善用地圖好生活", icon: "🧳", title: "地圖生活家", href: "map-life/", desc: "用行政區域圖找靠海的縣市、規畫去日月潭的路線、看觀光導覽圖，還有澎湖・石碇・蘭嶼地點偵探！" }
+  { unit: "第一單元 家鄉的地圖與運用", lesson: "第2課 善用地圖好生活", icon: "🧳", title: "地圖生活家", href: "map-life/", desc: "用行政區域圖找靠海的縣市、規畫去日月潭的路線、看觀光導覽圖，還有澎湖・石碇・蘭嶼地點偵探！" },
+  { unit: "第二單元 家鄉的地形與氣候", lesson: "第1課 高低起伏的地形", icon: "⛰️", title: "地形探險家", href: "landforms/", desc: "點一點認識山地、丘陵、台地、盆地、平原，用透明片地圖找地形，還有翻牌配對和分類王！" }
 ];
 var units = [], html = "";
 LESSONS.forEach(function (l) { if (units.indexOf(l.unit) < 0) units.push(l.unit); });
