@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ff6b9a">
+<title>窗口邊的臺灣欒樹 🌳｜南一國語 4上 第一課</title>
+<style>
+:root{--ink:#2b2d42;--org:#ff9f1c;--sun:#ffd166;--pink:#ff6b9a;--blue:#4d96ff;--teal:#2a9d8f;--purple:#9b5de5;--green:#52b788}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:#fff6f9;overflow-x:hidden}
+html,body{margin:0;padding:0}
+body{font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",system-ui,sans-serif;color:var(--ink);min-height:100vh;background:linear-gradient(180deg,#ffd6e4 0,#fff6f9 260px);padding-bottom:calc(92px + env(safe-area-inset-bottom))}
+header{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:8px;padding:10px 12px;padding-top:calc(10px + env(safe-area-inset-top));background:rgba(255,107,154,.97);color:#fff}
+header h1{font-size:clamp(17px,4.6vw,26px);margin:0;flex:1;letter-spacing:1px;min-width:0}
+.back{color:#fff;text-decoration:none;font-weight:800;background:rgba(255,255,255,.25);border-radius:999px;padding:8px 12px;font-size:15px;white-space:nowrap}
+.score{background:#fff;color:#b0154a;font-weight:900;border-radius:999px;padding:6px 12px;font-size:17px;white-space:nowrap;box-shadow:0 3px 0 #c2185b}
+.score.pop{animation:pop .5s}@keyframes pop{40%{transform:scale(1.3)}}
+main{max-width:1000px;margin:0 auto;padding:10px}
+section.page{display:none}section.page.active{display:block;animation:fadein .3s}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.card{background:#fff;border-radius:22px;padding:14px;margin:10px 0;box-shadow:0 6px 0 rgba(0,0,0,.1)}
+.card h2{margin:0 0 6px;font-size:clamp(20px,5vw,25px)}.card h3{margin:4px 0 6px;font-size:19px}
+.small{font-size:14px;color:#666;line-height:1.5}
+.lead{font-size:17px;line-height:1.75;margin:6px 0}
+.btn{appearance:none;border:none;border-radius:16px;padding:10px 14px;min-height:50px;font-size:17px;font-weight:800;cursor:pointer;background:var(--blue);color:#fff;box-shadow:0 4px 0 rgba(0,0,0,.22);font-family:inherit;touch-action:manipulation}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.22)}
+.btn.org{background:var(--org)}.btn.pink{background:var(--pink)}.btn.teal{background:var(--teal)}.btn.purple{background:var(--purple)}.btn.gray{background:#8d99ae}.btn.green{background:var(--green)}
+.btn.white{background:#fff;color:var(--ink);border:3px solid #ffd0df}.btn.on{outline:4px solid var(--pink);outline-offset:1px;background:#fff0f5}
+.btn.small{min-height:44px;font-size:15px;padding:6px 10px}
+.btn:disabled{opacity:.4}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0;align-items:center}.cen{justify-content:center}
+.seg{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
+.hidden{display:none!important}
+.bubble{background:#eef4ff;border-radius:18px;padding:12px 14px;font-size:18px;line-height:1.7;min-height:64px;border:3px solid #d6e4ff}
+.bubble b{color:#c1121f}
+.fb{margin-top:8px;border-radius:14px;padding:8px 12px;font-size:17px;line-height:1.55;display:none}
+.fb.show{display:block}.fb.good{background:#d8f3dc}.fb.bad{background:#fff3cd}.fb.info{background:#f3e8ff}
+.done{background:linear-gradient(135deg,#d8f3dc,#fff1a8);border-radius:18px;padding:12px;font-size:18px;line-height:1.6;margin-top:10px}
+.tip{background:#fffbea;border:3px dashed var(--sun);border-radius:16px;padding:8px 12px;font-size:16px;line-height:1.6;margin-top:8px}
+.q{font-size:21px;line-height:1.6;font-weight:800;text-align:center;margin:6px 0;word-break:break-word}
+.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin-top:8px}
+.choices .btn{background:#fff;color:var(--ink);border:3px solid #d6e4ff;font-size:19px;min-height:58px;line-height:1.4}
+.choices .btn.ok{background:#d8f3dc;border-color:#2ec4b6}.choices .btn.no{background:#ffd6dc;border-color:#ff6b9a;animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.prog{display:flex;gap:4px;justify-content:center;margin:4px 0;flex-wrap:wrap}
+.prog i{width:20px;height:10px;border-radius:6px;background:#eee;display:block}.prog i.ok{background:#2ec4b6}.prog i.no{background:#ff6b9a}.prog i.cur{background:var(--sun)}
+table.rec{border-collapse:collapse;width:100%;font-size:16px}
+table.rec td,table.rec th{padding:8px;border-bottom:1px solid #eee;text-align:left;vertical-align:top}
+.statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.stat{background:#ffe6ef;border-radius:16px;padding:10px;text-align:center}.stat b{display:block;font-size:28px;color:#b0154a}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.bdg{background:#eee;border-radius:14px;padding:6px 10px;font-weight:800;color:#999;font-size:15px}.bdg.got{background:linear-gradient(135deg,#ffd166,#ff9f1c);color:#5a3b00}
+.bdg small{display:block;font-weight:600;font-size:12px}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;justify-content:space-around;background:#fff;padding:6px 4px;padding-bottom:calc(6px + env(safe-area-inset-bottom));box-shadow:0 -4px 16px rgba(0,0,0,.15)}
+nav.tabs button{flex:1;min-width:0;border:none;background:none;font-family:inherit;font-size:13px;font-weight:800;color:#666;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 1px;border-radius:14px;cursor:pointer;min-height:60px;touch-action:manipulation}
+nav.tabs button span{font-size:24px;line-height:1}nav.tabs button.on{background:#ffe0eb;color:#b0154a}
+.burst{position:fixed;z-index:99;pointer-events:none;font-size:30px;animation:fly 1.1s ease-out forwards}
+@keyframes fly{to{transform:translate(var(--dx),var(--dy)) rotate(360deg);opacity:0}}
+/* ---- 國語 ---- */
+.info{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:8px 0}
+.info div{background:#fff0f5;border-radius:14px;padding:8px 10px;font-size:16px}.info b{display:block;font-size:13px;color:#b0154a}
+.part{border:3px solid #ffd0df;border-radius:18px;padding:10px 12px;margin:8px 0;background:#fffafc}
+.part h4{margin:0 0 4px;font-size:18px}.part .tag{display:inline-block;background:var(--pink);color:#fff;border-radius:999px;padding:2px 10px;font-size:14px;margin-right:6px}
+.quote{display:inline-block;background:#fff4c2;border-radius:8px;padding:0 6px;margin:2px 0;font-weight:700}
+.cycle{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:520px;margin:8px auto}
+.cycle .btn{min-height:76px;font-size:20px}
+.sp{background:#e9f9e5!important;border-color:#95d5b2!important}.su{background:#e3f6ec!important;border-color:#2d6a4f!important}.au{background:#fff4c2!important;border-color:#f4a261!important}.wi{background:#f3ece4!important;border-color:#a98467!important}
+.chargrid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;max-width:560px;margin:0 auto}
+.chargrid button{font-family:"BiauKai","DFKai-SB","TW-Kai","Kaiti TC",KaiTi,serif;font-size:clamp(30px,8vw,44px);aspect-ratio:1/1;min-height:56px;border-radius:16px;border:3px solid #ffd0df;background:#fff;color:var(--ink);cursor:pointer;position:relative;touch-action:manipulation;padding:0}
+.chargrid button.seen{background:#fff0f5}.chargrid button.seen:after{content:"✓";position:absolute;right:4px;top:0;font-size:14px;color:var(--teal);font-family:sans-serif}
+.chargrid button.on{outline:4px solid var(--pink)}
+.cdet{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start;margin-top:10px}
+.bigc{font-family:"BiauKai","DFKai-SB","TW-Kai","Kaiti TC",KaiTi,serif;font-size:96px;line-height:1;width:130px;height:130px;display:flex;align-items:center;justify-content:center;border:3px solid #ff6b9a;border-radius:12px;position:relative;
+ background-image:linear-gradient(#ffd0df,#ffd0df),linear-gradient(#ffd0df,#ffd0df);background-size:100% 2px,2px 100%;background-position:center;background-repeat:no-repeat;flex:0 0 130px}
+.zy{writing-mode:vertical-rl;font-size:18px;font-weight:800;color:#b0154a;letter-spacing:2px}
+.cinfo{flex:1;min-width:200px;font-size:17px;line-height:1.8}
+.chip{display:inline-block;background:#e6f0ff;border-radius:999px;padding:3px 12px;margin:2px 4px 2px 0;font-weight:700}
+.chip.id{background:#fff1d6}
+.padwrap{position:relative;width:260px;height:260px;margin:8px auto;border:3px solid #ff6b9a;border-radius:12px;background:#fff;touch-action:none}
+.padwrap .ghost{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:"BiauKai","DFKai-SB","TW-Kai","Kaiti TC",KaiTi,serif;font-size:210px;color:#f3d3de;pointer-events:none;line-height:1;
+ background-image:linear-gradient(#ffd0df,#ffd0df),linear-gradient(#ffd0df,#ffd0df);background-size:100% 2px,2px 100%;background-position:center;background-repeat:no-repeat}
+.padwrap canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none}
+.wlist{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px}
+.wcard{background:#fffafc;border:3px solid #ffd0df;border-radius:16px;padding:8px 12px;font-size:16px;line-height:1.5}.wcard b{font-size:20px;display:block}
+.match{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,3fr);gap:8px}
+.match .col{display:flex;flex-direction:column;gap:8px}
+.match .btn{background:#fff;color:var(--ink);border:3px solid #d6e4ff;font-size:16px;min-height:56px;line-height:1.35;padding:6px 8px}
+.match .btn.sel{border-color:var(--pink);background:#fff0f5}.match .btn.ok{background:#d8f3dc;border-color:#2ec4b6;opacity:.55}.match .btn.no{animation:shake .4s;border-color:#ff6b9a}
+.formula{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:6px 0}
+.formula span{border-radius:12px;padding:6px 10px;font-weight:800;font-size:17px}
+.f1{background:#ffd6dc}.f2{background:#cfe8ff}.f3{background:#d8f3dc}
+.blank{display:inline-block;min-width:3em;border-bottom:3px solid var(--pink);color:#b0154a}
+.seasonbtns{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
+.seasonbtns .btn{color:var(--ink);border:3px solid #ddd;font-size:18px;min-height:64px;padding:6px 2px}
+.bins{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}
+.bin{border-radius:14px;padding:6px 8px;font-size:14px;line-height:1.5;min-height:48px;border:3px solid #eee}
+.bin b{display:block;font-size:15px}
+a.ext{color:#1d4ed8;font-weight:800}
+@media (max-width:420px){.chargrid{gap:6px}.bigc{width:110px;height:110px;flex-basis:110px;font-size:80px}.match .btn{font-size:15px}}
+</style>
+</head>
+<body>
+<header>
+  <a class="back" href="../">← 國語</a>
+  <h1>🌳 窗口邊的臺灣欒樹</h1>
+  <div class="score" id="score">⭐ 0</div>
+</header>
+<main>
+
+<!-- ============ 課文 ============ -->
+<section class="page active" id="p-read">
+  <div class="card">
+    <h2>📖 第一課 窗口邊的臺灣欒樹</h2>
+    <div class="info">
+      <div><b>版本</b>南一 國語 4上（第七冊）</div>
+      <div><b>單元</b>第壹單元 生活好滋味</div>
+      <div><b>作者</b>王素涼</div>
+      <div><b>文體</b>記敘文（寫景、寫物）</div>
+    </div>
+    <div class="tip">🌳 <b>小知識：臺灣欒樹</b>是臺灣常見的行道樹，一年四季顏色變化很豐富，所以又叫做「<b>四色樹</b>」。</div>
+    <p class="small">這裡是課文的「重點導讀」，用自己的話說明，再配上課文裡的短句。完整課文請看課本第 8～11 頁。</p>
+  </div>
+
+  <div class="card">
+    <h3>🗺️ 課文三段導讀</h3>
+    <div class="part"><h4><span class="tag">開頭</span>臺灣欒樹長高了</h4>
+      <p class="lead">作者家就在學校圍牆邊。學校沿著圍牆種了一排臺灣欒樹，已經種了十五年，現在長到作者家<b>三樓的窗口邊</b>。每天早上一開窗，風一吹，樹好像在<span class="quote">和我們揮手</span>，還會<span class="quote">靜靜的守在窗口旁</span>，等大家放學回家。</p>
+      <button class="btn white small" data-say="0">🔊 聽導讀</button></div>
+    <div class="part"><h4><span class="tag">經過</span>浪漫的藝術家：四季風采</h4>
+      <p class="lead">作者說臺灣欒樹是<span class="quote">浪漫的藝術家</span>，每個季節都不一樣：春天長出<b>嫩葉</b>；夏天<span class="quote">繁華墨綠</span>，麻雀來玩捉迷藏；秋天<b>最多采多姿</b>，先開黃花、再結出淡紅色的果實；冬天<span class="quote">體貼入微</span>，脫去黃葉，讓陽光照進屋裡。</p>
+      <button class="btn white small" data-say="1">🔊 聽導讀</button></div>
+    <div class="part"><h4><span class="tag">結尾</span>像一幅風景畫</h4>
+      <p class="lead">窗口邊的臺灣欒樹<span class="quote">像一幅風景畫</span>。晚上全家坐在長長的書桌前聊天、做喜歡的事，樹只是<span class="quote">靜靜相伴</span>。有了它們，家裡充滿了藝術氣息。</p>
+      <button class="btn white small" data-say="2">🔊 聽導讀</button></div>
+  </div>
+
+  <div class="card">
+    <h3>🔄 臺灣欒樹的四季變化</h3>
+    <p class="small">點一個季節，看看臺灣欒樹變成什麼樣子（課本第 13 頁「用圖像整理課文內容」）。</p>
+    <div class="cycle" id="cycle"></div>
+    <div class="bubble" id="cycleSay">春 → 夏 → 秋 → 冬 → 又回到春天，一年一年循環。點點看！</div>
+  </div>
+
+  <div class="card">
+    <h3>🧱 文章結構配一配</h3>
+    <p class="small">這段內容是文章的開頭、經過，還是結尾？</p>
+    <div id="partQ"></div>
+  </div>
+
+  <div class="card">
+    <h3>🔍 閱讀理解小偵探</h3>
+    <div id="readQ"></div>
+  </div>
+</section>
+
+<!-- ============ 生字 ============ -->
+<section class="page" id="p-char">
+  <div class="card">
+    <h2>✍️ 我會寫的字（15 個）</h2>
+    <p class="small">點一個字，看注音、部首、筆畫和造詞。數字是「部首外筆畫／總筆畫」。</p>
+    <div class="chargrid" id="charGrid"></div>
+    <div class="cdet" id="charDet"></div>
+  </div>
+  <div class="card">
+    <h3>🖌️ 描寫板</h3>
+    <p class="small">用手指照著淡淡的字描一描。筆順可以按上面的「看筆順動畫」到教育部筆順學習網看。</p>
+    <div class="padwrap" id="padWrap"><div class="ghost" id="ghost">戶</div><canvas id="pad" width="520" height="520"></canvas></div>
+    <div class="btns cen"><button class="btn gray small" id="padClear">🧽 擦掉</button><button class="btn green" id="padDone">✅ 寫好了</button></div>
+    <div class="fb" id="padFb"></div>
+  </div>
+  <div class="card">
+    <h3>🧠 生字小測驗</h3>
+    <div class="seg" id="cqSeg">
+      <button class="btn white on" data-t="bs">部首</button>
+      <button class="btn white" data-t="tot">筆畫</button>
+      <button class="btn white" data-t="zy">注音</button>
+    </div>
+    <div id="charQ"></div>
+  </div>
+  <div class="card">
+    <h3>👀 形近字選一選</h3>
+    <p class="small">長得很像的字，選出句子裡正確的那一個。</p>
+    <div id="lookQ"></div>
+  </div>
+</section>
+
+<!-- ============ 語詞 ============ -->
+<section class="page" id="p-word">
+  <div class="card">
+    <h2>🧩 語詞配對</h2>
+    <p class="small">先點左邊的語詞，再點右邊正確的意思。</p>
+    <div id="matchBox"></div>
+  </div>
+  <div class="card">
+    <h3>📝 選詞填空</h3>
+    <div id="fillQ"></div>
+  </div>
+  <div class="card">
+    <h3>📚 語詞小卡</h3>
+    <div class="wlist" id="wordList"></div>
+    <h3 style="margin-top:12px">💡 生字延伸成語</h3>
+    <div class="wlist" id="idiomList"></div>
+  </div>
+</section>
+
+<!-- ============ 句型 ============ -->
+<section class="page" id="p-pat">
+  <div class="card">
+    <h2>🪄 句型與修辭</h2>
+    <div class="seg" id="patSeg">
+      <button class="btn white on" data-k="measure">一簇一簇的</button>
+      <button class="btn white" data-k="simile">A 像 B</button>
+      <button class="btn white" data-k="rhet">修辭判斷</button>
+      <button class="btn white" data-k="conj">或・因而</button>
+    </div>
+  </div>
+  <div class="card" id="patIntro"></div>
+  <div class="card"><div id="patQ"></div></div>
+</section>
+
+<!-- ============ 挑戰 ============ -->
+<section class="page" id="p-game">
+  <div class="card">
+    <h2>🍂 四季分類大挑戰</h2>
+    <p class="small">這句話說的是哪個季節的臺灣欒樹？</p>
+    <div id="sortBox"></div>
+  </div>
+  <div class="card">
+    <h2>🏆 第一課綜合挑戰（10 題）</h2>
+    <p class="small">生字、形近字、語詞、修辭、句型、課文通通有！答對 9 題以上拿「挑戰王」徽章。</p>
+    <div id="chBox"></div>
+  </div>
+</section>
+
+<!-- ============ 紀錄 ============ -->
+<section class="page" id="p-rec">
+  <div class="card"><h2>🏆 我的紀錄</h2><div class="statgrid" id="stats"></div><div class="badges" id="badges"></div></div>
+  <div class="card"><h3>🔎 常錯的地方</h3><div id="mist"></div></div>
+  <div class="card"><button class="btn gray" id="resetBtn">清除紀錄</button><p class="small">紀錄只存在這台平板的瀏覽器裡。</p>
+    <p class="small">資料來源：南一版國語 4上 第一課課本「我會寫的字」「我會照樣寫」「找出相似的地方」「用圖像整理課文內容」，以及老師分享的學習單。造詞、例句與題目是為了練習自己編寫的。</p></div>
+</section>
+</main>
+
+<nav class="tabs" id="tabs">
+  <button class="on" data-p="p-read"><span>📖</span>課文</button>
+  <button data-p="p-char"><span>✍️</span>生字</button>
+  <button data-p="p-word"><span>🧩</span>語詞</button>
+  <button data-p="p-pat"><span>🪄</span>句型</button>
+  <button data-p="p-game"><span>🎮</span>挑戰</button>
+  <button data-p="p-rec"><span>🏆</span>紀錄</button>
+</nav>
+
+<script id="core">
+var Core=(function(){
+"use strict";
+/* 生字：注音、部首、部首外筆畫、總筆畫依南一 113 學年版課本第 12 頁「我會寫的字」 */
+var CHARS=[
+ {c:"戶",zy:"ㄏㄨˋ",bs:"戶",ex:0,tot:4,words:["窗戶","門戶","家家戶戶"],tx:"打開窗戶",idiom:"家喻戶曉"},
+ {c:"漫",zy:"ㄇㄢˋ",bs:"水",ex:11,tot:14,words:["浪漫","漫長","漫畫"],tx:"浪漫的藝術家",idiom:"",look:"慢"},
+ {c:"季",zy:"ㄐㄧˋ",bs:"子",ex:5,tot:8,words:["四季","季節","季風"],tx:"展現四季不同的風采",idiom:"四季如春"},
+ {c:"素",zy:"ㄙㄨˋ",bs:"糸",ex:4,tot:10,words:["素淨","樸素","素食"],tx:"素淨的枝條",idiom:"素昧平生"},
+ {c:"嫩",zy:"ㄋㄣˋ",bs:"女",ex:11,tot:14,words:["嫩葉","嬌嫩","鮮嫩"],tx:"一串串嫩葉",idiom:""},
+ {c:"繁",zy:"ㄈㄢˊ",bs:"糸",ex:11,tot:17,words:["繁華","繁多","繁忙"],tx:"繁華墨綠",idiom:"繁文縟節",look:"緊"},
+ {c:"墨",zy:"ㄇㄛˋ",bs:"黑",ex:3,tot:15,words:["墨綠","墨水","筆墨"],tx:"繁華墨綠",idiom:"粉墨登場",look:"黑"},
+ {c:"姿",zy:"ㄗ",bs:"女",ex:6,tot:9,words:["姿態","姿勢","多采多姿"],tx:"最多采多姿的時節",idiom:"",look:"資"},
+ {c:"簇",zy:"ㄘㄨˋ",bs:"竹",ex:11,tot:17,words:["一簇","花團錦簇","簇新"],tx:"一簇一簇的黃花",idiom:"花團錦簇"},
+ {c:"週",zy:"ㄓㄡ",bs:"辵",ex:8,tot:12,words:["幾週","週末","週年"],tx:"幾週後",idiom:""},
+ {c:"淡",zy:"ㄉㄢˋ",bs:"水",ex:8,tot:11,words:["淡紅色","平淡","冷淡"],tx:"淡紅色的果實",idiom:"淡泊名利"},
+ {c:"穫",zy:"ㄏㄨㄛˋ",bs:"禾",ex:14,tot:19,words:["收穫"],tx:"收穫的季節",idiom:""},
+ {c:"迎",zy:"ㄧㄥˊ",bs:"辵",ex:4,tot:8,words:["迎接","歡迎","迎面"],tx:"迎接又一個新的開始",idiom:"迎刃而解"},
+ {c:"幅",zy:"ㄈㄨˊ",bs:"巾",ex:9,tot:12,words:["一幅","篇幅","幅度"],tx:"像一幅風景畫",idiom:"不修邊幅",look:"福"},
+ {c:"伴",zy:"ㄅㄢˋ",bs:"人",ex:5,tot:7,words:["相伴","陪伴","同伴"],tx:"靜靜相伴",idiom:"呼朋引伴"}
+];
+/* 部首的常見寫法（偏旁） */
+var BSFORM={"水":"氵","辵":"⻌","人":"亻","糸":"糹","禾":"禾","巾":"巾","竹":"⺮","女":"女","子":"子","戶":"戶","黑":"黑"};
+var IDIOMS={"家喻戶曉":"每家每戶都知道，形容很有名","四季如春":"一年四季都像春天一樣溫暖舒服","素昧平生":"從來都不認識","繁文縟節":"很多繁瑣、不必要的規矩和禮節","粉墨登場":"化好妝上臺演出","花團錦簇":"花朵一團一團，色彩鮮豔美麗","淡泊名利":"不貪求名聲和錢財","迎刃而解":"問題很容易就解決了","不修邊幅":"不在意自己的穿著打扮","呼朋引伴":"招呼同伴一起來"};
+/* 形近字：題目、正確字、易混字 */
+var LOOK=[
+ {s:"窗外的臺灣欒樹一年四季很浪＿。",a:"漫",b:"慢",tip:"「漫」是水部，浪漫、漫長；「慢」是心部（忄），快慢的慢。"},
+ {s:"烏龜走路很＿，一步一步往前爬。",a:"慢",b:"漫",tip:"「慢」是心部（忄），表示速度不快。"},
+ {s:"夏天的樹葉一片＿綠，好濃好深。",a:"墨",b:"黑",tip:"「墨」下面有「土」，墨綠是很深的綠色。"},
+ {s:"停電時，屋子裡一片漆＿。",a:"黑",b:"墨",tip:"「黑」是顏色本身；「墨」是寫字用的墨或很深的顏色。"},
+ {s:"秋天的臺灣欒樹多采多＿。",a:"姿",b:"資",tip:"「姿」是女部，和樣子、姿態有關。"},
+ {s:"老師請大家上網查＿料。",a:"資",b:"姿",tip:"「資」是貝部，和錢財、材料有關。"},
+ {s:"窗口邊的臺灣欒樹像一＿風景畫。",a:"幅",b:"福",tip:"「幅」是巾部，布、畫的量詞：一幅畫。"},
+ {s:"祝你新年快樂、幸＿美滿。",a:"福",b:"幅",tip:"「福」是示部（礻），和幸福、祝福有關。"},
+ {s:"那一樹的＿華墨綠，吸引麻雀來玩。",a:"繁",b:"緊",tip:"「繁」上面是「敏」，表示很多、很茂盛。"},
+ {s:"上臺前我好＿張，心跳得好快。",a:"緊",b:"繁",tip:"「緊」上面是「臤」，緊張、趕緊。"},
+ {s:"秋天是收＿的季節。",a:"穫",b:"獲",tip:"「穫」是禾部，收割農作物；「獲」是犬部（第三課會學），得到的意思。"}
+];
+/* 語詞：src=1 表示解釋取自彰化縣國語第七冊第一課學習單 */
+var WORDS=[
+ {w:"揮手",m:"揮動手臂，本課指和人打招呼",src:1},
+ {w:"浪漫",m:"富有詩意，充滿感性的氣氛",src:1},
+ {w:"素淨",m:"顏色或裝飾樸素，不濃豔",src:1},
+ {w:"觀察",m:"仔細察看",src:1},
+ {w:"一簇",m:"量詞，計算聚在一起的一叢東西",src:1},
+ {w:"收穫",m:"割取成熟的農作物",src:1},
+ {w:"嫩葉",m:"剛長出來、又軟又小的新葉子",src:0},
+ {w:"墨綠",m:"像墨一樣深的綠色",src:0},
+ {w:"多采多姿",m:"顏色豐富，樣子變化很多",src:0},
+ {w:"三五成群",m:"三個、五個聚在一起",src:0},
+ {w:"體貼入微",m:"照顧別人非常細心周到",src:0},
+ {w:"相伴",m:"互相陪伴在一起",src:0}
+];
+/* 選詞填空（自編句子） */
+var FILL=[
+ {s:"我打開＿＿，讓清涼的風吹進屋子。",a:"窗戶",opts:["窗戶","迎接","素淨"]},
+ {s:"春天到了，枝條長出一片片＿＿。",a:"嫩葉",opts:["嫩葉","墨綠","相伴"]},
+ {s:"奶奶喜歡穿顏色＿＿的衣服，看起來很舒服。",a:"素淨",opts:["素淨","繁華","浪漫"]},
+ {s:"全班站在校門口，＿＿遠道而來的客人。",a:"迎接",opts:["迎接","觀察","揮手"]},
+ {s:"小狗每天和我＿＿，我一點也不寂寞。",a:"相伴",opts:["相伴","收穫","嫩葉"]},
+ {s:"我拿放大鏡，仔細＿＿螞蟻搬食物。",a:"觀察",opts:["觀察","迎接","浪漫"]},
+ {s:"夏天的樹葉長得又多又密，一片＿＿。",a:"墨綠",opts:["墨綠","素淨","揮手"]},
+ {s:"農夫辛苦了一整年，終於到了＿＿的季節。",a:"收穫",opts:["收穫","相伴","觀察"]}
+];
+/* 閱讀理解 */
+var READ=[
+ {q:"學校在哪裡種了一排臺灣欒樹？",a:"沿著學校的圍牆",o:["沿著學校的圍牆","操場正中央","學校的屋頂上"]},
+ {q:"臺灣欒樹已經種了多久？",a:"十五年",o:["五年","十年","十五年"]},
+ {q:"現在臺灣欒樹長到作者家幾樓的窗口邊？",a:"三樓",o:["一樓","二樓","三樓"]},
+ {q:"作者說臺灣欒樹一直是個什麼樣的人？",a:"浪漫的藝術家",o:["浪漫的藝術家","嚴格的老師","勇敢的警察"]},
+ {q:"夏天，哪一種小動物來到綠葉間玩捉迷藏？",a:"麻雀",o:["蝴蝶","麻雀","松鼠"]},
+ {q:"哪一個季節是臺灣欒樹「最多采多姿」的時節？",a:"秋天",o:["春天","夏天","秋天","冬天"]},
+ {q:"冬天臺灣欒樹脫去黃葉，是為了讓作者一家怎麼樣？",a:"享受陽光的溫暖",o:["享受陽光的溫暖","撿落葉做卡片","看見遠方的高山"]},
+ {q:"結尾時，作者把臺灣欒樹比喻成什麼？",a:"一幅風景畫",o:["一首歌","一幅風景畫","一座城堡"]},
+ {q:"臺灣欒樹一年四季顏色變化豐富，所以又被叫做什麼？",a:"四色樹",o:["四色樹","彩虹花","變色龍"]},
+ {q:"這篇文章最想告訴我們什麼？",a:"臺灣欒樹四季都很美，也一直陪伴著作者一家",o:["臺灣欒樹四季都很美，也一直陪伴著作者一家","種樹會讓房子變得比較涼","麻雀最喜歡吃臺灣欒樹的果實"]}
+];
+/* 四季：課本「用圖像整理課文內容」 */
+var SEASONS=[
+ {k:"spring",n:"春天",e:"🌱",key:"長出嫩葉"},
+ {k:"summer",n:"夏天",e:"🌳",key:"長滿綠葉"},
+ {k:"autumn",n:"秋天",e:"🌼",key:"先開出黃花，幾週後結出淡紅色的果實"},
+ {k:"winter",n:"冬天",e:"🍂",key:"脫去黃葉"}
+];
+var SORT=[
+ {t:"素淨的枝條掛上一串串嫩葉",s:"spring"},{t:"要我們張大雙眼觀察它們的成長",s:"spring"},
+ {t:"一樹的繁華墨綠",s:"summer"},{t:"麻雀在綠葉間玩捉迷藏",s:"summer"},
+ {t:"開滿一簇一簇的黃花",s:"autumn"},{t:"結出淡紅色的果實",s:"autumn"},{t:"一看就知道收穫的季節到了",s:"autumn"},
+ {t:"連忙脫去身上的黃葉",s:"winter"},{t:"讓我們享受陽光的溫暖",s:"winter"},{t:"在風裡早早休息，等待春天",s:"winter"}
+];
+/* 文章結構 */
+var PARTS=[
+ {k:"start",n:"開頭",d:"介紹臺灣欒樹：種在學校圍牆邊十五年，長到我家三樓窗口邊"},
+ {k:"mid",n:"經過",d:"像浪漫的藝術家，春、夏、秋、冬展現不同的風采"},
+ {k:"end",n:"結尾",d:"像一幅風景畫，靜靜陪伴全家，讓家裡充滿藝術氣息"}
+];
+/* 句型一：動作＋單位量詞＋事物（課本第 13 頁「我會照樣寫」） */
+var MEASURE=[
+ {act:"開滿",m:"一簇一簇",thing:"黃花",o:["一簇一簇","一隻一隻","一條一條"]},
+ {act:"掛上",m:"一串一串",thing:"嫩葉",o:["一串一串","一頭一頭","一本一本"]},
+ {act:"飄下",m:"一片一片",thing:"雪花",o:["一片一片","一顆一顆","一匹一匹"]},
+ {act:"排好",m:"一本一本",thing:"故事書",o:["一本一本","一朵一朵","一條一條"]},
+ {act:"游過",m:"一群一群",thing:"小魚",o:["一群一群","一張一張","一把一把"]},
+ {act:"摘下",m:"一顆一顆",thing:"番茄",o:["一顆一顆","一件一件","一隻一隻"]},
+ {act:"放出",m:"一隻一隻",thing:"小鴿子",o:["一隻一隻","一座一座","一片一片"]}
+];
+/* 句型二：A 像 B（譬喻，找相似的地方） */
+var SIMILE=[
+ {a:"窗口邊的臺灣欒樹",b:"一幅風景畫",why:"四季展現不同的景色，很美",o:["一幅風景畫","一隻大恐龍","一碗熱湯"]},
+ {a:"太陽",b:"一顆大火球",why:"又紅又熱，發出耀眼的光",o:["一顆大火球","一塊冰塊","一片樹葉"]},
+ {a:"黃澄澄的稻田",b:"金色的地毯",why:"金黃色、平平的鋪在大地上",o:["金色的地毯","一條小河","一座高山"]},
+ {a:"彎彎的月亮",b:"一艘小船",why:"形狀彎彎的，兩頭翹起來",o:["一艘小船","一顆皮球","一根筷子"]},
+ {a:"天上的白雲",b:"一團團棉花糖",why:"白白的、軟軟的、蓬蓬的",o:["一團團棉花糖","一塊黑炭","一根鐵棒"]}
+];
+/* 修辭判斷（課本句子短摘＋自編句） */
+var RHET=[
+ {s:"風一吹，臺灣欒樹就像在和我們揮手。",a:"擬人",why:"樹不會揮手，把樹當成人來寫。"},
+ {s:"麻雀在綠葉間開心的玩起捉迷藏。",a:"擬人",why:"把麻雀當成小朋友在玩遊戲。"},
+ {s:"冬天，它們體貼入微，連忙脫去身上的黃葉。",a:"擬人",why:"樹像人一樣會體貼、會脫衣服。"},
+ {s:"窗口邊的臺灣欒樹像一幅風景畫。",a:"譬喻",why:"用「像」把欒樹比作風景畫。"},
+ {s:"臺灣欒樹一直是個浪漫的藝術家。",a:"譬喻",why:"用「是」把欒樹比作藝術家（暗喻）。"},
+ {s:"春天時，素淨的枝條悄悄掛上一串串嫩葉。",a:"摹寫",why:"把看到的顏色和樣子寫出來，是視覺摹寫。"},
+ {s:"樹上開滿一簇一簇的黃花，幾週後結出淡紅色的果實。",a:"摹寫",why:"仔細寫出花和果實的顏色，是視覺摹寫。"},
+ {s:"弟弟的臉紅得像熟透的蘋果。",a:"譬喻",why:"用「像」把臉比作蘋果。"},
+ {s:"小草從土裡探出頭來，好奇的看著世界。",a:"擬人",why:"小草會探頭、會好奇，是把它當成人。"}
+];
+/* 句型三：「……或……」「……因而……」 */
+var CONJ=[
+ {s:"晚上，全家人坐在窗前聊天，＿＿做著自己喜歡的事。",a:"或",o:["或","因而","但是"],tip:"「或」表示可以這樣，也可以那樣。"},
+ {s:"有了臺灣欒樹，我家＿＿充滿藝術氣息。",a:"因而",o:["因而","或","可是"],tip:"「因而」表示因為前面的原因，所以有後面的結果。"},
+ {s:"放假時，我喜歡看書＿＿畫畫。",a:"或",o:["或","因而","而且"],tip:"看書、畫畫兩種都可以選，用「或」。"},
+ {s:"哥哥每天練習投籃，＿＿被選為校隊。",a:"因而",o:["因而","或","雖然"],tip:"每天練習是原因，被選為校隊是結果，用「因而」。"},
+ {s:"昨天下大雨，運動會＿＿延期了。",a:"因而",o:["因而","或","還是"],tip:"下大雨是原因，延期是結果。"},
+ {s:"你可以騎腳踏車＿＿走路去公園。",a:"或",o:["或","因而","所以"],tip:"兩種方法選一種，用「或」。"}
+];
+function shuffle(a,rnd){rnd=rnd||Math.random;var b=a.slice();for(var i=b.length-1;i>0;i--){var j=Math.floor(rnd()*(i+1));var t=b[i];b[i]=b[j];b[j]=t;}return b;}
+function pick(a,n,rnd){return shuffle(a,rnd).slice(0,n);}
+function charBy(c){for(var i=0;i<CHARS.length;i++)if(CHARS[i].c===c)return CHARS[i];return null;}
+function uniq(a){var o=[];for(var i=0;i<a.length;i++)if(o.indexOf(a[i])<0)o.push(a[i]);return o;}
+/* 生字題：部首 / 筆畫 / 注音 */
+function charQ(type,ch,rnd){
+ var opts,ans,q;
+ if(type==="bs"){ans=ch.bs;var all=uniq(CHARS.map(function(x){return x.bs;}).concat(["木","口","心","手"]));
+  opts=[ans].concat(pick(all.filter(function(b){return b!==ans;}),2,rnd));q="「"+ch.c+"」的部首是什麼？";}
+ else if(type==="tot"){ans=String(ch.tot);var d=[ch.tot-2,ch.tot-1,ch.tot+1,ch.tot+2].filter(function(n){return n>0;});
+  opts=[ans].concat(pick(d,2,rnd).map(String));q="「"+ch.c+"」總共幾畫？";}
+ else {ans=ch.zy;var others=CHARS.filter(function(x){return x.c!==ch.c;}).map(function(x){return x.zy;});
+  opts=[ans].concat(pick(uniq(others).filter(function(z){return z!==ans;}),2,rnd));q="「"+ch.c+"」怎麼念？";}
+ return {type:type,c:ch.c,q:q,a:ans,o:shuffle(opts,rnd)};
+}
+/* 挑戰：混合 10 題 */
+function makeChallenge(rnd){
+ rnd=rnd||Math.random;var out=[],chs=pick(CHARS,4,rnd);
+ out.push(charQ("bs",chs[0],rnd));out.push(charQ("tot",chs[1],rnd));out.push(charQ("zy",chs[2],rnd));
+ var lk=pick(LOOK,2,rnd);lk.forEach(function(l){out.push({type:"look",q:l.s,a:l.a,o:shuffle([l.a,l.b],rnd),tip:l.tip});});
+ var w=pick(WORDS,1,rnd)[0],wo=pick(WORDS.filter(function(x){return x.w!==w.w;}),2,rnd);
+ out.push({type:"word",q:"「"+w.m+"」是哪個語詞？",a:w.w,o:shuffle([w.w,wo[0].w,wo[1].w],rnd)});
+ var r=pick(RHET,1,rnd)[0];out.push({type:"rhet",q:r.s+"　這句用了什麼修辭？",a:r.a,o:["擬人","譬喻","摹寫"],tip:r.why});
+ var m=pick(MEASURE,1,rnd)[0];out.push({type:"measure",q:m.act+"（　　）的"+m.thing,a:m.m,o:shuffle(m.o,rnd)});
+ var c=pick(CONJ,1,rnd)[0];out.push({type:"conj",q:c.s,a:c.a,o:shuffle(c.o,rnd),tip:c.tip});
+ var rd=pick(READ,1,rnd)[0];out.push({type:"read",q:rd.q,a:rd.a,o:shuffle(rd.o,rnd)});
+ return shuffle(out,rnd);
+}
+function check(q,ans){return q.a===ans;}
+function sortCheck(text,season){for(var i=0;i<SORT.length;i++)if(SORT[i].t===text)return SORT[i].s===season;return false;}
+function matchCheck(word,meaning){for(var i=0;i<WORDS.length;i++)if(WORDS[i].w===word)return WORDS[i].m===meaning;return false;}
+function stars(correct,total){if(!total)return 0;var r=correct/total;return r>=1?3:r>=0.7?2:r>=0.4?1:0;}
+var BADGES=[
+ {id:"read",n:"📖 閱讀小達人",d:"閱讀理解全對"},
+ {id:"chars",n:"✍️ 生字小書法家",d:"看完 15 張生字卡"},
+ {id:"write",n:"🖌️ 描紅練習生",d:"在描寫板練習 5 個字"},
+ {id:"words",n:"🧩 語詞配對王",d:"完成一次語詞配對"},
+ {id:"pattern",n:"🪄 句型魔法師",d:"四種句型練習都完成"},
+ {id:"season",n:"🍂 四季觀察家",d:"四季分類全對"},
+ {id:"champ",n:"🏆 挑戰王",d:"挑戰答對 9 題以上"},
+ {id:"star",n:"🌟 星星收藏家",d:"累積 60 顆星星"}
+];
+function badges(st){
+ var g={};st=st||{};
+ if(st.readBest>=READ.length)g.read=1;
+ if(st.seen&&Object.keys(st.seen).length>=CHARS.length)g.chars=1;
+ if(st.wrote&&Object.keys(st.wrote).length>=5)g.write=1;
+ if(st.matchDone>=1)g.words=1;
+ if(st.pat&&st.pat.measure&&st.pat.simile&&st.pat.rhet&&st.pat.conj)g.pattern=1;
+ if(st.seasonPerfect>=1)g.season=1;
+ if(st.chBest>=9)g.champ=1;
+ if(st.stars>=60)g.star=1;
+ return g;
+}
+function lcg(seed){var s=seed>>>0;return function(){s=(s*1664525+1013904223)>>>0;return s/4294967296;};}
+return {CHARS:CHARS,BSFORM:BSFORM,IDIOMS:IDIOMS,LOOK:LOOK,WORDS:WORDS,FILL:FILL,READ:READ,SEASONS:SEASONS,SORT:SORT,PARTS:PARTS,MEASURE:MEASURE,SIMILE:SIMILE,RHET:RHET,CONJ:CONJ,BADGES:BADGES,
+ shuffle:shuffle,pick:pick,charBy:charBy,charQ:charQ,makeChallenge:makeChallenge,check:check,sortCheck:sortCheck,matchCheck:matchCheck,stars:stars,badges:badges,lcg:lcg};
+})();
+if(typeof module!=="undefined"&&module.exports)module.exports=Core;
+</script>
+<script>
+(function(){
+"use strict";
+if(typeof document==="undefined")return;
+var $=function(id){return document.getElementById(id);};
+var C=Core,KEY="zhLuanV1";
+function each(list,fn){Array.prototype.forEach.call(list,fn);}
+function fresh(){return {stars:0,readBest:0,seen:{},wrote:{},matchDone:0,pat:{},seasonPerfect:0,chBest:0,cyc:{},cycDone:0,bad:{},best:{}};}
+var store=fresh();
+try{var raw=localStorage.getItem(KEY);if(raw){var o=JSON.parse(raw);for(var k in o)store[k]=o[k];}}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
+var TN={read:"🔍 閱讀理解",part:"🧱 文章結構",bs:"🧩 部首",tot:"✏️ 筆畫",zy:"🔤 注音",look:"👀 形近字",word:"📚 語詞意思",fill:"📝 選詞填空",measure:"🪄 單位量詞",simile:"🖼️ 譬喻 A 像 B",rhet:"🎭 修辭判斷",conj:"🔗 或／因而",season:"🍂 四季分類"};
+function miss(t){store.bad[t]=(store.bad[t]||0)+1;save();}
+function renderScore(){$("score").textContent="⭐ "+store.stars;}
+function addStars(n,el){if(n<=0)return;store.stars+=n;save();renderScore();var sc=$("score");sc.classList.remove("pop");void sc.offsetWidth;sc.classList.add("pop");
+  if(el&&el.getBoundingClientRect){var r=el.getBoundingClientRect();for(var i=0;i<6;i++){var s=document.createElement("div");s.className="burst";s.textContent=["⭐","✨","🌟"][i%3];
+    s.style.left=(r.left+r.width/2)+"px";s.style.top=(r.top+20)+"px";s.style.setProperty("--dx",(Math.random()*160-80)+"px");s.style.setProperty("--dy",(-60-Math.random()*120)+"px");
+    document.body.appendChild(s);setTimeout(function(x){return function(){if(x.parentNode)x.parentNode.removeChild(x);};}(s),1200);}}}
+var actx=null;function beep(good){try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();(good?[660,880]:[260]).forEach(function(f,i){var o=actx.createOscillator(),g=actx.createGain();o.frequency.value=f;o.type="triangle";g.gain.setValueAtTime(.08,actx.currentTime+i*.08);g.gain.exponentialRampToValueAtTime(.001,actx.currentTime+i*.08+.2);o.connect(g);g.connect(actx.destination);o.start(actx.currentTime+i*.08);o.stop(actx.currentTime+i*.08+.22);});}catch(e){}}
+function say(t){try{if(!window.speechSynthesis)return;speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(String(t).replace(/<[^>]+>/g,"").replace(/＿+/g,"什麼"));u.lang="zh-TW";u.rate=.85;speechSynthesis.speak(u);}catch(e){}}
+function goTab(p){each(document.querySelectorAll("#tabs button"),function(x){x.classList.toggle("on",x.getAttribute("data-p")===p);});
+  each(document.querySelectorAll("section.page"),function(s){s.classList.toggle("active",s.id===p);});
+  if(p==="p-rec")renderRec();window.scrollTo(0,0);}
+each(document.querySelectorAll("#tabs button"),function(b){b.addEventListener("click",function(){goTab(b.getAttribute("data-p"));});});
+
+/* ---------- 通用測驗 ---------- */
+function runQuiz(boxId,make,opt){
+  var box=$(boxId),items=[],i=0,right=0,answered=false;
+  function start(){items=make();i=0;right=0;draw();}
+  function draw(){
+    var it=items[i],h='<div class="prog">';
+    for(var k=0;k<items.length;k++)h+='<i class="'+(k<i?(items[k].ok?"ok":"no"):k===i?"cur":"")+'"></i>';
+    h+='</div><div class="q">'+it.q+'</div><div class="choices"></div><div class="fb"></div><div class="btns cen"><button class="btn org hidden nx">下一題 ➜</button></div>';
+    box.innerHTML=h;answered=false;
+    var ch=box.querySelector(".choices");
+    it.o.forEach(function(op){var b=document.createElement("button");b.className="btn";b.textContent=op;b.addEventListener("click",function(){pickAns(b,op);});ch.appendChild(b);});
+    box.querySelector(".nx").addEventListener("click",function(){i++;if(i<items.length)draw();else finish();});
+  }
+  function pickAns(b,op){
+    if(answered)return;answered=true;var it=items[i],ok=op===it.a,f=box.querySelector(".fb");it.ok=ok;
+    each(box.querySelectorAll(".choices .btn"),function(x){if(x.textContent===it.a)x.classList.add("ok");x.disabled=x!==b&&x.textContent!==it.a;});
+    if(ok){right++;b.classList.add("ok");beep(true);addStars(1,b);f.className="fb show good";f.innerHTML="✅ 答對了！"+(it.tip?" "+it.tip:"");}
+    else{b.classList.add("no");beep(false);miss(it.type||opt.type);f.className="fb show bad";f.innerHTML="再想想：正確答案是「<b>"+it.a+"</b>」。"+(it.tip?" "+it.tip:"");}
+    var nx=box.querySelector(".nx");nx.textContent=i<items.length-1?"下一題 ➜":"看成績 🎉";nx.classList.remove("hidden");
+  }
+  function finish(){
+    var st=C.stars(right,items.length);addStars(st,box);
+    if(opt.best){store.best[opt.best]=Math.max(store.best[opt.best]||0,right);save();}
+    if(opt.onDone)opt.onDone(right,items.length);
+    box.innerHTML='<div class="done">🎉 答對 <b>'+right+'</b> / '+items.length+' 題　'+(st?"再加 "+st+" 顆星！":"")+'<br>'+(right===items.length?"全對！太厲害了！":"錯的地方再看一次課本，再挑戰一次吧！")+'</div><div class="btns cen"><button class="btn pink again">🔄 再玩一次</button></div>';
+    box.querySelector(".again").addEventListener("click",start);
+  }
+  start();
+  return {restart:start};
+}
+
+/* ---------- 課文 ---------- */
+var SAY=["作者家在學校圍牆邊，學校種了一排臺灣欒樹，已經十五年，長到三樓窗口邊。風一吹，樹好像在和我們揮手，靜靜守在窗口旁，等我們放學回家。",
+ "臺灣欒樹像浪漫的藝術家。春天長出嫩葉；夏天繁華墨綠，麻雀來玩捉迷藏；秋天最多采多姿，先開黃花，再結出淡紅色的果實；冬天體貼入微，脫去黃葉，讓陽光照進來。",
+ "窗口邊的臺灣欒樹像一幅風景畫。晚上全家坐在窗前聊天、做喜歡的事，樹靜靜相伴，家裡充滿藝術氣息。"];
+each(document.querySelectorAll("[data-say]"),function(b){b.addEventListener("click",function(){say(SAY[+b.getAttribute("data-say")]);});});
+var CYC={spring:"🌱 <b>春天</b>：素淨的枝條悄悄掛上一串串<b>嫩葉</b>，好像要我們張大眼睛，仔細觀察它們長大。",
+ summer:"🌳 <b>夏天</b>：不知不覺，一樹<b>繁華墨綠</b>，三五成群的麻雀在綠葉間玩捉迷藏。",
+ autumn:"🌼 <b>秋天</b>：最<b>多采多姿</b>！先開滿一簇一簇的<b>黃花</b>，幾週後結出<b>淡紅色的果實</b>，收穫的季節到了。",
+ winter:"🍂 <b>冬天</b>：體貼入微，<b>脫去黃葉</b>，讓我們享受陽光的溫暖；再在風裡休息，等待春天。"};
+var SCLS={spring:"sp",summer:"su",autumn:"au",winter:"wi"};
+C.SEASONS.forEach(function(s){var b=document.createElement("button");b.className="btn white "+SCLS[s.k];b.innerHTML=s.e+" "+s.n+'<br><span style="font-size:14px">'+s.key+'</span>';
+  b.addEventListener("click",function(){$("cycleSay").innerHTML=CYC[s.k];say(CYC[s.k]);store.cyc[s.k]=1;
+    if(!store.cycDone&&Object.keys(store.cyc).length>=4){store.cycDone=1;addStars(2,b);$("cycleSay").innerHTML+="<br>🎉 四個季節都看完了，送你 2 顆星！";}save();});
+  $("cycle").appendChild(b);});
+runQuiz("partQ",function(){return C.shuffle(C.PARTS).map(function(p){return {q:"「"+p.d+"」",a:p.n,o:["開頭","經過","結尾"]};});},{type:"part"});
+runQuiz("readQ",function(){return C.READ.map(function(r){return {q:r.q,a:r.a,o:C.shuffle(r.o)};});},{type:"read",best:"read",onDone:function(r){store.readBest=Math.max(store.readBest||0,r);save();}});
+
+/* ---------- 生字 ---------- */
+var cur=C.CHARS[0];
+function moeLink(c){return "https://stroke-order.learningweb.moe.edu.tw/searchW.jsp?WORD="+encodeURIComponent(c);}
+function renderGrid(){var h="";C.CHARS.forEach(function(ch){h+='<button data-c="'+ch.c+'" class="'+(store.seen[ch.c]?"seen ":"")+(ch.c===cur.c?"on":"")+'" aria-label="'+ch.c+'">'+ch.c+'</button>';});$("charGrid").innerHTML=h;
+  each($("charGrid").querySelectorAll("button"),function(b){b.addEventListener("click",function(){showChar(C.charBy(b.getAttribute("data-c")),true);});});}
+function showChar(ch,tap){cur=ch;
+  if(tap&&!store.seen[ch.c]){store.seen[ch.c]=1;save();if(Object.keys(store.seen).length===C.CHARS.length)addStars(3,$("charGrid"));}
+  var bsf=C.BSFORM[ch.bs]&&C.BSFORM[ch.bs]!==ch.bs?"（寫成「"+C.BSFORM[ch.bs]+"」）":"";
+  var h='<div class="bigc">'+ch.c+'</div><div class="zy">'+ch.zy+'</div><div class="cinfo">'+
+   '<div>🧩 部首：<b>'+ch.bs+'</b>'+bsf+'</div><div>✏️ 筆畫：部首外 <b>'+ch.ex+'</b> 畫／總共 <b>'+ch.tot+'</b> 畫</div>'+
+   '<div>📝 造詞：'+ch.words.map(function(w){return '<span class="chip">'+w+'</span>';}).join("")+'</div>'+
+   '<div>📖 課文裡：<span class="quote">'+ch.tx+'</span></div>'+
+   (ch.idiom?'<div>💡 成語：<span class="chip id">'+ch.idiom+'</span><span class="small">'+C.IDIOMS[ch.idiom]+'</span></div>':"")+
+   (ch.look?'<div>👀 小心形近字：「'+ch.c+'」和「'+ch.look+'」長得很像</div>':"")+
+   '<div class="btns"><button class="btn white small" id="sayC">🔊 念一念</button><a class="btn teal small ext" style="color:#fff;text-decoration:none;display:inline-flex;align-items:center" href="'+moeLink(ch.c)+'" target="_blank" rel="noopener">🎬 看筆順動畫</a></div></div>';
+  $("charDet").innerHTML=h;$("sayC").addEventListener("click",function(){say(ch.c+"，"+ch.words.join("，"));});
+  $("ghost").textContent=ch.c;clearPad();renderGrid();}
+/* 描寫板 */
+var pad=$("pad"),ctx=pad.getContext("2d"),drawing=false,ink=0,last=null;
+function clearPad(){ctx.clearRect(0,0,pad.width,pad.height);ink=0;$("padFb").className="fb";}
+function pos(e){var r=pad.getBoundingClientRect();return {x:(e.clientX-r.left)*pad.width/r.width,y:(e.clientY-r.top)*pad.height/r.height};}
+pad.addEventListener("pointerdown",function(e){drawing=true;last=pos(e);try{pad.setPointerCapture(e.pointerId);}catch(x){}e.preventDefault();});
+pad.addEventListener("pointermove",function(e){if(!drawing)return;var p=pos(e);ctx.strokeStyle="#2b2d42";ctx.lineWidth=16;ctx.lineCap="round";ctx.lineJoin="round";ctx.beginPath();ctx.moveTo(last.x,last.y);ctx.lineTo(p.x,p.y);ctx.stroke();ink+=Math.abs(p.x-last.x)+Math.abs(p.y-last.y);last=p;e.preventDefault();});
+function up(){drawing=false;}pad.addEventListener("pointerup",up);pad.addEventListener("pointercancel",up);pad.addEventListener("pointerleave",up);
+$("padClear").addEventListener("click",clearPad);
+$("padDone").addEventListener("click",function(){var f=$("padFb");
+  if(ink<120){f.className="fb show bad";f.innerHTML="先用手指照著淡淡的「"+cur.c+"」描一描喔！";return;}
+  var first=!store.wrote[cur.c];store.wrote[cur.c]=1;save();if(first)addStars(1,$("padDone"));beep(true);
+  f.className="fb show good";f.innerHTML="👍 寫好了「"+cur.c+"」！"+(first?"得到 1 顆星。":"")+" 已練習 "+Object.keys(store.wrote).length+" / 15 個字。";});
+showChar(cur,false);
+var cqType="bs",cq;
+function makeCQ(){return C.pick(C.CHARS,8).map(function(ch){return C.charQ(cqType,ch);});}
+cq=runQuiz("charQ",makeCQ,{type:"bs"});
+each(document.querySelectorAll("#cqSeg button"),function(b){b.addEventListener("click",function(){cqType=b.getAttribute("data-t");each(document.querySelectorAll("#cqSeg button"),function(x){x.classList.toggle("on",x===b);});cq.restart();});});
+runQuiz("lookQ",function(){return C.shuffle(C.LOOK).slice(0,8).map(function(l){return {q:l.s.replace("＿",'<span class="blank">（　）</span>'),a:l.a,o:C.shuffle([l.a,l.b]),tip:l.tip};});},{type:"look"});
+
+/* ---------- 語詞 ---------- */
+var wh="";C.WORDS.forEach(function(w){wh+='<div class="wcard"><b>'+w.w+'</b>'+w.m+'</div>';});$("wordList").innerHTML=wh;
+var ih="";for(var idm in C.IDIOMS)ih+='<div class="wcard"><b>'+idm+'</b>'+C.IDIOMS[idm]+'</div>';$("idiomList").innerHTML=ih;
+function startMatch(){
+  var set=C.pick(C.WORDS,6),selW=null,left=0,errs=0,box=$("matchBox");
+  box.innerHTML='<div class="match"><div class="col" id="mW"></div><div class="col" id="mM"></div></div><div class="fb" id="mFb"></div>';
+  C.shuffle(set).forEach(function(w){var b=document.createElement("button");b.className="btn";b.textContent=w.w;b.setAttribute("data-w",w.w);
+    b.addEventListener("click",function(){if(b.classList.contains("ok"))return;each(box.querySelectorAll("#mW .btn"),function(x){x.classList.remove("sel");});b.classList.add("sel");selW=w.w;say(w.w);});$("mW").appendChild(b);});
+  C.shuffle(set).forEach(function(w){var b=document.createElement("button");b.className="btn";b.textContent=w.m;
+    b.addEventListener("click",function(){if(b.classList.contains("ok"))return;var f=$("mFb");
+      if(!selW){f.className="fb show info";f.textContent="先點左邊的語詞喔！";return;}
+      if(C.matchCheck(selW,w.m)){beep(true);b.classList.add("ok");var wb=box.querySelector('#mW [data-w="'+selW+'"]');wb.classList.remove("sel");wb.classList.add("ok");b.disabled=true;wb.disabled=true;
+        f.className="fb show good";f.innerHTML="✅ 「"+selW+"」："+w.m;selW=null;left++;
+        if(left===set.length){store.matchDone=(store.matchDone||0)+1;var st=Math.max(1,3-errs);addStars(st,box);
+          box.insertAdjacentHTML("beforeend",'<div class="done">🎉 全部配對完成！錯 '+errs+' 次，得到 '+st+' 顆星。</div><div class="btns cen"><button class="btn pink" id="mAgain">🔄 換一組</button></div>');$("mAgain").addEventListener("click",startMatch);}}
+      else{beep(false);errs++;miss("word");b.classList.remove("no");void b.offsetWidth;b.classList.add("no");f.className="fb show bad";f.textContent="不太對，再想想「"+selW+"」是什麼意思。";}});
+    $("mM").appendChild(b);});
+}
+startMatch();
+runQuiz("fillQ",function(){return C.shuffle(C.FILL).map(function(f){return {q:f.s.replace("＿＿",'<span class="blank">（　　）</span>'),a:f.a,o:C.shuffle(f.opts)};});},{type:"fill"});
+
+/* ---------- 句型 ---------- */
+var INTRO={
+ measure:'<h3>🪄 動作＋單位量詞＋事物</h3><div class="formula"><span class="f1">動作：開滿</span><span class="f2">單位量詞：一簇一簇</span><span class="f3">事物：的黃花</span></div><p class="lead">課本照樣寫：<b>開滿</b>一簇一簇的<b>黃花</b>、<b>繫上</b>一串一串的<b>嫩葉</b>、<b>飄下</b>一片一片的<b>雪花</b>。量詞重複兩次（一簇一簇），讓人感覺「很多」。</p>',
+ simile:'<h3>🖼️ 譬喻：A 像 B，找出相似的地方</h3><p class="lead">「窗口邊的臺灣欒樹<b>像一幅風景畫</b>，四季展現不同的景色。」<br>A 和 B 是不同的東西，但有<b>相似的地方</b>：欒樹和風景畫都很美、都有不同的景色。</p><div class="tip">課本的例子：太陽像一顆大火球；黃澄澄的稻田像金色的地毯。</div>',
+ rhet:'<h3>🎭 這課用到的修辭</h3><p class="lead"><b>擬人</b>：把東西當成人來寫（樹會揮手、麻雀玩捉迷藏）。<br><b>譬喻</b>：用「像、是」把 A 比作 B（像一幅風景畫、是浪漫的藝術家）。<br><b>摹寫</b>：把看到、聽到、聞到的感覺寫出來（嫩葉、墨綠、黃花、淡紅色果實）。</p>',
+ conj:'<h3>🔗「……或……」和「……因而……」</h3><p class="lead"><b>或</b>：兩件事選一件，可以這樣、也可以那樣。<br><b>因而</b>：因為前面的原因，所以有後面的結果。<br>課文：有了它們，我家<b>因而</b>充滿藝術氣息。</p>'};
+var patK="measure",pq;
+function makePat(){
+  if(patK==="measure")return C.shuffle(C.MEASURE).map(function(m){return {q:m.act+' <span class="blank">（　　）</span> 的'+m.thing,a:m.m,o:C.shuffle(m.o),type:"measure"};});
+  if(patK==="simile")return C.shuffle(C.SIMILE).map(function(s){return {q:s.a+'像 <span class="blank">（　　）</span>',a:s.b,o:C.shuffle(s.o),tip:"相似的地方："+s.why,type:"simile"};});
+  if(patK==="rhet")return C.shuffle(C.RHET).map(function(r){return {q:r.s,a:r.a,o:["擬人","譬喻","摹寫"],tip:r.why,type:"rhet"};});
+  return C.shuffle(C.CONJ).map(function(c){return {q:c.s.replace("＿＿",'<span class="blank">（　　）</span>'),a:c.a,o:C.shuffle(c.o),tip:c.tip,type:"conj"};});
+}
+function patIntro(){$("patIntro").innerHTML=INTRO[patK]+(store.pat[patK]?'<p class="small">✅ 這個練習已完成過</p>':"");}
+pq=runQuiz("patQ",makePat,{type:"measure",onDone:function(){store.pat[patK]=1;save();patIntro();}});
+patIntro();
+each(document.querySelectorAll("#patSeg button"),function(b){b.addEventListener("click",function(){patK=b.getAttribute("data-k");each(document.querySelectorAll("#patSeg button"),function(x){x.classList.toggle("on",x===b);});patIntro();pq.restart();});});
+
+/* ---------- 挑戰：四季分類 ---------- */
+function startSort(){
+  var items=C.shuffle(C.SORT),i=0,errs=0,box=$("sortBox"),placed={spring:[],summer:[],autumn:[],winter:[]};
+  function draw(){
+    var h='<div class="prog">';for(var k=0;k<items.length;k++)h+='<i class="'+(k<i?(items[k].ok?"ok":"no"):k===i?"cur":"")+'"></i>';
+    h+='</div>';
+    if(i<items.length){h+='<div class="q">「'+items[i].t+'」</div><div class="seasonbtns">';C.SEASONS.forEach(function(s){h+='<button class="btn '+SCLS[s.k]+'" data-s="'+s.k+'">'+s.e+'<br>'+s.n+'</button>';});h+='</div><div class="fb" id="sFb"></div>';}
+    h+='<div class="bins">';C.SEASONS.forEach(function(s){h+='<div class="bin '+SCLS[s.k]+'"><b>'+s.e+" "+s.n+'</b>'+placed[s.k].join("<br>")+'</div>';});h+='</div>';
+    if(i>=items.length){var st=errs===0?4:errs<=2?2:1;addStars(st,box);if(errs===0){store.seasonPerfect=(store.seasonPerfect||0)+1;save();}
+      h+='<div class="done">🎉 分類完成！錯 '+errs+' 次，得到 '+st+' 顆星。'+(errs===0?"全對，你是四季觀察家！":"")+'</div><div class="btns cen"><button class="btn pink" id="sAgain">🔄 再玩一次</button></div>';}
+    box.innerHTML=h;
+    if(i>=items.length){$("sAgain").addEventListener("click",startSort);return;}
+    each(box.querySelectorAll(".seasonbtns .btn"),function(b){b.addEventListener("click",function(){var sk=b.getAttribute("data-s"),it=items[i];
+      if(C.sortCheck(it.t,sk)){beep(true);if(it.ok!==false)it.ok=true;placed[sk].push(it.t);i++;draw();}
+      else{beep(false);errs++;it.ok=false;miss("season");var f=$("sFb");f.className="fb show bad";f.textContent="不是這個季節喔，回去看看課文的四季變化！";}});});
+  }
+  draw();
+}
+startSort();
+/* ---------- 挑戰：綜合 ---------- */
+runQuiz("chBox",function(){return C.makeChallenge();},{type:"read",onDone:function(r){store.chBest=Math.max(store.chBest||0,r);save();}});
+
+/* ---------- 紀錄 ---------- */
+function renderRec(){
+  var s=store,g=C.badges(s);
+  $("stats").innerHTML='<div class="stat"><b>'+s.stars+'</b>⭐ 星星</div><div class="stat"><b>'+(s.readBest||0)+'/'+C.READ.length+'</b>閱讀理解最佳</div><div class="stat"><b>'+Object.keys(s.seen).length+'/15</b>看過的生字</div><div class="stat"><b>'+Object.keys(s.wrote).length+'/15</b>描寫過的字</div><div class="stat"><b>'+(s.chBest||0)+'/10</b>挑戰最佳</div><div class="stat"><b>'+Object.keys(s.pat).length+'/4</b>句型完成</div>';
+  $("badges").innerHTML=C.BADGES.map(function(b){return '<div class="bdg'+(g[b.id]?" got":"")+'">'+b.n+'<small>'+b.d+'</small></div>';}).join("");
+  var ks=Object.keys(s.bad).sort(function(a,b){return s.bad[b]-s.bad[a];});
+  $("mist").innerHTML=ks.length?'<table class="rec">'+ks.map(function(k){return "<tr><td>"+(TN[k]||k)+"</td><td>錯 "+s.bad[k]+" 次</td></tr>";}).join("")+"</table>":'<p class="small">還沒有錯題，繼續加油！</p>';
+}
+$("resetBtn").addEventListener("click",function(){if(!confirm("確定要清除這一課的所有紀錄嗎？"))return;store=fresh();save();renderScore();renderGrid();renderRec();});
+renderScore();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ff6b9a">
+<title>📖 國語｜瑄瑄的學習樂園</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:#fff4e6}
+body{margin:0;font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",system-ui,sans-serif;color:#2b2d42;min-height:100vh;
+ background:radial-gradient(circle at 15% 10%,#ffe5ec 0,transparent 40%),radial-gradient(circle at 90% 20%,#d8f3dc 0,transparent 40%),linear-gradient(180deg,#e0f2fe,#fff4e6 60%);padding:0 0 40px}
+header{text-align:center;padding:28px 16px 8px;padding-top:calc(28px + env(safe-area-inset-top))}
+header h1{margin:0;font-size:clamp(28px,8vw,46px);letter-spacing:2px}
+header p{margin:8px 0 0;font-size:18px;color:#555}
+main{max-width:960px;margin:0 auto;padding:12px 16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-top:12px}
+.card{display:flex;gap:14px;align-items:center;text-decoration:none;color:inherit;background:#fff;border-radius:24px;padding:18px;min-height:120px;
+ box-shadow:0 7px 0 var(--c,#4d96ff);border:4px solid var(--c,#4d96ff);transition:transform .15s}
+a.card:hover,a.card:focus{transform:translateY(-3px)}a.card:active{transform:translateY(4px);box-shadow:0 2px 0 var(--c)}
+.card .ico{font-size:52px;width:76px;height:76px;flex:0 0 76px;display:flex;align-items:center;justify-content:center;border-radius:20px;background:var(--bg,#e6f0ff)}
+.card h2{margin:0;font-size:26px}.card h3{margin:0;font-size:22px}
+.card p{margin:6px 0 0;font-size:16px;color:#555;line-height:1.5}
+.tag{display:inline-block;font-size:13px;font-weight:800;border-radius:999px;padding:3px 10px;background:var(--bg,#eee);margin-top:6px}
+.card.soon{opacity:.55;filter:grayscale(.6);box-shadow:0 7px 0 #bbb;border-color:#ccc;border-style:dashed}
+.back{display:inline-block;margin:0 0 4px;text-decoration:none;font-weight:800;font-size:18px;color:#fff;background:#4d96ff;border-radius:999px;padding:10px 18px;box-shadow:0 4px 0 #2b6ad8;min-height:48px}
+.unit{font-size:20px;margin:24px 0 4px;padding-left:4px}
+footer{text-align:center;color:#888;font-size:14px;margin-top:30px}
+</style>
+</head>
+<body>
+<header>
+  <a class="back" href="../">🏠 回首頁</a>
+  <h1>📖 國語</h1>
+  <p>南一版 4上（第七冊）</p>
+</header>
+<main>
+  <div id="lessons"></div>
+</main>
+<script>
+/* 新增課程：在這個陣列加一筆就好 */
+var LESSONS = [
+  { unit: "第壹單元 生活好滋味", lesson: "第一課 窗口邊的臺灣欒樹", icon: "🌳", title: "臺灣欒樹四季觀察", href: "lesson1-luan-tree/", desc: "課文導讀、四季變化、15 個生字卡和描寫板、語詞配對、量詞和譬喻句型，還有四季分類大挑戰！" }
+];
+var units = [], html = "";
+LESSONS.forEach(function (l) { if (units.indexOf(l.unit) < 0) units.push(l.unit); });
+units.forEach(function (u) {
+  html += '<h2 class="unit">📘 ' + u + '</h2><div class="grid">';
+  LESSONS.filter(function (l) { return l.unit === u; }).forEach(function (l) {
+    html += '<a class="card" style="--c:#ff6b9a;--bg:#ffe6ef" href="' + l.href + '"><div class="ico">' + l.icon + '</div><div><h3>' + l.title +
+      '</h3><p>' + l.desc + '</p><span class="tag">' + l.lesson + '</span></div></a>';
+  });
+  html += '</div>';
+});
+document.getElementById("lessons").innerHTML = html;
+</script>
+</body>
+</html>
