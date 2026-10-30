@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ff6b9a">
+<title>充滿希望的五味屋 🏠｜南一國語 4上 第三課</title>
+<style>
+:root{--ink:#2b2d42;--org:#ff9f1c;--sun:#ffd166;--pink:#ff6b9a;--blue:#4d96ff;--teal:#2a9d8f;--purple:#9b5de5;--green:#52b788}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:#fff6f9;overflow-x:hidden}
+html,body{margin:0;padding:0}
+body{font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",system-ui,sans-serif;color:var(--ink);min-height:100vh;background:linear-gradient(180deg,#ffd6e4 0,#fff6f9 260px);padding-bottom:calc(92px + env(safe-area-inset-bottom))}
+header{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:8px;padding:10px 12px;padding-top:calc(10px + env(safe-area-inset-top));background:rgba(255,107,154,.97);color:#fff}
+header h1{font-size:clamp(17px,4.6vw,26px);margin:0;flex:1;letter-spacing:1px;min-width:0}
+.back{color:#fff;text-decoration:none;font-weight:800;background:rgba(255,255,255,.25);border-radius:999px;padding:8px 12px;font-size:15px;white-space:nowrap}
+.score{background:#fff;color:#b0154a;font-weight:900;border-radius:999px;padding:6px 12px;font-size:17px;white-space:nowrap;box-shadow:0 3px 0 #c2185b}
+.score.pop{animation:pop .5s}@keyframes pop{40%{transform:scale(1.3)}}
+main{max-width:1000px;margin:0 auto;padding:10px}
+section.page{display:none}section.page.active{display:block;animation:fadein .3s}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.card{background:#fff;border-radius:22px;padding:14px;margin:10px 0;box-shadow:0 6px 0 rgba(0,0,0,.1)}
+.card h2{margin:0 0 6px;font-size:clamp(20px,5vw,25px)}.card h3{margin:4px 0 6px;font-size:19px}
+.small{font-size:14px;color:#666;line-height:1.5}
+.lead{font-size:17px;line-height:1.75;margin:6px 0}
+.btn{appearance:none;border:none;border-radius:16px;padding:10px 14px;min-height:50px;font-size:17px;font-weight:800;cursor:pointer;background:var(--blue);color:#fff;box-shadow:0 4px 0 rgba(0,0,0,.22);font-family:inherit;touch-action:manipulation}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.22)}
+.btn.org{background:var(--org)}.btn.pink{background:var(--pink)}.btn.teal{background:var(--teal)}.btn.purple{background:var(--purple)}.btn.gray{background:#8d99ae}.btn.green{background:var(--green)}
+.btn.white{background:#fff;color:var(--ink);border:3px solid #ffd0df}.btn.on{outline:4px solid var(--pink);outline-offset:1px;background:#fff0f5}
+.btn.small{min-height:44px;font-size:15px;padding:6px 10px}
+.btn:disabled{opacity:.4}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0;align-items:center}.cen{justify-content:center}
+.seg{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
+.hidden{display:none!important}
+.bubble{background:#eef4ff;border-radius:18px;padding:12px 14px;font-size:18px;line-height:1.7;min-height:64px;border:3px solid #d6e4ff}
+.bubble b{color:#c1121f}
+.fb{margin-top:8px;border-radius:14px;padding:8px 12px;font-size:17px;line-height:1.55;display:none}
+.fb.show{display:block}.fb.good{background:#d8f3dc}.fb.bad{background:#fff3cd}.fb.info{background:#f3e8ff}
+.done{background:linear-gradient(135deg,#d8f3dc,#fff1a8);border-radius:18px;padding:12px;font-size:18px;line-height:1.6;margin-top:10px}
+.tip{background:#fffbea;border:3px dashed var(--sun);border-radius:16px;padding:8px 12px;font-size:16px;line-height:1.6;margin-top:8px}
+.q{font-size:21px;line-height:1.6;font-weight:800;text-align:center;margin:6px 0;word-break:break-word}
+.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin-top:8px}
+.choices .btn{background:#fff;color:var(--ink);border:3px solid #d6e4ff;font-size:19px;min-height:58px;line-height:1.4}
+.choices .btn.ok{background:#d8f3dc;border-color:#2ec4b6}.choices .btn.no{background:#ffd6dc;border-color:#ff6b9a;animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.prog{display:flex;gap:4px;justify-content:center;margin:4px 0;flex-wrap:wrap}
+.prog i{width:20px;height:10px;border-radius:6px;background:#eee;display:block}.prog i.ok{background:#2ec4b6}.prog i.no{background:#ff6b9a}.prog i.cur{background:var(--sun)}
+table.rec{border-collapse:collapse;width:100%;font-size:16px}
+table.rec td,table.rec th{padding:8px;border-bottom:1px solid #eee;text-align:left;vertical-align:top}
+.statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.stat{background:#ffe6ef;border-radius:16px;padding:10px;text-align:center}.stat b{display:block;font-size:28px;color:#b0154a}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.bdg{background:#eee;border-radius:14px;padding:6px 10px;font-weight:800;color:#999;font-size:15px}.bdg.got{background:linear-gradient(135deg,#ffd166,#ff9f1c);color:#5a3b00}
+.bdg small{display:block;font-weight:600;font-size:12px}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;justify-content:space-around;background:#fff;padding:6px 4px;padding-bottom:calc(6px + env(safe-area-inset-bottom));box-shadow:0 -4px 16px rgba(0,0,0,.15)}
+nav.tabs button{flex:1;min-width:0;border:none;background:none;font-family:inherit;font-size:13px;font-weight:800;color:#666;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 1px;border-radius:14px;cursor:pointer;min-height:60px;touch-action:manipulation}
+nav.tabs button span{font-size:24px;line-height:1}nav.tabs button.on{background:#ffe0eb;color:#b0154a}
+.burst{position:fixed;z-index:99;pointer-events:none;font-size:30px;animation:fly 1.1s ease-out forwards}
+@keyframes fly{to{transform:translate(var(--dx),var(--dy)) rotate(360deg);opacity:0}}
+/* ---- 國語 ---- */
+.info{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:8px 0}
+.info div{background:#fff0f5;border-radius:14px;padding:8px 10px;font-size:16px}.info b{display:block;font-size:13px;color:#b0154a}
+.part{border:3px solid #ffd0df;border-radius:18px;padding:10px 12px;margin:8px 0;background:#fffafc}
+.part h4{margin:0 0 4px;font-size:18px}.part .tag{display:inline-block;background:var(--pink);color:#fff;border-radius:999px;padding:2px 10px;font-size:14px;margin-right:6px}
+.quote{display:inline-block;background:#fff4c2;border-radius:8px;padding:0 6px;margin:2px 0;font-weight:700}
+.cycle{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:520px;margin:8px auto}
+.cycle .btn{min-height:76px;font-size:20px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px;margin:8px 0}
+.steps .btn{color:var(--ink);text-align:left;min-height:56px;font-size:17px}
+.steps .btn.ok{opacity:.45}
+.stepdone{list-style:none;margin:8px 0;padding:0}
+.stepdone li{background:#fff4c2;border-radius:12px;padding:8px 12px;margin:6px 0;font-size:17px;font-weight:700}
+.stepdone li b{display:inline-block;background:var(--pink);color:#fff;border-radius:999px;padding:1px 10px;margin-right:8px}
+.sp{background:#e9f9e5!important;border-color:#95d5b2!important}.su{background:#e3f6ec!important;border-color:#2d6a4f!important}.au{background:#fff4c2!important;border-color:#f4a261!important}.wi{background:#f3ece4!important;border-color:#a98467!important}
+.chargrid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;max-width:560px;margin:0 auto}
+.chargrid button{font-family:"BiauKai","DFKai-SB","TW-Kai","Kaiti TC",KaiTi,serif;font-size:clamp(30px,8vw,44px);aspect-ratio:1/1;min-height:56px;border-radius:16px;border:3px solid #ffd0df;background:#fff;color:var(--ink);cursor:pointer;position:relative;touch-action:manipulation;padding:0}
+.chargrid button.seen{background:#fff0f5}.chargrid button.seen:after{content:"✓";position:absolute;right:4px;top:0;font-size:14px;color:var(--teal);font-family:sans-serif}
+.chargrid button.on{outline:4px solid var(--pink)}
+.cdet{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start;margin-top:10px}
+.bigc{font-family:"BiauKai","DFKai-SB","TW-Kai","Kaiti TC",KaiTi,serif;font-size:96px;line-height:1;width:130px;height:130px;display:flex;align-items:center;justify-content:center;border:3px solid #ff6b9a;border-radius:12px;position:relative;
+ background-image:linear-gradient(#ffd0df,#ffd0df),linear-gradient(#ffd0df,#ffd0df);background-size:100% 2px,2px 100%;background-position:center;background-repeat:no-repeat;flex:0 0 130px}
+.zy{writing-mode:vertical-rl;font-size:18px;font-weight:800;color:#b0154a;letter-spacing:2px}
+.cinfo{flex:1;min-width:200px;font-size:17px;line-height:1.8}
+.chip{display:inline-block;background:#e6f0ff;border-radius:999px;padding:3px 12px;margin:2px 4px 2px 0;font-weight:700}
+.chip.id{background:#fff1d6}
+.padwrap{position:relative;width:260px;height:260px;margin:8px auto;border:3px solid #ff6b9a;border-radius:12px;background:#fff;touch-action:none}
+.padwrap .ghost{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:"BiauKai","DFKai-SB","TW-Kai","Kaiti TC",KaiTi,serif;font-size:210px;color:#f3d3de;pointer-events:none;line-height:1;
+ background-image:linear-gradient(#ffd0df,#ffd0df),linear-gradient(#ffd0df,#ffd0df);background-size:100% 2px,2px 100%;background-position:center;background-repeat:no-repeat}
+.padwrap canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none}
+.wlist{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px}
+.wcard{background:#fffafc;border:3px solid #ffd0df;border-radius:16px;padding:8px 12px;font-size:16px;line-height:1.5}.wcard b{font-size:20px;display:block}
+.match{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,3fr);gap:8px}
+.match .col{display:flex;flex-direction:column;gap:8px}
+.match .btn{background:#fff;color:var(--ink);border:3px solid #d6e4ff;font-size:16px;min-height:56px;line-height:1.35;padding:6px 8px}
+.match .btn.sel{border-color:var(--pink);background:#fff0f5}.match .btn.ok{background:#d8f3dc;border-color:#2ec4b6;opacity:.55}.match .btn.no{animation:shake .4s;border-color:#ff6b9a}
+.formula{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:6px 0}
+.formula span{border-radius:12px;padding:6px 10px;font-weight:800;font-size:17px}
+.f1{background:#ffd6dc}.f2{background:#cfe8ff}.f3{background:#d8f3dc}
+.blank{display:inline-block;min-width:3em;border-bottom:3px solid var(--pink);color:#b0154a}
+.seasonbtns{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+.seasonbtns .btn{color:var(--ink);border:3px solid #ddd;font-size:18px;min-height:64px;padding:6px 2px}
+.bins{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin-top:10px}
+.bin{border-radius:14px;padding:6px 8px;font-size:14px;line-height:1.5;min-height:48px;border:3px solid #eee}
+.bin b{display:block;font-size:15px}
+a.ext{color:#1d4ed8;font-weight:800}
+@media (max-width:420px){.chargrid{gap:6px}.bigc{width:110px;height:110px;flex-basis:110px;font-size:80px}.match .btn{font-size:15px}}
+</style>
+</head>
+<body>
+<header>
+  <a class="back" href="../">← 國語</a>
+  <h1>🏠 充滿希望的五味屋</h1>
+  <div class="score" id="score">⭐ 0</div>
+</header>
+<main>
+
+<!-- ============ 課文 ============ -->
+<section class="page active" id="p-read">
+  <div class="card">
+    <h2>📖 第三課 充滿希望的五味屋</h2>
+    <div class="info">
+      <div><b>版本</b>南一 國語 4上（第七冊）</div>
+      <div><b>單元</b>第壹單元 生活好滋味</div>
+      <div><b>地點</b>花蓮縣 豐田車站旁</div>
+      <div><b>文體</b>說明文（介紹一個地方）</div>
+    </div>
+    <div class="tip">🏠 <b>小知識：二手商店</b>賣的是別人用過、整理好的東西。東西不浪費，又能幫助別人。</div>
+    <p class="small">這裡是課文的「重點導讀」，用自己的話說明，再配上課文裡的短句。完整課文請看課本第 20～23 頁。</p>
+  </div>
+
+  <div class="card">
+    <h3>🗺️ 課文四段導讀</h3>
+    <div class="part"><h4><span class="tag">開頭</span>蘋果綠的二手商店</h4>
+      <p class="lead">走出<b>花蓮的豐田車站</b>，就能看見一間<span class="quote">蘋果綠的日式建築</span>。假日常有遊客<b>慕名而來</b>，在這間二手商店「撿寶」。這家店叫<b>五味屋</b>，背後有什麼故事呢？</p>
+      <button class="btn white small" data-say="0">🔊 聽導讀</button></div>
+    <div class="part"><h4><span class="tag">誕生</span>五味屋的誕生</h4>
+      <p class="lead">多年前，一群<b>熱心人士</b>努力保留了一間<span class="quote">原本要被拆除的老房子</span>。重整後在<b>民國九十七年</b>開幕，它是一間二手商店，<b>同時</b>是社區孩子重要的學習場所。</p>
+      <button class="btn white small" data-say="1">🔊 聽導讀</button></div>
+    <div class="part"><h4><span class="tag">運作</span>五味屋的運作</h4>
+      <p class="lead">大學生、老師和<b>志工</b>陪伴孩子學習<b>管理商店，當個好店長</b>。孩子在整理物品、清潔店面、買賣和接待客人中，體會<b>酸、甜、苦、辣、鹹</b>的人生五味，這就是店名的由來。工作得到的點數存在「<b>點數存摺</b>」裡，可以換日用品或到外地學習的機會，讓孩子學會<span class="quote">靠自己努力獲得機會</span>。</p>
+      <button class="btn white small" data-say="2">🔊 聽導讀</button></div>
+    <div class="part"><h4><span class="tag">理念</span>五味屋的理念</h4>
+      <p class="lead">推動五味屋成立的<b>顧瑜君老師</b>說：<span class="quote">人只要願意參與，事情就有『可能』。</span>孩子們從陪伴中得到<b>支持</b>，在參與和學習中變得<b>獨立</b>，讓未來<b>充滿希望</b>。</p>
+      <button class="btn white small" data-say="3">🔊 聽導讀</button></div>
+  </div>
+
+  <div class="card">
+    <h3>🏠 五味屋的故事順序</h3>
+    <p class="small">五味屋是怎麼來的？孩子在裡面做什麼？照課文的順序點一點。</p>
+    <div id="stepBox"></div>
+  </div>
+
+  <div class="card">
+    <h3>🧱 文章結構配一配</h3>
+    <p class="small">課文有開頭和三個小標題。這段內容屬於哪一段？</p>
+    <div id="partQ"></div>
+  </div>
+
+  <div class="card">
+    <h3>🔍 閱讀理解小偵探</h3>
+    <div id="readQ"></div>
+  </div>
+
+  <div class="card">
+    <h3>🍋 「五味」是哪五味？</h3>
+    <div class="info">
+      <div><b>酸</b>🍋</div><div><b>甜</b>🍬</div><div><b>苦</b>☕</div><div><b>辣</b>🌶️</div><div><b>鹹</b>🧂</div>
+    </div>
+    <p class="lead">課文說，孩子在管理商店的過程中，體會<b>酸、甜、苦、辣、鹹</b>這「人生五味」。這裡的五味不只是吃東西的味道，也比喻做事時會遇到的各種感受：辛苦、開心、緊張……都是成長的一部分。</p>
+  </div>
+</section>
+
+<!-- ============ 生字 ============ -->
+<section class="page" id="p-char">
+  <div class="card">
+    <h2>✍️ 我會寫的字（15 個）</h2>
+    <p class="small">點一個字，看注音、部首、筆畫和造詞。數字是「部首外筆畫／總筆畫」，依課本第 24 頁。</p>
+    <div class="chargrid" id="charGrid"></div>
+    <div class="cdet" id="charDet"></div>
+  </div>
+  <div class="card">
+    <h3>🖌️ 描寫板</h3>
+    <p class="small">用手指照著淡淡的字描一描。筆順可以按上面的「看筆順動畫」到教育部筆順學習網看。</p>
+    <div class="padwrap" id="padWrap"><div class="ghost" id="ghost">蓮</div><canvas id="pad" width="520" height="520"></canvas></div>
+    <div class="btns cen"><button class="btn gray small" id="padClear">🧽 擦掉</button><button class="btn green" id="padDone">✅ 寫好了</button></div>
+    <div class="fb" id="padFb"></div>
+  </div>
+  <div class="card">
+    <h3>🧠 生字小測驗</h3>
+    <div class="seg" id="cqSeg">
+      <button class="btn white on" data-t="bs">部首</button>
+      <button class="btn white" data-t="tot">筆畫</button>
+      <button class="btn white" data-t="zy">注音</button>
+    </div>
+    <div id="charQ"></div>
+  </div>
+  <div class="card">
+    <h3>👀 形近字選一選</h3>
+    <p class="small">課本第 25 頁比較了「獲」和「穫」，練習單還有「式／武」「士／土」「支／友」。選出句子裡正確的那一個。</p>
+    <div class="tip">🔤 <b>多音字「與」</b>：參與、與會念 <b>ㄩˋ</b>；贈與、與其念 <b>ㄩˇ</b>（字詞句練習單）。</div>
+    <div id="lookQ"></div>
+  </div>
+</section>
+
+<!-- ============ 語詞 ============ -->
+<section class="page" id="p-word">
+  <div class="card">
+    <h2>🧩 語詞配對</h2>
+    <p class="small">先點左邊的語詞，再點右邊正確的意思。</p>
+    <div id="matchBox"></div>
+  </div>
+  <div class="card">
+    <h3>📝 選詞填空</h3>
+    <div id="fillQ"></div>
+  </div>
+  <div class="card">
+    <h3>📚 語詞小卡</h3>
+    <div class="wlist" id="wordList"></div>
+    <h3 style="margin-top:12px">💡 生字延伸成語</h3>
+    <div class="wlist" id="idiomList"></div>
+  </div>
+</section>
+
+<!-- ============ 句型 ============ -->
+<section class="page" id="p-pat">
+  <div class="card">
+    <h2>🪄 句型與提問</h2>
+    <div class="seg" id="patSeg">
+      <button class="btn white on" data-k="phrase">是…同時是…</button>
+      <button class="btn white" data-k="you">從…中得到…</button>
+      <button class="btn white" data-k="rhet">六何法提問</button>
+      <button class="btn white" data-k="conj">連接詞</button>
+    </div>
+  </div>
+  <div class="card" id="patIntro"></div>
+  <div class="card"><div id="patQ"></div></div>
+</section>
+
+<!-- ============ 挑戰 ============ -->
+<section class="page" id="p-game">
+  <div class="card">
+    <h2>🗂️ 小標題分類大挑戰</h2>
+    <p class="small">這句話寫在課文的哪一個小標題下面？</p>
+    <div id="sortBox"></div>
+  </div>
+  <div class="card">
+    <h2>🏆 第三課綜合挑戰（10 題）</h2>
+    <p class="small">生字、形近字、語詞、六何法、句型、故事順序通通有！答對 9 題以上拿「挑戰王」徽章。</p>
+    <div id="chBox"></div>
+  </div>
+</section>
+
+<!-- ============ 紀錄 ============ -->
+<section class="page" id="p-rec">
+  <div class="card"><h2>🏆 我的紀錄</h2><div class="statgrid" id="stats"></div><div class="badges" id="badges"></div></div>
+  <div class="card"><h3>🔎 常錯的地方</h3><div id="mist"></div></div>
+  <div class="card"><button class="btn gray" id="resetBtn">清除紀錄</button><p class="small">紀錄只存在這台平板的瀏覽器裡。</p>
+    <p class="small">資料來源：南一版國語 4上 第三課課本（第 20～25 頁：課文、「我會寫的字」、「比一比字形」獲／穫、「句子練習：是……同時是……」、「用六何法練習提問」）、第三課習作（第 18～25 頁），以及老師分享的第三課「字詞句練習單」與「生字成語、四字語詞」學習單。</p>
+    <p class="small">✏️ <b>自編說明：</b>課文導讀是用自己的話整理的；閱讀理解、故事順序、小標題分類、選詞填空、形近字、句型和挑戰的題目與例句，大多是為了練習自己編寫的，不是課本原文（六何法前六題是課本的提問）；語詞和成語解釋也是改寫成好懂的話。</p></div>
+</section>
+</main>
+
+<nav class="tabs" id="tabs">
+  <button class="on" data-p="p-read"><span>📖</span>課文</button>
+  <button data-p="p-char"><span>✍️</span>生字</button>
+  <button data-p="p-word"><span>🧩</span>語詞</button>
+  <button data-p="p-pat"><span>🪄</span>句型</button>
+  <button data-p="p-game"><span>🎮</span>挑戰</button>
+  <button data-p="p-rec"><span>🏆</span>紀錄</button>
+</nav>
+
+<script id="core">
+var Core=(function(){
+"use strict";
+/* 生字：注音、部首、部首外筆畫、總筆畫依南一 113 學年版課本第 24 頁「我會寫的字」
+   造詞參考課文與老師分享的第三課「字詞句練習單」；bf=部首在這個字裡的寫法 */
+var CHARS=[
+ {c:"蓮",zy:"ㄌㄧㄢˊ",bs:"艸",bf:"艹",ex:11,tot:15,words:["花蓮","蓮花","蓮子"],tx:"走出位在花蓮的豐田車站",idiom:"舌粲蓮花"},
+ {c:"式",zy:"ㄕˋ",bs:"弋",ex:3,tot:6,words:["日式","方式","樣式"],tx:"一間蘋果綠的日式建築",idiom:"漸趨式微",look:"武"},
+ {c:"士",zy:"ㄕˋ",bs:"士",ex:0,tot:3,words:["人士","士兵","士氣"],tx:"在一群熱心人士的努力下",idiom:"文人雅士",look:"土"},
+ {c:"拆",zy:"ㄔㄞ",bs:"手",bf:"扌",ex:5,tot:8,words:["拆除","拆開","拆禮物"],tx:"有間原本要被拆除的老房子",idiom:""},
+ {c:"民",zy:"ㄇㄧㄣˊ",bs:"氏",ex:1,tot:5,words:["民國","人民","居民"],tx:"在民國九十七年開幕了",idiom:"民不聊生"},
+ {c:"志",zy:"ㄓˋ",bs:"心",ex:3,tot:7,words:["志工","志向","志氣"],tx:"大學生、老師以及志工陪伴社區的孩子",idiom:"志同道合"},
+ {c:"酸",zy:"ㄙㄨㄢ",bs:"酉",ex:7,tot:14,words:["酸味","酸甜","酸痛"],tx:"體會酸、甜、苦、辣、鹹這人生五味",idiom:""},
+ {c:"辣",zy:"ㄌㄚˋ",bs:"辛",ex:7,tot:14,words:["辣椒","酸甜苦辣","麻辣"],tx:"體會酸、甜、苦、辣、鹹這人生五味",idiom:"心狠手辣"},
+ {c:"存",zy:"ㄘㄨㄣˊ",bs:"子",ex:3,tot:6,words:["存下來","點數存摺","存錢"],tx:"而存下來的點數",idiom:"碩果僅存"},
+ {c:"靠",zy:"ㄎㄠˋ",bs:"非",ex:7,tot:15,words:["靠自己","依靠","可靠"],tx:"靠自己努力獲得機會",idiom:""},
+ {c:"獲",zy:"ㄏㄨㄛˋ",bs:"犬",bf:"犭",ex:14,tot:17,words:["獲得","獲勝","不勞而獲"],tx:"靠自己努力獲得機會",idiom:"不勞而獲",look:"穫"},
+ {c:"態",zy:"ㄊㄞˋ",bs:"心",ex:10,tot:14,words:["態度","工作態度","姿態"],tx:"讓孩子建立了……的工作態度",idiom:"老態龍鍾"},
+ {c:"與",zy:"ㄩˋ",bs:"臼",ex:7,tot:14,words:["參與","與會"],tx:"人只要願意參與，事情就有『可能』",idiom:"與虎謀皮"},
+ {c:"支",zy:"ㄓ",bs:"支",ex:0,tot:4,words:["支持","支架","支付"],tx:"從陪伴中得到支持",idiom:"樂不可支",look:"友"},
+ {c:"未",zy:"ㄨㄟˋ",bs:"木",ex:1,tot:5,words:["未來","尚未","未必"],tx:"讓未來充滿希望",idiom:"未雨綢繆"}
+];
+var BSFORM={"艸":"艹","弋":"弋","士":"士","手":"扌","氏":"氏","心":"心","酉":"酉","辛":"辛","子":"子","非":"非","犬":"犭","臼":"臼","支":"支","木":"木"};
+/* 成語：取自「四上第三課生字成語、四字語詞」學習單，解釋改寫成孩子看得懂的話（酸、拆、靠三字學習單沒有列成語） */
+var IDIOMS={"舌粲蓮花":"說話好聽又有條理，形容口才很好","漸趨式微":"慢慢變得沒落、越來越少見","文人雅士":"喜歡寫文章、愛好文學的高雅的人","民不聊生":"老百姓的生活非常困苦","志同道合":"彼此的興趣和理想都一樣","心狠手辣":"心腸很壞、手段很兇（是負面的形容）","碩果僅存":"經過很長的時間，只剩下這唯一留下來的","不勞而獲":"沒有付出努力，卻想得到成果","老態龍鍾":"年紀很大，身體衰老，動作慢慢的","與虎謀皮":"跟老虎商量要牠的皮，比喻和利害相反的人商量，事情一定辦不成","樂不可支":"快樂到了極點","未雨綢繆":"還沒下雨就先把門窗修好，比喻事情發生前先做好準備"};
+/* 形近字：課本第 25 頁「比一比字形」獲／穫，加上字詞句練習單「分辨形近字」式武、士土、支友（句子自編） */
+var LOOK=[
+ {s:"五味屋的孩子靠自己努力＿得機會。",a:"獲",b:"穫",tip:"「獲」是犬部（犭），得到、獲得。"},
+ {s:"秋天到了，農夫在田裡收＿稻米。",a:"穫",b:"獲",tip:"「穫」是禾部，和收割農作物有關：收穫。"},
+ {s:"我們班在拔河比賽中＿勝了！",a:"獲",b:"穫",tip:"贏得比賽是「獲勝」，用犬部的「獲」。"},
+ {s:"一分耕耘，一分收＿。",a:"穫",b:"獲",tip:"耕田才有收成，所以是禾部的「穫」。"},
+ {s:"豐田車站旁有一間蘋果綠的日＿建築。",a:"式",b:"武",tip:"「式」是弋部，樣式、方式、日式。"},
+ {s:"古代的將軍都會＿功，力氣很大。",a:"武",b:"式",tip:"「武」是止部，武功、武器。"},
+ {s:"在一群熱心人＿的努力下，老房子保留了下來。",a:"士",b:"土",tip:"「士」上面的橫比較長：人士、士兵。"},
+ {s:"下雨後，操場的泥＿變得溼溼的。",a:"土",b:"士",tip:"「土」下面的橫比較長：泥土、土地。"},
+ {s:"孩子們從陪伴中得到＿持。",a:"支",b:"友",tip:"「支」上面是十：支持、支架。"},
+ {s:"我和好朋＿一起去五味屋撿寶。",a:"友",b:"支",tip:"「友」上面像手（𠂇）：朋友、友情。"}
+];
+/* 語詞：src=1 表示出自第三課字詞句練習單的語詞，src=0 為課文中的語詞；解釋都是依課文自己寫的兒童版說明 */
+var WORDS=[
+ {w:"日式建築",m:"照日本風格蓋成的房子",src:0},
+ {w:"慕名而來",m:"因為聽說它很有名，特地跑來看",src:1},
+ {w:"二手商店",m:"賣別人用過、整理好的東西的店",src:0},
+ {w:"撿寶",m:"在很多東西裡找到自己喜歡的好東西",src:0},
+ {w:"熱心人士",m:"很願意幫忙別人的人",src:0},
+ {w:"拆除",m:"把房子或東西拆掉、去除",src:1},
+ {w:"志工",m:"不拿錢、自願來幫忙的人",src:1},
+ {w:"陪伴",m:"在旁邊一起做事、照顧",src:0},
+ {w:"人生五味",m:"酸甜苦辣鹹，比喻生活中各種不同的感受",src:0},
+ {w:"獲得",m:"得到",src:1},
+ {w:"態度",m:"對事情的想法和表現出來的樣子",src:1},
+ {w:"參與",m:"加入一起做",src:1},
+ {w:"支持",m:"給人力量和幫助，讓他撐下去",src:1},
+ {w:"獨立",m:"不依靠別人，自己能把事情做好",src:0},
+ {w:"未來",m:"以後、將來的日子",src:1}
+];
+/* 選詞填空（自編句子） */
+var FILL=[
+ {s:"週末有很多＿＿到社區公園打掃。",a:"志工",opts:["志工","態度","未來"]},
+ {s:"這座舊橋太危險了，政府決定把它＿＿。",a:"拆除",opts:["拆除","支持","參與"]},
+ {s:"謝謝你一直＿＿我，讓我有勇氣上臺表演。",a:"支持",opts:["支持","拆除","獲得"]},
+ {s:"哥哥努力練習，終於＿＿了作文比賽第一名。",a:"獲得",opts:["獲得","陪伴","參與"]},
+ {s:"老師說，做事情的＿＿比結果更重要。",a:"態度",opts:["態度","志工","撿寶"]},
+ {s:"這次的運動會，全班同學都踴躍＿＿。",a:"參與",opts:["參與","拆除","態度"]},
+ {s:"我希望＿＿可以當一位幫助別人的醫生。",a:"未來",opts:["未來","志工","獨立"]},
+ {s:"這家冰店很有名，每到夏天總有遊客＿＿。",a:"慕名而來",opts:["慕名而來","人生五味","二手商店"]},
+ {s:"上了四年級，妹妹學會自己整理書包，變得更＿＿了。",a:"獨立",opts:["獨立","拆除","未來"]}
+];
+/* 閱讀理解（依課文內容自編題目） */
+var READ=[
+ {q:"五味屋在哪一個車站旁邊？",a:"花蓮的豐田車站",o:["花蓮的豐田車站","臺北車站","臺南的新營車站"]},
+ {q:"五味屋的房子是什麼樣子？",a:"蘋果綠的日式建築",o:["紅色的高樓大廈","蘋果綠的日式建築","白色的玻璃屋"]},
+ {q:"遊客到五味屋做什麼？",a:"在二手商店「撿寶」",o:["在二手商店「撿寶」","去看電影","搭火車去旅行"]},
+ {q:"五味屋的房子原本會怎麼樣？",a:"要被拆除",o:["要被拆除","要變成車站","要賣給外國人"]},
+ {q:"五味屋在民國幾年開幕？",a:"九十七年",o:["八十七年","九十七年","一百零七年"]},
+ {q:"孩子們在五味屋要完成什麼特別的功課？",a:"學習管理商店，當個好店長",o:["學習管理商店，當個好店長","寫完學校的作業","學做蘋果派"]},
+ {q:"「五味屋」這個名字是怎麼來的？",a:"孩子在工作中體會酸、甜、苦、辣、鹹人生五味",o:["孩子在工作中體會酸、甜、苦、辣、鹹人生五味","店裡只賣五種口味的糖果","店裡有五個房間"]},
+ {q:"孩子工作得到的點數可以做什麼？",a:"換日用品，或取得到外地參加學習活動的機會",o:["換日用品，或取得到外地參加學習活動的機會","直接換成很多零用錢","買火車票去玩"]},
+ {q:"「點數存摺」讓孩子建立了什麼樣的態度？",a:"靠自己努力獲得機會",o:["靠自己努力獲得機會","不勞而獲","什麼都等別人幫忙"]},
+ {q:"顧瑜君老師說：「人只要願意參與，事情就有……」什麼？",a:"可能",o:["可能","困難","問題"]},
+ {q:"為什麼說豐田孩子們的未來「充滿希望」？",a:"他們從陪伴中得到支持，在參與和學習中變得獨立",o:["他們從陪伴中得到支持，在參與和學習中變得獨立","他們每天都可以去玩","他們賺了很多錢"]}
+];
+/* 五味屋的故事順序（依課文「誕生」「運作」兩段） */
+var STEPS=[
+ {n:1,w:"原本",t:"老房子要被拆除"},
+ {n:2,w:"後來",t:"熱心人士努力，把老房子保留下來重整"},
+ {n:3,w:"民國九十七年",t:"開幕，成為二手商店和孩子的學習場所"},
+ {n:4,w:"在屋子裡",t:"孩子學習管理商店，當個好店長"},
+ {n:5,w:"透過工作",t:"得到點數，存下來換日用品和學習機會"}
+];
+/* 課文三個小標題（第 21～23 頁） */
+var PERIODS=[
+ {k:"born",n:"五味屋的誕生",e:"🏚️",key:"老房子保留下來"},
+ {k:"run",n:"五味屋的運作",e:"🛒",key:"孩子當店長、存點數"},
+ {k:"idea",n:"五味屋的理念",e:"🌱",key:"參與、支持、獨立、希望"}
+];
+var SORT=[
+ {t:"原本要被拆除的老房子",s:"born"},{t:"一群熱心人士努力保留",s:"born"},{t:"經過重整後在民國九十七年開幕",s:"born"},{t:"成為社區孩子重要的學習場所",s:"born"},
+ {t:"大學生、老師和志工陪伴孩子",s:"run"},{t:"整理物品、清潔店面、接待客人",s:"run"},{t:"體會酸甜苦辣鹹的人生五味",s:"run"},{t:"把點數存進「點數存摺」",s:"run"},
+ {t:"人只要願意參與，事情就有「可能」",s:"idea"},{t:"從陪伴中得到支持",s:"idea"},{t:"在參與和學習中變得獨立",s:"idea"},{t:"讓未來充滿希望",s:"idea"}
+];
+/* 文章結構：開頭＋三個小標題 */
+var PARTS=[
+ {k:"start",n:"開頭",d:"豐田車站旁有一間蘋果綠的日式二手商店，背後有什麼故事呢？"},
+ {k:"born",n:"五味屋的誕生",d:"要被拆除的老房子被保留下來，民國九十七年開幕"},
+ {k:"run",n:"五味屋的運作",d:"孩子學當店長、體會人生五味，用點數換機會"},
+ {k:"idea",n:"五味屋的理念",d:"願意參與就有可能，孩子變得獨立，未來充滿希望"}
+];
+/* 句型一：「是……，同時是……」（課本第 25 頁「句子練習」）；選出和前面地位相同的另一個身分（題目自編） */
+var PHRASE=[
+ {p:"五味屋是一間二手商店",a:"社區孩子重要的學習場所",o:["社區孩子重要的學習場所","很好吃","跑得很快"]},
+ {p:"隔壁的叔叔是一位郵差",a:"著名的作家",o:["著名的作家","非常高興","在下雨"]},
+ {p:"我的媽媽是一位護理師",a:"社區的志工",o:["社區的志工","很早起床","紅紅的"]},
+ {p:"這座公園是大家運動的地方",a:"小鳥的家",o:["小鳥的家","慢慢走","非常安靜的"]},
+ {p:"小明是我們班的班長",a:"籃球隊的隊長",o:["籃球隊的隊長","寫功課","笑嘻嘻"]},
+ {p:"阿公是一位農夫",a:"村子裡的說故事高手",o:["村子裡的說故事高手","去田裡","很辛苦的"]}
+];
+/* 句型二：「從……中得到……」（字詞句練習單「我會照樣寫」：從陪伴中得到支持）；題目自編 */
+var YOU=[
+ {a:"陪伴",b:"支持",o:["支持","生氣","害怕"]},
+ {a:"工作",b:"點數",o:["點數","睡意","煩惱"]},
+ {a:"練習",b:"進步",o:["進步","退步","無聊"]},
+ {a:"閱讀",b:"知識",o:["知識","噪音","灰塵"]},
+ {a:"幫助別人",b:"快樂",o:["快樂","傷心","疲倦"]},
+ {a:"失敗",b:"經驗",o:["經驗","獎品","零用錢"]}
+];
+/* 六何法（課本第 25 頁「用六何法練習提問」）：判斷問題問的是哪一「何」；前六題是課本的提問，其餘自編 */
+var RHET=[
+ {s:"五味屋是什麼時候成立的？",a:"何時",why:"問時間。課文：民國九十七年開幕。"},
+ {s:"五味屋在哪裡？",a:"何地",why:"問地點。課文：花蓮的豐田車站旁。"},
+ {s:"五味屋有哪些人？",a:"何人",why:"問人物。課文：大學生、老師、志工和社區的孩子。"},
+ {s:"五味屋是一間什麼樣的店？",a:"何事",why:"問是什麼。課文：二手商店，也是學習場所。"},
+ {s:"五味屋如何運作？",a:"如何",why:"問方法、過程。課文：孩子學當店長、用點數換東西和機會。"},
+ {s:"為什麼孩子的未來充滿希望？",a:"為何",why:"問原因。課文：從陪伴中得到支持，變得獨立。"},
+ {s:"是誰推動五味屋成立的？",a:"何人",why:"問人物。課文：顧瑜君老師。"},
+ {s:"五味屋原本要被拆除的是什麼？",a:"何事",why:"問是什麼東西或事情：一間老房子。"},
+ {s:"點數存摺怎麼使用？",a:"如何",why:"問方法：工作得到點數，存下來換日用品或學習機會。"},
+ {s:"為什麼這家店叫「五味屋」？",a:"為何",why:"問原因：孩子在工作中體會人生五味。"},
+ {s:"遊客通常在什麼時候到五味屋？",a:"何時",why:"問時間：每到假日。"},
+ {s:"孩子可以到哪裡參加學習活動？",a:"何地",why:"問地點：外地。"}
+];
+/* 句型三：連接詞（習作第 22 頁的「即使……也會」「是……同時是」「雖然……但是」，加上練習單的「只要……就……」）；句子自編 */
+var CONJ=[
+ {s:"人＿＿願意參與，事情就有「可能」。",a:"只要",o:["只要","雖然","即使"],tip:"「只要……就……」：做到前面的條件，就會有後面的結果（課文顧老師的話）。"},
+ {s:"＿＿每天練習一點點，就會越來越進步。",a:"只要",o:["只要","雖然","因為"],tip:"每天練習是條件，進步是結果。"},
+ {s:"＿＿整理物品很辛苦，但是孩子們都很認真。",a:"雖然",o:["雖然","只要","即使"],tip:"「雖然……但是……」：前後意思有轉折。"},
+ {s:"＿＿今天下雨，但是遊客還是慕名而來。",a:"雖然",o:["雖然","只要","同時"],tip:"下雨和遊客還是來，前後意思相反，用「雖然……但是……」。"},
+ {s:"＿＿遇到困難，我也會堅持到底。",a:"即使",o:["即使","雖然","只要"],tip:"「即使……也……」：就算真的遇到，結果也不變。"},
+ {s:"五味屋是一間二手商店，＿＿是孩子的學習場所。",a:"同時",o:["同時","但是","只要"],tip:"「是……同時是……」：連接兩個地位相同的句子（課本第 25 頁）。"}
+];
+var RHET_OPTS=["何人","何事","何時","何地","如何","為何"];
+function shuffle(a,rnd){rnd=rnd||Math.random;var b=a.slice();for(var i=b.length-1;i>0;i--){var j=Math.floor(rnd()*(i+1));var t=b[i];b[i]=b[j];b[j]=t;}return b;}
+function pick(a,n,rnd){return shuffle(a,rnd).slice(0,n);}
+function charBy(c){for(var i=0;i<CHARS.length;i++)if(CHARS[i].c===c)return CHARS[i];return null;}
+function uniq(a){var o=[];for(var i=0;i<a.length;i++)if(o.indexOf(a[i])<0)o.push(a[i]);return o;}
+function charQ(type,ch,rnd){
+ var opts,ans,q;
+ if(type==="bs"){ans=ch.bs;var all=uniq(CHARS.map(function(x){return x.bs;}).concat(["口","人","水","土"]));
+  opts=[ans].concat(pick(all.filter(function(b){return b!==ans;}),2,rnd));q="「"+ch.c+"」的部首是什麼？";}
+ else if(type==="tot"){ans=String(ch.tot);var d=[ch.tot-2,ch.tot-1,ch.tot+1,ch.tot+2].filter(function(n){return n>0;});
+  opts=[ans].concat(pick(d,2,rnd).map(String));q="「"+ch.c+"」總共幾畫？";}
+ else {ans=ch.zy;var others=CHARS.filter(function(x){return x.c!==ch.c;}).map(function(x){return x.zy;});
+  opts=[ans].concat(pick(uniq(others).filter(function(z){return z!==ans;}),2,rnd));q="「"+ch.c+"」怎麼念？";}
+ return {type:type,c:ch.c,q:q,a:ans,o:shuffle(opts,rnd)};
+}
+function stepQ(rnd){var s=pick(STEPS,1,rnd)[0];var o=[s.t].concat(pick(STEPS.filter(function(x){return x.n!==s.n;}),2,rnd).map(function(x){return x.t;}));
+ return {type:"step",q:"五味屋的故事裡，第 "+s.n+" 件事是什麼？",a:s.t,o:shuffle(o,rnd)};}
+function makeChallenge(rnd){
+ rnd=rnd||Math.random;var out=[],chs=pick(CHARS,3,rnd);
+ out.push(charQ("bs",chs[0],rnd));out.push(charQ("tot",chs[1],rnd));out.push(charQ("zy",chs[2],rnd));
+ var lk=pick(LOOK,2,rnd);lk.forEach(function(l){out.push({type:"look",q:l.s,a:l.a,o:shuffle([l.a,l.b],rnd),tip:l.tip});});
+ var w=pick(WORDS,1,rnd)[0],wo=pick(WORDS.filter(function(x){return x.w!==w.w;}),2,rnd);
+ out.push({type:"word",q:"「"+w.m+"」是哪個語詞？",a:w.w,o:shuffle([w.w,wo[0].w,wo[1].w],rnd)});
+ var r=pick(RHET,1,rnd)[0];out.push({type:"rhet",q:"「"+r.s+"」　這是六何法的哪一個提問？",a:r.a,o:RHET_OPTS.slice(),tip:r.why});
+ var p=pick(PHRASE,1,rnd)[0];out.push({type:"phrase",q:p.p+"，同時是（　　）。",a:p.a,o:shuffle(p.o,rnd)});
+ var c=pick(CONJ,1,rnd)[0];out.push({type:"conj",q:c.s,a:c.a,o:shuffle(c.o,rnd),tip:c.tip});
+ out.push(stepQ(rnd));
+ return shuffle(out,rnd);
+}
+function check(q,ans){return q.a===ans;}
+function sortCheck(text,period){for(var i=0;i<SORT.length;i++)if(SORT[i].t===text)return SORT[i].s===period;return false;}
+function matchCheck(word,meaning){for(var i=0;i<WORDS.length;i++)if(WORDS[i].w===word)return WORDS[i].m===meaning;return false;}
+/* 故事順序：依序點，回傳 true 表示這一步點對了 */
+function stepCheck(done,n){return n===done+1;}
+function stars(correct,total){if(!total)return 0;var r=correct/total;return r>=1?3:r>=0.7?2:r>=0.4?1:0;}
+var BADGES=[
+ {id:"read",n:"📖 閱讀小達人",d:"閱讀理解全對"},
+ {id:"chars",n:"✍️ 生字小書法家",d:"看完 15 張生字卡"},
+ {id:"write",n:"🖌️ 描紅練習生",d:"在描寫板練習 5 個字"},
+ {id:"words",n:"🧩 語詞配對王",d:"完成一次語詞配對"},
+ {id:"pattern",n:"🪄 句型魔法師",d:"四種句型和提問練習都完成"},
+ {id:"cook",n:"🏠 五味屋小導覽員",d:"故事順序一次排對"},
+ {id:"time",n:"🗂️ 小標題分類王",d:"小標題分類全對"},
+ {id:"champ",n:"🏆 挑戰王",d:"挑戰答對 9 題以上"}
+];
+function badges(st){
+ var g={};st=st||{};
+ if(st.readBest>=READ.length)g.read=1;
+ if(st.seen&&Object.keys(st.seen).length>=CHARS.length)g.chars=1;
+ if(st.wrote&&Object.keys(st.wrote).length>=5)g.write=1;
+ if(st.matchDone>=1)g.words=1;
+ if(st.pat&&st.pat.phrase&&st.pat.you&&st.pat.rhet&&st.pat.conj)g.pattern=1;
+ if(st.cookPerfect>=1)g.cook=1;
+ if(st.timePerfect>=1)g.time=1;
+ if(st.chBest>=9)g.champ=1;
+ return g;
+}
+function lcg(seed){var s=seed>>>0;return function(){s=(s*1664525+1013904223)>>>0;return s/4294967296;};}
+return {CHARS:CHARS,BSFORM:BSFORM,IDIOMS:IDIOMS,LOOK:LOOK,WORDS:WORDS,FILL:FILL,READ:READ,STEPS:STEPS,PERIODS:PERIODS,SORT:SORT,PARTS:PARTS,PHRASE:PHRASE,YOU:YOU,RHET:RHET,RHET_OPTS:RHET_OPTS,CONJ:CONJ,BADGES:BADGES,
+ shuffle:shuffle,pick:pick,charBy:charBy,charQ:charQ,stepQ:stepQ,makeChallenge:makeChallenge,check:check,sortCheck:sortCheck,matchCheck:matchCheck,stepCheck:stepCheck,stars:stars,badges:badges,lcg:lcg};
+})();
+if(typeof module!=="undefined"&&module.exports)module.exports=Core;
+</script>
+<script>
+(function(){
+"use strict";
+if(typeof document==="undefined")return;
+var $=function(id){return document.getElementById(id);};
+var C=Core,KEY="zhWuweiV1";
+function each(list,fn){Array.prototype.forEach.call(list,fn);}
+function fresh(){return {stars:0,readBest:0,seen:{},wrote:{},matchDone:0,pat:{},timePerfect:0,cookPerfect:0,cookDone:0,chBest:0,bad:{},best:{}};}
+var store=fresh();
+try{var raw=localStorage.getItem(KEY);if(raw){var o=JSON.parse(raw);for(var k in o)store[k]=o[k];}}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
+var TN={read:"🔍 閱讀理解",part:"🧱 文章結構",bs:"🧩 部首",tot:"✏️ 筆畫",zy:"🔤 注音",look:"👀 形近字",word:"📚 語詞意思",fill:"📝 選詞填空",phrase:"🪄 是…同時是…",you:"🎁 從…中得到…",rhet:"❓ 六何法提問",conj:"🔗 連接詞",period:"🗂️ 小標題分類",step:"🏠 故事順序"};
+function miss(t){store.bad[t]=(store.bad[t]||0)+1;save();}
+function renderScore(){$("score").textContent="⭐ "+store.stars;}
+function addStars(n,el){if(n<=0)return;store.stars+=n;save();renderScore();var sc=$("score");sc.classList.remove("pop");void sc.offsetWidth;sc.classList.add("pop");
+  if(el&&el.getBoundingClientRect){var r=el.getBoundingClientRect();for(var i=0;i<6;i++){var s=document.createElement("div");s.className="burst";s.textContent=["⭐","✨","🌟"][i%3];
+    s.style.left=(r.left+r.width/2)+"px";s.style.top=(r.top+20)+"px";s.style.setProperty("--dx",(Math.random()*160-80)+"px");s.style.setProperty("--dy",(-60-Math.random()*120)+"px");
+    document.body.appendChild(s);setTimeout(function(x){return function(){if(x.parentNode)x.parentNode.removeChild(x);};}(s),1200);}}}
+var actx=null;function beep(good){try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();(good?[660,880]:[260]).forEach(function(f,i){var o=actx.createOscillator(),g=actx.createGain();o.frequency.value=f;o.type="triangle";g.gain.setValueAtTime(.08,actx.currentTime+i*.08);g.gain.exponentialRampToValueAtTime(.001,actx.currentTime+i*.08+.2);o.connect(g);g.connect(actx.destination);o.start(actx.currentTime+i*.08);o.stop(actx.currentTime+i*.08+.22);});}catch(e){}}
+function say(t){try{if(!window.speechSynthesis)return;speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(String(t).replace(/<[^>]+>/g,"").replace(/＿+/g,"什麼"));u.lang="zh-TW";u.rate=.85;speechSynthesis.speak(u);}catch(e){}}
+function goTab(p){each(document.querySelectorAll("#tabs button"),function(x){x.classList.toggle("on",x.getAttribute("data-p")===p);});
+  each(document.querySelectorAll("section.page"),function(s){s.classList.toggle("active",s.id===p);});
+  if(p==="p-rec")renderRec();window.scrollTo(0,0);}
+each(document.querySelectorAll("#tabs button"),function(b){b.addEventListener("click",function(){goTab(b.getAttribute("data-p"));});});
+
+/* ---------- 通用測驗 ---------- */
+function runQuiz(boxId,make,opt){
+  var box=$(boxId),items=[],i=0,right=0,answered=false;
+  function start(){items=make();i=0;right=0;draw();}
+  function draw(){
+    var it=items[i],h='<div class="prog">';
+    for(var k=0;k<items.length;k++)h+='<i class="'+(k<i?(items[k].ok?"ok":"no"):k===i?"cur":"")+'"></i>';
+    h+='</div><div class="q">'+it.q+'</div><div class="choices"></div><div class="fb"></div><div class="btns cen"><button class="btn org hidden nx">下一題 ➜</button></div>';
+    box.innerHTML=h;answered=false;
+    var ch=box.querySelector(".choices");
+    it.o.forEach(function(op){var b=document.createElement("button");b.className="btn";b.textContent=op;b.addEventListener("click",function(){pickAns(b,op);});ch.appendChild(b);});
+    box.querySelector(".nx").addEventListener("click",function(){i++;if(i<items.length)draw();else finish();});
+  }
+  function pickAns(b,op){
+    if(answered)return;answered=true;var it=items[i],ok=op===it.a,f=box.querySelector(".fb");it.ok=ok;
+    each(box.querySelectorAll(".choices .btn"),function(x){if(x.textContent===it.a)x.classList.add("ok");x.disabled=x!==b&&x.textContent!==it.a;});
+    if(ok){right++;b.classList.add("ok");beep(true);addStars(1,b);f.className="fb show good";f.innerHTML="✅ 答對了！"+(it.tip?" "+it.tip:"");}
+    else{b.classList.add("no");beep(false);miss(it.type||opt.type);f.className="fb show bad";f.innerHTML="再想想：正確答案是「<b>"+it.a+"</b>」。"+(it.tip?" "+it.tip:"");}
+    var nx=box.querySelector(".nx");nx.textContent=i<items.length-1?"下一題 ➜":"看成績 🎉";nx.classList.remove("hidden");
+  }
+  function finish(){
+    var st=C.stars(right,items.length);addStars(st,box);
+    if(opt.best){store.best[opt.best]=Math.max(store.best[opt.best]||0,right);save();}
+    if(opt.onDone)opt.onDone(right,items.length);
+    box.innerHTML='<div class="done">🎉 答對 <b>'+right+'</b> / '+items.length+' 題　'+(st?"再加 "+st+" 顆星！":"")+'<br>'+(right===items.length?"全對！太厲害了！":"錯的地方再看一次課本，再挑戰一次吧！")+'</div><div class="btns cen"><button class="btn pink again">🔄 再玩一次</button></div>';
+    box.querySelector(".again").addEventListener("click",start);
+  }
+  start();
+  return {restart:start};
+}
+
+/* ---------- 課文 ---------- */
+var SAY=["走出花蓮的豐田車站，可以看見一間蘋果綠的日式建築。假日常有遊客慕名而來，在這間二手商店撿寶。這家店為什麼叫五味屋呢？",
+ "多年前，一群熱心人士努力保留了一間原本要被拆除的老房子。重整以後，在民國九十七年開幕，它是二手商店，同時是社區孩子重要的學習場所。",
+ "大學生、老師和志工陪伴孩子學習管理商店，當個好店長。孩子在工作中體會酸、甜、苦、辣、鹹的人生五味，這就是店名的由來。孩子工作得到點數，存在點數存摺裡，可以換日用品，也可以換到外地學習的機會。",
+ "推動五味屋成立的顧瑜君老師說：人只要願意參與，事情就有可能。孩子們從陪伴中得到支持，在參與和學習中變得獨立，讓未來充滿希望。"];
+each(document.querySelectorAll("[data-say]"),function(b){b.addEventListener("click",function(){say(SAY[+b.getAttribute("data-say")]);});});
+/* 五味屋故事順序：依序點 */
+function startSteps(){
+  var box=$("stepBox"),done=0,errs=0,items=C.shuffle(C.STEPS);
+  function draw(){
+    var h='<ol class="stepdone">';for(var k=0;k<done;k++)h+='<li><b>'+C.STEPS[k].w+'</b>'+C.STEPS[k].t+'</li>';h+='</ol>';
+    if(done<C.STEPS.length){h+='<div class="q">第 '+(done+1)+' 件事是什麼？</div><div class="steps">';
+      items.forEach(function(s){h+='<button class="btn white'+(s.n<=done?" ok":"")+'" data-n="'+s.n+'"'+(s.n<=done?" disabled":"")+'>'+s.t+'</button>';});h+='</div><div class="fb" id="stFb"></div>';}
+    else{var st=errs===0?3:errs<=2?2:1;addStars(st,box);store.cookDone=(store.cookDone||0)+1;if(errs===0)store.cookPerfect=(store.cookPerfect||0)+1;save();
+      h+='<div class="done">🏠 五味屋的故事排好了！錯 '+errs+' 次，得到 '+st+' 顆星。'+(errs===0?"一次就排對，你是小導覽員！":"")+'</div><div class="btns cen"><button class="btn pink" id="stAgain">🔄 再排一次</button></div>';}
+    box.innerHTML=h;
+    if(done>=C.STEPS.length){$("stAgain").addEventListener("click",startSteps);return;}
+    each(box.querySelectorAll(".steps .btn"),function(b){b.addEventListener("click",function(){var n=+b.getAttribute("data-n");if(n<=done)return;
+      if(C.stepCheck(done,n)){beep(true);done++;say(C.STEPS[n-1].w+"，"+C.STEPS[n-1].t);draw();}
+      else{beep(false);errs++;miss("step");var f=$("stFb");f.className="fb show bad";f.textContent="還不是這一件喔！想想課文：老房子先怎麼了？後來呢？開幕以後孩子做什麼？";}});});
+  }
+  draw();
+}
+startSteps();
+runQuiz("partQ",function(){return C.shuffle(C.PARTS).map(function(p){return {q:"「"+p.d+"」",a:p.n,o:C.PARTS.map(function(x){return x.n;})};});},{type:"part"});
+runQuiz("readQ",function(){return C.READ.map(function(r){return {q:r.q,a:r.a,o:C.shuffle(r.o)};});},{type:"read",best:"read",onDone:function(r){store.readBest=Math.max(store.readBest||0,r);save();}});
+
+/* ---------- 生字 ---------- */
+var cur=C.CHARS[0];
+function moeLink(c){return "https://stroke-order.learningweb.moe.edu.tw/searchW.jsp?WORD="+encodeURIComponent(c);}
+function renderGrid(){var h="";C.CHARS.forEach(function(ch){h+='<button data-c="'+ch.c+'" class="'+(store.seen[ch.c]?"seen ":"")+(ch.c===cur.c?"on":"")+'" aria-label="'+ch.c+'">'+ch.c+'</button>';});$("charGrid").innerHTML=h;
+  each($("charGrid").querySelectorAll("button"),function(b){b.addEventListener("click",function(){showChar(C.charBy(b.getAttribute("data-c")),true);});});}
+function showChar(ch,tap){cur=ch;
+  if(tap&&!store.seen[ch.c]){store.seen[ch.c]=1;save();if(Object.keys(store.seen).length===C.CHARS.length)addStars(3,$("charGrid"));}
+  var bsf=ch.bf&&ch.bf!==ch.bs?"（在這個字裡寫成「"+ch.bf+"」）":"";
+  var h='<div class="bigc">'+ch.c+'</div><div class="zy">'+ch.zy+'</div><div class="cinfo">'+
+   '<div>🧩 部首：<b>'+ch.bs+'</b>'+bsf+'</div><div>✏️ 筆畫：部首外 <b>'+ch.ex+'</b> 畫／總共 <b>'+ch.tot+'</b> 畫</div>'+
+   '<div>📝 造詞：'+ch.words.map(function(w){return '<span class="chip">'+w+'</span>';}).join("")+'</div>'+
+   '<div>📖 課文裡：<span class="quote">'+ch.tx+'</span></div>'+
+   (ch.idiom?'<div>💡 成語：<span class="chip id">'+ch.idiom+'</span><span class="small">'+C.IDIOMS[ch.idiom]+'</span></div>':"")+
+   (ch.look?'<div>👀 小心形近字：「'+ch.c+'」和「'+ch.look+'」長得很像</div>':"")+
+   '<div class="btns"><button class="btn white small" id="sayC">🔊 念一念</button><a class="btn teal small ext" style="color:#fff;text-decoration:none;display:inline-flex;align-items:center" href="'+moeLink(ch.c)+'" target="_blank" rel="noopener">🎬 看筆順動畫</a></div></div>';
+  $("charDet").innerHTML=h;$("sayC").addEventListener("click",function(){say(ch.c+"，"+ch.words.join("，"));});
+  $("ghost").textContent=ch.c;clearPad();renderGrid();}
+/* 描寫板 */
+var pad=$("pad"),ctx=pad.getContext("2d"),drawing=false,ink=0,last=null;
+function clearPad(){ctx.clearRect(0,0,pad.width,pad.height);ink=0;$("padFb").className="fb";}
+function pos(e){var r=pad.getBoundingClientRect();return {x:(e.clientX-r.left)*pad.width/r.width,y:(e.clientY-r.top)*pad.height/r.height};}
+pad.addEventListener("pointerdown",function(e){drawing=true;last=pos(e);try{pad.setPointerCapture(e.pointerId);}catch(x){}e.preventDefault();});
+pad.addEventListener("pointermove",function(e){if(!drawing)return;var p=pos(e);ctx.strokeStyle="#2b2d42";ctx.lineWidth=16;ctx.lineCap="round";ctx.lineJoin="round";ctx.beginPath();ctx.moveTo(last.x,last.y);ctx.lineTo(p.x,p.y);ctx.stroke();ink+=Math.abs(p.x-last.x)+Math.abs(p.y-last.y);last=p;e.preventDefault();});
+function up(){drawing=false;}pad.addEventListener("pointerup",up);pad.addEventListener("pointercancel",up);pad.addEventListener("pointerleave",up);
+$("padClear").addEventListener("click",clearPad);
+$("padDone").addEventListener("click",function(){var f=$("padFb");
+  if(ink<120){f.className="fb show bad";f.innerHTML="先用手指照著淡淡的「"+cur.c+"」描一描喔！";return;}
+  var first=!store.wrote[cur.c];store.wrote[cur.c]=1;save();if(first)addStars(1,$("padDone"));beep(true);
+  f.className="fb show good";f.innerHTML="👍 寫好了「"+cur.c+"」！"+(first?"得到 1 顆星。":"")+" 已練習 "+Object.keys(store.wrote).length+" / "+C.CHARS.length+" 個字。";});
+showChar(cur,false);
+var cqType="bs",cq;
+function makeCQ(){return C.pick(C.CHARS,8).map(function(ch){return C.charQ(cqType,ch);});}
+cq=runQuiz("charQ",makeCQ,{type:"bs"});
+each(document.querySelectorAll("#cqSeg button"),function(b){b.addEventListener("click",function(){cqType=b.getAttribute("data-t");each(document.querySelectorAll("#cqSeg button"),function(x){x.classList.toggle("on",x===b);});cq.restart();});});
+runQuiz("lookQ",function(){return C.shuffle(C.LOOK).slice(0,8).map(function(l){return {q:l.s.replace("＿",'<span class="blank">（　）</span>'),a:l.a,o:C.shuffle([l.a,l.b]),tip:l.tip};});},{type:"look"});
+
+/* ---------- 語詞 ---------- */
+var wh="";C.WORDS.forEach(function(w){wh+='<div class="wcard"><b>'+w.w+'</b>'+w.m+'</div>';});$("wordList").innerHTML=wh;
+var ih="";for(var idm in C.IDIOMS)ih+='<div class="wcard"><b>'+idm+'</b>'+C.IDIOMS[idm]+'</div>';$("idiomList").innerHTML=ih;
+function startMatch(){
+  var set=C.pick(C.WORDS,6),selW=null,left=0,errs=0,box=$("matchBox");
+  box.innerHTML='<div class="match"><div class="col" id="mW"></div><div class="col" id="mM"></div></div><div class="fb" id="mFb"></div>';
+  C.shuffle(set).forEach(function(w){var b=document.createElement("button");b.className="btn";b.textContent=w.w;b.setAttribute("data-w",w.w);
+    b.addEventListener("click",function(){if(b.classList.contains("ok"))return;each(box.querySelectorAll("#mW .btn"),function(x){x.classList.remove("sel");});b.classList.add("sel");selW=w.w;say(w.w);});$("mW").appendChild(b);});
+  C.shuffle(set).forEach(function(w){var b=document.createElement("button");b.className="btn";b.textContent=w.m;
+    b.addEventListener("click",function(){if(b.classList.contains("ok"))return;var f=$("mFb");
+      if(!selW){f.className="fb show info";f.textContent="先點左邊的語詞喔！";return;}
+      if(C.matchCheck(selW,w.m)){beep(true);b.classList.add("ok");var wb=box.querySelector('#mW [data-w="'+selW+'"]');wb.classList.remove("sel");wb.classList.add("ok");b.disabled=true;wb.disabled=true;
+        f.className="fb show good";f.innerHTML="✅ 「"+selW+"」："+w.m;selW=null;left++;
+        if(left===set.length){store.matchDone=(store.matchDone||0)+1;var st=Math.max(1,3-errs);addStars(st,box);
+          box.insertAdjacentHTML("beforeend",'<div class="done">🎉 全部配對完成！錯 '+errs+' 次，得到 '+st+' 顆星。</div><div class="btns cen"><button class="btn pink" id="mAgain">🔄 換一組</button></div>');$("mAgain").addEventListener("click",startMatch);}}
+      else{beep(false);errs++;miss("word");b.classList.remove("no");void b.offsetWidth;b.classList.add("no");f.className="fb show bad";f.textContent="不太對，再想想「"+selW+"」是什麼意思。";}});
+    $("mM").appendChild(b);});
+}
+startMatch();
+runQuiz("fillQ",function(){return C.shuffle(C.FILL).map(function(f){return {q:f.s.replace("＿＿",'<span class="blank">（　　）</span>'),a:f.a,o:C.shuffle(f.opts)};});},{type:"fill"});
+
+/* ---------- 句型 ---------- */
+var INTRO={
+ phrase:'<h3>🪄「是……，同時是……」</h3><div class="formula"><span class="f1">五味屋是一間二手商店</span><span class="f2">同時</span><span class="f3">是社區孩子重要的學習場所</span></div><p class="lead">課本第 25 頁：「同時」可用來連接兩個<b>相同地位</b>的句子。同一個人或東西，有兩種身分或用途，就可以這樣說：隔壁的叔叔是一位郵差，<b>同時</b>是著名的作家。</p><p class="small">選出可以接在「同時是」後面、和前面地位相同的說法（題目自編）。</p>',
+ you:'<h3>🎁「從……中得到……」</h3><div class="formula"><span class="f1">從陪伴</span><span class="f2">中得到</span><span class="f3">支持</span></div><p class="lead">課文：豐田的孩子們<b>從</b>陪伴<b>中得到</b>支持。（字詞句練習單「我會照樣寫」）<br>前面放做了什麼事，後面放因此得到的收穫。</p><p class="small">題目是自編的照樣寫練習。</p>',
+ rhet:'<h3>❓ 用六何法練習提問</h3><div class="formula"><span class="f1">何人・何事</span><span class="f2">何時・何地</span><span class="f3">如何・為何</span></div><p class="lead">課本第 25 頁用「六何法」替五味屋提問：<b>何時</b>成立？在<b>何地</b>？有<b>哪些人</b>？是<b>什麼</b>樣的店？<b>如何</b>運作？<b>為什麼</b>充滿希望？<br>讀文章時用這六個問題問自己，就能抓到重點。</p><p class="small">前六題是課本上的提問，後六題是自編的。</p>',
+ conj:'<h3>🔗 連接詞選一選</h3><p class="lead"><b>只要……就……</b>：做到條件，就有結果。顧瑜君老師說：人<b>只要</b>願意參與，事情<b>就</b>有「可能」。<br><b>雖然……但是……</b>：前後意思轉折。<br><b>即使……也……</b>：就算發生了，結果也不變。<br><b>是……同時是……</b>：連接兩個相同地位的句子。</p><p class="small">習作第 22 頁有這些連接詞的練習；下面的句子是自編的。</p>'};
+var patK="phrase",pq;
+function makePat(){
+  if(patK==="phrase")return C.shuffle(C.PHRASE).map(function(p){return {q:p.p+'，同時是 <span class="blank">（　　）</span>。',a:p.a,o:C.shuffle(p.o),type:"phrase"};});
+  if(patK==="you")return C.shuffle(C.YOU).map(function(y){return {q:'從「'+y.a+'」中得到 <span class="blank">（　　）</span>',a:y.b,o:C.shuffle(y.o),tip:"從"+y.a+"中得到"+y.b+"，前面做的事帶來後面的收穫。",type:"you"};});
+  if(patK==="rhet")return C.shuffle(C.RHET).map(function(r){return {q:"「"+r.s+"」<br>這是六何法的哪一個提問？",a:r.a,o:C.RHET_OPTS.slice(),tip:r.why,type:"rhet"};});
+  return C.shuffle(C.CONJ).map(function(c){return {q:c.s.replace("＿＿",'<span class="blank">（　　）</span>'),a:c.a,o:C.shuffle(c.o),tip:c.tip,type:"conj"};});
+}
+function patIntro(){$("patIntro").innerHTML=INTRO[patK]+(store.pat[patK]?'<p class="small">✅ 這個練習已完成過</p>':"");}
+pq=runQuiz("patQ",makePat,{type:"phrase",onDone:function(){store.pat[patK]=1;save();patIntro();}});
+patIntro();
+each(document.querySelectorAll("#patSeg button"),function(b){b.addEventListener("click",function(){patK=b.getAttribute("data-k");each(document.querySelectorAll("#patSeg button"),function(x){x.classList.toggle("on",x===b);});patIntro();pq.restart();});});
+
+/* ---------- 挑戰：小標題分類 ---------- */
+var PCLS={born:"sp",run:"su",idea:"au"};
+function startSort(){
+  var items=C.shuffle(C.SORT),i=0,errs=0,box=$("sortBox"),placed={born:[],run:[],idea:[]};
+  function draw(){
+    var h='<div class="prog">';for(var k=0;k<items.length;k++)h+='<i class="'+(k<i?(items[k].ok?"ok":"no"):k===i?"cur":"")+'"></i>';
+    h+='</div>';
+    if(i<items.length){h+='<div class="q">「'+items[i].t+'」</div><div class="seasonbtns">';C.PERIODS.forEach(function(p){h+='<button class="btn '+PCLS[p.k]+'" data-s="'+p.k+'">'+p.e+'<br>'+p.n+'</button>';});h+='</div><div class="fb" id="sFb"></div>';}
+    h+='<div class="bins">';C.PERIODS.forEach(function(p){h+='<div class="bin '+PCLS[p.k]+'"><b>'+p.e+" "+p.n+'</b>'+placed[p.k].join("<br>")+'</div>';});h+='</div>';
+    if(i>=items.length){var st=errs===0?4:errs<=2?2:1;addStars(st,box);if(errs===0){store.timePerfect=(store.timePerfect||0)+1;save();}
+      h+='<div class="done">🎉 分類完成！錯 '+errs+' 次，得到 '+st+' 顆星。'+(errs===0?"全對，你是小標題分類王！":"")+'</div><div class="btns cen"><button class="btn pink" id="sAgain">🔄 再玩一次</button></div>';}
+    box.innerHTML=h;
+    if(i>=items.length){$("sAgain").addEventListener("click",startSort);return;}
+    each(box.querySelectorAll(".seasonbtns .btn"),function(b){b.addEventListener("click",function(){var sk=b.getAttribute("data-s"),it=items[i];
+      if(C.sortCheck(it.t,sk)){beep(true);if(it.ok!==false)it.ok=true;placed[sk].push(it.t);i++;draw();}
+      else{beep(false);errs++;it.ok=false;miss("period");var f=$("sFb");f.className="fb show bad";f.textContent="不是這個小標題喔！回去看看課文：誕生、運作、理念各寫了什麼。";}});});
+  }
+  draw();
+}
+startSort();
+/* ---------- 挑戰：綜合 ---------- */
+runQuiz("chBox",function(){return C.makeChallenge();},{type:"read",onDone:function(r){store.chBest=Math.max(store.chBest||0,r);save();}});
+
+/* ---------- 紀錄 ---------- */
+function renderRec(){
+  var s=store,g=C.badges(s);
+  $("stats").innerHTML='<div class="stat"><b>'+s.stars+'</b>⭐ 星星</div><div class="stat"><b>'+(s.readBest||0)+'/'+C.READ.length+'</b>閱讀理解最佳</div><div class="stat"><b>'+Object.keys(s.seen).length+'/'+C.CHARS.length+'</b>看過的生字</div><div class="stat"><b>'+Object.keys(s.wrote).length+'/'+C.CHARS.length+'</b>描寫過的字</div><div class="stat"><b>'+(s.chBest||0)+'/10</b>挑戰最佳</div><div class="stat"><b>'+Object.keys(s.pat).length+'/4</b>句型完成</div><div class="stat"><b>'+(s.cookDone||0)+'</b>排故事次數</div>';
+  $("badges").innerHTML=C.BADGES.map(function(b){return '<div class="bdg'+(g[b.id]?" got":"")+'">'+b.n+'<small>'+b.d+'</small></div>';}).join("");
+  var ks=Object.keys(s.bad).sort(function(a,b){return s.bad[b]-s.bad[a];});
+  $("mist").innerHTML=ks.length?'<table class="rec">'+ks.map(function(k){return "<tr><td>"+(TN[k]||k)+"</td><td>錯 "+s.bad[k]+" 次</td></tr>";}).join("")+"</table>":'<p class="small">還沒有錯題，繼續加油！</p>';
+}
+$("resetBtn").addEventListener("click",function(){if(!confirm("確定要清除這一課的所有紀錄嗎？"))return;store=fresh();save();renderScore();renderGrid();renderRec();});
+renderScore();
+})();
+</script>
+</body>
+</html>
