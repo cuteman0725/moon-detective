@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ff9f1c">
+<title>乘法直式工作坊 ✖️｜康軒數學 4上 整數的乘法</title>
+<style>
+
+:root{--ink:#2b2d42;--org:#ff9f1c;--sun:#ffd166;--pink:#ff6b9a;--blue:#4d96ff;--teal:#2a9d8f;--purple:#9b5de5;--wan:#9b5de5;--ge:#2a9d8f;--cw:clamp(30px,8.6vw,46px)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:#fff8ec;overflow-x:hidden}
+html,body{margin:0;padding:0}
+body{font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",system-ui,sans-serif;color:var(--ink);min-height:100vh;background:linear-gradient(180deg,#ffe8c2 0,#fff8ec 260px);padding-bottom:calc(92px + env(safe-area-inset-bottom))}
+header{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:8px;padding:10px 12px;padding-top:calc(10px + env(safe-area-inset-top));background:rgba(255,159,28,.97);color:#fff}
+header h1{font-size:clamp(17px,4.6vw,26px);margin:0;flex:1;letter-spacing:1px}
+.back{color:#fff;text-decoration:none;font-weight:800;background:rgba(255,255,255,.25);border-radius:999px;padding:8px 12px;font-size:15px;white-space:nowrap}
+.score{background:#fff;color:#a65c00;font-weight:900;border-radius:999px;padding:6px 12px;font-size:17px;white-space:nowrap;box-shadow:0 3px 0 #c97a00}
+.score.pop{animation:pop .5s}@keyframes pop{40%{transform:scale(1.3)}}
+main{max-width:1000px;margin:0 auto;padding:10px}
+section.page{display:none}section.page.active{display:block;animation:fadein .3s}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.card{background:#fff;border-radius:22px;padding:14px;margin:10px 0;box-shadow:0 6px 0 rgba(0,0,0,.1)}
+.card h2{margin:0 0 6px;font-size:clamp(20px,5vw,25px)}.card h3{margin:4px 0 6px;font-size:19px}
+.small{font-size:14px;color:#666;line-height:1.5}
+.lead{font-size:17px;line-height:1.65;margin:6px 0}
+.btn{appearance:none;border:none;border-radius:16px;padding:10px 14px;min-height:50px;font-size:17px;font-weight:800;cursor:pointer;background:var(--blue);color:#fff;box-shadow:0 4px 0 rgba(0,0,0,.22);font-family:inherit;touch-action:manipulation}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.22)}
+.btn.org{background:var(--org)}.btn.pink{background:var(--pink)}.btn.teal{background:var(--teal)}.btn.purple{background:var(--purple)}.btn.gray{background:#8d99ae}
+.btn.white{background:#fff;color:var(--ink);border:3px solid #ffe0b0}.btn.on{outline:4px solid var(--org);outline-offset:1px;background:#fff3dc}
+.btn.small{min-height:44px;font-size:15px;padding:6px 10px}
+.btn:disabled{opacity:.4}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0;align-items:center}
+.levels{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
+.title{font-size:22px;font-weight:900;text-align:center;margin:4px 0 8px}
+.bubble{background:#eef4ff;border-radius:18px;padding:12px 14px;font-size:18px;line-height:1.65;min-height:64px;border:3px solid #d6e4ff}
+.bubble b{color:#c1121f}
+.fb{margin-top:8px;border-radius:14px;padding:8px 12px;font-size:17px;line-height:1.55;display:none}
+.fb.show{display:block}.fb.good{background:#d8f3dc}.fb.bad{background:#fff3cd}.fb.info{background:#f3e8ff}
+.done{background:linear-gradient(135deg,#d8f3dc,#fff1a8);border-radius:18px;padding:12px;font-size:18px;line-height:1.6;margin-top:10px;display:none}
+.done.show{display:block}
+/* ---- quiz ---- */
+.q{font-size:22px;line-height:1.6;font-weight:800;text-align:center;margin:6px 0}
+.q .num{font-size:clamp(28px,7vw,40px);font-variant-numeric:tabular-nums;letter-spacing:2px}
+.q .red{color:#e63946;text-decoration:underline;text-decoration-thickness:4px}
+.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin-top:8px}
+.choices .btn{background:#fff;color:var(--ink);border:3px solid #d6e4ff;font-size:19px;min-height:58px}
+.choices .btn.ok{background:#d8f3dc;border-color:#2ec4b6}.choices .btn.no{background:#ffd6dc;border-color:#ff6b9a;animation:shake .4s}
+.cmp{display:flex;gap:10px;justify-content:center;margin-top:8px}.cmp .btn{font-size:34px;min-width:84px;min-height:70px}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.ansbox{font-size:30px;font-weight:900;text-align:center;border:3px solid #9db8ff;background:#f1f5ff;border-radius:16px;min-height:56px;padding:6px;font-variant-numeric:tabular-nums;letter-spacing:2px;margin:8px auto;max-width:420px}
+.pad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px auto 0;max-width:420px}
+.pad button{min-height:56px;font-size:26px;font-weight:900;border-radius:16px;background:#fff;box-shadow:0 4px 0 #e3c48f;border:3px solid #ffe0b0;font-family:inherit;color:var(--ink);cursor:pointer;touch-action:manipulation}
+.pad button:active{transform:translateY(3px);box-shadow:0 1px 0 #e3c48f}
+.pad button.fn{font-size:18px;background:#fff3dc}
+.prog{display:flex;gap:4px;justify-content:center;margin:4px 0}
+.prog i{width:22px;height:10px;border-radius:6px;background:#eee;display:block}.prog i.ok{background:#2ec4b6}.prog i.no{background:#ff6b9a}.prog i.cur{background:var(--sun)}
+/* ---- 直式 ---- */
+.work{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start}
+.work>.left{flex:1 1 320px;min-width:0}.work>.right{flex:1 1 300px;min-width:0}
+.sheetwrap{background:#fffdf7;border:3px solid #ffe0b0;border-radius:18px;padding:12px 8px;overflow-x:auto;display:flex;justify-content:center}
+.sheet{display:grid;gap:0;font-variant-numeric:tabular-nums;font-family:"Comic Sans MS","Chalkboard SE","PingFang TC",system-ui,sans-serif}
+.cell{width:var(--cw);height:calc(var(--cw)*1.18);display:flex;align-items:center;justify-content:center;font-size:calc(var(--cw)*.78);font-weight:800;position:relative;border-radius:8px;color:#222}
+.cell.top{height:calc(var(--cw)*.66);font-size:calc(var(--cw)*.44);color:#e63946;align-items:flex-end}
+.cell.ul{border-bottom:3px solid #333;border-radius:0}
+.cell.wan{box-shadow:inset -3px 0 0 #ff6b9a55;border-radius:0}
+.cell.res{color:#1a5fd0}
+.cell.hl{background:#fff1a8}
+.cell.cur{box-shadow:inset 0 0 0 4px var(--blue);background:#e3ecff;animation:blink 1s infinite}
+.cell.strike::after{content:"";position:absolute;left:18%;right:18%;top:50%;height:3px;background:#e63946;transform:rotate(-30deg)}
+.cell.bad{animation:shake .4s;background:#ffd6dc!important}
+.cell.ph{color:#bbb}
+@keyframes blink{50%{background:#fff}}
+/* ---- 紀錄 ---- */
+table.rec{border-collapse:collapse;width:100%;font-size:16px}
+table.rec td,table.rec th{padding:8px;border-bottom:1px solid #eee;text-align:left;vertical-align:top}
+.statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.stat{background:#fff3dc;border-radius:16px;padding:10px;text-align:center}.stat b{display:block;font-size:28px;color:#a65c00}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.bdg{background:#eee;border-radius:14px;padding:6px 10px;font-weight:800;color:#999;font-size:15px}.bdg.got{background:linear-gradient(135deg,#ffd166,#ff9f1c);color:#5a3b00}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;justify-content:space-around;background:#fff;padding:6px 4px;padding-bottom:calc(6px + env(safe-area-inset-bottom));box-shadow:0 -4px 16px rgba(0,0,0,.15)}
+nav.tabs button{flex:1;border:none;background:none;font-family:inherit;font-size:13px;font-weight:800;color:#666;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;border-radius:14px;cursor:pointer;min-height:60px;touch-action:manipulation}
+nav.tabs button span{font-size:26px;line-height:1}nav.tabs button.on{background:#ffe8c2;color:#8a4b00}
+.burst{position:fixed;z-index:99;pointer-events:none;font-size:30px;animation:fly 1.1s ease-out forwards}
+@keyframes fly{to{transform:translate(var(--dx),var(--dy)) rotate(360deg);opacity:0}}
+.tip{background:#fffbea;border:3px dashed var(--sun);border-radius:16px;padding:8px 12px;font-size:16px;line-height:1.6;margin-top:8px}
+
+.cell.hd{height:20px;font-size:12px;color:#999;font-weight:800;align-items:flex-end}
+.cell.top.sumc{height:calc(var(--cw)*.5)}
+.cell.bz{color:#e76f51}
+.cell.sign{color:#555}
+.cell.used{background:#ffe0e9;box-shadow:inset 0 0 0 3px var(--pink)}
+.lab{display:flex;align-items:center;font-size:14px;font-weight:800;color:#8a4b00;padding-left:8px;white-space:nowrap}
+.seg{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+.inrow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:20px;font-weight:900}
+.inrow input{width:120px;font-size:22px;font-weight:900;padding:8px;border-radius:12px;border:3px solid #9db8ff;font-family:inherit;text-align:center}
+table.xp{border-collapse:separate;border-spacing:3px;margin:6px auto;font-variant-numeric:tabular-nums;font-size:17px}
+table.xp td,table.xp th{padding:6px 8px;border-radius:10px;text-align:center}
+table.xp th{background:#ffe8c2}
+table.xp td{background:#f6f6f6;font-weight:800}
+table.xp td.v{background:#e3ecff;color:#1a5fd0}
+table.xp tr.tot td{background:#d8f3dc}
+.zpat{font-size:clamp(20px,5.4vw,28px);font-weight:900;font-variant-numeric:tabular-nums;line-height:1.7;text-align:center}
+.zpat .z{color:#e76f51}
+.areawrap{overflow-x:auto;text-align:center}
+.areawrap svg{max-width:100%;height:auto}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;justify-content:center;font-size:16px;font-weight:800;margin-top:6px}
+.legend i{display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-2px;margin-right:4px}
+.word{font-size:20px;line-height:1.7;font-weight:800;background:#fffdf7;border:3px solid #ffe0b0;border-radius:16px;padding:10px 14px}
+.hidden{display:none!important}
+@media(max-width:600px){.lab{font-size:11px;padding-left:4px}.inrow input{width:96px}}
+</style>
+</head>
+<body>
+<header>
+  <a class="back" href="../">← 數學</a>
+  <h1>✖️ 乘法直式工作坊</h1>
+  <div class="score" id="score">⭐ 0</div>
+</header>
+<main>
+
+<!-- ============ 學習 ============ -->
+<section class="page active" id="p-learn">
+  <div class="card">
+    <h2>📖 第二單元 整數的乘法</h2>
+    <p class="small">康軒 4上 第二單元：2-1 四位數×一位數、2-2 一、二位數×二位數、2-3 三、四位數×二位數。選一節開始：</p>
+    <div class="seg" id="seg">
+      <button class="btn white on" data-s="21">2-1 四位數×一位數</button>
+      <button class="btn white" data-s="22">2-2 一、二位數×二位數</button>
+      <button class="btn white" data-s="23">2-3 三、四位數×二位數</button>
+    </div>
+  </div>
+
+  <div id="l21">
+    <div class="card">
+      <h3>🪙 用定位板拆開來想</h3>
+      <p class="lead">四位數 × 一位數，就是把<b>千、百、十、一</b>每一位都乘一次，再合起來。</p>
+      <div class="btns" id="xpPresets"></div>
+      <div id="xpBox"></div>
+    </div>
+    <div class="card">
+      <h3>✨ 補 0 魔法：整十、整百、整千 × 一位數</h3>
+      <div class="zpat" id="zp21"></div>
+      <div class="btns"><button class="btn small org" id="zp21New">🎲 換一題</button></div>
+      <div class="tip" id="zp21Tip"></div>
+    </div>
+  </div>
+
+  <div id="l22" class="hidden">
+    <div class="card">
+      <h3>🔟 乘以整十：先乘，再補 0</h3>
+      <div class="zpat" id="zp22"></div>
+      <div class="btns"><button class="btn small org" id="zp22New">🎲 換一題</button></div>
+      <div class="tip">乘以 <b>10</b> 就是在後面<b>加一個 0</b>；乘以<b>整十</b>（例如 30）就是先乘 3，再補 1 個 0；<b>整十 × 整十</b>（例如 40×60）就是 4×6 後再補 <b>2 個 0</b>。</div>
+    </div>
+    <div class="card">
+      <h3>🟦 用方格看二位數 × 二位數</h3>
+      <p class="lead" id="areaLead"></p>
+      <div class="btns" id="areaPresets"></div>
+      <div class="areawrap" id="areaBox"></div>
+      <div class="legend" id="areaLegend"></div>
+      <div class="tip" id="areaTip"></div>
+    </div>
+  </div>
+
+  <div id="l23" class="hidden">
+    <div class="card">
+      <h3>🏗️ 三、四位數 × 二位數：三個重點</h3>
+      <div class="tip">① <b>第①行</b>：用乘數的<b>個位</b>去乘，從個位開始寫。<br>
+      ② <b>第②行</b>：用乘數的<b>十位</b>去乘，它其實是「幾個十」，所以要<b>從十位開始寫</b>（個位空著，或寫一個灰色的 0）。<br>
+      ③ 把兩行<b>部分積</b>加起來，同一直行對齊相加。</div>
+      <div class="tip">🕳️ <b>缺位</b>（像 3<b>0</b>62 中間的 0）也要乘！0 乘任何數都是 0，但是<b>別忘了加上進位</b>。</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🐢 直式一步一步來</h3>
+    <div class="btns" id="dPresets"></div>
+    <div class="inrow"><input id="dA" inputmode="numeric" maxlength="5" aria-label="被乘數"> × <input id="dB" inputmode="numeric" maxlength="3" aria-label="乘數"> <button class="btn small purple" id="dGo">自己出題</button></div>
+    <div class="msg" id="dMsg"></div>
+    <div class="work">
+      <div class="left"><div class="sheetwrap"><div class="sheet" id="dSheet"></div></div></div>
+      <div class="right">
+        <div class="bubble" id="dBubble"></div>
+        <div class="btns">
+          <button class="btn gray" id="dPrev">◀ 上一步</button>
+          <button class="btn org" id="dNext">下一步 ▶</button>
+          <button class="btn teal small" id="dSay">🔊 唸給我聽</button>
+          <button class="btn white small" id="dAll">⏩ 全部</button>
+          <button class="btn white small" id="dRe">⟲ 重來</button>
+        </div>
+        <p class="small">黃色＝正在用的數字；粉紅框＝要加上的進位；灰色 0＝可以不寫的 0。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 練習 ============ -->
+<section class="page" id="p-prac">
+  <div class="card">
+    <h2>✏️ 直式練習</h2>
+    <div class="levels" id="levels"></div>
+  </div>
+  <div class="card">
+    <div class="title" id="pTitle"></div>
+    <div class="work">
+      <div class="left"><div class="sheetwrap"><div class="sheet" id="pSheet"></div></div></div>
+      <div class="right">
+        <div class="bubble" id="pBubble"></div>
+        <div class="pad" id="pPad"></div>
+        <div class="btns"><button class="btn small white" id="pHl">🔦 提示框：開</button><button class="btn small white" id="pSkip">換一題</button></div>
+        <div class="fb" id="pFb"></div>
+        <div class="done" id="pDone"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 補0快算 ============ -->
+<section class="page" id="p-quick">
+  <div class="card">
+    <h2>⚡ 補 0 快算</h2>
+    <p class="small">不用直式！先算前面的數字，再數一數要補幾個 0。一回 10 題。</p>
+    <div class="levels" id="qTypes"></div>
+  </div>
+  <div class="card">
+    <div class="prog" id="qProg"></div>
+    <div class="q" id="qQ"></div>
+    <div class="ansbox" id="qAns"></div>
+    <div class="pad" id="qPad"></div>
+    <div class="fb" id="qFb"></div>
+    <div class="done" id="qDone"></div>
+  </div>
+</section>
+
+<!-- ============ 應用題 ============ -->
+<section class="page" id="p-word">
+  <div class="card">
+    <h2>📝 生活應用題</h2>
+    <div class="word" id="wText"></div>
+    <p class="lead">① 要用哪一個算式？</p>
+    <div class="choices" id="wChoices"></div>
+    <div class="fb" id="wFb"></div>
+    <div id="wWork" class="hidden">
+      <p class="lead">② 用直式算算看：</p>
+      <div class="work">
+        <div class="left"><div class="sheetwrap"><div class="sheet" id="wSheet"></div></div></div>
+        <div class="right"><div class="bubble" id="wBubble"></div><div class="pad" id="wPad"></div><div class="fb" id="wFb2"></div></div>
+      </div>
+    </div>
+    <div class="done" id="wDone"></div>
+    <div class="btns"><button class="btn org" id="wNew">下一題 ▶</button></div>
+  </div>
+</section>
+
+<!-- ============ 紀錄 ============ -->
+<section class="page" id="p-rec">
+  <div class="card">
+    <h2>🏆 我的紀錄</h2>
+    <div class="statgrid" id="stats"></div>
+    <div class="badges" id="badges"></div>
+  </div>
+  <div class="card">
+    <h3>🔍 常錯的地方</h3>
+    <div id="mist"></div>
+  </div>
+  <div class="card">
+    <h3>📝 最近寫錯的題目</h3>
+    <div id="recent"></div>
+    <div class="btns"><button class="btn small gray" id="resetBtn">清除紀錄</button></div>
+  </div>
+</section>
+</main>
+
+<nav class="tabs" id="tabs">
+  <button class="on" data-p="p-learn"><span>📖</span>學習</button>
+  <button data-p="p-prac"><span>✏️</span>直式練習</button>
+  <button data-p="p-quick"><span>⚡</span>補0快算</button>
+  <button data-p="p-word"><span>📝</span>應用題</button>
+  <button data-p="p-rec"><span>🏆</span>紀錄</button>
+</nav>
+<script id="core">
+/* ===== core: 整數的乘法 pure helpers (testable in node) ===== */
+var Core=(function(){
+"use strict";
+var PLACE=["個","十","百","千","萬","十萬","百萬","千萬","億"];
+var UNIT=["一","十","百","千","萬"];
+function p10(i){return Math.pow(10,i);}
+function digits(n){return String(n).split("").reverse().map(Number);}
+function tzOf(b){var t=0;if(b<10)return 0;while(b>=10&&b%10===0){b/=10;t++;}return t;}
+/* Build a step-by-step 直式 multiplication sheet for a × b.
+   rows: 0 place header, 1 carries(top), 2 a, 3 ×b, 4.. partial products, then (m>1) sum-carries + sum */
+function build(a,b){
+  a=+a;b=+b;
+  var tz=tzOf(b),core=b/p10(tz),cs=digits(core),m=cs.length,ad=digits(a),la=ad.length,P=a*b,S=a*core;
+  var W=Math.max(String(P).length,la+tz,String(b).length)+1,aEnd=W-1-tz,i,j,t;
+  var sh={a:a,b:b,tz:tz,core:core,m:m,W:W,P:P,S:S,aEnd:aEnd,static:[],steps:[],ul:[3],ph:[],labels:[],rows:{}};
+  for(i=0;i<la;i++)sh.static.push({r:2,c:aEnd-i,ch:String(ad[i])});
+  sh.static.push({r:3,c:0,ch:"×",sign:true});
+  var bd=digits(b);for(i=0;i<bd.length;i++)sh.static.push({r:3,c:W-1-i,ch:String(bd[i]),bz:i<tz});
+  var steps=sh.steps;
+  function zeroSteps(row){for(var z=0;z<tz;z++)steps.push({r:row,c:W-1-z,ch:"0",kind:"tz",row:row,
+    text:z===0?"乘數 "+b+" 是 <b>"+core+" 個"+UNIT[tz]+"</b>，所以答案最右邊先<b>補 "+tz+" 個 0</b>，再算 "+a+" × "+core+"。"+(tz>1?"先補第 1 個 0。":""):"再補第 "+(z+1)+" 個 0。"});}
+  function ppSteps(row,j,bj,intro){var carry=0,end=aEnd-j,bcol=aEnd-j;
+    for(t=0;t<la;t++){var ak=ad[t],x=ak*bj+carry,cin=carry,last=t===la-1;carry=Math.floor(x/10);
+      var txt=(t===0?intro:"")+(ak===0?"這一位是 <b>0</b>（缺位）也要乘！":"")+"<b>"+bj+" × "+ak+" ＝ "+(ak*bj)+"</b>"+(cin?"，再加上進位 "+cin+" ＝ "+x:"")+"，在"+PLACE[t+j+tz]+"位寫 <b>"+(x%10)+"</b>"+(!last&&carry?"，把 <b>"+carry+"</b> 進到"+PLACE[t+j+tz+1]+"位（寫在上面小小的）":"")+"。";
+      steps.push({r:row,c:end-t,ch:String(x%10),kind:"pp",row:row,j:j,t:t,ak:ak,bj:bj,cin:cin,x:x,first:t===0,
+        hl:[[2,aEnd-t],[3,bcol]],carryOut:(!last&&carry)?{c:aEnd-t-1,v:carry}:null,text:txt});}
+    if(carry)steps.push({r:row,c:end-la,ch:String(carry),kind:"pp",row:row,j:j,t:la,fc:true,bj:bj,cin:carry,x:carry,hl:[[3,bcol]],carryOut:null,
+      text:"最後的進位 <b>"+carry+"</b> 直接寫在"+PLACE[la+j+tz]+"位。"});
+  }
+  if(m===1){sh.rows.res=4;sh.nrows=5;zeroSteps(4);
+    ppSteps(4,0,core,tz?"接著用 <b>"+core+"</b> 從個位開始，依序乘 "+a+" 的每一位：":"用 <b>"+core+"</b> 從個位開始，依序乘 "+a+" 的每一位：");
+    sh.labels.push({r:4,text:a+"×"+b});}
+  else{
+    for(j=0;j<m;j++){var row=4+j,bj=cs[j],pv=a*bj*p10(j);
+      for(i=0;i<j;i++)sh.ph.push({r:row,c:aEnd-i,ch:"0"});
+      var intro=j===0?"第①行（部分積）：先用乘數<b>個位的 "+bj+"</b> 去乘 "+a+"，"+a+" × "+bj+" ＝ "+(a*bj)+"。從個位開始：":
+        "第"+"①②③④"[j]+"行：用乘數<b>"+PLACE[j]+"位的 "+bj+"</b> 去乘。"+PLACE[j]+"位的 "+bj+" 其實是 <b>"+bj*p10(j)+"</b>，"+a+" × "+bj*p10(j)+" ＝ "+pv+"，所以最右邊的 "+j+" 位是 0（灰色的 0 可以不寫），從<b>"+PLACE[j]+"位</b>開始寫：";
+      ppSteps(row,j,bj,intro);
+      sh.labels.push({r:row,text:"①②③④"[j]+" "+a+"×"+bj*p10(j)});}
+    sh.ul.push(3+m);var sr=5+m;sh.rows.sumTop=4+m;sh.rows.sum=sr;sh.nrows=6+m;
+    zeroSteps(sr);
+    var sd=digits(S),carry=0;
+    for(i=0;i<sd.length;i++){var list=[];
+      for(j=0;j<m;j++){var ps=digits(a*cs[j]);if(i>=j&&i-j<ps.length)list.push(ps[i-j]);}
+      var x=carry,cin=carry;list.forEach(function(v){x+=v;});carry=Math.floor(x/10);
+      if(x%10!==sd[i])throw new Error("sum mismatch");
+      var head=i===0?"最後把每一行部分積<b>加起來</b>，同一直行的數字相加，個位對個位："+(tz?"":""):"";
+      var body=(list.length===1&&!cin)?PLACE[i+tz]+"位只有 "+list[0]+"，直接寫 <b>"+list[0]+"</b>。":list.length?PLACE[i+tz]+"位："+list.join(" ＋ ")+(cin?" ＋ 進位 "+cin:"")+" ＝ "+x+"，寫 <b>"+(x%10)+"</b>"+(carry&&i<sd.length-1?"，進 <b>"+carry+"</b> 到"+PLACE[i+tz+1]+"位":"")+"。":
+        "只剩進位 <b>"+cin+"</b>，直接寫在"+PLACE[i+tz]+"位。";
+      steps.push({r:sr,c:aEnd-i,ch:String(x%10),kind:"sum",row:sr,i:i,list:list,cin:cin,x:x,first:i===0,
+        carryOut:(carry&&i<sd.length-1)?{c:aEnd-i-1,v:carry}:null,text:head+body});}
+    sh.labels.push({r:sr,text:"①＋②"+(m>2?"＋…":"")});
+  }
+  sh.finalText="完成！<b>"+a+" × "+b+" ＝ "+P+"</b>";
+  sh.answerRow=m===1?4:5+m;
+  return sh;
+}
+/* read the answer that a full sheet shows on its answer row */
+function sheetAnswer(sh){var s="";var cells=sh.steps.filter(function(x){return x.r===sh.answerRow;}).sort(function(p,q){return p.c-q.c;});
+  cells.forEach(function(x){s+=x.ch;});return +s;}
+/* place-value breakdown (定位板拆解) of a × d (d one digit) */
+function expand(a,d){var ad=digits(a),out=[];for(var i=ad.length-1;i>=0;i--)out.push({place:PLACE[i],i:i,digit:ad[i],count:ad[i]*d,val:ad[i]*p10(i)*d});return out;}
+/* 補0 shortcut explanation for numbers like 3000×4, 40×60, 24×30 */
+function zeroTrick(a,b){var za=tzOf(a)*(a>=10?1:0),zb=tzOf(b),ca=a/p10(za),cb=b/p10(zb),core=ca*cb,ans=a*b;
+  var z=za+zb,ctz=tzOf(core);
+  return {a:a,b:b,ca:ca,cb:cb,core:core,zeros:z,ans:ans,trap:core%10===0,
+    text:ca+" × "+cb+" ＝ "+core+"，"+(za&&zb?a+" 有 "+za+" 個 0、"+b+" 有 "+zb+" 個 0，":(za?a+" 後面有 "+za+" 個 0，":b+" 後面有 "+zb+" 個 0，"))+"再補 <b>"+z+" 個 0</b> → <b>"+ans+"</b>"+(core%10===0?"。（注意："+core+" 本來就有 0，補完一共有 "+(z+ctz)+" 個 0！）":"。")};}
+function areaParts(a,b){var at=Math.floor(a/10)*10,ao=a%10,bt=Math.floor(b/10)*10,bo=b%10;
+  return {a:a,b:b,at:at,ao:ao,bt:bt,bo:bo,parts:[{x:at,y:bt,v:at*bt},{x:ao,y:bt,v:ao*bt},{x:at,y:bo,v:at*bo},{x:ao,y:bo,v:ao*bo}],rowOnes:a*bo,rowTens:a*bt,total:a*b};}
+function ri(lo,hi,rnd){rnd=rnd||Math.random;return lo+Math.floor(rnd()*(hi-lo+1));}
+function hasMidZero(a){var s=String(a);return s.slice(1,-1).indexOf("0")>=0;}
+function withMidZero(len,rnd){var s=String(ri(1,9,rnd));for(var i=1;i<len;i++)s+=String(ri(0,9,rnd));
+  var arr=s.split(""),k=ri(1,len-2,rnd);arr[k]="0";if(arr[len-1]==="0")arr[len-1]=String(ri(1,9,rnd));return +arr.join("");}
+function b2(rnd){var b;do{b=ri(12,99,rnd);}while(b%10===0||b%11===0&&rnd()<.5);return b;}
+var LEVELS={1:"四位×一位",2:"二位×二位",3:"三位×二位",4:"四位×二位",5:"缺位挑戰",6:"綜合"};
+function gen(level,rnd){rnd=rnd||Math.random;var a,b;level=+level;
+  if(level===6)level=ri(1,5,rnd);
+  if(level===1){a=rnd()<.45?withMidZero(4,rnd):ri(1001,9999,rnd);b=ri(2,9,rnd);}
+  else if(level===2){a=ri(12,99,rnd);b=rnd()<.2?ri(2,9,rnd)*10:b2(rnd);}
+  else if(level===3){a=ri(101,999,rnd);b=b2(rnd);}
+  else if(level===4){a=ri(1001,9999,rnd);b=b2(rnd);}
+  else {a=rnd()<.5?withMidZero(3,rnd):withMidZero(4,rnd);b=b2(rnd);}
+  return {a:a,b:b,level:level};}
+/* 補0快算 questions */
+var QTYPES={k1:"整十、整百、整千 × 一位數",k2:"一位數 × 整十",k3:"整十 × 整十",k4:"× 10",k5:"二位數 × 整十"};
+function genQuick(type,rnd){rnd=rnd||Math.random;var a,b;
+  if(!type||type==="mix")type=["k1","k1","k2","k3","k4","k5"][ri(0,5,rnd)];
+  if(type==="k1"){a=ri(1,9,rnd)*p10(ri(1,3,rnd));b=ri(2,9,rnd);}
+  else if(type==="k2"){a=ri(2,9,rnd);b=ri(2,9,rnd)*10;}
+  else if(type==="k3"){a=ri(2,9,rnd)*10;b=ri(2,9,rnd)*10;}
+  else if(type==="k4"){a=rnd()<.6?ri(11,99,rnd):ri(101,999,rnd);if(a%10===0)a++;b=10;}
+  else {a=ri(11,49,rnd);if(a%10===0)a++;b=ri(2,9,rnd)*10;}
+  var z=zeroTrick(a,b);
+  if(type==="k4")z.text=a+" × 10：乘以 10 就是在 "+a+" 的後面<b>加一個 0</b> → <b>"+(a*10)+"</b>。";
+  if(type==="k5")z.text=a+" × "+(b/10)+" ＝ "+(a*b/10)+"，"+b+" 是 "+(b/10)+" 個十，再補 <b>1 個 0</b> → <b>"+(a*b)+"</b>。";
+  return {type:type,a:a,b:b,ans:a*b,text:z.text,trap:z.trap};}
+/* 應用題 */
+var WORDS=[
+  {t:"一張遊樂園門票 {a} 元，學校買了 {b} 張，一共要付多少元？",u:"元",ans:"一共要付 {p} 元"},
+  {t:"一臺腳踏車賣 {a} 元，車行這個月賣出 {b} 臺，一共賣得多少元？",u:"元",ans:"一共賣得 {p} 元"},
+  {t:"瑄瑄每天走 {a} 步，{b} 天一共走了幾步？",u:"步",ans:"一共走了 {p} 步"},
+  {t:"一捲緞帶長 {a} 公分，{b} 捲一共長幾公分？",u:"公分",ans:"一共長 {p} 公分"},
+  {t:"一本故事書有 {a} 頁，圖書館有 {b} 本一樣的書，一共有幾頁？",u:"頁",ans:"一共有 {p} 頁"},
+  {t:"一包米重 {a} 公克，{b} 包一共重幾公克？",u:"公克",ans:"一共重 {p} 公克"},
+  {t:"一箱蘋果賣 {a} 元，阿姨買了 {b} 箱，一共要付多少元？",u:"元",ans:"一共要付 {p} 元"},
+  {t:"每一班有 {a} 張色紙，全校有 {b} 班，一共有幾張色紙？",u:"張",ans:"一共有 {p} 張"}];
+function genWord(rnd){rnd=rnd||Math.random;var w=WORDS[ri(0,WORDS.length-1,rnd)],r=rnd(),a,b;
+  if(r<.25){a=ri(1001,2999,rnd);b=ri(3,9,rnd);}else if(r<.8){a=ri(105,899,rnd);b=b2(rnd);if(b>60)b=ri(12,48,rnd);}else{a=ri(1050,2500,rnd);b=ri(12,36,rnd);if(b%10===0)b++;}
+  var fill=function(s){return s.replace("{a}",a).replace("{b}",b).replace("{p}",a*b);};
+  var choices=[{e:a+" × "+b,ok:true},{e:a+" ＋ "+b,ok:false},{e:a+" － "+b,ok:false},{e:a+" ÷ "+b,ok:false}];
+  return {text:fill(w.t),a:a,b:b,p:a*b,unit:w.u,answer:"答："+fill(w.ans)+"。",choices:choices};}
+return {PLACE:PLACE,digits:digits,tzOf:tzOf,build:build,sheetAnswer:sheetAnswer,expand:expand,zeroTrick:zeroTrick,areaParts:areaParts,
+  gen:gen,genQuick:genQuick,genWord:genWord,hasMidZero:hasMidZero,withMidZero:withMidZero,LEVELS:LEVELS,QTYPES:QTYPES,ri:ri};
+})();
+if(typeof module!=="undefined")module.exports=Core;
+</script>
+<script>
+(function(){
+"use strict";
+if(typeof document==="undefined")return;
+var $=function(id){return document.getElementById(id);};
+var C=Core,KEY="mathMultiplyV1";
+function fresh(){return {stars:0,lv:{},bad:{},recent:[],quickRounds:0,quickPerfect:0,words:0,demos:0};}
+var store=fresh();
+try{var raw=localStorage.getItem(KEY);if(raw){var o=JSON.parse(raw);for(var k in o)store[k]=o[k];}}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
+var TN={carry:"🔺 忘了加進位",zero:"🕳️ 缺位的 0",times:"✖️ 乘法算錯",sum:"➕ 部分積相加",tz:"0️⃣ 忘了補 0",place:"📏 寫錯位置",quick:"⚡ 補 0 快算",word:"📝 應用題列式"};
+var TIPS={carry:"先乘，再加上寫在上面的小小進位，最後才寫個位數字。",zero:"0 × 任何數 ＝ 0，但前面進上來的數字還是要加！",times:"背熟九九乘法，不確定時用 🔊 聽一次步驟。",
+  sum:"部分積相加時，同一直行對齊；滿 10 要進位。",tz:"乘數是整十時，答案最右邊先補 0。",place:"第②行用十位乘，要從十位開始寫！",quick:"先算不是 0 的數字相乘，再數一數兩邊一共有幾個 0。",word:"「每一份有多少」×「有幾份」＝ 全部。"};
+function miss(t,p){store.bad[t]=(store.bad[t]||0)+1;store.recent.unshift({p:p,k:t});store.recent=store.recent.slice(0,10);save();}
+function renderScore(){$("score").textContent="⭐ "+store.stars;}
+function addStars(n,el){store.stars+=n;save();renderScore();var sc=$("score");sc.classList.remove("pop");void sc.offsetWidth;sc.classList.add("pop");
+  if(el){var r=el.getBoundingClientRect();for(var i=0;i<6;i++){var s=document.createElement("div");s.className="burst";s.textContent=["⭐","✨","🌟"][i%3];
+    s.style.left=(r.left+r.width/2)+"px";s.style.top=(r.top+20)+"px";s.style.setProperty("--dx",(Math.random()*200-100)+"px");s.style.setProperty("--dy",(-60-Math.random()*120)+"px");
+    document.body.appendChild(s);setTimeout(function(x){return function(){x.remove();};}(s),1200);}}}
+var actx=null;function beep(good){try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();(good?[660,880]:[260]).forEach(function(f,i){var o=actx.createOscillator(),g=actx.createGain();o.frequency.value=f;o.type="triangle";g.gain.setValueAtTime(.08,actx.currentTime+i*.08);g.gain.exponentialRampToValueAtTime(.001,actx.currentTime+i*.08+.2);o.connect(g);g.connect(actx.destination);o.start(actx.currentTime+i*.08);o.stop(actx.currentTime+i*.08+.25);});}catch(e){}}
+function say(t){try{if(!window.speechSynthesis)return;speechSynthesis.cancel();t=String(t).replace(/<[^>]+>/g,"").replace(/×/g,"乘").replace(/＝/g,"等於").replace(/＋/g,"加").replace(/－/g,"減").replace(/→/g,"，答案是");
+  var u=new SpeechSynthesisUtterance(t);u.lang="zh-TW";u.rate=.85;speechSynthesis.speak(u);}catch(e){}}
+function fb(id,cls,html){var e=$(id);e.className="fb show "+cls;e.innerHTML=html;}
+function fbHide(id){$(id).className="fb";}
+function show(id,on){$(id).classList.toggle("hidden",!on);}
+
+/* ---------- tabs ---------- */
+document.querySelectorAll("#tabs button").forEach(function(b){b.addEventListener("click",function(){
+  document.querySelectorAll("#tabs button").forEach(function(x){x.classList.toggle("on",x===b);});
+  document.querySelectorAll("section.page").forEach(function(s){s.classList.toggle("active",s.id===b.dataset.p);});
+  if(b.dataset.p==="p-rec")renderRec();window.scrollTo(0,0);});});
+function activePage(){var s=document.querySelector("section.page.active");return s?s.id:"";}
+
+/* ---------- 直式 renderer ---------- */
+function firstIdx(sh,row){for(var i=0;i<sh.steps.length;i++)if(sh.steps[i].r===row)return i;return 1e9;}
+function hlFor(sh,s){if(!s)return [];if(s.kind==="sum"){var h=[];for(var j=0;j<sh.m;j++)h.push([4+j,s.c]);return h;}return s.hl||[];}
+/* k = number of steps already written; cur = index of the step being asked (or -1) */
+function renderSheet(el,sh,k,o){o=o||{};var W=sh.W,R=sh.nrows,cells={},cls={},top={},sumc={},i,r,c;
+  function put(r,c,ch,cl){cells[r+"_"+c]=ch;if(cl)cls[r+"_"+c]=(cls[r+"_"+c]||"")+" "+cl;}
+  sh.static.forEach(function(s){put(s.r,s.c,s.ch,s.sign?"sign":(s.bz?"bz":""));});
+  for(i=0;i<k&&i<sh.steps.length;i++){var s=sh.steps[i];
+    if(s.kind==="pp"&&s.first)top={};
+    put(s.r,s.c,s.ch,"res");
+    if(s.carryOut){(s.kind==="pp"?top:sumc)[s.carryOut.c]=s.carryOut.v;}}
+  var pend=sh.steps[k];if(pend&&pend.kind==="pp"&&pend.first)top={};
+  sh.ph.forEach(function(p){if(k>=firstIdx(sh,p.r)&&!cells[p.r+"_"+p.c])put(p.r,p.c,p.ch,"ph");});
+  for(c in top)put(1,c,String(top[c]),"");
+  if(sh.rows.sumTop)for(c in sumc)put(sh.rows.sumTop,c,String(sumc[c]),"");
+  var focus=o.cur>=0?sh.steps[o.cur]:(k>0?sh.steps[k-1]:null);
+  if(o.showHl!==false&&focus){hlFor(sh,focus).forEach(function(h){put(h[0],h[1],cells[h[0]+"_"+h[1]]||"","hl");});
+    if(focus.kind==="pp"&&focus.cin&&!focus.fc&&top[sh.aEnd-focus.t]!==undefined)put(1,sh.aEnd-focus.t,String(top[sh.aEnd-focus.t]),"used");
+    if(focus.kind==="sum"&&focus.cin&&sumc[focus.c]!==undefined)put(sh.rows.sumTop,focus.c,String(sumc[focus.c]),"used");}
+  if(o.cur>=0&&sh.steps[o.cur]){var cs=sh.steps[o.cur];put(cs.r,cs.c,"","cur");}
+  else if(k>0&&o.cur===undefined){var ls=sh.steps[k-1];put(ls.r,ls.c,ls.ch,"hl");}
+  if(o.bad)cls[o.bad]=(cls[o.bad]||"")+" bad";
+  var labs={};sh.labels.forEach(function(l){if(k>=firstIdx(sh,l.r)||(o.cur>=0&&o.cur>=firstIdx(sh,l.r)))labs[l.r]=l.text;});
+  var h="";
+  for(r=0;r<R;r++){for(c=0;c<W;c++){var key=r+"_"+c,cl="cell";
+      if(r===0){cl+=" hd";h+='<div class="'+cl+'">'+(c>0?C.PLACE[W-1-c]:"")+"</div>";continue;}
+      if(r===1)cl+=" top";if(sh.rows.sumTop&&r===sh.rows.sumTop)cl+=" top sumc";
+      if(sh.ul.indexOf(r)>=0)cl+=" ul";
+      if(cls[key])cl+=cls[key];
+      h+='<div class="'+cl+'">'+(cells[key]||"")+"</div>";}
+    h+='<div class="lab">'+(labs[r]||"")+"</div>";}
+  el.style.gridTemplateColumns="repeat("+W+",var(--cw)) auto";
+  el.innerHTML=h;}
+
+/* ---------- 學習：一步一步 demo ---------- */
+var DP={"21":[[2347,3],[3058,4],[1609,6],[2000,3]],"22":[[6,30],[24,30],[23,14],[47,36]],"23":[[235,42],[408,27],[2346,35],[3062,45]]};
+var dSh=null,dK=0,sec="21";
+function dIntro(sh){return "<b>"+sh.a+" × "+sh.b+"</b>：位數多的寫上面，<b>個位對齊個位</b>"+(sh.tz?"（乘數最右邊的 0 可以先寫在外面）":"")+"。"+(sh.m>1?"乘數有兩位，所以會有<b>兩行部分積</b>。":"")+"按「下一步」開始！";}
+function dLoad(a,b){dSh=C.build(a,b);dK=0;$("dA").value=a;$("dB").value=b;$("dMsg").textContent="";dDraw();}
+function dDraw(){renderSheet($("dSheet"),dSh,dK);
+  var t=dK===0?dIntro(dSh):dSh.steps[dK-1].text;if(dK===dSh.steps.length)t+="<br>🎉 "+dSh.finalText;
+  $("dBubble").innerHTML=t;$("dPrev").disabled=dK===0;$("dNext").disabled=dK===dSh.steps.length;}
+function dPresets(){var h="";DP[sec].forEach(function(p,i){h+='<button class="btn small white'+(i===0?" on":"")+'" data-a="'+p[0]+'" data-b="'+p[1]+'">'+p[0]+" × "+p[1]+"</button>";});
+  $("dPresets").innerHTML=h;dLoad(DP[sec][0][0],DP[sec][0][1]);}
+$("dPresets").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;
+  $("dPresets").querySelectorAll("button").forEach(function(x){x.classList.toggle("on",x===b);});dLoad(+b.dataset.a,+b.dataset.b);});
+$("dNext").addEventListener("click",function(){if(dK<dSh.steps.length){dK++;dDraw();if(dK===dSh.steps.length){store.demos++;save();beep(true);}}});
+$("dPrev").addEventListener("click",function(){if(dK>0){dK--;dDraw();}});
+$("dAll").addEventListener("click",function(){dK=dSh.steps.length;dDraw();});
+$("dRe").addEventListener("click",function(){dK=0;dDraw();});
+$("dSay").addEventListener("click",function(){say($("dBubble").innerHTML);});
+$("dGo").addEventListener("click",function(){$("dMsg").textContent="";var a=parseInt($("dA").value,10),b=parseInt($("dB").value,10);
+  if(!(a>=1&&a<=99999&&b>=1&&b<=999)){$("dMsg").textContent="請輸入：被乘數 1～99999，乘數 1～999";return;}
+  if(String(b).length>String(a).length){var t=a;a=b;b=t;$("dMsg").textContent="位數多的放上面，幫你交換成 "+a+" × "+b;}
+  $("dPresets").querySelectorAll("button").forEach(function(x){x.classList.remove("on");});var m=$("dMsg").textContent;dLoad(a,b);$("dMsg").textContent=m;});
+
+/* 節次切換 */
+$("seg").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;sec=b.dataset.s;
+  $("seg").querySelectorAll("button").forEach(function(x){x.classList.toggle("on",x===b);});
+  ["21","22","23"].forEach(function(s){show("l"+s,s===sec);});dPresets();});
+
+/* 2-1 定位板拆解 */
+var XP=[[2347,3],[1608,5],[3000,4],[2125,4]];
+function xpDraw(a,d){var ex=C.expand(a,d),h='<p class="lead" style="text-align:center"><b style="font-size:26px">'+a+" × "+d+"</b></p>";
+  h+='<table class="xp"><tr><th>位</th><th>有幾個</th><th>× '+d+'</th><th>合起來</th></tr>';
+  ex.forEach(function(x){h+="<tr><td>"+x.place+"位</td><td>"+x.digit+" 個"+(x.i?["","十","百","千"][x.i]:"一")+"</td><td>"+x.digit+" × "+d+" ＝ "+x.count+"</td><td class='v'>"+x.count+" 個"+(x.i?["","十","百","千"][x.i]:"一")+" ＝ "+x.val+"</td></tr>";});
+  h+='<tr class="tot"><td colspan="3">全部加起來</td><td>'+ex.map(function(x){return x.val;}).join(" ＋ ")+" ＝ <b>"+(a*d)+"</b></td></tr></table>";
+  var notes=[];ex.slice().reverse().forEach(function(x){if(x.count>=10&&x.i<3)notes.push(x.count+" 個"+(x.i?["","十","百"][x.i]:"一")+" ＝ "+Math.floor(x.count/10)+" 個"+["十","百","千"][x.i]+" 和 "+(x.count%10)+" 個"+(x.i?["","十","百"][x.i]:"一"));});
+  if(notes.length)h+='<div class="tip">🔄 滿十就換到左邊一位：'+notes.join("；")+"。<br>這就是直式裡寫在上面的<b>進位</b>！</div>";
+  if(ex.some(function(x){return x.digit===0;})&&a%1000!==0)h+='<div class="tip">🕳️ 有一位是 0：0 個 × '+d+' 還是 0 個，但進位要記得加進去。</div>';
+  $("xpBox").innerHTML=h;}
+(function(){var h="";XP.forEach(function(p,i){h+='<button class="btn small white'+(i===0?" on":"")+'" data-a="'+p[0]+'" data-b="'+p[1]+'">'+p[0]+" × "+p[1]+"</button>";});h+='<button class="btn small org" data-r="1">🎲</button>';$("xpPresets").innerHTML=h;})();
+$("xpPresets").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;
+  $("xpPresets").querySelectorAll("button").forEach(function(x){x.classList.toggle("on",x===b);});
+  if(b.dataset.r)xpDraw(C.ri(1001,9999),C.ri(2,9));else xpDraw(+b.dataset.a,+b.dataset.b);});
+xpDraw(2347,3);
+
+function zMark(n,keep){var s=String(n),core=s.slice(0,s.length-keep);return core+'<span class="z">'+s.slice(s.length-keep)+"</span>";}
+function zp21(d,e){var h="";for(var i=0;i<=3;i++){var a=d*Math.pow(10,i);h+=zMark(a,i)+" × "+e+" ＝ "+zMark(a*e,i)+"<br>";}
+  $("zp21").innerHTML=h;var z=C.zeroTrick(d*1000,e);$("zp21Tip").innerHTML="規律："+z.text+(z.trap?"":"<br>如果前面相乘的答案本來就有 0（像 5×4＝20），補完以後 0 會更多喔！");}
+zp21(3,4);$("zp21New").addEventListener("click",function(){zp21(C.ri(2,9),C.ri(2,9));});
+function zp22(d,e){$("zp22").innerHTML=d+" × "+e+" ＝ "+(d*e)+"<br>"+d+" × "+zMark(e*10,1)+" ＝ "+zMark(d*e*10,1)+"<br>"+zMark(d*10,1)+" × "+zMark(e*10,1)+" ＝ "+zMark(d*e*100,2)+"<br>"+(d*10+e)+" × "+zMark(10,1)+" ＝ "+zMark((d*10+e)*10,1);}
+zp22(4,3);$("zp22New").addEventListener("click",function(){zp22(C.ri(2,9),C.ri(2,9));});
+
+/* 2-2 方格圖 */
+var AP=[[12,13],[23,14],[25,12],[31,22]];
+function areaDraw(a,b){var P=C.areaParts(a,b),k=Math.min(320/a,220/b,14),ox=44,oy=30,w=a*k,hh=b*k,W=ox+w+150,H=oy+hh+12;
+  var col=["#e9dcff","#c7f0e8","#ffe0b0","#ffd6dc"],str=["#9b5de5","#2a9d8f","#e09f3e","#ff6b9a"];
+  var s='<svg viewBox="0 0 '+W+" "+H+'" width="'+W+'" height="'+H+'" role="img" aria-label="'+a+"乘"+b+'的方格圖">';
+  var xs=[0,P.at*k],ys=[0,P.bt*k],ws=[P.at*k,P.ao*k],hs=[P.bt*k,P.bo*k];
+  for(var yi=0;yi<2;yi++)for(var xi=0;xi<2;xi++){var pw=ws[xi],ph=hs[yi];if(pw<=0||ph<=0)continue;var idx=yi*2+xi,pt=P.parts[idx];
+    s+='<rect x="'+(ox+xs[xi])+'" y="'+(oy+ys[yi])+'" width="'+pw+'" height="'+ph+'" fill="'+col[idx]+'" stroke="'+str[idx]+'" stroke-width="2"/>';
+    if(pw>=34&&ph>=26)s+='<text x="'+(ox+xs[xi]+pw/2)+'" y="'+(oy+ys[yi]+ph/2+6)+'" text-anchor="middle" font-size="'+(pw>=70?15:12)+'" font-weight="800" fill="#333">'+pt.x+"×"+pt.y+"</text>";}
+  if(k>=6){for(var gx=1;gx<a;gx++)s+='<line x1="'+(ox+gx*k)+'" y1="'+oy+'" x2="'+(ox+gx*k)+'" y2="'+(oy+hh)+'" stroke="#0001"/>';
+    for(var gy=1;gy<b;gy++)s+='<line x1="'+ox+'" y1="'+(oy+gy*k)+'" x2="'+(ox+w)+'" y2="'+(oy+gy*k)+'" stroke="#0001"/>';}
+  s+='<text x="'+(ox+P.at*k/2)+'" y="20" text-anchor="middle" font-size="16" font-weight="900" fill="#9b5de5">'+P.at+"</text>";
+  if(P.ao)s+='<text x="'+(ox+P.at*k+P.ao*k/2)+'" y="20" text-anchor="middle" font-size="16" font-weight="900" fill="#2a9d8f">'+P.ao+"</text>";
+  s+='<text x="'+(ox-8)+'" y="'+(oy+P.bt*k/2+6)+'" text-anchor="end" font-size="16" font-weight="900" fill="#9b5de5">'+P.bt+"</text>";
+  if(P.bo)s+='<text x="'+(ox-8)+'" y="'+(oy+P.bt*k+P.bo*k/2+6)+'" text-anchor="end" font-size="16" font-weight="900" fill="#e09f3e">'+P.bo+"</text>";
+  s+='<text x="'+(ox+w+10)+'" y="'+(oy+P.bt*k/2+6)+'" font-size="15" font-weight="900" fill="#333">'+a+"×"+P.bt+"＝"+P.rowTens+"</text>";
+  if(P.bo)s+='<text x="'+(ox+w+10)+'" y="'+(oy+P.bt*k+P.bo*k/2+6)+'" font-size="15" font-weight="900" fill="#333">'+a+"×"+P.bo+"＝"+P.rowOnes+"</text>";
+  s+="</svg>";$("areaBox").innerHTML=s;
+  $("areaLead").innerHTML="<b>"+a+" × "+b+"</b> 就是排成 "+b+" 排、每排 "+a+" 個的方格。把乘數 "+b+" 拆成 <b>"+P.bt+"</b> 和 <b>"+P.bo+"</b>：";
+  $("areaLegend").innerHTML=P.parts.map(function(p,i){return p.x&&p.y?'<span><i style="background:'+col[i]+";border:2px solid "+str[i]+'"></i>'+p.x+"×"+p.y+"＝"+p.v+"</span>":"";}).join("");
+  $("areaTip").innerHTML="下面 "+P.bo+" 排："+a+" × "+P.bo+" ＝ <b>"+P.rowOnes+"</b>（直式第①行）<br>上面 "+P.bt+" 排："+a+" × "+P.bt+" ＝ <b>"+P.rowTens+"</b>（直式第②行）<br>合起來："+P.rowOnes+" ＋ "+P.rowTens+" ＝ <b>"+P.total+"</b>";}
+(function(){var h="";AP.forEach(function(p,i){h+='<button class="btn small white'+(i===1?" on":"")+'" data-a="'+p[0]+'" data-b="'+p[1]+'">'+p[0]+" × "+p[1]+"</button>";});h+='<button class="btn small org" data-r="1">🎲</button>';$("areaPresets").innerHTML=h;})();
+$("areaPresets").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;
+  $("areaPresets").querySelectorAll("button").forEach(function(x){x.classList.toggle("on",x===b);});
+  var a,bb;if(b.dataset.r){a=C.ri(11,39);bb=C.ri(11,29);}else{a=+b.dataset.a;bb=+b.dataset.b;}areaDraw(a,bb);
+  if(sec==="22"){dLoad(a,bb);$("dPresets").querySelectorAll("button").forEach(function(x){x.classList.remove("on");});}});
+areaDraw(23,14);
+
+/* ---------- Runner：學生自己填直式 ---------- */
+function classify(sh,s,v){
+  if(s.kind==="tz")return {k:"tz",h:"乘數 "+sh.b+" 的最右邊是 0，答案這一位先<b>補 0</b>！"};
+  if(s.kind==="sum")return {k:"sum",h:"把這一直行的數字加起來"+(s.list.length?"："+s.list.join(" ＋ "):"")+(s.cin?"，還有進位 "+s.cin:"")+"。"};
+  if(s.fc)return {k:"carry",h:"最後還有進位要寫下來喔！看看上面小小的數字。"};
+  if(s.cin&&v===(s.ak*s.bj)%10)return {k:"carry",h:s.bj+" × "+s.ak+" ＝ "+(s.ak*s.bj)+"，別忘了<b>加上進位 "+s.cin+"</b>！"};
+  if(s.ak===0)return {k:"zero",h:"這一位是 0：<b>"+s.bj+" × 0 ＝ 0</b>"+(s.cin?"，再加上進位 "+s.cin:"")+"。"};
+  if(s.cin)return {k:"times",h:"先算 "+s.bj+" × "+s.ak+" ＝ ？再加上進位 "+s.cin+"，寫個位數字。"};
+  return {k:"times",h:"想一想：<b>"+s.bj+" × "+s.ak+"</b> ＝ ？寫個位數字。"};}
+function Runner(o){var R={sh:null,k:0,miss:0,tries:0,hl:true,done:true};
+  var h="";for(var d=1;d<=9;d++)h+='<button data-d="'+d+'">'+d+"</button>";h+='<button class="fn" data-f="hint">💡 提示</button><button data-d="0">0</button><button class="fn" data-f="say">🔊</button>';
+  $(o.pad).innerHTML=h;
+  function draw(bad){renderSheet($(o.sheet),R.sh,R.k,{cur:R.done?-1:R.k,showHl:R.hl,bad:bad});}
+  R.load=function(sh){R.sh=sh;R.k=0;R.miss=0;R.tries=0;R.done=false;fbHide(o.fb);draw();
+    $(o.bubble).innerHTML="<b>"+sh.a+" × "+sh.b+"</b>："+(sh.tz?"乘數最右邊有 0，先補 0。":"從<b>個位</b>開始。")+"按數字，填進<b>藍色框</b>。"+(sh.m>1?"第②行從十位開始寫喔！":"");};
+  R.press=function(v){if(R.done||!R.sh)return;var s=R.sh.steps[R.k];
+    if(String(v)===s.ch){R.k++;R.tries=0;fbHide(o.fb);
+      if(R.k===R.sh.steps.length){R.done=true;draw();$(o.bubble).innerHTML="🎉 "+R.sh.finalText;beep(true);o.onDone(R.miss);return;}
+      var n=R.sh.steps[R.k];$(o.bubble).innerHTML=n.row!==s.row?(n.kind==="sum"?"兩行都寫好了！現在把<b>部分積加起來</b>，從個位開始。":n.kind==="pp"&&n.j>0?"第①行完成！換乘數<b>"+C.PLACE[n.j]+"位的 "+n.bj+"</b>，從<b>"+C.PLACE[n.j]+"位</b>開始寫。":"很好，繼續！"):"✓ 對！下一格。";
+      draw();}
+    else{R.miss++;R.tries++;beep(false);var c=classify(R.sh,s,+v);miss(c.k,R.sh.a+" × "+R.sh.b);draw(s.r+"_"+s.c);
+      fb(o.fb,"bad",R.tries>=2?"💡 "+s.text:"再想想："+c.h);}};
+  R.hint=function(){if(R.done||!R.sh)return;var s=R.sh.steps[R.k];$(o.bubble).innerHTML="💡 "+s.text;};
+  $(o.pad).addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;
+    if(b.dataset.f==="hint")R.hint();else if(b.dataset.f==="say")say($(o.bubble).innerHTML);else R.press(b.dataset.d);});
+  R.redraw=function(){if(R.sh)draw();};
+  return R;}
+
+/* ---------- 直式練習 ---------- */
+var pLevel=1,pCount=0,pProb=null;
+var pR=Runner({sheet:"pSheet",bubble:"pBubble",pad:"pPad",fb:"pFb",onDone:function(m){
+  var st=m===0?3:m<=2?2:1;store.lv[pLevel]=(store.lv[pLevel]||0)+1;save();addStars(st,$("pDone"));
+  var d=$("pDone");d.className="done show";d.innerHTML=(m===0?"💯 全對！":"完成！錯了 "+m+" 次，下次會更好。")+" 得到 "+"⭐".repeat(st)+'<div class="btns"><button class="btn org" id="pNext">下一題 ▶</button></div>';
+  $("pNext").addEventListener("click",pNew);}});
+(function(){var h="",i;for(i=1;i<=6;i++)h+='<button class="btn white'+(i===1?" on":"")+'" data-l="'+i+'">'+["","①","②","③","④","⑤","⑥"][i]+" "+C.LEVELS[i]+"</button>";$("levels").innerHTML=h;})();
+$("levels").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;pLevel=+b.dataset.l;pCount=0;
+  $("levels").querySelectorAll("button").forEach(function(x){x.classList.toggle("on",x===b);});pNew();});
+function pNew(){pProb=C.gen(pLevel);pCount++;$("pDone").className="done";$("pTitle").textContent="第 "+pCount+" 題："+pProb.a+" × "+pProb.b+" ＝ ？";pR.load(C.build(pProb.a,pProb.b));}
+$("pSkip").addEventListener("click",pNew);
+$("pHl").addEventListener("click",function(){pR.hl=!pR.hl;$("pHl").textContent="🔦 提示框："+(pR.hl?"開":"關");pR.redraw();});
+pNew();
+
+/* ---------- 補0快算 ---------- */
+var qType="mix",qList=[],qI=0,qRes=[],qIn="",qWrong=false,qLock=false;
+(function(){var h='<button class="btn white on" data-t="mix">🎲 綜合</button>';for(var t in C.QTYPES)h+='<button class="btn white" data-t="'+t+'">'+C.QTYPES[t]+"</button>";$("qTypes").innerHTML=h;
+  var p="";for(var d=1;d<=9;d++)p+='<button data-d="'+d+'">'+d+"</button>";p+='<button class="fn" data-f="del">⌫</button><button data-d="0">0</button><button class="fn" data-f="ok">✓ 確定</button>';$("qPad").innerHTML=p;})();
+$("qTypes").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;qType=b.dataset.t;
+  $("qTypes").querySelectorAll("button").forEach(function(x){x.classList.toggle("on",x===b);});qStart();});
+function qStart(){qLock=false;qList=[];for(var i=0;i<10;i++)qList.push(C.genQuick(qType));qI=0;qRes=[];$("qDone").className="done";qShow();}
+function qShow(){var q=qList[qI];qIn="";qWrong=false;fbHide("qFb");$("qAns").textContent="";
+  $("qQ").innerHTML='<span class="num">'+q.a+" × "+q.b+" ＝ ？</span>";
+  $("qProg").innerHTML=qList.map(function(x,i){return '<i class="'+(qRes[i]===true?"ok":qRes[i]===false?"no":i===qI?"cur":"")+'"></i>';}).join("");}
+function qKey(f,d){if(qLock||qI>=qList.length)return;var q=qList[qI];
+  if(f==="del"){qIn=qIn.slice(0,-1);$("qAns").textContent=qIn;return;}
+  if(f==="ok"){if(!qIn)return;
+    if(+qIn===q.ans){if(qRes[qI]===undefined)qRes[qI]=true;beep(true);fb("qFb","good","✓ 答對了！"+q.text);qLock=true;setTimeout(qNext,qWrong?2200:1300);}
+    else{beep(false);if(qRes[qI]===undefined){qRes[qI]=false;miss("quick",q.a+" × "+q.b);}qWrong=true;fb("qFb","bad","再算一次：先算 "+q.text.split("，")[0]+"，再數一數 0。"+(qRes[qI]===false&&qIn.length&&qIn.replace(/0+$/,"")===String(q.ans).replace(/0+$/,"")?"<br>前面的數字對了，<b>0 的個數</b>再檢查！":""));qIn="";$("qAns").textContent="";}
+    return;}
+  if(qIn.length<8){qIn+=d;$("qAns").textContent=qIn;}}
+function qNext(){qLock=false;qI++;if(qI>=qList.length){var n=qRes.filter(function(x){return x;}).length;store.quickRounds++;if(n===10)store.quickPerfect++;save();
+    var st=n===10?5:n>=8?3:n>=5?2:1;addStars(st,$("qDone"));$("qProg").innerHTML=qRes.map(function(x){return '<i class="'+(x?"ok":"no")+'"></i>';}).join("");
+    var d=$("qDone");d.className="done show";d.innerHTML="這一回答對 <b>"+n+"</b> / 10 題，得到 "+"⭐".repeat(st)+'<div class="btns"><button class="btn org" id="qAgain">再來一回</button></div>';$("qAgain").addEventListener("click",qStart);return;}
+  qShow();}
+$("qPad").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;qKey(b.dataset.f,b.dataset.d);});
+qStart();
+
+/* ---------- 應用題 ---------- */
+var wP=null,wTried=false;
+var wR=Runner({sheet:"wSheet",bubble:"wBubble",pad:"wPad",fb:"wFb2",onDone:function(m){store.words++;save();var st=m===0?3:2;addStars(st,$("wDone"));
+  var d=$("wDone");d.className="done show";d.innerHTML="🎉 "+wP.a+" × "+wP.b+" ＝ "+wP.p+"<br><b>"+wP.answer+"</b> "+"⭐".repeat(st);}});
+function wNew(){wP=C.genWord();wTried=false;$("wText").textContent=wP.text;fbHide("wFb");show("wWork",false);$("wDone").className="done";
+  var ch=wP.choices.slice().sort(function(){return Math.random()-.5;});
+  $("wChoices").innerHTML=ch.map(function(c){return '<button class="btn" data-ok="'+(c.ok?1:0)+'">'+c.e+"</button>";}).join("");}
+$("wChoices").addEventListener("click",function(e){var b=e.target.closest("button");if(!b||!wP)return;
+  if(b.dataset.ok==="1"){b.classList.add("ok");$("wChoices").querySelectorAll("button").forEach(function(x){x.disabled=true;});beep(true);
+    fb("wFb","good","✓ 對！每一份是 "+wP.a+"，有 "+wP.b+" 份，所以用<b>乘法</b>："+wP.a+" × "+wP.b+"。");show("wWork",true);wR.load(C.build(wP.a,wP.b));}
+  else{b.classList.add("no");beep(false);if(!wTried){miss("word",wP.text.slice(0,14)+"…");wTried=true;}fb("wFb","bad","再想想："+TIPS.word);}});
+$("wNew").addEventListener("click",wNew);
+wNew();
+
+/* ---------- 實體鍵盤 ---------- */
+document.addEventListener("keydown",function(e){if(e.target&&e.target.tagName==="INPUT")return;var p=activePage(),d=/^[0-9]$/.test(e.key)?e.key:null;
+  if(p==="p-prac"&&d)pR.press(d);else if(p==="p-word"&&d)wR.press(d);
+  else if(p==="p-quick"){if(d)qKey(null,d);else if(e.key==="Backspace")qKey("del");else if(e.key==="Enter")qKey("ok");}
+  else if(p==="p-learn"){if(e.key==="ArrowRight")$("dNext").click();else if(e.key==="ArrowLeft")$("dPrev").click();}});
+
+/* ---------- 紀錄 ---------- */
+function renderRec(){var tot=0;for(var l in store.lv)tot+=store.lv[l];
+  $("stats").innerHTML='<div class="stat"><b>'+store.stars+'</b>星星</div><div class="stat"><b>'+tot+'</b>直式完成</div><div class="stat"><b>'+store.quickRounds+'</b>快算回合</div><div class="stat"><b>'+store.words+'</b>應用題</div>'+
+    [1,2,3,4,5].map(function(i){return '<div class="stat"><b>'+(store.lv[i]||0)+"</b>"+C.LEVELS[i]+"</div>";}).join("");
+  var B=[["🎯 第一題",tot>=1],["🔁 直式 10 題",tot>=10],["🏗️ 四位×二位 ×3",(store.lv[4]||0)>=3],["🕳️ 缺位勇者",(store.lv[5]||0)>=5],["⚡ 補0快手",store.quickPerfect>=1],["📝 應用題達人",store.words>=5],["🐢 看完示範",store.demos>=1],["🌟 百星",store.stars>=100]];
+  $("badges").innerHTML=B.map(function(b){return '<span class="bdg'+(b[1]?" got":"")+'">'+b[0]+"</span>";}).join("");
+  var ks=Object.keys(store.bad).sort(function(a,b){return store.bad[b]-store.bad[a];});
+  $("mist").innerHTML=ks.length?'<table class="rec"><tr><th>類型</th><th>次數</th><th>小提醒</th></tr>'+ks.map(function(k){return "<tr><td>"+(TN[k]||k)+"</td><td>"+store.bad[k]+"</td><td>"+(TIPS[k]||"")+"</td></tr>";}).join("")+"</table>":'<p class="small">還沒有錯誤紀錄，太棒了！</p>';
+  $("recent").innerHTML=store.recent.length?'<table class="rec">'+store.recent.map(function(r){return "<tr><td>"+r.p+"</td><td>"+(TN[r.k]||r.k)+"</td></tr>";}).join("")+"</table>":'<p class="small">目前沒有。</p>';}
+var resetArm=false;
+$("resetBtn").addEventListener("click",function(){if(!resetArm){resetArm=true;$("resetBtn").textContent="再按一次確認清除";setTimeout(function(){resetArm=false;$("resetBtn").textContent="清除紀錄";},3000);return;}
+  store=fresh();save();renderScore();renderRec();resetArm=false;$("resetBtn").textContent="清除紀錄";});
+
+renderScore();dPresets();
+window.__mul={core:C,store:function(){return store;},pR:pR,wR:wR,demo:function(){return {sh:dSh,k:dK};},quick:function(){return {list:qList,i:qI,res:qRes};},qKey:qKey,wP:function(){return wP;}};
+})();
+</script>
+</body>
+</html>
