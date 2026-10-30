@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2a9d8f">
+<title>地形探險家 ⛰️｜社會 4上 高低起伏的地形</title>
+<style>:root{--ink:#2b2d42;--teal:#2a9d8f;--sun:#ffb703;--pink:#ff6b9a;--blue:#4d96ff;--purple:#9b5de5;--green:#57cc99;--radius:22px}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:#e9f7ef;overflow-x:hidden}
+html,body{margin:0;padding:0}
+body{font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",system-ui,sans-serif;color:var(--ink);min-height:100vh;
+  background:linear-gradient(180deg,#bde0fe 0,#e9f7ef 320px,#e9f7ef 100%);padding-bottom:calc(92px + env(safe-area-inset-bottom))}
+header{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;padding-top:calc(10px + env(safe-area-inset-top));background:rgba(42,157,143,.95);color:#fff;backdrop-filter:blur(6px)}
+header h1{font-size:clamp(17px,4.6vw,26px);margin:0;letter-spacing:1px;flex:1}
+.back{color:#fff;text-decoration:none;font-weight:800;background:rgba(255,255,255,.22);border-radius:999px;padding:8px 12px;font-size:15px;white-space:nowrap}
+.score{background:var(--sun);color:#5a3b00;font-weight:800;border-radius:999px;padding:6px 14px;font-size:18px;white-space:nowrap;box-shadow:0 3px 0 #c98a00}
+.score.pop{animation:pop .5s}@keyframes pop{40%{transform:scale(1.35)}}
+main{max-width:980px;margin:0 auto;padding:12px}
+section.page{display:none;animation:fadein .3s}section.page.active{display:block}
+@keyframes fadein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.card{background:#fff;border-radius:var(--radius);padding:16px;margin:12px 0;box-shadow:0 6px 0 rgba(0,0,0,.12)}
+.card h2{margin:0 0 8px;font-size:clamp(20px,5vw,26px)}.card h3{margin:6px 0;font-size:20px}
+.lead{font-size:18px;line-height:1.7;margin:6px 0}
+.small{font-size:15px;color:#666}
+.tip{background:#fff7d6;border-left:6px solid var(--sun);border-radius:12px;padding:10px 12px;font-size:17px;line-height:1.6;margin:10px 0}
+.tip.blue{background:#e6f0ff;border-color:var(--blue)}.tip.pink{background:#ffe6ef;border-color:var(--pink)}.tip.green{background:#e3f8ec;border-color:var(--teal)}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-start}.row>*{flex:1 1 300px}
+.btn{appearance:none;border:none;border-radius:16px;padding:12px 16px;min-height:52px;font-size:18px;font-weight:800;cursor:pointer;background:var(--blue);color:#fff;box-shadow:0 4px 0 rgba(0,0,0,.22);font-family:inherit;touch-action:manipulation}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.22)}
+.btn.sun{background:var(--sun);color:#5a3b00}.btn.pink{background:var(--pink)}.btn.teal{background:var(--teal)}.btn.purple{background:var(--purple)}.btn.gray{background:#8d99ae}.btn.white{background:#fff;color:var(--ink);border:3px solid #dfe3ff}
+.btn.small{min-height:46px;font-size:16px;padding:8px 12px}
+.btn.on{outline:4px solid var(--sun);outline-offset:1px}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+svg{display:block;max-width:100%;height:auto}
+.mapbox{background:#fff;border:4px solid #cfe8dc;border-radius:18px;overflow:hidden;touch-action:manipulation;user-select:none}
+#p-what .mapbox{max-width:620px;margin:0 auto}
+.hot{cursor:pointer}
+.hl{animation:glow 1s infinite alternate}
+@keyframes glow{from{stroke:#ff6b9a;stroke-width:4}to{stroke:#ffb703;stroke-width:8}}
+.explain{border-radius:18px;padding:14px;background:#f3f4ff;font-size:18px;line-height:1.7;min-height:120px}
+.explain .t{font-size:24px;font-weight:900;margin-bottom:4px}
+.checks{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.chk{border-radius:999px;padding:5px 12px;background:#eee;font-weight:800;color:#999}.chk.got{background:#d8f3dc;color:#1b5e20}
+.types{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.type{border-radius:18px;padding:12px;background:#f6f7ff;border:3px solid #e3e6ff;text-align:center;font-size:16px;line-height:1.55}
+.type b{display:block;font-size:20px;margin:4px 0}
+.type svg{width:120px;height:90px;margin:0 auto}
+.phone{max-width:430px;margin:0 auto;background:#222;border-radius:34px;padding:12px 10px 16px}
+.screen{background:#fff;border-radius:24px;overflow:hidden}
+.ebar{display:flex;gap:6px;padding:8px;background:#f1f3f4;flex-wrap:wrap;align-items:center}
+.ebar input{flex:1 1 0;min-width:0;min-height:44px;border-radius:999px;border:2px solid #ccc;padding:0 14px;font-size:17px;font-family:inherit}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:6px 8px;background:#f1f3f4}
+.chip{flex:0 0 auto;border:2px solid #ccc;background:#fff;border-radius:999px;padding:8px 12px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;min-height:42px}
+.etools{display:flex;justify-content:space-between;align-items:center;padding:8px;gap:6px;flex-wrap:wrap}
+.einfo{padding:8px 12px 12px;font-size:17px;line-height:1.6;min-height:64px}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}
+.opt{border:3px solid #dfe3ff;background:#f6f7ff;border-radius:16px;padding:12px;font-size:18px;font-weight:800;min-height:58px;cursor:pointer;font-family:inherit;color:var(--ink);touch-action:manipulation}
+.opt.right{background:#d8f3dc;border-color:#2ec4b6}.opt.no{background:#ffe0e6;border-color:#ff4d6d}
+.feedback{font-size:18px;line-height:1.6;margin-top:10px;border-radius:14px;padding:10px;display:none}
+.feedback.show{display:block}.feedback.good{background:#d8f3dc}.feedback.bad{background:#fff3cd}
+.qhead{display:flex;justify-content:space-between;align-items:center;font-weight:800;color:#666}
+.qtext{font-size:21px;font-weight:800;line-height:1.5;margin:8px 0}
+.subtabs{display:flex;gap:8px;flex-wrap:wrap}.subtabs .btn{flex:1 1 40%}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.bdg{background:#eee;border-radius:14px;padding:6px 10px;font-weight:800;color:#999;font-size:15px}.bdg.got{background:linear-gradient(135deg,#ffd166,#ff9f1c);color:#5a3b00}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;justify-content:space-around;background:#fff;padding:6px 4px;padding-bottom:calc(6px + env(safe-area-inset-bottom));box-shadow:0 -4px 16px rgba(0,0,0,.18)}
+nav.tabs button{flex:1;border:none;background:none;font-family:inherit;font-size:12px;font-weight:800;color:#666;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;border-radius:14px;cursor:pointer;min-height:60px;touch-action:manipulation}
+nav.tabs button span{font-size:26px;line-height:1}nav.tabs button.on{background:#c7f0e4;color:#14574f}
+@media (min-width:700px){nav.tabs button{font-size:15px}}
+.burst{position:fixed;z-index:99;pointer-events:none;font-size:30px;animation:fly 1.1s ease-out forwards}
+@keyframes fly{to{transform:translate(var(--dx),var(--dy)) rotate(360deg);opacity:0}}
+.big4{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:8px}
+.big4 div{border-radius:16px;padding:10px;text-align:center;font-weight:900;font-size:18px;color:#fff}
+.xsec{max-width:720px;margin:0 auto}
+.xs{cursor:pointer}
+#xsSvg text,#lfSvg text{pointer-events:none}
+.lbl{font-size:12px;font-weight:800;fill:#333;paint-order:stroke;stroke:#fff;stroke-width:3px;stroke-linejoin:round}
+.xlbl{font-size:20px;font-weight:900;fill:#333;paint-order:stroke;stroke:#fff;stroke-width:4px;stroke-linejoin:round}
+.exs{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.ex{background:#fff;border:2px solid var(--c,#ccc);border-radius:999px;padding:3px 10px;font-size:15px;font-weight:800}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:8px 0}
+.fact{background:#f6f7ff;border-radius:14px;padding:10px;font-size:16px;line-height:1.55}
+.fact b{display:block;font-size:14px;color:#666}
+.src{font-size:13px;color:#777;line-height:1.5;margin-top:6px;word-break:break-all}
+.src a{color:#1c7ed6}
+.src li{margin:4px 0}
+.tag2{display:inline-block;border-radius:999px;padding:2px 10px;font-size:13px;font-weight:800;margin:2px 4px 2px 0}
+.tag2.book{background:#d8f3dc;color:#1b5e20}.tag2.more{background:#fff1c1;color:#7a5200}
+.stops{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:8px 0;font-size:17px;font-weight:800;min-height:40px}
+.stop{background:#e6f0ff;border-radius:12px;padding:6px 10px}
+.qa{background:#fff7d6;border-radius:18px;padding:14px;font-size:18px;line-height:1.7}
+.reveal{display:none}.reveal.show{display:block;animation:fadein .3s}
+.lybtn{border:3px solid var(--c);background:#fff;color:var(--ink)}
+.lybtn.on{background:var(--c);color:#fff;outline:none}
+.mk{cursor:pointer}
+.scene{margin-top:10px;border-radius:20px;padding:14px;background:linear-gradient(180deg,#e6f4ff,#f6fff0);border:3px solid var(--c,#cfe8dc);font-size:18px;line-height:1.7;min-height:150px}
+.scene .big{font-size:56px;line-height:1;float:right;margin-left:8px}
+.scene ul{margin:6px 0;padding-left:4px;list-style:none}
+.scene li{margin:4px 0}
+.subtabs .btn.lbtn{flex:1 1 17%;min-width:88px}
+.cmp{display:grid;grid-template-columns:1fr;gap:8px}
+@media (min-width:700px){.cmp{grid-template-columns:1fr 1fr 1fr}}
+.cmpbox{border-radius:16px;padding:12px;background:#f6f7ff;border:3px solid var(--c,#ccc);font-size:17px;line-height:1.7;text-align:center}
+.cmpbox b:first-child{display:block;font-size:20px}
+.cmpbox.same{--c:#ffb703;background:#fff7d6}
+#p-game .subtabs .btn{flex:1 1 28%;min-width:96px}
+.memo{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}
+@media (min-width:600px){.memo{grid-template-columns:repeat(4,1fr)}}
+@media (min-width:900px){.memo{grid-template-columns:repeat(5,1fr)}}
+.mc{position:relative;min-height:96px;border-radius:16px;border:3px solid #cdd6f6;background:linear-gradient(135deg,#4d96ff,#9b5de5);color:#fff;font-family:inherit;font-weight:900;font-size:34px;cursor:pointer;padding:8px;touch-action:manipulation;box-shadow:0 4px 0 rgba(0,0,0,.18);transition:transform .2s}
+.mc.open{background:#fff;color:var(--ink);border-color:var(--c);font-size:16px;line-height:1.45;transform:rotateY(0)}
+.mc.open.nm{font-size:22px}
+.mc.done{background:#d8f3dc;border-color:#2ec4b6;color:#1b5e20;cursor:default}
+.mc.no{animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-6px)}50%{transform:translateX(6px)}75%{transform:translateX(-4px)}}
+.sotray{display:flex;flex-wrap:wrap;gap:8px;min-height:56px;padding:8px;background:#f6f7ff;border-radius:16px;margin-top:8px}
+.pc{touch-action:none;-webkit-user-select:none;user-select:none;border:3px solid #dfe3ff;background:#fff;border-radius:999px;padding:8px 14px;font-size:17px;font-weight:800;cursor:grab;min-height:48px;font-family:inherit;color:var(--ink)}
+.pc.sel{border-color:#ff9f1c;background:#fff4e0;box-shadow:0 0 0 3px #ffd166}
+.pc.lift{opacity:.35}
+.pc.shake{animation:shake .4s}
+.pcghost{position:fixed;left:0;top:0;pointer-events:none;z-index:50;transform:translate(-50%,-50%);box-shadow:0 6px 14px rgba(0,0,0,.3)}
+.baskets{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}
+@media (min-width:600px){.baskets{grid-template-columns:repeat(5,1fr)}}
+.bk{border:3px dashed var(--c);border-radius:18px;padding:8px;min-height:120px;background:#fff;cursor:pointer;text-align:center}
+.bk h4{margin:0 0 4px;font-size:19px;color:var(--c)}
+.bk .in{display:flex;flex-wrap:wrap;gap:4px;justify-content:center}
+.bk .in span{background:#d8f3dc;border-radius:999px;padding:2px 8px;font-size:14px;font-weight:800}
+.bk.over{background:#fff4e0;border-style:solid}
+.bk.ok{animation:pop .4s}
+.baskets .bk:last-child:nth-child(odd){grid-column:1/-1}
+@media (min-width:600px){.baskets .bk:last-child:nth-child(odd){grid-column:auto}}
+</style>
+</head>
+<body>
+<header>
+  <a class="back" href="../">← 社會</a>
+  <h1>⛰️ 地形探險家</h1>
+  <div class="score" id="score">⭐ 0</div>
+</header>
+<main>
+
+<!-- ===== 1 五大地形 ===== -->
+<section class="page active" id="p-five">
+  <div class="card">
+    <h2>🏔️ 高低起伏的地形</h2>
+    <p class="small">翰林版 社會 4上・第二單元「家鄉的地形與氣候」・第 1 課「高低起伏的地形」</p>
+    <p class="lead">地面有的地方高、有的地方低，有的平平的、有的凹下去。課本把臺灣的地形分成<b>五大地形</b>：<b>山地、丘陵、台地、盆地、平原</b>。</p>
+    <p class="lead">👇 點一點下面的圖，看看每一種地形長什麼樣子！</p>
+    <div class="mapbox xsec"><svg id="xsSvg" viewBox="0 0 640 300" aria-label="五大地形剖面示意圖"></svg></div>
+    <p class="small">※ 這是<b>示意圖</b>（把地面從旁邊切開來看），不是真實比例。虛線是 <b>1,000 公尺</b>的高度。</p>
+    <div class="explain" id="xsInfo"><div class="t">👆 點圖上的地形</div>會告訴你它的特色和課本裡的例子。</div>
+    <div class="checks" id="xsChecks"></div>
+  </div>
+  <div class="card">
+    <h3>🧩 排一排：由高到低</h3>
+    <p class="lead">課本請大家「排出五種地形」。這裡換個方式：照著上面的圖，<b>從左到右</b>依序點出地形的名字！</p>
+    <div class="stops" id="ordGot"></div>
+    <div class="opts" id="ordOpts"></div>
+    <div class="feedback" id="ordFb"></div>
+    <div class="btns"><button class="btn small white" id="ordAgain" style="display:none">🔄 再排一次</button></div>
+  </div>
+  <div class="card">
+    <h3>📏 1,000 公尺有多高？</h3>
+    <div class="facts">
+      <div class="fact"><b>山地</b>超過 1,000 公尺</div>
+      <div class="fact"><b>丘陵、台地</b>不超過 1,000 公尺</div>
+      <div class="fact"><b>玉山（臺灣最高）</b>3,952 公尺，差不多是 4 個 1,000 公尺！</div>
+    </div>
+    <div class="tip">🔎 <span class="tag2 more">延伸</span>還記得上一課的<b>石碇區</b>嗎？石碇區公所介紹，那裡以<b>丘陵和山</b>為主，海拔大約 <b>100～600 公尺</b>。</div>
+    <p class="src">玉山高度：內政部國土測繪中心〈玉山高度測量〉（公告 3,952 公尺；111 年測得 3,952.433 公尺）。石碇：新北市石碇區公所。</p>
+  </div>
+</section>
+
+<!-- ===== 2 地形地圖 ===== -->
+<section class="page" id="p-map">
+  <div class="card">
+    <h2>🗺️ 地形在哪裡？</h2>
+    <p class="lead">課本用<b>透明片</b>疊在臺灣地圖上找地形。這裡也有「透明片」：點下面的按鈕，把某一種地形<b>疊上去</b>！</p>
+    <div class="btns" id="lyBtns"></div>
+    <div class="mapbox" style="max-width:520px;margin:0 auto"><svg id="lfSvg" viewBox="0 0 400 545" aria-label="臺灣地形例子地圖"></svg></div>
+    <div class="explain" id="lfInfo"><div class="t">👆 點地圖上的圓點</div>看看它是哪一種地形、在哪一個縣市。</div>
+    <p class="small">※ 圓點只是<b>大約位置（示意）</b>，真正的地形是一大片的，不是一個點喔！縣市界線來自內政部國土測繪中心圖資。</p>
+  </div>
+  <div class="card">
+    <div class="qhead"><span>🏴‍☠️ 地形尋寶</span><span id="huScore"></span></div>
+    <p class="lead" id="huQ">準備好了嗎？按「開始尋寶」，在地圖上找到指定的地形！</p>
+    <div class="feedback" id="huFb"></div>
+    <div class="btns"><button class="btn teal" id="huGo">🏴‍☠️ 開始尋寶</button></div>
+  </div>
+</section>
+
+<!-- ===== 3 土地利用 ===== -->
+<section class="page" id="p-use">
+  <div class="card">
+    <h2>🌾 地形和我們的生活</h2>
+    <p class="lead">不同的地形，人們會<b>用不一樣的方式</b>使用土地。點一種地形看看！</p>
+    <div class="subtabs" id="useBtns"></div>
+    <div class="scene" id="useScene"></div>
+  </div>
+  <div class="card">
+    <h3>⚖️ 山地和丘陵，哪裡一樣？哪裡不一樣？</h3>
+    <div class="cmp">
+      <div class="cmpbox" style="--c:#7f5539"><b>🏔️ 山地</b>比較高、坡比較陡<br>交通比較不方便</div>
+      <div class="cmpbox same"><b>🤝 一樣的地方</b>都<b>高低起伏</b><br>都會種<b>適合的作物</b><br>都有<b>休閒設施</b></div>
+      <div class="cmpbox" style="--c:#6a994e"><b>⛰️ 丘陵</b>坡度<b>比較和緩</b><br>交通<b>比較方便</b></div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>🤔 想一想</h3>
+    <div class="qa">為什麼<b>平原、台地、盆地</b>上，常常有很多房子和大城市？
+      <div class="btns"><button class="btn small sun" id="whyBtn">看答案</button></div>
+      <div class="reveal" id="whyAns">因為那裡<b>地勢平坦、交通便利</b>，適合<b>居住和耕種</b>，人越來越多，就容易形成<b>城鎮和都市</b>。像<b>臺北盆地</b>就有臺北市。</div>
+    </div>
+    <div class="tip green">🌱 地形會影響人們怎麼用土地；反過來，人們開發土地，也會<b>改變自然環境</b>。所以使用土地時，也要好好愛護環境喔！</div>
+  </div>
+  <div class="card">
+    <h3>📚 資料來源</h3>
+    <div class="src" id="srcList"></div>
+  </div>
+</section>
+
+<!-- ===== 4 挑戰 ===== -->
+<section class="page" id="p-game">
+  <div class="card">
+    <h2>🎮 地形挑戰站</h2>
+    <div class="subtabs">
+      <button class="btn small teal on" data-gm="memo">🃏 地形翻牌</button>
+      <button class="btn small" data-gm="sort">🧺 分類王</button>
+      <button class="btn small" data-gm="quiz">❓ 小博士</button>
+    </div>
+    <div class="badges" id="badges"></div>
+  </div>
+  <div class="card gcard" id="g-memo">
+    <div class="qhead"><span>🃏 地形翻牌配對</span><span>步數 <b id="mmMoves">0</b>　🏆 最少 <b id="mmBest">—</b></span></div>
+    <p class="small">翻兩張牌：<b>地形名字</b>配上<b>它的特色</b>就成功！（課本的「地形配對」遊戲）</p>
+    <div class="memo" id="mmGrid"></div>
+    <div class="feedback" id="mmFb"></div>
+    <div class="btns"><button class="btn small" id="mmRestart">🔄 重新洗牌</button></div>
+  </div>
+  <div class="card gcard" id="g-sort" style="display:none">
+    <div class="qhead"><span>🧺 地形分類王</span><span>⏱ <b id="soTime">0:00</b>　🏆 最快 <b id="soBest">—</b></span></div>
+    <p class="small">把地點<b>拖進</b>正確的地形籃子！（也可以先點地點，再點籃子）</p>
+    <div class="sotray" id="soTray"></div>
+    <div class="baskets" id="soBaskets"></div>
+    <div class="feedback" id="soFb"></div>
+    <div class="btns"><button class="btn small" id="soRestart">🔄 換一批地點</button></div>
+  </div>
+  <div class="card gcard" id="g-quiz" style="display:none">
+    <div class="qhead"><span id="qCount"></span><span id="qScore"></span></div>
+    <div id="qTag"></div>
+    <div class="qtext" id="qText"></div>
+    <div class="opts" id="qOpts"></div>
+    <div class="feedback" id="qFb"></div>
+    <div class="btns"><button class="btn" id="qNext" style="display:none">下一題 ➡</button></div>
+  </div>
+</section>
+</main>
+
+<nav class="tabs" id="tabs">
+  <button class="on" data-p="p-five"><span>🏔️</span>五大地形</button>
+  <button data-p="p-map"><span>🗺️</span>地形地圖</button>
+  <button data-p="p-use"><span>🌾</span>土地利用</button>
+  <button data-p="p-game"><span>🎮</span>挑戰</button>
+</nav>
+<script id="core">
+var Core=(function(){
+"use strict";
+/* ---- 五大地形（翰林 4上 第二單元 第1課「高低起伏的地形」，課本 26～31 頁；定義與例子依各校 115 學年度課程計畫的課本整理） ---- */
+var LANDS=[
+ {k:"mount",n:"山地",e:"🏔️",col:"#7f5539",def:"高度超過 1,000 公尺，而且地勢起伏大的高山。",short:"超過 1,000 公尺、起伏大的高山",ex:["玉山","雪山","阿里山"],
+  use:["🌲 茂密的樹林","🏘️ 一些小村落","🥬 種高山蔬菜、水果","🏕️ 休閒設施（森林遊樂區）","🦌 保留完整的自然生態"],live:"人比較少，交通比較不方便"},
+ {k:"hill",n:"丘陵",e:"⛰️",col:"#6a994e",def:"在山地的邊緣，高度不超過 1,000 公尺，坡度變化比較和緩。",short:"山地邊緣、不超過 1,000 公尺、坡度和緩",ex:["新竹丘陵","苗栗丘陵","嘉義丘陵","豐原丘陵","恆春丘陵"],
+  use:["🍵 茶園","🍊 果園","🍓 休閒農業","🚗 交通比山地方便"],live:"氣溫比平地低一些，交通比山地方便"},
+ {k:"tab",n:"台地",e:"🟫",col:"#dda15e",def:"高度不超過 1,000 公尺，地勢比較平坦的高地。",short:"不超過 1,000 公尺、上面平平的高地",ex:["林口台地","桃園台地","大肚台地","八卦台地","舞鶴台地"],
+  use:["🏠 適合居住","🌾 適合耕種","🛣️ 交通便利","🏙️ 容易形成城鎮"],live:"上面平坦，可以蓋房子、種田"},
+ {k:"basin",n:"盆地",e:"🥣",col:"#e76f51",def:"四周的地勢比較高，中間比較平坦，好像一個盆子。",short:"四周高、中間平，像一個盆子",ex:["臺北盆地","埔里盆地","臺中盆地"],
+  use:["🏙️ 容易形成都市","🏠 適合居住","🛣️ 交通便利","🌾 適合耕種"],live:"中間平坦，人多、房子多"},
+ {k:"plain",n:"平原",e:"🌾",col:"#e9c46a",def:"在河流出口或是沿海地區，寬闊又平坦。",short:"河流出口或沿海、寬闊平坦",ex:["宜蘭平原","彰化平原","嘉南平原","屏東平原","花東縱谷平原"],
+  use:["🌾 稻田、農田","🏠 適合居住","🛣️ 交通便利","🏙️ 容易形成城鎮和都市"],live:"又寬又平，適合居住和耕種"}
+];
+var ORDER=["mount","hill","tab","basin","plain"];
+function land(k){for(var i=0;i<LANDS.length;i++)if(LANDS[i].k===k||LANDS[i].n===k)return LANDS[i];return null;}
+/* 例子 → 地形 */
+var PLACES=[];LANDS.forEach(function(l){l.ex.forEach(function(x){PLACES.push({n:x,k:l.k});});});
+function placeKind(n){for(var i=0;i<PLACES.length;i++)if(PLACES[i].n===n)return PLACES[i].k;return null;}
+/* 地圖上的大約位置（經緯度大約值，示意用；放在名字所在的縣市裡）。county = 該點所在的縣市 */
+var SPOTS=[
+ {n:"玉山",k:"mount",lon:120.957,lat:23.470,src:"維基百科「玉山」座標"},
+ {n:"雪山",k:"mount",lon:121.232,lat:24.383,src:"維基百科「雪山 (台灣)」座標"},
+ {n:"阿里山",k:"mount",lon:120.80,lat:23.51,county:"嘉義縣"},
+ {n:"新竹丘陵",k:"hill",lon:121.10,lat:24.75,county:"新竹縣"},
+ {n:"苗栗丘陵",k:"hill",lon:120.88,lat:24.52,county:"苗栗縣"},
+ {n:"嘉義丘陵",k:"hill",lon:120.55,lat:23.40,county:"嘉義縣"},
+ {n:"豐原丘陵",k:"hill",lon:120.78,lat:24.27,county:"臺中市"},
+ {n:"恆春丘陵",k:"hill",lon:120.78,lat:22.05,county:"屏東縣"},
+ {n:"林口台地",k:"tab",lon:121.37,lat:25.08,county:"新北市"},
+ {n:"桃園台地",k:"tab",lon:121.20,lat:24.93,county:"桃園市"},
+ {n:"大肚台地",k:"tab",lon:120.598,lat:24.21,county:"臺中市",src:"維基百科「大肚山」座標"},
+ {n:"八卦台地",k:"tab",lon:120.58,lat:23.95,county:"彰化縣"},
+ {n:"舞鶴台地",k:"tab",lon:121.40,lat:23.50,county:"花蓮縣"},
+ {n:"臺北盆地",k:"basin",lon:121.52,lat:25.05,county:"臺北市"},
+ {n:"埔里盆地",k:"basin",lon:120.97,lat:23.97,county:"南投縣"},
+ {n:"臺中盆地",k:"basin",lon:120.68,lat:24.15,county:"臺中市"},
+ {n:"宜蘭平原",k:"plain",lon:121.75,lat:24.70,county:"宜蘭縣"},
+ {n:"彰化平原",k:"plain",lon:120.42,lat:24.00,county:"彰化縣"},
+ {n:"嘉南平原",k:"plain",lon:120.25,lat:23.20,county:"臺南市"},
+ {n:"屏東平原",k:"plain",lon:120.52,lat:22.62,county:"屏東縣"},
+ {n:"花東縱谷平原",k:"plain",lon:121.35,lat:23.75,county:"花蓮縣"}
+];
+function proj(lon,lat){return {x:Math.round((lon-119.3)*137.5*10)/10,y:Math.round((25.45-lat)*150*10)/10};}
+function spot(n){for(var i=0;i<SPOTS.length;i++)if(SPOTS[i].n===n)return SPOTS[i];return null;}
+function spotsOf(k){return SPOTS.filter(function(s){return s.k===k;});}
+var SHAPES={"連江縣":{d:"M43.9,50.2 44.2,50.4 43.4,51.5 42,52 42.8,50.5 43.9,50.2ZM40.7,49.2 40.9,49.5 39.6,50.5 39.1,49.3 40.7,49.2ZM38.5,32.3 39.4,32.5 39,33.4 39.9,33.6 40,34.1 40.4,33.7 40.3,33.1 42.3,33 41.7,34.3 41.1,34.2 40.5,35.1 39.8,34.8 39.1,35.5 37.8,34.9 38.5,33.8 38.1,33.6 38.6,33.1 38.5,32.3ZM44.8,26.7 45.6,27.1 45.4,28 46.4,27.7 46.1,28.8 45.4,28.1 44.4,28.8 44.1,28.5 43.2,28.8 42.8,30.1 43.2,30.7 42.4,30.6 42.5,28.2 43.8,27.9 44.8,26.7ZM44.3,22.9 44.3,24 43.6,24.2 43.6,23.2 44.3,22.9ZM83.7,14 83.8,15.1 84.6,15.1 85.3,14.4 85.2,15 85.8,14.9 86.2,15.6 85.4,15.3 84.8,16.3 84,16.4 84.1,15.3 83.5,15.4 83.4,14.4 82.8,15.1 83.2,14 83.7,14Z",c:[39.1,34.3]},"宜蘭縣":{d:"M366.6,70 361,72.2 358.1,76.5 356,76.9 355.4,79.8 350.8,84 347.5,91.1 346.3,102.8 347.3,107.5 349.2,110.1 349.5,119.1 351.8,125 355.6,127.4 353.9,128 354.6,128.8 353.7,129.9 354.7,130.5 353.3,131.6 353.7,137.8 349.7,139.3 349.1,140.6 349.3,142.8 350.7,143.3 350.7,144.8 352.3,145.3 349.8,146 346.7,148.1 346,150.5 344,152.4 342.5,156.3 342,161.6 339.8,166.9 340.2,170.2 338.1,170.4 336.2,169.1 328.4,167.4 328,166.4 326.7,166.9 323.2,163.5 323,165.1 320.5,161.9 319.1,163.1 319.9,165 321.1,165.2 320.8,167.3 318.8,165.7 318.6,167.5 315.7,167.8 317,171.1 315.9,170.1 311.6,169.6 308.7,166.8 305.5,166 302.2,166.6 295.9,162.8 295.3,161.3 294.6,161.5 293.4,160 288.8,160.6 286.5,162.3 285.1,162.3 283.9,159.1 282.6,158.5 280.3,159 278.6,157.5 278.9,152.4 277.4,151.3 280.8,145.2 282.9,144.5 284.9,142.6 285.1,141 286.5,140.9 289,138.1 288,134.2 290.4,131.5 289.2,128.7 290.5,127 292.6,126.6 296.6,116.9 299.7,116.4 301.5,116.5 304.2,114.8 307.6,114.2 308.5,111.6 312.2,110.4 312.8,111 313.3,109.1 314.6,109.5 315.9,108.3 315.1,105.8 315.7,105.3 314.7,104.2 315.9,101.6 315.1,99.4 319.7,98.3 319.8,96.2 322.4,96.1 322.8,95.4 324.6,95.9 325.7,94.8 328.4,95.1 328.3,93.8 329.5,92.3 334.2,89.2 336.3,89.6 340.4,87.7 341.7,86.4 341.2,84.1 342.6,82.6 348.5,81.5 351.2,78.6 349.1,75.8 350.2,73.4 355.9,73 357.9,71.3 363.5,69.3 366.1,69.3 366.6,70Z",c:[322.0,135.5]},"彰化縣":{d:"M159,186.4 165.6,188.8 168.4,194.6 168.3,196.6 171.2,200 180.5,202.1 181.3,206.2 182.2,207.2 182.2,213 184.9,213.6 185.2,212.4 189.6,215.4 188.5,215.9 188.7,216.6 184,216.4 183.7,218.2 185.6,219.8 185.2,223 183.8,224.6 182.5,224 183.4,224.5 182.5,224.7 183.8,226.9 182.6,227.8 183.9,228.8 182.8,230.8 183.6,232.7 181.5,237.3 182.6,238.9 180.9,241.4 182.3,241.2 182.2,242 183.3,242.4 181.9,243 183.8,242.6 184.2,243.7 183.4,243.6 185.7,245.6 189.3,244.6 190.3,247 184.3,249.6 172,247.3 166,247.4 158.4,244.9 155.8,243 138.6,244.5 131.3,242.4 126.5,237.6 128.6,234.7 131.3,233.4 132.1,229.5 134.6,227.5 135.1,224.3 138.6,221.5 139.8,217.6 142.3,215.1 143,208.5 146.2,205.4 149.1,204.3 149.4,202.9 148.5,203.2 150.8,199.9 153.8,191.4 154.6,190 157.3,189.2 159,186.4Z",c:[161.6,222.7]},"南投縣":{d:"M184.3,249.6 190.3,247 189.3,244.6 185.7,245.6 183.4,243.6 184.2,243.7 183.8,242.6 181.9,243 183.3,242.4 182.2,242 182.3,241.2 180.9,241.4 182.6,238.9 181.5,237.3 183.6,232.7 182.8,230.8 183.9,228.8 182.6,227.8 183.8,226.9 182.5,224.7 183.4,224.5 182.5,224 183.8,224.6 185.2,223 185.6,219.8 183.7,218.2 184,216.4 188.7,216.6 188.5,215.9 189.6,215.4 193.4,216.7 196.9,216.1 198.8,217.7 202.2,216.1 205.3,212.6 207.2,207.9 210.3,206.8 210.4,202.2 212.4,198.8 213.7,198.8 214.3,200.1 216.2,200 217.1,201.1 217,204.7 218.8,202.9 218.8,200.2 222.7,201.4 226.9,198.3 228.4,199.5 232.2,199.7 236.5,193.7 237.6,193.6 238.3,195.2 238.9,193.8 240.3,193.5 241,194.3 245.4,191.1 247.8,188.1 252.5,188 254.1,185.5 255.9,185.2 256.8,183.7 258.6,185.7 264,183.1 266.5,184.5 268.8,181 270.2,180.6 272.3,183 274.1,183.1 275.1,182 280.9,184 281.8,187.6 278.5,188.1 276,190.4 273.1,190.9 273.4,193.8 272.3,193.8 272.9,194.7 272.4,197.1 278.9,200.8 277.6,203.2 278.2,204.8 275,208.2 272.7,209.4 273,211.5 269.5,218.7 270.1,221.1 271.3,221.2 272,222.6 271.1,225.3 271.7,231 269.6,232.1 270.6,235 270,235.3 270.2,236.6 268.5,237.3 266.7,241.5 266.6,244.2 264.9,246.8 265.4,249.3 261.9,251.6 263.1,253.9 265.7,254.9 265.3,258 266.7,258.9 266.9,262.7 265.7,265.8 266.2,267.8 264.6,271.6 264.5,274 262.1,278.1 260.4,277.4 258.1,280.1 254.8,279.5 254.6,281.4 255.8,282.3 255.4,283.6 253.9,284.3 254.5,288.4 252.4,290.2 250,289.3 247.2,289.2 245.9,290.4 243.2,289.7 242.3,292.6 239.1,296.3 241.7,298.5 240.9,299.8 235.8,302.2 235.2,301 235.9,299.8 234.9,298.2 227.9,297.1 226.5,297.4 221.4,296.1 218.2,296.2 217.4,297.4 215,296.5 211.2,296.6 210,295 209.1,289.3 207.4,287.1 209.7,279.5 208.7,277.6 205.5,277.9 199.8,275.3 196.7,275.9 195.1,273 193.9,274.6 191.3,274.4 190.2,275.9 188.3,276.1 185.8,275.1 186,273.1 185,272.9 183.6,274.5 183,274.2 182.7,272.2 185.4,265.1 184.1,260.9 184.2,258.1 184.9,257 186.4,257.2 186.4,254.2 184.3,249.6Z",c:[226.3,244.4]},"雲林縣":{d:"M107.4,288.9 109.1,289.8 109.4,290.9 107.6,290.6 106.9,292.1 105.9,291.9 105.5,292.5 106.4,292.7 105.4,292.7 106.1,293.4 105.6,294 105.2,293.3 103.7,293.7 105.1,294.4 104.8,295.4 103.5,295.6 104.3,295.1 103.5,294.3 103,296 102.2,296 103.3,293.6 102.7,293.2 101.8,295.7 101.1,295 101.2,295.9 99.6,296.3 99.5,298.6 98.2,298.5 98.7,297.1 97.6,297.8 98.9,302.1 95.8,297.6 96.3,296.6 107.4,288.9ZM126.5,237.6 131.3,242.4 138.6,244.5 155.8,243 158.4,244.9 166,247.4 172,247.3 184.3,249.6 186.4,254.2 186.4,257.2 184.9,257 184.2,258.1 184.1,260.9 185.4,265.1 182.7,272.2 183,274.2 183.6,274.5 185,272.9 186,273.1 185.8,275.1 188.3,276.1 190.2,275.9 191.3,274.4 193.9,274.6 195.1,273 196.7,275.9 195.9,277 197,277.9 197.5,281.9 195,282.1 191.7,281 189.2,281.9 188.4,280.7 185.7,281.6 184.7,281.1 185.3,278.5 180.1,280.1 176.2,280.2 170.1,278.3 166.4,274.6 165.5,272.2 158.7,273.6 157.3,272.9 154.8,274.8 154,273.7 153.4,274.3 152.2,273.7 151.9,272.4 151.6,273.5 149.4,274.3 148.5,276 146.6,276.3 145.6,278.3 142.3,278.6 141.2,281.4 138.5,281.3 139,282.8 136.1,283.2 136.2,284.9 134.2,286 133.6,287.9 132.5,287.5 131.5,285.6 129.7,286 130.2,290.1 129.1,291.3 126.9,291.9 123.5,290.5 121.1,291 116.3,289.4 116.9,287.7 115.2,283.3 115.9,282.4 116.1,277.8 115.7,277.3 115.5,277.9 115.5,275.5 114.5,275.1 115.2,272.3 113.5,274.3 112,272.3 113.5,270.6 119,256.2 119.5,253.7 117.8,249.8 120.4,247 119.7,246.5 121.1,246 124.6,242.4 124.3,240.5 125.7,239.9 126.5,237.6Z",c:[135.5,262.0]},"基隆市":{d:"M344.2,47.1 344.4,48.7 343,48.5 343.6,49.6 343,50.6 340,49.5 339.2,50.6 336.9,51 338.2,52.4 338.5,55.7 340.4,57 339.9,58 336.3,59.5 334.1,59.5 331.7,57.3 329.9,57.4 327.3,55.9 327.3,54.3 326.4,55.1 323.9,53.5 322.2,48.3 319.9,46.6 326.9,44.1 331.3,41 331.2,42.7 333.4,42.6 336.7,44.1 338.9,42.9 341,43.7 340,44.2 340.7,44.8 344.7,45.1 344.2,47.1Z",c:[331.1,48.9]},"臺北市":{d:"M312.3,37.9 314,38.3 313.1,42.4 314.9,42.9 314.8,44.7 317.3,48 315.9,51.1 319.9,53.1 320.1,55 318.5,57.9 319.6,59.1 318.5,59.9 318.9,61 322.7,63.3 325.3,63 324.9,64.1 320.7,63.7 319.3,64.9 317.5,64.4 315.9,65.3 316.3,71 319,72.1 316.4,73.4 310.9,72.8 309.7,69.5 308.7,69.9 307.3,68.2 306.9,68.9 306.9,66.3 304.9,64.4 303.8,64.3 301.5,66.1 300.3,61.8 303.1,60 303.3,56.3 301,53 296.6,51.4 296.8,49.1 302.9,41.5 305.3,42.1 305.5,40.7 308.1,39.4 310.5,36 312.3,37.9Z",c:[311.0,58.4]},"新北市":{d:"M366.6,70 366.1,69.3 363.5,69.3 357.9,71.3 355.9,73 350.2,73.4 349.1,75.8 351.2,78.6 348.5,81.5 342.6,82.6 341.2,84.1 341.7,86.4 340.4,87.7 336.3,89.6 334.2,89.2 329.5,92.3 328.3,93.8 328.4,95.1 325.7,94.8 324.6,95.9 322.8,95.4 322.4,96.1 319.8,96.2 319.7,98.3 315.1,99.4 315.9,101.6 314.7,104.2 315.7,105.3 315.1,105.8 315.9,108.3 314.6,109.5 313.3,109.1 312.8,111 312.2,110.4 308.5,111.6 307.6,114.2 304.2,114.8 301.5,116.5 299.7,116.4 299,113.1 295.7,111.7 293.5,108 292,103.2 295.6,99.6 295.7,98.9 294,98.2 293.8,95.7 289.1,91 285,92.5 282.5,90.9 279.9,90.9 283,89.5 281.2,87.5 282.4,86 281.3,85.5 280.8,83.6 279.6,83.7 279.6,82.6 278.7,83.1 277.8,82.5 278.6,81.1 277.4,80 280.5,78.2 278,78.3 277.2,76.7 279.3,75.6 278.9,71.8 278.3,71.6 280.9,70.2 284.6,70.9 286.8,69.5 286.6,68.1 288,68.5 289.2,67.6 287.6,65.7 290.4,64.7 288.5,63 288.9,61.8 287.5,61.2 288.8,61 288,60.1 288.8,59.8 286.6,59.6 287.1,58.1 282.5,57.7 281.4,57 282.4,56.5 281.9,56 280.6,56.4 281.8,55.1 275.4,53 274.8,51.8 273.8,52.1 272.7,51.1 272.7,49.8 274,49.6 274.5,48.6 277.8,49 281.2,48.2 287.3,45.3 287.6,42.3 289.1,43.7 291.3,40.9 289.3,40 289.4,39 291.3,38.8 296,29.6 298.6,29.1 299.9,26.9 303.7,25.1 304,23.7 304.8,24.8 306.3,24.5 307.6,22.5 309.4,23.8 313.2,22.7 318.7,25.8 320.9,28.5 320.9,31.6 322.1,32.9 323.5,32.6 323.1,34.1 324.9,36.4 327,37.1 330.3,35.1 328.1,39.1 329,40.5 331.3,41 326.9,44.1 319.9,46.6 322.2,48.3 323.9,53.5 326.4,55.1 327.3,54.3 327.3,55.9 329.9,57.4 331.7,57.3 334.1,59.5 336.3,59.5 339.9,58 340.4,57 338.5,55.7 338.2,52.4 336.9,51 339.2,50.6 340,49.5 343,50.6 343.6,49.6 343,48.5 344.4,48.7 344.2,47.1 347.4,47.2 346.5,48.1 346.8,49.3 349.5,48.2 357.1,49.5 361.1,48 359.7,50.4 361.2,51.3 359.5,54.7 359.6,56 361.4,56.9 361.9,58 361.9,62.1 364,64.3 368.2,63.5 369.9,64.3 370,65.6 371.1,64.6 372.3,65.7 372,67.3 366.6,70ZM312.3,37.9 310.5,36 308.1,39.4 305.5,40.7 305.3,42.1 302.9,41.5 296.8,49.1 296.6,51.4 301,53 303.3,56.3 303.1,60 300.3,61.8 301.5,66.1 303.8,64.3 304.9,64.4 306.9,66.3 306.9,68.9 307.3,68.2 308.7,69.9 309.7,69.5 310.9,72.8 316.4,73.4 319,72.1 316.3,71 315.9,65.3 317.5,64.4 319.3,64.9 320.7,63.7 324.9,64.1 325.3,63 322.7,63.3 318.9,61 318.5,59.9 319.6,59.1 318.5,57.9 320.1,55 319.9,53.1 315.9,51.1 317.3,48 314.8,44.7 314.9,42.9 313.1,42.4 314,38.3 312.3,37.9Z",c:[312.5,74.2]},"臺中市":{d:"M277.4,151.3 278.9,152.4 278.6,157.5 280.3,159 282.6,158.5 283.9,159.1 285.1,162.3 286.5,162.3 288.8,160.6 293.4,160 294.6,161.5 295.3,161.3 295.9,162.8 293.9,164.7 293.6,169.1 291.9,171.3 289.5,171.3 288.3,174.2 286.1,175.6 286.7,179.2 282.2,180.9 280.9,184 275.1,182 274.1,183.1 272.3,183 270.2,180.6 268.8,181 266.5,184.5 264,183.1 258.6,185.7 256.8,183.7 255.9,185.2 254.1,185.5 252.5,188 247.8,188.1 245.4,191.1 241,194.3 240.3,193.5 238.9,193.8 238.3,195.2 237.6,193.6 236.5,193.7 232.2,199.7 228.4,199.5 226.9,198.3 222.7,201.4 218.8,200.2 218.8,202.9 217,204.7 217.1,201.1 216.2,200 214.3,200.1 213.7,198.8 212.4,198.8 210.4,202.2 210.3,206.8 207.2,207.9 205.3,212.6 202.2,216.1 198.8,217.7 196.9,216.1 193.4,216.7 189.6,215.4 185.2,212.4 184.9,213.6 182.2,213 182.2,207.2 181.3,206.2 180.5,202.1 171.2,200 168.3,196.6 168.4,194.6 165.6,188.8 159,186.4 160.2,185.4 159.7,185 160.7,185.3 161.7,183.9 163.7,179.2 163.1,178.9 164.1,177.6 164.8,177.9 168.3,170.1 173.1,165 175,160.9 181.8,151.5 184.2,153.3 185.1,155.7 187.5,157.2 191.6,162.5 196.7,164.7 201.2,168.6 207.3,170.2 210.9,173.9 213.1,174.2 216.5,173.3 221.6,173.4 223.1,172 222.3,167.1 224.9,166.1 229.1,167.5 234.4,167.7 236.5,171.1 238.6,172.9 240.5,173.1 241.4,171 243.4,170.1 243.8,169.1 246.4,169.7 248.7,167.8 250.5,167.9 253.1,163.6 256.8,163.4 258.1,161 259.9,160.3 260.9,158 262.7,158.1 263.4,160.6 265.6,159.9 267.2,156.6 267.3,154.5 269.2,153.7 269.4,151.8 269.5,153.1 270.9,153.4 275.8,152.6 277.4,151.3Z",c:[186.4,182.8]},"臺南市":{d:"M186.1,333.8 186.5,334.9 183.8,339 184.4,340.1 178.9,345.9 175.3,353.8 172.5,357.2 169.2,359.1 162.6,365.2 162.3,367.1 159.6,366.9 159.7,368.9 158.9,368.8 158.5,370.8 157.1,370.9 153.5,380 152.4,380.6 151.1,379.2 148.8,379.3 144.6,384.4 142,384.1 140.9,382.4 140.3,383.3 135.4,381.8 134.5,381.8 134.7,383.1 131.7,382.3 131.2,383.4 128.3,381.7 127.7,380 126.2,381.1 122.7,379.3 120.3,380.7 119.9,375 118.6,372.8 117.6,372.8 118.2,371.5 115.6,368.1 109.2,363.2 104.2,361 101.6,357.3 100,357.3 101.6,351 103.8,348.7 104.4,343.7 107.3,336.1 107.3,331.9 108.9,328.6 109.3,323.1 111.5,320.9 111.5,317.7 112.5,316.5 116.7,319.5 116.9,320.5 119.5,321.6 120.8,323.7 122.2,324 122.2,322.3 125.4,323.7 126.9,322.8 129,318.4 131.6,317.7 133,316.4 132.1,315.8 132.8,314.7 135.6,315 135.5,312.5 136.5,311.2 139,311.2 139.5,309.2 140.7,310 144.3,307.3 148.6,307 152.4,305.5 154,306.9 156.7,305.4 161.3,307.8 162.2,309.4 164.1,308.3 164.9,309.3 162.9,310.6 162.8,312.1 165.7,312.2 166.7,313.5 166.5,314.4 165.7,314.3 165.7,315.8 169.6,317 170.5,318.3 168.1,320.7 168.6,323.1 167.8,326.7 169.4,329.2 167.6,331.6 168.5,332.8 172.5,334.9 174,334.4 175.7,335.3 177.7,331.5 178.4,333.2 180.1,334.1 182.6,333.1 186.1,333.8Z",c:[136.8,348.8]},"桃園市":{d:"M299.7,116.4 296.6,116.9 292.6,126.6 290.5,127 289.2,128.7 287,129.5 284.3,127.7 283.1,124.9 284.1,122.7 283,122.5 282.2,121 282.4,117.3 280.4,117.5 280.4,115.6 277.5,112.8 274.9,113.2 276,109.5 274.7,107.5 276.1,104.3 275.2,103 269.5,100.2 269.5,98.5 267.8,98 267.2,96.2 264.2,97.6 264,95.7 261.9,96.4 261.7,94.9 257.6,93.4 258,92.7 254.4,90.8 255.9,88.6 255.2,85.4 249.7,85.2 248.6,84.6 248.7,82.8 246.3,83.5 241.7,81.6 241.8,77 240.1,76 239,75.5 236.4,76.4 234.7,75.6 232.8,77.2 231.3,76.5 235.1,71.2 235.1,68.9 237.7,64.4 241.5,60.6 263.1,50.9 266.7,50.2 266.7,49 267.3,49.7 269.5,49 272.7,49.8 272.7,51.1 273.8,52.1 274.8,51.8 275.4,53 281.8,55.1 280.6,56.4 281.9,56 282.4,56.5 281.4,57 282.5,57.7 287.1,58.1 286.6,59.6 288.8,59.8 288,60.1 288.8,61 287.5,61.2 288.9,61.8 288.5,63 290.4,64.7 287.6,65.7 289.2,67.6 288,68.5 286.6,68.1 286.8,69.5 284.6,70.9 280.9,70.2 278.3,71.6 278.9,71.8 279.3,75.6 277.2,76.7 278,78.3 280.5,78.2 277.4,80 278.6,81.1 277.8,82.5 278.7,83.1 279.6,82.6 279.6,83.7 280.8,83.6 281.3,85.5 282.4,86 281.2,87.5 283,89.5 279.9,90.9 282.5,90.9 285,92.5 289.1,91 293.8,95.7 294,98.2 295.7,98.9 295.6,99.6 292,103.2 293.5,108 295.7,111.7 299,113.1 299.7,116.4Z",c:[262.1,69.1]},"苗栗縣":{d:"M269.4,151.8 269.2,153.7 267.3,154.5 267.2,156.6 265.6,159.9 263.4,160.6 262.7,158.1 260.9,158 259.9,160.3 258.1,161 256.8,163.4 253.1,163.6 250.5,167.9 248.7,167.8 246.4,169.7 243.8,169.1 243.4,170.1 241.4,171 240.5,173.1 238.6,172.9 236.5,171.1 234.4,167.7 229.1,167.5 224.9,166.1 222.3,167.1 223.1,172 221.6,173.4 216.5,173.3 213.1,174.2 210.9,173.9 207.3,170.2 201.2,168.6 196.7,164.7 191.6,162.5 187.5,157.2 185.1,155.7 184.2,153.3 181.8,151.5 187.7,145 194.7,127.4 199.7,123.4 200.4,121.3 203.3,118.1 209.6,116.5 214,112.1 214.7,109.3 216.5,106.8 218.8,107.7 221.1,106.3 221.9,109.9 224.9,110.6 225.8,111.4 226.8,110.8 227.3,111.9 230.2,110.7 230.1,113 228.9,115 230.4,114.8 231.9,117.9 233.4,119.3 235.2,119.1 234.9,120.9 237.2,121.3 240.8,125.2 242.4,124.2 244.1,125.8 245.2,129 243.5,133 241.8,133.8 244.8,136.4 244.5,138.1 243,139.1 243.6,142.7 245.5,142.3 247.2,143 249.9,141.2 252.6,141.5 253.7,140.7 257,142.1 263.5,140.2 264.5,141.5 263.8,142.8 269.9,149.2 269.4,151.8Z",c:[217.0,141.9]},"嘉義市":{d:"M157.8,289.8 159.1,290.2 160.3,292.7 161.4,291.5 162.7,291.7 162.8,293.1 165.2,294 166.3,296.7 164.3,299.6 160.7,298.3 158.5,300.8 156.7,301.6 155.3,298.3 150.4,298.1 151.1,295.7 149.8,292.7 151.3,292.7 152.5,291.5 152.9,292.6 155.8,291.2 155.9,289.9 156.8,290.7 156.8,289.8 157.8,289.8Z",c:[157.2,294.8]},"嘉義縣":{d:"M196.7,275.9 199.8,275.3 205.5,277.9 208.7,277.6 209.7,279.5 207.4,287.1 209.1,289.3 210,295 211.2,296.6 215,296.5 217.4,297.4 218.2,296.2 221.4,296.1 226.5,297.4 227.9,297.1 225,297.9 223.9,299.2 222.2,298.7 220,299.4 218.2,302.2 213.2,304.4 209.7,311.8 206.9,311.9 203.9,316.2 200.5,315.9 199.7,318.5 196.9,320.4 196.7,321.7 194.2,321.2 193.4,321.8 192.4,324.8 184.8,323.1 184,327.2 186.1,333.8 182.6,333.1 180.1,334.1 178.4,333.2 177.7,331.5 175.7,335.3 174,334.4 172.5,334.9 168.5,332.8 167.6,331.6 169.4,329.2 167.8,326.7 168.6,323.1 168.1,320.7 170.5,318.3 169.6,317 165.7,315.8 165.7,314.3 166.5,314.4 166.7,313.5 165.7,312.2 162.8,312.1 162.9,310.6 164.9,309.3 164.1,308.3 162.2,309.4 161.3,307.8 156.7,305.4 154,306.9 152.4,305.5 148.6,307 144.3,307.3 140.7,310 139.5,309.2 139,311.2 136.5,311.2 135.5,312.5 135.6,315 132.8,314.7 132.1,315.8 133,316.4 131.6,317.7 129,318.4 126.9,322.8 125.4,323.7 122.2,322.3 122.2,324 120.8,323.7 119.5,321.6 116.9,320.5 116.7,319.5 112.5,316.5 114.4,309.8 117.2,309.2 117.8,310.5 117.4,309.3 118.1,309.3 117.4,309.1 118.8,308.5 118.2,306.6 117.1,307.7 116.8,306.6 116.8,304.1 117.7,303.2 116.3,303.2 117.6,300.3 117.2,299.2 114.9,300.3 114.6,299.8 116.1,298.5 117.6,293.8 119.6,293.7 118,293.2 113.8,294.3 112.7,293.2 113,289.6 116.3,289.4 121.1,291 123.5,290.5 126.9,291.9 129.1,291.3 130.2,290.1 129.7,286 131.5,285.6 132.5,287.5 133.6,287.9 134.2,286 136.2,284.9 136.1,283.2 139,282.8 138.5,281.3 141.2,281.4 142.3,278.6 145.6,278.3 146.6,276.3 148.5,276 149.4,274.3 151.6,273.5 151.9,272.4 152.2,273.7 153.4,274.3 154,273.7 154.8,274.8 157.3,272.9 158.7,273.6 165.5,272.2 166.4,274.6 170.1,278.3 176.2,280.2 180.1,280.1 185.3,278.5 184.7,281.1 185.7,281.6 188.4,280.7 189.2,281.9 191.7,281 195,282.1 197.5,281.9 197,277.9 195.9,277 196.7,275.9ZM157.8,289.8 156.8,289.8 156.8,290.7 155.9,289.9 155.8,291.2 152.9,292.6 152.5,291.5 151.3,292.7 149.8,292.7 151.1,295.7 150.4,298.1 155.3,298.3 156.7,301.6 158.5,300.8 160.7,298.3 164.3,299.6 166.3,296.7 165.2,294 162.8,293.1 162.7,291.7 161.4,291.5 160.3,292.7 159.1,290.2 157.8,289.8Z",c:[184.6,302.2]},"金門縣":{d:"M48.7,87.5 51.5,89 50.6,92.6 49.5,92.2 48.2,93.9 46.8,93.8 45.5,95.2 43.8,94.5 45.7,88.7 48.7,87.5ZM71,76.1 74.1,77.2 74.3,78.8 76.3,79.3 77.5,82.9 78.9,83.4 78.2,85.8 80.2,88.4 79.4,89.7 77.8,90.3 78.6,91.2 77.3,92 77,93.5 73,94.9 74,93.5 73.2,92.3 70.7,91.8 71,91.2 69.8,90.7 67.5,90.7 62.7,92.8 59.5,97.9 55.1,96.6 52.7,94 54.4,93.1 56.1,90.2 53.8,84.7 54.7,82.4 57.5,81.6 61,84.7 64.4,85.2 67.5,81.9 67.3,79.7 69.5,77.6 69.1,76.7 71,76.1Z",c:[72.0,85.4]},"高雄市":{d:"M227.9,297.1 234.9,298.2 235.9,299.8 235.2,301 235.8,302.2 235.7,302.9 237.8,304.1 237.6,306.9 234.2,308.3 234.8,309.8 232.1,311.9 231.9,313 235.1,315.6 236.5,314.9 237.5,316.9 240.5,318.8 240,321.3 237.6,322.9 231.8,325.4 230,325.2 225.2,330.8 222.1,331.9 220.8,337.6 221.5,340.1 219.8,341.1 219.3,343.4 216.8,344.8 218,345.8 218.5,350.9 218,354.1 215.8,358.5 217.2,360.3 217.3,362.1 214.7,362.9 214.6,366.3 213.3,366.7 213.1,368 209.1,373.1 209.3,377.3 210.8,380.7 210.2,381.9 211.7,385.1 215.2,386.7 214.4,388 215.8,388.8 215.1,391 213.6,388.9 212.7,389.7 211.4,387.9 209.6,387.5 206.4,389.8 205.3,389.7 205.2,391.3 203.3,392.2 200.1,387.8 195.9,385.4 193.1,385.4 191.2,387.8 188.7,389 187.1,388.5 186.7,385.5 185.4,385.9 184.9,384.7 179.6,386.5 172.5,393.2 169.2,392.5 166.4,393.2 164,391.9 161.4,392 158.7,401.8 158.5,411.9 156.2,418.3 155.9,424.9 157.7,429.6 157,433.5 154.4,439.7 154.6,447.2 151,446.2 145.6,442.4 142.1,439.3 142.1,438.2 141,439 141.6,437.4 139.2,440.3 135.9,435.9 138,437.6 138.5,437.2 139.8,438.9 140.5,438.3 138.5,435.7 137.3,435.4 137.9,433.8 132.4,427.3 132.8,425.9 131.5,424.8 132.5,423.6 130.6,419.7 131,417.7 132.6,416.2 132.4,414.1 131.7,414.1 132.2,412.3 125.9,396.9 123.5,396.7 122.4,395.5 124.7,394.1 122.3,388.7 122.8,387.8 120.3,380.7 122.7,379.3 126.2,381.1 127.7,380 128.3,381.7 131.2,383.4 131.7,382.3 134.7,383.1 134.5,381.8 135.4,381.8 140.3,383.3 140.9,382.4 142,384.1 144.6,384.4 148.8,379.3 151.1,379.2 152.4,380.6 153.5,380 157.1,370.9 158.5,370.8 158.9,368.8 159.7,368.9 159.6,366.9 162.3,367.1 162.6,365.2 169.2,359.1 172.5,357.2 175.3,353.8 178.9,345.9 184.4,340.1 183.8,339 186.5,334.9 186.1,333.8 184,327.2 184.8,323.1 192.4,324.8 193.4,321.8 194.2,321.2 196.7,321.7 196.9,320.4 199.7,318.5 200.5,315.9 203.9,316.2 206.9,311.9 209.7,311.8 213.2,304.4 218.2,302.2 220,299.4 222.2,298.7 223.9,299.2 225,297.9 227.9,297.1Z",c:[195.4,357.1]},"臺東縣":{d:"M303.1,504.8 306.5,505.6 312.1,505.1 311.8,506.5 312.9,508.5 311.8,508.8 311.3,510.2 311.8,511.6 316.6,514.5 315.3,517.2 312.2,517.2 310.3,514.2 307.7,513.8 304.9,510.6 303.7,510.5 303.9,507.4 302.4,505.4 303.1,504.8ZM301.3,415.9 303.9,415.9 303.7,419.4 302.4,420.6 303.4,422.6 301.8,422.6 301,421.1 298.9,420.5 299.1,418.7 297.6,416.8 297.8,416 301.3,415.9ZM215.1,391 215.8,388.8 214.4,388 215.2,386.7 211.7,385.1 210.2,381.9 210.8,380.7 209.3,377.3 209.1,373.1 213.1,368 213.3,366.7 214.6,366.3 214.7,362.9 217.3,362.1 217.2,360.3 215.8,358.5 218,354.1 218.5,350.9 218,345.8 216.8,344.8 219.3,343.4 219.8,341.1 221.5,340.1 220.8,337.6 222.1,331.9 225.2,330.8 230,325.2 231.8,325.4 237.6,322.9 239.1,322.4 241.5,324 244.7,332.6 251.5,334 253.8,337.6 257.9,336 259.8,336.9 263,344.3 262.9,345.9 265.5,346.6 266.5,348.2 268,347.8 269.2,348.6 270.5,350.4 270.1,351.9 271.2,352.8 273.8,351.1 277.2,351 278,349.9 277.8,346.8 278.7,344.7 277.6,342.3 278.3,340.7 279.8,340.8 281.4,334.9 282.9,333.9 282.2,332.8 283.2,329.6 285.7,327.1 285.7,322.4 291.9,314.1 289.3,312.4 288.8,309.5 291.4,304.6 295.1,301 298.8,301.4 300.1,303 302,302.3 299,309.5 297.3,320.6 295.2,321.2 293.3,324.3 290.8,332.3 291.6,333.6 288.3,336.7 289.8,342.5 288.7,347.2 289.6,348.7 292.1,348.7 288.1,350.5 286.4,353.2 283.7,353.4 281.6,357.8 280.1,364.5 278,367.2 278.3,368.4 274.3,374.3 272.6,375.4 270.7,380.8 267.7,385.3 266.5,385.9 265.8,387.8 262.5,388 260.1,390 259.4,392.6 260.9,395.2 261.4,398.1 258.7,400.1 258,403.7 250.8,410.1 244.9,412.8 237.3,419.1 235.5,424.6 235,429.2 231.8,432.1 230.6,434.4 226.4,449 219.3,467.3 218.9,475.1 219.5,480.5 215.4,483 214.3,481.4 211,480.7 208.3,478 206,478.8 206,476 207.2,475.9 207,474.9 205.3,474.6 203.1,472.1 203.2,471.2 205.7,470.1 205.2,467.2 204.2,465.7 201.7,465.3 201.2,463.7 198.5,462.4 200.3,459.2 199.8,456.7 202.6,456.5 204.8,454.9 202.9,449.9 199.5,448.5 199.5,445.6 201.3,443.2 197.9,434.4 198.2,432.2 199.2,431.7 198.8,429.1 200,427.5 199.8,425.7 204.3,418.3 205.1,415.6 204.4,413.6 207.5,414.2 211.3,412.9 212.9,410 217.7,409.9 219.3,406.9 218.9,403 220.5,401.1 220.5,397.5 218.8,395.8 215.7,395 214.7,393.5 215.1,391Z",c:[244.7,364.7]},"花蓮縣":{d:"M295.9,162.8 302.2,166.6 305.5,166 308.7,166.8 311.6,169.6 315.9,170.1 317,171.1 315.7,167.8 318.6,167.5 318.8,165.7 320.8,167.3 321.1,165.2 319.9,165 319.1,163.1 320.5,161.9 323,165.1 323.2,163.5 326.7,166.9 328,166.4 328.4,167.4 336.2,169.1 338.1,170.4 340.2,170.2 339.6,172.1 337,174.7 336,178.5 325,188.4 324.3,191.7 325,197.3 318.9,204.1 318.8,209.5 322.8,216.2 320.1,222.1 319.3,220.8 317.3,223.5 317.9,227.5 316,238.9 312.5,247.4 312.5,254 309.4,260 309.8,262.7 306.8,273.5 306.1,281 304.1,284.8 303,289.5 303.6,293.8 304.4,294.4 302,302.3 300.1,303 298.8,301.4 295.1,301 291.4,304.6 288.8,309.5 289.3,312.4 291.9,314.1 285.7,322.4 285.7,327.1 283.2,329.6 282.2,332.8 282.9,333.9 281.4,334.9 279.8,340.8 278.3,340.7 277.6,342.3 278.7,344.7 277.8,346.8 278,349.9 277.2,351 273.8,351.1 271.2,352.8 270.1,351.9 270.5,350.4 269.2,348.6 268,347.8 266.5,348.2 265.5,346.6 262.9,345.9 263,344.3 259.8,336.9 257.9,336 253.8,337.6 251.5,334 244.7,332.6 241.5,324 239.1,322.4 237.6,322.9 240,321.3 240.5,318.8 237.5,316.9 236.5,314.9 235.1,315.6 231.9,313 232.1,311.9 234.8,309.8 234.2,308.3 237.6,306.9 237.8,304.1 235.7,302.9 235.8,302.2 240.9,299.8 241.7,298.5 239.1,296.3 242.3,292.6 243.2,289.7 245.9,290.4 247.2,289.2 250,289.3 252.4,290.2 254.5,288.4 253.9,284.3 255.4,283.6 255.8,282.3 254.6,281.4 254.8,279.5 258.1,280.1 260.4,277.4 262.1,278.1 264.5,274 264.6,271.6 266.2,267.8 265.7,265.8 266.9,262.7 266.7,258.9 265.3,258 265.7,254.9 263.1,253.9 261.9,251.6 265.4,249.3 264.9,246.8 266.6,244.2 266.7,241.5 268.5,237.3 270.2,236.6 270,235.3 270.6,235 269.6,232.1 271.7,231 271.1,225.3 272,222.6 271.3,221.2 270.1,221.1 269.5,218.7 273,211.5 272.7,209.4 275,208.2 278.2,204.8 277.6,203.2 278.9,200.8 272.4,197.1 272.9,194.7 272.3,193.8 273.4,193.8 273.1,190.9 276,190.4 278.5,188.1 281.8,187.6 280.9,184 282.2,180.9 286.7,179.2 286.1,175.6 288.3,174.2 289.5,171.3 291.9,171.3 293.6,169.1 293.9,164.7 295.9,162.8Z",c:[264.4,309.8]},"澎湖縣":{d:"M19.3,334.3 20.3,334.5 19.6,337.4 18.2,337.6 17.8,339.5 16.7,338.1 16,338.4 16.6,337 15.1,335.1 19.3,334.3ZM51.9,327.9 51,330.8 50.2,328.7 51.9,327.9ZM32.6,311.2 33.5,312.8 31.9,312.5 31,313.9 30.3,313.5 30.2,312.5 32.6,311.2ZM26.6,307.9 27.4,309 28.5,308.7 28.6,310.9 29.3,310.9 28.8,311.9 29.8,311.4 29.7,312.3 28.6,312.8 29.3,314.6 25.6,314.1 26.8,312.7 26.9,309.4 26,308.3 26.6,307.9ZM2.7,305.8 4.2,306.8 2.2,307.7 2.7,305.8ZM33.2,293.1 31.5,294.5 28.7,294.7 29,293.8 29.8,294.5 31.5,293.1 33.2,293.1ZM39.1,266 41.2,266.4 42.4,268.1 42.9,270 41.6,270.2 40.9,271.6 41.5,272.4 42.7,272.1 41.6,273.2 43.1,274.6 43.1,277.2 45.5,276.4 44.7,277.4 44.6,280.4 45.6,280 46.4,277.7 46.8,279.5 47.4,279.1 48.3,276 49.1,276.6 48.9,277.7 50.2,278.3 49.5,278.8 50.6,278.8 51.2,277.3 52.6,279.9 52.7,282.7 54.2,283.4 54.3,284.3 52,284.8 50.8,283.2 50.8,284 50.4,283.3 47,283.8 46.1,285.4 42,288.2 42.9,289.3 42.1,291.3 41,290.4 37.5,291.3 37.5,289.2 35.3,289 34.3,286.6 33.2,286.7 34.2,284.4 34.3,286.4 35.3,286.8 35,288.1 37.4,287.7 37.7,289.5 38.9,287.6 40.7,288.5 41.2,287.8 40.6,286.8 41.7,286.5 41.6,285.3 40.2,284.6 37.5,285.6 36.1,285 36.2,283.8 37.9,284.3 37.5,283 38.4,283 37.7,282.3 36.9,283.2 35.2,283 36.8,281.3 36,279.7 37.7,279.8 39.1,278.4 39.3,281.5 40.4,281.3 40.9,282.2 41.5,280.9 41,280.1 42.2,279.5 41.7,277.4 42.9,276.7 40.8,275 42,274.5 41.9,273.8 41.2,274.4 39.7,274.1 40.6,272.1 38.6,268.2 37.3,268.1 36.2,269.8 35,268.9 33,272.4 30,273.2 30.7,277.2 29.2,278.7 29.7,282.8 27,282.3 26.1,283.1 23,283.3 24.9,281.2 26.4,282 28,280.6 28,279.2 26.1,278.2 26.7,277.2 28.1,277.9 28.7,275.7 27.4,274.5 29.1,270.4 30.2,270.4 29.5,269.2 30.8,269.1 30.5,271.1 32.7,271.6 34.9,268.9 35.1,267.2 39.1,266ZM42.9,254.1 44.5,255.9 42.8,256.3 43.3,256.9 42.1,257 41.7,258.7 40.7,256.8 42.9,254.1Z",c:[44.1,283.1]},"新竹市":{d:"M224.9,110.6 221.9,109.9 221.1,106.3 218.8,107.7 216.5,106.8 219.7,102.8 218.9,101.5 218.9,98.7 220.4,93.9 222.2,91.3 221.8,89.4 223.5,89.3 225.6,90 227.6,92.3 231.5,92.9 234.9,95.1 237.3,97.7 236.6,98.4 238.4,102.9 236.6,104 234.9,101.3 232.8,100.4 231.8,101 232.2,102.3 229.6,102.7 227.9,105.7 226.1,105.8 224.9,110.6Z",c:[225.3,98.4]},"新竹縣":{d:"M289.2,128.7 290.4,131.5 288,134.2 289,138.1 286.5,140.9 285.1,141 284.9,142.6 282.9,144.5 280.8,145.2 277.4,151.3 275.8,152.6 270.9,153.4 269.5,153.1 269.4,151.8 269.9,149.2 263.8,142.8 264.5,141.5 263.5,140.2 257,142.1 253.7,140.7 252.6,141.5 249.9,141.2 247.2,143 245.5,142.3 243.6,142.7 243,139.1 244.5,138.1 244.8,136.4 241.8,133.8 243.5,133 245.2,129 244.1,125.8 242.4,124.2 240.8,125.2 237.2,121.3 234.9,120.9 235.2,119.1 233.4,119.3 231.9,117.9 230.4,114.8 228.9,115 230.1,113 230.2,110.7 227.3,111.9 226.8,110.8 225.8,111.4 224.9,110.6 226.1,105.8 227.9,105.7 229.6,102.7 232.2,102.3 231.8,101 232.8,100.4 234.9,101.3 236.6,104 238.4,102.9 236.6,98.4 237.3,97.7 234.9,95.1 231.5,92.9 227.6,92.3 225.6,90 223.5,89.3 225.9,86.7 229.6,78.2 231.3,76.5 232.8,77.2 234.7,75.6 236.4,76.4 239,75.5 240.1,76 241.8,77 241.7,81.6 246.3,83.5 248.7,82.8 248.6,84.6 249.7,85.2 255.2,85.4 255.9,88.6 254.4,90.8 258,92.7 257.6,93.4 261.7,94.9 261.9,96.4 264,95.7 264.2,97.6 267.2,96.2 267.8,98 269.5,98.5 269.5,100.2 275.2,103 276.1,104.3 274.7,107.5 276,109.5 274.9,113.2 277.5,112.8 280.4,115.6 280.4,117.5 282.4,117.3 282.2,121 283,122.5 284.1,122.7 283.1,124.9 284.3,127.7 287,129.5 289.2,128.7Z",c:[255.3,112.5]},"屏東縣":{d:"M154.6,447.2 154.4,439.7 157,433.5 157.7,429.6 155.9,424.9 156.2,418.3 158.5,411.9 158.7,401.8 161.4,392 164,391.9 166.4,393.2 169.2,392.5 172.5,393.2 179.6,386.5 184.9,384.7 185.4,385.9 186.7,385.5 187.1,388.5 188.7,389 191.2,387.8 193.1,385.4 195.9,385.4 200.1,387.8 203.3,392.2 205.2,391.3 205.3,389.7 206.4,389.8 209.6,387.5 211.4,387.9 212.7,389.7 213.6,388.9 215.1,391 214.7,393.5 215.7,395 218.8,395.8 220.5,397.5 220.5,401.1 218.9,403 219.3,406.9 217.7,409.9 212.9,410 211.3,412.9 207.5,414.2 204.4,413.6 205.1,415.6 204.3,418.3 199.8,425.7 200,427.5 198.8,429.1 199.2,431.7 198.2,432.2 197.9,434.4 201.3,443.2 199.5,445.6 199.5,448.5 202.9,449.9 204.8,454.9 202.6,456.5 199.8,456.7 200.3,459.2 198.5,462.4 201.2,463.7 201.7,465.3 204.2,465.7 205.2,467.2 205.7,470.1 203.2,471.2 203.1,472.1 205.3,474.6 207,474.9 207.2,475.9 206,476 206,478.8 208.3,478 211,480.7 214.3,481.4 215.4,483 219.5,480.5 219.5,487 218.7,488.2 219.6,495.9 218.2,498.2 219,501 220.3,501.7 219,507.3 220.1,512.5 218.5,513.6 216.7,517.7 212.7,519.4 212,523.5 215.4,532.4 213.3,533 212.6,530.4 211.1,529.9 209.3,527.3 203.9,526 201.4,523.6 199.2,525.1 198,529.6 196.2,529.6 195.2,527.6 194,527.4 194.4,520.4 191.7,517.1 190.5,513.7 192.1,511.4 192.2,509.3 193.3,508.5 192.5,504.9 194.8,503.5 194.7,501.8 192.3,497 190.4,486 188.7,482.5 185.7,479.7 185.9,477.3 184.6,472.3 176.8,462.1 167.4,455.8 159.3,451.6 155.8,447.2 154.6,447.2Z",c:[180.8,414.4]}};
+var SHAPE_SRC="內政部國土測繪中心〈直轄市、縣市界線(TWD97經緯度)〉（政府資料開放平臺 data.gov.tw/dataset/7442，政府資料開放授權條款第1版）；經 taiwan-atlas（MIT 授權）轉檔後簡化";
+/* ---- 尋寶：在地圖上點出某一種地形 ---- */
+function huntCheck(k,n){var s=spot(n);return !!(s&&s.k===k);}
+
+/* ---- 翻牌配對：名稱 ↔ 定義 ---- */
+function memoDeck(){var d=[];LANDS.forEach(function(l){d.push({id:l.k+"-n",k:l.k,side:"n"});d.push({id:l.k+"-d",k:l.k,side:"d"});});return d;}
+function memoMatch(a,b){return !!(a&&b&&a.id!==b.id&&a.k===b.k&&a.side!==b.side);}
+function memoBest(prev,moves){if(!(moves>0))return prev||0;if(!(prev>0))return moves;return Math.min(prev,moves);}
+function memoStars(moves){return moves<=7?3:(moves<=10?2:1);}
+
+/* ---- 分類王：一回合抽幾個地點 ---- */
+function sortRound(n,rnd){rnd=rnd||Math.random;var a=PLACES.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(rnd()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}
+  /* 每種地形至少一個 */
+  var pick=[],seen={};a.forEach(function(p){if(!seen[p.k]){seen[p.k]=1;pick.push(p);}});a.forEach(function(p){if(pick.length<n&&pick.indexOf(p)<0)pick.push(p);});
+  for(i=pick.length-1;i>0;i--){j=Math.floor(rnd()*(i+1));t=pick[i];pick[i]=pick[j];pick[j]=t;}return pick.slice(0,Math.max(n,5));}
+function fmtTime(sec){sec=Math.max(0,Math.floor(sec||0));var m=Math.floor(sec/60),s=sec%60;return m+":"+(s<10?"0":"")+s;}
+function bestTime(prev,t){if(!(t>0))return prev||0;if(!(prev>0))return t;return Math.min(prev,t);}
+
+/* ---- 小博士測驗 t: book 課本 / more 延伸 ---- */
+var QUIZ=[
+ {t:"book",q:"高度<b>超過 1,000 公尺</b>、地勢起伏大的高山，是哪一種地形？",o:["山地","丘陵","台地"],a:0,x:"山地：高度超過 1,000 公尺且地勢起伏大，例如玉山、雪山、阿里山。"},
+ {t:"book",q:"在<b>山地的邊緣</b>、不超過 1,000 公尺、坡度比較和緩的是？",o:["平原","丘陵","盆地"],a:1,x:"丘陵在山地邊緣，坡度比較和緩，例如新竹丘陵、苗栗丘陵。"},
+ {t:"book",q:"<b>四周高、中間平</b>，好像一個盆子，是哪一種地形？",o:["盆地","台地","平原"],a:0,x:"盆地四周地勢較高、中間較平坦，例如臺北盆地。"},
+ {t:"book",q:"高度不超過 1,000 公尺、<b>上面比較平坦的高地</b>是？",o:["丘陵","山地","台地"],a:2,x:"台地是比較平坦的高地，例如林口台地、桃園台地。"},
+ {t:"book",q:"在<b>河流出口或沿海地區</b>，寬闊又平坦的是？",o:["平原","盆地","丘陵"],a:0,x:"平原寬闊平坦，例如嘉南平原、屏東平原。"},
+ {t:"book",q:"<b>臺北盆地、埔里盆地、臺中盆地</b>都屬於哪一種地形？",o:["台地","盆地","平原"],a:1,x:"課本裡的盆地例子：臺北、埔里、臺中盆地。"},
+ {t:"book",q:"下面哪一個是<b>台地</b>？",o:["八卦台地","嘉南平原","苗栗丘陵"],a:0,x:"八卦台地是台地；嘉南是平原、苗栗是丘陵。"},
+ {t:"book",q:"<b>茶園、果園、休閒農業</b>最常出現在哪一種地形？",o:["平原","丘陵","盆地"],a:1,x:"丘陵坡度比較和緩、交通比山地方便，常有茶園、果園和休閒農業。"},
+ {t:"book",q:"平原、台地、盆地地勢平坦、交通便利，所以容易形成什麼？",o:["森林遊樂區","城鎮和都市","高山蔬菜園"],a:1,x:"平坦的地方適合居住和耕種，容易形成城鎮和都市。"},
+ {t:"book",q:"山地和丘陵<b>不一樣</b>的地方是？",o:["丘陵坡度比較和緩、交通比較方便","丘陵比山地高","山地比較適合蓋都市"],a:0,x:"相同：都高低起伏、會種適合的作物、有休閒設施；不同：丘陵坡度比較和緩、交通比較方便。"},
+ {t:"book",q:"家鄉的景觀和土地利用，常常受到什麼影響？",o:["地形","星座","生日"],a:0,x:"地形會影響居民怎麼使用土地，例如平地蓋城市、山坡種茶。"},
+ {t:"more",q:"臺灣最高的<b>玉山</b>大約有多高？",o:["約 1,000 公尺","約 3,952 公尺","約 600 公尺"],a:1,x:"內政部國土測繪中心的公告高度是 3,952 公尺（111 年測量 3,952.433 公尺），遠遠超過 1,000 公尺，所以是山地。"},
+ {t:"more",q:"上一課的<b>石碇區</b>，海拔大約 100～600 公尺、有丘陵和山，它比較像哪一種地形？",o:["平原","丘陵","盆地"],a:1,x:"石碇區公所介紹：地形以丘陵和山為主，海拔約 100～600 公尺，沒有超過 1,000 公尺。"}
+];
+return {LANDS:LANDS,ORDER:ORDER,land:land,PLACES:PLACES,placeKind:placeKind,SPOTS:SPOTS,spot:spot,spotsOf:spotsOf,proj:proj,SHAPES:SHAPES,SHAPE_SRC:SHAPE_SRC,
+ huntCheck:huntCheck,memoDeck:memoDeck,memoMatch:memoMatch,memoBest:memoBest,memoStars:memoStars,sortRound:sortRound,fmtTime:fmtTime,bestTime:bestTime,QUIZ:QUIZ,
+ YUSHAN_M:3952,SHIDING_M:[100,600]};
+})();
+if(typeof module!=="undefined")module.exports=Core;
+</script>
+<script>
+(function(){
+"use strict";
+if(typeof document==="undefined")return;
+var $=function(id){return document.getElementById(id);};
+var C=Core;
+
+/* ---------------- stars ---------------- */
+var KEY="landformStars",MEMO_KEY="landformMemoBest",SORT_KEY="landformSortBest",stars=0;
+try{stars=parseInt(localStorage.getItem(KEY)||"0",10)||0;}catch(e){}
+function getNum(k){try{return parseInt(localStorage.getItem(k)||"0",10)||0;}catch(e){return 0;}}
+function setNum(k,v){try{localStorage.setItem(k,String(v));}catch(e){}}
+var BADGES=[{need:5,label:"🔎 地形小偵探"},{need:15,label:"🗺️ 地形探險家"},{need:30,label:"👑 地形大師"}];
+function renderScore(){$("score").textContent="⭐ "+stars;$("badges").innerHTML=BADGES.map(function(b){var g=stars>=b.need;return '<span class="bdg'+(g?" got":"")+'">'+b.label+(g?"":"（"+b.need+"⭐）")+'</span>';}).join("");}
+function addStars(n,el){stars+=n;setNum(KEY,stars);renderScore();var sc=$("score");sc.classList.remove("pop");void sc.offsetWidth;sc.classList.add("pop");
+  var x=innerWidth/2,y=innerHeight/2;if(el){var r=el.getBoundingClientRect();x=r.left+r.width/2;y=r.top;}burst(x,y);beep(true);}
+function burst(x,y){var em=["⭐","⛰️","✨","🌾"];for(var i=0;i<10;i++){var s=document.createElement("div");s.className="burst";s.textContent=em[i%4];s.style.left=x+"px";s.style.top=y+"px";var a=Math.random()*6.28,r=60+Math.random()*90;s.style.setProperty("--dx",Math.cos(a)*r+"px");s.style.setProperty("--dy",Math.sin(a)*r+"px");document.body.appendChild(s);setTimeout((function(n){return function(){if(n.parentNode)n.parentNode.removeChild(n);};})(s),1200);}}
+var actx=null;function beep(ok){try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();(ok?[660,880,1100]:[300,220]).forEach(function(f,i){var o=actx.createOscillator(),g=actx.createGain();o.frequency.value=f;o.type="triangle";g.gain.setValueAtTime(.12,actx.currentTime+i*.09);g.gain.exponentialRampToValueAtTime(.001,actx.currentTime+i*.09+.25);o.connect(g);g.connect(actx.destination);o.start(actx.currentTime+i*.09);o.stop(actx.currentTime+i*.09+.3);});}catch(e){}}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function each(list,fn){Array.prototype.forEach.call(list,fn);}
+function closest(el,cls){while(el&&el.nodeType===1){if(el.classList&&el.classList.contains(cls))return el;el=el.parentNode;}return null;}
+
+/* ---------------- tabs ---------------- */
+var tabBtns=document.querySelectorAll("#tabs button");
+each(tabBtns,function(b){b.addEventListener("click",function(){each(tabBtns,function(x){x.classList.toggle("on",x===b);});each(document.querySelectorAll("section.page"),function(p){p.classList.toggle("active",p.id===b.getAttribute("data-p"));});window.scrollTo(0,0);});});
+
+/* ---------------- 1. cross-section ---------------- */
+var XS={mount:[0,160],hill:[160,280],tab:[280,380],basin:[380,510],plain:[510,588]};
+var GROUND="M0,300 L0,200 L25,120 L45,150 L75,45 L100,95 L120,70 L145,160 L160,176 L175,166 Q195,138 215,165 Q235,186 250,158 Q266,146 280,192 L292,192 L305,172 L365,172 L378,206 L392,162 L410,150 L432,232 L472,232 L490,155 L508,222 L520,246 L588,252 L600,262 L640,266 L640,300 Z";
+var xsSel=null,xsSeen={};
+function drawXS(){
+  var h='<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bde0fe"/><stop offset="1" stop-color="#eaf6ff"/></linearGradient>'+
+    '<linearGradient id="gr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8ab17d"/><stop offset=".55" stop-color="#b5a27a"/><stop offset="1" stop-color="#8d6e4f"/></linearGradient></defs>'+
+    '<rect width="640" height="300" fill="url(#sky)"/>'+
+    '<rect x="586" y="250" width="54" height="50" fill="#4d96ff" opacity=".75"/>'+
+    '<path d="'+GROUND+'" fill="url(#gr)" stroke="#5a4632" stroke-width="2" stroke-linejoin="round"/>'+
+    '<path d="M586,253 L640,253" stroke="#1c7ed6" stroke-width="2"/>'+
+    '<line x1="0" y1="115" x2="640" y2="115" stroke="#e63946" stroke-width="2" stroke-dasharray="8 6"/>'+
+    '<text x="636" y="108" font-size="15" font-weight="900" fill="#e63946" text-anchor="end">1,000 公尺</text>'+
+    '<text x="76" y="40" font-size="16">🌲</text><text x="40" y="146" font-size="16">🌲</text><text x="106" y="92" font-size="16">🌲</text>'+
+    '<text x="190" y="150" font-size="15">🍵</text><text x="240" y="170" font-size="15">🍊</text>'+
+    '<text x="322" y="168" font-size="16">🏠</text><text x="340" y="168" font-size="16">🌾</text>'+
+    '<text x="436" y="228" font-size="16">🏙️</text><text x="456" y="228" font-size="16">🏠</text>'+
+    '<text x="530" y="244" font-size="16">🌾</text><text x="556" y="246" font-size="16">🏘️</text>'+
+    '<text x="614" y="290" font-size="15" font-weight="900" fill="#fff" text-anchor="middle">海</text>';
+  C.LANDS.forEach(function(l){var r=XS[l.k],sel=xsSel===l.k;
+    h+='<g class="xs" data-k="'+l.k+'"><rect x="'+r[0]+'" y="0" width="'+(r[1]-r[0])+'" height="300" fill="'+(sel?"#ffd166":"transparent")+'" fill-opacity="'+(sel?.35:0)+'"/></g>';
+    h+='<text x="'+((r[0]+r[1])/2)+'" y="284" class="xlbl" text-anchor="middle"'+(sel?' fill="#d62828"':'')+'>'+l.n+(xsSeen[l.k]?" ✓":"")+'</text>';});
+  $("xsSvg").innerHTML=h;
+  $("xsChecks").innerHTML=C.LANDS.map(function(l){return '<span class="chk'+(xsSeen[l.k]?" got":"")+'">'+l.e+" "+l.n+'</span>';}).join("");
+}
+function showLand(k){var l=C.land(k);xsSel=k;
+  $("xsInfo").style.background="#fff";$("xsInfo").style.border="4px solid "+l.col;
+  $("xsInfo").innerHTML='<div class="t">'+l.e+" "+l.n+'</div>'+l.def+'<div class="small" style="margin-top:6px">📖 課本例子：</div><div class="exs">'+l.ex.map(function(x){return '<span class="ex" style="--c:'+l.col+'">'+x+'</span>';}).join("")+'</div>';
+  var isNew=!xsSeen[k];xsSeen[k]=1;drawXS();
+  if(isNew&&Object.keys(xsSeen).length===5)addStars(2,$("xsInfo"));}
+$("xsSvg").addEventListener("click",function(ev){var g=ev.target;while(g&&g!==this&&!(g.getAttribute&&g.getAttribute("data-k")))g=g.parentNode;if(g&&g!==this)showLand(g.getAttribute("data-k"));});
+drawXS();
+
+/* order game */
+var ordIdx=0,ordDone=0;
+function drawOrd(){var names=shuffle(C.LANDS);$("ordOpts").innerHTML=names.map(function(l){return '<button class="opt" data-k="'+l.k+'">'+l.e+" "+l.n+'</button>';}).join("");$("ordGot").innerHTML='<span class="small">左 ➜</span>';ordIdx=0;$("ordFb").className="feedback";$("ordAgain").style.display="none";}
+$("ordOpts").addEventListener("click",function(ev){var b=closest(ev.target,"opt");if(!b||b.disabled)return;var k=b.getAttribute("data-k"),fb=$("ordFb");
+  if(k===C.ORDER[ordIdx]){b.disabled=true;b.classList.add("right");var l=C.land(k);$("ordGot").innerHTML+='<span class="stop">'+l.e+" "+l.n+'</span>';ordIdx++;fb.className="feedback";
+    if(ordIdx===5){fb.className="feedback show good";fb.innerHTML="🎉 排好了！<b>山地 → 丘陵 → 台地 → 盆地 → 平原</b>，最後就到海邊了。";addStars(ordDone?1:3,b);ordDone++;$("ordAgain").style.display="";}
+  }else{b.classList.add("no");setTimeout(function(){b.classList.remove("no");},500);beep(false);fb.className="feedback show bad";fb.innerHTML="再看看上面的圖，第 "+(ordIdx+1)+" 個是哪一種？";}});
+$("ordAgain").addEventListener("click",drawOrd);
+drawOrd();
+
+/* ---------------- 2. map ---------------- */
+var WHERE={"玉山":"南投縣、嘉義縣、高雄市交界","雪山":"臺中市、苗栗縣交界","嘉南平原":"嘉義縣、臺南市一帶","花東縱谷平原":"花蓮縣、臺東縣之間的縱谷"};
+var OFF={"阿里山":[0,-11,"middle"],"八卦台地":[0,21,"middle"],"豐原丘陵":[11,10,"start"],"臺中盆地":[11,9,"start"]};
+var LEFT={"林口台地":1,"大肚台地":1,"八卦台地":1,"彰化平原":1,"嘉南平原":1,"嘉義丘陵":1,"桃園台地":1,"苗栗丘陵":1,"阿里山":1,"屏東平原":1};
+function baseMap(){var h='<rect width="400" height="545" fill="#e6f4ff"/><text x="70" y="200" font-size="12" fill="#1c7ed6" font-weight="700" text-anchor="middle">臺灣海峽</text><text x="352" y="300" font-size="12" fill="#1c7ed6" font-weight="700" transform="rotate(90 352 300)">太平洋</text>'+
+  '<g transform="translate(375,30)"><circle r="16" fill="#fff" stroke="#4d96ff" stroke-width="2"/><polygon points="0,-12 5,4 0,1 -5,4" fill="#e63946"/><text x="0" y="13" font-size="8" font-weight="900" text-anchor="middle" fill="#e63946">北</text></g>';
+  Object.keys(C.SHAPES).forEach(function(n){if(n==="金門縣"||n==="連江縣")return;h+='<path d="'+C.SHAPES[n].d+'" fill="#fdf6e3" fill-rule="evenodd" stroke="#a9b8c6" stroke-width=".8" stroke-linejoin="round"/>';});
+  return h;}
+function marker(s,o){var p=C.proj(s.lon,s.lat),l=C.land(s.k),sel=o.sel===s.n,col=o.grey?"#8d99ae":l.col,r=sel?10:7;
+  var h='<g class="mk" data-n="'+s.n+'"><circle cx="'+p.x+'" cy="'+p.y+'" r="16" fill="transparent"/>'+(sel?'<circle cx="'+p.x+'" cy="'+p.y+'" r="15" fill="none" stroke="#ff6b9a" stroke-width="4" class="hl"/>':'')+
+    '<circle cx="'+p.x+'" cy="'+p.y+'" r="'+r+'" fill="'+col+'" stroke="#fff" stroke-width="2"/></g>';
+  if(o.label||sel){var lf=LEFT[s.n],of=OFF[s.n]||[lf?-11:11,4,lf?"end":"start"];h+='<text x="'+(p.x+of[0])+'" y="'+(p.y+of[1])+'" class="lbl" text-anchor="'+of[2]+'">'+s.n+'</text>';}
+  return h;}
+var layers={},lfSel=null;C.ORDER.forEach(function(k){layers[k]=1;});
+function nLayers(){return Object.keys(layers).filter(function(k){return layers[k];}).length;}
+function drawLF(){var h=baseMap(),few=nLayers()<=2;
+  C.SPOTS.forEach(function(s){if(layers[s.k])h+=marker(s,{sel:lfSel,label:few});});
+  $("lfSvg").innerHTML=h;
+  $("lyBtns").innerHTML=C.LANDS.map(function(l){return '<button class="btn small lybtn'+(layers[l.k]?" on":"")+'" style="--c:'+l.col+'" data-k="'+l.k+'">'+l.e+" "+l.n+'</button>';}).join("")+
+    '<button class="btn small white" data-k="all">全部</button><button class="btn small white" data-k="none">🧽 清除</button>';}
+$("lyBtns").addEventListener("click",function(ev){var b=closest(ev.target,"btn");if(!b)return;var k=b.getAttribute("data-k");
+  if(k==="all")C.ORDER.forEach(function(x){layers[x]=1;});else if(k==="none")C.ORDER.forEach(function(x){layers[x]=0;});
+  else{if(nLayers()===5){C.ORDER.forEach(function(x){layers[x]=0;});layers[k]=1;}else layers[k]=layers[k]?0:1;}
+  drawLF();});
+$("lfSvg").addEventListener("click",function(ev){var g=ev.target;while(g&&g!==this&&!(g.getAttribute&&g.getAttribute("data-n")))g=g.parentNode;if(!g||g===this)return;
+  var s=C.spot(g.getAttribute("data-n")),l=C.land(s.k);lfSel=s.n;drawLF();
+  $("lfInfo").style.background="#fff";$("lfInfo").style.border="4px solid "+l.col;
+  $("lfInfo").innerHTML='<div class="t">'+l.e+" "+s.n+'</div>是<b style="color:'+l.col+'">'+l.n+'</b>：'+l.short+'。<br>📍 大約在：<b>'+(WHERE[s.n]||s.county)+'</b>';});
+drawLF();
+
+/* hunt: 這個點是什麼地形？ */
+var hu={on:false,i:0,score:0,list:[],ans:false};
+function huDraw(){var s=hu.list[hu.i];
+  $("huQ").innerHTML='<div class="mapbox" style="max-width:300px;margin:0 auto 8px"><svg id="huSvg" viewBox="0 0 400 545">'+baseMap()+marker(s,{sel:s.n})+'</svg></div><div class="qtext" style="text-align:center">第 '+(hu.i+1)+' / '+hu.list.length+' 題：<b>'+s.n+'</b> 是哪一種地形？</div>'+
+    '<div class="opts" id="huOpts">'+C.LANDS.map(function(l){return '<button class="opt" data-k="'+l.k+'">'+l.e+" "+l.n+'</button>';}).join("")+'</div>';
+  $("huFb").className="feedback";$("huGo").style.display="none";$("huScore").textContent="答對 "+hu.score;hu.ans=false;}
+$("huGo").addEventListener("click",function(){if(hu.on&&hu.i<hu.list.length-1&&hu.ans){hu.i++;huDraw();return;}hu={on:true,i:0,score:0,list:shuffle(C.SPOTS).slice(0,8),ans:false};huDraw();});
+$("huQ").addEventListener("click",function(ev){var b=closest(ev.target,"opt");if(!b||hu.ans)return;var s=hu.list[hu.i],l=C.land(s.k),fb=$("huFb");hu.ans=true;
+  each(document.querySelectorAll("#huOpts .opt"),function(o){if(o.getAttribute("data-k")===s.k)o.classList.add("right");});
+  if(C.huntCheck(b.getAttribute("data-k"),s.n)){hu.score++;fb.className="feedback show good";fb.innerHTML="✅ 答對了！"+s.n+"是<b>"+l.n+"</b>："+l.short+"。";addStars(1,b);}
+  else{b.classList.add("no");beep(false);fb.className="feedback show bad";fb.innerHTML="🤔 "+s.n+"是<b>"+l.n+"</b>喔："+l.short+"。";}
+  $("huScore").textContent="答對 "+hu.score;var last=hu.i>=hu.list.length-1;$("huGo").textContent=last?"🔄 再玩一次":"下一題 ➡";$("huGo").style.display="";
+  if(last){fb.innerHTML+="<br>🏁 尋寶結束：8 題答對 <b>"+hu.score+"</b> 題！";hu.on=false;}});
+
+/* ---------------- 3. land use ---------------- */
+var useSel="mount";
+function drawUse(){$("useBtns").innerHTML=C.LANDS.map(function(l){return '<button class="btn small lbtn'+(useSel===l.k?" teal on":" white")+'" data-k="'+l.k+'">'+l.e+" "+l.n+'</button>';}).join("");
+  var l=C.land(useSel);$("useScene").style.setProperty("--c",l.col);
+  $("useScene").innerHTML='<span class="big">'+l.e+'</span><b style="font-size:22px;color:'+l.col+'">'+l.n+'</b>　<span class="small">'+l.short+'</span><ul>'+l.use.map(function(u){return '<li>'+u+'</li>';}).join("")+'</ul><div class="small">💡 '+l.live+'。例子：'+l.ex.join("、")+'</div>';}
+$("useBtns").addEventListener("click",function(ev){var b=closest(ev.target,"btn");if(!b)return;useSel=b.getAttribute("data-k");drawUse();});
+drawUse();
+$("whyBtn").addEventListener("click",function(){var r=$("whyAns");if(!r.classList.contains("show")){r.classList.add("show");addStars(1,this);}});
+
+var SRC=[
+ ["新北市屈尺國小 115 學年度 四年級社會（翰林）課程計畫：第二單元第1課「高低起伏的地形」、課本 26～33 頁內容、地形配對遊戲、土地利用","https://www.ccyes.ntpc.edu.tw/p/406-1000-8855,r157.php"],
+ ["臺南市陽明國小 115 學年度 四年級社會（翰林）課程計畫：第四週「高低起伏的地形」","https://course.tn.edu.tw/course/115E%E9%99%BD%E6%98%8E%E5%9C%8B%E5%B0%8FC5-1%E9%A0%98%E5%9F%9F%E5%AD%B8%E7%BF%92%E8%AA%B2%E7%A8%8B(%E8%AA%BF%E6%95%B4)%E8%A8%88%E7%95%AB%E6%99%AE%E9%80%9A%E7%8F%AD%E5%9B%9B%E5%B9%B4%E7%B4%9A%E7%A4%BE%E6%9C%83070917088.pdf"],
+ ["高雄市七賢國小 115 學年度 四年級社會課程計畫：第四週「高低起伏的地形」","https://w2.chihps.kh.edu.tw/chihps-plan/115/064A_115-1%E7%A4%BE%E6%9C%83-%E5%9B%9B%E5%B9%B4%E7%B4%9A%E9%9D%96%E6%96%870521.pdf"],
+ ["嘉義縣 114 學年度 四年級社會（翰林）課程計畫","https://course.cyc.edu.tw/upfile/course114/sub1/15953804239158350.pdf"],
+ ["玉山高度：內政部國土測繪中心〈玉山高度測量〉","https://www.nlsc.gov.tw/cp.aspx?n=1486"],
+ ["石碇的地形與海拔：新北市石碇區公所","https://www.shiding.ntpc.gov.tw/"],
+ ["地圖圓點：玉山、雪山、大肚山用維基百科的座標；其他依地名所在的縣市標大約位置（示意）","https://zh.wikipedia.org/wiki/玉山"],
+ ["縣市界線："+C.SHAPE_SRC,"https://data.gov.tw/dataset/7442"]
+];
+$("srcList").innerHTML="<ul>"+SRC.map(function(s){return '<li>'+s[0]+'<br><a href="'+s[1]+'" target="_blank" rel="noopener">'+s[1]+'</a></li>';}).join("")+"</ul>";
+
+/* ---------------- 4. games ---------------- */
+each(document.querySelectorAll("[data-gm]"),function(b){b.addEventListener("click",function(){var g=b.getAttribute("data-gm");
+  each(document.querySelectorAll("[data-gm]"),function(x){x.classList.toggle("teal",x===b);x.classList.toggle("on",x===b);});
+  each(document.querySelectorAll(".gcard"),function(c){c.style.display=c.id==="g-"+g?"":"none";});});});
+
+/* memo */
+var mm={deck:[],open:[],done:{},moves:0,lock:false};
+function mmBestTxt(){var b=getNum(MEMO_KEY);$("mmBest").textContent=b?b+" 步":"—";}
+function mmNew(){mm={deck:shuffle(C.memoDeck()),open:[],done:{},moves:0,lock:false};$("mmMoves").textContent="0";$("mmFb").className="feedback";mmDraw();mmBestTxt();}
+function mmDraw(){$("mmGrid").innerHTML=mm.deck.map(function(c,i){var l=C.land(c.k),isOpen=mm.done[c.id]||mm.open.indexOf(i)>=0;
+  return '<button class="mc'+(isOpen?" open":"")+(isOpen&&c.side==="n"?" nm":"")+(mm.done[c.id]?" done":"")+'" style="--c:'+l.col+'" data-i="'+i+'">'+(isOpen?(c.side==="n"?l.e+"<br>"+l.n:l.short):"❓")+'</button>';}).join("");}
+$("mmGrid").addEventListener("click",function(ev){var b=closest(ev.target,"mc");if(!b||mm.lock)return;var i=+b.getAttribute("data-i"),c=mm.deck[i];
+  if(mm.done[c.id]||mm.open.indexOf(i)>=0)return;mm.open.push(i);mmDraw();
+  if(mm.open.length<2)return;mm.moves++;$("mmMoves").textContent=mm.moves;
+  var a=mm.deck[mm.open[0]],d=mm.deck[mm.open[1]];
+  if(C.memoMatch(a,d)){mm.done[a.id]=mm.done[d.id]=1;mm.open=[];mmDraw();beep(true);
+    if(Object.keys(mm.done).length===10){var st=C.memoStars(mm.moves),best=C.memoBest(getNum(MEMO_KEY),mm.moves),rec=best===mm.moves&&getNum(MEMO_KEY)!==mm.moves;setNum(MEMO_KEY,best);mmBestTxt();
+      $("mmFb").className="feedback show good";$("mmFb").innerHTML="🎉 全部配對成功！用了 <b>"+mm.moves+"</b> 步"+(rec?"，<b>新紀錄！</b>":"")+"　得到 "+st+" ⭐";addStars(st,$("mmGrid"));}}
+  else{mm.lock=true;setTimeout(function(){mm.open=[];mm.lock=false;mmDraw();},900);}});
+$("mmRestart").addEventListener("click",mmNew);
+mmNew();
+
+/* sort */
+var so={items:[],placed:{},sel:null,t0:0,timer:null,miss:0,done:false};
+function soBestTxt(){var b=getNum(SORT_KEY);$("soBest").textContent=b?C.fmtTime(b):"—";}
+function soNew(){if(so.timer)clearInterval(so.timer);so={items:C.sortRound(10),placed:{},sel:null,t0:0,timer:null,miss:0,done:false};$("soTime").textContent="0:00";$("soFb").className="feedback";soDraw();soBestTxt();}
+function soDraw(){$("soTray").innerHTML=so.items.map(function(p,i){return so.placed[p.n]?"":'<button class="pc'+(so.sel===i?" sel":"")+'" data-i="'+i+'">'+p.n+'</button>';}).join("")||'<span class="small">全部分好了！</span>';
+  $("soBaskets").innerHTML=C.LANDS.map(function(l){return '<div class="bk" style="--c:'+l.col+'" data-k="'+l.k+'"><h4>'+l.e+" "+l.n+'</h4><div class="in">'+so.items.filter(function(p){return so.placed[p.n]===l.k;}).map(function(p){return '<span>'+p.n+'</span>';}).join("")+'</div></div>';}).join("");}
+function soStart(){if(so.t0)return;so.t0=Date.now();so.timer=setInterval(function(){$("soTime").textContent=C.fmtTime((Date.now()-so.t0)/1000);},500);}
+function soDrop(i,k){var p=so.items[i];if(!p||so.placed[p.n]||so.done)return;soStart();var fb=$("soFb");
+  if(p.k===k){so.placed[p.n]=k;so.sel=null;soDraw();beep(true);var bk=document.querySelector('.bk[data-k="'+k+'"]');if(bk)bk.classList.add("ok");fb.className="feedback";
+    if(Object.keys(so.placed).length===so.items.length){so.done=true;clearInterval(so.timer);var t=Math.max(1,Math.round((Date.now()-so.t0)/1000)),prev=getNum(SORT_KEY),best=C.bestTime(prev,t);setNum(SORT_KEY,best);soBestTxt();
+      var st=3+(so.miss?0:1);fb.className="feedback show good";fb.innerHTML="🎉 全部分類完成！用了 <b>"+C.fmtTime(t)+"</b>"+(best===t&&prev!==t?"，<b>新紀錄！</b>":"")+(so.miss?"（錯 "+so.miss+" 次）":"，<b>全對！</b>")+"　得到 "+st+" ⭐";addStars(st,$("soBaskets"));}}
+  else{so.miss++;beep(false);var l=C.land(k);fb.className="feedback show bad";fb.innerHTML="🤔 <b>"+p.n+"</b> 不是"+l.n+"喔！"+l.n+"是「"+l.short+"」。小提示：看看名字最後兩個字～";
+    var el=document.querySelector('.pc[data-i="'+i+'"]');if(el){el.classList.add("shake");setTimeout(function(){el.classList.remove("shake");},450);}}}
+/* drag + tap */
+var drag=null;
+$("soTray").addEventListener("pointerdown",function(ev){var b=closest(ev.target,"pc");if(!b)return;ev.preventDefault();drag={i:+b.getAttribute("data-i"),el:b,x:ev.clientX,y:ev.clientY,moved:false,ghost:null,id:ev.pointerId};try{b.setPointerCapture(ev.pointerId);}catch(e){}});
+function overBasket(x,y){var el=document.elementFromPoint(x,y);return closest(el,"bk");}
+var lastOver=null;
+document.addEventListener("pointermove",function(ev){if(!drag||ev.pointerId!==drag.id)return;var dx=ev.clientX-drag.x,dy=ev.clientY-drag.y;
+  if(!drag.moved&&dx*dx+dy*dy>64){drag.moved=true;soStart();var g=drag.el.cloneNode(true);g.className="pc pcghost";document.body.appendChild(g);drag.ghost=g;drag.el.classList.add("lift");}
+  if(drag.moved){drag.lx=ev.clientX;drag.ly=ev.clientY;if(!drag.tm)drag.tm=setInterval(edgeScroll,30);drag.ghost.style.left=ev.clientX+"px";drag.ghost.style.top=ev.clientY+"px";var bk=overBasket(ev.clientX,ev.clientY);if(lastOver&&lastOver!==bk)lastOver.classList.remove("over");if(bk)bk.classList.add("over");lastOver=bk;}});
+function edgeScroll(){if(!drag)return;var y=drag.ly,h=window.innerHeight,v=y>h-90?Math.min(18,(y-(h-90))/3+4):(y<90?-Math.min(18,(90-y)/3+4):0);if(!v)return;window.scrollBy(0,v);var bk=overBasket(drag.lx,drag.ly);if(lastOver&&lastOver!==bk)lastOver.classList.remove("over");if(bk)bk.classList.add("over");lastOver=bk;}
+function endDrag(ev){if(!drag||ev.pointerId!==drag.id)return;var d=drag;drag=null;if(d.tm)clearInterval(d.tm);if(lastOver){lastOver.classList.remove("over");lastOver=null;}
+  if(d.ghost&&d.ghost.parentNode)d.ghost.parentNode.removeChild(d.ghost);d.el.classList.remove("lift");
+  if(d.moved){var bk=ev.type==="pointerup"?overBasket(ev.clientX,ev.clientY):null;if(bk)soDrop(d.i,bk.getAttribute("data-k"));}
+  else{so.sel=so.sel===d.i?null:d.i;soDraw();}}
+document.addEventListener("pointerup",endDrag);document.addEventListener("pointercancel",endDrag);
+$("soBaskets").addEventListener("click",function(ev){var bk=closest(ev.target,"bk");if(!bk)return;if(so.sel===null){$("soFb").className="feedback show bad";$("soFb").innerHTML="先點一個上面的地點，再點籃子喔！";return;}soDrop(so.sel,bk.getAttribute("data-k"));});
+$("soRestart").addEventListener("click",soNew);
+soNew();
+
+/* quiz */
+var qz={list:[],i:0,score:0,ans:false};
+function qNew(){qz={list:shuffle(C.QUIZ),i:0,score:0,ans:false};qDraw();}
+function qDraw(){var q=qz.list[qz.i];$("qCount").textContent="第 "+(qz.i+1)+" / "+qz.list.length+" 題";$("qScore").textContent="答對 "+qz.score;
+  $("qTag").innerHTML=q.t==="book"?'<span class="tag2 book">📖 課本</span>':'<span class="tag2 more">🔎 延伸</span>';
+  $("qText").innerHTML=q.q;var idx=shuffle([0,1,2]);$("qOpts").innerHTML=idx.map(function(j){return '<button class="opt" data-j="'+j+'">'+q.o[j]+'</button>';}).join("");
+  $("qFb").className="feedback";$("qNext").style.display="none";qz.ans=false;}
+$("qOpts").addEventListener("click",function(ev){var b=closest(ev.target,"opt");if(!b||qz.ans)return;qz.ans=true;var q=qz.list[qz.i],j=+b.getAttribute("data-j"),fb=$("qFb");
+  each(document.querySelectorAll("#qOpts .opt"),function(o){if(+o.getAttribute("data-j")===q.a)o.classList.add("right");});
+  if(j===q.a){qz.score++;fb.className="feedback show good";fb.innerHTML="✅ "+q.x;addStars(1,b);}else{b.classList.add("no");beep(false);fb.className="feedback show bad";fb.innerHTML="💡 "+q.x;}
+  $("qScore").textContent="答對 "+qz.score;var last=qz.i>=qz.list.length-1;$("qNext").textContent=last?"🔄 再玩一次":"下一題 ➡";$("qNext").style.display="";
+  if(last)fb.innerHTML+="<br>🏁 測驗結束：答對 <b>"+qz.score+" / "+qz.list.length+"</b> 題！";});
+$("qNext").addEventListener("click",function(){if(qz.i>=qz.list.length-1){qNew();return;}qz.i++;qDraw();});
+qNew();
+
+renderScore();
+window.__lf={C:C,stars:function(){return stars;},mm:function(){return mm;},so:function(){return so;},soDrop:soDrop,hu:function(){return hu;},layers:layers,showLand:showLand};
+})();
+</script>
+</body>
+</html>
