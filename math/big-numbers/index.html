@@ -257,6 +257,24 @@ nav.tabs button span{font-size:26px;line-height:1}nav.tabs button.on{background:
 </section>
 
 <!-- ============ 紀錄 ============ -->
+<section class="page" id="p-gap">
+  <div class="card">
+    <h2>🔎 找規律・看不見的數字</h2>
+    <div class="small">數列找規律，還有 □ 裡的數字看不見時怎麼比大小。</div>
+    <div class="gk-src">📌 這裡的題目和情境都是<b>自編</b>的，依照康軒 4上 單元範圍設計，題型參考小朋友的考卷（沒有照抄考卷題目）。</div>
+  </div>
+  <div class="card">
+    <h3>🔢 數列找規律</h3>
+    <div class="small">先看相鄰兩個數差多少，再看是哪一位在變。</div>
+    <div id="gSeq"></div>
+  </div>
+  <div class="card">
+    <h3>❓ 有 □ 的數比大小</h3>
+    <div class="small">□ 可以是 0～9。想一想：□ 填最大、填最小，結果會不會改變？</div>
+    <div id="gUnk"></div>
+  </div>
+</section>
+
 <section class="page" id="p-rec">
   <div class="card">
     <h2>🏆 我的紀錄</h2>
@@ -280,6 +298,7 @@ nav.tabs button span{font-size:26px;line-height:1}nav.tabs button.on{background:
   <button data-p="p-quiz"><span>✏️</span>練習</button>
   <button data-p="p-cmp"><span>⚖️</span>比大小</button>
   <button data-p="p-add"><span>➕</span>加減</button>
+  <button data-p="p-gap"><span>🔎</span>找規律</button>
   <button data-p="p-rec"><span>🏆</span>紀錄</button>
 </nav>
 
@@ -562,8 +581,140 @@ function renderRec(){var tok=0,tbad=0;for(var k in store.ok)tok+=store.ok[k];for
   $("recent").innerHTML=store.recent.length?'<table class="rec">'+store.recent.map(function(r){return "<tr><td>"+r.p+"</td><td>"+(TN[r.k]||r.k)+"</td></tr>";}).join("")+"</table>":'<div class="small">沒有 🎉</div>';}
 $("resetBtn").addEventListener("click",function(){if(!resetArm){resetArm=true;$("resetBtn").textContent="再按一次確認清除";setTimeout(function(){resetArm=false;$("resetBtn").textContent="清除紀錄";},3000);return;}
   store={stars:0,ok:{},bad:{},recent:[],rounds:0,perfect:0,board:0,addsub:0};save();renderScore();renderRec();resetArm=false;$("resetBtn").textContent="清除紀錄";});
+window.__gapStar=function(n,el){addStars(n,el);};
 renderScore();
 window.__big={Core:C,store:function(){return store;},q:function(){return qCur;},submit:submit,aSh:function(){return aSh;},aK:function(){return aK;}};
+})();
+</script>
+<script>
+/* ===== GapKit：考卷題型補強小題庫（自編題，ES5） ===== */
+(function(){
+"use strict";
+var css=".gk-tag{display:inline-block;background:#fff3dc;border:2px solid #ffc46b;color:#8a4b00;border-radius:999px;padding:1px 10px;font-size:13px;font-weight:800;margin-bottom:6px}"+
+".gk-q{font-size:19px;line-height:1.7;font-weight:700;background:#fffdf7;border:3px solid #ffe0b0;border-radius:16px;padding:10px 14px;overflow-x:auto}"+
+".gk-q .big{font-size:24px;font-weight:900;letter-spacing:1px;font-variant-numeric:tabular-nums}"+
+".gk-box{display:inline-block;min-width:1.05em;padding:0 2px;border:2px solid #ff6b9a;border-radius:6px;background:#fff0f4;color:#d6336c;text-align:center;line-height:1.3;margin:0 1px}"+
+".gk-in{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:10px}"+
+".gk-in label{display:flex;align-items:center;gap:6px;font-size:18px;font-weight:800}"+
+".gk-inp{width:130px;min-height:50px;font-size:22px;border-radius:12px;border:3px solid #ffe0b0;padding:0 10px;font-family:inherit;font-weight:800}"+
+".gk-inp.sm{width:74px}.gk-inp.okv{border-color:#2ec4b6;background:#e9fbf3}.gk-inp.nov{border-color:#ff6b9a;background:#fff0f4}"+
+".gk-ch{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;width:100%}"+
+".gk-ch .btn{background:#fff;color:#333;border:3px solid #d6e4ff;font-size:20px;min-height:56px}"+
+".gk-ch .btn.okv{background:#d8f3dc;border-color:#2ec4b6}.gk-ch .btn.nov{background:#ffd6dc;border-color:#ff6b9a}"+
+".gk-hints{margin-top:8px}.gk-hint{background:#f3e8ff;border-radius:12px;padding:8px 12px;margin-top:6px;font-size:17px;line-height:1.6}"+
+".gk-prog{margin-top:6px;font-size:14px;color:#666}"+
+".gk-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}"+
+".gk-svg{width:100%;max-width:520px;display:block;margin:6px auto 0;background:#fff;border-radius:14px}"+
+".gk-tbl{border-collapse:collapse;margin:6px 0;font-size:17px;background:#fff}.gk-tbl td,.gk-tbl th{border:2px solid #ffd59a;padding:4px 10px;text-align:center}.gk-tbl th{background:#fff3dc}"+
+".gk-src{font-size:13px;color:#666;line-height:1.6;margin-top:6px}";
+var st=document.createElement("style");st.textContent=css;document.head.appendChild(st);
+
+function esc(s){return String(s);}
+function GK(key){this.key=key;this.data={};try{var r=localStorage.getItem(key);if(r)this.data=JSON.parse(r)||{};}catch(e){}this.inst={};}
+GK.prototype.save=function(){try{localStorage.setItem(this.key,JSON.stringify(this.data));}catch(e){}};
+GK.prototype.rec=function(id,perfect){var d=this.data[id]||(this.data[id]={done:0,perfect:0});d.done++;if(perfect)d.perfect++;this.save();};
+GK.prototype.quiz=function(rootId,gen,opt){var self=this,root=document.getElementById(rootId);if(!root)return null;opt=opt||{};
+  var Q={id:rootId,cur:null,tries:0,hintN:0,solved:false};
+  root.innerHTML='<span class="gk-tag">'+(opt.tag||"自編練習題")+'</span><div class="gk-q"></div><div class="gk-in"></div>'+
+    '<div class="gk-row"><button class="btn org gk-ok">✓ 檢查</button><button class="btn small white gk-hb">💡 提示</button><button class="btn small teal gk-nx">下一題 ▶</button>'+(opt.extraBtn?'<button class="btn small white gk-ex">'+opt.extraBtn+'</button>':'')+'</div>'+
+    '<div class="gk-hints"></div><div class="fb"></div><div class="gk-prog"></div>';
+  var qEl=root.querySelector(".gk-q"),inEl=root.querySelector(".gk-in"),hEl=root.querySelector(".gk-hints"),fb=root.querySelector(".fb"),pg=root.querySelector(".gk-prog"),okB=root.querySelector(".gk-ok");
+  function prog(){var d=self.data[rootId]||{done:0,perfect:0};pg.textContent="這一組已完成 "+d.done+" 題（一次就對 "+d.perfect+" 題）";}
+  function setFb(cls,html){fb.className="fb show "+cls;fb.innerHTML=html;}
+  function showHint(){var it=Q.cur;if(!it||!it.hints||Q.hintN>=it.hints.length){if(it&&it.hints&&it.hints.length)setFb("info","提示都打開了，照著一步一步算算看 😊");return;}
+    var dv=document.createElement("div");dv.className="gk-hint";dv.innerHTML="💡 "+(Q.hintN+1)+". "+it.hints[Q.hintN];hEl.appendChild(dv);Q.hintN++;}
+  function load(it){Q.cur=it;Q.tries=0;Q.hintN=0;Q.solved=false;hEl.innerHTML="";fb.className="fb";fb.innerHTML="";
+    qEl.innerHTML=it.q;okB.style.display=it.type==="choice"?"none":"";
+    if(it.type==="choice"){inEl.innerHTML='<div class="gk-ch">'+it.choices.map(function(c,i){return '<button class="btn" data-i="'+i+'">'+c+"</button>";}).join("")+"</div>";
+      [].forEach.call(inEl.querySelectorAll(".gk-ch .btn"),function(b){b.addEventListener("click",function(){if(Q.solved)return;check([b.getAttribute("data-i")]);});});}
+    else{var bl=it.type==="multi"?it.blanks:[{label:it.label||"答：",ans:it.ans,unit:it.unit||""}];
+      inEl.innerHTML=bl.map(function(b,i){return '<label>'+b.label+'<input class="gk-inp'+(String(b.ans).length<=2?" sm":"")+'" inputmode="numeric" autocomplete="off" data-i="'+i+'" aria-label="'+String(b.label).replace(/<[^>]+>/g,"")+'">'+(b.unit||"")+"</label>";}).join("");
+      [].forEach.call(inEl.querySelectorAll("input"),function(x){x.addEventListener("keydown",function(e){if(e.key==="Enter")doCheck();});});}
+    if(it.after)it.after(root);
+    prog();}
+  function vals(){return [].map.call(inEl.querySelectorAll("input"),function(x){return x.value.replace(/[,，\s]/g,"");});}
+  function check(v){var it=Q.cur;if(!it||Q.solved)return;var good=true;
+    if(it.type==="choice"){good=+v[0]===it.ans;var bs=inEl.querySelectorAll(".gk-ch .btn");bs[+v[0]].classList.add(good?"okv":"nov");if(good)bs[+v[0]].classList.remove("nov");}
+    else{var bl=it.type==="multi"?it.blanks:[{ans:it.ans}],ins=inEl.querySelectorAll("input");
+      for(var i=0;i<bl.length;i++){var ok=v[i]!==""&&v[i]!==undefined&&String(+v[i])===String(bl[i].ans);if(ins[i]){ins[i].classList.toggle("okv",ok);ins[i].classList.toggle("nov",!ok);}if(!ok)good=false;}
+      if(v.some(function(x){return x===""||x===undefined;})&&!good){setFb("bad","還有空格沒有填喔！");return;}}
+    if(good){Q.solved=true;var perfect=Q.tries===0&&Q.hintN===0,n=perfect?2:1;self.rec(rootId,perfect);
+      setFb("good","✅ 答對了！"+(perfect?"一次就對 +2 ⭐":"+1 ⭐")+(it.why?"<br>"+it.why:""));
+      if(window.__gapStar)window.__gapStar(n,fb);prog();}
+    else{Q.tries++;setFb("bad","再想想看 🤔"+(it.miss?" "+it.miss:"")+(Q.tries>=2&&it.hints&&Q.hintN<it.hints.length?"<br>幫你打開一個提示 👇":""));
+      if(Q.tries>=2)showHint();}}
+  function doCheck(){check(vals());}
+  okB.addEventListener("click",doCheck);
+  root.querySelector(".gk-hb").addEventListener("click",showHint);
+  root.querySelector(".gk-nx").addEventListener("click",function(){load(gen());});
+  if(opt.extraBtn&&opt.onExtra)root.querySelector(".gk-ex").addEventListener("click",function(){opt.onExtra(Q.cur,root);});
+  Q.load=load;Q.check=check;Q.next=function(){load(gen());};Q.hint=showHint;Q.root=root;
+  self.inst[rootId]=Q;load(gen());return Q;};
+GK.ri=function(a,b){return a+Math.floor(Math.random()*(b-a+1));};
+GK.pick=function(a){return a[Math.floor(Math.random()*a.length)];};
+GK.shuffle=function(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;};
+GK.box=function(t){return '<span class="gk-box">'+(t||"&nbsp;")+"</span>";};
+window.GapKit=GK;
+})();
+</script>
+<script>
+/* ===== 一億以內的數：考卷題型補強（自編題） ===== */
+(function(){
+"use strict";
+var G=window.GapKit,ri=G.ri,pick=G.pick,B=G.box,kit=new G("mathBigNumGapV1");
+var PN=["個","十","百","千","萬","十萬","百萬","千萬"];
+function nm(x){return String(x);}
+/* ---------- 1. 數列找規律 ---------- */
+var STEPS=[1000,2000,5000,10000,20000,50000,100000,200000,500000,1000000,10000000,300,3000,30000];
+function genSeq(){var r=Math.random();
+  if(r<.25){/* 萬為單位 */var s=pick([2,3,5,10,20,50]),a=ri(1,60)*s,n=6,dir=Math.random()<.7?1:-1;if(dir<0)a+=s*(n-1);
+    var arr=[];for(var i=0;i<n;i++)arr.push(a+dir*s*i);var p=ri(2,n-1);
+    return {type:"num",q:"找規律，□ 裡是多少萬？<div class='big' style='margin:6px 0'>"+arr.map(function(x,i){return i===p?B("？")+"萬":x+"萬";}).join("、")+"</div>",ans:arr[p],label:"□ ＝",unit:"萬",
+      why:"每次"+(dir>0?"多":"少")+" "+s+" 萬，所以 □ 是 "+arr[p-1]+"萬 "+(dir>0?"＋":"－")+" "+s+"萬 ＝ <b>"+arr[p]+"萬</b>。",
+      hints:["看看相鄰兩個數：後一個減前一個（或前一個減後一個）差多少萬？",arr[1]+"萬 和 "+arr[0]+"萬 相差 "+s+"萬。","□ 前面是 "+arr[p-1]+"萬。"]};}
+  var st=pick(STEPS),dir2=Math.random()<.65?1:-1,n2=6,lo=Math.pow(10,String(st).length),base=ri(1,99)*lo+ri(0,9)*st;
+  if(base<st*6)base+=st*6;var maxB=99999999-st*6;if(base>maxB)base=ri(1,Math.floor(maxB/st))*st+ri(1,9)*Math.max(1,st/10);
+  if(dir2<0)base+=st*(n2-1);
+  var a2=[];for(var j=0;j<n2;j++)a2.push(base+dir2*st*j);
+  var two=Math.random()<.35,p1=ri(1,n2-1),p2=-1;if(two){p2=p1===n2-1?p1-2:Math.min(n2-1,p1+2);if(p2===p1)p2=p1>1?p1-1:p1+1;}
+  var bl=[p1,p2].filter(function(x){return x>=0;}).sort(function(x,y){return x-y;});
+  var labs=["甲","乙"],q="找規律，填出 "+(bl.length>1?"甲、乙":"□")+"：<div class='big' style='margin:6px 0;line-height:2'>"+a2.map(function(x,i){var k=bl.indexOf(i);return k<0?nm(x):B(bl.length>1?labs[k]:"？");}).join("、")+"</div>";
+  var place=PN[String(st).length-1],digit=+String(st)[0];
+  var hints=["比一比相鄰的兩個數，哪一位的數字在變？","是<b>"+place+"位</b>每次"+(dir2>0?"多":"少")+" "+digit+"，也就是每次"+(dir2>0?"＋":"－")+" "+st+"。"];
+  var why="規律：每次"+(dir2>0?"多":"少")+" <b>"+st+"</b>。";
+  if(bl.length>1)return {type:"multi",q:q,blanks:bl.map(function(i,k){return {label:labs[k]+"＝",ans:a2[i]};}),why:why+" 甲＝"+a2[bl[0]]+"、乙＝"+a2[bl[1]]+"。",hints:hints.concat(["從甲前面的數 "+(bl[0]>0?a2[bl[0]-1]:"")+" 開始往後算。"])};
+  return {type:"num",q:q,ans:a2[bl[0]],label:"□ ＝",why:why+" □ ＝ <b>"+a2[bl[0]]+"</b>。",hints:hints.concat([bl[0]>0?"□ 前面一個是 "+a2[bl[0]-1]+"。":"□ 後面一個是 "+a2[1]+"，要倒回去算。"])};}
+
+/* ---------- 2. 有看不見的數字，比大小 ---------- */
+function range(pat){var mn="",mx="";for(var i=0;i<pat.length;i++){var c=pat[i];if(c==="?"){mn+=i===0?"1":"0";mx+="9";}else{mn+=c;mx+=c;}}return [+mn,+mx];}
+function show(p){return p.split("").map(function(c){return c==="?"?B():c;}).join("");}
+function mkPat(L,nq){var s=String(ri(Math.pow(10,L-1),Math.pow(10,L)-1)).split(""),pos=[];while(pos.length<nq){var k=ri(1,L-1);if(pos.indexOf(k)<0)pos.push(k);}pos.forEach(function(k){s[k]="?";});return s.join("");}
+function genUnk(){var r=Math.random();
+  if(r<.3){/* □ 可以填哪些數字 */
+    for(var t=0;t<300;t++){var L=ri(6,8),A=String(ri(Math.pow(10,L-1),Math.pow(10,L)-1)),k=ri(1,L-2),Bn=A.split("");Bn[k]=String(ri(1,8));Bn=Bn.join("");
+      for(var j=k+1;j<L;j++)if(Math.random()<.6)Bn=Bn.slice(0,j)+ri(0,9)+Bn.slice(j+1);
+      var pat=A.slice(0,k)+"?"+A.slice(k+1),big=Math.random()<.5,ok=[];
+      for(var dg=0;dg<10;dg++){var v=+(pat.replace("?",dg));if(big?v>+Bn:v<+Bn)ok.push(dg);}
+      if(ok.length<1||ok.length>9)continue;
+      return {type:"num",q:"<div class='big' style='margin:6px 0'>"+show(pat)+(big?" ＞ ":" ＜ ")+Bn+"</div>□ 裡可以填 0～9 的哪些數字？<b>共有幾個</b>？",ans:ok.length,label:"共",unit:"個",
+        why:"可以填 <b>"+ok.join("、")+"</b>，共 "+ok.length+" 個。前面的位都一樣，所以從 □ 那一位開始比。",
+        hints:["兩個數的位數一樣嗎？一樣就從最高位開始一位一位比。","前面 "+k+" 位都一樣，就比 □ 那一位（"+PN[L-1-k]+"位）：另一個數是 "+Bn[k]+"。","□ 填 "+Bn[k]+" 的時候一樣大，還要再往後比一位才知道可不可以。"]};}}
+  var want=pick([0,1,2]);for(var u=0;u<600;u++){var L2=ri(6,8),pa,pb;
+    pa=mkPat(L2,ri(1,2));
+    var L3=Math.random()<.15?L2+pick([-1,1]):L2;if(L3<5)L3=6;if(L3>8)L3=7;
+    if(L3===L2){var cut=ri(1,L2-2),tail="";for(var z=cut;z<L2;z++)tail+=Math.random()<.35?"?":ri(0,9);
+      pb=(pa.slice(0,cut).replace(/\?/g,function(){return ri(0,9);}))+tail;if(pb[0]==="?"||pb[0]==="0")continue;}
+    else pb=mkPat(L3,ri(0,2));
+    var ra=range(pa),rb=range(pb),ans=ra[0]>rb[1]?0:ra[1]<rb[0]?1:2;if(ans!==want)continue;
+    var why=ans===2?"□ 填的數字不一樣，結果也會不一樣（有時左邊大、有時右邊大），所以<b>不一定</b>。":
+      (String(pa).length!==String(pb).length?"位數多的數比較大，不管 □ 填什麼都一樣。":(ans===0?"左邊最小是 "+ra[0]+"（□ 都填最小），右邊最大是 "+rb[1]+"（□ 都填 9），左邊還是比較大，所以一定是 ＞。":"左邊最大是 "+ra[1]+"（□ 都填 9），右邊最小是 "+rb[0]+"（□ 都填最小），右邊還是比較大，所以一定是 ＜。"));
+    return {type:"choice",q:"□ 裡的數字看不見（可以是 0～9），比比看：<div class='big' style='text-align:center;margin:6px 0'>"+show(pa)+"　◯　"+show(pb)+"</div>",
+      choices:["左邊比較大 ＞","右邊比較大 ＜","不一定（無法確定）"],ans:ans,why:why,
+      hints:["先數位數："+pa.length+" 位 和 "+pb.length+" 位。","位數一樣的話，從最高位開始一位一位比，遇到 □ 就要想：□ 填 0 和填 9 會不會改變結果？","試試看把左邊的 □ 都填 9、右邊都填 0；再反過來把左邊填 0、右邊填 9。兩次結果一樣才算確定。"]};}
+  return {type:"choice",q:"比比看："+show("1073??4")+" ◯ "+show("1072??9"),choices:["左邊比較大 ＞","右邊比較大 ＜","不一定（無法確定）"],ans:0,why:"萬位 3＞2",hints:["從最高位比"]};}
+kit.quiz("gSeq",genSeq,{tag:"自編題"});
+kit.quiz("gUnk",genUnk,{tag:"自編題"});
+window.__gap={kit:kit,genSeq:genSeq,genUnk:genUnk,range:range};
 })();
 </script>
 </body>

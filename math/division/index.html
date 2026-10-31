@@ -109,7 +109,7 @@ nav.tabs button span{font-size:26px;line-height:1}nav.tabs button.on{background:
     <div class="btns" id="demoPresets"></div>
     <div class="btns">
       <button class="btn small white" data-rl="1">🎲 二位÷二位</button><button class="btn small white" data-rl="2">🎲 三位÷二位</button>
-      <button class="btn small white" data-rl="3">🎲 四位÷二位</button><button class="btn small white" data-rl="4">🎲 四位÷三位</button>
+      <button class="btn small white" data-rl="3">🎲 四位÷二位</button><button class="btn small white" data-rl="4">🎲 四位÷三位</button><button class="btn small white" data-rl="5">🎲 四位÷一位</button>
     </div>
     <div class="btns">
       <input class="inp" id="dN" inputmode="numeric" placeholder="被除數" aria-label="被除數"> <b style="font-size:22px">÷</b>
@@ -146,6 +146,7 @@ nav.tabs button span{font-size:26px;line-height:1}nav.tabs button.on{background:
       <button class="btn small white" data-l="2">② 三位÷二位</button>
       <button class="btn small white" data-l="3">③ 四位÷二位</button>
       <button class="btn small white" data-l="4">④ 四位÷三位</button>
+      <button class="btn small white" data-l="5">⑤ 四位÷一位</button>
       <button class="btn small white" data-l="0">🎲 混合</button>
     </div>
     <div class="small" style="margin-top:6px">用下面的數字鍵一格一格填。寫錯沒關係，會告訴你哪裡要再想想 😊 除完還要<b>驗算</b>才算完成喔！</div>
@@ -199,6 +200,30 @@ nav.tabs button span{font-size:26px;line-height:1}nav.tabs button.on{background:
   </div>
 </section>
 
+<!-- ============ 應用（考卷題型補強） ============ -->
+<section class="page" id="p-word">
+  <div class="card">
+    <h2>📝 應用題・考卷題型</h2>
+    <div class="small">四位數÷一位數的生活題、從商和餘數倒回去找被除數、不計算比大小。卡住可以按 💡 提示，或按 🧮 看直式一步一步算。（⑤ 四位÷一位的直式＋驗算，在「練習」分頁）</div>
+    <div class="gk-src">📌 這裡的題目和情境都是<b>自編</b>的，依照康軒 4上 單元範圍設計，題型參考小朋友的考卷（沒有照抄考卷題目）。</div>
+  </div>
+  <div class="card">
+    <h3>🚌 生活應用題</h3>
+    <div class="small">有餘數的時候要想一想：剩下的要不要多算 1 個（無條件進位）？還是不夠就不算（無條件捨去）？</div>
+    <div id="gWord"></div>
+  </div>
+  <div class="card">
+    <h3>🔍 倒回去找被除數</h3>
+    <div class="small">被除數 ＝ 除數 × 商 ＋ 餘數（就是驗算！）</div>
+    <div id="gRebuild"></div>
+  </div>
+  <div class="card">
+    <h3>⚖️ 不計算，比大小</h3>
+    <div class="small">不用算出答案，看看數字的關係就能比。</div>
+    <div id="gCmp"></div>
+  </div>
+</section>
+
 <!-- ============ 紀錄 ============ -->
 <section class="page" id="p-rec">
   <div class="card">
@@ -222,6 +247,7 @@ nav.tabs button span{font-size:26px;line-height:1}nav.tabs button.on{background:
   <button class="on" data-p="p-demo"><span>📖</span>示範</button>
   <button data-p="p-prac"><span>✏️</span>練習</button>
   <button data-p="p-mul"><span>✖️</span>乘法</button>
+  <button data-p="p-word"><span>📝</span>應用</button>
   <button data-p="p-rec"><span>🏆</span>紀錄</button>
 </nav>
 
@@ -352,7 +378,7 @@ function checkSheet(N,d){var Q=Math.floor(N/d),R=N%d,top=Q,bot=d;
   return buildMul(top,bot,R,N);}
 function ri(a,b){return a+Math.floor(Math.random()*(b-a+1));}
 function noZero(x){return String(x).indexOf("0")<0;}
-var DIVLV={1:{nd:2,dd:2},2:{nd:3,dd:2},3:{nd:4,dd:2},4:{nd:4,dd:3}};
+var DIVLV={1:{nd:2,dd:2},2:{nd:3,dd:2},3:{nd:4,dd:2},4:{nd:4,dd:3},5:{nd:4,dd:1}};
 function genDiv(level,opt){opt=opt||{};var lv=DIVLV[level];
   for(var tries=0;tries<2000;tries++){
     var dlo=Math.pow(10,lv.dd-1)+1,dhi=Math.pow(10,lv.dd)-1,d=ri(dlo,dhi);if(!noZero(d))continue;
@@ -363,7 +389,7 @@ function genDiv(level,opt){opt=opt||{};var lv=DIVLV[level];
     var R=exact?0:ri(1,d-1),N=d*Q+R;if(N<lo||N>hi)continue;
     var sh=buildDiv(N,d);if(!sh.valid)continue;
     return {N:N,d:d};}
-  return level===4?{N:2468,d:123}:{N:1236,d:12};}
+  return level===4?{N:2468,d:123}:level===5?{N:4567,d:7}:{N:1236,d:12};}
 var MULLV={1:[2,2],2:[3,2],3:[4,2],4:[3,3]};
 function genMul(level){var s=MULLV[level];
   for(var i=0;i<500;i++){var a=ri(Math.pow(10,s[0]-1),Math.pow(10,s[0])-1),b=ri(Math.pow(10,s[1]-1),Math.pow(10,s[1])-1);
@@ -503,7 +529,7 @@ var tabs=document.querySelectorAll("#tabs button");
 tabs.forEach(function(b){b.addEventListener("click",function(){tabs.forEach(function(x){x.classList.toggle("on",x===b);});document.querySelectorAll("section.page").forEach(function(p){p.classList.toggle("active",p.id===b.dataset.p);});if(b.dataset.p==="p-rec")renderRec();window.scrollTo(0,0);});});
 
 /* ---------- 示範 ---------- */
-var PRESETS=[[50,16],[384,12],[1236,12],[4567,23],[8765,43],[2468,123],[9876,234]];
+var PRESETS=[[4567,7],[50,16],[384,12],[1236,12],[4567,23],[8765,43],[2468,123],[9876,234]];
 $("demoPresets").innerHTML=PRESETS.map(function(p){return '<button class="btn small white" data-n="'+p[0]+'" data-d="'+p[1]+'">'+p[0]+" ÷ "+p[1]+"</button>";}).join("");
 var demo=new Demo({sheet:"demoSheet",text:"demoText",no:"demoNo",prev:"dPrev",next:"dNext",title:"demoTitle",onStep:function(dm,s){
   $("dCheck").style.display=dm.sh.type==="div"&&s.final?"inline-block":"none";$("dBackDiv").style.display=dm.sh.type==="mul"?"inline-block":"none";}});
@@ -540,7 +566,7 @@ var runner=new Runner({sheet:"pSheet",prompt:"pPrompt",fb:"pFb",title:"pTitle",d
       dn.className="done show";dn.innerHTML="✅ 驗算正確："+r.sh.a+" × "+r.sh.b+(r.sh.addend?" ＋ "+r.sh.addend:"")+" ＝ <b>"+r.sh.Fin+"</b> ＝ 被除數！<br>"+(perfect?"💯 全部一次就對，+2 ⭐！連續全對 "+store.streak+" 題 🔥":"完成 +1 ⭐！錯的地方記下來了，多練幾次就會更熟 💪")+"<div class='btns'><button class='btn org' id='pNext'>下一題 ➡</button></div>";
       $("pNext").onclick=function(){newPractice();};}}});
 pad("pPad",function(d,x){if(d!==null)runner.press(d);else if(x==="hint"){if(runner.field())runner.fb("info","💡 "+runner.hintFor());}else if(x==="help"){var hp=$("pHelper");hp.classList.toggle("show");hp.innerHTML=helperHTML(runner.field(),pProb.d);}},true);
-function newPractice(){var lv=pLevel===0?1+Math.floor(Math.random()*4):pLevel;pProb=Core.genDiv(lv);pPhase="div";pMiss=0;
+function newPractice(){var lv=pLevel===0?1+Math.floor(Math.random()*5):pLevel;pProb=Core.genDiv(lv);pPhase="div";pMiss=0;
   runner.load(Core.buildDiv(pProb.N,pProb.d),pProb.N+" ÷ "+pProb.d+" ＝ ？",pProb.N+"÷"+pProb.d);
   if($("pHelper").classList.contains("show"))$("pHelper").innerHTML=helperHTML(runner.field(),pProb.d);}
 document.querySelectorAll("#pLevels [data-l]").forEach(function(b){b.addEventListener("click",function(){pLevel=+b.dataset.l;document.querySelectorAll("#pLevels [data-l]").forEach(function(x){x.classList.toggle("on",x===b);});newPractice();});});
@@ -575,8 +601,154 @@ function renderRec(){
 }
 $("resetBtn").addEventListener("click",function(){if(!resetArm){resetArm=true;$("resetBtn").textContent="再按一次確認清除";setTimeout(function(){resetArm=false;$("resetBtn").textContent="清除紀錄";},3000);return;}
   store={stars:0,streak:0,best:0,done:{},mist:{},recent:[]};save();renderScore();renderRec();resetArm=false;$("resetBtn").textContent="清除紀錄";});
+window.__gapStar=function(n,el){addStars(n,el);};
+window.__gapDemo=function(N,d){tabs[0].click();demoLoad(N,d);};
 renderScore();
 window.__math={Core:Core,runner:runner,mRun:mRun,demo:demo,store:function(){return store;}};
+})();
+</script>
+<script>
+/* ===== GapKit：考卷題型補強小題庫（自編題，ES5） ===== */
+(function(){
+"use strict";
+var css=".gk-tag{display:inline-block;background:#fff3dc;border:2px solid #ffc46b;color:#8a4b00;border-radius:999px;padding:1px 10px;font-size:13px;font-weight:800;margin-bottom:6px}"+
+".gk-q{font-size:19px;line-height:1.7;font-weight:700;background:#fffdf7;border:3px solid #ffe0b0;border-radius:16px;padding:10px 14px;overflow-x:auto}"+
+".gk-q .big{font-size:24px;font-weight:900;letter-spacing:1px;font-variant-numeric:tabular-nums}"+
+".gk-box{display:inline-block;min-width:1.05em;padding:0 2px;border:2px solid #ff6b9a;border-radius:6px;background:#fff0f4;color:#d6336c;text-align:center;line-height:1.3;margin:0 1px}"+
+".gk-in{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:10px}"+
+".gk-in label{display:flex;align-items:center;gap:6px;font-size:18px;font-weight:800}"+
+".gk-inp{width:130px;min-height:50px;font-size:22px;border-radius:12px;border:3px solid #ffe0b0;padding:0 10px;font-family:inherit;font-weight:800}"+
+".gk-inp.sm{width:74px}.gk-inp.okv{border-color:#2ec4b6;background:#e9fbf3}.gk-inp.nov{border-color:#ff6b9a;background:#fff0f4}"+
+".gk-ch{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;width:100%}"+
+".gk-ch .btn{background:#fff;color:#333;border:3px solid #d6e4ff;font-size:20px;min-height:56px}"+
+".gk-ch .btn.okv{background:#d8f3dc;border-color:#2ec4b6}.gk-ch .btn.nov{background:#ffd6dc;border-color:#ff6b9a}"+
+".gk-hints{margin-top:8px}.gk-hint{background:#f3e8ff;border-radius:12px;padding:8px 12px;margin-top:6px;font-size:17px;line-height:1.6}"+
+".gk-prog{margin-top:6px;font-size:14px;color:#666}"+
+".gk-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}"+
+".gk-svg{width:100%;max-width:520px;display:block;margin:6px auto 0;background:#fff;border-radius:14px}"+
+".gk-tbl{border-collapse:collapse;margin:6px 0;font-size:17px;background:#fff}.gk-tbl td,.gk-tbl th{border:2px solid #ffd59a;padding:4px 10px;text-align:center}.gk-tbl th{background:#fff3dc}"+
+".gk-src{font-size:13px;color:#666;line-height:1.6;margin-top:6px}";
+var st=document.createElement("style");st.textContent=css;document.head.appendChild(st);
+
+function esc(s){return String(s);}
+function GK(key){this.key=key;this.data={};try{var r=localStorage.getItem(key);if(r)this.data=JSON.parse(r)||{};}catch(e){}this.inst={};}
+GK.prototype.save=function(){try{localStorage.setItem(this.key,JSON.stringify(this.data));}catch(e){}};
+GK.prototype.rec=function(id,perfect){var d=this.data[id]||(this.data[id]={done:0,perfect:0});d.done++;if(perfect)d.perfect++;this.save();};
+GK.prototype.quiz=function(rootId,gen,opt){var self=this,root=document.getElementById(rootId);if(!root)return null;opt=opt||{};
+  var Q={id:rootId,cur:null,tries:0,hintN:0,solved:false};
+  root.innerHTML='<span class="gk-tag">'+(opt.tag||"自編練習題")+'</span><div class="gk-q"></div><div class="gk-in"></div>'+
+    '<div class="gk-row"><button class="btn org gk-ok">✓ 檢查</button><button class="btn small white gk-hb">💡 提示</button><button class="btn small teal gk-nx">下一題 ▶</button>'+(opt.extraBtn?'<button class="btn small white gk-ex">'+opt.extraBtn+'</button>':'')+'</div>'+
+    '<div class="gk-hints"></div><div class="fb"></div><div class="gk-prog"></div>';
+  var qEl=root.querySelector(".gk-q"),inEl=root.querySelector(".gk-in"),hEl=root.querySelector(".gk-hints"),fb=root.querySelector(".fb"),pg=root.querySelector(".gk-prog"),okB=root.querySelector(".gk-ok");
+  function prog(){var d=self.data[rootId]||{done:0,perfect:0};pg.textContent="這一組已完成 "+d.done+" 題（一次就對 "+d.perfect+" 題）";}
+  function setFb(cls,html){fb.className="fb show "+cls;fb.innerHTML=html;}
+  function showHint(){var it=Q.cur;if(!it||!it.hints||Q.hintN>=it.hints.length){if(it&&it.hints&&it.hints.length)setFb("info","提示都打開了，照著一步一步算算看 😊");return;}
+    var dv=document.createElement("div");dv.className="gk-hint";dv.innerHTML="💡 "+(Q.hintN+1)+". "+it.hints[Q.hintN];hEl.appendChild(dv);Q.hintN++;}
+  function load(it){Q.cur=it;Q.tries=0;Q.hintN=0;Q.solved=false;hEl.innerHTML="";fb.className="fb";fb.innerHTML="";
+    qEl.innerHTML=it.q;okB.style.display=it.type==="choice"?"none":"";
+    if(it.type==="choice"){inEl.innerHTML='<div class="gk-ch">'+it.choices.map(function(c,i){return '<button class="btn" data-i="'+i+'">'+c+"</button>";}).join("")+"</div>";
+      [].forEach.call(inEl.querySelectorAll(".gk-ch .btn"),function(b){b.addEventListener("click",function(){if(Q.solved)return;check([b.getAttribute("data-i")]);});});}
+    else{var bl=it.type==="multi"?it.blanks:[{label:it.label||"答：",ans:it.ans,unit:it.unit||""}];
+      inEl.innerHTML=bl.map(function(b,i){return '<label>'+b.label+'<input class="gk-inp'+(String(b.ans).length<=2?" sm":"")+'" inputmode="numeric" autocomplete="off" data-i="'+i+'" aria-label="'+String(b.label).replace(/<[^>]+>/g,"")+'">'+(b.unit||"")+"</label>";}).join("");
+      [].forEach.call(inEl.querySelectorAll("input"),function(x){x.addEventListener("keydown",function(e){if(e.key==="Enter")doCheck();});});}
+    if(it.after)it.after(root);
+    prog();}
+  function vals(){return [].map.call(inEl.querySelectorAll("input"),function(x){return x.value.replace(/[,，\s]/g,"");});}
+  function check(v){var it=Q.cur;if(!it||Q.solved)return;var good=true;
+    if(it.type==="choice"){good=+v[0]===it.ans;var bs=inEl.querySelectorAll(".gk-ch .btn");bs[+v[0]].classList.add(good?"okv":"nov");if(good)bs[+v[0]].classList.remove("nov");}
+    else{var bl=it.type==="multi"?it.blanks:[{ans:it.ans}],ins=inEl.querySelectorAll("input");
+      for(var i=0;i<bl.length;i++){var ok=v[i]!==""&&v[i]!==undefined&&String(+v[i])===String(bl[i].ans);if(ins[i]){ins[i].classList.toggle("okv",ok);ins[i].classList.toggle("nov",!ok);}if(!ok)good=false;}
+      if(v.some(function(x){return x===""||x===undefined;})&&!good){setFb("bad","還有空格沒有填喔！");return;}}
+    if(good){Q.solved=true;var perfect=Q.tries===0&&Q.hintN===0,n=perfect?2:1;self.rec(rootId,perfect);
+      setFb("good","✅ 答對了！"+(perfect?"一次就對 +2 ⭐":"+1 ⭐")+(it.why?"<br>"+it.why:""));
+      if(window.__gapStar)window.__gapStar(n,fb);prog();}
+    else{Q.tries++;setFb("bad","再想想看 🤔"+(it.miss?" "+it.miss:"")+(Q.tries>=2&&it.hints&&Q.hintN<it.hints.length?"<br>幫你打開一個提示 👇":""));
+      if(Q.tries>=2)showHint();}}
+  function doCheck(){check(vals());}
+  okB.addEventListener("click",doCheck);
+  root.querySelector(".gk-hb").addEventListener("click",showHint);
+  root.querySelector(".gk-nx").addEventListener("click",function(){load(gen());});
+  if(opt.extraBtn&&opt.onExtra)root.querySelector(".gk-ex").addEventListener("click",function(){opt.onExtra(Q.cur,root);});
+  Q.load=load;Q.check=check;Q.next=function(){load(gen());};Q.hint=showHint;Q.root=root;
+  self.inst[rootId]=Q;load(gen());return Q;};
+GK.ri=function(a,b){return a+Math.floor(Math.random()*(b-a+1));};
+GK.pick=function(a){return a[Math.floor(Math.random()*a.length)];};
+GK.shuffle=function(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;};
+GK.box=function(t){return '<span class="gk-box">'+(t||"&nbsp;")+"</span>";};
+window.GapKit=GK;
+})();
+</script>
+<script>
+/* ===== 除法：考卷題型補強（自編題） ===== */
+(function(){
+"use strict";
+var G=window.GapKit,ri=G.ri,pick=G.pick,B=G.box,kit=new G("mathDivisionGapV1");
+var PL=["個","十","百","千","萬"];
+function pn(i,n){return PL[n-1-i]+"位";}
+/* 一位數除數的直式口訣（一步一步） */
+function steps(N,d){var S=String(N),n=S.length,out=[],cur=0,started=false,Q=Math.floor(N/d),R=N%d;
+  for(var i=0;i<n;i++){cur=cur*10+(+S[i]);
+    if(!started&&cur<d&&i<n-1){out.push("看"+pn(i,n)+"：<b>"+cur+"</b> 比 "+d+" 小，不夠除，商不寫在"+pn(i,n)+"，連下一位一起看。");continue;}
+    var q=Math.floor(cur/d);
+    if(!started){started=true;out.push("商從<b>"+pn(i,n)+"</b>開始寫：<b>"+cur+" ÷ "+d+"</b> 商 "+q+"，"+q+" × "+d+" ＝ "+(q*d)+"，"+cur+" − "+(q*d)+" ＝ <b>"+(cur-q*d)+"</b>。");}
+    else if(q===0)out.push("移下"+pn(i,n)+"變成 <b>"+cur+"</b>，比 "+d+" 小，"+pn(i,n)+"的商寫 <b>0</b>。");
+    else out.push("移下"+pn(i,n)+"變成 <b>"+cur+"</b>：商 "+q+"，"+q+" × "+d+" ＝ "+(q*d)+"，"+cur+" − "+(q*d)+" ＝ <b>"+(cur-q*d)+"</b>。");
+    cur=cur-q*d;}
+  out.push("所以 "+N+" ÷ "+d+" ＝ <b>"+Q+" … "+R+"</b>。驗算："+d+" × "+Q+(R?" ＋ "+R:"")+" ＝ "+N+" ✓");
+  return out;}
+function goodND(){for(var t=0;t<200;t++){var d=ri(3,9),N=ri(1000,9999),R=N%d;if(R===0)continue;return {N:N,d:d,Q:Math.floor(N/d),R:R};}return {N:1234,d:5,Q:246,R:4};}
+
+/* ---------- 1. 生活應用題（無條件進位／捨去／平分） ---------- */
+var CEIL=[["學校有 {N} 位同學要去校外教學，每輛遊覽車最多坐 {d} 人。<br>至少要租幾輛遊覽車？","輛","剩下的 {R} 位同學也要有車坐，所以要再多 1 輛。"],
+  ["有 {N} 顆雞蛋，每盒裝 {d} 顆。<br>全部裝完，至少要幾個盒子？","個","剩下的 {R} 顆也要裝，所以要再多 1 個盒子。"],
+  ["圖書室有 {N} 本書要搬，每次最多搬 {d} 本。<br>全部搬完，至少要搬幾次？","次","最後的 {R} 本也要搬，所以要再多搬 1 次。"]];
+var FLOOR=[["有 {N} 公分的緞帶，每 {d} 公分做一個蝴蝶結。<br>最多可以做幾個蝴蝶結？","個","剩下的 {R} 公分不夠做一個，所以不能加 1。"],
+  ["媽媽有 {N} 元，一包衛生紙 {d} 元。<br>最多可以買幾包？","包","剩下的 {R} 元不夠再買一包，所以不能加 1。"]];
+function fill(s,o){return s.replace(/\{(\w)\}/g,function(m,k){return o[k];});}
+function genWord(){var o=goodND(),r=Math.random(),it;
+  if(r<.45){var t=pick(CEIL);it={type:"num",q:fill(t[0],o),ans:o.Q+1,unit:t[1],label:"答：",why:"<b>"+o.N+" ÷ "+o.d+" ＝ "+o.Q+" … "+o.R+"</b>，"+fill(t[2],o)+"答案是 "+o.Q+" ＋ 1 ＝ <b>"+(o.Q+1)+"</b>（這叫做<b>無條件進位</b>）。",
+      miss:"想一想：有餘數的時候，剩下的要不要也算進去？",hints:["先列式：<b>"+o.N+" ÷ "+o.d+"</b>。"].concat(steps(o.N,o.d)).concat(["有剩下 "+o.R+"，"+fill(t[2],o)])};}
+  else if(r<.7){var f=pick(FLOOR);it={type:"num",q:fill(f[0],o),ans:o.Q,unit:f[1],label:"答：",why:"<b>"+o.N+" ÷ "+o.d+" ＝ "+o.Q+" … "+o.R+"</b>，"+fill(f[2],o)+"答案是 <b>"+o.Q+"</b>（<b>無條件捨去</b>）。",
+      miss:"剩下的不夠做（買）一個，還能算嗎？",hints:["先列式：<b>"+o.N+" ÷ "+o.d+"</b>。"].concat(steps(o.N,o.d)).concat([fill(f[2],o)])};}
+  else{var thing=pick([["張貼紙","張"],["顆彈珠","顆"],["公克麵粉","公克"]]);
+    it={type:"multi",q:"有 "+o.N+" "+thing[0]+"，平分給 "+o.d+" 個人。<br>每人分到多少？還剩多少？",blanks:[{label:"每人分到",ans:o.Q,unit:thing[1]},{label:"還剩",ans:o.R,unit:thing[1]}],
+      why:o.N+" ÷ "+o.d+" ＝ <b>"+o.Q+" … "+o.R+"</b>。商就是每人分到的，餘數就是剩下的。",hints:["平分就是用除法：<b>"+o.N+" ÷ "+o.d+"</b>。"].concat(steps(o.N,o.d))};}
+  it.N=o.N;it.d=o.d;return it;}
+
+/* ---------- 2. 還原被除數（商、餘數、□ 數字） ---------- */
+function mask(s,pos,lab){return s.split("").map(function(c,i){return i===pos?B(lab):c;}).join("");}
+function genRebuild(){var r=Math.random();
+  if(r<.4){var d=ri(3,9),q=ri(120,999),R=ri(1,d-1),N=d*q+R;
+    return {type:"num",q:"一個數除以 <b>"+d+"</b>，商是 <b>"+q+"</b>，餘數是 <b>"+R+"</b>。<br>這個數是多少？",ans:N,label:"這個數是",
+      why:"被除數 ＝ 除數 × 商 ＋ 餘數 ＝ "+d+" × "+q+" ＋ "+R+" ＝ <b>"+N+"</b>。",miss:"用驗算的方法倒回去算。",
+      hints:["想一想<b>驗算</b>：除數 × 商 ＋ 餘數 ＝ 被除數。",d+" × "+q+" ＝ "+(d*q)+"。",(d*q)+" ＋ "+R+" ＝ ？"],N:N,d:d};}
+  for(var t=0;t<500;t++){var d2=ri(3,9),q2=ri(102,999),R2=ri(1,d2-1),N2=d2*q2+R2;if(N2>9999)continue;
+    var NS=String(N2),QS=String(q2),pa=ri(1,NS.length-1),pb=ri(1,QS.length-1),sols=[];
+    for(var a=0;a<10;a++)for(var b=0;b<10;b++){var n2=+(NS.slice(0,pa)+a+NS.slice(pa+1)),qq=+(QS.slice(0,pb)+b+QS.slice(pb+1));if(d2*qq+R2===n2)sols.push([a,b]);}
+    if(sols.length!==1)continue;
+    return {type:"multi",q:"下面的除法，有些數字被墨水蓋住了：<div class='big' style='margin:6px 0'>"+mask(NS,pa,"甲")+" ÷ "+d2+" ＝ "+mask(QS,pb,"乙")+" … "+R2+"</div>甲、乙各是多少？",
+      blanks:[{label:"甲＝",ans:+NS[pa]},{label:"乙＝",ans:+QS[pb]}],why:"驗算："+d2+" × "+q2+" ＋ "+R2+" ＝ <b>"+N2+"</b>，所以甲是 "+NS[pa]+"、乙是 "+QS[pb]+"。",
+      hints:["被除數 ＝ 除數 × 商 ＋ 餘數。","商裡的乙只能是 0～9，可以一個一個試："+d2+" × 商 ＋ "+R2+"，看哪一個算出來和被除數露出來的數字一樣。","也可以從直式想：先把看得到的位數除除看，商的那一位就出來了。"],N:N2,d:d2};}
+  return {type:"num",q:"一個數除以 7，商是 345，餘數是 6，這個數是多少？",ans:2421,label:"這個數是",why:"7 × 345 ＋ 6 ＝ 2421",hints:["除數 × 商 ＋ 餘數"],N:2421,d:7};}
+
+/* ---------- 3. 不計算，比大小 ---------- */
+var CH=["＞","＜","＝"];
+function cmpItem(L,R,ans,why,hint){return {type:"choice",q:"不用算出答案，比比看：<div class='big' style='text-align:center;margin:6px 0'>"+L+"　◯　"+R+"</div>◯ 裡要填什麼？",choices:CH,ans:ans,why:why,hints:[hint]};}
+function genCmp(){var k=ri(0,6),a,b,c,N,d,e;
+  switch(k){
+  case 0:N=ri(12,98)*100;d=ri(2,5);e=d+ri(1,4);return cmpItem(N+" ÷ "+d,N+" ÷ "+e,0,"被除數一樣，<b>除數越大，商越小</b>，所以 "+N+" ÷ "+d+" 比較大。","被除數一樣都是 "+N+"。分給越多人，每人分到的會變多還是變少？");
+  case 1:d=ri(3,9);a=ri(1200,9800);b=a+pick([-1,1])*ri(10,900);return cmpItem(a+" ÷ "+d,b+" ÷ "+d,a>b?0:1,"除數一樣，<b>被除數越大，商越大</b>。","除數一樣都是 "+d+"。要分的東西越多，每份會怎樣？");
+  case 2:a=ri(120,980);b=ri(12,48);c=b+ri(1,5);return cmpItem(a+" × "+c,a+" × "+b,0,"被乘數一樣，<b>乘數越大，積越大</b>。","兩邊都是 "+a+" 乘一個數，看看乘的那個數誰比較大。");
+  case 3:a=ri(12,98);b=ri(2,9)*10;return cmpItem(a+" × "+b,(a*10)+" × "+(b/10),2,a+" × "+b+" 和 "+(a*10)+" × "+(b/10)+"：一邊的 0 移到另一邊，積不變，所以一樣大。","把 "+b+" 想成 "+(b/10)+" × 10，乘在 "+a+" 上會變成多少？");
+  case 4:a=ri(120,980);b=ri(12,98);return cmpItem(a+" × "+b,b+" × "+a,2,"兩個數交換位置相乘，<b>積不變</b>。","乘法的兩個數交換位置，答案會變嗎？");
+  case 5:N=ri(1000,9999);d=ri(2,9);return cmpItem(N+" ÷ "+d,N,1,"一個數除以比 1 大的數，商會<b>比原來小</b>。","把 "+N+" 分成 "+d+" 份，一份會比全部多還是少？");
+  default:a=ri(25,99)*10;d=ri(2,9);e=ri(2,9);if(d===e)e=d===9?8:d+1;N=a*d;return cmpItem(N+" ÷ "+d,(a*e)+" ÷ "+e,2,"兩邊的商都是 "+a+"：因為 "+d+" × "+a+" ＝ "+N+"、"+e+" × "+a+" ＝ "+(a*e)+"。","想一想：什麼數乘 "+d+" 會等於 "+N+"？什麼數乘 "+e+" 會等於 "+(a*e)+"？");}}
+
+function showDemo(it){if(it&&it.N&&it.d&&window.__gapDemo)window.__gapDemo(it.N,it.d);}
+kit.quiz("gWord",genWord,{tag:"自編應用題",extraBtn:"🧮 看直式",onExtra:showDemo});
+kit.quiz("gRebuild",genRebuild,{tag:"自編題",extraBtn:"🧮 看直式",onExtra:showDemo});
+kit.quiz("gCmp",genCmp,{tag:"自編題"});
+window.__gap={kit:kit,steps:steps,genWord:genWord,genRebuild:genRebuild,genCmp:genCmp};
 })();
 </script>
 </body>

@@ -252,6 +252,17 @@ table.xp tr.tot td{background:#d8f3dc}
     <div class="done" id="wDone"></div>
     <div class="btns"><button class="btn org" id="wNew">下一題 ▶</button></div>
   </div>
+  <div class="card">
+    <h3>🪜 兩步驟應用題</h3>
+    <div class="small">要先算一步、再算一步。想想看：先算什麼？</div>
+    <div id="gTwo"></div>
+  </div>
+  <div class="card">
+    <h3>🌱 素養題：看情境和表格</h3>
+    <div class="small">一個情境會問好幾題，要把表格裡的數字找出來再算。</div>
+    <div id="gLit"></div>
+    <div class="gk-src">📌 這裡的題目和情境都是<b>自編</b>的，依照康軒 4上 單元範圍設計，題型參考小朋友的考卷（沒有照抄考卷題目）。</div>
+  </div>
 </section>
 
 <!-- ============ 紀錄 ============ -->
@@ -641,8 +652,131 @@ var resetArm=false;
 $("resetBtn").addEventListener("click",function(){if(!resetArm){resetArm=true;$("resetBtn").textContent="再按一次確認清除";setTimeout(function(){resetArm=false;$("resetBtn").textContent="清除紀錄";},3000);return;}
   store=fresh();save();renderScore();renderRec();resetArm=false;$("resetBtn").textContent="清除紀錄";});
 
+window.__gapStar=function(n,el){addStars(n,el);};
 renderScore();dPresets();
 window.__mul={core:C,store:function(){return store;},pR:pR,wR:wR,demo:function(){return {sh:dSh,k:dK};},quick:function(){return {list:qList,i:qI,res:qRes};},qKey:qKey,wP:function(){return wP;}};
+})();
+</script>
+<script>
+/* ===== GapKit：考卷題型補強小題庫（自編題，ES5） ===== */
+(function(){
+"use strict";
+var css=".gk-tag{display:inline-block;background:#fff3dc;border:2px solid #ffc46b;color:#8a4b00;border-radius:999px;padding:1px 10px;font-size:13px;font-weight:800;margin-bottom:6px}"+
+".gk-q{font-size:19px;line-height:1.7;font-weight:700;background:#fffdf7;border:3px solid #ffe0b0;border-radius:16px;padding:10px 14px;overflow-x:auto}"+
+".gk-q .big{font-size:24px;font-weight:900;letter-spacing:1px;font-variant-numeric:tabular-nums}"+
+".gk-box{display:inline-block;min-width:1.05em;padding:0 2px;border:2px solid #ff6b9a;border-radius:6px;background:#fff0f4;color:#d6336c;text-align:center;line-height:1.3;margin:0 1px}"+
+".gk-in{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:10px}"+
+".gk-in label{display:flex;align-items:center;gap:6px;font-size:18px;font-weight:800}"+
+".gk-inp{width:130px;min-height:50px;font-size:22px;border-radius:12px;border:3px solid #ffe0b0;padding:0 10px;font-family:inherit;font-weight:800}"+
+".gk-inp.sm{width:74px}.gk-inp.okv{border-color:#2ec4b6;background:#e9fbf3}.gk-inp.nov{border-color:#ff6b9a;background:#fff0f4}"+
+".gk-ch{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;width:100%}"+
+".gk-ch .btn{background:#fff;color:#333;border:3px solid #d6e4ff;font-size:20px;min-height:56px}"+
+".gk-ch .btn.okv{background:#d8f3dc;border-color:#2ec4b6}.gk-ch .btn.nov{background:#ffd6dc;border-color:#ff6b9a}"+
+".gk-hints{margin-top:8px}.gk-hint{background:#f3e8ff;border-radius:12px;padding:8px 12px;margin-top:6px;font-size:17px;line-height:1.6}"+
+".gk-prog{margin-top:6px;font-size:14px;color:#666}"+
+".gk-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}"+
+".gk-svg{width:100%;max-width:520px;display:block;margin:6px auto 0;background:#fff;border-radius:14px}"+
+".gk-tbl{border-collapse:collapse;margin:6px 0;font-size:17px;background:#fff}.gk-tbl td,.gk-tbl th{border:2px solid #ffd59a;padding:4px 10px;text-align:center}.gk-tbl th{background:#fff3dc}"+
+".gk-src{font-size:13px;color:#666;line-height:1.6;margin-top:6px}";
+var st=document.createElement("style");st.textContent=css;document.head.appendChild(st);
+
+function esc(s){return String(s);}
+function GK(key){this.key=key;this.data={};try{var r=localStorage.getItem(key);if(r)this.data=JSON.parse(r)||{};}catch(e){}this.inst={};}
+GK.prototype.save=function(){try{localStorage.setItem(this.key,JSON.stringify(this.data));}catch(e){}};
+GK.prototype.rec=function(id,perfect){var d=this.data[id]||(this.data[id]={done:0,perfect:0});d.done++;if(perfect)d.perfect++;this.save();};
+GK.prototype.quiz=function(rootId,gen,opt){var self=this,root=document.getElementById(rootId);if(!root)return null;opt=opt||{};
+  var Q={id:rootId,cur:null,tries:0,hintN:0,solved:false};
+  root.innerHTML='<span class="gk-tag">'+(opt.tag||"自編練習題")+'</span><div class="gk-q"></div><div class="gk-in"></div>'+
+    '<div class="gk-row"><button class="btn org gk-ok">✓ 檢查</button><button class="btn small white gk-hb">💡 提示</button><button class="btn small teal gk-nx">下一題 ▶</button>'+(opt.extraBtn?'<button class="btn small white gk-ex">'+opt.extraBtn+'</button>':'')+'</div>'+
+    '<div class="gk-hints"></div><div class="fb"></div><div class="gk-prog"></div>';
+  var qEl=root.querySelector(".gk-q"),inEl=root.querySelector(".gk-in"),hEl=root.querySelector(".gk-hints"),fb=root.querySelector(".fb"),pg=root.querySelector(".gk-prog"),okB=root.querySelector(".gk-ok");
+  function prog(){var d=self.data[rootId]||{done:0,perfect:0};pg.textContent="這一組已完成 "+d.done+" 題（一次就對 "+d.perfect+" 題）";}
+  function setFb(cls,html){fb.className="fb show "+cls;fb.innerHTML=html;}
+  function showHint(){var it=Q.cur;if(!it||!it.hints||Q.hintN>=it.hints.length){if(it&&it.hints&&it.hints.length)setFb("info","提示都打開了，照著一步一步算算看 😊");return;}
+    var dv=document.createElement("div");dv.className="gk-hint";dv.innerHTML="💡 "+(Q.hintN+1)+". "+it.hints[Q.hintN];hEl.appendChild(dv);Q.hintN++;}
+  function load(it){Q.cur=it;Q.tries=0;Q.hintN=0;Q.solved=false;hEl.innerHTML="";fb.className="fb";fb.innerHTML="";
+    qEl.innerHTML=it.q;okB.style.display=it.type==="choice"?"none":"";
+    if(it.type==="choice"){inEl.innerHTML='<div class="gk-ch">'+it.choices.map(function(c,i){return '<button class="btn" data-i="'+i+'">'+c+"</button>";}).join("")+"</div>";
+      [].forEach.call(inEl.querySelectorAll(".gk-ch .btn"),function(b){b.addEventListener("click",function(){if(Q.solved)return;check([b.getAttribute("data-i")]);});});}
+    else{var bl=it.type==="multi"?it.blanks:[{label:it.label||"答：",ans:it.ans,unit:it.unit||""}];
+      inEl.innerHTML=bl.map(function(b,i){return '<label>'+b.label+'<input class="gk-inp'+(String(b.ans).length<=2?" sm":"")+'" inputmode="numeric" autocomplete="off" data-i="'+i+'" aria-label="'+String(b.label).replace(/<[^>]+>/g,"")+'">'+(b.unit||"")+"</label>";}).join("");
+      [].forEach.call(inEl.querySelectorAll("input"),function(x){x.addEventListener("keydown",function(e){if(e.key==="Enter")doCheck();});});}
+    if(it.after)it.after(root);
+    prog();}
+  function vals(){return [].map.call(inEl.querySelectorAll("input"),function(x){return x.value.replace(/[,，\s]/g,"");});}
+  function check(v){var it=Q.cur;if(!it||Q.solved)return;var good=true;
+    if(it.type==="choice"){good=+v[0]===it.ans;var bs=inEl.querySelectorAll(".gk-ch .btn");bs[+v[0]].classList.add(good?"okv":"nov");if(good)bs[+v[0]].classList.remove("nov");}
+    else{var bl=it.type==="multi"?it.blanks:[{ans:it.ans}],ins=inEl.querySelectorAll("input");
+      for(var i=0;i<bl.length;i++){var ok=v[i]!==""&&v[i]!==undefined&&String(+v[i])===String(bl[i].ans);if(ins[i]){ins[i].classList.toggle("okv",ok);ins[i].classList.toggle("nov",!ok);}if(!ok)good=false;}
+      if(v.some(function(x){return x===""||x===undefined;})&&!good){setFb("bad","還有空格沒有填喔！");return;}}
+    if(good){Q.solved=true;var perfect=Q.tries===0&&Q.hintN===0,n=perfect?2:1;self.rec(rootId,perfect);
+      setFb("good","✅ 答對了！"+(perfect?"一次就對 +2 ⭐":"+1 ⭐")+(it.why?"<br>"+it.why:""));
+      if(window.__gapStar)window.__gapStar(n,fb);prog();}
+    else{Q.tries++;setFb("bad","再想想看 🤔"+(it.miss?" "+it.miss:"")+(Q.tries>=2&&it.hints&&Q.hintN<it.hints.length?"<br>幫你打開一個提示 👇":""));
+      if(Q.tries>=2)showHint();}}
+  function doCheck(){check(vals());}
+  okB.addEventListener("click",doCheck);
+  root.querySelector(".gk-hb").addEventListener("click",showHint);
+  root.querySelector(".gk-nx").addEventListener("click",function(){load(gen());});
+  if(opt.extraBtn&&opt.onExtra)root.querySelector(".gk-ex").addEventListener("click",function(){opt.onExtra(Q.cur,root);});
+  Q.load=load;Q.check=check;Q.next=function(){load(gen());};Q.hint=showHint;Q.root=root;
+  self.inst[rootId]=Q;load(gen());return Q;};
+GK.ri=function(a,b){return a+Math.floor(Math.random()*(b-a+1));};
+GK.pick=function(a){return a[Math.floor(Math.random()*a.length)];};
+GK.shuffle=function(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;};
+GK.box=function(t){return '<span class="gk-box">'+(t||"&nbsp;")+"</span>";};
+window.GapKit=GK;
+})();
+</script>
+<script>
+/* ===== 整數的乘法：兩步驟應用題＋素養題（自編題） ===== */
+(function(){
+"use strict";
+var G=window.GapKit,ri=G.ri,pick=G.pick,kit=new G("mathMultiplyGapV1");
+function gen2(){var k=ri(0,4),a,b,c,p,n,pay,p2,n2,it;
+  switch(k){
+  case 0:a=ri(12,48);b=ri(6,24);c=ri(8,25);
+    it={q:"一箱有 "+b+" 盒餅乾，一盒有 "+c+" 片。<br>"+a+" 箱一共有幾片餅乾？",ans:a*b*c,unit:"片",
+      hints:["先算一箱有幾片：<b>"+b+" × "+c+" ＝ "+(b*c)+"</b>（片）。","再算 "+a+" 箱："+(b*c)+" × "+a+" ＝ ？"],
+      why:b+" × "+c+" ＝ "+(b*c)+"，"+(b*c)+" × "+a+" ＝ <b>"+(a*b*c)+"</b>（片）。也可以先算 "+a+" × "+b+" ＝ "+(a*b)+" 盒，再乘 "+c+"。"};break;
+  case 1:p=ri(65,385);n=ri(12,28);var tot=p*n;pay=Math.ceil((tot+1)/1000)*1000;
+    it={q:"一張兒童樂園門票 "+p+" 元，全班買 "+n+" 張，老師付了 "+pay+" 元。<br>可以找回多少元？",ans:pay-tot,unit:"元",
+      hints:["先算門票共要多少元：<b>"+p+" × "+n+" ＝ "+tot+"</b>。","找回的錢 ＝ 付的錢 － 要付的錢："+pay+" － "+tot+" ＝ ？"],
+      why:p+" × "+n+" ＝ "+tot+"，"+pay+" － "+tot+" ＝ <b>"+(pay-tot)+"</b>（元）。"};break;
+  case 2:p=ri(150,450);n=ri(2,8);p2=ri(60,140);n2=ri(12,35);
+    it={q:"大人票每張 "+p+" 元，買了 "+n+" 張；小孩票每張 "+p2+" 元，買了 "+n2+" 張。<br>一共要付多少元？",ans:p*n+p2*n2,unit:"元",
+      hints:["大人票："+p+" × "+n+" ＝ "+(p*n)+"。","小孩票："+p2+" × "+n2+" ＝ "+(p2*n2)+"。","兩個加起來。"],
+      why:(p*n)+" ＋ "+(p2*n2)+" ＝ <b>"+(p*n+p2*n2)+"</b>（元）。"};break;
+  case 3:p=ri(35,95);p2=p-ri(3,12);n=ri(12,48);
+    it={q:"同一種果汁，甲店一瓶 "+p+" 元，乙店一瓶 "+p2+" 元。<br>買 "+n+" 瓶，在乙店買比甲店便宜多少元？",ans:(p-p2)*n,unit:"元",
+      hints:["方法一：甲店 "+p+" × "+n+" ＝ "+(p*n)+"，乙店 "+p2+" × "+n+" ＝ "+(p2*n)+"，再相減。","方法二：一瓶便宜 "+(p-p2)+" 元，"+n+" 瓶就便宜 "+(p-p2)+" × "+n+"。"],
+      why:"一瓶便宜 "+(p-p2)+" 元，"+(p-p2)+" × "+n+" ＝ <b>"+((p-p2)*n)+"</b>（元）。"};break;
+  default:a=ri(25,75);b=ri(3,7);c=ri(4,12);
+    it={q:"小明每天存 "+a+" 元，一星期存 "+b+" 天，連續存了 "+c+" 星期。<br>一共存了多少元？",ans:a*b*c,unit:"元",
+      hints:["先算一星期存多少：<b>"+a+" × "+b+" ＝ "+(a*b)+"</b>。","再算 "+c+" 星期："+(a*b)+" × "+c+" ＝ ？"],
+      why:a+" × "+b+" ＝ "+(a*b)+"，"+(a*b)+" × "+c+" ＝ <b>"+(a*b*c)+"</b>（元）。"};}
+  it.type="num";it.label="答：";it.miss="先想想要分成哪兩步，可以按 💡 提示。";return it;}
+
+/* 素養題：情境＋表格，一題一題問（全為自編情境與數字） */
+var S1="<b>🎡 校外教學買門票</b>（自編情境）<table class='gk-tbl'><tr><th>票種</th><th>價錢</th></tr><tr><td>個人票</td><td>每人 120 元</td></tr><tr><td>團體票</td><td>每張 2000 元，可以進 20 人<br>（不滿 20 人也要買一整張）</td></tr></table>四年三班有 <b>28 人</b>要進場。<br>";
+var S2="<b>🧱 教室鋪地墊</b>（自編情境）<br>教室地板要鋪正方形地墊：每排鋪 <b>24 塊</b>，共鋪 <b>18 排</b>。地墊一箱 <b>25 塊</b>、每塊 <b>35 元</b>。<br>";
+var S3="<b>🧃 運動會訂飲料</b>（自編情境）<table class='gk-tbl'><tr><th></th><th>一箱</th><th>價錢</th></tr><tr><td>甲廠牌</td><td>24 瓶</td><td>每箱 312 元</td></tr><tr><td>乙廠牌</td><td>30 瓶</td><td>每箱 360 元</td></tr></table>";
+var SQ=[
+ {type:"num",q:S1+"① 全部都買個人票，要多少元？",ans:3360,unit:"元",label:"答：",hints:["120 × 28 ＝ ？"],why:"120 × 28 ＝ <b>3360</b>（元）。"},
+ {type:"num",q:S1+"② 買 1 張團體票，其他人買個人票，要多少元？",ans:2960,unit:"元",label:"答：",hints:["團體票進 20 人，剩下 28 － 20 ＝ 8 人買個人票。","120 × 8 ＝ 960，再加上 2000。"],why:"2000 ＋ 120 × 8 ＝ 2000 ＋ 960 ＝ <b>2960</b>（元）。"},
+ {type:"num",q:S1+"③ 買 2 張團體票，要多少元？",ans:4000,unit:"元",label:"答：",hints:["2000 × 2 ＝ ？"],why:"2000 × 2 ＝ <b>4000</b>（元），雖然可以進 40 人，但比較貴。"},
+ {type:"choice",q:S1+"④ 哪一種買法最省錢？",choices:["全部個人票","1 張團體票＋8 張個人票","2 張團體票"],ans:1,hints:["比一比 ①②③ 算出來的錢：3360、2960、4000。"],why:"2960 元最少，所以「1 張團體票＋8 張個人票」最省錢。"},
+ {type:"num",q:S2+"① 一共要鋪幾塊地墊？",ans:432,unit:"塊",label:"答：",hints:["每排 24 塊，18 排：24 × 18 ＝ ？"],why:"24 × 18 ＝ <b>432</b>（塊）。"},
+ {type:"num",q:S2+"② 買這些地墊要多少元？",ans:15120,unit:"元",label:"答：",hints:["先知道共 432 塊。","432 × 35 ＝ ？"],why:"432 × 35 ＝ <b>15120</b>（元）。"},
+ {type:"num",q:S2+"③ 如果整箱買，買 18 箱夠不夠？18 箱一共有幾塊？",ans:450,unit:"塊",label:"18 箱有",hints:["25 × 18 ＝ ？","再和需要的 432 塊比一比。"],why:"25 × 18 ＝ <b>450</b>（塊），比 432 塊多，所以夠用。"},
+ {type:"num",q:S3+"① 甲廠牌買 15 箱，一共有幾瓶？",ans:360,unit:"瓶",label:"答：",hints:["24 × 15 ＝ ？"],why:"24 × 15 ＝ <b>360</b>（瓶）。"},
+ {type:"num",q:S3+"② 乙廠牌買 12 箱，也是 360 瓶。甲廠牌 15 箱和乙廠牌 12 箱，哪個比較便宜？便宜多少元？（填便宜的錢數）",ans:360,unit:"元",label:"便宜",
+   hints:["甲：312 × 15 ＝ 4680。","乙：360 × 12 ＝ 4320。","4680 － 4320 ＝ ？"],why:"甲 4680 元、乙 4320 元，乙比較便宜 <b>360</b> 元。"}
+];
+var si=0;function genS(){var it=SQ[si%SQ.length];si++;return it;}
+kit.quiz("gTwo",gen2,{tag:"自編兩步驟題"});
+kit.quiz("gLit",genS,{tag:"自編素養題"});
+window.__gap={kit:kit,gen2:gen2,SQ:SQ};
 })();
 </script>
 </body>
