@@ -970,6 +970,33 @@ html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 72px)}
       </div>
     </div>
   </div>
+  <div class="game" id="w3Hn">
+    <h3 class="sub">水底忍者：紅娘華放大鏡</h3>
+    <p>紅娘華是住在水裡的<b>昆蟲</b>。點下面的按鈕，一個一個找出牠的祕密。</p>
+    <div class="duo">
+      <figure class="window"><div id="hnPic"></div></figure>
+      <div class="game-bar">
+        <div class="opts col" id="hnParts"></div>
+        <p class="readout" id="hnText" aria-live="polite">先點一個按鈕看看。</p>
+        <p class="small" id="hnSeen" style="margin:0"></p>
+      </div>
+    </div>
+    <h3 class="sub">水生昆蟲比一比 <span class="small">（自編整理）</span></h3>
+    <div class="tablewrap">
+      <table id="hnTable">
+        <thead><tr><th>動物</th><th>怎麼呼吸</th><th>特別的腳和移動</th><th>常待的地方</th></tr></thead>
+        <tbody>
+          <tr><td><b>紅娘華</b></td><td>尾巴的<b>呼吸管</b>伸出水面吸空氣</td><td>前腳像<b>鐮刀</b>，抓獵物；用中、後腳在水草和水底慢慢爬</td><td>池塘、水田、溝渠，水不太流動、水草多</td></tr>
+          <tr><td>水螳螂</td><td>也是尾巴的<b>呼吸管</b></td><td>前腳也像鐮刀；身體細細長長，像竹節蟲</td><td>池塘、水田的水草間</td></tr>
+          <tr><td>龍蝨</td><td>把<b>空氣存在翅膀下面</b>帶下水</td><td>後腳扁扁的像船槳，划水游得快</td><td>池塘、水田</td></tr>
+          <tr><td>水黽</td><td>站在水面上，直接呼吸空氣</td><td>腳細長有細毛，在<b>水面上滑行</b></td><td>平靜的水面</td></tr>
+          <tr><td>水蠆（蜻蜓、豆娘的稚蟲）</td><td>用<b>鰓</b>在水裡呼吸</td><td>在水底和水草間爬，長大會爬出水面變成蜻蜓、豆娘</td><td>池塘、溪流、水田</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3 class="sub">紅娘華小測驗 <span class="small">（自編題目）</span></h3>
+    <div class="quiz" id="hnQuiz"></div>
+  </div>
   <div class="award" id="award-w3"><div class="award-seal"></div><div><p class="award-title"></p><p class="award-text"></p></div></div>
 </section>
 
@@ -1054,6 +1081,7 @@ html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 72px)}
 <footer class="foot">
   <h2 class="foot-title">給爸媽</h2>
   <p>內容依翰林版國小自然 4 上第二單元「水域環境」整理（2-1 認識水域環境、2-2 水生植物、2-3 水生動物、2-4 珍惜水域環境）。單元架構參考各校公開的課程計畫，用詞可能跟孩子的課本略有不同，請以課本和老師上課的內容為準。</p>
+  <p>任務三的「紅娘華放大鏡」：課本 2-3 提到紅娘華用呼吸管呼吸；捕捉足、偽裝、棲地與「水生昆蟲比一比」是依國語日報、臺灣生物多樣性網絡等資料自編的補充，小測驗也是自編題目。</p>
   <p>帶孩子去水邊觀察時，請一定要陪在旁邊；下雨後、水流急或水深的地方不要靠近。觀察完記得把生物放回原處，不要帶走。</p>
   <div class="reset">
     <button type="button" class="linkbtn" id="wresetBtn">清除第二課的印章，重新開始</button>
@@ -2615,6 +2643,104 @@ const QUIZ2 = [
   { q: '哪一個做法可以保護水域？', opts: ['把剩菜倒進水溝', '把養不起的烏龜放到河裡', '參加淨溪，撿起河邊的垃圾', '用很多清潔劑洗車'], a: 2, ex: '淨溪、淨灘可以讓水域乾淨。亂倒剩菜、亂放生、用太多清潔劑，都會傷害水域。' }
 ];
 
+/* ---------- 任務三補充：紅娘華放大鏡（自編） ---------- */
+const HN_PARTS = [
+  { k: 'tube', t: '尾巴那根細管子是什麼？', x: '那是<b>呼吸管</b>！是兩根尾毛併在一起變成的。紅娘華停在靠近水面的地方，把呼吸管的尖端伸出水面吸空氣，就不用整隻游上去換氣。' },
+  { k: 'leg', t: '前腳為什麼彎彎的？', x: '前腳像<b>鐮刀</b>，叫做<b>捕捉足</b>。小魚、蝌蚪、孑孓游過來，牠一下子就夾住，再用尖尖像吸管的嘴吸食。' },
+  { k: 'body', t: '牠為什麼很難被找到？', x: '牠的身體<b>扁扁的、褐色</b>，靜靜趴在水草間，看起來就像<b>一片掉進水裡的落葉</b>。這是<b>偽裝</b>：獵物不會發現牠，天敵也不容易找到牠。' },
+  { k: 'home', t: '牠住在什麼地方？', x: '喜歡<b>平靜、不太流動的水</b>，像池塘、水田、溝渠，水草多的地方。牠對水質很敏感，常住在<b>乾淨</b>的水裡。' },
+  { k: 'insect', t: '牠是魚、蝦，還是昆蟲？', x: '紅娘華是<b>昆蟲</b>：有 <b>6 隻腳</b>，身體分成頭、胸、腹。牠雖然住在水裡，卻<b>沒有鰓</b>，要靠呼吸管吸水面上的空氣。' }
+];
+const HN_QUIZ = [
+  { id: 'hn1', q: '紅娘華在水面下活動時，靠身體的哪一個構造幫忙呼吸？', opts: ['鰓', '呼吸管', '鰭', '翅膀下的氣泡'], a: 1, ex: '紅娘華尾巴有呼吸管，把尖端伸出水面就能吸到空氣。把空氣存在翅膀下面的是龍蝨。' },
+  { id: 'hn2', q: '紅娘華的前腳像什麼？用來做什麼？', opts: ['像船槳，用來划水', '像鐮刀，用來抓獵物', '像吸盤，用來黏住石頭', '有蹼，用來踢水'], a: 1, ex: '紅娘華的前腳是像鐮刀的捕捉足，可以一下子夾住小魚、蝌蚪。像船槳的是龍蝨的後腳。' },
+  { id: 'hn3', q: '紅娘華扁扁、褐色，趴在水草間不動，看起來像什麼？', opts: ['一顆石頭上的青苔', '一片掉進水裡的落葉', '一條小魚', '一朵睡蓮'], a: 1, ex: '牠看起來像落葉，這是偽裝，可以偷偷等獵物，也比較不會被吃掉。' },
+  { id: 'hn4', q: '紅娘華是哪一類動物？', opts: ['魚', '蝦子的親戚', '昆蟲', '青蛙的親戚'], a: 2, ex: '紅娘華有 6 隻腳，身體分成頭、胸、腹，是昆蟲。' },
+  { id: 'hn5', q: '下列哪一種水生動物是用「腹足」慢慢爬行的？', opts: ['石田螺', '紅娘華', '青蛙', '水黽'], a: 0, ex: '石田螺伸出肉肉的腹足慢慢爬。紅娘華有 6 隻腳，是用腳爬的。' },
+  { id: 'hn6', q: '紅娘華為什麼常常停在靠近水面的地方？', opts: ['因為牠怕冷', '因為呼吸管要伸出水面吸空氣', '因為牠要曬太陽', '因為水底沒有食物'], a: 1, ex: '呼吸管的長度有限，停在水面附近，管子尖端才碰得到空氣。' },
+  { id: 'hn7', q: '下面哪一種水生昆蟲，和紅娘華一樣用尾巴的呼吸管呼吸？', opts: ['龍蝨', '水黽', '水螳螂', '水蠆'], a: 2, ex: '水螳螂和紅娘華是親戚，也有呼吸管和鐮刀狀的前腳。龍蝨把空氣存在翅膀下，水黽在水面上，水蠆用鰓。' }
+];
+function hnRec(){ if (!saved.hn || typeof saved.hn !== 'object') saved.hn = {}; const r = saved.hn; if (!Array.isArray(r.seen)) r.seen = []; if (!r.first || typeof r.first !== 'object') r.first = {}; return r; }
+function hnSVG(on){
+  const hl = k => on === k ? ' stroke="#FFD23F" stroke-width="5"' : '';
+  const ws = 70;
+  return `<svg viewBox="0 0 640 300" class="scene" role="img" aria-label="紅娘華趴在水草間，尾巴的呼吸管伸出水面"><defs>${waterDefs('hn')}</defs>`
+    + `<rect width="640" height="${ws}" fill="url(#hn-s)"/><rect y="${ws}" width="640" height="${300 - ws}" fill="url(#hn-w)"/>`
+    + `<rect y="262" width="640" height="38" fill="#8C6C4A"/>`
+    + at(60, 264, 1, pElodea(170, .04)) + at(590, 264, 1, pHornwort(170, .06))
+    + `<g transform="translate(300 190) rotate(-28)">`
+    // 呼吸管：從尾端往右上伸到水面
+    + `<path d="M58 0 Q122 -6 180 -46"${on === 'tube' ? ' stroke="#FFD23F" stroke-width="9" opacity=".7"' : ' stroke="none"'} fill="none" stroke-linecap="round"/>`
+    + `<path d="M58 0 Q122 -6 180 -46" fill="none" stroke="#4A3524" stroke-width="3" stroke-linecap="round"/>`
+    // 中、後腳
+    + `<g fill="none" stroke="#4A3524" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M-4 10 L-14 34 L-26 44"/><path d="M14 10 L22 36 L34 48"/><path d="M-4 -10 L-16 -32 L-30 -40"/><path d="M14 -10 L24 -34 L38 -44"/></g>`
+    // 身體：扁扁像落葉
+    + `<path d="M-50 0 Q-30 -20 10 -18 Q50 -14 60 0 Q50 14 10 18 Q-30 20 -50 0Z" fill="#8A5A34"${hl('body')} class="ol"/>`
+    + `<path d="M-46 0 H56 M-20 0 L-6 -12 M-20 0 L-6 12 M6 0 L20 -13 M6 0 L20 13 M28 0 L40 -10 M28 0 L40 10" stroke="#6B4426" stroke-width="1.4" fill="none"/>`
+    // 頭
+    + `<path d="M-50 0 Q-58 -7 -66 -3 Q-70 0 -66 3 Q-58 7 -50 0Z" fill="#6B4426"/><circle cx="-60" cy="-4" r="2.2" fill="#1B1B1B"/><circle cx="-60" cy="4" r="2.2" fill="#1B1B1B"/><path d="M-68 0 L-78 0" stroke="#4A3524" stroke-width="1.6"/>`
+    // 捕捉足（鐮刀）
+    + `<g fill="none" stroke="#5A3B22" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"${on === 'leg' ? ' filter="url(#hnGlow)"' : ''}><path d="M-48 -6 L-74 -24 Q-92 -26 -96 -12"/><path d="M-48 6 L-74 24 Q-92 26 -96 12"/></g>`
+    + (on === 'leg' ? `<g fill="none" stroke="#FFD23F" stroke-width="3" opacity=".85"><circle cx="-82" cy="-20" r="16"/><circle cx="-82" cy="20" r="16"/></g>` : '')
+    + `</g>`
+    + (on === 'tube' ? `<circle cx="435" cy="${ws}" r="14" fill="none" stroke="#FFD23F" stroke-width="3"/>` : '')
+    + tint(ws, 640, 300)
+    + (on === 'home' ? `<rect x="6" y="6" width="628" height="288" rx="14" fill="none" stroke="#FFD23F" stroke-width="5"/>` : '')
+    + (on === 'insect' ? `<text x="320" y="40" text-anchor="middle" font-size="26" fill="#1B3A4B" font-weight="700">6 隻腳 · 頭、胸、腹 → 昆蟲</text>` : '')
+    + `<defs><filter id="hnGlow"><feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#FFD23F"/></filter></defs></svg>`;
+}
+function hnRender(on){
+  const r = hnRec();
+  $('#hnPic').innerHTML = hnSVG(on);
+  $('#hnSeen').textContent = `已經找到 ${r.seen.length}／${HN_PARTS.length} 個祕密` + (r.seen.length === HN_PARTS.length ? '，全部找到了！' : '。');
+  $$('#hnParts .opt').forEach(b => b.classList.toggle('is-right', r.seen.indexOf(b.dataset.k) >= 0));
+}
+function hnQuizInit(){
+  const box = $('#hnQuiz'), N = HN_QUIZ.length, st = { i: 0, score: 0 };
+  function head(){
+    const r = hnRec();
+    return `<p class="small" style="margin:0 0 6px">${r.best != null ? `最高紀錄：答對 ${r.best}／${N} 題，已經考過 ${r.tries || 0} 次。` : '還沒考過，試試看！'}</p>`;
+  }
+  function render(){
+    if (st.i >= N){
+      const r = hnRec(); r.tries = (r.tries || 0) + 1; r.last = st.score; r.best = Math.max(r.best || 0, st.score); persist();
+      box.innerHTML = `<p class="qz-q">你答對了 <b class="big">${st.score}</b> 題（共 ${N} 題）</p><p>${st.score === N ? '全對！你是紅娘華專家了。' : '答錯的題目，回去點點上面的紅娘華放大鏡，再來一次。'}</p>${head()}<button type="button" class="btn qz-retry">再考一次</button>`;
+      $('.qz-retry', box).addEventListener('click', () => { st.i = 0; st.score = 0; render(); const f = $('.qz-opt', box); if (f) f.focus(); });
+      return;
+    }
+    const Q = HN_QUIZ[st.i];
+    box.innerHTML = head() + `<div class="qz-head"><span>第 ${st.i + 1} 題／共 ${N} 題</span><span class="qz-score">答對 ${st.score} 題</span></div>
+      <div class="qz-bar" aria-hidden="true"><span style="width:${Math.round(st.i / N * 100)}%"></span></div>
+      <p class="qz-q">${Q.q}</p>
+      <div class="qz-opts">${Q.opts.map((t, j) => `<button type="button" class="opt qz-opt" data-j="${j}">${t}</button>`).join('')}</div>
+      <p class="qz-fb" aria-live="polite"></p>
+      <button type="button" class="btn btn-red qz-next" hidden>${st.i === N - 1 ? '看結果' : '下一題'}</button>`;
+    $$('.qz-opt', box).forEach(b => b.addEventListener('click', () => {
+      const j = +b.dataset.j, ok = j === Q.a, r = hnRec();
+      if (!r.first[Q.id]) { r.first[Q.id] = { ok: ok, pick: Q.opts[j], at: Date.now() }; persist(); }
+      $$('.qz-opt', box).forEach(x => { x.disabled = true; if (+x.dataset.j === Q.a) x.classList.add('is-right'); });
+      if (ok) st.score++; else b.classList.add('is-wrong');
+      const fb = $('.qz-fb', box); fb.className = 'qz-fb ' + (ok ? 'ok' : 'no');
+      fb.innerHTML = `<b>${ok ? '答對了！' : '差一點！'}</b>${Q.ex}`;
+      $('.qz-score', box).textContent = `答對 ${st.score} 題`;
+      const nx = $('.qz-next', box); nx.hidden = false; nx.focus();
+    }));
+    $('.qz-next', box).addEventListener('click', () => { st.i++; render(); const f = $('.qz-opt', box) || $('button', box); if (f) f.focus(); });
+  }
+  render();
+}
+function hnInit(){
+  $('#hnParts').innerHTML = HN_PARTS.map(p => `<button type="button" class="opt" data-k="${p.k}">${p.t}</button>`).join('');
+  $$('#hnParts .opt').forEach(b => b.addEventListener('click', () => {
+    const p = HN_PARTS.find(x => x.k === b.dataset.k), r = hnRec();
+    if (r.seen.indexOf(p.k) < 0){ r.seen.push(p.k); persist(); }
+    $('#hnText').innerHTML = p.x;
+    hnRender(p.k);
+  }));
+  hnRender(null);
+  hnQuizInit();
+}
+
 function initLesson2(){
   renderPondHero();
 
@@ -2669,6 +2795,7 @@ function initLesson2(){
   $('#w4Reset').addEventListener('click', w4Init);
   setupChecks($('#w4Check'), () => { w4.qDone = true; tryW4(); });
 
+  hnInit();
   makeQuiz({ box: '#wquiz', list: QUIZ2, title: '水邊大考驗', img: Q => Q.img ? Q.img() : '', cert: '#wcert', certDate: '#wcertDate', certSeal: '#wcertSeal', certName: '#wcertName', stamp: 'w5' })();
   setupReset('w', STAMPS2);
 }
