@@ -313,6 +313,17 @@ svg.locked .prot{cursor:crosshair}
       </div>
     </div>
   </div>
+  <div class="card">
+    <h3>🎯 旋轉中心</h3>
+    <div class="small">旋轉的時候固定不動的那一點，就是旋轉中心（也是旋轉角的頂點）。</div>
+    <div id="gCenter"></div>
+  </div>
+  <div class="card">
+    <h3>🥤 量角器上的吸管（轉兩次）</h3>
+    <div class="small">從右邊 0° 出發看<b style="color:#1d4ed8">內圈</b>，從左邊 0° 出發看<b style="color:#c2410c">外圈</b>。內圈＋外圈＝180°。按 🔄 轉轉看可以看吸管怎麼轉。</div>
+    <div id="gStraw"></div>
+    <div class="gk-src">📌 這裡的題目和情境都是<b>自編</b>的，依照康軒 4上 單元範圍設計，題型參考小朋友的考卷（沒有照抄考卷題目）。</div>
+  </div>
 </section>
 
 <!-- ============ 挑戰 ============ -->
@@ -882,10 +893,151 @@ document.addEventListener("keydown",function(e){var p=activePage(),k=/^[0-9]$/.t
   var pad=p==="p-meas"?"mPad":(p==="p-rot"?"oPad":(p==="p-game"&&gMode==="comp"?"xqPad":null));if(!pad)return;
   var b=document.querySelector("#"+pad+' button[data-k="'+k+'"]');if(b){e.preventDefault();b.click();}});
 
+window.__gapStar=function(n,el){addStars(n,el);};
 renderScore();pRender();rRender();kRender();tRender();cRender();xRender();mNew();dNew();oNewRound();sNew();
 window.__ang={core:C,store:function(){return store;},M:function(){return M;},mL:mL,mInfo:function(){return C.poseInfo(M,mL.pose.cx,mL.pose.cy,mL.pose.rot);},D:function(){return D;},dL:dL,dDot:function(){return dDot;},
   rot:function(){return {list:oList,i:oI,res:oRes};},shoot:function(){return {list:sList,i:sI,pts:sPts,setCum:function(v){sCum=v;sDraw();}};},sort:function(){return {list:tList,i:tI,res:tRes};},comp:function(){return {list:qList,i:qI,res:qRes};},
   clock:function(){return {s:cS,cum:cCum};}};
+})();
+</script>
+<script>
+/* ===== GapKit：考卷題型補強小題庫（自編題，ES5） ===== */
+(function(){
+"use strict";
+var css=".gk-tag{display:inline-block;background:#fff3dc;border:2px solid #ffc46b;color:#8a4b00;border-radius:999px;padding:1px 10px;font-size:13px;font-weight:800;margin-bottom:6px}"+
+".gk-q{font-size:19px;line-height:1.7;font-weight:700;background:#fffdf7;border:3px solid #ffe0b0;border-radius:16px;padding:10px 14px;overflow-x:auto}"+
+".gk-q .big{font-size:24px;font-weight:900;letter-spacing:1px;font-variant-numeric:tabular-nums}"+
+".gk-box{display:inline-block;min-width:1.05em;padding:0 2px;border:2px solid #ff6b9a;border-radius:6px;background:#fff0f4;color:#d6336c;text-align:center;line-height:1.3;margin:0 1px}"+
+".gk-in{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:10px}"+
+".gk-in label{display:flex;align-items:center;gap:6px;font-size:18px;font-weight:800}"+
+".gk-inp{width:130px;min-height:50px;font-size:22px;border-radius:12px;border:3px solid #ffe0b0;padding:0 10px;font-family:inherit;font-weight:800}"+
+".gk-inp.sm{width:74px}.gk-inp.okv{border-color:#2ec4b6;background:#e9fbf3}.gk-inp.nov{border-color:#ff6b9a;background:#fff0f4}"+
+".gk-ch{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;width:100%}"+
+".gk-ch .btn{background:#fff;color:#333;border:3px solid #d6e4ff;font-size:20px;min-height:56px}"+
+".gk-ch .btn.okv{background:#d8f3dc;border-color:#2ec4b6}.gk-ch .btn.nov{background:#ffd6dc;border-color:#ff6b9a}"+
+".gk-hints{margin-top:8px}.gk-hint{background:#f3e8ff;border-radius:12px;padding:8px 12px;margin-top:6px;font-size:17px;line-height:1.6}"+
+".gk-prog{margin-top:6px;font-size:14px;color:#666}"+
+".gk-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}"+
+".gk-svg{width:100%;max-width:520px;display:block;margin:6px auto 0;background:#fff;border-radius:14px}"+
+".gk-tbl{border-collapse:collapse;margin:6px 0;font-size:17px;background:#fff}.gk-tbl td,.gk-tbl th{border:2px solid #ffd59a;padding:4px 10px;text-align:center}.gk-tbl th{background:#fff3dc}"+
+".gk-src{font-size:13px;color:#666;line-height:1.6;margin-top:6px}";
+var st=document.createElement("style");st.textContent=css;document.head.appendChild(st);
+
+function esc(s){return String(s);}
+function GK(key){this.key=key;this.data={};try{var r=localStorage.getItem(key);if(r)this.data=JSON.parse(r)||{};}catch(e){}this.inst={};}
+GK.prototype.save=function(){try{localStorage.setItem(this.key,JSON.stringify(this.data));}catch(e){}};
+GK.prototype.rec=function(id,perfect){var d=this.data[id]||(this.data[id]={done:0,perfect:0});d.done++;if(perfect)d.perfect++;this.save();};
+GK.prototype.quiz=function(rootId,gen,opt){var self=this,root=document.getElementById(rootId);if(!root)return null;opt=opt||{};
+  var Q={id:rootId,cur:null,tries:0,hintN:0,solved:false};
+  root.innerHTML='<span class="gk-tag">'+(opt.tag||"自編練習題")+'</span><div class="gk-q"></div><div class="gk-in"></div>'+
+    '<div class="gk-row"><button class="btn org gk-ok">✓ 檢查</button><button class="btn small white gk-hb">💡 提示</button><button class="btn small teal gk-nx">下一題 ▶</button>'+(opt.extraBtn?'<button class="btn small white gk-ex">'+opt.extraBtn+'</button>':'')+'</div>'+
+    '<div class="gk-hints"></div><div class="fb"></div><div class="gk-prog"></div>';
+  var qEl=root.querySelector(".gk-q"),inEl=root.querySelector(".gk-in"),hEl=root.querySelector(".gk-hints"),fb=root.querySelector(".fb"),pg=root.querySelector(".gk-prog"),okB=root.querySelector(".gk-ok");
+  function prog(){var d=self.data[rootId]||{done:0,perfect:0};pg.textContent="這一組已完成 "+d.done+" 題（一次就對 "+d.perfect+" 題）";}
+  function setFb(cls,html){fb.className="fb show "+cls;fb.innerHTML=html;}
+  function showHint(){var it=Q.cur;if(!it||!it.hints||Q.hintN>=it.hints.length){if(it&&it.hints&&it.hints.length)setFb("info","提示都打開了，照著一步一步算算看 😊");return;}
+    var dv=document.createElement("div");dv.className="gk-hint";dv.innerHTML="💡 "+(Q.hintN+1)+". "+it.hints[Q.hintN];hEl.appendChild(dv);Q.hintN++;}
+  function load(it){Q.cur=it;Q.tries=0;Q.hintN=0;Q.solved=false;hEl.innerHTML="";fb.className="fb";fb.innerHTML="";
+    qEl.innerHTML=it.q;okB.style.display=it.type==="choice"?"none":"";
+    if(it.type==="choice"){inEl.innerHTML='<div class="gk-ch">'+it.choices.map(function(c,i){return '<button class="btn" data-i="'+i+'">'+c+"</button>";}).join("")+"</div>";
+      [].forEach.call(inEl.querySelectorAll(".gk-ch .btn"),function(b){b.addEventListener("click",function(){if(Q.solved)return;check([b.getAttribute("data-i")]);});});}
+    else{var bl=it.type==="multi"?it.blanks:[{label:it.label||"答：",ans:it.ans,unit:it.unit||""}];
+      inEl.innerHTML=bl.map(function(b,i){return '<label>'+b.label+'<input class="gk-inp'+(String(b.ans).length<=2?" sm":"")+'" inputmode="numeric" autocomplete="off" data-i="'+i+'" aria-label="'+String(b.label).replace(/<[^>]+>/g,"")+'">'+(b.unit||"")+"</label>";}).join("");
+      [].forEach.call(inEl.querySelectorAll("input"),function(x){x.addEventListener("keydown",function(e){if(e.key==="Enter")doCheck();});});}
+    if(it.after)it.after(root);
+    prog();}
+  function vals(){return [].map.call(inEl.querySelectorAll("input"),function(x){return x.value.replace(/[,，\s]/g,"");});}
+  function check(v){var it=Q.cur;if(!it||Q.solved)return;var good=true;
+    if(it.type==="choice"){good=+v[0]===it.ans;var bs=inEl.querySelectorAll(".gk-ch .btn");bs[+v[0]].classList.add(good?"okv":"nov");if(good)bs[+v[0]].classList.remove("nov");}
+    else{var bl=it.type==="multi"?it.blanks:[{ans:it.ans}],ins=inEl.querySelectorAll("input");
+      for(var i=0;i<bl.length;i++){var ok=v[i]!==""&&v[i]!==undefined&&String(+v[i])===String(bl[i].ans);if(ins[i]){ins[i].classList.toggle("okv",ok);ins[i].classList.toggle("nov",!ok);}if(!ok)good=false;}
+      if(v.some(function(x){return x===""||x===undefined;})&&!good){setFb("bad","還有空格沒有填喔！");return;}}
+    if(good){Q.solved=true;var perfect=Q.tries===0&&Q.hintN===0,n=perfect?2:1;self.rec(rootId,perfect);
+      setFb("good","✅ 答對了！"+(perfect?"一次就對 +2 ⭐":"+1 ⭐")+(it.why?"<br>"+it.why:""));
+      if(window.__gapStar)window.__gapStar(n,fb);prog();}
+    else{Q.tries++;setFb("bad","再想想看 🤔"+(it.miss?" "+it.miss:"")+(Q.tries>=2&&it.hints&&Q.hintN<it.hints.length?"<br>幫你打開一個提示 👇":""));
+      if(Q.tries>=2)showHint();}}
+  function doCheck(){check(vals());}
+  okB.addEventListener("click",doCheck);
+  root.querySelector(".gk-hb").addEventListener("click",showHint);
+  root.querySelector(".gk-nx").addEventListener("click",function(){load(gen());});
+  if(opt.extraBtn&&opt.onExtra)root.querySelector(".gk-ex").addEventListener("click",function(){opt.onExtra(Q.cur,root);});
+  Q.load=load;Q.check=check;Q.next=function(){load(gen());};Q.hint=showHint;Q.root=root;
+  self.inst[rootId]=Q;load(gen());return Q;};
+GK.ri=function(a,b){return a+Math.floor(Math.random()*(b-a+1));};
+GK.pick=function(a){return a[Math.floor(Math.random()*a.length)];};
+GK.shuffle=function(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;};
+GK.box=function(t){return '<span class="gk-box">'+(t||"&nbsp;")+"</span>";};
+window.GapKit=GK;
+})();
+</script>
+<script>
+/* ===== 角度：旋轉中心＋量角器上的吸管（自編題） ===== */
+(function(){
+"use strict";
+var G=window.GapKit,ri=G.ri,pick=G.pick,kit=new G("mathAnglesGapV1");
+function rad(a){return a*Math.PI/180;}
+function P(cx,cy,r,a){return [cx+r*Math.cos(rad(a)),cy-r*Math.sin(rad(a))];}
+/* ---------- 1. 旋轉中心 ---------- */
+var SCN=[["門打開時，門繞著門軸轉","門"],["分針從 12 轉到 3","分針"],["打開剪刀","剪刀的一邊"],["電風扇的扇葉轉動","扇葉"],["蹺蹺板的一邊往上抬","蹺蹺板"]];
+function rotSvg(a0,turn,labs){var cx=200,cy=150,R=120,a1=a0+turn,s=P(cx,cy,R,a0),e=P(cx,cy,R,a1),m=P(cx,cy,R*.5,a0),o=P(cx,cy,58,a0+turn/2),x=P(cx,cy,R*.8,a0+turn+ (turn>0?40:-40));
+  var arc=P(cx,cy,48,a0),arc2=P(cx,cy,48,a1);
+  var pts=[[cx,cy],s,e,m].map(function(p,i){return '<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="7" fill="#ff6b9a"/><text x="'+(p[0]+10).toFixed(1)+'" y="'+(p[1]-10).toFixed(1)+'" font-size="22" font-weight="900" fill="#333">'+labs[i]+"</text>";}).join("");
+  return '<svg class="gk-svg" viewBox="0 0 400 300" role="img" aria-label="旋轉示意圖">'+
+   '<line x1="'+cx+'" y1="'+cy+'" x2="'+s[0].toFixed(1)+'" y2="'+s[1].toFixed(1)+'" stroke="#9db8ff" stroke-width="10" stroke-linecap="round" stroke-dasharray="4 10"/>'+
+   '<line x1="'+cx+'" y1="'+cy+'" x2="'+e[0].toFixed(1)+'" y2="'+e[1].toFixed(1)+'" stroke="#4d96ff" stroke-width="10" stroke-linecap="round"/>'+
+   '<path d="M'+arc[0].toFixed(1)+' '+arc[1].toFixed(1)+' A48 48 0 0 '+(turn>0?0:1)+' '+arc2[0].toFixed(1)+' '+arc2[1].toFixed(1)+'" fill="none" stroke="#ff9f1c" stroke-width="4"/>'+
+   pts+'<text x="10" y="290" font-size="15" fill="#666">虛線：轉之前　實線：轉之後</text></svg>';}
+function genCenter(){if(Math.random()<.35){var TF=[["旋轉的時候，旋轉中心的位置不會移動。",0],["旋轉中心就是旋轉角的頂點。",0],["分針繞著鐘面的中心點轉，鐘面中心點是旋轉中心。",0],["旋轉中心一定在會動的那一端。",1],["旋轉角的大小和邊畫得長或短有關。",1],["門打開的時候，門把是旋轉中心。",1]],t=pick(TF);
+    return {type:"choice",q:"是非題：<br>"+t[0],choices:["○ 對","✕ 錯"],ans:t[1],why:t[1]?"這句話不對。旋轉中心是<b>固定不動</b>的那一點（旋轉角的頂點）；角的大小只看轉了多少，和邊長無關。":"這句話對。旋轉中心是固定不動的點，也就是旋轉角的頂點。",hints:["想一想：轉的時候，哪一點一直待在原地不動？"]};}
+  var sc=pick(SCN),labs=G.shuffle(["甲","乙","丙","丁"]),a0=ri(0,3)*30+ri(-10,10),turn=pick([1,-1])*ri(4,12)*10;
+  return {type:"choice",q:sc[0]+"。下圖中"+sc[1]+"從虛線轉到實線，<b>旋轉中心</b>是哪一點？"+rotSvg(a0,turn,labs),choices:["甲","乙","丙","丁"],ans:["甲","乙","丙","丁"].indexOf(labs[0]),
+    why:"<b>"+labs[0]+"</b> 點一直待在原地不動，"+sc[1]+"繞著它轉，所以它就是旋轉中心（也是旋轉角的頂點）。",hints:["轉之前和轉之後，哪一點的位置完全沒變？","旋轉中心就是兩條線（虛線和實線）交會的那一點。"]};}
+
+/* ---------- 2. 量角器上的吸管（轉兩次） ---------- */
+function protractor(marks,straw,ghost,arcs){var cx=210,cy=205,R=185,h='<svg class="gk-svg" viewBox="0 0 420 235" role="img" aria-label="量角器和吸管">';
+  h+='<path d="M'+(cx-R)+' '+cy+' A'+R+' '+R+' 0 0 1 '+(cx+R)+' '+cy+' Z" fill="#fff7e0" stroke="#e3a33b" stroke-width="2"/>';
+  for(var a=0;a<=180;a+=5){var r1=a%10===0?R-16:R-8,p1=P(cx,cy,R,a),p2=P(cx,cy,r1,a);h+='<line x1="'+p1[0].toFixed(1)+'" y1="'+p1[1].toFixed(1)+'" x2="'+p2[0].toFixed(1)+'" y2="'+p2[1].toFixed(1)+'" stroke="#a0752b" stroke-width="'+(a%10?1:2)+'"/>';
+    if(a%30===0||marks.indexOf(a)>=0){var po=P(cx,cy,R-30,a),pi=P(cx,cy,R-54,a);
+      h+='<text x="'+po[0].toFixed(1)+'" y="'+(po[1]+5).toFixed(1)+'" font-size="'+(a%30?11:13)+'" text-anchor="middle" fill="#c2410c" font-weight="800">'+(180-a)+'</text>';
+      h+='<text x="'+pi[0].toFixed(1)+'" y="'+(pi[1]+5).toFixed(1)+'" font-size="'+(a%30?11:13)+'" text-anchor="middle" fill="#1d4ed8" font-weight="800">'+a+'</text>';}}
+  h+='<line x1="'+(cx-R)+'" y1="'+cy+'" x2="'+(cx+R)+'" y2="'+cy+'" stroke="#a0752b" stroke-width="2"/>';
+  (ghost||[]).forEach(function(g){var p=P(cx,cy,R-4,g);h+='<line x1="'+cx+'" y1="'+cy+'" x2="'+p[0].toFixed(1)+'" y2="'+p[1].toFixed(1)+'" stroke="#2a9d8f" stroke-width="7" stroke-linecap="round" stroke-dasharray="3 9" opacity=".7"/>';});
+  var ps=P(cx,cy,R+2,straw);h+='<line class="gk-straw" x1="'+cx+'" y1="'+cy+'" x2="'+ps[0].toFixed(1)+'" y2="'+ps[1].toFixed(1)+'" stroke="#ff6b9a" stroke-width="9" stroke-linecap="round"/>';
+  h+='<circle cx="'+cx+'" cy="'+cy+'" r="6" fill="#333"/><text x="8" y="230" font-size="13" fill="#c2410c" font-weight="800">外圈（橘）</text><text x="330" y="230" font-size="13" fill="#1d4ed8" font-weight="800">內圈（藍）</text></svg>';return h;}
+function genStraw(){var k=ri(0,3),a=ri(2,8)*5,b=ri(2,9)*5;if(Math.random()<.5){a*=2;}if(a+b>170){b=170-a;}
+  var tot=a+b,it;
+  /* 內圈 0 在右邊、逆時針增加；外圈 0 在左邊、順時針增加。 */
+  if(k===0){/* 從右邊（內圈 0）出發，逆時針 */
+    it={q:"吸管放在量角器上，從<b>內圈 0°</b>（右邊）開始，先往上轉 <b>"+a+"°</b>，再往同一個方向轉 <b>"+b+"°</b>。<br>現在吸管指在<b>內圈</b>幾度？<b>外圈</b>幾度？",
+      blanks:[{label:"內圈",ans:tot,unit:"°"},{label:"外圈",ans:180-tot,unit:"°"}],svgAt:0,marks:[a],
+      why:"共轉了 "+a+" ＋ "+b+" ＝ "+tot+"°，從內圈 0° 開始，所以指在內圈 <b>"+tot+"°</b>；同一個位置的外圈是 180 － "+tot+" ＝ <b>"+(180-tot)+"°</b>。",
+      hints:["從內圈 0° 出發，就看內圈：轉了幾度就指在內圈幾度。","兩次加起來："+a+" ＋ "+b+" ＝ "+tot+"。","內圈和外圈同一個位置加起來是 180°。"],final:tot};}
+  else if(k===1){/* 從左邊（外圈 0）出發 */
+    it={q:"吸管從<b>外圈 0°</b>（左邊）開始，先往上轉 <b>"+a+"°</b>，再往同一個方向轉 <b>"+b+"°</b>。<br>現在吸管指在<b>外圈</b>幾度？<b>內圈</b>幾度？",
+      blanks:[{label:"外圈",ans:tot,unit:"°"},{label:"內圈",ans:180-tot,unit:"°"}],svgAt:180,marks:[180-a],
+      why:"從外圈 0° 開始，就看外圈：共轉 "+tot+"°，指在外圈 <b>"+tot+"°</b>；內圈是 180 － "+tot+" ＝ <b>"+(180-tot)+"°</b>。",
+      hints:["從左邊出發，0° 在外圈，所以要看<b>外圈</b>的數字。","兩次加起來："+a+" ＋ "+b+" ＝ "+tot+"。","內圈和外圈同一個位置加起來是 180°。"],final:180-tot};}
+  else if(k===2){/* 兩次的位置，問第二次轉幾度 */
+    it={type:"num",q:"吸管從內圈 0° 開始，第一次轉到<b>內圈 "+a+"°</b>，第二次再轉到<b>內圈 "+tot+"°</b>。<br>第二次轉了幾度？",ans:b,unit:"°",label:"第二次轉了",svgAt:0,marks:[a],
+      why:tot+" － "+a+" ＝ <b>"+b+"°</b>。",hints:["第二次是從 "+a+"° 轉到 "+tot+"°。","用大的減小的。"],final:tot};}
+  else{/* 讀外圈但問一共轉幾度 */
+    it={type:"num",q:"吸管從內圈 0° 開始，先轉 <b>"+a+"°</b>，再轉了一些，最後指在<b>外圈 "+(180-tot)+"°</b>。<br>第二次轉了幾度？",ans:b,unit:"°",label:"第二次轉了",svgAt:0,marks:[a],
+      why:"外圈 "+(180-tot)+"° 就是內圈 180 － "+(180-tot)+" ＝ "+tot+"°。所以總共轉了 "+tot+"°，第二次轉了 "+tot+" － "+a+" ＝ <b>"+b+"°</b>。",
+      hints:["吸管是從內圈 0° 出發，要把外圈的數字換成內圈：180 － "+(180-tot)+"。","總共轉了 "+tot+"°，減掉第一次的 "+a+"°。"],final:tot};}
+  if(!it.type)it.type="multi";
+  it.q+=protractor(it.marks,it.svgAt,[],[]);
+  return it;}
+function playStraw(it,root){if(!it||it.final===undefined)return;var svg=root.querySelector(".gk-svg");if(!svg)return;var from=it.svgAt,to=it.final,mid=it.marks[0],t0=null,
+  line=svg.querySelector(".gk-straw"),cx=210,cy=205,R=187,first=true;
+  function set(a){var p=P(cx,cy,R,a);line.setAttribute("x2",p[0].toFixed(1));line.setAttribute("y2",p[1].toFixed(1));}
+  function step(ts){if(t0===null)t0=ts;var t=Math.min(1,(ts-t0)/1800),a;
+    if(t<.45)a=from+(mid-from)*(t/.45);else if(t<.55)a=mid;else a=mid+(to-mid)*((t-.55)/.45);
+    set(a);if(t<1)requestAnimationFrame(step);}
+  requestAnimationFrame(step);}
+kit.quiz("gCenter",genCenter,{tag:"自編題"});
+kit.quiz("gStraw",genStraw,{tag:"自編題",extraBtn:"🔄 轉轉看",onExtra:playStraw});
+window.__gap={kit:kit,genCenter:genCenter,genStraw:genStraw};
 })();
 </script>
 </body>
