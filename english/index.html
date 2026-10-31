@@ -42,7 +42,8 @@ footer{text-align:center;color:#888;font-size:14px;margin-top:30px}
 /* 新增課程：在這個陣列加一筆就好 */
 var LESSONS = [
   { unit: "Wonder World 3", lesson: "Unit 1 The Big Wind", icon: "🌬️", title: "The Big Wind 天氣", href: "lesson1-big-wind/", desc: "6 張天氣單字卡和英文發音、How's the weather? 句型、小小氣象臺、e / e_e Magic e 發音、聽力測驗、拼字和圖字配對，還有綜合挑戰！" },
-  { unit: "Wonder World 3", lesson: "Unit 2 Going Back Home", icon: "🕒", title: "Going Back Home 時間", href: "lesson2-going-back-home/", desc: "fifteen～fifty 數字卡、What time is it? 句型、撥撥時鐘和看時鐘問答、i / i_e Magic e 發音、-teen / -ty 聽力、撥時鐘遊戲和拼字，還有綜合挑戰！" }
+  { unit: "Wonder World 3", lesson: "Unit 2 Going Back Home", icon: "🕒", title: "Going Back Home 時間", href: "lesson2-going-back-home/", desc: "fifteen～fifty 數字卡、What time is it? 句型、撥撥時鐘和看時鐘問答、i / i_e Magic e 發音、-teen / -ty 聽力、撥時鐘遊戲和拼字，還有綜合挑戰！" },
+  { unit: "Wonder World 3", lesson: "Review 1 期中複習", icon: "📝", title: "Get Ready～Review 1 期中複習", href: "review1/", desc: "a / a_e、e / e_e、i / i_e 聽音辨字和排順序、天氣看圖聽圖、時間（含 half past、a quarter past / to）、生活用語情境和對話、句子重組、寫寫看，還有 12 題期中模擬小考！" }
 ];
 var units = [], html = "";
 LESSONS.forEach(function (l) { if (units.indexOf(l.unit) < 0) units.push(l.unit); });
