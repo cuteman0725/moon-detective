@@ -41,6 +41,7 @@ footer{text-align:center;color:#888;font-size:14px;margin-top:30px}
 <script>
 /* 新增課程：在這個陣列加一筆就好 */
 var LESSONS = [
+  { unit: "闖關總地圖", lesson: "全部活動・小測驗", icon: "🗺️", title: "偵探闖關地圖", href: "quest/", desc: "從月亮山出發走到池塘，一站一站點亮全部活動、集滿偵探卡，拿到「自然小偵探」證書！", c: "#ff9f1c", bg: "#fff1d6" },
   { unit: "第一單元 閃亮的天空", lesson: "月相", icon: "🌙", title: "月亮小偵探", href: "moon-detective/#lesson1", desc: "觀察月亮的形狀、位置和時間，破解月相的祕密！" },
   { unit: "第一單元 閃亮的天空", lesson: "月相", icon: "🚀", title: "瑄瑄的月亮探險隊", href: "moon-phases/", desc: "轉動地球看月相、排順序遊戲、闖關測驗拿星星！" },
   { unit: "第一單元 閃亮的天空", lesson: "拖拉遊戲・月相", icon: "🌗", title: "月相轉盤", href: "moon-wheel/", desc: "拖著月亮繞地球轉，看看從臺灣看到的月亮怎麼變；再把月相卡片拼回軌道、配對農曆日期！" },
@@ -53,7 +54,7 @@ LESSONS.forEach(function (l) { if (units.indexOf(l.unit) < 0) units.push(l.unit)
 units.forEach(function (u) {
   html += '<h2 class="unit">📘 ' + u + '</h2><div class="grid">';
   LESSONS.filter(function (l) { return l.unit === u; }).forEach(function (l) {
-    html += '<a class="card" style="--c:#4d96ff;--bg:#e6f0ff" href="' + l.href + '"><div class="ico">' + l.icon + '</div><div><h3>' + l.title +
+    html += '<a class="card" style="--c:' + (l.c || '#4d96ff') + ';--bg:' + (l.bg || '#e6f0ff') + '" href="' + l.href + '"><div class="ico">' + l.icon + '</div><div><h3>' + l.title +
       '</h3><p>' + l.desc + '</p><span class="tag">' + l.lesson + '</span></div></a>';
   });
   html += '</div>';
