@@ -125,6 +125,13 @@ nav.tabs button span{font-size:24px;line-height:1}nav.tabs button.on{background:
     </div>
     <p class="small">每一句都有<b>一個錯字</b>。先點它（像考卷上把錯字圈起來），再選出或寫出正確的字。答完會看到「字形提示」：是<b>部首</b>不同、<b>形近</b>（長得像）還是<b>同音</b>（念起來一樣）。句子都是自編的練習句，不是課本或考卷原句。</p>
   </div>
+  <!-- ==== 10/31 考卷錯題：固定題 ==== -->
+  <div class="card" id="exam1031">
+    <h3>⭐ 10/31 考卷錯題：同音字 ㄑㄧˋ</h3>
+    <p class="small">考卷第 28 題「加油打＿」老師有扣分，原本寫的字已經看不出來，這裡<b>不猜原本寫了什麼</b>。用下面兩句固定題練習「打氣／放棄」，每一句都可以一直重做。選錯的字會記進📕錯字本。</p>
+    <div class="btns cen"><button class="btn pink" data-fx="qi2">① 加油打＿</button><button class="btn white" data-fx="qi">② 不要輕易放＿</button><button class="btn white" data-fx="both">①＋② 連續做</button></div>
+  </div>
+  <!-- ==== /10/31 ==== -->
   <div class="card" id="fixSet">
     <h3>① 選題目</h3>
     <div class="setgrid" id="setPool">
@@ -358,6 +365,25 @@ return api;
 })();
 </script>
 <script>
+/* ==== 10/31 考卷錯題複習：共用紀錄（localStorage "md1031V1"，三個頁面共用；只增不改舊紀錄）==== */
+var R1031=(function(){var K="md1031V1";
+ function load(){try{var o=JSON.parse(localStorage.getItem(K));return o&&typeof o==="object"?o:{};}catch(e){return {};}}
+ function put(o){try{localStorage.setItem(K,JSON.stringify(o));}catch(e){}}
+ function rec(o,id){var r=o[id];if(!r){r={n:0,okN:0,miss:{}};o[id]=r;}if(!r.miss)r.miss={};return r;}
+ /* a={ok:true/false, ans:"孩子寫的", parts:{部分:true/false}, finalOk:最後答案對嗎, procOk:過程對嗎} */
+ function attempt(id,a){var o=load(),r=rec(o,id),t=Date.now(),k,x={ok:!!a.ok,ans:a.ans===undefined?"":String(a.ans).slice(0,80),t:t};
+  if(a.parts){x.parts={};for(k in a.parts)x.parts[k]=!!a.parts[k];}
+  if(a.finalOk!==undefined)x.finalOk=!!a.finalOk;if(a.procOk!==undefined)x.procOk=!!a.procOk;
+  r.n++;if(!r.first){x.hint=!!r.hint;x.shown=!!r.shown;r.first=x;}
+  if(!x.ok){if(x.parts){for(k in x.parts)if(!x.parts[k])r.miss[k]=(r.miss[k]||0)+1;}else r.miss.all=(r.miss.all||0)+1;}
+  else{r.okN++;if(r.first&&!r.first.ok&&!r.fixed){r.fixed=1;r.fixedT=t;}}
+  r.last=x;put(o);return r;}
+ /* k="hint"（看了提示）或 "shown"（看了答案） */
+ function flag(id,k){var o=load(),r=rec(o,id);r[k]=1;r[k+"N"]=(r[k+"N"]||0)+1;put(o);return r;}
+ function get(id){return load()[id]||null;}
+ return {K:K,load:load,attempt:attempt,flag:flag,get:get};})();
+/* ==== /10/31 共用紀錄 ==== */
+
 (function(){
 "use strict";
 if(typeof document==="undefined")return;
@@ -383,6 +409,7 @@ each(document.querySelectorAll("#tabs button"),function(b){b.addEventListener("c
 function typeName(t){return '<span class="ttag t-'+t+'">'+(t==="部首"?"🧩 ":t==="形近"?"👀 ":"👂 ")+t+'</span>';}
 function typeDesc(t){for(var i=0;i<C.TYPES.length;i++)if(C.TYPES[i].k===t)return C.TYPES[i].d;return "";}
 function lessonOf(it){return it.L?("相關課次："+C.LESSON[it.L]):"課外語詞（期中練習卷）";}
+if(!store.mix)store.mix={};/* 10/31：曾經選錯的字（混淆紀錄），例如 qi2 選過「棄」 */
 function bookIds(){var a=[];for(var k in store.bad)if(store.bad[k]>0&&C.byId(k))a.push(k);return a;}
 function explainHTML(it){var p=C.parse(it);
   return '<div class="explain"><div>'+typeName(it.t)+'<b>字形提示</b></div><div class="vs kai"><div class="r"><b>'+p.r+'</b>✔ 正確</div><div>⇄</div><div class="w"><b>'+p.w+'</b>✘ 寫錯</div></div>'+it.tip+
@@ -402,17 +429,22 @@ function runFix(box,items,opt){
     h+='<div class="btns cen"><button class="btn org hidden" id="nxBtn">下一句 ➜</button></div>';
     box.innerHTML=h;
     each(box.querySelectorAll("#sent button"),function(b){b.addEventListener("click",function(){tap(b);});});
-    if(opt.hint){$("hintBtn").addEventListener("click",function(){$("hintBox").innerHTML='<div class="hintbox">'+(stage===1?"錯字在一個語詞裡：想想「<b>"+esc(it.word)+"</b>」這個詞。<br>":"")+typeName(it.t)+typeDesc(it.t)+'</div>';});
+    if(opt.hint){$("hintBtn").addEventListener("click",function(){if(opt.fixed)R1031.flag("zh-"+it.id,"hint");$("hintBox").innerHTML='<div class="hintbox">'+(stage===1?"錯字在一個語詞裡：想想「<b>"+esc(it.word)+"</b>」這個詞。<br>":"")+typeName(it.t)+typeDesc(it.t)+'</div>';});
       $("sayBtn").addEventListener("click",function(){say(p.right);});}
     $("nxBtn").addEventListener("click",function(){i++;if(i<items.length)draw();else finish();});
   }
+  function mixed(it,w){/* 10/31 固定題：選錯（例如把「氣」選成「棄」）→ 進錯字本＋留下混淆紀錄＋首次作答紀錄 */
+    if(!opt.fixed)return;var mx=store.mix[it.id]||(store.mix[it.id]={});mx[w]=(mx[w]||0)+1;
+    if(fixErr===1)store.bad[it.id]=(store.bad[it.id]||0)+1;save();
+    R1031.attempt("zh-"+it.id,{ok:false,ans:w,parts:{fix:false}});}
   function fb(cls,html){var f=$("fixFb");f.className="fb show "+cls;f.innerHTML=html;}
   function tap(b){
     if(stage!==1)return;var it=items[i],k=+b.getAttribute("data-i");
     if(C.checkTap(it,k)){b.classList.add("hit");beep(true);stage=2;$("sent").classList.add("lock");$("fixFb").className="fb";step2();}
     else{tapErr++;beep(false);b.classList.remove("miss");void b.offsetWidth;b.classList.add("miss");
       fb("bad","「"+b.textContent+"」沒有寫錯喔！再讀一次句子，找找哪個字讓意思怪怪的。");
-      if(opt.exam&&tapErr===1){store.bad[it.id]=(store.bad[it.id]||0)+1;save();}}
+      if(opt.exam&&tapErr===1){store.bad[it.id]=(store.bad[it.id]||0)+1;save();}
+      if(opt.fixed)R1031.attempt("zh-"+it.id,{ok:false,ans:"圈了「"+b.textContent+"」",parts:{find:false}});}
   }
   function step2(){
     var it=items[i],p=C.parse(it),a=$("fixArea"),h='<div class="stepl"><em>2</em>改一改：「'+p.w+'」應該改成哪個字？</div>';
@@ -432,7 +464,7 @@ function runFix(box,items,opt){
   function picked(b,op){
     if(stage!==2)return;var it=items[i],p=C.parse(it);
     if(op===p.r){b.classList.add("ok");done(true);}
-    else{b.classList.add("no");fixErr++;
+    else{b.classList.add("no");fixErr++;mixed(it,op);
       if(op===p.w)fb("bad","這就是原本的錯字呀！要換成別的字。");
       else fb("bad","不是「"+op+"」喔。");
       if(fixErr>=2||opt.exam){each($("fixArea").querySelectorAll(".opts4 .btn"),function(x){if(x.textContent===p.r)x.classList.add("ok");x.disabled=true;});done(false);}
@@ -442,12 +474,12 @@ function runFix(box,items,opt){
     if(stage!==2)return;var it=items[i],p=C.parse(it),r=C.checkTyped(it,v);
     if(r==="empty"){fb("info","先在框框裡打出正確的字，或按「我寫在紙上了」。");return;}
     if(r==="ok"){store.typed=(store.typed||0)+1;done(true);return;}
-    fixErr++;
+    fixErr++;mixed(it,String(v).replace(/\s/g,"").slice(0,4));
     if(r==="same")fb("bad","這就是原本的錯字呀！要換成別的字。");else fb("bad","「"+esc(v)+"」不對喔。");
     if(fixErr>=2||opt.exam)done(false);else{beep(false);$("typeIn").value="";}
   }
   function paper(){
-    if(stage!==2)return;var it=items[i],p=C.parse(it);stage=3;
+    if(stage!==2)return;var it=items[i],p=C.parse(it);stage=3;if(opt.fixed)R1031.flag("zh-"+it.id,"shown");
     $("fixArea").innerHTML='<div class="stepl">正確的字是「<span class="kai" style="font-size:40px;color:#1b6b5f">'+p.r+'</span>」，你寫對了嗎？</div><div class="btns cen"><button class="btn green" id="selfOk">✅ 我寫對了</button><button class="btn gray" id="selfNo">❌ 寫錯了</button></div>';
     $("selfOk").addEventListener("click",function(){stage=2;done(true);});
     $("selfNo").addEventListener("click",function(){stage=2;fixErr++;done(false);});
@@ -458,7 +490,8 @@ function runFix(box,items,opt){
     var sb=$("sent").querySelector('button[data-i="'+p.idx+'"]');if(sb){sb.textContent=p.r;sb.className="fixd";}
     if(ok){store.right=(store.right||0)+1;store.fixed[it.id]=1;
       if(opt.book&&store.bad[it.id]){delete store.bad[it.id];if(!bookIds().length)store.cleaned=1;}
-    }else{store.bad[it.id]=(store.bad[it.id]||0)+1;}
+    }else if(!opt.fixed){store.bad[it.id]=(store.bad[it.id]||0)+1;}
+    if(opt.fixed){if(!ok)R1031.flag("zh-"+it.id,"shown");else R1031.attempt("zh-"+it.id,{ok:true,ans:p.r,parts:{find:tapErr===0,fix:fixErr===0}});}
     save();
     if(good)right++;
     var st=opt.exam?0:C.itemStars(tapErr,fixErr);
@@ -501,7 +534,15 @@ function startFix(){
   try{$("fixCard").scrollIntoView({behavior:"smooth",block:"start"});}catch(e){}
 }
 $("fixStart").addEventListener("click",startFix);
+/* ---------- 10/31 考卷錯題：固定題（可單獨開始、可重做；網址 ?item=qi2 或 ?item=qi） ---------- */
+function startFixed(ids){var items=ids.map(function(id){return C.byId(id);});
+  $("fixCard").classList.remove("hidden");
+  runFix($("fixBox"),items,{hint:true,fixed:true,again:function(){startFixed(ids);}});
+  try{$("fixCard").scrollIntoView({block:"start"});}catch(e){}}
+each(document.querySelectorAll("#exam1031 [data-fx]"),function(b){b.addEventListener("click",function(){var k=b.getAttribute("data-fx");startFixed(k==="both"?["qi2","qi"]:[k]);});});
 markOn("setPool","data-pool",store.pool||"exam");markOn("setMode","data-mode",store.mode||"pick");renderBookN();
+(function(){var m=/[?&]item=(?:zh-)?(qi2|qi)\b/.exec(location.search),st=/[?&]set=1031\b/.test(location.search);
+  if(m)startFixed([m[1]]);else if(st)startFixed(["qi2","qi"]);})();
 
 /* ---------- 挑戰 ---------- */
 function startCh(){
@@ -561,10 +602,10 @@ function renderRec(){
   $("stats").innerHTML='<div class="stat"><b>'+s.stars+'</b>⭐ 星星</div><div class="stat"><b>'+(s.right||0)+'</b>改對的次數</div><div class="stat"><b>'+nf+'/'+C.ITEMS.length+'</b>改對過的句子</div><div class="stat"><b>'+(s.chBest||0)+'/12</b>挑戰最佳</div><div class="stat"><b>'+ids.length+'</b>錯字本的字</div>';
   $("badges").innerHTML=C.BADGES.map(function(b){return '<div class="bdg'+(g[b.id]?" got":"")+'">'+b.n+'<small>'+b.d+'</small></div>';}).join("");
   ids.sort(function(a,b){return s.bad[b]-s.bad[a];});
-  $("book").innerHTML=ids.length?'<div class="booklist">'+ids.map(function(id){var p=C.parse(C.byId(id));return '<span><b class="kai">'+p.r+'</b> 不是 '+p.w+'　錯 '+s.bad[id]+' 次</span>';}).join("")+'</div>':'<p class="small">錯字本是空的，太棒了！</p>';
+  $("book").innerHTML=ids.length?'<div class="booklist">'+ids.map(function(id){var p=C.parse(C.byId(id));var mx=s.mix&&s.mix[id],ws=[];if(mx)for(var w in mx)if(w!==p.r)ws.push(w);return '<span><b class="kai">'+p.r+'</b> 不是 '+p.w+'　錯 '+s.bad[id]+' 次'+(ws.length?'<br><small>曾經選成：<b class="kai">'+esc(ws.join("、"))+'</b></small>':"")+'</span>';}).join("")+'</div>':'<p class="small">錯字本是空的，太棒了！</p>';
 }
 $("bookGo").addEventListener("click",function(){store.pool="book";save();markOn("setPool","data-pool","book");goTab("p-fix");startFix();});
-$("resetBtn").addEventListener("click",function(){if(!confirm("確定要清除這一頁的所有紀錄嗎？"))return;store=fresh();save();renderScore();renderRec();renderBookN();markOn("setPool","data-pool","exam");markOn("setMode","data-mode","pick");});
+$("resetBtn").addEventListener("click",function(){if(!confirm("確定要清除這一頁的所有紀錄嗎？"))return;store=fresh();store.mix={};save();renderScore();renderRec();renderBookN();markOn("setPool","data-pool","exam");markOn("setMode","data-mode","pick");});
 renderScore();
 })();
 </script>

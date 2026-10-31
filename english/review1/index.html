@@ -281,8 +281,9 @@ table.qt th{background:#f6efff}
     <p class="small">照順序點單字方塊，排出正確的句子。開頭要大寫、句尾有標點。</p>
     <div id="orderBox"></div>
   </div>
-  <div class="card wr">
+  <div class="card wr" id="wCard">
     <h3>✏️ 寫寫看（考卷第九大題題型）</h3>
+    <div class="btns" id="wModes"><button class="btn white small on" data-w="all">✏️ 全部 9 句</button><button class="btn org small" data-w="1030">⭐ 10/31 考卷題：10:30 直接重練</button><button class="btn white small" data-w="430">⏰ 延伸：4:30</button></div>
     <p class="small">看圖或時鐘，寫出完整的句子。<b class="en">It's</b> 和 <b class="en">It is</b> 都算對，大小寫和句點也會幫你檢查。</p>
     <div id="writeBox"></div>
   </div>
@@ -417,7 +418,9 @@ var WRITE=[
  {t:"c",h:9,m:15,hint:"a quarter",q:"What time is it?"},
  {t:"c",h:7,m:0,hint:"",q:"What time is it?"},
  {t:"c",h:11,m:25,hint:"",q:"What time is it?"},
- {t:"c",h:5,m:45,hint:"a quarter",q:"What time is it?"}
+ {t:"c",h:5,m:45,hint:"a quarter",q:"What time is it?"},
+ /* 10/31 考卷第九大題第 2 小題（固定題，加在最後面，不改變舊題號紀錄） */
+ {t:"c",h:10,m:30,hint:"half",q:"What time is it?",id:"en-1030"}
 ];
 function shuffle(a,rnd){rnd=rnd||Math.random;var b=a.slice();for(var i=b.length-1;i>0;i--){var j=Math.floor(rnd()*(i+1));var t=b[i];b[i]=b[j];b[j]=t;}return b;}
 function pick(a,n,rnd){return shuffle(a,rnd).slice(0,n);}
@@ -503,7 +506,9 @@ function writeCheck(w,typed){
   if(t===a)return {ok:true,msg:""};
   var loose=function(x){return x.toLowerCase().replace(/\bit is\b/,"it's").replace(/[.?!]+$/,"").replace(/\s+/g," ");};
   if(loose(t)===loose(a)){var m=[];if(t.charAt(0)!==a.charAt(0))m.push("句子開頭要大寫");if(!/[.?!]$/.test(t))m.push("句尾要加句點");if(!m.length)m.push("注意大小寫");return {ok:false,close:true,msg:m.join("、")};}}
- if(w.hint&&w.hint==="half"&&!/half/i.test(t))return {ok:false,msg:"題目要你用 half 來說喔！"};
+ if(w.t==="c"&&w.hint==="half"&&!/half/i.test(t)){var lz=function(x){return x.toLowerCase().replace(/\bit is\b/,"it's").replace(/[.?!]+$/,"").replace(/-/g," ").replace(/\s+/g," ");};
+  if(lz(t)===lz(sent(plain(w.h,w.m))))return {ok:false,timeOk:true,msg:"時間表達正確，但這題指定使用 half"};
+  return {ok:false,msg:"題目要你用 half 來說喔！"};}
  if(w.hint&&w.hint==="a quarter"&&!/quarter/i.test(t))return {ok:false,msg:"題目要你用 a quarter 來說喔！"};
  return {ok:false,msg:""};}
 function stepHour(h,d){return ((h-1+d+12)%12)+1;}
@@ -535,6 +540,25 @@ return {WEATHER:WEATHER,HOURS:HOURS,MINS:MINS,U2MINS:U2MINS,PHON:PHON,MAGIC:MAGI
 if(typeof module!=="undefined"&&module.exports)module.exports=Core;
 </script>
 <script>
+/* ==== 10/31 考卷錯題複習：共用紀錄（localStorage "md1031V1"，三個頁面共用；只增不改舊紀錄）==== */
+var R1031=(function(){var K="md1031V1";
+ function load(){try{var o=JSON.parse(localStorage.getItem(K));return o&&typeof o==="object"?o:{};}catch(e){return {};}}
+ function put(o){try{localStorage.setItem(K,JSON.stringify(o));}catch(e){}}
+ function rec(o,id){var r=o[id];if(!r){r={n:0,okN:0,miss:{}};o[id]=r;}if(!r.miss)r.miss={};return r;}
+ /* a={ok:true/false, ans:"孩子寫的", parts:{部分:true/false}, finalOk:最後答案對嗎, procOk:過程對嗎} */
+ function attempt(id,a){var o=load(),r=rec(o,id),t=Date.now(),k,x={ok:!!a.ok,ans:a.ans===undefined?"":String(a.ans).slice(0,80),t:t};
+  if(a.parts){x.parts={};for(k in a.parts)x.parts[k]=!!a.parts[k];}
+  if(a.finalOk!==undefined)x.finalOk=!!a.finalOk;if(a.procOk!==undefined)x.procOk=!!a.procOk;
+  r.n++;if(!r.first){x.hint=!!r.hint;x.shown=!!r.shown;r.first=x;}
+  if(!x.ok){if(x.parts){for(k in x.parts)if(!x.parts[k])r.miss[k]=(r.miss[k]||0)+1;}else r.miss.all=(r.miss.all||0)+1;}
+  else{r.okN++;if(r.first&&!r.first.ok&&!r.fixed){r.fixed=1;r.fixedT=t;}}
+  r.last=x;put(o);return r;}
+ /* k="hint"（看了提示）或 "shown"（看了答案） */
+ function flag(id,k){var o=load(),r=rec(o,id);r[k]=1;r[k+"N"]=(r[k+"N"]||0)+1;put(o);return r;}
+ function get(id){return load()[id]||null;}
+ return {K:K,load:load,attempt:attempt,flag:flag,get:get};})();
+/* ==== /10/31 共用紀錄 ==== */
+
 (function(){
 "use strict";
 if(typeof document==="undefined")return;
@@ -737,27 +761,36 @@ function startOrder(){
   draw();
 }
 startOrder();
-function startWrite(){
-  var box=$("writeBox"),list=C.WRITE,idx=0,firstOk=0;
+function startWrite(only){
+  /* only：只練某幾題（WRITE 的題號陣列），例如 10/31 考卷題 10:30；沒給就是全部 */
+  var box=$("writeBox"),all=!only,list=all?C.WRITE:only.map(function(i){return C.WRITE[i];}),idx=0,firstOk=0;
+  wMode(only);
   function draw(){
-    if(idx>=list.length){var st=firstOk===list.length?4:firstOk>=5?2:1;addStars(st,box);if(firstOk===list.length)store.perfect.write=1;save();
-      box.innerHTML='<div class="done">✏️ '+list.length+' 句寫完了！一次就寫對 '+firstOk+' 句，得到 '+st+' 顆星。</div><div class="btns cen"><button class="btn purple" id="wAgain">🔄 再寫一次</button></div>';
-      $("wAgain").addEventListener("click",startWrite);return;}
-    var w=list[idx],tries=0,h='<div class="prog">';for(var k=0;k<list.length;k++)h+='<i class="'+(k<idx?"ok":k===idx?"cur":"")+'"></i>';h+='</div>';
+    if(idx>=list.length){var st=all?(firstOk===list.length?4:firstOk>=5?2:1):0;if(st)addStars(st,box);if(all&&firstOk===list.length)store.perfect.write=1;save();
+      box.innerHTML='<div class="done">✏️ '+list.length+' 句寫完了！一次就寫對 '+firstOk+' 句'+(st?'，得到 '+st+' 顆星':"")+'。</div><div class="btns cen"><button class="btn purple" id="wAgain">🔄 再寫一次</button></div>';
+      $("wAgain").addEventListener("click",function(){startWrite(only);});return;}
+    var w=list[idx],wi=C.WRITE.indexOf(w),tries=0,h='<div class="prog">';for(var k=0;k<list.length;k++)h+='<i class="'+(k<idx?"ok":k===idx?"cur":"")+'"></i>';h+='</div>';
     if(w.t==="w")h+='<div class="q"><span class="wx">'+C.emo(w.w)+'</span><br><span class="en">'+w.q+'</span></div>';
-    else h+='<div class="q"><div class="clkq">'+C.clockSvg(w.h,w.m,150)+'</div><span class="en">'+w.q+'</span>'+(w.hint?'<br><span class="hint">請使用 '+w.hint+'</span>':"")+'</div>';
+    else h+='<div class="q"><div class="clkq">'+C.clockSvg(w.h,w.m,150)+'</div><span class="en">'+w.q+'</span>'+(w.hint?'<br><span class="hint">請使用 '+w.hint+'</span>':"")+(w.id?'<br><span class="small">⭐ 10/31 考卷錯題（請用 half 寫完整句子）</span>':"")+'</div>';
     h+='<input id="wIn" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="It\'s ..." class="en"><div class="btns cen"><button class="btn org" id="wChk">✔ 對對看</button><button class="btn gray small" id="wShow">👀 看答案</button></div><div class="fb" id="wFb"></div>';
     box.innerHTML=h;
     function next(){idx++;draw();}
     $("wChk").addEventListener("click",function(){var r=C.writeCheck(w,$("wIn").value),f=$("wFb");tries++;
-      if(r.ok){beep(true);if(tries===1){firstOk++;addStars(1,f);}store.writeOk[idx]=1;save();say(C.writeAnswers(w)[0]);f.className="fb show good";f.innerHTML='✅ 寫對了！<b class="en">'+C.writeAnswers(w)[0]+'</b>';$("wChk").disabled=true;setTimeout(next,1400);}
-      else{beep(false);miss("write");f.className="fb show bad";f.innerHTML=r.close?"差一點點！"+r.msg+"。":(r.msg||"再檢查一下：")+(w.t==="w"?" 提示：It's ＋ 天氣（兩個天氣用 and）。":" 提示：It's ＋ 幾點"+(w.hint?"，用 "+w.hint:"")+"。");}});
+      if(r.ok){beep(true);if(tries===1){firstOk++;addStars(1,f);}store.writeOk[wi]=1;if(w.id)R1031.attempt(w.id,{ok:true,ans:$("wIn").value});save();say(C.writeAnswers(w)[0]);f.className="fb show good";f.innerHTML='✅ 寫對了！<b class="en">'+C.writeAnswers(w)[0]+'</b>';$("wChk").disabled=true;setTimeout(next,1400);}
+      else{beep(false);miss("write");if(w.id)R1031.attempt(w.id,{ok:false,ans:$("wIn").value,parts:{half:!!/half/i.test($("wIn").value)||!!r.close,time:!!r.timeOk||!!r.close||/half past ten/i.test($("wIn").value)}});f.className="fb show bad";f.innerHTML=r.timeOk?"⏰ "+r.msg+"！請寫成 <b class=\"en\">It's half past ...</b> 的完整句子。":r.close?"差一點點！"+r.msg+"。":(r.msg||"再檢查一下：")+(w.t==="w"?" 提示：It's ＋ 天氣（兩個天氣用 and）。":" 提示：It's ＋ 幾點"+(w.hint?"，用 "+w.hint:"")+"。");}});
     $("wIn").addEventListener("keydown",function(e){if(e.keyCode===13)$("wChk").click();});
-    $("wShow").addEventListener("click",function(){var f=$("wFb");tries=9;f.className="fb show info";f.innerHTML='答案：<b class="en">'+C.writeAnswers(w)[0]+'</b>　抄一次再按「對對看」。';say(C.writeAnswers(w)[0]);});
+    $("wShow").addEventListener("click",function(){var f=$("wFb");tries=9;if(w.id)R1031.flag(w.id,"shown");f.className="fb show info";f.innerHTML='答案：<b class="en">'+C.writeAnswers(w)[0]+'</b>　抄一次再按「對對看」。';say(C.writeAnswers(w)[0]);});
   }
   draw();
 }
-startWrite();
+/* 10/31 考卷題：直接重練 10:30（不用先寫完天氣題）；4:30 留作延伸練習 */
+function wIdx(id){for(var i=0;i<C.WRITE.length;i++)if(C.WRITE[i].id===id)return i;return -1;}
+function wIdxT(h,m){for(var i=0;i<C.WRITE.length;i++)if(C.WRITE[i].h===h&&C.WRITE[i].m===m)return i;return -1;}
+function wMode(only){var k=!only?"all":(only[0]===wIdx("en-1030")?"1030":"430");each(document.querySelectorAll("#wModes button"),function(b){b.classList.toggle("on",b.getAttribute("data-w")===k);});}
+each(document.querySelectorAll("#wModes button"),function(b){b.addEventListener("click",function(){var k=b.getAttribute("data-w");startWrite(k==="all"?null:[k==="1030"?wIdx("en-1030"):wIdxT(4,30)]);});});
+(function(){var m=/[?&]item=([\w-]+)/.exec(location.search);
+  if(m&&m[1]==="en-1030"){startWrite([wIdx("en-1030")]);goTab("p-sent");setTimeout(function(){var e=$("wCard");if(e)window.scrollTo(0,e.getBoundingClientRect().top+(window.pageYOffset||0)-70);var i=$("wIn");if(i)try{i.focus({preventScroll:true});}catch(x){}},60);}
+  else startWrite();})();
 
 /* ---------- 模擬小考 ---------- */
 runQuiz("chBox",function(){return C.makeChallenge();},{type:"gram",onDone:function(r){store.chBest=Math.max(store.chBest||0,r);save();}});
