@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#4d96ff">
+<title>🐟 打造我的池塘｜自然 4上 水生生物</title>
+<style>
+:root{--ink:#2b2d42;--blue:#4d96ff;--sun:#ffb703;--pink:#ff6b9a;--teal:#2a9d8f;--green:#57cc99;--purple:#9b5de5;--radius:22px}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:#e6f0ff;overflow-x:hidden}
+html,body{margin:0;padding:0}
+body{font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",system-ui,sans-serif;color:var(--ink);min-height:100vh;overflow-x:hidden;
+ background:linear-gradient(180deg,#bde0fe 0,#e6f0ff 320px,#e6f0ff 100%);padding-bottom:calc(40px + env(safe-area-inset-bottom))}
+header{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:8px;padding:10px 12px;padding-top:calc(10px + env(safe-area-inset-top));background:rgba(77,150,255,.96);color:#fff;box-shadow:0 3px 10px rgba(0,0,0,.12)}
+header h1{font-size:clamp(17px,4.6vw,26px);margin:0;letter-spacing:1px;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.back{color:#fff;text-decoration:none;font-weight:800;background:rgba(255,255,255,.22);border-radius:999px;padding:10px 12px;font-size:15px;white-space:nowrap;min-height:44px;display:inline-flex;align-items:center}
+.score{background:var(--sun);color:#5a3b00;font-weight:800;border-radius:999px;padding:6px 12px;font-size:17px;white-space:nowrap;box-shadow:0 3px 0 #c98a00}
+.score.pop{animation:pop .5s}@keyframes pop{40%{transform:scale(1.35)}}
+.iconbtn{appearance:none;border:none;background:rgba(255,255,255,.22);color:#fff;border-radius:999px;min-width:44px;min-height:44px;font-size:20px;cursor:pointer;font-family:inherit}
+main{max-width:1200px;margin:0 auto;padding:12px}
+section.page{display:none;animation:fadein .3s}section.page.active{display:block}
+@keyframes fadein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.card{background:#fff;border-radius:var(--radius);padding:16px;margin:12px 0;box-shadow:0 6px 0 rgba(0,0,0,.12)}
+.card h2{margin:0 0 8px;font-size:clamp(20px,5vw,26px)}
+.lead{font-size:18px;line-height:1.7;margin:6px 0}
+.small{font-size:15px;color:#666;line-height:1.6}
+.tip{background:#fff7d6;border-left:6px solid var(--sun);border-radius:12px;padding:10px 12px;font-size:17px;line-height:1.6;margin:10px 0}
+.tip.blue{background:#e6f0ff;border-color:var(--blue)}.tip.pink{background:#ffe6ef;border-color:var(--pink)}.tip.green{background:#e3f8ec;border-color:var(--teal)}
+.btn{appearance:none;border:none;border-radius:16px;padding:12px 16px;min-height:52px;font-size:18px;font-weight:800;cursor:pointer;background:var(--blue);color:#fff;box-shadow:0 4px 0 rgba(0,0,0,.22);font-family:inherit}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.22)}
+.btn.sun{background:var(--sun);color:#5a3b00}.btn.pink{background:var(--pink)}.btn.teal{background:var(--teal)}.btn.white{background:#fff;color:var(--ink)}.btn.small{min-height:46px;font-size:16px;padding:8px 12px}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.tag{display:inline-block;font-size:12px;font-weight:800;border-radius:999px;padding:2px 8px;background:#f3e8ff;color:#6a1b9a;vertical-align:middle}
+/* 關卡選單 */
+.levels{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.lv{display:flex;gap:12px;align-items:center;text-align:left;appearance:none;font-family:inherit;color:var(--ink);background:#fff;border:4px solid var(--c,#4d96ff);border-radius:24px;padding:14px;min-height:120px;cursor:pointer;box-shadow:0 7px 0 var(--c,#4d96ff);transition:transform .15s;width:100%}
+.lv:active{transform:translateY(4px);box-shadow:0 2px 0 var(--c)}
+.lv .ico{font-size:44px;width:70px;height:70px;flex:0 0 70px;display:flex;align-items:center;justify-content:center;border-radius:20px;background:var(--bg,#e6f0ff)}
+.lv b{display:block;font-size:21px}.lv span.d{display:block;font-size:15px;color:#555;line-height:1.5;margin-top:4px}
+.lv .st{display:block;font-size:22px;margin-top:4px;letter-spacing:2px}
+.types{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:8px}
+.type{border-radius:16px;padding:10px;background:#f6f7ff;border:3px solid #e3e6ff;text-align:center;font-size:15px;line-height:1.5}
+.type b{display:block;font-size:18px}
+/* 遊戲畫面 */
+.bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:4px 0 10px}
+.bar h2{margin:0;font-size:clamp(18px,4.6vw,24px);flex:1 1 200px}
+.pill{background:#fff;border-radius:999px;padding:6px 12px;font-weight:800;font-size:16px;box-shadow:0 3px 0 rgba(0,0,0,.12);white-space:nowrap}
+.pill.timer{background:#fff1d6;color:#8a4b00}
+.stage{display:flex;flex-direction:column;gap:12px}
+.scenewrap{position:relative;width:100%;min-width:0}
+.scene{position:relative;width:100%;padding-top:64%;border-radius:22px;overflow:hidden;border:4px solid #fff;box-shadow:0 6px 0 rgba(0,0,0,.12);background:#bde0fe;user-select:none;-webkit-user-select:none;touch-action:manipulation}
+.scene>svg.bg{position:absolute;left:0;top:0;width:100%;height:100%}
+.deco{position:absolute;font-size:clamp(22px,4vw,40px);pointer-events:none;line-height:1}
+.zone{position:absolute;border:3px dashed rgba(255,255,255,.85);border-radius:16px;background:rgba(255,255,255,.08);transition:background .15s,border-color .15s,transform .15s}
+.zone .zl{position:absolute;left:6px;top:6px;background:rgba(255,255,255,.92);color:var(--ink);border-radius:999px;padding:3px 10px;font-weight:900;font-size:clamp(12px,1.6vw,16px);white-space:nowrap;box-shadow:0 2px 0 rgba(0,0,0,.15);pointer-events:none;max-width:calc(100% - 12px);overflow:hidden;text-overflow:ellipsis}
+.zone.bottomlab .zl{top:auto;bottom:6px}
+.zone.over{background:rgba(255,235,120,.38);border-color:#ffb703;border-style:solid}
+.zone.pick{animation:zpulse 1s infinite alternate}
+@keyframes zpulse{from{background:rgba(255,255,255,.08)}to{background:rgba(255,255,255,.3)}}
+.placed{position:absolute;width:var(--ps,9%);transform:translate(-50%,-50%);pointer-events:none;z-index:3}
+.placed .in{transform-origin:50% 90%}
+.placed svg{display:block;width:100%;height:auto;overflow:visible}
+.placed.new .in{animation:snapin .5s ease-out}
+@keyframes snapin{0%{transform:scale(1.5)}60%{transform:scale(.9)}100%{transform:scale(1)}}
+.a-sway .in{animation:sway 3s ease-in-out infinite alternate}
+@keyframes sway{from{transform:rotate(-5deg)}to{transform:rotate(5deg)}}
+.a-bob .in{animation:bob 2.4s ease-in-out infinite alternate}
+@keyframes bob{from{transform:translateY(-3px) rotate(-2deg)}to{transform:translateY(3px) rotate(2deg)}}
+.a-swim .in{animation:swim 5s ease-in-out infinite}
+@keyframes swim{0%{transform:translateX(0)}25%{transform:translateX(18px) translateY(-4px)}50%{transform:translateX(0) scaleX(-1)}75%{transform:translateX(-18px) translateY(4px) scaleX(-1)}100%{transform:translateX(0)}}
+.a-skate .in{animation:skate 3.4s ease-in-out infinite}
+@keyframes skate{0%,100%{transform:translateX(-16px)}50%{transform:translateX(16px)}}
+.a-crawl .in{animation:crawl 7s linear infinite alternate}
+@keyframes crawl{from{transform:translateX(-8px)}to{transform:translateX(8px)}}
+.a-hop .in{animation:hop 3s ease-in-out infinite}
+@keyframes hop{0%,70%,100%{transform:translateY(0)}80%{transform:translateY(-14px)}}
+.bubble{position:absolute;z-index:6;transform:translate(-50%,-100%);background:#fff;border:3px solid #9bd0ff;border-radius:22px;padding:6px 12px;font-weight:800;font-size:15px;color:#1d4e89;white-space:nowrap;pointer-events:none;animation:rise 2.4s ease-out forwards}
+.bubble:after{content:"";position:absolute;left:50%;bottom:-12px;width:12px;height:12px;border-radius:50%;border:3px solid #9bd0ff;background:#fff;transform:translateX(-50%)}
+@keyframes rise{0%{opacity:0;margin-top:10px}12%{opacity:1;margin-top:0}75%{opacity:1}100%{opacity:0;margin-top:-30px}}
+.sparkle{position:absolute;z-index:6;transform:translate(-50%,-50%);font-size:28px;pointer-events:none;animation:spark 1s ease-out forwards}
+@keyframes spark{from{opacity:1;transform:translate(-50%,-50%) scale(.6)}to{opacity:0;transform:translate(-50%,-140%) scale(1.4)}}
+.side{display:flex;flex-direction:column;gap:12px;min-width:0}
+.tray{background:#fff;border-radius:22px;padding:10px;box-shadow:0 6px 0 rgba(0,0,0,.12)}
+.tray h3{margin:0 0 6px;font-size:17px}
+.chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:8px}
+.chip{appearance:none;font-family:inherit;color:var(--ink);background:#f0f7ff;border:3px solid #cfe2ff;border-radius:18px;padding:6px 4px;min-height:100px;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-weight:800;font-size:15px;box-shadow:0 4px 0 #cfe2ff}
+.chip svg{width:62px;height:62px;pointer-events:none}
+.chip.sel{border-color:var(--sun);background:#fff7d6;box-shadow:0 4px 0 #f2c14e}
+.chip.drag{opacity:.35}
+.chip.shake{animation:shake .45s}
+@keyframes shake{20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+.ghost{position:fixed;z-index:100;width:92px;height:92px;margin:-46px 0 0 -46px;pointer-events:none;filter:drop-shadow(0 6px 6px rgba(0,0,0,.25));transition:none}
+.ghost svg{width:100%;height:100%}
+.ghost.back{transition:left .35s ease-in,top .35s ease-in,opacity .35s}
+.fact{background:#fff;border-radius:22px;padding:12px 14px;box-shadow:0 6px 0 rgba(0,0,0,.12);min-height:110px;font-size:17px;line-height:1.65}
+.fact .t{font-size:21px;font-weight:900;margin-bottom:2px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.fact .t svg{width:44px;height:44px}
+.fact.ok{border:4px solid #57cc99}.fact.no{border:4px solid #ff9fb8;background:#fff6f9}
+.legend{margin-top:8px}
+@media (max-width:640px){.scene{padding-top:118%}.placed{--ps:15%}.zone .zl{font-size:12px;padding:2px 7px}.chip{min-height:92px}.chip svg{width:52px;height:52px}}
+@media (min-width:641px) and (max-width:999px){.placed{--ps:10%}}
+@media (min-width:1000px){.stage{flex-direction:row;align-items:flex-start}.scenewrap{flex:1 1 auto}.side{flex:0 0 280px;width:280px}.chips{grid-template-columns:1fr 1fr}.placed{--ps:8%}}
+/* 過關 */
+.overlay{position:fixed;inset:0;left:0;top:0;right:0;bottom:0;z-index:200;background:rgba(20,40,80,.55);display:none;align-items:center;justify-content:center;padding:16px;overflow:hidden}
+.overlay.show{display:flex}
+.winbox{position:relative;z-index:2;background:#fff;border-radius:28px;padding:22px 18px;max-width:440px;width:100%;text-align:center;box-shadow:0 10px 0 rgba(0,0,0,.18);animation:popin .5s}
+@keyframes popin{0%{transform:scale(.6);opacity:0}70%{transform:scale(1.05)}100%{transform:scale(1);opacity:1}}
+.winbox h2{margin:4px 0;font-size:30px}
+.bigstars{font-size:46px;letter-spacing:6px;margin:6px 0}
+.bigstars .off{filter:grayscale(1);opacity:.3}
+.jumpfish{font-size:48px;display:inline-block;animation:jump 1.2s ease-in-out infinite}
+.jumpfish.d2{animation-delay:.4s}.jumpfish.d3{animation-delay:.8s}
+@keyframes jump{0%,100%{transform:translateY(0) rotate(0)}40%{transform:translateY(-26px) rotate(-25deg)}70%{transform:translateY(-8px) rotate(20deg)}}
+.conf{position:absolute;top:-40px;font-size:26px;z-index:1;pointer-events:none;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(540deg)}}
+details.parent{background:#fff;border-radius:22px;padding:12px 16px;margin:16px 0;box-shadow:0 6px 0 rgba(0,0,0,.12);font-size:16px;line-height:1.7}
+details.parent summary{font-weight:900;font-size:19px;cursor:pointer;min-height:40px;display:flex;align-items:center}
+details.parent ul{padding-left:20px;margin:6px 0}
+footer{text-align:center;color:#888;font-size:14px;margin-top:20px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+</style>
+</head>
+<body>
+<header>
+  <a class="back" href="../">← 自然</a>
+  <h1>🐟 打造我的池塘</h1>
+  <span class="score" id="score">⭐ 0/9</span>
+  <button class="iconbtn" id="snd" type="button" aria-label="音效開關">🔊</button>
+</header>
+<main>
+<!-- ===== 關卡選單 ===== -->
+<section class="page active" id="home">
+  <div class="card">
+    <h2>🌿 池塘需要你來佈置！</h2>
+    <p class="lead">把水生植物和水生動物<strong>拖到牠們住的地方</strong>。放對了，牠們就會在池塘裡動起來，還會告訴你牠的<strong>生存絕招</strong>喔！</p>
+    <div class="tip blue">👆 玩法：按住下面的小卡片，拖到池塘裡的位置再放開。<br>拖不動的話，也可以<strong>先點卡片，再點池塘裡的位置</strong>。放錯沒關係，會冒泡泡給你提示！</div>
+  </div>
+  <div class="levels" id="levels"></div>
+  <div class="card legend">
+    <h2>📘 先複習：四種水生植物</h2>
+    <div class="types">
+      <div class="type"><b>挺水植物</b>根在水底泥土，葉子挺出水面<br>荷花、茭白筍、香蒲</div>
+      <div class="type"><b>浮葉植物</b>根在水底泥土，葉子浮在水面<br>睡蓮、台灣萍蓬草</div>
+      <div class="type"><b>漂浮植物</b>根沒抓住泥土，整株浮在水面<br>布袋蓮、浮萍、大萍</div>
+      <div class="type"><b>沉水植物</b>整株都泡在水面下<br>金魚藻、水蘊草</div>
+    </div>
+  </div>
+  <details class="parent">
+    <summary>👨‍👩‍👧 給爸媽</summary>
+    <ul>
+      <li><b>對應課本：</b>翰林版自然 4上 第二單元（水生生物）。四種水生植物的生長方式（挺水、浮葉、漂浮、沉水），以及水生動物的呼吸（鰓、肺、呼吸管、翅膀下存空氣）和運動方式，是課本的學習重點；網站「月亮小偵探」第二課也有教過。</li>
+      <li><b>自編的部分：</b>整個池塘遊戲、關卡設計、提示句和每張「絕招」說明卡都是自編的，根據課本重點和公開的生物資料整理而成，不是課本原文。池塘分成「岸邊淺水、水面、水中、水底」也是自編的簡化分法。</li>
+      <li><b>補充的生物：</b>香蒲、大萍、吳郭魚、水蠆、蝦子等是常見的補充例子，不一定出現在孩子的課本頁面上。吳郭魚媽媽把魚寶寶含在嘴裡、龍蝨後腳像船槳、水蠆下巴會彈出等屬於延伸冷知識。</li>
+      <li><b>判定說明：</b>有些動物會在不同深度活動，例如紅娘華、蝦子、水蠆放「水中」或「水底」都算對；青蛙放「岸邊淺水」或「水面」都算對。第 3 關把浮葉和漂浮植物都放在「水面」，沉水植物放「水中」或「水底」都可以。</li>
+      <li><b>星星：</b>每關放錯 0～1 次得 3 顆星、2～3 次得 2 顆星、更多得 1 顆星；放錯不會扣分，只會冒泡泡提示。第 3 關另外記錄最快完成時間。進度存在這台平板的瀏覽器裡（不會上傳）。</li>
+    </ul>
+    <div class="btns"><button class="btn white small" type="button" id="resetBtn">🗑️ 清除這個遊戲的紀錄</button></div>
+  </details>
+  <footer>自編學習遊戲・圖案皆為自己畫的簡單圖示</footer>
+</section>
+
+<!-- ===== 遊戲畫面 ===== -->
+<section class="page" id="play">
+  <div class="bar">
+    <button class="btn white small" type="button" id="quitBtn">← 關卡</button>
+    <h2 id="lvTitle">第 1 關</h2>
+    <span class="pill" id="prog">0/10</span>
+    <span class="pill timer" id="timer" style="display:none">⏱ 0.0 秒</span>
+  </div>
+  <div class="stage">
+    <div class="scenewrap">
+      <div class="scene" id="scene">
+        <svg class="bg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="gSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fd3ff"/><stop offset="1" stop-color="#e0f4ff"/></linearGradient>
+            <linearGradient id="gWater" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6ec6f0"/><stop offset=".55" stop-color="#3a8fd0"/><stop offset="1" stop-color="#256aa8"/></linearGradient>
+          </defs>
+          <rect x="0" y="0" width="100" height="31" fill="url(#gSky)"/>
+          <rect x="0" y="30" width="100" height="70" fill="url(#gWater)"/>
+          <path d="M0 62 L22 62 Q26 63 29 74 Q31 85 36 86 L100 86 L100 100 L0 100 Z" fill="#8d6e4a"/>
+          <path d="M0 64 L21 64 Q25 65 28 75 Q30 86 35 88 L100 88 L100 100 L0 100 Z" fill="#7a5c3c"/>
+          <path d="M0 22 Q8 21 12 24 Q15 27 16 30.5 L0 30.5 Z" fill="#6cc070"/>
+          <path d="M0 24 Q8 23.5 11 26 Q13.5 28 14.5 30.5 L0 30.5 Z" fill="#57a85c"/>
+          <rect x="0" y="29.6" width="100" height=".8" fill="#ffffff" opacity=".7"/>
+          <ellipse cx="45" cy="93" rx="3" ry="1.6" fill="#a3876a"/><ellipse cx="70" cy="95" rx="4" ry="1.8" fill="#9a7d60"/><ellipse cx="88" cy="92" rx="2.4" ry="1.3" fill="#a3876a"/>
+          <path d="M40 50 q4 -1 8 0 M60 60 q4 -1 8 0 M80 46 q4 -1 8 0" stroke="#bfe6ff" stroke-width=".4" fill="none" opacity=".7"/>
+        </svg>
+        <span class="deco" style="right:4%;top:3%">☀️</span>
+        <span class="deco" style="left:30%;top:4%">☁️</span>
+        <span class="deco" style="left:58%;top:8%;font-size:clamp(16px,3vw,28px)">☁️</span>
+        <div id="zones"></div>
+        <div id="placedLayer"></div>
+      </div>
+    </div>
+    <div class="side">
+      <div class="tray">
+        <h3 id="trayTitle">🧺 拖我進池塘</h3>
+        <div class="chips" id="chips"></div>
+      </div>
+      <div class="fact" id="fact" aria-live="polite"><div class="t">💡 小提示</div>按住卡片，拖進池塘裡！</div>
+    </div>
+  </div>
+</section>
+</main>
+
+<div class="overlay" id="win" role="dialog" aria-modal="true" aria-labelledby="winTitle">
+  <div class="winbox">
+    <div><span class="jumpfish">🐟</span><span class="jumpfish d2">🐸</span><span class="jumpfish d3">🐠</span></div>
+    <h2 id="winTitle">🎉 池塘完成！</h2>
+    <div class="bigstars" id="winStars"></div>
+    <p class="lead" id="winMsg"></p>
+    <div class="btns" style="justify-content:center">
+      <button class="btn sun" type="button" id="againBtn">🔁 再玩一次</button>
+      <button class="btn teal" type="button" id="nextBtn">下一關 ➜</button>
+      <button class="btn white" type="button" id="homeBtn">回關卡</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+'use strict';
+/* ================= 圖案（自己畫的 SVG，viewBox 0 0 100 100） ================= */
+function S(inner) { return '<svg viewBox="0 0 100 100" aria-hidden="true">' + inner + '</svg>'; }
+var ART = {
+  lotus: function () { return S('<path d="M50 98 L50 40" stroke="#4f8a3a" stroke-width="3"/><path d="M50 70 Q66 60 72 40" stroke="#4f8a3a" stroke-width="3" fill="none"/><ellipse cx="74" cy="36" rx="22" ry="9" fill="#5fae4a"/><path d="M74 36 L60 31 M74 36 L88 31 M74 36 L74 27" stroke="#3f8a35" stroke-width="1.2"/><path d="M50 40 Q36 30 40 14 Q47 22 50 12 Q53 22 60 14 Q64 30 50 40 Z" fill="#ff8fb3"/><path d="M50 40 Q43 28 50 16 Q57 28 50 40 Z" fill="#ffc2d6"/>'); },
+  wildrice: function () { return S('<path d="M48 98 Q46 60 30 8" stroke="#4caf50" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M52 98 Q55 55 72 6" stroke="#5cbf60" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M50 98 Q50 50 52 4" stroke="#43a047" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M50 98 Q40 70 18 40" stroke="#66bb6a" stroke-width="3.5" fill="none" stroke-linecap="round"/><rect x="43" y="74" width="13" height="22" rx="6" fill="#f5f3e0" stroke="#c9c19a" stroke-width="1.5"/>'); },
+  cattail: function () { return S('<path d="M40 98 Q38 50 24 6" stroke="#5cbf60" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M60 98 Q64 60 80 14" stroke="#4caf50" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M50 98 L50 6" stroke="#6b8e23" stroke-width="2.5"/><rect x="45" y="18" width="10" height="28" rx="5" fill="#8b5a2b"/><path d="M50 18 L50 10" stroke="#8b5a2b" stroke-width="2"/>'); },
+  lily: function () { return S('<path d="M50 60 Q42 80 50 98" stroke="#4f8a3a" stroke-width="2" fill="none"/><path d="M8 58 A42 13 0 1 0 92 58 A42 13 0 0 0 54 46 L50 58 L46 46 A42 13 0 0 0 8 58 Z" fill="#5fae4a"/><path d="M50 52 Q40 44 42 32 Q47 38 50 28 Q53 38 58 32 Q60 44 50 52 Z" fill="#fff" stroke="#ffb3c8" stroke-width="1.5"/><circle cx="50" cy="44" r="3" fill="#ffd166"/>'); },
+  nuphar: function () { return S('<path d="M50 60 Q58 80 50 98" stroke="#4f8a3a" stroke-width="2" fill="none"/><path d="M10 60 A40 12 0 1 0 90 60 A40 12 0 0 0 54 49 L50 60 L46 49 A40 12 0 0 0 10 60 Z" fill="#6bbf55"/><path d="M68 56 L68 44" stroke="#4f8a3a" stroke-width="2"/><circle cx="68" cy="40" r="8" fill="#ffd60a"/><circle cx="68" cy="40" r="3.5" fill="#e85d04"/>'); },
+  hyacinth: function () { return S('<path d="M50 62 L50 30" stroke="#5aa845" stroke-width="2"/><ellipse cx="50" cy="22" rx="7" ry="11" fill="#a78bfa"/><ellipse cx="50" cy="20" rx="3" ry="4" fill="#fde047"/><ellipse cx="30" cy="52" rx="10" ry="8" fill="#7cc95e"/><ellipse cx="70" cy="52" rx="10" ry="8" fill="#7cc95e"/><ellipse cx="50" cy="56" rx="9" ry="7" fill="#8fd16f"/><path d="M24 42 Q16 28 30 26 Q36 34 30 46 Z M76 42 Q84 28 70 26 Q64 34 70 46 Z" fill="#4caf50"/><path d="M40 64 Q38 80 34 92 M50 64 L50 96 M60 64 Q62 80 66 92 M45 64 Q42 82 44 94 M55 64 Q58 82 56 94" stroke="#7a5230" stroke-width="1.5" fill="none"/><path d="M0 62 L100 62" stroke="#9bd0ff" stroke-width="2" opacity=".7"/>'); },
+  duckweed: function () { return S('<path d="M0 50 L100 50" stroke="#9bd0ff" stroke-width="2" opacity=".7"/><ellipse cx="30" cy="48" rx="12" ry="6" fill="#7ed957"/><ellipse cx="52" cy="47" rx="11" ry="5.5" fill="#6cc644"/><ellipse cx="72" cy="49" rx="10" ry="5" fill="#7ed957"/><ellipse cx="42" cy="44" rx="8" ry="4" fill="#8be06a"/><path d="M30 52 L30 72 M52 51 L52 76 M72 52 L72 70 M42 47 L42 66" stroke="#9c7a4a" stroke-width="1.2"/>'); },
+  lettuce: function () { return S('<path d="M0 56 L100 56" stroke="#9bd0ff" stroke-width="2" opacity=".7"/><path d="M50 52 Q24 54 18 36 Q34 30 50 46 Z" fill="#a5d6a7"/><path d="M50 52 Q76 54 82 36 Q66 30 50 46 Z" fill="#a5d6a7"/><path d="M50 50 Q36 34 44 18 Q52 30 50 48 Z" fill="#b9e4b9"/><path d="M50 50 Q64 34 56 18 Q48 30 50 48 Z" fill="#9ccf9e"/><path d="M50 52 Q40 56 30 50 Q42 44 50 50 Z M50 52 Q60 56 70 50 Q58 44 50 50 Z" fill="#c8ebc8"/><path d="M40 58 Q38 74 34 88 M50 58 L50 92 M60 58 Q62 74 66 88" stroke="#e0e0e0" stroke-width="1.6" fill="none"/>'); },
+  hornwort: function () { var s = '<path d="M50 98 Q44 60 52 8" stroke="#2e7d32" stroke-width="2.5" fill="none"/>', i, y, x; for (i = 0; i < 9; i++) { y = 90 - i * 9.5; x = 50 - (98 - y) * 0.05 + (i % 2 ? 1 : -1); s += '<path d="M' + x + ' ' + y + ' l-12 -6 m12 6 l12 -6 m-12 6 l-10 4 m10 -4 l10 4 m-22 -10 l-4 -4 m26 4 l4 -4" stroke="#43a047" stroke-width="1.6" fill="none"/>'; } return S(s); },
+  elodea: function () { var s = '<path d="M50 98 Q56 60 48 6" stroke="#388e3c" stroke-width="3" fill="none"/><path d="M50 98 l-8 2 m8 -2 l8 2 m-8 -2 l-3 4" stroke="#9c7a4a" stroke-width="1.5"/>', i, y, x; for (i = 0; i < 10; i++) { y = 90 - i * 8.6; x = 50 + Math.sin(i / 2) * 3; s += '<ellipse cx="' + (x - 7) + '" cy="' + y + '" rx="7" ry="2.6" fill="#66bb6a"/><ellipse cx="' + (x + 7) + '" cy="' + y + '" rx="7" ry="2.6" fill="#4caf50"/>'; } return S(s); },
+  frog: function () { return S('<ellipse cx="50" cy="62" rx="30" ry="20" fill="#5cbf60"/><path d="M22 70 Q8 80 16 88 L30 86 Z M78 70 Q92 80 84 88 L70 86 Z" fill="#4caf50"/><circle cx="36" cy="42" r="10" fill="#5cbf60"/><circle cx="64" cy="42" r="10" fill="#5cbf60"/><circle cx="36" cy="41" r="6" fill="#fff"/><circle cx="64" cy="41" r="6" fill="#fff"/><circle cx="37" cy="42" r="3" fill="#222"/><circle cx="63" cy="42" r="3" fill="#222"/><path d="M38 66 Q50 74 62 66" stroke="#2e7d32" stroke-width="2.5" fill="none" stroke-linecap="round"/><ellipse cx="50" cy="72" rx="16" ry="8" fill="#c5e8a5"/>'); },
+  duck: function () { return S('<path d="M14 58 Q16 80 50 80 Q84 80 86 60 Q70 66 56 56 Q40 50 14 58 Z" fill="#fff" stroke="#ddd" stroke-width="1.5"/><path d="M40 62 Q56 56 70 66" stroke="#ddd" stroke-width="2" fill="none"/><circle cx="72" cy="40" r="13" fill="#fff" stroke="#ddd" stroke-width="1.5"/><path d="M60 50 Q62 58 66 60 L78 54 Z" fill="#fff"/><path d="M84 40 L98 44 L84 47 Z" fill="#ff9f1c"/><circle cx="76" cy="37" r="2.6" fill="#222"/><path d="M0 76 L100 76" stroke="#9bd0ff" stroke-width="2.5" opacity=".8"/>'); },
+  strider: function () { return S('<ellipse cx="50" cy="50" rx="20" ry="5" fill="#4a3b2a"/><circle cx="72" cy="49" r="4" fill="#4a3b2a"/><path d="M60 48 L78 36 L96 40 M58 52 L80 64 L98 62 M46 48 L32 30 L8 26 M44 52 L30 70 L6 76 M66 47 L80 44" stroke="#4a3b2a" stroke-width="2" fill="none" stroke-linecap="round"/><ellipse cx="96" cy="41" rx="4" ry="1.4" fill="#bfe6ff"/><ellipse cx="98" cy="62" rx="4" ry="1.4" fill="#bfe6ff"/><ellipse cx="8" cy="27" rx="4" ry="1.4" fill="#bfe6ff"/><ellipse cx="6" cy="76" rx="4" ry="1.4" fill="#bfe6ff"/>'); },
+  guppy: function () { return S('<path d="M22 50 Q36 32 58 40 Q66 52 58 62 Q38 70 22 50 Z" fill="#b0bec5"/><path d="M36 54 Q46 66 58 60 Q50 52 36 54 Z" fill="#eceff1"/><path d="M22 50 L6 38 L10 50 L6 62 Z" fill="#90a4ae"/><circle cx="52" cy="46" r="3" fill="#222"/><path d="M40 40 L46 32 L50 40" fill="#90a4ae"/>'); },
+  tilapia: function () { return S('<path d="M14 50 Q30 22 64 30 Q84 40 84 52 Q78 68 56 70 Q28 72 14 50 Z" fill="#546e7a"/><path d="M30 36 L28 66 M42 31 L40 70 M54 30 L54 70" stroke="#37474f" stroke-width="3" opacity=".6"/><path d="M14 50 L0 36 L4 50 L0 64 Z" fill="#455a64"/><path d="M30 32 Q48 16 66 30" fill="#455a64"/><circle cx="72" cy="46" r="4" fill="#fff"/><circle cx="73" cy="46" r="2" fill="#111"/><path d="M80 56 Q76 58 72 56" stroke="#263238" stroke-width="1.5" fill="none"/>'); },
+  tadpole: function () { return S('<path d="M50 50 Q30 40 14 52 Q24 54 12 62 Q30 66 50 56" fill="#4e4e4e" opacity=".85"/><ellipse cx="60" cy="52" rx="16" ry="13" fill="#3a3a3a"/><circle cx="68" cy="47" r="3" fill="#fff"/><circle cx="69" cy="47" r="1.6" fill="#111"/>'); },
+  beetle: function () { return S('<path d="M30 40 L12 30 M30 60 L12 70 M44 36 L36 22 M44 64 L36 78" stroke="#1b3a2a" stroke-width="2.5"/><path d="M60 38 L82 22 Q90 22 88 30 L66 44 M60 62 L82 78 Q90 78 88 70 L66 56" fill="#2e5e3e" stroke="#1b3a2a" stroke-width="1.5"/><ellipse cx="50" cy="50" rx="28" ry="18" fill="#2e5e3e"/><path d="M28 50 L74 50" stroke="#c9a227" stroke-width="2"/><ellipse cx="50" cy="50" rx="28" ry="18" fill="none" stroke="#c9a227" stroke-width="2"/><circle cx="20" cy="50" r="7" fill="#2e5e3e"/><circle cx="84" cy="50" r="7" fill="#d6f0ff" stroke="#9bd0ff" stroke-width="1.5" opacity=".9"/>'); },
+  scorpion: function () { return S('<path d="M66 50 L98 46" stroke="#6d4c2f" stroke-width="2"/><path d="M20 46 Q30 34 50 38 Q66 42 68 50 Q66 58 50 62 Q30 66 20 54 Z" fill="#8d6e4a"/><path d="M28 50 L64 50" stroke="#6d4c2f" stroke-width="1.5"/><circle cx="18" cy="50" r="5" fill="#6d4c2f"/><path d="M22 44 L12 32 L4 40 M22 56 L12 68 L4 60" stroke="#6d4c2f" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M40 40 L36 26 M40 60 L36 74 M52 40 L56 26 M52 60 L56 74" stroke="#6d4c2f" stroke-width="2"/>'); },
+  shrimp: function () { return S('<path d="M76 40 Q86 52 78 66 Q66 78 46 74 Q28 70 24 56 Q34 64 48 62 Q64 58 66 44 Z" fill="#ffab91"/><path d="M48 62 L46 74 M56 60 L56 72 M63 54 L68 64" stroke="#ff8a65" stroke-width="1.5"/><path d="M24 56 L12 50 L14 60 Z" fill="#ff8a65"/><circle cx="72" cy="42" r="2.6" fill="#222"/><path d="M78 40 Q92 22 98 26 M76 38 Q84 18 92 12" stroke="#ff8a65" stroke-width="1.5" fill="none"/><path d="M60 66 L58 80 M66 64 L66 78 M72 60 L74 74" stroke="#ff8a65" stroke-width="1.5"/>'); },
+  snail: function () { return S('<path d="M10 76 Q40 72 84 76 Q92 78 90 84 L14 84 Q8 82 10 76 Z" fill="#c8a882"/><path d="M84 76 L92 64 M80 76 L84 62" stroke="#a1887f" stroke-width="2"/><path d="M20 78 Q24 40 50 22 Q76 40 76 78 Z" fill="#6d5a3d"/><path d="M28 72 Q36 50 50 36 M38 76 Q44 56 58 44 M50 78 Q56 62 68 56" stroke="#4e3f2a" stroke-width="2" fill="none"/>'); },
+  nymph: function () { return S('<ellipse cx="50" cy="56" rx="14" ry="26" fill="#6b7f3a" transform="rotate(-90 50 56)"/><circle cx="20" cy="56" r="10" fill="#7a8f45"/><circle cx="15" cy="51" r="4" fill="#3d4a1e"/><circle cx="15" cy="61" r="4" fill="#3d4a1e"/><path d="M36 46 L30 30 L22 28 M46 44 L48 28 L56 24 M58 46 L68 32 L78 30 M36 66 L30 82 L22 84 M46 68 L48 84 L56 88 M58 66 L68 80 L78 82" stroke="#4e5c26" stroke-width="2.2" fill="none"/><path d="M60 50 L84 56 L60 62" fill="#7a8f45"/>'); }
+};
+
+/* ================= 生物資料（說明皆為自編） ================= */
+/* g: p植物/a動物；t: 植物類型；z1: 第1關區域；z2: 第2、3關可接受的區域；an: 動畫 */
+var O = {
+  lotus:    { n: '荷花', g: 'p', t: '挺水植物', z1: 'emerg', z2: ['shore'], an: 'sway', f: '挺水植物！根和蓮藕埋在水底泥土裡，葉子和花高高挺出水面。<b>絕招：</b>葉柄和蓮藕裡有很多小孔（氣室），能把空氣送到泥裡；葉面不沾水，水珠會滾來滾去。', h: '荷花的葉子和花是高高挺出水面的喔，根長在淺水的泥土裡。' },
+  wildrice: { n: '茭白筍', g: 'p', t: '挺水植物', z1: 'emerg', z2: ['shore'], an: 'sway', f: '挺水植物！種在水田裡，根長在泥土中，長長的葉子挺出水面。<b>冷知識：</b>我們吃的白白的筍，是它膨大的莖喔！', h: '茭白筍種在水田裡，長長的葉子高高地站在水面上。' },
+  cattail:  { n: '香蒲', g: 'p', t: '挺水植物', z1: 'emerg', z2: ['shore'], an: 'sway', f: '挺水植物！長在水邊淺水的地方，細長的葉子挺出水面。<b>認得出來：</b>咖啡色的花穗長得像一根熱狗！', h: '香蒲站在水邊淺水區，葉子是挺出水面的。' },
+  lily:     { n: '睡蓮', g: 'p', t: '浮葉植物', z1: 'floatleaf', z2: ['surface'], an: 'bob', f: '浮葉植物！根長在水底泥土裡，葉子平平地浮在水面上。<b>絕招：</b>葉柄長長軟軟的，水變深變淺都能伸長或彎曲，讓葉子一直平貼在水面。', h: '睡蓮的葉子浮在水面，可是它的根有抓住水底的泥土喔！' },
+  nuphar:   { n: '台灣萍蓬草', g: 'p', t: '浮葉植物', z1: 'floatleaf', z2: ['surface'], an: 'bob', f: '浮葉植物！根長在水底，葉子浮在水面，黃色的小花冒出水面一點點。<b>冷知識：</b>它是台灣特有的植物，數量很少，要好好保護。', h: '萍蓬草的葉子浮在水面，根卻長在水底的泥土裡。' },
+  hyacinth: { n: '布袋蓮', g: 'p', t: '漂浮植物', z1: 'float', z2: ['surface'], an: 'bob', f: '漂浮植物！根沒有抓住泥土，整株浮在水面漂來漂去。<b>絕招：</b>胖胖的葉柄像海綿，裡面有很多「氣室」裝滿空氣，就像游泳圈！', h: '布袋蓮的根只是垂在水裡，沒有抓住泥土，整株會漂來漂去。' },
+  duckweed: { n: '浮萍', g: 'p', t: '漂浮植物', z1: 'float', z2: ['surface'], an: 'bob', f: '漂浮植物！小小一片浮在水面，細細的根垂在水裡。<b>冷知識：</b>浮萍長得很快，一下子就能鋪滿整個水面。', h: '浮萍的根沒有碰到水底，小小一片跟著水漂。' },
+  lettuce:  { n: '大萍', g: 'p', t: '漂浮植物', z1: 'float', z2: ['surface'], an: 'bob', f: '漂浮植物！葉子像一朵綠色的花浮在水面。<b>絕招：</b>葉面有很多細毛，水珠沾不上去，所以不會沉下去。', h: '大萍的根懸在水中，沒有抓住泥土，整株浮在水面漂。' },
+  hornwort: { n: '金魚藻', g: 'p', t: '沉水植物', z1: 'sub', z2: ['mid', 'bottom'], an: 'sway', f: '沉水植物！整株泡在水裡，葉子細細的、會分岔。<b>絕招：</b>莖和葉又細又軟，會跟著水流擺動，不容易被水沖斷。常被放進魚缸裡。', h: '金魚藻整株都泡在水面下喔！' },
+  elodea:   { n: '水蘊草', g: 'p', t: '沉水植物', z1: 'sub', z2: ['mid', 'bottom'], an: 'sway', f: '沉水植物！根長在水底泥土裡，莖和葉都在水面下。<b>絕招：</b>莖細長柔軟，水位變高變低都能伸展、彎曲；曬太陽時葉子還會冒出小氣泡。', h: '水蘊草的葉子沒有浮上水面，整株都在水裡。' },
+  frog:     { n: '青蛙', g: 'a', z2: ['shore', 'surface'], an: 'hop', f: '青蛙常在岸邊和淺水區活動。<b>絕招：</b>長大後用肺和皮膚呼吸，所以常把鼻孔露出水面；後腳有蹼，一踢就游好遠！', h: '青蛙長大後用肺呼吸，常常待在岸邊，或把頭露出水面。' },
+  duck:     { n: '鴨子', g: 'a', z2: ['surface'], an: 'bob', f: '鴨子浮在水面上，用肺呼吸。<b>絕招：</b>腳趾中間有蹼，像船槳一樣划水；羽毛有油脂，不容易被水弄濕。', h: '鴨子是鳥，用肺呼吸，常常浮在水面上划水。' },
+  strider:  { n: '水黽', g: 'a', z2: ['surface'], an: 'skate', f: '水黽站在水面上滑來滑去。<b>絕招：</b>腳又細又長，腳上有很多細毛不沾水，所以不會沉下去！', h: '水黽不潛水，牠是水面上的溜冰高手。' },
+  guppy:    { n: '大肚魚', g: 'a', z2: ['mid'], an: 'swim', f: '大肚魚在水中游，用<b>鰓</b>呼吸，擺動身體和尾鰭前進。<b>冷知識：</b>牠很愛吃蚊子的幼蟲（孑孓）！', h: '魚整天都在水裡游，用鰓呼吸。' },
+  tilapia:  { n: '吳郭魚', g: 'a', z2: ['mid'], an: 'swim', f: '吳郭魚在水中用<b>鰓</b>呼吸，靠鰭和尾鰭游泳。<b>冷知識：</b>吳郭魚媽媽會把魚寶寶含在嘴巴裡保護！', h: '魚整天都在水裡游，用鰓呼吸。' },
+  tadpole:  { n: '蝌蚪', g: 'a', z2: ['mid'], an: 'swim', f: '蝌蚪是青蛙的寶寶，住在水中用<b>鰓</b>呼吸，擺動長長的尾巴游泳。長大後會長出腳、尾巴不見，改用肺呼吸。', h: '蝌蚪還沒長大，不能上岸，要在水裡游。' },
+  beetle:   { n: '龍蝨', g: 'a', z2: ['mid'], an: 'swim', f: '龍蝨在水中游得很快。<b>絕招：</b>先到水面把空氣存在翅膀下面，帶著這個「氣泡」潛水；後腳扁扁的像船槳。', h: '龍蝨是潛水高手，用像船槳的後腳在水裡划。' },
+  scorpion: { n: '紅娘華', g: 'a', z2: ['mid', 'bottom'], an: 'crawl', f: '紅娘華常躲在水草間或水底落葉裡，看起來像一片落葉。<b>絕招：</b>尾巴的呼吸管伸出水面吸空氣；鐮刀般的前腳抓小魚、蝌蚪。', h: '紅娘華像落葉一樣躲在水裡，只把尾巴的呼吸管伸出水面。' },
+  shrimp:   { n: '蝦子', g: 'a', z2: ['mid', 'bottom'], an: 'swim', f: '蝦子用<b>鰓</b>呼吸，鰓藏在頭胸部的硬殼裡。用腹部下面的小腳划水，遇到危險會彎尾巴往後彈！', h: '蝦子一直住在水裡，常在水草和水底找東西吃。' },
+  snail:    { n: '石田螺', g: 'a', z2: ['bottom'], an: 'crawl', f: '石田螺在水底慢慢爬，用<b>鰓</b>呼吸。<b>絕招：</b>伸出肉肉的腹足爬行；遇到危險就縮進殼裡，用「口蓋」把門關起來！', h: '田螺大部分時間待在水底的泥土和石頭上。' },
+  nymph:    { n: '水蠆', g: 'a', z2: ['bottom', 'mid'], an: 'crawl', f: '水蠆是蜻蜓的寶寶，常躲在水底的泥沙或水草間，用<b>鰓</b>呼吸。<b>絕招：</b>下巴可以「咻」一下彈出去抓獵物！長大後爬上水草，變成蜻蜓飛走。', h: '水蠆是蜻蜓寶寶，還不會飛，住在水裡比較深的地方。' }
+};
+var PLANTS = ['lotus', 'wildrice', 'cattail', 'lily', 'nuphar', 'hyacinth', 'duckweed', 'lettuce', 'hornwort', 'elodea'];
+var ANIMALS = ['frog', 'duck', 'strider', 'guppy', 'tilapia', 'tadpole', 'beetle', 'scorpion', 'shrimp', 'snail', 'nymph'];
+
+/* 區域（百分比座標，對應池塘畫面） */
+var ZONES = {
+  emerg:     { n: '挺水植物：岸邊淺水', x: 1, y: 8, w: 23, h: 54 },
+  floatleaf: { n: '浮葉植物：水面（根在水底）', x: 25, y: 17, w: 36, h: 22 },
+  float:     { n: '漂浮植物：水面（漂來漂去）', x: 62, y: 17, w: 37, h: 22 },
+  sub:       { n: '沉水植物：水面下', x: 25, y: 40, w: 74, h: 59, bl: 1 },
+  shore:     { n: '岸邊淺水', x: 1, y: 8, w: 23, h: 54 },
+  surface:   { n: '水面', x: 25, y: 17, w: 74, h: 22 },
+  mid:       { n: '水中', x: 25, y: 40, w: 74, h: 38 },
+  bottom:    { n: '水底', x: 25, y: 79, w: 74, h: 20, bl: 1 }
+};
+var LEVELS = [
+  { id: 1, ico: '🌿', c: '#57cc99', bg: '#e3f8ec', name: '第 1 關　水生植物搬新家', d: '10 種水生植物，分辨挺水、浮葉、漂浮、沉水！', zones: ['emerg', 'floatleaf', 'float', 'sub'] },
+  { id: 2, ico: '🐸', c: '#4d96ff', bg: '#e6f0ff', name: '第 2 關　水生動物找家', d: '11 種水生動物，住岸邊、水面、水中還是水底？', zones: ['shore', 'surface', 'mid', 'bottom'] },
+  { id: 3, ico: '⏱️', c: '#ff9f1c', bg: '#fff1d6', name: '第 3 關　混合計時挑戰', d: '植物和動物混在一起，看你多快能完成池塘！', zones: ['shore', 'surface', 'mid', 'bottom'], timer: true }
+];
+
+/* ================= 紀錄 ================= */
+var KEY = 'natPondV1';
+var st = load();
+function load() {
+  var d = null;
+  try { d = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) { d = null; }
+  if (!d || typeof d !== 'object') d = {};
+  if (!d.stars || typeof d.stars !== 'object') d.stars = {};
+  if (typeof d.best !== 'number') d.best = null;
+  if (typeof d.plays !== 'number') d.plays = 0;
+  if (typeof d.mute !== 'boolean') d.mute = false;
+  return d;
+}
+function save() { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} }
+function totalStars() { var t = 0, i; for (i = 1; i <= 3; i++) t += (st.stars['l' + i] || 0); return t; }
+
+/* ================= 小工具 ================= */
+function $(id) { return document.getElementById(id); }
+function shuffle(a) { var b = a.slice(), i, j, t; for (i = b.length - 1; i > 0; i--) { j = Math.floor(Math.random() * (i + 1)); t = b[i]; b[i] = b[j]; b[j] = t; } return b; }
+function clamp(v, a, b) { return v < a ? a : (v > b ? b : v); }
+function starStr(n) { var s = '', i; for (i = 0; i < 3; i++) s += i < n ? '⭐' : '☆'; return s; }
+var actx = null;
+function beep(ok) {
+  if (st.mute) return;
+  try {
+    if (!actx) { var AC = window.AudioContext || window.webkitAudioContext; if (!AC) return; actx = new AC(); }
+    var notes = ok ? [660, 880] : [300, 240], i;
+    for (i = 0; i < notes.length; i++) {
+      var o = actx.createOscillator(), g = actx.createGain(), t0 = actx.currentTime + i * 0.11;
+      o.type = ok ? 'triangle' : 'sine'; o.frequency.value = notes[i];
+      g.gain.setValueAtTime(0.0001, t0); g.gain.exponentialRampToValueAtTime(0.18, t0 + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.2);
+      o.connect(g); g.connect(actx.destination); o.start(t0); o.stop(t0 + 0.22);
+    }
+  } catch (e) {}
+}
+function updScore() { var s = $('score'); s.textContent = '⭐ ' + totalStars() + '/9'; }
+function updSnd() { $('snd').textContent = st.mute ? '🔇' : '🔊'; }
+
+/* ================= 首頁 ================= */
+function renderHome() {
+  var h = '', i, L, s;
+  for (i = 0; i < LEVELS.length; i++) {
+    L = LEVELS[i]; s = st.stars['l' + L.id] || 0;
+    h += '<button type="button" class="lv" data-lv="' + L.id + '" style="--c:' + L.c + ';--bg:' + L.bg + '"><span class="ico">' + L.ico + '</span><span><b>' + L.name + '</b><span class="d">' + L.d + '</span>' +
+      '<span class="st" aria-label="得到 ' + s + ' 顆星">' + starStr(s) + '</span>' + (L.timer && st.best ? '<span class="d">🏆 最快紀錄：' + st.best.toFixed(1) + ' 秒</span>' : '') + '</span></button>';
+  }
+  $('levels').innerHTML = h;
+  updScore();
+}
+$('levels').addEventListener('click', function (e) {
+  var b = e.target.closest ? e.target.closest('.lv') : null;
+  if (b) startLevel(+b.getAttribute('data-lv'));
+});
+function show(id) {
+  $('home').className = 'page' + (id === 'home' ? ' active' : '');
+  $('play').className = 'page' + (id === 'play' ? ' active' : '');
+  window.scrollTo(0, 0);
+}
+
+/* ================= 遊戲 ================= */
+var G = null, timerId = null;
+function startLevel(id) {
+  var L = LEVELS[id - 1], items;
+  if (id === 1) items = shuffle(PLANTS);
+  else if (id === 2) items = shuffle(ANIMALS);
+  else items = shuffle(pickMix());
+  G = { L: L, queue: items, total: items.length, placed: [], miss: 0, sel: null, t0: 0, done: false };
+  $('lvTitle').textContent = L.name;
+  $('timer').style.display = L.timer ? '' : 'none';
+  $('placedLayer').innerHTML = '';
+  var zh = '', i, z;
+  for (i = 0; i < L.zones.length; i++) {
+    z = ZONES[L.zones[i]];
+    zh += '<div class="zone' + (z.bl ? ' bottomlab' : '') + '" role="button" tabindex="-1" aria-label="' + z.n + '" data-z="' + L.zones[i] + '" style="left:' + z.x + '%;top:' + z.y + '%;width:' + z.w + '%;height:' + z.h + '%"><span class="zl">' + z.n + '</span></div>';
+  }
+  $('zones').innerHTML = zh;
+  setFact('💡 小提示', L.id === 1 ? '想一想：植物的<b>根</b>有沒有抓住泥土？<b>葉子</b>在水面上、水面下，還是挺出水面？' : (L.id === 2 ? '想一想：牠用什麼呼吸？用鰓的要待在水裡，用肺的常常在水面或岸邊。' : '植物和動物混在一起囉！浮葉和漂浮植物都放「水面」。準備好就拖第一張卡片，計時馬上開始！'), '');
+  renderTray(); updProg();
+  stopTimer(); $('timer').textContent = '⏱ 0.0 秒';
+  show('play');
+}
+function pickMix() {
+  var types = { '挺水植物': [], '浮葉植物': [], '漂浮植物': [], '沉水植物': [] }, k, i, out = [];
+  for (i = 0; i < PLANTS.length; i++) types[O[PLANTS[i]].t].push(PLANTS[i]);
+  for (k in types) if (types.hasOwnProperty(k)) out.push(shuffle(types[k])[0]);
+  return out.concat(shuffle(ANIMALS).slice(0, 6));
+}
+function maxShow() { return window.innerWidth >= 1000 ? 6 : 4; }
+function renderTray() {
+  var h = '', i, k, n = Math.min(maxShow(), G.queue.length);
+  for (i = 0; i < n; i++) {
+    k = G.queue[i];
+    h += '<button type="button" class="chip' + (G.sel === k ? ' sel' : '') + '" data-k="' + k + '" aria-label="' + O[k].n + '">' + ART[k]() + '<span>' + O[k].n + '</span></button>';
+  }
+  if (!G.queue.length) h = '<p class="small">全部放好了！</p>';
+  $('chips').innerHTML = h;
+  $('trayTitle').textContent = G.queue.length ? '🧺 拖我進池塘（還有 ' + G.queue.length + ' 個）' : '🧺 池塘完成！';
+}
+function updProg() { $('prog').textContent = '已放好 ' + G.placed.length + '/' + G.total; }
+function setFact(title, html, cls, k) {
+  var f = $('fact');
+  f.className = 'fact' + (cls ? ' ' + cls : '');
+  f.innerHTML = '<div class="t">' + (k ? ART[k]() : '') + title + '</div>' + html + (cls === 'ok' ? ' <span class="tag">自編說明</span>' : '');
+}
+function startTimer() {
+  if (!G.L.timer || G.t0) return;
+  G.t0 = Date.now();
+  timerId = setInterval(function () { if (G && G.t0) $('timer').textContent = '⏱ ' + ((Date.now() - G.t0) / 1000).toFixed(1) + ' 秒'; }, 100);
+}
+function stopTimer() { if (timerId) { clearInterval(timerId); timerId = null; } }
+
+function zoneAt(cx, cy) {
+  var zs = $('zones').children, i, r;
+  for (i = 0; i < zs.length; i++) {
+    r = zs[i].getBoundingClientRect();
+    if (cx >= r.left && cx <= r.right && cy >= r.top && cy <= r.bottom) return zs[i];
+  }
+  return null;
+}
+function okZones(k) { var o = O[k]; return G.L.id === 1 ? [o.z1] : o.z2; }
+function isOk(k, z) { return okZones(k).indexOf(z) >= 0; }
+
+/* 放對了：算出在池塘裡的位置 */
+function placePos(k, zk, px, py) {
+  var z = ZONES[zk], o = O[k], x, y;
+  x = clamp(px, z.x + 4, z.x + z.w - 4);
+  if (zk === 'floatleaf' || zk === 'float' || zk === 'surface') y = (k === 'duck') ? 26 : (k === 'strider' ? 29 : (k === 'frog' ? 29 : 30));
+  else if (zk === 'bottom') y = 90;
+  else if (zk === 'emerg' || (zk === 'shore' && o.g === 'p')) { y = 46; }
+  else if (zk === 'shore') { y = 22; x = clamp(px, 3, 11); }
+  else if (zk === 'sub') y = clamp(py, 52, 84);
+  else y = clamp(py, z.y + 7, z.y + z.h - 7);
+  /* 避免疊在一起 */
+  var tries = 0, i, p, hit;
+  do {
+    hit = false;
+    for (i = 0; i < G.placed.length; i++) {
+      p = G.placed[i];
+      if (Math.abs(p.x - x) < 6 && Math.abs(p.y - y) < 8) { hit = true; break; }
+    }
+    if (hit) { x += 7; if (x > z.x + z.w - 3) x = z.x + 4 + (tries % 3) * 2; if (zk === 'shore' && o.g === 'a') x = clamp(x, 3, 12); }
+    tries++;
+  } while (hit && tries < 12);
+  return { x: x, y: y };
+}
+function drop(k, cx, cy) {
+  if (!G || G.done) return 'none';
+  var zEl = zoneAt(cx, cy), sr = $('scene').getBoundingClientRect();
+  var px = (cx - sr.left) / sr.width * 100, py = (cy - sr.top) / sr.height * 100;
+  if (!zEl) return 'none';
+  var zk = zEl.getAttribute('data-z');
+  startTimer();
+  if (isOk(k, zk)) {
+    var pos = placePos(k, zk, px, py);
+    G.placed.push({ k: k, x: pos.x, y: pos.y, z: zk });
+    G.queue.splice(G.queue.indexOf(k), 1);
+    G.sel = null;
+    var d = document.createElement('div');
+    d.className = 'placed new a-' + O[k].an + ' p-' + O[k].g;
+    d.setAttribute('data-k', k);
+    d.style.left = pos.x + '%'; d.style.top = pos.y + '%';
+    d.style.animationDelay = (Math.random() * -3).toFixed(2) + 's';
+    d.innerHTML = '<div class="in" style="animation-delay:' + (Math.random() * -3).toFixed(2) + 's">' + ART[k]() + '</div>';
+    $('placedLayer').appendChild(d);
+    setTimeout(function () { d.className = d.className.replace(' new', ''); }, 600);
+    sparkle(pos.x, pos.y, '✨');
+    beep(true);
+    setFact('放對了！' + O[k].n + (O[k].t ? '（' + O[k].t + '）' : ''), O[k].f, 'ok', k);
+    renderTray(); updProg(); clearPick();
+    if (!G.queue.length) finish();
+    return 'ok';
+  }
+  G.miss++;
+  bubble(px, py, '咕嚕咕嚕～再想想');
+  beep(false);
+  setFact('🫧 ' + O[k].n + ' 不住這裡喔', O[k].h + '<br><span class="small">放錯不扣分，再試一次！</span>', 'no', k);
+  return 'no';
+}
+function bubble(x, y, txt) {
+  var b = document.createElement('div');
+  b.className = 'bubble'; b.textContent = txt;
+  b.style.left = clamp(x, 14, 86) + '%'; b.style.top = clamp(y, 14, 96) + '%';
+  $('scene').appendChild(b);
+  setTimeout(function () { if (b.parentNode) b.parentNode.removeChild(b); }, 2500);
+}
+function sparkle(x, y, ch) {
+  var s = document.createElement('div');
+  s.className = 'sparkle'; s.textContent = ch; s.style.left = x + '%'; s.style.top = y + '%';
+  $('scene').appendChild(s);
+  setTimeout(function () { if (s.parentNode) s.parentNode.removeChild(s); }, 1100);
+}
+
+/* ================= 拖曳（Pointer Events：手指和滑鼠都可以） ================= */
+var drag = null;
+function chipFrom(t) { return t && t.closest ? t.closest('.chip') : null; }
+$('chips').addEventListener('pointerdown', function (e) {
+  var c = chipFrom(e.target);
+  if (!c || drag) return;
+  if (e.pointerType === 'mouse' && e.button !== 0) return;
+  e.preventDefault();
+  drag = { k: c.getAttribute('data-k'), chip: c, id: e.pointerId, sx: e.clientX, sy: e.clientY, moved: false, ghost: null, lift: e.pointerType === 'touch' ? 40 : 0 };
+  try { c.setPointerCapture(e.pointerId); } catch (er) {}
+});
+document.addEventListener('pointermove', function (e) {
+  if (!drag || e.pointerId !== drag.id) return;
+  var dx = e.clientX - drag.sx, dy = e.clientY - drag.sy;
+  if (!drag.moved && dx * dx + dy * dy > 64) {
+    drag.moved = true;
+    var g = document.createElement('div');
+    g.className = 'ghost'; g.innerHTML = ART[drag.k]();
+    document.body.appendChild(g); drag.ghost = g;
+    drag.chip.className += ' drag';
+    if (G.sel) { G.sel = null; clearPick(); var cs = $('chips').children, j; for (j = 0; j < cs.length; j++) cs[j].className = cs[j].className.replace(' sel', ''); }
+  }
+  if (drag.moved) {
+    e.preventDefault();
+    var gx = e.clientX, gy = e.clientY - drag.lift;
+    drag.ghost.style.left = gx + 'px'; drag.ghost.style.top = gy + 'px';
+    var z = zoneAt(gx, gy), zs = $('zones').children, i;
+    for (i = 0; i < zs.length; i++) zs[i].className = zs[i].className.replace(' over', '') + (zs[i] === z ? ' over' : '');
+  }
+}, { passive: false });
+function endDrag(e, cancel) {
+  if (!drag || e.pointerId !== drag.id) return;
+  var d = drag; drag = null;
+  var zs = $('zones').children, i;
+  for (i = 0; i < zs.length; i++) zs[i].className = zs[i].className.replace(' over', '');
+  if (!d.moved) { if (!cancel) toggleSel(d.k); return; }
+  var res = cancel ? 'none' : drop(d.k, e.clientX, e.clientY - d.lift);
+  if (res === 'ok') { if (d.ghost.parentNode) d.ghost.parentNode.removeChild(d.ghost); return; }
+  /* 彈回卡片 */
+  var r = d.chip.getBoundingClientRect(), g = d.ghost;
+  g.className += ' back';
+  g.style.left = (r.left + r.width / 2) + 'px'; g.style.top = (r.top + r.height / 2) + 'px'; g.style.opacity = '.2';
+  setTimeout(function () { if (g.parentNode) g.parentNode.removeChild(g); d.chip.className = d.chip.className.replace(' drag', ''); if (res === 'no') { d.chip.className += ' shake'; setTimeout(function () { d.chip.className = d.chip.className.replace(' shake', ''); }, 500); } }, 360);
+}
+document.addEventListener('pointerup', function (e) { endDrag(e, false); });
+document.addEventListener('pointercancel', function (e) { endDrag(e, true); });
+
+/* 點一下再點位置 */
+function toggleSel(k) {
+  G.sel = (G.sel === k) ? null : k;
+  renderTray();
+  var zs = $('zones').children, i;
+  for (i = 0; i < zs.length; i++) zs[i].className = zs[i].className.replace(' pick', '') + (G.sel ? ' pick' : '');
+  if (G.sel) setFact('👉 已選好：' + O[k].n, '現在點一下池塘裡牠住的地方！', '', k);
+}
+function clearPick() { var zs = $('zones').children, i; for (i = 0; i < zs.length; i++) zs[i].className = zs[i].className.replace(' pick', ''); }
+$('scene').addEventListener('click', function (e) {
+  if (!G || !G.sel) return;
+  var k = G.sel, res = drop(k, e.clientX, e.clientY);
+  if (res === 'no') {
+    var c = document.querySelector('.chip[data-k="' + k + '"]');
+    if (c) { c.className += ' shake'; setTimeout(function () { c.className = c.className.replace(' shake', ''); }, 500); }
+  }
+});
+document.addEventListener('keydown', function (e) {
+  /* 鍵盤：選好卡片後按 1～4 放到對應區域 */
+  if (!G || !G.sel || !$('play').className.match(/active/)) return;
+  var n = parseInt(e.key, 10);
+  if (n >= 1 && n <= 4) { var z = $('zones').children[n - 1], r = z.getBoundingClientRect(); drop(G.sel, r.left + r.width / 2, r.top + r.height / 2); }
+});
+
+/* ================= 過關 ================= */
+function finish() {
+  G.done = true; stopTimer();
+  var id = G.L.id, stars = G.miss <= 1 ? 3 : (G.miss <= 3 ? 2 : 1), key = 'l' + id, newBest = false, secs = 0, msg;
+  if ((st.stars[key] || 0) < stars) st.stars[key] = stars;
+  st.plays++;
+  if (G.L.timer) {
+    secs = Math.round((Date.now() - G.t0) / 100) / 10;
+    if (st.best === null || secs < st.best) { st.best = secs; newBest = true; }
+  }
+  save(); updScore();
+  var sh = '', i;
+  for (i = 0; i < 3; i++) sh += i < stars ? '⭐' : '<span class="off">⭐</span>';
+  $('winStars').innerHTML = sh;
+  msg = '池塘裡的 ' + G.total + ' 個生物都住進新家，開始游來游去了！';
+  msg += G.miss ? '<br>這次放錯 ' + G.miss + ' 次，越來越厲害了！' : '<br>一次都沒放錯，你是池塘小專家！';
+  if (G.L.timer) msg += '<br>⏱ 用了 <b>' + secs.toFixed(1) + ' 秒</b>' + (newBest ? '　🏆 新紀錄！' : '（最快 ' + st.best.toFixed(1) + ' 秒）');
+  if (totalStars() === 9) msg += '<br>🏅 三關都拿到滿分，你是「池塘守護大師」！';
+  $('winMsg').innerHTML = msg;
+  $('nextBtn').style.display = id < 3 ? '' : 'none';
+  setTimeout(function () { $('win').className = 'overlay show'; confetti(); }, 700);
+}
+function confetti() {
+  var w = $('win'), ch = ['🫧', '⭐', '🐟', '🌿', '💧', '🎉', '🐸'], i, c;
+  for (i = 0; i < 26; i++) {
+    c = document.createElement('span'); c.className = 'conf';
+    c.textContent = ch[i % ch.length];
+    c.style.left = (Math.random() * 96) + '%';
+    c.style.animationDuration = (2.2 + Math.random() * 2.2).toFixed(2) + 's';
+    c.style.animationDelay = (Math.random() * 0.8).toFixed(2) + 's';
+    w.appendChild(c);
+  }
+  setTimeout(function () { var cs = w.querySelectorAll('.conf'), j; for (j = 0; j < cs.length; j++) w.removeChild(cs[j]); }, 5200);
+}
+function closeWin() { $('win').className = 'overlay'; }
+$('againBtn').addEventListener('click', function () { closeWin(); startLevel(G.L.id); });
+$('nextBtn').addEventListener('click', function () { closeWin(); startLevel(Math.min(3, G.L.id + 1)); });
+$('homeBtn').addEventListener('click', function () { closeWin(); stopTimer(); renderHome(); show('home'); });
+$('quitBtn').addEventListener('click', function () { stopTimer(); renderHome(); show('home'); });
+$('snd').addEventListener('click', function () { st.mute = !st.mute; save(); updSnd(); });
+$('resetBtn').addEventListener('click', function () {
+  if (!window.confirm('確定要清除「打造我的池塘」的星星和最快紀錄嗎？')) return;
+  st = { stars: {}, best: null, plays: 0, mute: st.mute }; save(); renderHome();
+});
+window.addEventListener('resize', function () { if (G && $('play').className.match(/active/) && !drag) renderTray(); });
+
+/* 給自動測試讀資料用（唯讀複本） */
+window.PondData = { zonesFor: function (k, lv) { return lv === 1 ? [O[k].z1] : O[k].z2.slice(); } };
+
+renderHome(); updSnd();
+})();
+</script>
+</body>
+</html>
