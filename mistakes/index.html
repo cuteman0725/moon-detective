@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ff7b54">
+<title>🏝️ 錯題大挑戰｜11/03 錯題本</title>
+<!-- 題目、答案、理由、提醒全部取自 2026-11-03「四年級上學期錯題本」；國語干擾字、數學步驟引導與提示、社會分辨小提示為自編。
+     紀錄存在 localStorage "mistakesV1"（只用這一個鍵，不讀寫其他頁的紀錄）。 -->
+<style>
+:root{--ink:#2b2d42;--blue:#4d96ff;--sun:#ffb703;--pink:#ff6b9a;--teal:#2a9d8f;--green:#57cc99;--purple:#9b5de5;--radius:22px}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:#e6f0ff;overflow-x:hidden}
+html,body{margin:0;padding:0}
+body{font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",system-ui,sans-serif;color:var(--ink);min-height:100vh;overflow-x:hidden;
+ background:linear-gradient(180deg,#bde0fe 0,#e6f0ff 320px,#e6f0ff 100%);padding-bottom:calc(40px + env(safe-area-inset-bottom))}
+header{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:8px;padding:10px 12px;padding-top:calc(10px + env(safe-area-inset-top));background:rgba(77,150,255,.96);color:#fff;box-shadow:0 3px 10px rgba(0,0,0,.12)}
+header h1{font-size:clamp(17px,4.6vw,26px);margin:0;letter-spacing:1px;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.back{color:#fff;text-decoration:none;font-weight:800;background:rgba(255,255,255,.22);border-radius:999px;padding:10px 12px;font-size:15px;white-space:nowrap;min-height:44px;display:inline-flex;align-items:center}
+.score{background:var(--sun);color:#5a3b00;font-weight:800;border-radius:999px;padding:6px 12px;font-size:17px;white-space:nowrap;box-shadow:0 3px 0 #c98a00}
+.score.pop{animation:pop .5s}@keyframes pop{40%{transform:scale(1.35)}}
+.iconbtn{appearance:none;border:none;background:rgba(255,255,255,.22);color:#fff;border-radius:999px;min-width:44px;min-height:44px;font-size:20px;cursor:pointer;font-family:inherit}
+main{max-width:1200px;margin:0 auto;padding:12px}
+section.page{display:none;animation:fadein .3s}section.page.active{display:block}
+@keyframes fadein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.card{background:#fff;border-radius:var(--radius);padding:16px;margin:12px 0;box-shadow:0 6px 0 rgba(0,0,0,.12)}
+.card h2{margin:0 0 8px;font-size:clamp(20px,5vw,26px)}
+.lead{font-size:18px;line-height:1.7;margin:6px 0}
+.small{font-size:15px;color:#666;line-height:1.6}
+.tip{background:#fff7d6;border-left:6px solid var(--sun);border-radius:12px;padding:10px 12px;font-size:17px;line-height:1.6;margin:10px 0}
+.tip.blue{background:#e6f0ff;border-color:var(--blue)}.tip.pink{background:#ffe6ef;border-color:var(--pink)}.tip.green{background:#e3f8ec;border-color:var(--teal)}
+.btn{appearance:none;border:none;border-radius:16px;padding:12px 16px;min-height:52px;font-size:18px;font-weight:800;cursor:pointer;background:var(--blue);color:#fff;box-shadow:0 4px 0 rgba(0,0,0,.22);font-family:inherit}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.22)}
+.btn.sun{background:var(--sun);color:#5a3b00}.btn.pink{background:var(--pink)}.btn.teal{background:var(--teal)}.btn.white{background:#fff;color:var(--ink)}.btn.small{min-height:46px;font-size:16px;padding:8px 12px}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.tag{display:inline-block;font-size:12px;font-weight:800;border-radius:999px;padding:2px 8px;background:#f3e8ff;color:#6a1b9a;vertical-align:middle}
+html{background:#e0f7fa}
+body{background:linear-gradient(180deg,#b2ebf2 0,#e0f7fa 300px,#f1fbfc 100%)}
+header{background:rgba(255,123,84,.97)}
+.iconbtn{font-size:20px}
+.hidden{display:none!important}
+.pbar{height:18px;border-radius:999px;background:#eef3f7;overflow:hidden;box-shadow:inset 0 2px 3px rgba(0,0,0,.1)}
+.pbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#ffd166,#ff9f1c);border-radius:999px;transition:width .6s}
+/* ---------- 地圖 ---------- */
+.sea{position:relative;border-radius:26px;padding:16px 12px 18px;margin:12px 0;overflow:hidden;
+ background:radial-gradient(circle at 20% 15%,rgba(255,255,255,.55) 0,transparent 30%),linear-gradient(180deg,#4fc3f7,#0288d1);box-shadow:0 6px 0 rgba(0,0,0,.12)}
+.sea svg.waves{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none}
+.sea h2{position:relative;margin:0 0 6px;color:#fff;font-size:clamp(19px,4.6vw,24px);text-shadow:0 2px 0 rgba(0,0,0,.2)}
+.islands{position:relative;display:grid;grid-template-columns:1fr;gap:12px}
+@media (min-width:700px){.islands{grid-template-columns:repeat(3,1fr)}}
+.isl{appearance:none;border:none;background:transparent;cursor:pointer;font-family:inherit;color:var(--ink);padding:0;text-align:center;border-radius:24px;display:flex;align-items:center;gap:6px;min-height:120px;touch-action:manipulation}
+@media (min-width:700px){.isl{flex-direction:column}}
+.isl svg{width:150px;height:110px;flex:0 0 150px;filter:drop-shadow(0 5px 0 rgba(0,0,0,.15))}
+@media (min-width:700px){.isl svg{width:100%;max-width:240px;height:auto;flex:none}}
+.isl .lab{flex:1;background:rgba(255,255,255,.95);border-radius:18px;padding:8px 10px;box-shadow:0 4px 0 rgba(0,0,0,.15);min-width:0;width:100%}
+.isl .lab b{display:block;font-size:22px}
+.isl .lab .st{font-size:17px;letter-spacing:1px;word-break:break-all;line-height:1.3}
+.isl .lab .n{font-size:15px;color:#555;font-weight:700}
+.isl .lab .st,.isl .lab .n{display:block}
+.isl:active .lab{transform:translateY(3px)}
+.isl:focus-visible .lab{outline:4px solid #ffd166}
+.retry{border:4px dashed #ff6b6b;background:#fff5f5}
+.retry .ids{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.chip{display:inline-flex;align-items:center;gap:4px;border-radius:999px;padding:4px 10px;font-weight:800;font-size:15px;background:#ffe3e3;color:#c92a2a;border:2px solid #ffa8a8}
+.chip.y{background:#fff3bf;color:#8a6100;border-color:#ffd43b}
+.chip.g{background:#d3f9d8;color:#2b8a3e;border-color:#8ce99a}
+.chip.n{background:#eef3f7;color:#666;border-color:#d5dde5}
+/* ---------- 島嶼頁 ---------- */
+.items{display:grid;grid-template-columns:1fr;gap:10px}
+@media (min-width:640px){.items{grid-template-columns:1fr 1fr}}
+@media (min-width:1100px){.items{grid-template-columns:1fr 1fr 1fr}}
+.it{appearance:none;border:3px solid #e3e8ee;background:#fff;border-radius:18px;padding:10px 12px;text-align:left;font-family:inherit;color:var(--ink);cursor:pointer;display:flex;gap:10px;align-items:center;min-height:72px;box-shadow:0 4px 0 rgba(0,0,0,.08);touch-action:manipulation}
+.it:active{transform:translateY(3px)}
+.it .id{flex:0 0 auto;font-weight:900;font-size:18px;background:#eef3f7;border-radius:12px;padding:8px 8px;min-width:54px;text-align:center}
+.it .tx{flex:1;min-width:0;font-size:15px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.it .bd{flex:0 0 auto;font-size:13px;font-weight:800;border-radius:999px;padding:3px 8px;background:#eef3f7;color:#666;white-space:nowrap}
+.it.s-w{border-color:#ffa8a8}.it.s-w .bd{background:#ffe3e3;color:#c92a2a}
+.it.s-h{border-color:#ffd43b}.it.s-h .bd{background:#fff3bf;color:#8a6100}
+.it.s-m{border-color:#8ce99a}.it.s-m .bd{background:#d3f9d8;color:#2b8a3e}
+/* ---------- 作答 ---------- */
+.ptop{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ptop .cnt{font-weight:900;font-size:17px;background:#fff3dc;border-radius:999px;padding:6px 12px}
+.ptop .src{font-size:14px;color:#777;flex:1;min-width:160px}
+.qid{display:inline-block;font-weight:900;background:var(--ink);color:#fff;border-radius:10px;padding:2px 8px;margin-right:6px;font-size:16px;vertical-align:middle}
+.q{font-size:clamp(19px,4.8vw,23px);line-height:1.7;margin:10px 0;font-weight:700}
+.tf{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0}
+.tfb{appearance:none;border:4px solid #d5dde5;background:#fff;border-radius:22px;min-height:120px;font-size:64px;font-weight:900;cursor:pointer;font-family:inherit;color:var(--ink);box-shadow:0 6px 0 rgba(0,0,0,.12);touch-action:manipulation}
+.tfb .l{display:block;font-size:16px;font-weight:800;color:#666}
+.opts{display:grid;grid-template-columns:1fr;gap:10px;margin:10px 0}
+@media (min-width:700px){.opts.two{grid-template-columns:1fr 1fr}}
+.opt{appearance:none;border:4px solid #d5dde5;background:#fff;border-radius:18px;padding:12px 14px;min-height:60px;font-size:19px;line-height:1.45;text-align:left;cursor:pointer;font-family:inherit;color:var(--ink);box-shadow:0 4px 0 rgba(0,0,0,.1);display:flex;align-items:center;gap:10px;touch-action:manipulation}
+.opt .bx{flex:0 0 34px;height:34px;border:3px solid #9aa5b1;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;background:#fff}
+.opt.on{border-color:var(--blue);background:#e6f0ff}.opt.on .bx{border-color:var(--blue);background:var(--blue);color:#fff}
+.opt .mk{margin-left:auto;font-size:15px;font-weight:900;border-radius:999px;padding:2px 8px;white-space:nowrap}
+.opt.ok,.tfb.ok{border-color:#2f9e44;background:#e3f8ec}
+.opt.bad,.tfb.bad{border-color:#e03131;background:#ffe3e3}
+.opt.miss{border-color:#f59f00;background:#fff3bf;border-style:dashed}
+.opt.ok .mk{background:#2f9e44;color:#fff}.opt.bad .mk{background:#e03131;color:#fff}.opt.miss .mk{background:#f59f00;color:#fff}
+.opt:disabled,.tfb:disabled{cursor:default;opacity:1}
+.res{border-radius:18px;padding:12px 14px;margin:12px 0;font-size:18px;line-height:1.7}
+.res.ok{background:#e3f8ec;border:3px solid #8ce99a}.res.no{background:#fff0f0;border:3px solid #ffa8a8}
+.res h3{margin:0 0 4px;font-size:21px}
+.ansbox{background:#fff;border-radius:14px;padding:10px 12px;margin:8px 0;border:2px solid #e3e8ee}
+.ansbox .a{font-weight:900;font-size:19px}
+.ansbox .rz{font-size:17px;line-height:1.7}
+.ansbox .ck{display:block;background:#fff3bf;border-radius:10px;padding:4px 8px;margin:4px 0;font-weight:800}
+.key{background:linear-gradient(135deg,#fff3bf,#ffe8cc);border:3px solid #ffa94d;border-radius:16px;padding:10px 12px;margin:10px 0;font-size:17px;line-height:1.7}
+.key b.k{color:#d9480f}
+.key mark{background:#ffd8a8;border-radius:4px;padding:0 2px}
+/* 國語 */
+.word{display:flex;justify-content:center;align-items:flex-end;gap:6px;margin:16px 0 8px;flex-wrap:wrap}
+.ch{width:clamp(70px,20vw,96px);height:clamp(70px,20vw,96px);border:4px solid #c9d3dd;border-radius:14px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:clamp(46px,13vw,64px);font-weight:700;position:relative;
+ background-image:linear-gradient(#f0d9d9 1px,transparent 1px),linear-gradient(90deg,#f0d9d9 1px,transparent 1px);background-size:50% 50%;background-position:center}
+.ch.blank{border:4px dashed var(--pink);background-color:#fff5f8;color:var(--pink)}
+.ch.blank.over{background-color:#ffe0ec;transform:scale(1.06)}
+.ch.blank.ok{border:4px solid #2f9e44;color:#2b8a3e;background-color:#e3f8ec}
+.ch.blank.bad{border-color:#e03131;color:#e03131;animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.zy{writing-mode:vertical-rl;font-size:18px;font-weight:800;color:#c2255c;background:#fff0f6;border-radius:10px;padding:6px 2px;align-self:center;letter-spacing:2px}
+.pick{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0;max-width:560px;margin-left:auto;margin-right:auto}
+.tile{appearance:none;border:4px solid #d0bfff;background:#f8f0ff;border-radius:18px;min-height:84px;font-size:clamp(40px,11vw,54px);font-family:inherit;color:var(--ink);cursor:grab;box-shadow:0 5px 0 #b197fc;touch-action:none;user-select:none;-webkit-user-select:none}
+.tile:active{transform:translateY(3px)}
+.tile.ok{border-color:#2f9e44;background:#e3f8ec;box-shadow:0 5px 0 #8ce99a}.tile.bad{border-color:#e03131;background:#ffe3e3;box-shadow:0 5px 0 #ffa8a8;opacity:.6}
+.tile:disabled{cursor:default}
+.ghost{position:fixed;z-index:80;pointer-events:none;width:80px;height:80px;margin:-40px 0 0 -40px;border-radius:18px;background:#f8f0ff;border:4px solid #9775fa;display:flex;align-items:center;justify-content:center;font-size:50px;box-shadow:0 10px 20px rgba(0,0,0,.25)}
+/* 數學 */
+.steps{margin:8px 0}
+.stp{border:3px solid #e3e8ee;border-radius:18px;padding:10px 12px;margin:10px 0;background:#fff}
+.stp.cur{border-color:var(--blue);box-shadow:0 0 0 4px #d0e4ff}
+.stp.done{border-color:#8ce99a;background:#f4fcf6}
+.stp .sn{display:inline-block;font-weight:900;font-size:14px;background:#eef3f7;border-radius:999px;padding:2px 10px;margin-bottom:4px}
+.stp.done .sn{background:#d3f9d8;color:#2b8a3e}
+.stp .t{font-size:clamp(18px,4.6vw,21px);line-height:2.1;font-weight:700}
+.nb{appearance:none;display:inline-block;vertical-align:middle;min-width:72px;min-height:50px;border:3px solid #9aa5b1;border-radius:12px;background:#fff;font-size:24px;font-weight:900;font-family:inherit;color:var(--ink);padding:0 8px;margin:2px 3px;cursor:pointer;text-align:center;line-height:44px}
+.nb.f{border-color:var(--blue);box-shadow:0 0 0 4px #d0e4ff;background:#f3f8ff}
+.nb.ok{border-color:#2f9e44;background:#e3f8ec;color:#2b8a3e}.nb.bad{border-color:#e03131;background:#ffe3e3;color:#c92a2a}
+.nb:empty::after{content:"？";color:#c5ccd3}
+.ug{display:inline-flex;gap:4px;vertical-align:middle;margin:2px 4px;padding:3px;border:3px dashed #9aa5b1;border-radius:14px}
+.ub{appearance:none;border:2px solid #d5dde5;background:#fff;border-radius:10px;min-height:44px;min-width:56px;font-size:18px;font-weight:800;font-family:inherit;cursor:pointer;color:var(--ink);padding:0 8px}
+.ub.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+.ug.ok{border-color:#2f9e44;border-style:solid}.ug.bad{border-color:#e03131;border-style:solid}
+.pad{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin:10px 0;max-width:520px}
+@media (max-width:440px){.pad{grid-template-columns:repeat(4,1fr)}}
+.pad button{appearance:none;border:none;border-radius:14px;min-height:54px;font-size:24px;font-weight:900;background:#eef3f7;color:var(--ink);box-shadow:0 4px 0 #c5ccd3;cursor:pointer;font-family:inherit;touch-action:manipulation}
+.pad button:active{transform:translateY(3px);box-shadow:0 1px 0 #c5ccd3}
+.pad .del{background:#ffe3e3;color:#c92a2a}
+.sfb{font-size:17px;line-height:1.6;border-radius:12px;padding:8px 10px;margin:6px 0}
+.sfb.ok{background:#e3f8ec;color:#2b8a3e}.sfb.no{background:#fff0f0;color:#c92a2a}
+.mq{background:#fff8e6;border-radius:16px;padding:10px 14px;font-size:clamp(18px,4.6vw,21px);line-height:1.8;font-weight:700;border:3px solid #ffe066}
+/* 結果 */
+.sum{text-align:center}
+.sum .big{font-size:64px;line-height:1.2}
+.sum .ids{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:8px 0}
+.conf{position:fixed;top:-40px;z-index:90;font-size:28px;pointer-events:none;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(540deg)}}
+details.parent{background:#fff;border-radius:var(--radius);padding:12px 16px;margin:14px 0;box-shadow:0 6px 0 rgba(0,0,0,.12)}
+details.parent summary{font-weight:800;font-size:18px;cursor:pointer;min-height:44px;display:flex;align-items:center}
+.ptab{width:100%;border-collapse:collapse;font-size:15px;margin:8px 0}
+.ptab th,.ptab td{border-bottom:1px solid #e3e8ee;padding:6px 4px;text-align:left;vertical-align:top;line-height:1.5}
+.ptab th{background:#f6f8fa;font-size:14px}
+.ptab td.id{font-weight:900;white-space:nowrap}
+.ptab .rec{font-size:13px;color:#777}
+.tblwrap{overflow-x:auto}
+footer{text-align:center;color:#667;font-size:14px;margin:24px 8px;line-height:1.7}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header>
+ <a class="back" id="backBtn" href="../">← 樂園</a>
+ <h1 id="ttl">🏝️ 錯題大挑戰</h1>
+ <span class="score" id="score">⭐ 0/25</span>
+ <button class="iconbtn" id="muteBtn" type="button" aria-label="音效開關">🔊</button>
+</header>
+<main>
+<section class="page active" id="pg-map">
+ <div class="card">
+  <h2>🗺️ 11/03 錯題本・三座島</h2>
+  <p class="lead">每一題都是考卷上曾經錯過的題目。<b>連續答對 2 次</b>，這題就「會了」，可以拿到一顆 ⭐！</p>
+  <div class="pbar" aria-hidden="true"><i id="allBar"></i></div>
+  <p class="small" id="allTxt">會了 0/25 題</p>
+ </div>
+ <div class="sea">
+  <svg class="waves" viewBox="0 0 400 300" preserveAspectRatio="none" aria-hidden="true"><g fill="none" stroke="rgba(255,255,255,.35)" stroke-width="3" stroke-linecap="round"><path d="M10 40q15-10 30 0t30 0"/><path d="M300 60q15-10 30 0t30 0"/><path d="M150 150q15-10 30 0t30 0"/><path d="M40 250q15-10 30 0t30 0"/><path d="M280 270q15-10 30 0t30 0"/></g></svg>
+  <h2>⛵ 選一座島出發</h2>
+  <div class="islands" id="islands"></div>
+ </div>
+ <div class="card retry" id="retryBox">
+  <h2>🔁 再練一次</h2>
+  <div id="retryBody"></div>
+ </div>
+ <details class="parent" id="parent">
+  <summary>👨‍👩‍👧 給爸媽：每題狀態</summary>
+  <p class="small">規則：答錯的題目會放進「再練一次」；之後<b>連續答對 2 次</b>（對應錯題本的「第 1 次／第 2 次 □會了」）才算「會了」。數學任何一步答錯或按「看答案」，這一次就算錯。紀錄只存在這台裝置的瀏覽器（mistakesV1）。</p>
+  <div class="tblwrap"><table class="ptab" id="ptab"></table></div>
+  <div class="btns"><button class="btn white small" id="resetBtn" type="button">🗑️ 清除這頁的紀錄</button></div>
+ </details>
+</section>
+
+<section class="page" id="pg-island">
+ <div class="card" id="islHead"></div>
+ <div class="items" id="islItems"></div>
+</section>
+
+<section class="page" id="pg-play">
+ <div class="card">
+  <div class="ptop"><span class="cnt" id="pCnt">第 1/1 題</span><span class="src" id="pSrc"></span></div>
+  <div id="pBody"></div>
+  <div class="btns" id="pNext"></div>
+ </div>
+</section>
+
+<section class="page" id="pg-done">
+ <div class="card sum" id="doneBody"></div>
+</section>
+
+<footer>題目與答案取自 2026-11-03 錯題本；干擾選項為自編。<br><span class="small">數學的步驟引導與小提示、社會的「分辨小提示」為依錯題本內容自編整理。</span></footer>
+</main>
+<script>
+(function(){
+'use strict';
+/* ===== 題目資料：題目、選項、答案、理由、提醒、原卷紀錄 皆照抄 2026-11-03 錯題本（第 2–15 頁）。
+   自編部分：國語 ch 陣列中除正解外的 3 個干擾字；數學 steps 的步驟引導文字與 hint；社會 key 分辨小提示。 ===== */
+var SUBJ={
+ soc:{name:'社會',emoji:'🌏',color:'#2a9d8f',sand:'#ffe8a3',scope:'U3 家鄉的人口與生活',
+  note:'核對是否有漏勾或多勾；「人數」和「比例」要分清楚。'},
+ chi:{name:'國語',emoji:'✏️',color:'#ff6b9a',sand:'#ffe0ec',scope:'第 1 至 6 課 國字注音',
+  note:'字形記憶 聆看耳旁，粥看中間的米，矯看矢旁，拂看提手旁，汽看三點水。融會貫通的「融」要連同詞語一起記。'},
+ math:{name:'數學',emoji:'🔢',color:'#ff9f1c',sand:'#fff1c1',scope:'U4 整數的除法、U5 公里、期中複習卷',
+  note:'把題目要問的數量寫清楚，答句要有單位。'}
+};
+/* 社會分辨小提示（自編整理，依錯題本 S02 原卷紀錄、第 11 頁標題與 S08 理由） */
+var KEYS={
+ river:'<b class="k">🔑 分辨：陸運 vs 河運</b><br>關鍵是「陸運」與「河運」的分別。<br>・<mark>河運</mark>：靠河流行船 → 早期的<b>大稻埕</b>（河運便利、商業發達）<br>・<mark>陸運</mark>：陸上交通 → 早期的<b>桃園市 中壢區</b>',
+ ratio:'<b class="k">🔑 分辨：人數 vs 比例</b><br>「人數」和「比例」要分清楚。<br>・<mark>人數</mark>：一共有多少人。<br>・<mark>比例</mark>：占全部人口的多少。<br>例：出生人數減少，老年人口所占<b>比例</b>可能上升，卻不等於老年<b>人口數量</b>大增。'
+};
+var ITEMS=[
+ {id:'S01',s:'soc',type:'tf',src:'原卷 社會 U3 第 1 頁 二 是非第 1 題',
+  q:'一個地方若青壯年人口外出工作的情況普遍，當地也會出現幼年人口比例偏高的現象。',ans:'X',
+  a:'答案 ×',why:'青壯年人口普遍外出工作，較可能使當地的老年人口比例偏高，不能因此認為幼年人口比例偏高。',
+  rec:'原批改判錯；照片中已可見正確的紅筆訂正。',key:'ratio'},
+ {id:'S02',s:'soc',type:'tf',src:'原卷 社會 U3 第 1 頁 二 是非第 5 題',
+  q:'小浩和媽媽一起參加了大稻埕一日遊，聽導遊說，早期大稻埕因為陸運方便，商業發達，因此聚集了較多人口。',ans:'X',
+  a:'答案 ×',why:'早期大稻埕因河運便利、商業發達而聚集人口，所以題目中的「陸運方便」應改為「河運便利」。',
+  rec:'原批改判錯；關鍵是「陸運」與「河運」的分別。',key:'river'},
+ {id:'S03',s:'soc',type:'tf',src:'原卷 社會 U3 第 1 頁 二 是非第 9 題',
+  q:'陸上交通便利的地方，容易聚集較多人口，例如：早期的桃園市 中壢區。',ans:'O',
+  a:'答案 ○',why:'陸上交通便利，方便人們往來與運送貨物，容易吸引人口聚集。早期的中壢就是這類例子。',
+  rec:'原批改判錯；照片中已可見正確的紅筆 ○。',key:'river'},
+ {id:'S04',s:'soc',type:'tf',src:'原卷 社會 U3 第 1 頁 二 是非第 13 題',
+  q:'新竹科學園區因工作機會多，容易吸引年輕人來此地工作，當地或周邊地區的老年人口也會跟著增加。',ans:'X',
+  a:'答案 ×',why:'工作機會吸引年輕人移入，會使青壯年人口增加，不能因此判定老年人口也會跟著增加。',
+  rec:'原批改判錯；照片中已可見正確的紅筆 ×。',key:'ratio'},
+ {id:'S05',s:'soc',type:'single',src:'原卷 社會 U3 第 1 頁 三 選擇第 6 題',
+  q:'新竹縣 竹北市吸引青壯年人口移入的原因是什麼？',
+  opts:['地方政府努力發展觀光','鄰近科學園區及高鐵站','當地產業以農業為主','河運便利'],ans:1,
+  a:'答案 ② 鄰近科學園區及高鐵站。',why:'科學園區提供工作機會，高鐵站讓交通更方便，這些條件能吸引青壯年人口移入。',
+  rec:'老師訂正為②；原先鉛筆選項無法可靠還原。'},
+ {id:'S06',s:'soc',type:'single',src:'原卷 社會 U3 第 2 頁 三 選擇第 10 題',
+  q:'哪一個地方曾經因為盛產林木和礦產而繁榮？',
+  opts:['臺北市 大稻埕','新北市 九份','桃園市 中壢區','新竹縣 內灣'],ans:3,
+  a:'答案 ④ 新竹縣 內灣。',why:'內灣曾因林木和礦產資源帶動發展。記住各地早期繁榮的原因，就能分辨這些地名。',
+  rec:'原卷有扣分；照片中目前的鉛筆④與正解相同。'},
+ {id:'S07',s:'soc',type:'multi',src:'原卷 社會 U3 第 2 頁 五 勾選第 3 題',
+  q:'彰化縣 員林市近年來人口有增加的趨勢，主要原因是什麼？請打✓。',
+  opts:['產業發展帶來就業機會。','觀光業發展蓬勃帶來許多遊客。','新社區的建立。','公共建設規畫完善。'],ans:[0,2,3],
+  a:'答案 勾選（1）、（3）、（4）。',why:'工作機會、新社區和完善的公共建設，都能吸引人們移入居住。遊客增加不一定代表居住人口增加。',
+  rec:'原先漏勾（3），老師已補上紅色勾。'},
+ {id:'S08',s:'soc',type:'multi',src:'原卷 社會 U3 第 2 頁 五 勾選第 4 題',
+  q:'出生人數降低，將對家鄉產生什麼影響？請打✓。',
+  opts:['勞動人口減少。','老年人口大增。','因學生數減少，學校面臨併校或廢校危機。','婦女就業意願大減。'],ans:[0,2],
+  a:'答案 勾選（1）、（3）。',why:'出生人數減少，會使學生人數及未來的勞動人口減少；老年人口所占比例可能上升，卻不等於老年人口數量大增，也不能據此認為婦女就業意願大減。',
+  rec:'原先多勾（2）與（4），老師已標出。',key:'ratio'},
+ {id:'S09',s:'soc',type:'multi',src:'原卷 社會 U3 第 2 頁 五 勾選第 7 題',
+  q:'政府為了改善少子化而發放津貼的目的是什麼？請將正確的說明打✓。',
+  opts:['鼓勵民眾生育。','減少老年人口數量。','減輕家長養育子女的負擔。','減輕獨居長者的生活壓力。'],ans:[0,2],
+  a:'答案 勾選（1）、（3）。',why:'生育和育兒津貼可以減輕家長的養育負擔，鼓勵民眾生育；目的不是減少老年人口。',
+  rec:'原先多勾（2）；此題應勾（1）與（3）。'},
+ {id:'S10',s:'soc',type:'multi',src:'原卷 社會 U3 第 2 頁 五 勾選第 9 題',
+  q:'哪些現象促使臺灣步入高齡社會？請打✓。',
+  opts:['臺灣人的平均壽命提高。','臺灣的老年人口比例持續攀升，超過 14%。','醫療技術進步且保健觀念提升。','青壯年人口外移到都會區定居。'],ans:[0,1,2],
+  a:'答案 勾選（1）、（2）、（3）。',why:'壽命提高、醫療進步和保健觀念提升，與老年人口比例增加有關；國內地區之間的人口移動，不能直接使全臺灣的老年人口比例升高。',
+  rec:'原先漏勾（2），並多勾（4）。',key:'ratio'},
+
+ /* 國語：ch[0] 為正解；其餘 3 字為自編的形近／同音干擾字 */
+ {id:'C01',s:'chi',type:'char',src:'原卷第 5 組',q:'（ㄌㄧㄥˊ）聽',word:'聆聽',bi:0,zy:'ㄌㄧㄥˊ',ch:['聆','鈴','玲','伶'],
+  why:'「聆聽」是仔細地聽。「聆」的左邊是「耳」，可以用耳朵聽來幫助記憶。',rec:'原卷紅筆訂正。原先具體錯字或缺筆不作推測。'},
+ {id:'C02',s:'chi',type:'char',src:'原卷第 8 組',q:'煮蔬菜（ㄓㄡ）',word:'煮蔬菜粥',bi:3,zy:'ㄓㄡ',ch:['粥','弼','洲','州'],
+  why:'「粥」的中間是「米」，左右各有一個「弓」。蔬菜粥是加入蔬菜煮成的粥。',rec:'原卷紅筆訂正。原先具體錯字或缺筆不作推測。'},
+ {id:'C03',s:'chi',type:'char',src:'原卷第 9 組',q:'（ㄐㄧㄠˇ）枉過正',word:'矯枉過正',bi:0,zy:'ㄐㄧㄠˇ',ch:['矯','嬌','橋','驕'],
+  why:'「矯枉過正」指改正錯誤時做得過頭。「矯」的左邊是「矢」，右邊是「喬」。',rec:'原卷紅筆訂正。原先具體錯字或缺筆不作推測。'},
+ {id:'C04',s:'chi',type:'char',src:'原卷第 10 組',q:'（ㄖㄨㄥˊ）會貫通',word:'融會貫通',bi:0,zy:'ㄖㄨㄥˊ',ch:['融','溶','熔','容'],
+  why:'「融會貫通」指把不同的知識連結起來，充分理解並能靈活運用。記住這個成語用「融」。',rec:'原卷紅筆訂正。原先具體錯字或缺筆不作推測。'},
+ {id:'C05',s:'chi',type:'char',src:'原卷第 11 組',q:'春風吹（ㄈㄨˊ）',word:'春風吹拂',bi:3,zy:'ㄈㄨˊ',ch:['拂','佛','彿','沸'],
+  why:'「吹拂」形容風輕輕地吹過。「拂」的左邊是提手旁「扌」，右邊是「弗」。',rec:'原卷紅筆訂正。原先具體錯字或缺筆不作推測。'},
+ {id:'C06',s:'chi',type:'char',src:'原卷第 12 組',q:'蒸（ㄑㄧˋ）火車',word:'蒸汽火車',bi:1,zy:'ㄑㄧˋ',ch:['汽','氣','泣','迄'],
+  why:'「汽」的左邊是三點水「氵」，右邊是「气」。「蒸汽」指水受熱變成的氣體；「空氣」則用「氣」。',rec:'原卷紅筆訂正。原先具體錯字或缺筆不作推測。'},
+
+ /* 數學：q / a / work / tip / rec 照抄；steps 為自編引導（[[答案]] = 數字格，[[答案:正確單位,其他單位]] = 數字格＋單位格） */
+ {id:'M01',s:'math',type:'math',src:'原卷 U4 整數的除法 一、選擇題第 4 題',
+  q:'弟弟有一些貼紙，想平分給 7 個好朋友，最多會剩下幾張貼紙？<br>① 5張　② 6張　③ 7張　④ 8張',
+  steps:[
+   {t:'平分給 7 個人，剩下的張數（餘數）必須怎樣？',c:['比除數 7 小','可以等於 7','可以比 7 大'],a:0,hint:'如果還剩 7 張，每個人就能再分到 1 張喔！'},
+   {t:'比 7 小的最大整數是 [[6]]',hint:'7 的前一個整數是多少？'},
+   {t:'所以最多會剩下幾張？選一個：',c:['① 5張','② 6張','③ 7張','④ 8張'],a:1,hint:'剩 7 張還能再分，所以不行。'}
+  ],
+  a:'答案 ② 6 張。',work:['餘數必須小於除數 7。','比 7 小的最大整數是 6，所以最多剩 6 張。'],
+  tip:'如果還剩 7 張，每個人就能再分到 1 張，不能算是最後的剩餘。因此，分給 7 人時，最多只能剩 6 張。',
+  rec:'原選③「7 張」；老師已訂正為②。'},
+ {id:'M02',s:'math',type:'math',src:'原卷 U4 整數的除法 三、計算題第 5 題',
+  q:'700÷82＝（　　）……（　　）。',
+  steps:[
+   {t:'估商：82 × [[8]] 最接近 700，又不超過 700',hint:'試試看：82×9＝738，比 700 大了。'},
+   {t:'82 × 8 ＝ [[656]]'},
+   {t:'700 － 656 ＝ [[44]]'},
+   {t:'餘數 44 和除數 82 比一比：',c:['44 ＜ 82，可以當餘數','44 ＞ 82，還要再除'],a:0},
+   {t:'700÷82＝（ [[8]] ）……（ [[44]] ）'}
+  ],
+  a:'答案 商 8，餘 44。',work:['82×8＝656。','700－656＝44。','驗算：82×8＋44＝700，而且 44＜82。'],
+  tip:'除完後，要確認餘數比除數小，再用「除數×商＋餘數」檢查是否等於原來的被除數。',
+  rec:'原卷有扣分；目前商 8、餘 44 及直式都正確，可能已訂正。'},
+ {id:'M03',s:'math',type:'math',src:'原卷 U4 整數的除法 四、應用題第 3 題',
+  q:'燈泡工廠生產了 5765 個燈泡。如果每 6 個燈泡裝一盒，最多可裝滿幾盒？還剩下幾個燈泡？',
+  steps:[
+   {t:'5 個千不夠分成 6 份，先看 57 個百：57 ÷ 6，商 [[9]]，餘 [[3]]',hint:'6×9＝54，57－54＝3。'},
+   {t:'3 個百和 6 個十合成 36 個十：36 ÷ 6，商 [[6]]，餘 [[0]]'},
+   {t:'剩下 5 個一：5 ÷ 6 不夠 1 盒，商的個位寫 [[0]]，餘 [[5]]',hint:'不夠分時，商的個位要寫 0，不能省略。'},
+   {t:'5765÷6＝ [[960]] …… [[5]]'},
+   {t:'答：最多裝滿 [[960:盒,個]]，還剩下 [[5:個,盒]] 燈泡。'}
+  ],
+  a:'答案 最多裝滿 960 盒，剩 5 個燈泡。',work:['5765÷6＝960……5。','驗算：960×6＋5＝5765，而且 5＜6。'],
+  tip:'算到個位時，剩下的 5 不夠再裝 1 盒，商的個位要寫 0，不能省略。最後剩下 5 個燈泡。',
+  rec:'原卷有扣分；目前 960 盒、剩 5 個正確。原始錯誤無法還原。'},
+ {id:'M04',s:'math',type:'math',src:'原卷 U4 整數的除法 四、應用題第 6 題',
+  q:'一臺車每趟最多可以載 48 隻鴨，用一臺車載 3157 隻鴨，最少需要幾趟才能載完？',
+  steps:[
+   {t:'3157÷48＝ [[65]] …… [[37]]',hint:'48×60＝2880，48×70＝3360，商在 60 和 70 之間。'},
+   {t:'65 趟可以載 48×65＝ [[3120]] 隻，還剩 [[37]] 隻。'},
+   {t:'剩下的 37 隻怎麼辦？',c:['還需要再載 1 趟','不用載了','還要再 37 趟'],a:0,hint:'只要還有鴨子沒載到，就要再增加 1 趟。'},
+   {t:'列式：65＋ [[1]] ＝ [[66]]',hint:'加上的是最後多跑的那 1 趟喔（不是 66）。'},
+   {t:'答：最少需要 [[66:趟,隻,臺]]。'}
+  ],
+  a:'答案 最少需要 66 趟。',work:['3157÷48＝65……37。','65 趟可以載 48×65＝3120 隻，還剩 37 隻。','剩下 37 隻還需要 1 趟，所以 65＋1＝66（趟）。'],
+  tip:'題目問最少要幾趟才能全部載完。即使最後一趟沒有坐滿，只要還有鴨子沒載到，就要再增加 1 趟。',
+  rec:'最後 66 趟正確；橫式「65＋66＝66」應改為「65＋1＝66」。'},
+ {id:'M05',s:'math',type:'math',src:'原卷 U5 公里 二、填填看第 2 題',
+  q:'50 公里 7 公尺＝（　　　）公尺。',
+  steps:[
+   {t:'1 公里＝ [[1000]] 公尺'},
+   {t:'50 公里＝50×1000＝ [[50000]] 公尺'},
+   {t:'50000＋7＝ [[50007]]',hint:'7 在個位，沒有數量的位數要用 0 補齊。'},
+   {t:'50 公里 7 公尺＝ [[50007:公尺,公里]]'}
+  ],
+  a:'答案 50007 公尺。',work:['1 公里＝1000 公尺。','50 公里＝50×1000＝50000 公尺。','50000＋7＝50007（公尺）。'],
+  tip:'先把 50 公里換成公尺，再加上原來的 7 公尺。7 在個位，沒有數量的位數要用 0 補齊。',
+  rec:'原卷有扣分；目前看起來已填 50007，可能已訂正。'},
+ {id:'M06',s:'math',type:'math',src:'原卷 U5 公里 五、應用題第 1 題',
+  q:'哥哥練習跑步，今天跑了 8 公里 590 公尺，今天比昨天多跑了 1480 公尺，昨天哥哥跑了幾公里幾公尺？',
+  steps:[
+   {t:'今天跑得比較多。昨天的距離要怎麼算？',c:['今天的距離 － 多跑的距離','今天的距離 ＋ 多跑的距離'],a:0,hint:'昨天跑得比較少喔。'},
+   {t:'1480 公尺＝ [[1]] 公里 [[480]] 公尺',hint:'1000 公尺＝1 公里。'},
+   {t:'8 公里 590 公尺－1 公里 480 公尺＝ [[7:公里,公尺]] [[110:公尺,公里]]'},
+   {t:'哪一個答句寫完整了？',c:['昨天跑了 7 km 110','昨天跑了 7 公里 110 公尺','昨天跑了 7 公里 110'],a:1,hint:'答句中的數字和單位都要完整寫出。'}
+  ],
+  a:'答案 昨天跑了 7 公里 110 公尺。',work:['1480 公尺＝1 公里 480 公尺。','8 公里 590 公尺－1 公里 480 公尺＝7 公里 110 公尺。'],
+  tip:'今天跑得比較多，要用今天的距離減去多跑的距離。答句中的數字和單位都要完整寫出。',
+  rec:'數值正確；原答句「7 km 110」漏寫公尺單位，老師已補上。'},
+ {id:'M07',s:'math',type:'math',src:'原卷 U5 公里 五、應用題第 6 題',
+  q:'清潔工人清掃馬路，第二天掃了 2 公里 100 公尺，比第一天多掃了 150 公尺，這兩天一共掃了幾公里幾公尺？',
+  steps:[
+   {t:'第二天比第一天多掃 150 公尺。第一天要怎麼算？',c:['第二天的距離 － 150 公尺','第二天的距離 ＋ 150 公尺'],a:0,hint:'第一天掃得比較少喔。'},
+   {t:'第一天：2 公里 100 公尺－150 公尺＝ [[1]] 公里 [[950]] 公尺',hint:'100 公尺不夠減 150 公尺，先從 2 公里借 1 公里＝1000 公尺。'},
+   {t:'兩天合計：1 公里 950 公尺＋ [[2]] 公里 [[100]] 公尺',hint:'加法算式中的兩個加數都要寫完整：第二天掃了多少？'},
+   {t:'＝ [[4:公里,公尺]] [[50:公尺,公里]]',hint:'950＋100＝1050 公尺＝1 公里 50 公尺。'}
+  ],
+  a:'答案 兩天一共掃了 4 公里 50 公尺。',work:['第一天：2 公里 100 公尺－150 公尺＝1 公里 950 公尺。','兩天合計：1 公里 950 公尺＋2 公里 100 公尺＝4 公里 50 公尺。'],
+  tip:'先求第一天掃了多少，再把第一天和第二天的距離相加。加法算式中的兩個加數都要寫完整。',
+  rec:'答案正確；原加法橫式漏列第二天的距離，照片已有補寫。'},
+ {id:'M08',s:'math',type:'math',src:'原卷 四上數學期中複習卷 第 52 頁 八、素養題第（2）題',
+  q:'1 公斤冰糖 65 元，1 公斤砂糖 28 元，廚師買了 4030 元的冰糖和 2100 元的砂糖，哪一種糖買的重量比較多？',
+  steps:[
+   {t:'冰糖：4030÷65＝ [[62:公斤,元]]',hint:'用購買金額除以每公斤的價格。65×60＝3900，還剩 130。'},
+   {t:'砂糖：2100÷28＝ [[75:公斤,元]]',hint:'28×70＝1960，還剩 140。'},
+   {t:'哪一種糖買的重量比較多？',c:['砂糖（75 公斤）','冰糖（62 公斤）','一樣多'],a:0,hint:'比的是公斤數，不是花的錢。'}
+  ],
+  a:'答案 砂糖買的重量比較多；冰糖 62 公斤，砂糖 75 公斤。',work:['冰糖：4030÷65＝62（公斤）。','砂糖：2100÷28＝75（公斤）。','75＞62，所以砂糖買的重量比較多。','驗算：65×62＝4030；28×75＝2100。'],
+  tip:'分別用購買金額除以每公斤的價格，求出兩種糖的重量，再比較公斤數。算完除法後，用乘法驗算。',
+  rec:'原答冰糖；兩次除法均錯。此題是重新核算確認，未見老師批改。'},
+ {id:'M09',s:'math',type:'math',src:'原卷 四上數學期中複習卷 第 52 頁 七、應用題第（6）題',
+  q:'甲步道長 4 公里 159 公尺，乙步道長 5 公里 886 公尺，甲、乙兩步道共長幾公里幾公尺？',
+  steps:[
+   {t:'先加公尺：159 公尺＋886 公尺＝ [[1045]] 公尺'},
+   {t:'1045 公尺＝ [[1]] 公里 [[45]] 公尺',hint:'公尺滿 1000 時，換成 1 公里。'},
+   {t:'4 公里 159 公尺＋5 公里 886 公尺＝ [[10:公里,公尺]] [[45:公尺,公里]]',hint:'公里相加：4＋5，再加上換來的 1 公里。'}
+  ],
+  a:'答案 共長 10 公里 45 公尺。',work:['159 公尺＋886 公尺＝1045 公尺＝1 公里 45 公尺。','4 公里 159 公尺＋5 公里 886 公尺＝10 公里 45 公尺。'],
+  tip:'公里和公尺分別相加；公尺滿 1000 時，換成 1 公里。橫式中的每個距離都要寫清楚單位。',
+  rec:'答案正確；橫式「4 km 159」漏了 m。未見老師因此扣分。'}
+];
+
+var KEY='mistakesV1';
+var BY={},i;
+for(i=0;i<ITEMS.length;i++)BY[ITEMS[i].id]=ITEMS[i];
+function $(id){return document.getElementById(id);}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function p2(n){return n<10?'0'+n:''+n;}
+function nowStr(){var d=new Date();return d.getFullYear()+'-'+p2(d.getMonth()+1)+'-'+p2(d.getDate())+' '+p2(d.getHours())+':'+p2(d.getMinutes());}
+function shuffle(a){a=a.slice();for(var j=a.length-1;j>0;j--){var k=Math.floor(Math.random()*(j+1)),t=a[j];a[j]=a[k];a[k]=t;}return a;}
+var CIRC=['①','②','③','④'];
+
+/* ---------- 紀錄 ---------- */
+var S=load();
+function load(){var o=null;try{o=JSON.parse(localStorage.getItem(KEY)||'null');}catch(e){o=null;}
+ if(!o||typeof o!=='object')o={};if(!o.items||typeof o.items!=='object')o.items={};o.v=1;return o;}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+function record(id,ok){var r=S.items[id];if(!r||!r.a)r=S.items[id]={a:[]};r.a.push([nowStr(),ok?1:0]);if(r.a.length>60)r.a=r.a.slice(-60);save();}
+/* n=未做 w=再練（最後一次答錯） h=答對 1 次，還差 1 次 m=會了（連續答對 2 次以上） */
+function status(id){var r=S.items[id];if(!r||!r.a||!r.a.length)return 'n';var a=r.a,k=0,j;for(j=a.length-1;j>=0&&a[j][1];j--)k++;return k===0?'w':(k>=2?'m':'h');}
+var STL={n:'未做',w:'🔁 再練',h:'會了 1/2',m:'⭐ 會了'};
+function listBy(fn){var o=[];for(var j=0;j<ITEMS.length;j++)if(fn(ITEMS[j]))o.push(ITEMS[j].id);return o;}
+
+/* ---------- 音效 ---------- */
+var acted=false,actx=null;
+function markActed(){acted=true;}
+document.addEventListener('pointerdown',markActed,true);document.addEventListener('touchstart',markActed,true);
+document.addEventListener('keydown',markActed,true);document.addEventListener('click',markActed,true);
+function beep(kind){if(S.mute||!acted)return;try{
+ if(!actx){var AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;actx=new AC();}
+ if(actx.state==='suspended'&&actx.resume)actx.resume();
+ var seq=kind==='ok'?[660,880]:kind==='win'?[523,659,784,1047]:kind==='tap'?[520]:[300,220];
+ for(var j=0;j<seq.length;j++){var o=actx.createOscillator(),g=actx.createGain(),t=actx.currentTime+j*0.11;
+  o.type=kind==='no'?'triangle':'sine';o.frequency.value=seq[j];g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(0.18,t+0.02);g.gain.exponentialRampToValueAtTime(0.0001,t+0.2);
+  o.connect(g);g.connect(actx.destination);o.start(t);o.stop(t+0.22);}
+}catch(e){}}
+function confetti(n){var em=['⭐','🎉','✨','🌟','🎈'];for(var j=0;j<(n||16);j++){var d=document.createElement('div');d.className='conf';d.textContent=em[j%em.length];
+ d.style.left=Math.random()*96+'vw';d.style.animationDuration=(1.6+Math.random()*1.4)+'s';d.style.animationDelay=(Math.random()*0.4)+'s';document.body.appendChild(d);
+ (function(x){setTimeout(function(){if(x.parentNode)x.parentNode.removeChild(x);},3600);})(d);}}
+
+/* ---------- 頁面切換 ---------- */
+var page='map',curIsl=null;
+function show(p){page=p;var ps=['map','island','play','done'];for(var j=0;j<ps.length;j++)$('pg-'+ps[j]).className='page'+(ps[j]===p?' active':'');
+ var b=$('backBtn');b.textContent=p==='map'?'← 樂園':'← 地圖';
+ $('ttl').textContent=p==='map'?'🏝️ 錯題大挑戰':(p==='island'||p==='play')&&curIsl?SUBJ[curIsl].emoji+' '+SUBJ[curIsl].name+'島':'🏝️ 錯題大挑戰';
+ try{window.scrollTo(0,0);}catch(e){}}
+$('backBtn').addEventListener('click',function(e){if(page==='map')return;e.preventDefault();
+ if(page==='play'&&play&&play.from!=='retry'&&curIsl){renderIsland(curIsl);show('island');}else{renderMap();show('map');}});
+$('muteBtn').addEventListener('click',function(){S.mute=!S.mute;save();updMute();});
+function updMute(){$('muteBtn').textContent=S.mute?'🔇':'🔊';}
+function updScore(){var m=listBy(function(it){return status(it.id)==='m';}).length;var sc=$('score');sc.textContent='⭐ '+m+'/'+ITEMS.length;}
+function pop(){var sc=$('score');sc.className='score';void sc.offsetWidth;sc.className='score pop';}
+
+/* ---------- 地圖 ---------- */
+function islandSvg(k){var s=SUBJ[k];
+ return '<svg viewBox="0 0 240 170" aria-hidden="true"><ellipse cx="120" cy="140" rx="112" ry="26" fill="rgba(255,255,255,.35)"/>'+
+ '<ellipse cx="120" cy="132" rx="100" ry="28" fill="'+s.sand+'"/><path d="M40 128q30-62 80-66q52 2 80 66z" fill="#80d68a"/>'+
+ '<path d="M150 70q2-30 6-48" stroke="#8d5a2b" stroke-width="7" fill="none" stroke-linecap="round"/>'+
+ '<path d="M156 24q-24-8-38 6q20-4 38-6zm0 0q24-10 40 2q-22 0-40-2zm0 0q-6-18 6-26q-2 14-6 26zm0 0q14 6 18 22q-12-10-18-22z" fill="#2b9348"/>'+
+ '<path d="M70 66v-40" stroke="#555" stroke-width="3"/><path d="M70 26l30 9l-30 9z" fill="'+s.color+'"/>'+
+ '<text x="110" y="122" font-size="46" text-anchor="middle">'+s.emoji+'</text></svg>';}
+function starsFor(k){var ids=listBy(function(it){return it.s===k;}),h='',m=0;
+ for(var j=0;j<ids.length;j++){var st=status(ids[j]);if(st==='m'){m++;h+='⭐';}else if(st==='h')h+='🌟';else if(st==='w')h+='🔸';else h+='▫️';}
+ return {html:h,m:m,n:ids.length};}
+function renderMap(){var ks=['soc','chi','math'],h='';
+ for(var j=0;j<ks.length;j++){var k=ks[j],st=starsFor(k);
+  h+='<button class="isl" type="button" data-isl="'+k+'" id="isl-'+k+'">'+islandSvg(k)+'<span class="lab"><b>'+SUBJ[k].emoji+' '+SUBJ[k].name+'島</b>'+
+   '<span class="st" aria-hidden="true">'+st.html+'</span><span class="n">會了 '+st.m+'/'+st.n+' 題</span></span></button>';}
+ $('islands').innerHTML=h;
+ var bs=$('islands').querySelectorAll('.isl');for(j=0;j<bs.length;j++)bs[j].addEventListener('click',function(){beep('tap');curIsl=this.getAttribute('data-isl');renderIsland(curIsl);show('island');});
+ var m=listBy(function(it){return status(it.id)==='m';}).length;$('allBar').style.width=Math.round(m*100/ITEMS.length)+'%';
+ $('allTxt').textContent='會了 '+m+'/'+ITEMS.length+' 題'+(m===ITEMS.length?'　🏆 全部過關！':'');
+ renderRetry();renderParent();updScore();}
+function chipsHtml(ids,cls){var h='';for(var j=0;j<ids.length;j++)h+='<button type="button" class="chip '+cls+'" data-one="'+ids[j]+'" style="min-height:44px;cursor:pointer;font-family:inherit">'+ids[j]+'</button>';return h;}
+function renderRetry(){var w=listBy(function(it){return status(it.id)==='w';}),hh=listBy(function(it){return status(it.id)==='h';}),h='';
+ if(!w.length&&!hh.length){var any=listBy(function(it){return status(it.id)!=='n';}).length;
+  h='<p class="lead">'+(any?'目前沒有要再練的題目 🎉':'還沒開始挑戰。答錯的題目會自動放進這裡！')+'</p>';}
+ if(w.length){h+='<p class="lead">答錯的題目（'+w.length+' 題）：</p><div class="ids">'+chipsHtml(w,'')+'</div>'+
+  '<div class="btns"><button class="btn pink" type="button" id="retryGo">▶ 開始再練一次（'+w.length+' 題）</button></div>';}
+ if(hh.length){h+='<p class="lead" style="margin-top:10px">再答對 1 次就「會了」：</p><div class="ids">'+chipsHtml(hh,'y')+'</div>'+
+  '<div class="btns"><button class="btn sun" type="button" id="halfGo">▶ 練這些（'+hh.length+' 題）</button></div>';}
+ $('retryBody').innerHTML=h;
+ if($('retryGo'))$('retryGo').addEventListener('click',function(){startRound(w,'retry');});
+ if($('halfGo'))$('halfGo').addEventListener('click',function(){startRound(hh,'retry');});
+ var cs=$('retryBody').querySelectorAll('[data-one]');for(var j=0;j<cs.length;j++)cs[j].addEventListener('click',function(){startRound([this.getAttribute('data-one')],'retry');});}
+function renderParent(){var h='<tr><th>題號</th><th>狀態</th><th>作答紀錄（日期 ✓/✗）</th><th>原卷紀錄</th></tr>';
+ for(var j=0;j<ITEMS.length;j++){var it=ITEMS[j],r=S.items[it.id],a=r&&r.a?r.a:[],t='';
+  for(var k=Math.max(0,a.length-6);k<a.length;k++)t+=(t?'<br>':'')+esc(a[k][0])+' '+(a[k][1]?'✓':'✗');
+  if(a.length>6)t='…共 '+a.length+' 次<br>'+t;
+  h+='<tr data-id="'+it.id+'"><td class="id">'+it.id+'<br><span class="rec">'+SUBJ[it.s].name+'</span></td><td class="stc">'+STL[status(it.id)]+'</td><td>'+(t||'—')+'</td><td class="rec">'+esc(it.rec)+'</td></tr>';}
+ $('ptab').innerHTML=h;}
+$('resetBtn').addEventListener('click',function(){if(!window.confirm('確定要清除「錯題大挑戰」的所有紀錄嗎？'))return;var mu=S.mute;S={v:1,items:{},mute:mu};save();renderMap();});
+
+/* ---------- 島嶼 ---------- */
+function renderIsland(k){var s=SUBJ[k],ids=listBy(function(it){return it.s===k;}),st=starsFor(k);
+ var left=listBy(function(it){return it.s===k&&status(it.id)!=='m';});
+ $('islHead').innerHTML='<h2>'+s.emoji+' '+s.name+'島 <span class="tag">'+esc(s.scope)+'</span></h2>'+
+  '<div class="pbar"><i style="width:'+Math.round(st.m*100/st.n)+'%"></i></div><p class="small">會了 '+st.m+'/'+st.n+' 題　'+st.html+'</p>'+
+  '<div class="tip'+(k==='chi'?' pink':k==='soc'?' green':'')+'">'+esc(s.note)+'</div>'+
+  '<div class="btns"><button class="btn teal" type="button" id="goAll">▶ 全部挑戰（'+ids.length+' 題）</button>'+
+  (left.length&&left.length<ids.length?'<button class="btn sun" type="button" id="goLeft">▶ 只練還沒會的（'+left.length+' 題）</button>':'')+'</div>';
+ $('goAll').addEventListener('click',function(){startRound(ids,'isl');});
+ if($('goLeft'))$('goLeft').addEventListener('click',function(){startRound(left,'isl');});
+ var h='';for(var j=0;j<ids.length;j++){var it=BY[ids[j]],ss=status(it.id),tx=it.type==='char'?it.q:it.q.replace(/<br>.*$/,'');
+  h+='<button type="button" class="it s-'+ss+'" data-one="'+it.id+'"><span class="id">'+it.id+'</span><span class="tx">'+esc(tx)+'</span><span class="bd">'+STL[ss]+'</span></button>';}
+ $('islItems').innerHTML=h;
+ var bs=$('islItems').querySelectorAll('[data-one]');for(j=0;j<bs.length;j++)bs[j].addEventListener('click',function(){startRound([this.getAttribute('data-one')],'isl');});}
+
+/* ---------- 一輪 ---------- */
+var play=null,cur=null;
+function startRound(ids,from){if(!ids.length)return;beep('tap');play={ids:ids.slice(),i:0,from:from,res:{}};
+ if(from==='retry'){var f=BY[ids[0]];curIsl=f.s;}else{curIsl=BY[ids[0]].s;}
+ renderItem();show('play');}
+function renderItem(){var id=play.ids[play.i],it=BY[id];curIsl=it.s;
+ $('ttl').textContent=SUBJ[it.s].emoji+' '+SUBJ[it.s].name+'島';
+ $('pCnt').textContent='第 '+(play.i+1)+'/'+play.ids.length+' 題';$('pSrc').textContent=it.src;$('pNext').innerHTML='';
+ cur={id:id,done:false,ok:null,wrong:0,step:0};
+ if(it.type==='tf')rTF(it);else if(it.type==='single')rSingle(it);else if(it.type==='multi')rMulti(it);else if(it.type==='char')rChar(it);else rMath(it);
+ try{window.scrollTo(0,0);}catch(e){}}
+function finish(ok){if(cur.done)return;cur.done=true;cur.ok=ok;play.res[cur.id]=ok;record(cur.id,ok);
+ var st=status(cur.id);beep(ok?'ok':'no');if(ok&&st==='m'){confetti(14);pop();}updScore();
+ var last=play.i>=play.ids.length-1;
+ $('pNext').innerHTML='<button class="btn '+(last?'sun':'teal')+'" type="button" id="nextBtn">'+(last?'🏁 看這一輪結果':'下一題 ➜')+'</button>';
+ $('nextBtn').addEventListener('click',function(){if(last)renderDone();else{play.i++;renderItem();}});}
+function resHtml(ok,extra){var st=status(cur.id);
+ return '<div class="res '+(ok?'ok':'no')+'" id="res"><h3>'+(ok?'✅ 答對了！':'❌ 這次沒答對，沒關係！')+'</h3>'+
+  '<div class="small" style="color:inherit">'+(ok?(st==='m'?'連續答對 2 次，這題「會了」⭐':'再答對 1 次就「會了」！'):'這題已放進「再練一次」，之後連續答對 2 次就會了。')+'</div>'+(extra||'')+'</div>';}
+function socAns(it){return '<div class="ansbox"><div class="a">'+esc(it.a)+'</div><div class="rz">'+esc(it.why)+'</div></div>'+(it.key?'<div class="key">'+KEYS[it.key]+'</div>':'');}
+function qHead(it,label){return '<div class="q"><span class="qid">'+it.id+'</span><span class="tag">'+label+'</span><br>'+esc(it.q)+'</div>';}
+
+/* 社會：是非 */
+function rTF(it){$('pBody').innerHTML=qHead(it,'是非判斷')+
+ '<div class="tf"><button class="tfb" type="button" data-v="O">○<span class="l">正確</span></button><button class="tfb" type="button" data-v="X">×<span class="l">錯誤</span></button></div><div id="fb"></div>';
+ var bs=$('pBody').querySelectorAll('.tfb');
+ for(var j=0;j<bs.length;j++)bs[j].addEventListener('click',function(){if(cur.done)return;var v=this.getAttribute('data-v'),ok=v===it.ans;
+  for(var k=0;k<bs.length;k++){bs[k].disabled=true;var bv=bs[k].getAttribute('data-v');if(bv===it.ans)bs[k].className='tfb ok';else if(bv===v)bs[k].className='tfb bad';}
+  $('fb').innerHTML=resHtml(ok,socAns(it));finish(ok);});}
+/* 社會：單選 */
+function rSingle(it){var h=qHead(it,'選一個答案')+'<div class="opts two">';
+ for(var j=0;j<it.opts.length;j++)h+='<button class="opt" type="button" data-i="'+j+'"><span class="bx">'+(j+1)+'</span><span>（'+(j+1)+'）'+esc(it.opts[j])+'</span><span class="mk"></span></button>';
+ $('pBody').innerHTML=h+'</div><div id="fb"></div>';
+ var bs=$('pBody').querySelectorAll('.opt');
+ for(j=0;j<bs.length;j++)bs[j].addEventListener('click',function(){if(cur.done)return;var v=+this.getAttribute('data-i'),ok=v===it.ans;
+  for(var k=0;k<bs.length;k++){bs[k].disabled=true;var mk=bs[k].querySelector('.mk');
+   if(k===it.ans){bs[k].className='opt ok';mk.textContent='正確答案';}else if(k===v){bs[k].className='opt bad';mk.textContent='我選的';}}
+  $('fb').innerHTML=resHtml(ok,socAns(it));finish(ok);});}
+/* 社會：複選 */
+function rMulti(it){var h=qHead(it,'勾選所有正確選項（可能不只一個）')+'<div class="opts">';
+ for(var j=0;j<it.opts.length;j++)h+='<button class="opt" type="button" data-i="'+j+'" aria-pressed="false"><span class="bx"></span><span>（'+(j+1)+'）'+esc(it.opts[j])+'</span><span class="mk"></span></button>';
+ $('pBody').innerHTML=h+'</div><div class="btns"><button class="btn" type="button" id="chk">✔ 檢查</button></div><div id="fb"></div>';
+ var bs=$('pBody').querySelectorAll('.opt'),pick=[false,false,false,false];
+ for(j=0;j<bs.length;j++)bs[j].addEventListener('click',function(){if(cur.done)return;var v=+this.getAttribute('data-i');pick[v]=!pick[v];beep('tap');
+  this.className='opt'+(pick[v]?' on':'');this.setAttribute('aria-pressed',pick[v]?'true':'false');this.querySelector('.bx').textContent=pick[v]?'✓':'';$('fb').innerHTML='';});
+ $('chk').addEventListener('click',function(){if(cur.done)return;var n=0,k;for(k=0;k<4;k++)if(pick[k])n++;
+  if(!n){$('fb').innerHTML='<div class="sfb no">先勾選你認為正確的選項，再按「檢查」喔！</div>';return;}
+  var miss=0,extra=0;
+  for(k=0;k<4;k++){var should=it.ans.indexOf(k)>=0,mk=bs[k].querySelector('.mk');bs[k].disabled=true;
+   if(pick[k]&&should){bs[k].className='opt on ok';mk.textContent='✓ 對';}
+   else if(pick[k]&&!should){bs[k].className='opt on bad';mk.textContent='✗ 多勾';extra++;}
+   else if(!pick[k]&&should){bs[k].className='opt miss';mk.textContent='⚠ 漏勾';miss++;bs[k].querySelector('.bx').textContent='✓';}
+   else{bs[k].className='opt';mk.textContent='不用勾';mk.style.color='#888';}}
+  this.disabled=true;this.style.display='none';var ok=!miss&&!extra;
+  var sm=ok?'':'<div class="sfb no" id="mxsum">'+(miss?'漏勾 '+miss+' 個':'')+(miss&&extra?'、':'')+(extra?'多勾 '+extra+' 個':'')+'</div>';
+  $('fb').innerHTML=resHtml(ok,sm+socAns(it));finish(ok);});}
+
+/* 國語：選字（點選或拖曳到空格） */
+function rChar(it){var h=qHead(it,'選出正確的字')+'<div class="word">';
+ for(var j=0;j<it.word.length;j++){if(j===it.bi)h+='<span class="ch blank" id="blank">？</span><span class="zy">'+esc(it.zy)+'</span>';else h+='<span class="ch">'+esc(it.word.charAt(j))+'</span>';}
+ h+='</div><p class="small" style="text-align:center">點一下或把字拖到空格裡</p><div class="pick" id="pick">';
+ var ch=shuffle(it.ch);for(j=0;j<ch.length;j++)h+='<button class="tile" type="button" data-c="'+esc(ch[j])+'">'+esc(ch[j])+'</button>';
+ $('pBody').innerHTML=h+'</div><div id="fb"></div>';
+ var bs=$('pick').querySelectorAll('.tile'),blank=$('blank');
+ function choose(btn){if(cur.done||btn.disabled)return;var c=btn.getAttribute('data-c');
+  if(c===it.ch[0]){blank.textContent=c;blank.className='ch blank ok';btn.className='tile ok';
+   for(var k=0;k<bs.length;k++)bs[k].disabled=true;var ok=cur.wrong===0;
+   $('fb').innerHTML=resHtml(ok,'<div class="ansbox"><div class="a">'+esc(it.ch[0])+'　'+esc(it.zy)+'　完整詞語：'+esc(it.word)+'</div><div class="rz">'+esc(it.why)+'</div></div>'+
+    '<div class="tip pink">'+esc(SUBJ.chi.note)+'</div>');finish(ok);}
+  else{cur.wrong++;blank.textContent=c;blank.className='ch blank bad';btn.className='tile bad';btn.disabled=true;beep('no');
+   $('fb').innerHTML='<div class="sfb no" id="cfb">不是「'+esc(c)+'」喔！看清楚每一筆，再找找看。</div>';
+   setTimeout(function(){if(!cur.done&&blank.className.indexOf('bad')>=0){blank.textContent='？';blank.className='ch blank';}},700);}}
+ for(j=0;j<bs.length;j++)(function(btn){var sx=0,sy=0,down=false,drag=false,gh=null;
+  btn.addEventListener('click',function(e){if(btn._dragged){btn._dragged=false;return;}choose(btn);});
+  btn.addEventListener('pointerdown',function(e){if(btn.disabled)return;down=true;drag=false;sx=e.clientX;sy=e.clientY;});
+  btn.addEventListener('pointermove',function(e){if(!down)return;var dx=e.clientX-sx,dy=e.clientY-sy;
+   if(!drag&&dx*dx+dy*dy>100){drag=true;try{btn.setPointerCapture(e.pointerId);}catch(x){}gh=document.createElement('div');gh.className='ghost';gh.textContent=btn.getAttribute('data-c');document.body.appendChild(gh);}
+   if(drag){gh.style.left=e.clientX+'px';gh.style.top=e.clientY+'px';var r=blank.getBoundingClientRect(),over=e.clientX>=r.left&&e.clientX<=r.right&&e.clientY>=r.top&&e.clientY<=r.bottom;
+    if(!cur.done&&blank.className.indexOf('ok')<0)blank.className='ch blank'+(over?' over':'');}});
+  function up(e){if(!down)return;down=false;if(!drag)return;btn._dragged=true;setTimeout(function(){btn._dragged=false;},350);if(gh&&gh.parentNode)gh.parentNode.removeChild(gh);gh=null;
+   var r=blank.getBoundingClientRect();if(blank.className.indexOf('ok')<0&&blank.className.indexOf('bad')<0)blank.className='ch blank';
+   if(e.type==='pointerup'&&e.clientX>=r.left-10&&e.clientX<=r.right+10&&e.clientY>=r.top-10&&e.clientY<=r.bottom+10)choose(btn);}
+  btn.addEventListener('pointerup',up);btn.addEventListener('pointercancel',up);})(bs[j]);}
+
+/* 數學：分步驟 */
+function parseStep(st){var parts=st.t.split(/\[\[([^\]]+)\]\]/),fs=[];
+ for(var j=1;j<parts.length;j+=2){var p=parts[j].split(':');fs.push({ans:p[0],val:'',units:p[1]?p[1].split(','):null,unit:null});}
+ return {parts:parts,fs:fs};}
+function rMath(it){cur.steps=[];for(var j=0;j<it.steps.length;j++){var ps=it.steps[j].c?{parts:[it.steps[j].t],fs:[]}:parseStep(it.steps[j]);ps.sw=0;ps.done=false;ps.bad={};ps.msg='';cur.steps.push(ps);}
+ cur.focus=0;cur.uo=[];for(j=0;j<it.steps.length;j++)cur.uo.push(null);drawMath(it);}
+function fieldHtml(si,fi,f,done,mark){var h='<button type="button" class="nb'+(done?' ok':mark==='bad'?' bad':(cur.step===si&&cur.focus===fi&&!done?' f':''))+'" data-f="'+fi+'">'+esc(f.val)+'</button>';
+ if(f.units){if(!cur.uo[si])cur.uo[si]={};if(!cur.uo[si][fi])cur.uo[si][fi]=shuffle(f.units);var uo=cur.uo[si][fi];
+  h+='<span class="ug'+(done?' ok':mark==='ubad'?' bad':'')+'">';for(var k=0;k<uo.length;k++)h+='<button type="button" class="ub'+(f.unit===uo[k]?' on':'')+'" data-u="'+fi+'" data-uv="'+esc(uo[k])+'">'+esc(uo[k])+'</button>';h+='</span>';}
+ return h;}
+function drawMath(it){var h=qHead(it,'一步一步來')+'<div class="mq" style="display:none"></div><div class="steps" id="steps">';
+ for(var si=0;si<=Math.min(cur.step,it.steps.length-1);si++){var st=it.steps[si],ps=cur.steps[si],done=ps.done;
+  h+='<div class="stp'+(done?' done':' cur')+'" data-s="'+si+'"><span class="sn">步驟 '+(si+1)+'/'+it.steps.length+(done?' ✓':'')+'</span><div class="t">';
+  if(st.c){h+=esc(st.t)+'</div><div class="opts'+(st.c.length===2?' two':'')+'">';
+   for(var k=0;k<st.c.length;k++){var cl=done&&k===st.a?' ok':(ps.bad[k]?' bad':'');h+='<button type="button" class="opt'+cl+'" data-c="'+k+'"'+(done||ps.bad[k]?' disabled':'')+'><span>'+esc(st.c[k])+'</span></button>';}
+   h+='</div>';}
+  else{for(var p=0;p<ps.parts.length;p++){if(p%2===0)h+=esc(ps.parts[p]);else{var fi=(p-1)/2;h+=fieldHtml(si,fi,ps.fs[fi],done,ps.bad[fi]);}}h+='</div>';
+   if(!done)h+='<div class="pad">'+'1234567890'.split('').map(function(d){return '<button type="button" data-d="'+d+'">'+d+'</button>';}).join('')+'<button type="button" class="del" data-d="del">⌫</button><button type="button" data-d="next" aria-label="下一格">➜</button></div>'+
+    '<div class="btns"><button class="btn" type="button" id="stepChk">✔ 檢查這一步</button>'+(ps.sw>=2?'<button class="btn white small" type="button" id="peek">👀 看答案</button>':'')+'</div>';}
+  if(ps.msg)h+='<div class="sfb '+(done?'ok':'no')+'">'+ps.msg+'</div>';
+  h+='</div>';}
+ h+='</div><div id="fb"></div>';
+ $('pBody').innerHTML=h.replace('<div class="mq" style="display:none"></div>','');
+ /* 題目原文放在步驟上方 */
+ var q=$('pBody').querySelector('.q');q.innerHTML='<span class="qid">'+it.id+'</span><span class="tag">一步一步來</span>';
+ var mq=document.createElement('div');mq.className='mq';mq.innerHTML=it.q;q.parentNode.insertBefore(mq,q.nextSibling);
+ bindMath(it);
+ if(cur.step>=it.steps.length)mathEnd(it);}
+function bindMath(it){var box=$('steps'),si=cur.step;if(si>=it.steps.length)return;var st=it.steps[si],ps=cur.steps[si];
+ var cs=box.querySelectorAll('.stp[data-s="'+si+'"] .opt');
+ for(var j=0;j<cs.length;j++)cs[j].addEventListener('click',function(){var k=+this.getAttribute('data-c');
+  if(k===st.a){ps.done=true;ps.msg='👍 對！';beep('ok');cur.step++;}else{ps.bad[k]=true;ps.sw++;cur.wrong++;ps.msg='再想想看。'+(st.hint?esc(st.hint):'');beep('no');}
+  drawMath(it);});
+ var nb=box.querySelectorAll('.stp[data-s="'+si+'"] .nb');
+ for(j=0;j<nb.length;j++)nb[j].addEventListener('click',function(){cur.focus=+this.getAttribute('data-f');drawMath(it);});
+ var ub=box.querySelectorAll('.stp[data-s="'+si+'"] .ub');
+ for(j=0;j<ub.length;j++)ub[j].addEventListener('click',function(){var f=ps.fs[+this.getAttribute('data-u')];f.unit=this.getAttribute('data-uv');beep('tap');drawMath(it);});
+ var pd=box.querySelectorAll('.pad button');
+ for(j=0;j<pd.length;j++)pd[j].addEventListener('click',function(){padKey(it,this.getAttribute('data-d'));});
+ if($('stepChk'))$('stepChk').addEventListener('click',function(){checkStep(it);});
+ if($('peek'))$('peek').addEventListener('click',function(){for(var k=0;k<ps.fs.length;k++){ps.fs[k].val=ps.fs[k].ans;if(ps.fs[k].units)ps.fs[k].unit=ps.fs[k].units[0];}
+  cur.wrong++;cur.peeked=true;ps.done=true;ps.msg='👀 答案是這樣，記下來，下次自己算！';cur.step++;cur.focus=0;drawMath(it);});}
+function padKey(it,d){var si=cur.step;if(si>=it.steps.length||it.steps[si].c)return;var ps=cur.steps[si],f=ps.fs[cur.focus];if(!f)return;
+ if(d==='del')f.val=f.val.slice(0,-1);else if(d==='next')cur.focus=(cur.focus+1)%ps.fs.length;
+ else if(f.val.length<6){f.val=(f.val==='0'?'':f.val)+d;}
+ ps.bad={};ps.msg='';drawMath(it);}
+function checkStep(it){var si=cur.step,st=it.steps[si],ps=cur.steps[si],k,empty=false,allok=true;ps.bad={};
+ for(k=0;k<ps.fs.length;k++){var f=ps.fs[k];if(f.val===''||(f.units&&!f.unit))empty=true;}
+ if(empty){ps.msg='還有空格或單位沒填喔！';drawMath(it);return;}
+ for(k=0;k<ps.fs.length;k++){f=ps.fs[k];if(f.val!==f.ans){ps.bad[k]='bad';allok=false;}else if(f.units&&f.unit!==f.units[0]){ps.bad[k]='ubad';allok=false;}}
+ if(allok){ps.done=true;ps.msg='👍 對！';cur.step++;cur.focus=0;beep('ok');}
+ else{ps.sw++;cur.wrong++;var ub=false;for(k in ps.bad)if(ps.bad[k]==='ubad')ub=true;
+  ps.msg='紅色的地方再算一次。'+(ub?'單位也要看清楚！':'')+(st.hint?'<br>💡 '+esc(st.hint):'')+(ps.sw>=2?'<br>需要的話，可以按「看答案」。':'');beep('no');
+  for(k=0;k<ps.fs.length;k++)if(ps.bad[k]){cur.focus=k;break;}}
+ drawMath(it);}
+function mathEnd(it){if(cur.done&&$('fb').innerHTML)return;var ok=cur.wrong===0,w='';
+ for(var j=0;j<it.work.length;j++){var ln=it.work[j];w+=ln.indexOf('驗算')===0?'<span class="ck">✅ '+esc(ln)+'</span>':'<div>'+esc(ln)+'</div>';}
+ var extra='<div class="ansbox"><div class="a">'+esc(it.a)+'</div><div class="rz">'+w+'</div></div><div class="tip"><b>提醒</b>　'+esc(it.tip)+'</div>';
+ var wasDone=cur.done;
+ $('fb').innerHTML=resHtml(ok,extra);
+ if(!wasDone)finish(ok);else $('fb').innerHTML=resHtml(cur.ok,extra);}
+document.addEventListener('keydown',function(e){if(page!=='play'||!cur||cur.done)return;var it=BY[cur.id];if(it.type!=='math')return;
+ if(/^[0-9]$/.test(e.key)){padKey(it,e.key);e.preventDefault();}else if(e.key==='Backspace'){padKey(it,'del');e.preventDefault();}
+ else if(e.key==='Enter'&&$('stepChk')){checkStep(it);e.preventDefault();}else if(e.key==='Tab'&&$('stepChk')){padKey(it,'next');e.preventDefault();}});
+
+/* ---------- 一輪結束 ---------- */
+function renderDone(){var ids=play.ids,ok=0,wr=[],h='';for(var j=0;j<ids.length;j++){if(play.res[ids[j]])ok++;else if(play.res.hasOwnProperty(ids[j]))wr.push(ids[j]);}
+ var all=ok===ids.length;
+ h='<div class="big">'+(all?'🏆':ok*2>=ids.length?'🎉':'💪')+'</div><h2>這一輪答對 '+ok+'/'+ids.length+' 題</h2><div class="ids">';
+ for(j=0;j<ids.length;j++){var s=status(ids[j]);h+='<span class="chip '+(s==='m'?'g':s==='h'?'y':s==='w'?'':'n')+'">'+ids[j]+' '+STL[s]+'</span>';}
+ h+='</div><p class="lead">'+(wr.length?'答錯的 '+wr.length+' 題已放進「再練一次」。':'太棒了！記得連續答對 2 次才算「會了」喔。')+'</p><div class="btns" style="justify-content:center">';
+ if(wr.length)h+='<button class="btn pink" type="button" id="dRetry">🔁 馬上再練答錯的（'+wr.length+'）</button>';
+ h+='<button class="btn teal" type="button" id="dIsl">🏝️ 回'+SUBJ[curIsl].name+'島</button><button class="btn white" type="button" id="dMap">🗺️ 回地圖</button></div>';
+ $('doneBody').innerHTML=h;show('done');if(all){confetti(24);beep('win');}
+ if($('dRetry'))$('dRetry').addEventListener('click',function(){startRound(wr,'retry');});
+ $('dIsl').addEventListener('click',function(){renderIsland(curIsl);show('island');});
+ $('dMap').addEventListener('click',function(){renderMap();show('map');});}
+
+/* ---------- 測試／家長用掛勾（唯讀） ---------- */
+window.MistakesData={key:KEY,items:ITEMS,status:status,state:function(){return JSON.parse(JSON.stringify(S));},
+ cur:function(){return cur?{id:cur.id,done:cur.done,ok:cur.ok,step:cur.step,page:page}:{page:page};}};
+
+updMute();renderMap();
+
+})();
+</script>
+</body>
+</html>
