@@ -5,8 +5,8 @@
 <link rel="icon" href="data:,">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#ff7b54">
-<title>🏝️ 錯題大挑戰｜11/03 錯題本</title>
-<!-- 題目、答案、理由、提醒全部取自 2026-11-03「四年級上學期錯題本」；國語干擾字、數學步驟引導與提示、社會分辨小提示為自編。
+<title>🏝️ 錯題大挑戰｜11/03＋11/05 錯題</title>
+<!-- 第一批題目、答案、理由、提醒全部取自 2026-11-03「四年級上學期錯題本」；第二批（b:2）取自 2026-11-05 新考卷；國語干擾字、數學步驟引導與提示、社會分辨小提示為自編。
      紀錄存在 localStorage "mistakesV1"（只用這一個鍵，不讀寫其他頁的紀錄）。 -->
 <style>
 :root{--ink:#2b2d42;--blue:#4d96ff;--sun:#ffb703;--pink:#ff6b9a;--teal:#2a9d8f;--green:#57cc99;--purple:#9b5de5;--radius:22px}
@@ -74,6 +74,8 @@ header{background:rgba(255,123,84,.97)}
 .it:active{transform:translateY(3px)}
 .it .id{flex:0 0 auto;font-weight:900;font-size:18px;background:#eef3f7;border-radius:12px;padding:8px 8px;min-width:54px;text-align:center}
 .it .tx{flex:1;min-width:0;font-size:15px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.it .nw{display:inline-block;font-size:12px;font-weight:900;color:#fff;background:#ff6b9a;border-radius:999px;padding:1px 7px;margin-right:2px;vertical-align:1px}
+.fl{margin-top:8px}
 .it .bd{flex:0 0 auto;font-size:13px;font-weight:800;border-radius:999px;padding:3px 8px;background:#eef3f7;color:#666;white-space:nowrap}
 .it.s-w{border-color:#ffa8a8}.it.s-w .bd{background:#ffe3e3;color:#c92a2a}
 .it.s-h{border-color:#ffd43b}.it.s-h .bd{background:#fff3bf;color:#8a6100}
@@ -170,16 +172,16 @@ footer{text-align:center;color:#667;font-size:14px;margin:24px 8px;line-height:1
 <header>
  <a class="back" id="backBtn" href="../">← 樂園</a>
  <h1 id="ttl">🏝️ 錯題大挑戰</h1>
- <span class="score" id="score">⭐ 0/25</span>
+ <span class="score" id="score">⭐ 0/50</span>
  <button class="iconbtn" id="muteBtn" type="button" aria-label="音效開關">🔊</button>
 </header>
 <main>
 <section class="page active" id="pg-map">
  <div class="card">
-  <h2>🗺️ 11/03 錯題本・三座島</h2>
+  <h2>🗺️ 錯題本・三座島（11/03＋11/05）</h2>
   <p class="lead">每一題都是考卷上曾經錯過的題目。<b>連續答對 2 次</b>，這題就「會了」，可以拿到一顆 ⭐！</p>
   <div class="pbar" aria-hidden="true"><i id="allBar"></i></div>
-  <p class="small" id="allTxt">會了 0/25 題</p>
+  <p class="small" id="allTxt">會了 0/50 題</p>
  </div>
  <div class="sea">
   <svg class="waves" viewBox="0 0 400 300" preserveAspectRatio="none" aria-hidden="true"><g fill="none" stroke="rgba(255,255,255,.35)" stroke-width="3" stroke-linecap="round"><path d="M10 40q15-10 30 0t30 0"/><path d="M300 60q15-10 30 0t30 0"/><path d="M150 150q15-10 30 0t30 0"/><path d="M40 250q15-10 30 0t30 0"/><path d="M280 270q15-10 30 0t30 0"/></g></svg>
@@ -215,13 +217,14 @@ footer{text-align:center;color:#667;font-size:14px;margin:24px 8px;line-height:1
  <div class="card sum" id="doneBody"></div>
 </section>
 
-<footer>題目與答案取自 2026-11-03 錯題本；干擾選項為自編。<br><span class="small">數學的步驟引導與小提示、社會的「分辨小提示」為依錯題本內容自編整理。</span></footer>
+<footer>題目與答案取自 2026-11-03 錯題本，以及 2026-11-05（11/05 新錯題）的考卷與答案卷（11/05 正解依答案卷）；部分國語錯誤選項為自編，造句題看參考句自己評分。<br><span class="small">數學的步驟引導與小提示、社會的「分辨小提示」、11/05 國語題的解說為依原卷內容自編整理。</span></footer>
 </main>
 <script>
 (function(){
 'use strict';
-/* ===== 題目資料：題目、選項、答案、理由、提醒、原卷紀錄 皆照抄 2026-11-03 錯題本（第 2–15 頁）。
+/* ===== 題目資料（第一批：11/03 錯題本；第二批：11/05 新錯題，見下方 b:2）：題目、選項、答案、理由、提醒、原卷紀錄 皆照抄 2026-11-03 錯題本（第 2–15 頁）。
    自編部分：國語 ch 陣列中除正解外的 3 個干擾字；數學 steps 的步驟引導文字與 hint；社會 key 分辨小提示。 ===== */
+var BATCH={1:'11/03 錯題本',2:'11/05 新錯題'};
 var SUBJ={
  soc:{name:'社會',emoji:'🌏',color:'#2a9d8f',sand:'#ffe8a3',scope:'U3 家鄉的人口與生活',
   note:'核對是否有漏勾或多勾；「人數」和「比例」要分清楚。'},
@@ -396,7 +399,185 @@ var ITEMS=[
   ],
   a:'答案 共長 10 公里 45 公尺。',work:['159 公尺＋886 公尺＝1045 公尺＝1 公里 45 公尺。','4 公里 159 公尺＋5 公里 886 公尺＝10 公里 45 公尺。'],
   tip:'公里和公尺分別相加；公尺滿 1000 時，換成 1 公里。橫式中的每個距離都要寫清楚單位。',
-  rec:'答案正確；橫式「4 km 159」漏了 m。未見老師因此扣分。'}
+  rec:'答案正確；橫式「4 km 159」漏了 m。未見老師因此扣分。'},
+
+ /* ===== 第二批：11/05 新錯題（b:2）。共 25 題，題號與正解依 11/05 答案卷（爸爸整理）；題目、選項照抄考卷；國語錯誤選項部分為自編、why 解說與數學步驟引導為自編整理 ===== */
+ {id:'S11',s:'soc',b:2,type:'single',src:'11/05 社會 期中複習卷A 第 1 頁 二、選擇第 3 題',
+  q:'地圖上能看到四種重要的工具，小瑛拿著一張屏東縣地形圖，想知道當地河流的位置，可以透過查詢哪一項地圖工具得知？',
+  opts:['圖名','比例尺','方向標','圖例'],ans:3,
+  a:'答案 ④ 圖例。',why:'圖例告訴我們地圖上各種符號、顏色代表什麼，例如藍色線條代表河流，所以查圖例就能找到河流。（解說為自編整理）',
+  rec:'正解依 11/05 答案卷。'},
+ {id:'S12',s:'soc',b:2,type:'single',src:'11/05 社會 期中複習卷A 第 2 頁 三、第 2 題',
+  q:'阿瑞住在彰化縣員林市，下列哪一項較有可能是他對近年家鄉人口變化的說明？',
+  opts:['因為這裡交通不便，即使努力發展觀光，人口仍不斷減少','因產業發展帶來工作機會，加上公共設施完善，人口逐漸成長','年輕人都到外地工作，導致這裡老年人口比例偏高','這裡不具備發展條件'],ans:1,
+  a:'答案 ② 因產業發展帶來工作機會，加上公共設施完善，人口逐漸成長。',why:'員林市產業發展、工作機會多，公共設施也完善，所以人口逐漸成長。（解說為自編整理）',
+  rec:'正解依 11/05 答案卷。'},
+
+ {id:'C07',s:'chi',b:2,type:'single',src:'11/05 國語 江翠國小評量 第 5 頁 四、選詞填寫第 2 題',
+  q:'選出最適合填入（　）的詞語：老師教我們把知識（　），原本覺得很難的數學題，一下子就懂了，心裡非常開心，像發現寶藏一樣！',
+  opts:['墨守成規','過河拆橋','標新立異','一針見血','融會貫通','大獲全勝'],ans:4,
+  a:'答案 融會貫通。',why:'「融會貫通」是把各種知識連結起來，完全理解並能靈活運用，所以難題「一下子就懂了」。（解說為自編整理）',
+  rec:'正解依 11/05 答案卷。'},
+ {id:'C08',s:'chi',b:2,type:'single',src:'11/05 國語 江翠國小評量 第 6 頁 五、選擇第 4 題',
+  q:'關於〈窗口邊的臺灣欒樹〉一文，下列敘述何者錯誤？',
+  opts:['在冬天時，臺灣欒樹會脫去身上的黃葉','臺灣欒樹讓作者家充滿藝術氣息','文中使用不同的色彩來描寫臺灣欒樹的風貌','春天是臺灣欒樹最多彩多姿的季節'],ans:3,
+  a:'答案 ④（這個敘述是錯誤的）。',why:'臺灣欒樹最多彩多姿的季節應該是秋天，不是春天。',
+  rec:'正解依 11/05 答案卷（季節應為秋天）。'},
+ {id:'C09',s:'chi',b:2,type:'single',src:'11/05 國語 江翠國小評量 第 6 頁 五、選擇第 10 題',
+  q:'在〈奶奶的排骨粥〉一文中，甲：加入乾香菇讓湯頭更鮮甜；乙：用新水煮出排骨精華湯底；丙：將新鮮的排骨燙過；丁：放入青菜；戊：把洗好的米放進去。根據奶奶煮排骨粥的步驟，下列何者是正確的順序？',
+  opts:['乙甲丙丁戊','乙丙甲戊丁','甲乙丙丁戊','丙乙甲戊丁'],ans:3,
+  a:'答案 ④ 丙乙甲戊丁。',why:'先把排骨燙過（丙），再用新水煮湯底（乙），加乾香菇（甲），放米（戊），最後放青菜（丁）。（解說為自編整理）',
+  rec:'正解依 11/05 答案卷。'},
+ {id:'C10',s:'chi',b:2,type:'ref',src:'11/05 國語 江翠國小評量 第 6 頁 六、造句第 2 題',
+  q:'用「……然而……」造一個句子。',pat:'然而',
+  ref:'他表面上是個好班長，然而私下的表現卻不如我們想像。',
+  why:'「然而」前後的意思要相反（轉折）。原本寫「他表面是一個好班長，然而他不如想像的那樣。」可以把「不如想像」說清楚：是誰想像、哪裡不如。',
+  rec:'參考句依 11/05 答案卷；此題不自動批改，看參考句後自己評分。'},
+ {id:'C11',s:'chi',b:2,type:'single',src:'11/05 國語 南一版 4上期中考查複習卷 第 7 頁 二、寫出注音第 5 題',
+  q:'寫出「　」中字的注音：看著阿姨「挑」著眉毛化妝。',
+  opts:['ㄊㄧㄠ','ㄊㄧㄠˇ','ㄊㄧㄠˋ','ㄊㄠˇ'],ans:1,
+  a:'答案 ㄊㄧㄠˇ。',why:'「挑眉毛」是把眉毛向上揚起，讀第三聲 ㄊㄧㄠˇ；「挑選」才讀 ㄊㄧㄠ。（選項與解說為自編，原題是寫注音）',
+  rec:'正解依 11/05 答案卷；原題為填寫注音，這裡改成選擇。'},
+ {id:'C12',s:'chi',b:2,type:'single',src:'11/05 國語 南一版 4上期中考查複習卷 第 7 頁 五、第 4 題',
+  q:'「獨立」有許多意思，下列哪一個不包括在內？',
+  opts:['不倚靠他人而能自立','獨自站立','國家有完全自主的權利','事情發生時，立即採取行動的人'],ans:3,
+  a:'答案 ④。',why:'「獨立」可以指獨自站立、不倚靠他人、國家自主；「立即採取行動」和獨立的意思無關。（解說為自編整理）',
+  rec:'原選 ②；正解依 11/05 答案卷。'},
+ {id:'C13',s:'chi',b:2,type:'ref',src:'11/05 國語 南一版 4上期中考查複習卷 第 8 頁 九、造句',
+  q:'用「雖然……卻有……」造一個句子。',pat:'雖然……卻有',
+  ref:'這間房子雖然不大，卻有一個美麗的花園。',
+  why:'「雖然」後面說不好的一面，「卻有」後面說好的一面，兩句要接得起來。',
+  rec:'參考句依 11/05 答案卷；此題不自動批改，看參考句後自己評分。'},
+ {id:'C14',s:'chi',b:2,type:'single',src:'11/05 國語 南一版 4上期中考查複習卷 第 8 頁 十、閱讀素養第 1 題',
+  q:'在這篇故事（精衛填海）中不能得到哪一種啟示？',
+  opts:['面對困難仍然堅決奮鬥的精神','自行前往危險地區可能造成遺憾的事','失去生命以後做任何事都無法補救','有堅強的復仇意志就能變成傳奇故事'],ans:3,
+  a:'答案 ④ 有堅強的復仇意志就能變成傳奇故事。',why:'題目問「不能」得到的啟示。故事要我們學的是堅持、注意安全、珍惜生命，不是「復仇就能變傳奇」。（解說為自編整理）',
+  rec:'原選 ①；正解依 11/05 答案卷。'},
+ {id:'C15',s:'chi',b:2,type:'single',src:'11/05 國語 南一版 4上期中考查複習卷 第 8 頁 十、閱讀素養第 3 題',
+  q:'故事中，精衛鳥一直想填平東海，除了表現「復仇」以外，哪一個也是她可能有的感情？',
+  opts:['思念游泳之樂','後悔自己的行為','努力挑戰東海','想念過去的軀體'],ans:1,
+  a:'答案 ② 後悔自己的行為。',why:'女娃自己到東海遊玩才溺水，所以精衛鳥除了復仇，也可能後悔當初的行為。（解說為自編整理）',
+  rec:'原選 ①；正解依 11/05 答案卷。'},
+ {id:'C16',s:'chi',b:2,type:'single',src:'11/05 國語 和順國小第一次評量 第 9 頁 四、選擇第 1 題',
+  q:'有一些國字本身就是部首，如「人」就是「人」部，下列哪一個選項不是這樣的字？',
+  opts:['士','齒','戶','尺'],ans:3,
+  a:'答案 ④ 尺。',why:'「士」、「齒」、「戶」本身都是部首；「尺」的部首是「尸」，不是自己。',
+  rec:'正解依 11/05 答案卷（尸部）。'},
+ {id:'C17',s:'chi',b:2,type:'single',src:'11/05 國語 和順國小第一次評量 第 10 頁 四、選擇第 5 題',
+  q:'下列「　」的語詞，哪一個替換後，句子的意思改變了？',
+  opts:['牙痛讓我難以「進食」→用餐','我的能力只能「影響」一部份人→回響','高樓靜靜「俯視」街道→俯瞰','鐵橋「保護」往來的車子→守護'],ans:1,
+  a:'答案 ②。',why:'「影響」是使別人改變；「回響」是聲音的回聲或別人的反應，換了意思就變了。其他三組意思相近。（解說為自編整理）',
+  rec:'正解依 11/05 答案卷。'},
+ {id:'C18',s:'chi',b:2,type:'single',src:'11/05 國語 和順國小第一次評量 第 10 頁 四、選擇第 6 題',
+  q:'「融」有流通、調和、溶解、快樂等意思，下列何者是「調和」的意思？',
+  opts:['他在金「融」公司上班','冰塊很快就「融」化了','讀書要「融」會貫通','全家團聚其樂「融」融'],ans:2,
+  a:'答案 ③ 融會貫通。',why:'金融是流通，融化是溶解，其樂融融是快樂；融會貫通是把知識調和在一起。（解說為自編整理）',
+  rec:'正解依 11/05 答案卷。'},
+ {id:'C19',s:'chi',b:2,type:'single',src:'11/05 國語 和順國小第一次評量 第 10 頁 第 9 題',
+  q:'這座博物館收藏各國的藝術品，尤其名畫多得「　」，請問「　」應填入？',
+  opts:['不勝枚舉','舉一反三','舉棋不定','一舉兩得'],ans:0,
+  a:'答案 ① 不勝枚舉。',why:'「不勝枚舉」是多得無法一個一個列舉出來，正好形容名畫很多。（解說為自編整理）',
+  rec:'正解依 11/05 答案卷。'},
+ {id:'C20',s:'chi',b:2,type:'single',src:'11/05 國語 和順國小第一次評量 第 11 頁 閱讀測驗第 2 篇第 1 題',
+  q:'在文章中說明造成極端氣候的原因是？',
+  opts:['森林大火','大氣中溫室氣體濃度增加','長期乾旱','年輕人沒有負起責任'],ans:1,
+  a:'答案 ② 大氣中溫室氣體濃度增加。',why:'文章說溫室氣體濃度增加造成極端氣候；森林大火、長期乾旱是極端氣候帶來的影響。（解說為自編整理）',
+  rec:'正解依 11/05 答案卷。'},
+
+ {id:'M10',s:'math',b:2,type:'math',src:'11/05 數學 一～五 平時練習卷 二、第 4 題',
+  q:'9000×900 答案會有（5）個 0，500×200 答案會有（　）個 0。',
+  steps:[
+   {t:'先算 5×2＝ [[10]]',hint:'5×2 本身就多出一個 0！'},
+   {t:'500 和 200 末尾一共有 [[4]] 個 0'},
+   {t:'500×200＝ [[100000]]'},
+   {t:'所以答案有 [[5]] 個 0',hint:'4 個 0 再加上 5×2＝10 的那個 0。'}
+  ],
+  a:'答案 5 個 0。',work:['5×2＝10。','500×200＝100000，共有 5 個 0。'],
+  tip:'數 0 不能只數兩個數末尾的 0，還要看前面的數相乘會不會再多出 0（5×2＝10）。',
+  rec:'原寫 4；正解依 11/05 答案卷。'},
+ {id:'M11',s:'math',b:2,type:'math',src:'11/05 數學 一～五 平時練習卷 四、第 4 題',
+  q:'9384÷92＝（　　），並驗算。',
+  steps:[
+   {t:'93 個百 ÷ 92，商的百位是 [[1]]，餘 [[1]]',hint:'92×1＝92，93－92＝1。'},
+   {t:'1 個百和 8 個十合成 18 個十，18 ÷ 92 不夠，商的十位寫 [[0]]',hint:'不夠商 1 時，十位要寫 0，不能省略。'},
+   {t:'184 ÷ 92，商的個位是 [[2]]'},
+   {t:'9384÷92＝ [[102]]'},
+   {t:'驗算：102×92＝ [[9384]]'}
+  ],
+  a:'答案 102。',work:['9384÷92＝102。','驗算：102×92＝9384。'],
+  tip:'除到十位不夠商 1 時，商的十位要寫 0，最後用乘法驗算。',
+  rec:'正解依 11/05 答案卷。'},
+ {id:'M12',s:'math',b:2,type:'math',src:'11/05 數學 一～五 平時練習卷 六、第 1 題',
+  q:'阿力畫了 3 個角（三個角合起來是一整圈），∠ㄅ是 50°，∠ㄆ是 155°，∠ㄇ是幾度？',
+  steps:[
+   {t:'一整圈是 [[360]] 度'},
+   {t:'∠ㄅ＋∠ㄆ＝50＋155＝ [[205]] 度'},
+   {t:'∠ㄇ＝360－205＝ [[155]] 度',hint:'360－205，個位 0－5 不夠減要借位，答案是 155，不是 115。'}
+  ],
+  a:'答案 155°。',work:['50＋155＝205。','360－205＝155（度）。'],
+  tip:'算完減法用加法驗算：155＋205＝360 才對。',
+  rec:'原寫 115°（360－205 算錯）；正解依 11/05 答案卷。'},
+ {id:'M13',s:'math',b:2,type:'math',src:'11/05 數學 一～五 平時練習卷 七、應用題第 1 題',
+  q:'阿明家到立軒家 20 公里 18 公尺，立軒家到圖書館 15 公里 438 公尺。阿明家到圖書館比立軒家到圖書館遠多少？（題意為兩段距離相減）',
+  steps:[
+   {t:'18 公尺不夠減 438 公尺，先從 20 公里借 1 公里＝ [[1000]] 公尺'},
+   {t:'1018 公尺－438 公尺＝ [[580]] 公尺'},
+   {t:'19 公里－15 公里＝ [[4]] 公里'},
+   {t:'答：[[4:公里,公尺]] [[580:公尺,公里]]'}
+  ],
+  a:'答案 4 公里 580 公尺。',work:['20 公里 18 公尺－15 公里 438 公尺＝4 公里 580 公尺。'],
+  tip:'公尺不夠減時，從公里借 1 公里＝1000 公尺；答句要寫完整單位。',
+  rec:'正解依 11/05 答案卷。'},
+ {id:'M14',s:'math',b:2,type:'math',src:'11/05 數學 一～五 平時練習卷 七、應用題第 2 題',
+  q:'一盒鳳梨酥有 12 個，235 盒有幾個？',
+  steps:[
+   {t:'列式：12 × [[235]]'},
+   {t:'12×200＝ [[2400]]，12×35＝ [[420]]'},
+   {t:'答：235 盒有 [[2820:個,盒]]'}
+  ],
+  a:'答案 2820 個。',work:['12×235＝2820（個）。'],
+  tip:'先寫算式，再寫答句，答句要有單位。',
+  rec:'正解依 11/05 答案卷。'},
+ {id:'M15',s:'math',b:2,type:'math',src:'11/05 數學 一～五 平時練習卷 七、應用題第 3 題',
+  q:'姊姊利用暑假打工 40 天，每天工資 600 元，共賺多少錢？夠不夠買一支 28000 元的手機？',
+  steps:[
+   {t:'600×40＝ [[24000:元,天]]'},
+   {t:'24000 和 28000 比一比，夠不夠買手機？',c:['不夠','夠'],a:0,hint:'24000＜28000。'}
+  ],
+  a:'答案 共賺 24000 元，不夠買。',work:['600×40＝24000（元）。','24000＜28000，所以不夠。'],
+  tip:'題目有兩個問題，兩個都要回答。',
+  rec:'正解依 11/05 答案卷。'},
+ {id:'M16',s:'math',b:2,type:'math',src:'11/05 數學 一～五 平時練習卷 七、應用題第 4 題（1）',
+  q:'新北市政府表演廳每場可以容納 2030 位觀眾，本學期舉辦「藝術滿城香活動」共 39 場，最多有多少位觀眾可以入場觀賞？',
+  steps:[
+   {t:'2030×30＝ [[60900]]'},
+   {t:'2030×9＝ [[18270]]'},
+   {t:'60900＋18270＝ [[79170:位,場]]'}
+  ],
+  a:'答案 79170 位。',work:['2030×39＝79170（位）。'],
+  tip:'被乘數中間有 0 時，乘的時候位置要對齊。',
+  rec:'正解依 11/05 答案卷。'},
+ {id:'M17',s:'math',b:2,type:'math',src:'11/05 數學 一～五 平時練習卷 七、應用題第 4 題（2）',
+  q:'四年級有 312 位學生要去欣賞表演，一輛遊覽車可以載 42 人，需要幾輛遊覽車才夠？',
+  steps:[
+   {t:'312÷42＝ [[7]] …… [[18]]',hint:'42×7＝294，312－294＝18。'},
+   {t:'剩下的 18 人怎麼辦？',c:['還要再 1 輛車','不用坐車'],a:0},
+   {t:'答：需要 [[8:輛,位]] 遊覽車'}
+  ],
+  a:'答案 8 輛。',work:['312÷42＝7……18。','7＋1＝8（輛）。'],
+  tip:'有餘數就代表還有人沒坐到車，要再加 1 輛。',
+  rec:'正解依 11/05 答案卷。'},
+ {id:'M18',s:'math',b:2,type:'math',src:'11/05 數學 一～五 平時練習卷 七、應用題第 5 題',
+  q:'把 3608 公克的韓式泡菜每 12 公克裝成一桶，最多可以裝成幾桶？剩下幾公克？（並驗算）',
+  steps:[
+   {t:'36 個百 ÷ 12＝ [[3]]（百位）'},
+   {t:'剩下 8 不夠除，十位和個位都寫 0：3608÷12＝ [[300]] …… [[8]]'},
+   {t:'驗算：300×12＋8＝ [[3608]]'},
+   {t:'答：[[300:桶,公克]]，剩下 [[8:公克,桶]]'}
+  ],
+  a:'答案 300 桶，剩下 8 公克。',work:['3608÷12＝300……8。','驗算：300×12＋8＝3608。'],
+  tip:'驗算要寫「除數×商＋餘數＝被除數」，不能漏掉餘數。',
+  rec:'正解依 11/05 答案卷。'}
 ];
 
 var KEY='mistakesV1';
@@ -486,22 +667,31 @@ function renderParent(){var h='<tr><th>題號</th><th>狀態</th><th>作答紀�
  for(var j=0;j<ITEMS.length;j++){var it=ITEMS[j],r=S.items[it.id],a=r&&r.a?r.a:[],t='';
   for(var k=Math.max(0,a.length-6);k<a.length;k++)t+=(t?'<br>':'')+esc(a[k][0])+' '+(a[k][1]?'✓':'✗');
   if(a.length>6)t='…共 '+a.length+' 次<br>'+t;
-  h+='<tr data-id="'+it.id+'"><td class="id">'+it.id+'<br><span class="rec">'+SUBJ[it.s].name+'</span></td><td class="stc">'+STL[status(it.id)]+'</td><td>'+(t||'—')+'</td><td class="rec">'+esc(it.rec)+'</td></tr>';}
+  h+='<tr data-id="'+it.id+'"><td class="id">'+it.id+'<br><span class="rec">'+SUBJ[it.s].name+(it.b===2?'・11/05':'')+'</span></td><td class="stc">'+STL[status(it.id)]+'</td><td>'+(t||'—')+'</td><td class="rec">'+esc(it.rec)+'</td></tr>';}
  $('ptab').innerHTML=h;}
 $('resetBtn').addEventListener('click',function(){if(!window.confirm('確定要清除「錯題大挑戰」的所有紀錄嗎？'))return;var mu=S.mute;S={v:1,items:{},mute:mu};save();renderMap();});
 
 /* ---------- 島嶼 ---------- */
-function renderIsland(k){var s=SUBJ[k],ids=listBy(function(it){return it.s===k;}),st=starsFor(k);
- var left=listBy(function(it){return it.s===k&&status(it.id)!=='m';});
+/* 批次篩選：b 未寫＝第 1 批（11/03），b:2＝11/05 新錯題 */
+var FLT={};
+function inF(it,f){return f==='all'||String(it.b||1)===f;}
+function fltHtml(k,f){var ks=['all','1','2'],h='<div class="btns fl" id="flt" role="group" aria-label="篩選批次">';
+ for(var j=0;j<ks.length;j++){var n=listBy(function(it){return it.s===k&&inF(it,ks[j]);}).length;if(!n)continue;
+  h+='<button type="button" class="btn small '+(f===ks[j]?'teal':'white')+'" data-f="'+ks[j]+'" aria-pressed="'+(f===ks[j])+'">'+(ks[j]==='all'?'全部':esc(BATCH[ks[j]]))+'（'+n+'）</button>';}
+ return h+'</div>';}
+function renderIsland(k){var s=SUBJ[k],f=FLT[k]||'all',st=starsFor(k);
+ var ids=listBy(function(it){return it.s===k&&inF(it,f);});
+ var left=listBy(function(it){return it.s===k&&inF(it,f)&&status(it.id)!=='m';});
  $('islHead').innerHTML='<h2>'+s.emoji+' '+s.name+'島 <span class="tag">'+esc(s.scope)+'</span></h2>'+
   '<div class="pbar"><i style="width:'+Math.round(st.m*100/st.n)+'%"></i></div><p class="small">會了 '+st.m+'/'+st.n+' 題　'+st.html+'</p>'+
-  '<div class="tip'+(k==='chi'?' pink':k==='soc'?' green':'')+'">'+esc(s.note)+'</div>'+
-  '<div class="btns"><button class="btn teal" type="button" id="goAll">▶ 全部挑戰（'+ids.length+' 題）</button>'+
+  '<div class="tip'+(k==='chi'?' pink':k==='soc'?' green':'')+'">'+esc(s.note)+'</div>'+fltHtml(k,f)+
+  '<div class="btns"><button class="btn teal" type="button" id="goAll">▶ '+(f==='all'?'全部挑戰':esc(BATCH[f])+' 挑戰')+'（'+ids.length+' 題）</button>'+
   (left.length&&left.length<ids.length?'<button class="btn sun" type="button" id="goLeft">▶ 只練還沒會的（'+left.length+' 題）</button>':'')+'</div>';
  $('goAll').addEventListener('click',function(){startRound(ids,'isl');});
  if($('goLeft'))$('goLeft').addEventListener('click',function(){startRound(left,'isl');});
+ var fb=$('flt').querySelectorAll('[data-f]');for(var q=0;q<fb.length;q++)fb[q].addEventListener('click',function(){beep('tap');FLT[k]=this.getAttribute('data-f');renderIsland(k);});
  var h='';for(var j=0;j<ids.length;j++){var it=BY[ids[j]],ss=status(it.id),tx=it.type==='char'?it.q:it.q.replace(/<br>.*$/,'');
-  h+='<button type="button" class="it s-'+ss+'" data-one="'+it.id+'"><span class="id">'+it.id+'</span><span class="tx">'+esc(tx)+'</span><span class="bd">'+STL[ss]+'</span></button>';}
+  h+='<button type="button" class="it s-'+ss+'" data-one="'+it.id+'"><span class="id">'+it.id+'</span><span class="tx">'+(it.b===2?'<span class="nw">🆕 11/05</span> ':'')+esc(tx)+'</span><span class="bd">'+STL[ss]+'</span></button>';}
  $('islItems').innerHTML=h;
  var bs=$('islItems').querySelectorAll('[data-one]');for(j=0;j<bs.length;j++)bs[j].addEventListener('click',function(){startRound([this.getAttribute('data-one')],'isl');});}
 
@@ -514,7 +704,7 @@ function renderItem(){var id=play.ids[play.i],it=BY[id];curIsl=it.s;
  $('ttl').textContent=SUBJ[it.s].emoji+' '+SUBJ[it.s].name+'島';
  $('pCnt').textContent='第 '+(play.i+1)+'/'+play.ids.length+' 題';$('pSrc').textContent=it.src;$('pNext').innerHTML='';
  cur={id:id,done:false,ok:null,wrong:0,step:0};
- if(it.type==='tf')rTF(it);else if(it.type==='single')rSingle(it);else if(it.type==='multi')rMulti(it);else if(it.type==='char')rChar(it);else rMath(it);
+ if(it.type==='tf')rTF(it);else if(it.type==='single')rSingle(it);else if(it.type==='multi')rMulti(it);else if(it.type==='char')rChar(it);else if(it.type==='ref')rRef(it);else rMath(it);
  try{window.scrollTo(0,0);}catch(e){}}
 function finish(ok){if(cur.done)return;cur.done=true;cur.ok=ok;play.res[cur.id]=ok;record(cur.id,ok);
  var st=status(cur.id);beep(ok?'ok':'no');if(ok&&st==='m'){confetti(14);pop();}updScore();
@@ -562,6 +752,16 @@ function rMulti(it){var h=qHead(it,'勾選所有正確選項（可能不只一�
   var sm=ok?'':'<div class="sfb no" id="mxsum">'+(miss?'漏勾 '+miss+' 個':'')+(miss&&extra?'、':'')+(extra?'多勾 '+extra+' 個':'')+'</div>';
   $('fb').innerHTML=resHtml(ok,sm+socAns(it));finish(ok);});}
 
+/* 國語：造句（自己寫，再看參考句自評；不自動批改） */
+function rRef(it){$('pBody').innerHTML=qHead(it,'造句（寫好後看參考，自己評分）')+
+ '<textarea id="refTx" rows="3" style="width:100%;box-sizing:border-box;font:inherit;font-size:20px;padding:10px;border-radius:12px;border:2px solid #cbd5e1" placeholder="在這裡寫下你的句子（也可以寫在紙上）"></textarea>'+
+ '<div class="btns"><button class="btn" type="button" id="refShow">我寫好了，看參考</button></div><div id="refBox"></div><div id="fb"></div>';
+ $('refShow').addEventListener('click',function(){if(cur.done)return;beep('tap');this.style.display='none';
+  $('refBox').innerHTML='<div class="ansbox" id="refAns"><div class="a">參考句：'+esc(it.ref)+'</div><div class="rz">'+esc(it.why)+'</div></div>'+
+   '<p class="small" style="text-align:center">對照參考句，你的句子有用對「'+esc(it.pat)+'」、意思通順嗎？</p>'+
+   '<div class="btns"><button class="btn teal" type="button" id="selfOk">👍 我寫對了</button><button class="btn pink" type="button" id="selfNo">✏️ 還要再練</button></div>';
+  function self(ok){if(cur.done)return;$('selfOk').disabled=true;$('selfNo').disabled=true;$('refTx').disabled=true;$('fb').innerHTML=resHtml(ok,'');finish(ok);}
+  $('selfOk').addEventListener('click',function(){self(true);});$('selfNo').addEventListener('click',function(){self(false);});});}
 /* 國語：選字（點選或拖曳到空格） */
 function rChar(it){var h=qHead(it,'選出正確的字')+'<div class="word">';
  for(var j=0;j<it.word.length;j++){if(j===it.bi)h+='<span class="ch blank" id="blank">？</span><span class="zy">'+esc(it.zy)+'</span>';else h+='<span class="ch">'+esc(it.word.charAt(j))+'</span>';}
