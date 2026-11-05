@@ -121,6 +121,10 @@ main{max-width:760px;margin:0 auto;padding:12px 16px}
 .keys button:disabled{opacity:.4}
 .scratch{position:relative;width:100%;height:260px;border:3px dashed #c9bff2;border-radius:16px;background:repeating-linear-gradient(#fffdf6 0 31px,#efe9d8 31px 32px);touch-action:none;overflow:hidden;margin-top:8px}
 .scratch canvas{position:absolute;inset:0;width:100%;height:100%}
+/* 答案變成動作 */
+.vzWrap{background:#f7f5ff;border-radius:16px;padding:6px 8px 2px;margin-top:10px}
+.vz{display:block;width:100%;max-width:360px;height:auto;margin:0 auto}
+.vzCap{font-size:16px;line-height:1.6;text-align:center;margin:2px 0 6px;min-height:1.6em}
 /* 找錯小偵探 */
 .steps{display:grid;gap:8px;margin:8px 0}
 .steps .part{text-align:left;font-size:clamp(18px,5vw,22px);font-variant-numeric:tabular-nums}
@@ -132,6 +136,25 @@ main{max-width:760px;margin:0 auto;padding:12px 16px}
 .part.no{border-color:#9aa0a6;background:#f1f1f1}
 .part.okfound{border-color:var(--green);background:#eafaf0;box-shadow:0 0 0 3px #bfe9cf}
 .wait{font-size:15px;color:#666;text-align:center;margin:6px 0 0}
+/* 學習紀錄（給爸媽） */
+.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.tiles div{background:#f4f1ff;border-radius:14px;padding:8px 4px;text-align:center}
+.tiles b{display:block;font-size:24px;line-height:1.25}
+.tiles span{font-size:13px;color:#555}
+.cal14{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;margin-top:8px}
+.cal14 div{border-radius:10px;padding:4px 2px;text-align:center;font-size:12px;line-height:1.35;background:#f3f3f6;color:#777}
+.cal14 div.fin{background:#e3f8ec;color:#1b6b40}.cal14 div.part{background:#fff3d6;color:#8a5a00}
+.cal14 div.today{outline:2px solid var(--violet)}
+.cal14 b{display:block;font-size:15px}
+.ptable{width:100%;border-collapse:collapse;font-size:15px}
+.ptable th,.ptable td{padding:6px 4px;border-bottom:1px solid #eee;text-align:left;vertical-align:top}
+.ptable th{font-size:13px;color:#666;font-weight:700}
+.ptable td.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.ptable tr.weak td{background:#fff3e0}
+.accbar{height:8px;border-radius:999px;background:#eee;margin-top:4px;overflow:hidden}
+.accbar i{display:block;height:100%}
+.tag2{display:inline-block;font-size:12px;font-weight:800;border-radius:999px;padding:1px 7px;margin-left:4px;background:#fff3e0;color:#8a4b00}
+.copyBox{width:100%;min-height:150px;font-size:15px;font-family:inherit;border:2px solid #d6cff0;border-radius:12px;padding:8px;margin-top:8px}
 /* 給爸媽 */
 details.parent{background:#fff;border-radius:var(--radius);padding:12px 16px;margin:12px 0;box-shadow:0 6px 0 rgba(0,0,0,.1)}
 details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:44px;display:flex;align-items:center}
@@ -194,8 +217,10 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
   </div>
 
   <details class="parent" id="parent">
-    <summary>👨‍👩‍👧 給爸媽：設定和說明</summary>
+    <summary>👨‍👩‍👧 給爸媽：學習紀錄、設定和說明</summary>
     <div class="set">
+      <div class="btns col"><button class="btn" type="button" id="toParent">📈 看學習紀錄</button></div>
+      <p class="small" style="margin:0">也可以把這個網址加到書籤：review/#parent，打開就是學習紀錄。</p>
       <h3>每天最多學幾張新卡</h3>
       <div class="seg" id="setNew"></div>
       <h3>每次最多幾張（含複習）</h3>
@@ -211,6 +236,17 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
       <p class="small" id="resetMsg" aria-live="polite"></p>
     </div>
   </details>
+</section>
+
+<!-- ===== 學習紀錄（給爸媽） ===== -->
+<section id="vParent" hidden>
+  <div class="btns"><button class="btn white" type="button" id="parentBack">← 回到今天的複習</button></div>
+  <div class="card"><h2>📈 學習紀錄</h2><div id="pSum"></div></div>
+  <div class="card"><h2>📅 最近兩週</h2><div id="pCal"></div></div>
+  <div class="card"><h2>📚 各科、各單元</h2><div id="pUnits"></div></div>
+  <div class="card"><h2>👾 最常錯的卡</h2><div id="pWrong"></div></div>
+  <div class="card"><h2>📋 複製文字摘要</h2><p class="small" style="margin:0">可以貼到 LINE 傳給家人或老師。</p><div class="btns"><button class="btn" type="button" id="copyBtn">📋 複製摘要</button></div><p class="small" id="copyMsg" aria-live="polite"></p><textarea class="copyBox" id="copyBox" readonly hidden></textarea></div>
+  <p class="small">紀錄只存在這台裝置的瀏覽器裡。答對率只算每張卡當天的第一次作答。</p>
 </section>
 
 <!-- ===== 作答 ===== -->
@@ -240,7 +276,7 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
   var UNIT = {}; B.units.forEach(function (u) { UNIT[u.k] = u; });
   var CARD = {}; B.cards.forEach(function (c) { CARD[c.id] = c; });
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
-  function show(v) { ['vHome', 'vRun', 'vDone'].forEach(function (k) { $(k).hidden = k !== v; }); window.scrollTo(0, 0); }
+  function show(v) { ['vHome', 'vRun', 'vDone', 'vParent'].forEach(function (k) { $(k).hidden = k !== v; }); window.scrollTo(0, 0); }
   function flame() { var n = S.streak(st); $('flame').textContent = '🔥 ' + n + ' 天'; }
 
   /* ---------------- 首頁 ---------------- */
@@ -346,6 +382,87 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
     try { localStorage.removeItem(S.KEY); } catch (e) {}
     $('resetBtn').dataset.sure = ''; $('resetBtn').textContent = '🗑️ 清除複習紀錄，重新開始'; $('resetMsg').textContent = '已經清除，可以重新開始了。';
     renderHome();
+  });
+
+  /* ---------------- 學習紀錄（給爸媽） ---------------- */
+  function pct(a, b) { return b ? Math.round(a / b * 100) : null; }
+  function pctTxt(a, b) { var x = pct(a, b); return x === null ? '—' : x + '%'; }
+  function dateOf(d) { var t = new Date(d * 864e5); return { m: t.getUTCMonth() + 1, dd: t.getUTCDate(), wd: '日一二三四五六'[t.getUTCDay()] }; }
+  function cardAcc(list) { var n = 0, ok = 0; list.forEach(function (c) { var r = st.cards[c.id]; if (r) { n += r.n; ok += r.ok; } }); return { n: n, ok: ok }; }
+  function unitRows() {
+    return B.units.map(function (u) {
+      var list = B.cards.filter(function (c) { return c.u === u.k; }), a = cardAcc(list);
+      return { u: u, total: list.length, seen: list.filter(function (c) { return st.cards[c.id]; }).length, n: a.n, ok: a.ok,
+        mon: list.filter(function (c) { return S.isMonster(st, c); }).length, off: !!st.set.off[u.k] };
+    });
+  }
+  function weakest(rows) { var w = null; rows.forEach(function (r) { if (r.n >= 5 && (!w || r.ok / r.n < w.ok / w.n)) w = r; }); return w && w.ok / w.n < .9 ? w : null; }
+  // 現在還是小怪物的排最前面，再來是還沒記牢的，最後才看錯過幾次
+  function mostWrong() {
+    var rank = function (r) { return r.res === 'fail' ? 2 : r.b < S.MASTER_BOX ? 1 : 0; };
+    return B.cards.filter(function (c) { var r = st.cards[c.id]; return r && r.ng > 0; })
+      .sort(function (a, b) { var ra = st.cards[a.id], rb = st.cards[b.id]; return (rank(rb) - rank(ra)) || (rb.ng - ra.ng) || (rb.last - ra.last); }).slice(0, 8);
+  }
+  function parentName(c, max) {
+    var t = c.type === 'write' ? '「' + c.c + '」' + c.zy : c.id.indexOf('cnx:') === 0 ? '改錯字「' + c.c + '」' : c.s === 'ma' ? c.label
+      : c.q ? c.q.replace(/<[^>]+>/g, '') : c.gen === 'moon' ? '看月相猜農曆' : c.gen === 'water' ? '水域和生物' : (c.label || c.id);
+    max = max || 22; return t.length > max ? t.slice(0, max) + '…' : t;
+  }
+  function renderParent() {
+    st = S.load(); flame();
+    var d = S.dayNum(), totN = 0, totOk = 0, active = 0, n14 = 0, ok14 = 0, ss = S.stats(B, st), master = 0, seen = 0;
+    Object.keys(st.days).forEach(function (k) { totN += st.days[k].n || 0; totOk += st.days[k].ok || 0; });
+    Object.keys(ss).forEach(function (k) { master += ss[k].master; seen += ss[k].seen; });
+    var cells = '';
+    for (var i = 13; i >= 0; i--) {
+      var x = d - i, r = st.days[x], dt = dateOf(x), cls = r && r.fin ? 'fin' : r && r.n ? 'part' : '';
+      if (r && r.n) { active++; n14 += r.n; ok14 += r.ok || 0; }
+      cells += '<div class="' + cls + (i === 0 ? ' today' : '') + '" title="' + dt.m + '/' + dt.dd + '"><b>' + (cls === 'fin' ? '✅' : cls === 'part' ? '🟡' : '·') + '</b>' + dt.m + '/' + dt.dd + '<br>週' + dt.wd + '<br>' + (r && r.n ? r.n + ' 張' : '') + '</div>';
+    }
+    $('pSum').innerHTML = '<div class="tiles"><div><b>' + S.streak(st) + '</b><span>🔥 連續天數</span></div><div><b>' + totN + '</b><span>總共複習（張）</span></div><div><b>' + pctTxt(totOk, totN) + '</b><span>答對率</span></div>'
+      + '<div><b>' + seen + '</b><span>學過的卡</span></div><div><b>' + master + '</b><span>記牢了</span></div><div><b>' + (st.beat || 0) + ' / ' + S.monsters(B, st).length + '</b><span>打倒／還在的小怪物</span></div></div>';
+    $('pCal').innerHTML = '<p class="lead" style="margin:0">最近 14 天做了 <b>' + active + '</b> 天，共 ' + n14 + ' 張，答對率 <b>' + pctTxt(ok14, n14) + '</b>。</p>'
+      + '<div class="cal14">' + cells + '</div><p class="small" style="margin:6px 0 0">✅ 做完　🟡 有做、沒做完　· 沒有做</p>';
+    var rows = unitRows(), weak = weakest(rows), h = '<table class="ptable"><thead><tr><th>單元</th><th class="n">學過</th><th class="n">答對率</th><th class="n">👾</th></tr></thead><tbody>', last = '';
+    rows.forEach(function (r) {
+      if (r.u.s !== last) {
+        var sub = B.cards.filter(function (c) { return c.s === r.u.s; }), a = cardAcc(sub), col = SUB[r.u.s].color;
+        h += '<tr><td colspan="4" style="padding-top:10px"><b>' + SUB[r.u.s].icon + ' ' + SUB[r.u.s].name + '</b>　答對率 ' + pctTxt(a.ok, a.n) + '<div class="accbar"><i style="width:' + (pct(a.ok, a.n) || 0) + '%;background:' + col + '"></i></div></td></tr>';
+        last = r.u.s;
+      }
+      h += '<tr class="' + (weak === r ? 'weak' : '') + '"><td>' + esc(r.u.name) + (r.off ? '<span class="tag2">已關掉</span>' : '') + (weak === r ? '<span class="tag2">最需要加強</span>' : '') + '</td><td class="n">' + r.seen + '/' + r.total + '</td><td class="n">' + pctTxt(r.ok, r.n) + '</td><td class="n">' + (r.mon || '') + '</td></tr>';
+    });
+    $('pUnits').innerHTML = h + '</tbody></table>';
+    var mw = mostWrong();
+    $('pWrong').innerHTML = mw.length ? '<table class="ptable"><thead><tr><th>卡片</th><th class="n">錯過幾次</th><th>現在</th></tr></thead><tbody>' + mw.map(function (c) {
+      var r = st.cards[c.id], now = r.res === 'fail' ? '👾 小怪物' : r.b >= S.MASTER_BOX ? '🌸 記牢了' : '🌱 練習中';
+      return '<tr><td>' + SUB[c.s].icon + ' ' + esc(parentName(c)) + '<div class="small">' + esc(UNIT[c.u].name) + '</div></td><td class="n">' + r.ng + '</td><td>' + now + '</td></tr>';
+    }).join('') + '</tbody></table><p class="small">可以陪她回到那一課的頁面再練一次。</p>' : '<p class="lead">還沒有答錯過的卡 👍</p>';
+    $('copyBox').hidden = true; $('copyMsg').textContent = '';
+  }
+  function summaryText() {
+    var d = S.dayNum(), dt = dateOf(d), active = 0, n14 = 0, ok14 = 0, totN = 0, totOk = 0, ss = S.stats(B, st), master = 0;
+    for (var i = 0; i < 14; i++) { var r = st.days[d - i]; if (r && r.n) { active++; n14 += r.n; ok14 += r.ok || 0; } }
+    Object.keys(st.days).forEach(function (k) { totN += st.days[k].n || 0; totOk += st.days[k].ok || 0; });
+    Object.keys(ss).forEach(function (k) { master += ss[k].master; });
+    var rows = unitRows(), weak = weakest(rows), mw = mostWrong();
+    var subs = Object.keys(SUB).map(function (k) { var a = cardAcc(B.cards.filter(function (c) { return c.s === k; })); return SUB[k].name + ' ' + pctTxt(a.ok, a.n); }).join('、');
+    return ['瑄瑄的「今天的複習」（' + dt.m + '/' + dt.dd + ' 整理）',
+      '・連續 ' + S.streak(st) + ' 天，最近 14 天做了 ' + active + ' 天（' + n14 + ' 張，答對率 ' + pctTxt(ok14, n14) + '）',
+      '・總共複習 ' + totN + ' 張，答對率 ' + pctTxt(totOk, totN) + '；記牢了 ' + master + ' 張',
+      '・打倒小怪物 ' + (st.beat || 0) + ' 隻，還有 ' + S.monsters(B, st).length + ' 隻',
+      '・各科答對率：' + subs,
+      weak ? '・最需要加強：' + weak.u.name + '（答對率 ' + pctTxt(weak.ok, weak.n) + '）' : '',
+      mw.length ? '・最近常錯：' + mw.slice(0, 5).map(function (c) { return parentName(c, 14); }).join('、') : ''].filter(Boolean).join('\n');
+  }
+  $('toParent').addEventListener('click', function () { renderParent(); show('vParent'); try { history.replaceState(null, '', '#parent'); } catch (e) {} });
+  $('parentBack').addEventListener('click', function () { try { history.replaceState(null, '', location.pathname); } catch (e) {} renderHome(); show('vHome'); });
+  $('copyBtn').addEventListener('click', function () {
+    var t = summaryText(), box = $('copyBox');
+    box.value = t; box.hidden = false;
+    var done = function () { $('copyMsg').textContent = '✅ 已經複製，可以貼上了。'; };
+    var manual = function () { box.focus(); box.select(); $('copyMsg').textContent = '請長按下面的文字，選「拷貝」。'; };
+    try { if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(done, manual); else manual(); } catch (e) { manual(); }
   });
 
   /* ---------------- 作答 ---------------- */
@@ -487,10 +604,113 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
       Array.prototype.forEach.call($('keys').querySelectorAll('button'), function (b) { b.disabled = true; });
       result(it, ok ? 'ok' : 'fail', $('keys'));
       var why = !ok && Q.dg ? Q.dg(nums) : '';
-      $('numFb').innerHTML = (it.msg || '') + '<div class="fb ' + (ok ? 'ok' : 'no') + '">' + (ok ? '✅ 答對了！' + comboTxt() + '<br>'
+      $('numFb').innerHTML = (Q.viz ? vizHTML(Q, nums) : '') + (it.msg || '') + '<div class="fb ' + (ok ? 'ok' : 'no') + '">' + (ok ? '✅ 答對了！' + comboTxt() + '<br>'
         : '❌ 正確答案是 <b>' + Q.ans.map(function (a, j) { return (Q.fields[j].pre ? Q.fields[j].pre + ' ' : '') + a + (Q.fields[j].unit || ''); }).join('，') + '</b>。' + (it.again ? '' : '等一下會換數字再考一次。') + '<br>'
           + (why ? '🔎 <b>可能錯在這裡：</b>' + why + '<br>' : '')) + Q.ex + '</div>' + nextBtn('', ok ? 0 : 3);
+      if (Q.viz) playViz(Q, nums, ok);
       bindNext();
+    }
+  }
+
+  /* ---------------- 答案變成動作：送出後把她的答案演出來 ---------------- */
+  var REDUCE = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  function anim(ms, step, done) {
+    if (REDUCE) { step(1); if (done) done(); return; }
+    var t0 = performance.now(), tick = function (now) { var k = Math.min(1, (now - t0) / ms); step(k); if (k < 1) requestAnimationFrame(tick); else if (done) done(); };
+    requestAnimationFrame(tick);
+  }
+  var ease = function (k) { return 1 - Math.pow(1 - k, 3); };
+  var f1 = function (x) { return (Math.round(x * 10) / 10).toString(); };
+  function vizHTML(Q, nums) {
+    var V = Q.viz, h = '';
+    if (V.t === 'clock') {
+      var cx = 150, cy = 130, R = 104, n = '';
+      for (var k = 1; k <= 12; k++) { var a = k * 30 * Math.PI / 180; n += '<text x="' + f1(cx + (R - 18) * Math.sin(a)) + '" y="' + f1(cy - (R - 18) * Math.cos(a) + 6) + '" text-anchor="middle" font-size="17" font-weight="800" fill="#2b2d42">' + k + '</text>'; }
+      h = '<svg viewBox="0 0 300 262" class="vz" role="img" aria-label="鐘面：指針從 ' + V.from + ' 轉了你填的度數"><circle cx="' + cx + '" cy="' + cy + '" r="' + R + '" fill="#fffdf6" stroke="#c9bff2" stroke-width="5"/>' + n
+        + '<path id="vzTarget" fill="none" stroke="#2fb36d" stroke-width="5" stroke-dasharray="8 6" stroke-linecap="round" opacity="0"/>'
+        + '<path id="vzSweep" fill="#7b61ff" opacity=".22"/><line id="vzHand" x1="' + cx + '" y1="' + cy + '" x2="' + cx + '" y2="' + (cy - R + 30) + '" stroke="#7b61ff" stroke-width="7" stroke-linecap="round"/>'
+        + '<circle cx="' + cx + '" cy="' + cy + '" r="7" fill="#7b61ff"/><text x="150" y="256" text-anchor="middle" font-size="15" fill="#555" id="vzNote"></text></svg>';
+    } else if (V.t === 'line') {
+      var g = V.base === 90 ? { vx: 165, vy: 185, r: 140, h: 205 } : V.base === 180 ? { vx: 170, vy: 170, r: 140, h: 200 } : { vx: 170, vy: 125, r: 100, h: 250 };
+      var P = function (th, rr) { th = th * Math.PI / 180; return f1(g.vx + rr * Math.cos(th)) + ' ' + f1(g.vy - rr * Math.sin(th)); };
+      var ray = function (th) { return '<line x1="' + g.vx + '" y1="' + g.vy + '" x2="' + P(th, g.r + 10).replace(' ', '" y2="') + '" stroke="#2b2d42" stroke-width="4" stroke-linecap="round"/>'; };
+      h = '<svg viewBox="0 0 340 ' + g.h + '" class="vz" role="img" aria-label="把你算的角拼上去，看看是不是剛好">'
+        + '<path d="' + sector(g, 0, V.a, g.r * .55) + '" fill="#4d96ff" opacity=".35"/>' + '<text x="' + P(V.a / 2, g.r * .38).split(' ')[0] + '" y="' + (+P(V.a / 2, g.r * .38).split(' ')[1] + 6) + '" text-anchor="middle" font-size="16" font-weight="800" fill="#1d4f9e">' + V.a + '°</text>'
+        + '<path id="vzSweep" fill="#7b61ff" opacity=".3"/><path id="vzGap" fill="#e5484d" opacity="0"/>'
+        + ray(0) + (V.base === 360 ? '' : ray(V.base)) + ray(V.a)
+        + '<line id="vzHand" x1="' + g.vx + '" y1="' + g.vy + '" stroke="#7b61ff" stroke-width="5" stroke-linecap="round" stroke-dasharray="2 7"/>'
+        + (V.base === 90 ? '<path d="M' + (g.vx + 18) + ' ' + g.vy + ' V' + (g.vy - 18) + ' H' + g.vx + '" fill="none" stroke="#2b2d42" stroke-width="2.4"/>' : '')
+        + '<circle cx="' + g.vx + '" cy="' + g.vy + '" r="5" fill="#2b2d42"/><text id="vzLab" font-size="16" font-weight="800" fill="#4f3bc4" text-anchor="middle"></text></svg>';
+      V._g = g;
+    } else if (V.t === 'road') {
+      var val = nums.length > 1 ? nums[0] * 1000 + nums[1] : nums[0], L = Math.max(V.total, val, 1000) * 1.12, x0 = 24, x1 = 318, X = function (m) { return x0 + (x1 - x0) * m / L; };
+      var step = L / 1000 > 30 ? 5000 : L / 1000 > 12 ? 2000 : 1000, ticks = '';
+      for (var m = 0; m <= L; m += step) ticks += '<line x1="' + f1(X(m)) + '" y1="96" x2="' + f1(X(m)) + '" y2="106" stroke="#7a7f88" stroke-width="2"/><text x="' + f1(X(m)) + '" y="124" text-anchor="middle" font-size="12" fill="#555">' + (m / 1000) + ' 公里</text>';
+      h = '<svg viewBox="0 0 340 132" class="vz" role="img" aria-label="小車開了你算的距離">'
+        + '<rect x="' + x0 + '" y="78" width="' + (x1 - x0) + '" height="18" rx="4" fill="#8a919b"/><path d="M' + x0 + ' 87 H' + x1 + '" stroke="#fff" stroke-width="2" stroke-dasharray="10 8"/>' + ticks
+        + '<g transform="translate(' + f1(X(V.total)) + ' 0)"><line x1="0" y1="26" x2="0" y2="96" stroke="#2b2d42" stroke-width="2.4"/><path d="M0 26 L22 32 L0 40Z" fill="#2fb36d"/><text x="0" y="18" text-anchor="' + (X(V.total) > 240 ? 'end' : X(V.total) < 90 ? 'start' : 'middle') + '" font-size="13" font-weight="800" fill="#1b6b40">終點 ' + V.total + ' 公尺</text></g>'
+        + '<path id="vzGap" stroke="#e5484d" stroke-width="3" fill="none" opacity="0"/>'
+        + '<g id="vzCar" transform="translate(' + x0 + ' 0)"><rect x="-26" y="56" width="30" height="16" rx="5" fill="#ff6b9a"/><path d="M-21 56 L-16 46 H-4 L1 56Z" fill="#ffb3c9"/><circle cx="-18" cy="74" r="5" fill="#2b2d42"/><circle cx="-4" cy="74" r="5" fill="#2b2d42"/></g></svg>';
+      V._x = X; V._val = val;
+    } else if (V.t === 'div') {
+      var q = nums[0], r = nums[1], show = Math.min(q, 10), boxes = '';
+      for (var i = 0; i < show; i++) boxes += '<g class="vzBox" opacity="0" transform="translate(' + (14 + i * 31) + ' 30)"><rect width="26" height="22" rx="4" fill="#ffd166" stroke="#c98a00" stroke-width="2"/><path d="M0 7 H26" stroke="#c98a00" stroke-width="2"/></g>';
+      var W = 170, rw = Math.min(r / V.d, 1.7) * W;
+      h = '<svg viewBox="0 0 340 150" class="vz" role="img" aria-label="把糖果每盒裝 ' + V.d + ' 顆">'
+        + '<text x="14" y="20" font-size="14" fill="#555">每盒裝 ' + V.d + ' 顆，你裝了 ' + q + ' 盒' + (q > show ? '（只畫 ' + show + ' 盒）' : '') + '：</text>' + boxes
+        + '<text x="14" y="84" font-size="14" fill="#555">剩下 ' + r + ' 顆，跟一盒比一比：</text>'
+        + '<rect x="14" y="94" width="' + W + '" height="22" rx="5" fill="none" stroke="#c98a00" stroke-width="2.4" stroke-dasharray="6 4"/><text x="' + (14 + W / 2) + '" y="110" text-anchor="middle" font-size="12" fill="#8a5a00">一盒 ' + V.d + ' 顆</text>'
+        + '<rect id="vzLeft" x="14" y="122" width="0" height="18" rx="5" fill="' + (r >= V.d ? '#e5484d' : '#ff9f1c') + '"/>'
+        + '<text id="vzLeftTx" x="' + f1(rw > 230 ? 8 + rw : 20 + rw) + '" y="136" text-anchor="' + (rw > 230 ? 'end' : 'start') + '" font-size="13" font-weight="800" fill="' + (rw > 230 ? '#fff' : r >= V.d ? '#c2362a' : '#8a5a00') + '" opacity="0">' + r + ' 顆</text></svg>';
+      V._rw = rw; V._q = q; V._r = r;
+    }
+    return '<div class="vzWrap">' + h + '<p class="vzCap" id="vzCap"></p></div>';
+  }
+  function sector(g, t1, t2, rr) { // 數學角度（逆時針）的扇形
+    if (t2 - t1 >= 359.9) return 'M' + (g.vx + rr) + ' ' + g.vy + ' A' + rr + ' ' + rr + ' 0 1 0 ' + (g.vx - rr) + ' ' + g.vy + ' A' + rr + ' ' + rr + ' 0 1 0 ' + (g.vx + rr) + ' ' + g.vy + 'Z';
+    var a = t1 * Math.PI / 180, b = t2 * Math.PI / 180;
+    return 'M' + g.vx + ' ' + g.vy + ' L' + f1(g.vx + rr * Math.cos(a)) + ' ' + f1(g.vy - rr * Math.sin(a)) + ' A' + rr + ' ' + rr + ' 0 ' + (t2 - t1 > 180 ? 1 : 0) + ' 0 ' + f1(g.vx + rr * Math.cos(b)) + ' ' + f1(g.vy - rr * Math.sin(b)) + 'Z';
+  }
+  function playViz(Q, nums, ok) {
+    var V = Q.viz, cap = $('vzCap');
+    if (V.t === 'clock') {
+      var cx = 150, cy = 130, R = 104, a0 = (V.from % 12) * 30, deg = Math.min(nums[0], 720), corr = Q.ans[0];
+      var P = function (ph, rr) { ph = ph * Math.PI / 180; return f1(cx + rr * Math.sin(ph)) + ' ' + f1(cy - rr * Math.cos(ph)); };
+      var arc = function (t, rr) { if (t >= 359.9) return 'M' + cx + ' ' + (cy - rr) + ' A' + rr + ' ' + rr + ' 0 1 1 ' + cx + ' ' + (cy + rr) + ' A' + rr + ' ' + rr + ' 0 1 1 ' + cx + ' ' + (cy - rr) + 'Z'; return 'M' + cx + ' ' + cy + ' L' + P(a0, rr) + ' A' + rr + ' ' + rr + ' 0 ' + (t > 180 ? 1 : 0) + ' 1 ' + P(a0 + t, rr) + 'Z'; };
+      var hand = $('vzHand'), sw = $('vzSweep');
+      hand.setAttribute('transform', 'rotate(' + a0 + ' ' + cx + ' ' + cy + ')');
+      anim(1300, function (k) { var t = deg * ease(k); sw.setAttribute('d', t > .5 ? arc(t, R - 34) : ''); hand.setAttribute('transform', 'rotate(' + f1(a0 + t) + ' ' + cx + ' ' + cy + ')'); }, function () {
+        if (!ok) { var tg = $('vzTarget'); tg.setAttribute('d', 'M' + cx + ' ' + cy + ' L' + P(a0 + corr, R - 30)); tg.setAttribute('opacity', '1'); }
+        cap.innerHTML = ok ? '🎯 指針剛好轉到 <b>' + V.to + '</b>！' : '指針轉了 ' + nums[0] + '°，停在紫色的地方；要轉到 <b>' + V.to + '</b>（綠色虛線），也就是 <b>' + corr + '°</b>。';
+      });
+    } else if (V.t === 'line') {
+      var g = V._g, x = Math.max(0, Math.min(nums[0], 400 - V.a)), end = V.a + x, sw2 = $('vzSweep'), gap = $('vzGap'), hd = $('vzHand'), lab = $('vzLab');
+      var tip = function (th) { th = th * Math.PI / 180; return [g.vx + (g.r + 10) * Math.cos(th), g.vy - (g.r + 10) * Math.sin(th)]; }, p0 = tip(V.a);
+      hd.setAttribute('x2', f1(p0[0])); hd.setAttribute('y2', f1(p0[1]));
+      anim(1200, function (k) { var t = x * ease(k), p = tip(V.a + t); sw2.setAttribute('d', t > .5 ? sector(g, V.a, V.a + t, g.r * .75) : ''); hd.setAttribute('x2', f1(p[0])); hd.setAttribute('y2', f1(p[1])); }, function () {
+        var mid = (V.a + end) / 2 * Math.PI / 180;
+        lab.setAttribute('x', f1(g.vx + g.r * .58 * Math.cos(mid))); lab.setAttribute('y', f1(g.vy - g.r * .58 * Math.sin(mid) + 6)); lab.textContent = nums[0] + '°';
+        if (end !== V.base) { gap.setAttribute('d', end < V.base ? sector(g, end, V.base, g.r * .75) : sector(g, V.base, end, g.r * .9)); gap.setAttribute('opacity', '.35'); }
+        var name = V.base === 90 ? '直角' : V.base === 180 ? '平角（一條直線）' : '周角（一整圈）';
+        cap.innerHTML = end === V.base ? '🎯 ' + V.a + '° ＋ ' + nums[0] + '° 剛好拼成' + name + ' ' + V.base + '°！'
+          : V.a + '° ＋ ' + nums[0] + '° ＝ ' + (V.a + nums[0]) + '°，' + (end < V.base ? '還差 <b>' + (V.base - end) + '°</b>' : '多了 <b>' + (V.a + nums[0] - V.base) + '°</b>') + '（紅色），拼不成' + name + ' ' + V.base + '°。';
+      });
+    } else if (V.t === 'road') {
+      var car = $('vzCar'), X = V._x, val = V._val, gp = $('vzGap');
+      anim(1400, function (k) { car.setAttribute('transform', 'translate(' + f1(X(val * ease(k))) + ' 0)'); }, function () {
+        var df = val - V.total;
+        if (df) { gp.setAttribute('d', 'M' + f1(X(Math.min(val, V.total))) + ' 104 V110 H' + f1(X(Math.max(val, V.total))) + ' V104'); gp.setAttribute('opacity', '1'); }
+        cap.innerHTML = !df ? '🏁 小車剛好開到終點：' + V.total + ' 公尺！' : '小車開了 ' + val + ' 公尺，' + (df < 0 ? '還差 <b>' + (-df) + ' 公尺</b>才到終點' : '超過終點 <b>' + df + ' 公尺</b>') + '。記得：1 公里 ＝ 1000 公尺。';
+      });
+    } else if (V.t === 'div') {
+      var bx = document.querySelectorAll('#numFb .vzBox'), lf = $('vzLeft'), lt = $('vzLeftTx'), q = V._q, r = V._r, X2 = V.d * q + r;
+      anim(Math.max(500, bx.length * 110), function (k) { Array.prototype.forEach.call(bx, function (b, i) { b.setAttribute('opacity', k * bx.length > i ? '1' : '0'); }); }, function () {
+        anim(700, function (k) { lf.setAttribute('width', f1(V._rw * ease(k))); }, function () {
+          lt.setAttribute('opacity', '1');
+          cap.innerHTML = (r >= V.d ? '剩下的 ' + r + ' 顆' + (r === V.d ? '剛好跟一盒 ' + V.d + ' 顆一樣多' : '比一盒的 ' + V.d + ' 顆還多') + '（紅色），<b>還能再裝一盒</b>，商可以再大一點。' : '')
+            + V.d + ' × ' + q + ' ＋ ' + r + ' ＝ ' + X2 + (X2 === V.N ? (r < V.d ? '，🎯 剛好是 ' + V.N + ' 顆！' : '。') : '，' + (X2 > V.N ? '比 ' + V.N + ' 多了 ' : '比 ' + V.N + ' 少了 ') + '<b>' + Math.abs(X2 - V.N) + ' 顆</b>。');
+        });
+      });
     }
   }
 
@@ -564,6 +784,8 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
   }
 
   renderHome();
+  if (location.hash === '#parent') { renderParent(); show('vParent'); }
+  window.addEventListener('hashchange', function () { if (location.hash === '#parent' && !run) { renderParent(); show('vParent'); } });
 })();
 </script>
 </body>

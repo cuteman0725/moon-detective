@@ -87,6 +87,10 @@
     var day = dayRec(st, d), wasMonster = r.res === 'fail';
     if (isNew) day.nw++;
     day.n++; r.n++; r.last = d; r.res = res;
+    // 各科每天的題數和答對數（給爸媽看的學習紀錄用）
+    if (!day.s) day.s = {};
+    var ds = day.s[card.s] || (day.s[card.s] = { n: 0, ok: 0 });
+    ds.n++; if (res === 'ok') ds.ok++;
     // 小怪物：答錯（想不起來）的卡會變成小怪物，下次複習答對就打倒牠
     if (res === 'fail' && !wasMonster) day.mon = (day.mon || 0) + 1;
     if (res === 'ok' && wasMonster) { st.beat = (st.beat || 0) + 1; day.beat = (day.beat || 0) + 1; }
