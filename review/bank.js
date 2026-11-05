@@ -68,26 +68,32 @@
   }
 
   /* ---------------- 數學：每次出不同的數字 ----------------
-     回傳 { q, fields:[{pre, unit}], ans:[數字...], ex }，或 { kind:'pick', q, opts, a, ex } */
+     填數字：{ q, fields:[{pre, unit}], ans:[數字...], ex, dg(答案陣列) → 可能錯在哪（猜不出來就回空字串） }
+     選擇題：{ kind:'pick', q, opts, a, ex }
+     找錯題：{ kind:'spot', q, parts:[...], bad:錯的那一格, block:是否一行一行排, fix, ex } */
+  function p10(x) { return x >= 10 && /^10+$/.test(String(x)); } // 10、100、1000……
   var GEN = {
     place: function () {
       var n, s, k, d;
       for (var t = 0; t < 100; t++) { n = bigNum(ri(7, 8), .3); s = String(n); k = ri(0, s.length - 2); d = s[k]; if (d !== '0' && s.split(d).length === 2) break; }
       var pos = s.length - 1 - k, v = +d * Math.pow(10, pos);
       return { q: '在 <b class="num">' + grp(n) + '</b> 裡，數字 <b>' + d + '</b> 代表多少？', fields: [{ pre: '', unit: '' }], ans: [v],
-        ex: d + ' 在<b>' + PLACE[pos] + '位</b>，代表 ' + d + ' 個' + (PLACE[pos] === '個' ? '一' : PLACE[pos]) + '，也就是 <b>' + grp(v) + '</b>。' };
+        ex: d + ' 在<b>' + PLACE[pos] + '位</b>，代表 ' + d + ' 個' + (PLACE[pos] === '個' ? '一' : PLACE[pos]) + '，也就是 <b>' + grp(v) + '</b>。',
+        dg: function (x) { x = x[0]; if (x === +d) return '數字 ' + d + ' 不只代表 ' + d + '，要看它在哪一位。'; if (x === v * 10 || x * 10 === v) return '位數數錯了一位：從個位往左數，個、十、百、千、萬、十萬、百萬、千萬。'; return ''; } };
     },
     write: function () {
       var n = bigNum(ri(7, 8), .35), hi = Math.floor(n / 1e4), lo = n % 1e4;
       return { q: '把「<b>' + readNum(n) + '</b>」寫成數字。', fields: [{ pre: '', unit: '' }], ans: [n],
-        ex: readNum(hi) + '萬 → ' + hi + ' 萬；' + (lo ? readNum(lo).replace(/^零/, '') + ' → ' + String(lo).padStart(4, '0') : '後面四位都是 0') + '。合起來是 <b>' + grp(n) + '</b>。' };
+        ex: readNum(hi) + '萬 → ' + hi + ' 萬；' + (lo ? readNum(lo).replace(/^零/, '') + ' → ' + String(lo).padStart(4, '0') : '後面四位都是 0') + '。合起來是 <b>' + grp(n) + '</b>。',
+        dg: function (x) { var a = String(x[0]).length, b = String(n).length; if (a < b) return '位數不夠：「萬」後面一定要有 4 位，讀到「零」或沒有讀出來的位要補 0。'; if (a > b) return '位數太多了：「萬」後面只有千、百、十、個 4 位。'; return ''; } };
     },
     addsub: function () {
       var a = bigNum(ri(6, 7), .2), b = bigNum(ri(5, 6), .2), plus = Math.random() < .5;
       if (!plus && b > a) { var t = a; a = b; b = t; }
       var ans = plus ? a + b : a - b;
       return { q: '<b class="num">' + grp(a) + ' ' + (plus ? '＋' : '－') + ' ' + grp(b) + '</b> ＝ ？', fields: [{ pre: '', unit: '' }], ans: [ans],
-        ex: '用直式，個位對齊再' + (plus ? '加，滿十要進位' : '減，不夠減要借位') + '。答案是 <b>' + grp(ans) + '</b>。' };
+        ex: '用直式，個位對齊再' + (plus ? '加，滿十要進位' : '減，不夠減要借位') + '。答案是 <b>' + grp(ans) + '</b>。',
+        dg: function (x) { x = x[0]; if (x === (plus ? a - b : a + b)) return '看清楚是「' + (plus ? '＋' : '－') + '」喔。'; var df = Math.abs(x - ans); if (p10(df)) return '答案差了 ' + df + '，可能是有一位的' + (plus ? '進位' : '借位') + '漏掉了。'; return ''; } };
     },
     seq: function () {
       var st = pick([3, 5, 25, 50, 100, 250, 500, 1000, 2500, 10000]), dir = Math.random() < .65 ? 1 : -1, base = ri(1, 90) * st + ri(1, 9) * (st >= 10 ? st / 5 : 1);
@@ -95,18 +101,21 @@
       var arr = []; for (var i = 0; i < 5; i++) arr.push(base + dir * st * i);
       var p = ri(1, 4);
       return { q: '找規律，□ 是多少？<div class="seq">' + arr.map(function (x, i) { return i === p ? '<span class="blank">□</span>' : grp(x); }).join('、') + '</div>', fields: [{ pre: '□ ＝', unit: '' }], ans: [arr[p]],
-        ex: '每次' + (dir > 0 ? '多' : '少') + ' ' + grp(st) + '，所以 □ 是 <b>' + grp(arr[p]) + '</b>。' };
+        ex: '每次' + (dir > 0 ? '多' : '少') + ' ' + grp(st) + '，所以 □ 是 <b>' + grp(arr[p]) + '</b>。',
+        dg: function (x) { x = x[0]; if (x === arr[p - 1] - dir * st) return '看清楚數字是越來越' + (dir > 0 ? '大' : '小') + '喔。'; if (Math.abs(x - arr[p - 1]) !== st) return '先算出相鄰兩個數差多少，□ 就是前一個數' + (dir > 0 ? '加' : '減') + '這麼多。'; return ''; } };
     },
     mul41: function () {
-      var a = Math.random() < .45 ? ri(1, 9) * 1000 + ri(0, 9) * 10 + ri(1, 9) : ri(1001, 9999), b = ri(2, 9);
-      return { q: '<b class="num">' + a + ' × ' + b + '</b> ＝ ？', fields: [{ pre: '', unit: '' }], ans: [a * b],
-        ex: '從個位開始乘，' + b + ' 分別乘個位、十位、百位、千位，滿十要進位。答案是 <b>' + (a * b) + '</b>。' };
+      var a = Math.random() < .45 ? ri(1, 9) * 1000 + ri(0, 9) * 10 + ri(1, 9) : ri(1001, 9999), b = ri(2, 9), ans = a * b;
+      return { q: '<b class="num">' + a + ' × ' + b + '</b> ＝ ？', fields: [{ pre: '', unit: '' }], ans: [ans],
+        ex: '從個位開始乘，' + b + ' 分別乘個位、十位、百位、千位，滿十要進位。答案是 <b>' + ans + '</b>。',
+        dg: function (x) { x = x[0]; var df = Math.abs(x - ans); if (String(x).length < String(ans).length) return '位數少了，檢查有沒有漏乘一位（中間是 0 的那一位也要寫 0）。'; if (df && df % 10 === 0 && df < ans) return '答案差了 ' + df + '，可能是有一位忘了加上進位。'; return ''; } };
     },
     mul32: function () {
       var a = ri(101, 999), b = ri(12, 98); if (b % 10 === 0) b++;
-      var p1 = a * (b % 10), p2 = a * Math.floor(b / 10);
-      return { q: '<b class="num">' + a + ' × ' + b + '</b> ＝ ？', fields: [{ pre: '', unit: '' }], ans: [a * b],
-        ex: a + ' × ' + (b % 10) + ' ＝ ' + p1 + '；' + a + ' × ' + Math.floor(b / 10) + '0 ＝ ' + (p2 * 10) + '（第二行往左移一位）。' + p1 + ' ＋ ' + (p2 * 10) + ' ＝ <b>' + (a * b) + '</b>。' };
+      var u = b % 10, tn = Math.floor(b / 10), p1 = a * u, p2 = a * tn, ans = a * b;
+      return { q: '<b class="num">' + a + ' × ' + b + '</b> ＝ ？', fields: [{ pre: '', unit: '' }], ans: [ans],
+        ex: a + ' × ' + u + ' ＝ ' + p1 + '；' + a + ' × ' + tn + '0 ＝ ' + (p2 * 10) + '（第二行往左移一位）。' + p1 + ' ＋ ' + (p2 * 10) + ' ＝ <b>' + ans + '</b>。',
+        dg: function (x) { x = x[0]; if (x === p1 + p2) return '第二行是乘「' + tn + '0」，要往左移一位（後面補 0）再加起來。'; if (x === p1 || x === p2 * 10 || x === p2) return '兩行都乘完以後，要加起來才是答案。'; if (p10(Math.abs(x - ans))) return '兩行加起來的時候，可能漏了進位。'; return ''; } };
     },
     quick: function () {
       var t = ri(0, 3), a, b;
@@ -114,47 +123,55 @@
       else if (t === 1) { a = ri(2, 9); b = ri(2, 9) * 10; }
       else if (t === 2) { a = ri(2, 9) * 10; b = ri(2, 9) * 10; }
       else { a = ri(11, 49); if (a % 10 === 0) a++; b = ri(2, 9) * 10; }
-      var za = String(a).match(/0*$/)[0].length, zb = String(b).match(/0*$/)[0].length, ca = a / Math.pow(10, za), cb = b / Math.pow(10, zb);
-      return { q: '補 0 快算：<b class="num">' + a + ' × ' + b + '</b> ＝ ？', fields: [{ pre: '', unit: '' }], ans: [a * b],
-        ex: '先算 ' + ca + ' × ' + cb + ' ＝ ' + (ca * cb) + '，再在後面補 <b>' + (za + zb) + ' 個 0</b> → <b>' + (a * b) + '</b>。' };
+      var za = String(a).match(/0*$/)[0].length, zb = String(b).match(/0*$/)[0].length, ca = a / Math.pow(10, za), cb = b / Math.pow(10, zb), ans = a * b;
+      return { q: '補 0 快算：<b class="num">' + a + ' × ' + b + '</b> ＝ ？', fields: [{ pre: '', unit: '' }], ans: [ans],
+        ex: '先算 ' + ca + ' × ' + cb + ' ＝ ' + (ca * cb) + '，再在後面補 <b>' + (za + zb) + ' 個 0</b> → <b>' + ans + '</b>。',
+        dg: function (x) { x = x[0]; if (x === ca * cb) return '別忘了在後面補 0：一共要補 ' + (za + zb) + ' 個。'; if (x * 10 === ans) return '少補了一個 0：兩個數後面一共有 ' + (za + zb) + ' 個 0。'; if (x === ans * 10) return '多補了一個 0：兩個數後面一共只有 ' + (za + zb) + ' 個 0。'; return ''; } };
     },
     angle: function () {
       var t = ri(0, 3), a;
-      if (t === 0) { a = ri(4, 32) * 5; return { q: '一條直線（平角）被分成兩個角，一個角是 <b>' + a + '°</b>，另一個角是幾度？', fields: [{ pre: '', unit: '度' }], ans: [180 - a], ex: '平角是 180°，180° － ' + a + '° ＝ <b>' + (180 - a) + '°</b>。' }; }
-      if (t === 1) { a = ri(2, 16) * 5; return { q: '一個直角被分成兩個角，一個角是 <b>' + a + '°</b>，另一個角是幾度？', fields: [{ pre: '', unit: '度' }], ans: [90 - a], ex: '直角是 90°，90° － ' + a + '° ＝ <b>' + (90 - a) + '°</b>。' }; }
-      if (t === 2) { a = ri(6, 66) * 5; return { q: '轉一圈是周角。一個角是 <b>' + a + '°</b>，剩下的角是幾度？', fields: [{ pre: '', unit: '度' }], ans: [360 - a], ex: '周角是 360°，360° － ' + a + '° ＝ <b>' + (360 - a) + '°</b>。' }; }
+      if (t === 0) { a = ri(4, 32) * 5; return { q: '一條直線（平角）被分成兩個角，一個角是 <b>' + a + '°</b>，另一個角是幾度？', fields: [{ pre: '', unit: '度' }], ans: [180 - a], ex: '平角是 180°，180° － ' + a + '° ＝ <b>' + (180 - a) + '°</b>。',
+        dg: function (x) { x = x[0]; if (x === 90 - a) return '一條直線是平角 180°，不是直角 90°。'; if (x === 360 - a) return '一條直線是平角 180°，不是周角 360°。'; return ''; } }; }
+      if (t === 1) { a = ri(2, 16) * 5; return { q: '一個直角被分成兩個角，一個角是 <b>' + a + '°</b>，另一個角是幾度？', fields: [{ pre: '', unit: '度' }], ans: [90 - a], ex: '直角是 90°，90° － ' + a + '° ＝ <b>' + (90 - a) + '°</b>。',
+        dg: function (x) { x = x[0]; if (x === 180 - a) return '這題是直角 90°，不是平角 180°。'; return ''; } }; }
+      if (t === 2) { a = ri(6, 66) * 5; return { q: '轉一圈是周角。一個角是 <b>' + a + '°</b>，剩下的角是幾度？', fields: [{ pre: '', unit: '度' }], ans: [360 - a], ex: '周角是 360°，360° － ' + a + '° ＝ <b>' + (360 - a) + '°</b>。',
+        dg: function (x) { x = x[0]; if (x === 180 - a) return '轉一圈是周角 360°，不是平角 180°。'; return ''; } }; }
       var steps = pick([1, 2, 3, 4, 5, 6, 9]), from = pick([12, 3, 6, 9]), to = ((from % 12) + steps) % 12 || 12;
-      return { q: '鐘面上，指針從 <b>' + from + '</b> 順時針轉到 <b>' + to + '</b>，轉了幾度？', fields: [{ pre: '', unit: '度' }], ans: [steps * 30], ex: '鐘面上相鄰兩個數字之間是 30°。轉了 ' + steps + ' 格，' + steps + ' × 30° ＝ <b>' + (steps * 30) + '°</b>。' };
+      return { q: '鐘面上，指針從 <b>' + from + '</b> 順時針轉到 <b>' + to + '</b>，轉了幾度？', fields: [{ pre: '', unit: '度' }], ans: [steps * 30], ex: '鐘面上相鄰兩個數字之間是 30°。轉了 ' + steps + ' 格，' + steps + ' × 30° ＝ <b>' + (steps * 30) + '°</b>。',
+        dg: function (x) { x = x[0]; if (x === steps) return '轉了 ' + steps + ' 格，每一格是 30°，要乘 30。'; if (x === (12 - steps) * 30) return '是「順時針」：照時鐘指針轉的方向，從 ' + from + ' 轉到 ' + to + '。'; return ''; } };
     },
     div41: function () {
       var d, Q, R, N;
       for (var t = 0; t < 200; t++) { d = ri(2, 9); Q = ri(Math.ceil(1000 / d), Math.floor(9999 / d)); R = Math.random() < .3 ? 0 : ri(1, d - 1); N = d * Q + R; if (N >= 1000 && N <= 9999) break; }
       return { q: '<b class="num">' + N + ' ÷ ' + d + '</b> ＝ ？', fields: [{ pre: '商', unit: '' }, { pre: '餘數', unit: '' }], ans: [Q, R],
-        ex: '商是 <b>' + Q + '</b>，餘數是 <b>' + R + '</b>。驗算：' + d + ' × ' + Q + (R ? ' ＋ ' + R : '') + ' ＝ ' + N + '。餘數要比除數 ' + d + ' 小。' };
+        ex: '商是 <b>' + Q + '</b>，餘數是 <b>' + R + '</b>。驗算：' + d + ' × ' + Q + (R ? ' ＋ ' + R : '') + ' ＝ ' + N + '。餘數要比除數 ' + d + ' 小。', dg: divDiag(N, d, Q, R) };
     },
     div32: function () {
       var d, Q, R, N;
       for (var t = 0; t < 200; t++) { d = ri(12, 98); if (d % 10 === 0) continue; Q = ri(2, Math.floor(999 / d)); R = Math.random() < .3 ? 0 : ri(1, d - 1); N = d * Q + R; if (N >= 100 && N <= 999) break; }
       return { q: '<b class="num">' + N + ' ÷ ' + d + '</b> ＝ ？', fields: [{ pre: '商', unit: '' }, { pre: '餘數', unit: '' }], ans: [Q, R],
-        ex: '商是 <b>' + Q + '</b>，餘數是 <b>' + R + '</b>。驗算：' + d + ' × ' + Q + (R ? ' ＋ ' + R : '') + ' ＝ ' + N + '。' };
+        ex: '商是 <b>' + Q + '</b>，餘數是 <b>' + R + '</b>。驗算：' + d + ' × ' + Q + (R ? ' ＋ ' + R : '') + ' ＝ ' + N + '。', dg: divDiag(N, d, Q, R) };
     },
     km1: function () {
       var km = ri(1, 15), m = pick([ri(1, 9), ri(1, 9) * 10, ri(11, 99), ri(101, 999), ri(1, 9) * 100]);
       var ans = km * 1000 + m;
       return { q: '<b class="num">' + km + ' 公里 ' + m + ' 公尺</b> ＝ ？ 公尺', fields: [{ pre: '', unit: '公尺' }], ans: [ans],
-        ex: '1 公里 ＝ 1000 公尺。' + km + ' 公里 ＝ ' + (km * 1000) + ' 公尺，再加 ' + m + ' 公尺 ＝ <b>' + ans + ' 公尺</b>。' + (m < 100 ? '小心：' + m + ' 公尺要放在個位' + (m < 10 ? '' : '和十位') + '，前面補 0。' : '') };
+        ex: '1 公里 ＝ 1000 公尺。' + km + ' 公里 ＝ ' + (km * 1000) + ' 公尺，再加 ' + m + ' 公尺 ＝ <b>' + ans + ' 公尺</b>。' + (m < 100 ? '小心：' + m + ' 公尺要放在個位' + (m < 10 ? '' : '和十位') + '，前面補 0。' : ''),
+        dg: function (x) { x = x[0]; if (m < 100 && x === +(String(km) + String(m))) return m + ' 公尺不能直接接在 ' + km + ' 後面：公尺要寫成 3 位，' + m + ' 要寫成 ' + String(m).padStart(3, '0') + '。'; if (x === km * 1000) return '別忘了再加上 ' + m + ' 公尺。'; if (x === km * 100 + m || x === km * 10000 + m) return '1 公里是 1000 公尺。'; return ''; } };
     },
     km2: function () {
       var km = ri(1, 15), m = pick([0, ri(1, 9) * 10, ri(11, 99), ri(101, 999)]), tot = km * 1000 + m;
       return { q: '<b class="num">' + tot + ' 公尺</b> ＝ ？ 公里 ？ 公尺', fields: [{ pre: '', unit: '公里' }, { pre: '', unit: '公尺' }], ans: [km, m],
-        ex: '每 1000 公尺是 1 公里：' + tot + ' 公尺 ＝ <b>' + km + ' 公里 ' + m + ' 公尺</b>。' };
+        ex: '每 1000 公尺是 1 公里：' + tot + ' 公尺 ＝ <b>' + km + ' 公里 ' + m + ' 公尺</b>。',
+        dg: function (v) { if (v[0] === Math.floor(tot / 100) || v[0] === Math.floor(tot / 10000)) return '每 1000 公尺才是 1 公里。'; if (v[0] === km && v[1] !== m) return '公里對了！公尺是 ' + tot + ' 扣掉 ' + (km * 1000) + '。'; if (v[1] >= 1000) return '公尺滿 1000 就要換成 1 公里，公尺那格不會超過 999。'; return ''; } };
     },
     km3: function () {
       var plus, ak, am, bk, bm, tot;
       do { plus = Math.random() < .5; ak = ri(2, 12); am = ri(100, 950); bk = ri(1, ak - 1); bm = ri(100, 950); tot = plus ? ak * 1000 + am + bk * 1000 + bm : ak * 1000 + am - (bk * 1000 + bm); } while (tot < 1000);
       var k = Math.floor(tot / 1000), m = tot % 1000;
       return { q: '<b class="num">' + ak + ' 公里 ' + am + ' 公尺 ' + (plus ? '＋' : '－') + ' ' + bk + ' 公里 ' + bm + ' 公尺</b> ＝ ？', fields: [{ pre: '', unit: '公里' }, { pre: '', unit: '公尺' }], ans: [k, m],
-        ex: (plus ? '公尺加公尺，滿 1000 公尺進 1 公里' : '公尺減公尺，不夠減就借 1 公里 ＝ 1000 公尺') + '。答案是 <b>' + k + ' 公里 ' + m + ' 公尺</b>。' };
+        ex: (plus ? '公尺加公尺，滿 1000 公尺進 1 公里' : '公尺減公尺，不夠減就借 1 公里 ＝ 1000 公尺') + '。答案是 <b>' + k + ' 公里 ' + m + ' 公尺</b>。',
+        dg: function (v) { if (v[1] >= 1000) return '公尺滿 1000，要進位成 1 公里。'; if (v[1] === m && v[0] === k + 1 && !plus) return '公尺不夠減時，向公里借了 1，公里要少 1。'; if (v[1] === m && v[0] === k - 1 && plus) return '公尺加起來滿 1000 進位了，公里要多 1。'; if (v[0] === k && v[1] !== m) return '公里對了，公尺再算一次。'; return ''; } };
     },
     triAngle: function () {
       var t = ri(0, 2), a, b, c;
@@ -171,6 +188,44 @@
       var s = ri(4, 12), base; do { base = ri(2, 2 * s - 1); } while (base === s);
       return { kind: 'pick', q: '三角形的三條邊是 <b>' + s + '、' + s + '、' + base + ' 公分</b>，依「邊」來分，它是什麼三角形？', opts: ['等腰三角形', '正三角形', '直角三角形'], a: 0, ex: '有兩條邊一樣長，是<b>等腰三角形</b>。' };
     },
+    /* 找錯小偵探：小明的算法裡，第一個錯在哪一步？ */
+    spotMul: function () {
+      var a = ri(101, 999), b = ri(12, 98); if (b % 10 === 0) b++;
+      var u = b % 10, tn = Math.floor(b / 10), p1 = a * u, p2 = a * tn * 10, e = ri(0, 2), q1 = p1, q2 = p2, s;
+      if (e === 0) q1 = p1 + pick([-1, 1]) * pick([10, 100]);
+      if (e === 1) q2 = a * tn; // 第二行沒有往左移
+      s = q1 + q2; if (e === 2) s = p1 + p2 + pick([-1, 1]) * pick([100, 1000]);
+      if (q1 <= 0 || s <= 0) return GEN.spotMul();
+      var parts = ['① ' + a + ' × ' + u + ' ＝ ' + q1, '② ' + a + ' × ' + tn + '0 ＝ ' + q2, '③ ' + q1 + ' ＋ ' + q2 + ' ＝ ' + s];
+      var fix = ['① ' + a + ' × ' + u + ' ＝ ' + p1 + '（乘的時候要加上進位）', '② ' + a + ' × ' + tn + '0 ＝ ' + p2 + '（乘十位要往左移一位，後面補 0）', '③ ' + p1 + ' ＋ ' + p2 + ' ＝ ' + (p1 + p2)][e];
+      return { kind: 'spot', block: true, q: '小明算 <b class="num">' + a + ' × ' + b + '</b>，他第一個算錯的是哪一步？', parts: parts, bad: e, fix: fix, ex: '正確答案是 <b>' + (a * b) + '</b>。' };
+    },
+    spotKm: function () {
+      var km = ri(2, 15), m = pick([ri(1, 9) * 10, ri(11, 99), ri(101, 999)]), ans = km * 1000 + m, e = ri(0, 1), w1 = km * 1000, w3 = ans;
+      if (e === 0) { w1 = km * 100; w3 = w1 + m; }
+      else w3 = m < 100 ? +(String(km) + String(m)) : ans + 100;
+      var parts = ['① ' + km + ' 公里 ＝ ' + w1 + ' 公尺', '② ' + w1 + ' 公尺 ＋ ' + m + ' 公尺', '③ ＝ ' + w3 + ' 公尺'];
+      var fix = e === 0 ? '① ' + km + ' 公里 ＝ ' + (km * 1000) + ' 公尺（1 公里 ＝ 1000 公尺）' : '③ ＝ ' + ans + ' 公尺（' + (km * 1000) + ' ＋ ' + m + '）';
+      return { kind: 'spot', block: true, q: '小明把 <b class="num">' + km + ' 公里 ' + m + ' 公尺</b> 換成公尺，他第一個算錯的是哪一步？', parts: parts, bad: e === 0 ? 0 : 2, fix: fix, ex: '正確答案是 <b>' + ans + ' 公尺</b>。' };
+    },
+    spotAngle: function () {
+      var a = ri(4, 16) * 5, e = ri(0, 1), base = e === 0 ? 90 : 180, res = base - a;
+      if (e === 1) res = 180 - a + pick([-10, 10]);
+      var parts = ['① 一條直線是平角，平角是 ' + base + '°', '② 另一個角 ＝ ' + base + '° － ' + a + '°', '③ ＝ ' + res + '°'];
+      var fix = e === 0 ? '① 平角是 180°（90° 是直角）' : '③ 180° － ' + a + '° ＝ ' + (180 - a) + '°';
+      return { kind: 'spot', block: true, q: '一條直線被分成兩個角，一個是 <b>' + a + '°</b>。小明算另一個角，他第一個錯的是哪一步？', parts: parts, bad: e === 0 ? 0 : 2, fix: fix, ex: '另一個角是 <b>' + (180 - a) + '°</b>。' };
+    },
+    spotBig: function () {
+      var n, hi, lo;
+      do { n = bigNum(ri(7, 8), .35); hi = Math.floor(n / 1e4); lo = n % 1e4; } while (!lo || (lo >= 1000 && readNum(lo).indexOf('零') < 0));
+      var e = ri(0, 1), wl = String(lo).padStart(4, '0'), wn = String(n);
+      if (e === 0) { wl = lo < 1000 ? String(lo) : String(lo).replace(/(\d)0/, '$1'); wn = String(hi) + wl; } // 常見錯誤：萬後面沒補滿 4 位，或把「零」漏掉
+      else wn = String(hi) + String(lo);
+      if (e === 1 && wn === String(n)) return GEN.spotBig();
+      var parts = ['① 「' + readNum(hi) + '萬」→ ' + hi + ' 萬', '② 「' + readNum(lo) + '」→ ' + wl, '③ 合起來 → ' + grp(+wn)];
+      var fix = e === 0 ? '② 「' + readNum(lo) + '」要寫成 ' + String(lo).padStart(4, '0') + '（萬後面一定有 4 位，沒有的位補 0）' : '③ 合起來是 ' + grp(n) + '（萬後面要有 4 位：' + String(lo).padStart(4, '0') + '）';
+      return { kind: 'spot', block: true, q: '小明把「<b>' + readNum(n) + '</b>」寫成數字，他第一個錯的是哪一步？', parts: parts, bad: e === 0 ? 1 : 2, fix: fix, ex: '正確答案是 <b>' + grp(n) + '</b>。' };
+    },
     /* 自然：看月相猜農曆 */
     moon: function () {
       var P = [[40, '初三、初四'], [90, '初七、初八'], [180, '十五、十六'], [270, '廿二、廿三']], i = ri(0, 3);
@@ -185,6 +240,15 @@
       return { kind: 'pick', q: '課本到<b>' + w[0] + '</b>調查時，看到了下面哪一種生物？', opts: opts, a: 0, ex: '課本在' + w[0] + '看到：' + w[1].join('、') + '。' };
     }
   };
+  function divDiag(N, d, Q, R) {
+    return function (v) {
+      var q = v[0], r = v[1];
+      if (r >= d) return '餘數 ' + r + ' 比除數 ' + d + ' 大（或一樣大），表示商還可以再大一點。';
+      if (q === Q && r !== R) return '商對了！餘數再算一次：' + N + ' － ' + d + ' × ' + Q + '。';
+      if (q * d + r !== N && Math.abs(q - Q) >= 10 && p10(Math.abs(q - Q))) return '商差了 ' + Math.abs(q - Q) + '，可能是有一位的商忘了寫（不夠除的那一位要寫 0）。';
+      return '用「除數 × 商 ＋ 餘數」驗算，看看是不是 ' + N + '。';
+    };
+  }
 
   /* ---------------- 卡片 ---------------- */
   var cards = [];
@@ -282,14 +346,54 @@
   ];
   CHARS.forEach(function (c) { cards.push({ id: 'cn:' + c.c, s: 'cn', u: 'cn' + c.l, type: 'write', c: c.c, zy: c.zy, bs: c.bs, tot: c.tot, w: c.w, tx: c.tx }); });
 
+  // 國語：改錯字。把各課頁面列的形近字放進課文句子，點出寫錯的字（「紀錄／記錄」兩種寫法都常見，不出）
+  var LOOK = [
+    [1,"漫","慢","浪漫的藝術家"],
+    [1,"繁","緊","繁華墨綠"],
+    [1,"墨","黑","繁華墨綠"],
+    [1,"姿","資","最多采多姿的時節"],
+    [1,"幅","福","像一幅風景畫"],
+    [2,"汽","氣","被汽車撞倒"],
+    [2,"燙","湯","先將新鮮排骨燙過"],
+    [2,"換","喚","再換水，煮出精華"],
+    [2,"菜","彩","最後，放入青菜"],
+    [2,"矯","橋","我做了牙齒矯正"],
+    [2,"濃","農","濃濃的排骨粥"],
+    [3,"式","武","一間蘋果綠的日式建築"],
+    [3,"士","土","在一群熱心人士的努力下"],
+    [3,"獲","穫","靠自己努力獲得機會"],
+    [3,"支","友","從陪伴中得到支持"],
+    [4,"淺","錢","淺淺一彎"],
+    [4,"針","汁","細細的針葉密密"],
+    [4,"嶼","與","訴說島嶼的故事"],
+    [4,"峰","蜂","峰頂的氣象站"],
+    [4,"領","頑","領受太平洋第一道吹拂而來的風"],
+    [4,"頑","領","頑皮的風"],
+    [5,"困","因","克服種種困難"],
+    [5,"爭","掙","努力為臺灣爭光"],
+    [5,"震","雲","心中非常震驚"],
+    [6,"尺","戶","一千九百三十九公尺"],
+    [6,"護","獲","接受它的保護"],
+    [6,"層","曾","約兩層樓高"],
+    [6,"標","飄","西螺最「紅」的地標"],
+    [6,"仰","迎","人們仰望的臺灣驕傲"]
+  ];
+  LOOK.forEach(function (x) {
+    var k = x[3].indexOf(x[1]), wrong = x[3].slice(0, k) + x[2] + x[3].slice(k + 1);
+    cards.push({ id: 'cnx:' + x[1], s: 'cn', u: 'cn' + x[0], type: 'spot', label: '改錯字：' + x[1], q: '這句話有一個<b>錯字</b>，把它點出來。', parts: wrong.split(''), bad: k,
+      fix: '「' + x[2] + '」要改成「<b>' + x[1] + '</b>」：' + x[3], ex: '「' + x[1] + '」和「' + x[2] + '」長得很像，要看清楚。' });
+  });
+
   // 數學：一型一張卡
   [['ma1', 'place', '數字代表多少'], ['ma1', 'write', '大數寫成數字'], ['ma1', 'addsub', '大數加減'], ['ma1', 'seq', '數列找規律'],
    ['ma2', 'mul41', '四位數 × 一位數'], ['ma2', 'mul32', '三位數 × 二位數'], ['ma2', 'quick', '補 0 快算'],
    ['ma3', 'angle', '角度計算'],
    ['ma4', 'div41', '四位數 ÷ 一位數'], ['ma4', 'div32', '三位數 ÷ 二位數'],
    ['ma5', 'km1', '公里換公尺'], ['ma5', 'km2', '公尺換公里'], ['ma5', 'km3', '公里公尺加減'],
-   ['ma6', 'triAngle', '依角分三角形'], ['ma6', 'triSide', '依邊分三角形']
-  ].forEach(function (x) { var g = GEN[x[1]]; cards.push({ id: 'ma:' + x[1], s: 'ma', u: x[0], type: g().kind === 'pick' ? 'pick' : 'num', gen: x[1], label: x[2] }); });
+   ['ma6', 'triAngle', '依角分三角形'], ['ma6', 'triSide', '依邊分三角形'],
+   // 找錯小偵探：看小明的算法，點出第一個錯的那一步
+   ['ma1', 'spotBig', '找錯：大數寫成數字'], ['ma2', 'spotMul', '找錯：乘法直式'], ['ma3', 'spotAngle', '找錯：平角計算'], ['ma5', 'spotKm', '找錯：公里換公尺']
+  ].forEach(function (x) { var g = GEN[x[1]]; cards.push({ id: 'ma:' + x[1], s: 'ma', u: x[0], type: g().kind || 'num', gen: x[1], label: x[2] }); });
 
   // 自然：課本重點（先想再選）。n＝卡片 id 的後半；a＝正確答案；w＝其他選項
   function N(u, n, q, a, w, ex) { cards.push({ id: 'na:' + n, s: 'na', u: u, type: 'pick', q: q, a: a, w: w, ex: ex || '' }); }
@@ -343,10 +447,27 @@
   N('na2', 'tao', '達悟族人取用飛魚等魚類資源，有什麼好習慣？', '不濫捕、不浪費', ['一次捕越多越好', '只捕最小的魚'], '飛魚季時主要捕撈飛魚等洄游魚類，讓其他魚類可以繁衍後代。');
   N('na2', 'dam', '修築水庫有什麼用處？', '蓄水，維持穩定的水源', ['讓海水變淡', '讓水流得更急'], '乾淨且充足的水是人類生存必需。');
 
+  // 自然：找錯小偵探。parts 是一句話切成幾段，bad 那一段跟課本不一樣
+  function X(u, n, parts, bad, fix, ex) { cards.push({ id: 'nax:' + n, s: 'na', u: u, type: 'spot', label: '找錯：' + parts.join('').slice(0, 10) + '…', q: '這句話有一個地方<b>跟課本不一樣</b>，把它點出來。', parts: parts, bad: bad, fix: fix, ex: ex || '' }); }
+  X('na1', 'sunMoon', ['太陽和月亮', '都是西升東落', '。'], 1, '應該是「<b>東升西落</b>」：從東方升起、往西方落下。');
+  X('na1', 'south', ['面向南方站好，', '東方在你的右手邊', '。'], 1, '面向南方時，東方在<b>左手邊</b>，西方在右手邊。');
+  X('na1', 'first', ['農曆初七、初八是上弦月，', '左半邊亮', '。'], 1, '上弦月是<b>右半邊亮</b>；左半邊亮的是廿二、廿三的下弦月。');
+  X('na1', 'cycle', ['月相由缺到圓、再由圓到缺，', '大約需要 15 天', '。'], 1, '約需 <b>29 或 30 天</b>，這就是月相變化的規律性。');
+  X('na1', 'tool', ['量高度角時，', '用拳頭比高度角觀測器準確', '。'], 1, '課本說<b>高度角觀測器</b>測量的高度角比較準確。');
+  X('na2', 'lily', ['睡蓮的根長在土裡，', '葉片挺出水面，', '是浮葉性植物。'], 1, '睡蓮的葉片是<b>平貼在水面上</b>。葉挺出水面的是挺水性植物，例如蓮。');
+  X('na2', 'elodea', ['水蘊草是沉水性植物，', '莖、葉很硬，', '全株長在水中。'], 1, '水蘊草的莖、葉<b>柔軟</b>，可以適應水位和水流的變化。');
+  X('na2', 'root', ['蓮藕是蓮', '長在水面下的根', '，裡面有通氣組織。'], 1, '蓮藕是蓮長在水面下的<b>莖</b>。');
+  X('na2', 'gill', ['魚呼吸的時候，', '口閉合、鰓蓋閉合，', '水由口進入魚鰓。'], 1, '應該是<b>口張開、鰓蓋閉合</b>，水由口進入魚鰓；口閉合、鰓蓋張開，水才流出來。');
+  X('na2', 'scorpion', ['紅娘華是水生昆蟲，', '用鰓呼吸，', '中、後腳細長，可以游泳、爬行。'], 1, '紅娘華用<b>腹部末端的呼吸管</b>呼吸。');
+  X('na2', 'frog', ['蝌蚪用鰓呼吸，', '長成青蛙後鰓消失，', '主要用皮膚呼吸。'], 2, '成蛙<b>主要以肺呼吸</b>。');
+  X('na2', 'algae', ['廢水或農業肥料流入水域，', '藻類會大量減少，', '水中生物難以呼吸。'], 1, '藻類會<b>大量繁殖</b>，水中生物才會難以呼吸。');
+  X('na2', 'putBack', ['到水域調查後，', '把撈到的生物帶回家養', '。'], 1, '觀察完後要<b>放回原來的水域環境</b>。');
+
   /* 出題：把卡片變成這一次要作答的題目 */
   function make(card) {
     if (card.gen) { var g = GEN[card.gen](); g.kind = g.kind || 'num'; return g; }
     if (card.type === 'pick') { var opts = [card.a].concat(card.w); return { kind: 'pick', q: card.q, opts: opts, a: 0, ex: card.ex }; }
+    if (card.type === 'spot') return { kind: 'spot', block: false, q: card.q, parts: card.parts, bad: card.bad, fix: card.fix, ex: card.ex };
     return { kind: card.type };
   }
 

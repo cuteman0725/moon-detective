@@ -74,7 +74,10 @@ document.getElementById("subjects").innerHTML = SUBJECTS.map(function (s) {
   var t = document.getElementById("trTitle"), s = document.getElementById("trSub"), g = document.getElementById("trGo");
   if (p.done) { t.textContent = "✅ 今天的複習完成了！"; s.textContent = "🔥 連續 " + n + " 天，明天見！"; g.textContent = "看記憶樹 ➜"; }
   else if (!p.queue.length) { t.textContent = "今天的複習"; s.textContent = "今天沒有要複習的卡，太厲害了！"; g.textContent = "看看 ➜"; }
-  else if (started) { t.textContent = "今天的複習：" + p.queue.length + " 張"; s.textContent = "大約 " + SRS.minutes(p.queue.length) + " 分鐘" + (n ? "・🔥 連續 " + n + " 天" : "") + "・國語、數學、自然混著練"; }
+  else if (started) {
+    var d = SRS.dayNum(), mon = SRS.monsters(REVIEW_BANK, st).filter(function (c) { return st.cards[c.id].due <= d; }).length;
+    t.textContent = "今天的複習：" + p.queue.length + " 張"; s.textContent = "大約 " + SRS.minutes(p.queue.length) + " 分鐘" + (mon ? "・👾 " + mon + " 隻小怪物在等你" : "") + (n ? "・🔥 連續 " + n + " 天" : "");
+  }
 })();
 </script>
 </body>
