@@ -68,7 +68,7 @@
   }
 
   /* ---------------- 數學：每次出不同的數字 ----------------
-     填數字：{ q, fields:[{pre, unit}], ans:[數字...], ex, dg(答案陣列) → 可能錯在哪（猜不出來就回空字串） }
+     填數字：{ q, fields:[{pre, unit}], ans:[數字...], ex, dg(答案陣列) → 可能錯在哪（猜不出來就回空字串）, viz → 送出後把答案演出來（角度、公里、除法） }
      選擇題：{ kind:'pick', q, opts, a, ex }
      找錯題：{ kind:'spot', q, parts:[...], bad:錯的那一格, block:是否一行一行排, fix, ex } */
   function p10(x) { return x >= 10 && /^10+$/.test(String(x)); } // 10、100、1000……
@@ -130,38 +130,38 @@
     },
     angle: function () {
       var t = ri(0, 3), a;
-      if (t === 0) { a = ri(4, 32) * 5; return { q: '一條直線（平角）被分成兩個角，一個角是 <b>' + a + '°</b>，另一個角是幾度？', fields: [{ pre: '', unit: '度' }], ans: [180 - a], ex: '平角是 180°，180° － ' + a + '° ＝ <b>' + (180 - a) + '°</b>。',
+      if (t === 0) { a = ri(4, 32) * 5; return { q: '一條直線（平角）被分成兩個角，一個角是 <b>' + a + '°</b>，另一個角是幾度？', fields: [{ pre: '', unit: '度' }], ans: [180 - a], viz: { t: 'line', base: 180, a: a }, ex: '平角是 180°，180° － ' + a + '° ＝ <b>' + (180 - a) + '°</b>。',
         dg: function (x) { x = x[0]; if (x === 90 - a) return '一條直線是平角 180°，不是直角 90°。'; if (x === 360 - a) return '一條直線是平角 180°，不是周角 360°。'; return ''; } }; }
-      if (t === 1) { a = ri(2, 16) * 5; return { q: '一個直角被分成兩個角，一個角是 <b>' + a + '°</b>，另一個角是幾度？', fields: [{ pre: '', unit: '度' }], ans: [90 - a], ex: '直角是 90°，90° － ' + a + '° ＝ <b>' + (90 - a) + '°</b>。',
+      if (t === 1) { a = ri(2, 16) * 5; return { q: '一個直角被分成兩個角，一個角是 <b>' + a + '°</b>，另一個角是幾度？', fields: [{ pre: '', unit: '度' }], ans: [90 - a], viz: { t: 'line', base: 90, a: a }, ex: '直角是 90°，90° － ' + a + '° ＝ <b>' + (90 - a) + '°</b>。',
         dg: function (x) { x = x[0]; if (x === 180 - a) return '這題是直角 90°，不是平角 180°。'; return ''; } }; }
-      if (t === 2) { a = ri(6, 66) * 5; return { q: '轉一圈是周角。一個角是 <b>' + a + '°</b>，剩下的角是幾度？', fields: [{ pre: '', unit: '度' }], ans: [360 - a], ex: '周角是 360°，360° － ' + a + '° ＝ <b>' + (360 - a) + '°</b>。',
+      if (t === 2) { a = ri(6, 66) * 5; return { q: '轉一圈是周角。一個角是 <b>' + a + '°</b>，剩下的角是幾度？', fields: [{ pre: '', unit: '度' }], ans: [360 - a], viz: { t: 'line', base: 360, a: a }, ex: '周角是 360°，360° － ' + a + '° ＝ <b>' + (360 - a) + '°</b>。',
         dg: function (x) { x = x[0]; if (x === 180 - a) return '轉一圈是周角 360°，不是平角 180°。'; return ''; } }; }
       var steps = pick([1, 2, 3, 4, 5, 6, 9]), from = pick([12, 3, 6, 9]), to = ((from % 12) + steps) % 12 || 12;
-      return { q: '鐘面上，指針從 <b>' + from + '</b> 順時針轉到 <b>' + to + '</b>，轉了幾度？', fields: [{ pre: '', unit: '度' }], ans: [steps * 30], ex: '鐘面上相鄰兩個數字之間是 30°。轉了 ' + steps + ' 格，' + steps + ' × 30° ＝ <b>' + (steps * 30) + '°</b>。',
+      return { q: '鐘面上，指針從 <b>' + from + '</b> 順時針轉到 <b>' + to + '</b>，轉了幾度？', fields: [{ pre: '', unit: '度' }], ans: [steps * 30], viz: { t: 'clock', from: from, to: to }, ex: '鐘面上相鄰兩個數字之間是 30°。轉了 ' + steps + ' 格，' + steps + ' × 30° ＝ <b>' + (steps * 30) + '°</b>。',
         dg: function (x) { x = x[0]; if (x === steps) return '轉了 ' + steps + ' 格，每一格是 30°，要乘 30。'; if (x === (12 - steps) * 30) return '是「順時針」：照時鐘指針轉的方向，從 ' + from + ' 轉到 ' + to + '。'; return ''; } };
     },
     div41: function () {
       var d, Q, R, N;
       for (var t = 0; t < 200; t++) { d = ri(2, 9); Q = ri(Math.ceil(1000 / d), Math.floor(9999 / d)); R = Math.random() < .3 ? 0 : ri(1, d - 1); N = d * Q + R; if (N >= 1000 && N <= 9999) break; }
-      return { q: '<b class="num">' + N + ' ÷ ' + d + '</b> ＝ ？', fields: [{ pre: '商', unit: '' }, { pre: '餘數', unit: '' }], ans: [Q, R],
+      return { q: '<b class="num">' + N + ' ÷ ' + d + '</b> ＝ ？', fields: [{ pre: '商', unit: '' }, { pre: '餘數', unit: '' }], ans: [Q, R], viz: { t: 'div', N: N, d: d },
         ex: '商是 <b>' + Q + '</b>，餘數是 <b>' + R + '</b>。驗算：' + d + ' × ' + Q + (R ? ' ＋ ' + R : '') + ' ＝ ' + N + '。餘數要比除數 ' + d + ' 小。', dg: divDiag(N, d, Q, R) };
     },
     div32: function () {
       var d, Q, R, N;
       for (var t = 0; t < 200; t++) { d = ri(12, 98); if (d % 10 === 0) continue; Q = ri(2, Math.floor(999 / d)); R = Math.random() < .3 ? 0 : ri(1, d - 1); N = d * Q + R; if (N >= 100 && N <= 999) break; }
-      return { q: '<b class="num">' + N + ' ÷ ' + d + '</b> ＝ ？', fields: [{ pre: '商', unit: '' }, { pre: '餘數', unit: '' }], ans: [Q, R],
+      return { q: '<b class="num">' + N + ' ÷ ' + d + '</b> ＝ ？', fields: [{ pre: '商', unit: '' }, { pre: '餘數', unit: '' }], ans: [Q, R], viz: { t: 'div', N: N, d: d },
         ex: '商是 <b>' + Q + '</b>，餘數是 <b>' + R + '</b>。驗算：' + d + ' × ' + Q + (R ? ' ＋ ' + R : '') + ' ＝ ' + N + '。', dg: divDiag(N, d, Q, R) };
     },
     km1: function () {
       var km = ri(1, 15), m = pick([ri(1, 9), ri(1, 9) * 10, ri(11, 99), ri(101, 999), ri(1, 9) * 100]);
       var ans = km * 1000 + m;
-      return { q: '<b class="num">' + km + ' 公里 ' + m + ' 公尺</b> ＝ ？ 公尺', fields: [{ pre: '', unit: '公尺' }], ans: [ans],
+      return { q: '<b class="num">' + km + ' 公里 ' + m + ' 公尺</b> ＝ ？ 公尺', fields: [{ pre: '', unit: '公尺' }], ans: [ans], viz: { t: 'road', total: ans },
         ex: '1 公里 ＝ 1000 公尺。' + km + ' 公里 ＝ ' + (km * 1000) + ' 公尺，再加 ' + m + ' 公尺 ＝ <b>' + ans + ' 公尺</b>。' + (m < 100 ? '小心：' + m + ' 公尺要放在個位' + (m < 10 ? '' : '和十位') + '，前面補 0。' : ''),
         dg: function (x) { x = x[0]; if (m < 100 && x === +(String(km) + String(m))) return m + ' 公尺不能直接接在 ' + km + ' 後面：公尺要寫成 3 位，' + m + ' 要寫成 ' + String(m).padStart(3, '0') + '。'; if (x === km * 1000) return '別忘了再加上 ' + m + ' 公尺。'; if (x === km * 100 + m || x === km * 10000 + m) return '1 公里是 1000 公尺。'; return ''; } };
     },
     km2: function () {
       var km = ri(1, 15), m = pick([0, ri(1, 9) * 10, ri(11, 99), ri(101, 999)]), tot = km * 1000 + m;
-      return { q: '<b class="num">' + tot + ' 公尺</b> ＝ ？ 公里 ？ 公尺', fields: [{ pre: '', unit: '公里' }, { pre: '', unit: '公尺' }], ans: [km, m],
+      return { q: '<b class="num">' + tot + ' 公尺</b> ＝ ？ 公里 ？ 公尺', fields: [{ pre: '', unit: '公里' }, { pre: '', unit: '公尺' }], ans: [km, m], viz: { t: 'road', total: tot },
         ex: '每 1000 公尺是 1 公里：' + tot + ' 公尺 ＝ <b>' + km + ' 公里 ' + m + ' 公尺</b>。',
         dg: function (v) { if (v[0] === Math.floor(tot / 100) || v[0] === Math.floor(tot / 10000)) return '每 1000 公尺才是 1 公里。'; if (v[0] === km && v[1] !== m) return '公里對了！公尺是 ' + tot + ' 扣掉 ' + (km * 1000) + '。'; if (v[1] >= 1000) return '公尺滿 1000 就要換成 1 公里，公尺那格不會超過 999。'; return ''; } };
     },
@@ -169,7 +169,7 @@
       var plus, ak, am, bk, bm, tot;
       do { plus = Math.random() < .5; ak = ri(2, 12); am = ri(100, 950); bk = ri(1, ak - 1); bm = ri(100, 950); tot = plus ? ak * 1000 + am + bk * 1000 + bm : ak * 1000 + am - (bk * 1000 + bm); } while (tot < 1000);
       var k = Math.floor(tot / 1000), m = tot % 1000;
-      return { q: '<b class="num">' + ak + ' 公里 ' + am + ' 公尺 ' + (plus ? '＋' : '－') + ' ' + bk + ' 公里 ' + bm + ' 公尺</b> ＝ ？', fields: [{ pre: '', unit: '公里' }, { pre: '', unit: '公尺' }], ans: [k, m],
+      return { q: '<b class="num">' + ak + ' 公里 ' + am + ' 公尺 ' + (plus ? '＋' : '－') + ' ' + bk + ' 公里 ' + bm + ' 公尺</b> ＝ ？', fields: [{ pre: '', unit: '公里' }, { pre: '', unit: '公尺' }], ans: [k, m], viz: { t: 'road', total: tot },
         ex: (plus ? '公尺加公尺，滿 1000 公尺進 1 公里' : '公尺減公尺，不夠減就借 1 公里 ＝ 1000 公尺') + '。答案是 <b>' + k + ' 公里 ' + m + ' 公尺</b>。',
         dg: function (v) { if (v[1] >= 1000) return '公尺滿 1000，要進位成 1 公里。'; if (v[1] === m && v[0] === k + 1 && !plus) return '公尺不夠減時，向公里借了 1，公里要少 1。'; if (v[1] === m && v[0] === k - 1 && plus) return '公尺加起來滿 1000 進位了，公里要多 1。'; if (v[0] === k && v[1] !== m) return '公里對了，公尺再算一次。'; return ''; } };
     },
