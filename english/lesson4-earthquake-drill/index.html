@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#9b5de5">
+<title>Earthquake Drill 🏫｜康軒 Wonder World 3 Unit 4</title>
+<style>
+:root{--ink:#2b2d42;--org:#ff9f1c;--sun:#ffd166;--pink:#ff6b9a;--blue:#4d96ff;--teal:#2a9d8f;--purple:#9b5de5;--green:#52b788}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:#f8f3ff;overflow-x:hidden}
+html,body{margin:0;padding:0}
+body{font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",system-ui,sans-serif;color:var(--ink);min-height:100vh;background:linear-gradient(180deg,#e4d4ff 0,#f8f3ff 260px);padding-bottom:calc(92px + env(safe-area-inset-bottom))}
+header{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:8px;padding:10px 12px;padding-top:calc(10px + env(safe-area-inset-top));background:rgba(155,93,229,.97);color:#fff}
+header h1{font-size:clamp(17px,4.6vw,26px);margin:0;flex:1;letter-spacing:1px;min-width:0}
+.back{color:#fff;text-decoration:none;font-weight:800;background:rgba(255,255,255,.25);border-radius:999px;padding:8px 12px;font-size:15px;white-space:nowrap}
+.score{background:#fff;color:#5b2a9e;font-weight:900;border-radius:999px;padding:6px 12px;font-size:17px;white-space:nowrap;box-shadow:0 3px 0 #6a3ab0}
+.score.pop{animation:pop .5s}@keyframes pop{40%{transform:scale(1.3)}}
+main{max-width:1000px;margin:0 auto;padding:10px}
+section.page{display:none}section.page.active{display:block;animation:fadein .3s}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.card{background:#fff;border-radius:22px;padding:14px;margin:10px 0;box-shadow:0 6px 0 rgba(0,0,0,.1)}
+.card h2{margin:0 0 6px;font-size:clamp(20px,5vw,25px)}.card h3{margin:4px 0 6px;font-size:19px}
+.small{font-size:14px;color:#666;line-height:1.5}
+.lead{font-size:17px;line-height:1.75;margin:6px 0}
+.btn{appearance:none;border:none;border-radius:16px;padding:10px 14px;min-height:50px;font-size:17px;font-weight:800;cursor:pointer;background:var(--blue);color:#fff;box-shadow:0 4px 0 rgba(0,0,0,.22);font-family:inherit;touch-action:manipulation}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.22)}
+.btn.org{background:var(--org)}.btn.pink{background:var(--pink)}.btn.teal{background:var(--teal)}.btn.purple{background:var(--purple)}.btn.gray{background:#8d99ae}.btn.green{background:var(--green)}
+.btn.white{background:#fff;color:var(--ink);border:3px solid #dcc8ff}.btn.on{outline:4px solid var(--purple);outline-offset:1px;background:#f6efff}
+.btn.small{min-height:44px;font-size:15px;padding:6px 10px}
+.btn:disabled{opacity:.4}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0;align-items:center}.cen{justify-content:center}
+.seg{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
+.hidden{display:none!important}
+.bubble{background:#eef4ff;border-radius:18px;padding:12px 14px;font-size:18px;line-height:1.7;min-height:64px;border:3px solid #d6e4ff}
+.bubble b{color:#c1121f}
+.fb{margin-top:8px;border-radius:14px;padding:8px 12px;font-size:17px;line-height:1.55;display:none}
+.fb.show{display:block}.fb.good{background:#d8f3dc}.fb.bad{background:#fff3cd}.fb.info{background:#f3e8ff}
+.done{background:linear-gradient(135deg,#d8f3dc,#fff1a8);border-radius:18px;padding:12px;font-size:18px;line-height:1.6;margin-top:10px}
+.tip{background:#fffbea;border:3px dashed var(--sun);border-radius:16px;padding:8px 12px;font-size:16px;line-height:1.6;margin-top:8px}
+.q{font-size:21px;line-height:1.6;font-weight:800;text-align:center;margin:6px 0;word-break:break-word}
+.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin-top:8px}
+.choices .btn{background:#fff;color:var(--ink);border:3px solid #d6e4ff;font-size:19px;min-height:58px;line-height:1.4}
+.choices .btn.ok{background:#d8f3dc;border-color:#2ec4b6}.choices .btn.no{background:#ffd6dc;border-color:#ff6b9a;animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.prog{display:flex;gap:4px;justify-content:center;margin:4px 0;flex-wrap:wrap}
+.prog i{width:20px;height:10px;border-radius:6px;background:#eee;display:block}.prog i.ok{background:#2ec4b6}.prog i.no{background:#ff6b9a}.prog i.cur{background:var(--sun)}
+table.rec{border-collapse:collapse;width:100%;font-size:16px}
+table.rec td,table.rec th{padding:8px;border-bottom:1px solid #eee;text-align:left;vertical-align:top}
+.statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.stat{background:#f3e8ff;border-radius:16px;padding:10px;text-align:center}.stat b{display:block;font-size:28px;color:#5b2a9e}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.bdg{background:#eee;border-radius:14px;padding:6px 10px;font-weight:800;color:#999;font-size:15px}.bdg.got{background:linear-gradient(135deg,#ffd166,#ff9f1c);color:#5a3b00}
+.bdg small{display:block;font-weight:600;font-size:12px}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;justify-content:space-around;background:#fff;padding:6px 4px;padding-bottom:calc(6px + env(safe-area-inset-bottom));box-shadow:0 -4px 16px rgba(0,0,0,.15)}
+nav.tabs button{flex:1;min-width:0;border:none;background:none;font-family:inherit;font-size:13px;font-weight:800;color:#666;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 1px;border-radius:14px;cursor:pointer;min-height:60px;touch-action:manipulation}
+nav.tabs button span{font-size:24px;line-height:1}nav.tabs button.on{background:#efe3ff;color:#5b2a9e}
+.burst{position:fixed;z-index:99;pointer-events:none;font-size:30px;animation:fly 1.1s ease-out forwards}
+@keyframes fly{to{transform:translate(var(--dx),var(--dy)) rotate(360deg);opacity:0}}
+/* ---- 英語 ---- */
+.en{font-family:"Arial Rounded MT Bold","Nunito","Varela Round","Trebuchet MS",Arial,sans-serif;letter-spacing:.5px}
+.emo{font-size:54px;line-height:1.1}
+.info{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:8px 0}
+.info div{background:#f6efff;border-radius:14px;padding:8px 10px;font-size:16px}.info b{display:block;font-size:13px;color:#5b2a9e}
+.notice{background:#fff3cd;border:3px solid #ffd166;border-radius:16px;padding:8px 12px;font-size:16px;line-height:1.6;margin:8px 0}
+.slow{display:flex;align-items:center;gap:6px;font-size:15px;font-weight:700}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.vcard{appearance:none;font-family:inherit;background:#fff;border:3px solid #dcc8ff;border-radius:20px;padding:10px 6px;cursor:pointer;text-align:center;position:relative;touch-action:manipulation;box-shadow:0 4px 0 #dcc8ff;color:var(--ink)}
+.vcard:active{transform:translateY(3px);box-shadow:0 1px 0 #dcc8ff}
+.vcard .emo{font-size:58px;display:block}.vcard .w{display:block;font-size:26px;font-weight:900;margin-top:2px}.vcard .m{display:block;font-size:15px;color:#666;margin-top:2px}
+.vcard.heard:after{content:"✓";position:absolute;right:8px;top:4px;color:var(--teal);font-weight:900;font-size:18px}
+.vcard.ext{border-style:dashed}
+.pat{background:#f6efff;border-radius:18px;padding:10px 12px;margin:8px 0;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.pat .who{font-size:30px}.pat .line{flex:1;min-width:180px;font-size:22px;font-weight:800}.pat .zh{display:block;font-size:15px;font-weight:600;color:#666}
+.map{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin:8px 0}
+.city{appearance:none;font-family:inherit;border:3px solid #cfe8ff;background:#f0f8ff;border-radius:16px;padding:8px;text-align:center;cursor:pointer;color:var(--ink);min-height:96px;touch-action:manipulation}
+.city .emo{font-size:40px;display:block}.city b{display:block;font-size:19px}.city small{font-size:13px;color:#666}
+.city.on{border-color:var(--purple);background:#f6efff}
+.tiles{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:8px 0}
+.tiles .btn{min-width:54px;min-height:54px;font-size:24px;background:#fff;color:var(--ink);border:3px solid #dcc8ff;text-transform:none}
+.tiles .btn.used{visibility:hidden}
+.slots{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;min-height:60px;margin:8px 0}
+.slots span{min-width:46px;height:56px;border-bottom:4px solid var(--purple);font-size:30px;font-weight:900;display:flex;align-items:center;justify-content:center;padding:0 4px}
+.slots.words span{min-width:60px;font-size:22px;background:#f6efff;border-radius:10px;border-bottom:none;padding:0 10px}
+.big{font-size:30px;font-weight:900;text-align:center;margin:6px 0}
+.big .e{color:#c1121f;text-decoration:underline}
+.magic{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.magic .btn{min-width:150px;min-height:70px;font-size:26px;background:#fff;color:var(--ink);border:3px solid #dcc8ff}
+.magic .btn.lit{background:#fff1a8;border-color:#ffd166}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+.two .btn{min-height:80px;font-size:19px;color:var(--ink);border:3px solid #ddd}
+.sh{background:#e6f0ff!important;border-color:#4d96ff!important}.lo{background:#fff1d6!important;border-color:#ff9f1c!important}
+.bins{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin-top:10px}
+.bin{border-radius:14px;padding:6px 8px;font-size:17px;line-height:1.5;min-height:48px;border:3px solid #eee}
+.bin b{display:block;font-size:15px}
+.match{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.match .col{display:flex;flex-direction:column;gap:8px}
+.match .btn{background:#fff;color:var(--ink);border:3px solid #d6e4ff;font-size:22px;min-height:60px;line-height:1.2;padding:6px 8px}
+.match .btn.pic{font-size:36px}
+.match .btn.sel{border-color:var(--purple);background:#f6efff}.match .btn.ok{background:#d8f3dc;border-color:#2ec4b6;opacity:.55}.match .btn.no{animation:shake .4s;border-color:#ff6b9a}
+.choices .btn.emo{font-size:44px;min-height:76px}
+.chant{background:#fffbea;border-radius:16px;padding:10px 14px;font-size:20px;line-height:1.8;font-weight:700}
+a.ext{color:#1d4ed8;font-weight:800}
+@media (max-width:420px){.vgrid{grid-template-columns:repeat(2,1fr)}.magic .btn{min-width:120px}.tiles .btn{min-width:46px;min-height:50px;font-size:22px}.pat .line{font-size:19px}}
+/* ---- Unit 4 ---- */
+.pic{width:1em;height:1em;display:inline-block;vertical-align:middle}
+.choices .btn.emo .pic,.match .btn.pic .pic{width:1.1em;height:1.1em}
+.match .btn.pic{font-size:40px}
+svg.scene{display:block;width:100%;height:auto;margin:6px auto;border-radius:16px;border:3px solid #dcc8ff;background:#f4f1ff}
+.q svg.scene{max-width:420px}
+.hot{cursor:pointer;outline:none}
+.hot:hover rect,.hot:focus rect{fill:#ffd166;fill-opacity:.35}
+</style>
+</head>
+<body>
+<header>
+  <a class="back" href="../">← 英語</a>
+  <h1>🏫 <span class="en">Earthquake Drill</span></h1>
+  <div class="score" id="score">⭐ 0</div>
+</header>
+<main>
+<div class="notice hidden" id="voiceNote"></div>
+
+<!-- ============ 單字 ============ -->
+<section class="page active" id="p-word">
+  <div class="card">
+    <h2>🏫 Unit 4 <span class="en">Earthquake Drill</span>（位置・地震演習）</h2>
+    <div class="info">
+      <div><b>版本</b>康軒 Wonder World 3</div>
+      <div><b>單元</b>Unit 4 Earthquake Drill</div>
+      <div><b>主題</b>東西在哪裡 Where</div>
+      <div><b>發音</b>u / u_e（Magic e）</div>
+    </div>
+    <div class="btns"><label class="slow"><input type="checkbox" id="slowChk"> 🐢 慢速朗讀</label><button class="btn white small" id="testVoice">🔊 試聽聲音</button></div>
+    <p class="small">點一下卡片就會念英文。發音是平板的電腦語音，正確的念法還是以課本 CD／Super 電子書為準喔！</p>
+  </div>
+
+  <div class="card">
+    <h3>🃏 本課單字（點卡片聽發音）</h3>
+    <div class="vgrid" id="vGrid"></div>
+    <h3 style="margin-top:14px">➕ 句型和故事裡的字</h3>
+    <div class="vgrid" id="xGrid"></div>
+    <p class="small"><b class="en">where</b>（哪裡）是句型裡的字，<b class="en">schoolbag</b>（書包）出現在故事裡，都不放進單字測驗。</p>
+  </div>
+
+  <div class="card">
+    <h3>📚 故事：<span class="en">Earthquake Drill</span>（課本第 61～65 頁）</h3>
+    <p class="lead">教室裡，Amy 在找橡皮擦，<b class="en">Jello</b> 說在椅子底下。突然廣播：「地震！請找掩護。」<b class="en">Kevin</b> 躲到書桌底下，Jello 卻坐到書桌<b>上面</b>，Kevin 趕快說「不是上面，是書桌底下！」演習結束要離開教室了，Kevin 的書包在椅子上，可是 <b class="en">Boka</b> 卡在書桌底下出不來，大家一起用力拉……小心！</p>
+    <p class="small">故事裡的重要句子，點一下聽聽看。完整故事請跟著課本或 Super 電子書一起讀。</p>
+    <div class="btns"><button class="btn white small" data-say="Where's the eraser?">🔊 Where's the eraser?</button><button class="btn white small" data-say="It's under the chair.">🔊 It's under the chair.</button><button class="btn white small" data-say="Earthquake! Please take cover.">🔊 Earthquake! Please take cover.（地震！請找掩護。）</button><button class="btn white small" data-say="No! Not on the desk. Under the desk.">🔊 Not on the desk. Under the desk.</button><button class="btn white small" data-say="Where's my schoolbag?">🔊 Where's my schoolbag?</button></div>
+  </div>
+
+  <div class="card">
+    <h3>🚨 地震來了怎麼做？（課本 <span class="en">Earthquake Safety</span>）</h3>
+    <p class="small">照順序點一點，記住地震時的三個動作。</p>
+    <div id="drillBox"></div>
+  </div>
+
+  <div class="card">
+    <h3>🎒 緊急救難包 <span class="en">Go Bag</span>（延伸）</h3>
+    <p class="small">課本的延伸閱讀（Optional）：<b class="en">What's in the go bag?</b> 救難包裡要放什麼？點卡片聽聽看，這些字不放進測驗。</p>
+    <div class="vgrid" id="gGrid"></div>
+  </div>
+
+  <div class="card">
+    <h3>🎵 位置小韻文（自編）</h3>
+    <p class="small">課本的歌謠是〈Where's the Cat?〉（曲調是 <span class="en">London Bridge Is Falling Down</span>），請聽課本 CD 跟唱。下面是另外寫的練習小韻文：</p>
+    <div class="chant en" id="chant"></div>
+    <div class="btns"><button class="btn purple" id="chantBtn">🔊 念給我聽</button></div>
+  </div>
+</section>
+
+<!-- ============ 句型 ============ -->
+<section class="page" id="p-pat">
+  <div class="card">
+    <h2>💬 本課句型</h2>
+    <div class="pat"><span class="who">🙋</span><span class="line en">Where's the eraser?<span class="zh">橡皮擦在哪裡？</span></span><button class="btn white small" data-say="Where's the eraser?">🔊</button></div>
+    <div class="pat"><span class="who">👉</span><span class="line en">It's under the chair.<span class="zh">它在椅子底下。</span></span><button class="btn white small" data-say="It's under the chair.">🔊</button></div>
+    <div class="tip">💡 <b class="en">Where's</b> = Where is。把 <b class="en">under</b> 換成 in（裡面）、on（上面），把 <b class="en">chair</b> 換成 box、desk，就能說出東西在哪裡！</div>
+  </div>
+
+  <div class="card">
+    <h3>🔍 東西在哪裡？（自編練習）</h3>
+    <p class="small">看教室的圖，回答問題。</p>
+    <div id="whereQ"></div>
+  </div>
+
+  <div class="card">
+    <h3>👆 聽一聽，點點看</h3>
+    <p class="small">聽英文說東西在哪裡，再點圖上對的位置（虛線框）。</p>
+    <div id="placeBox"></div>
+  </div>
+
+  <div class="card">
+    <h3>🧱 句子排排看</h3>
+    <p class="small">照順序點單字方塊，排出正確的句子。開頭要大寫、句尾有標點。</p>
+    <div id="orderBox"></div>
+  </div>
+
+  <div class="card">
+    <h3>🗣️ 生活用語</h3>
+    <div id="dailyList"></div>
+    <div id="dailyQ"></div>
+  </div>
+</section>
+
+<!-- ============ 發音 ============ -->
+<section class="page" id="p-phon">
+  <div class="card">
+    <h2>🔤 字母拼讀：u 和 u_e</h2>
+    <div class="formula"><span class="f2">短母音 u：/ʌ/　cub、cut、duck</span><br><span class="f3">長母音 u_e：念字母 U 的名字　cube、cute、duke</span></div>
+    <p class="lead">字尾有一個不發音的 <b>e</b>（Magic e）時，前面的 u 會念出自己的名字「U」。</p>
+    <p class="small">課本例字：短母音 u 是 <b class="en">cub, cut, duck</b>；長母音 u_e 是 <b class="en">cube, cute, duke</b>。分類遊戲裡的其他字是另外挑的常見字。</p>
+    <div class="btns"><button class="btn white small" data-say="cub">🔊 cub</button><button class="btn white small" data-say="cut">🔊 cut</button><button class="btn white small" data-say="duck">🔊 duck</button><button class="btn white small" data-say="cube">🔊 cube</button><button class="btn white small" data-say="cute">🔊 cute</button><button class="btn white small" data-say="duke">🔊 duke</button></div>
+  </div>
+  <div class="card">
+    <h3>🪄 Magic e 變變變</h3>
+    <p class="small">點左邊的字聽一聽，再點右邊加上 e 的字，比較母音怎麼變了。最後兩組複習 Unit 2、Unit 3。</p>
+    <div id="magicBox"></div>
+  </div>
+  <div class="card">
+    <h3>🧺 u 還是 u_e？分一分</h3>
+    <p class="small">聽一聽、看一看，這個字的 u 是短母音還是長母音？</p>
+    <div id="phonBox"></div>
+  </div>
+  <div class="card">
+    <h3>🎶 課本韻文 <span class="en">Let's Chant</span></h3>
+    <div class="chant en">A duck sings a tune.<br>A duck sings a tune on the cube.<br>A duck sings a tune on the cube for the duke.</div>
+    <p class="small"><b class="en">duck</b> 的 u 念短母音；<b class="en">tune</b>（曲調）、<b class="en">cube</b>（立方體）、<b class="en">duke</b>（公爵）都有 Magic e，u 念長長的「U」。</p>
+    <div class="btns"><button class="btn purple" data-say="A duck sings a tune. A duck sings a tune on the cube. A duck sings a tune on the cube for the duke.">🔊 念給我聽</button></div>
+  </div>
+  <div class="card">
+    <h3>👂 聽音二選一（課本 <span class="en">Listen and Circle</span>）</h3>
+    <p class="small">兩個字長得很像，只會念其中一個。按 🔊 聽，選出聽到的字。這 4 組是課本的字，考卷第一大題也是這種題型！</p>
+    <div id="pairQ"></div>
+  </div>
+  <div class="card">
+    <h3>👏 拍拍手數音節（課本 Learn with Boka）</h3>
+    <p class="small">念單字時跟著拍手：一個母音的聲音就是一個音節。<b class="en">box</b> 拍 1 下、<b class="en">under</b> 拍 2 下、<b class="en">octopus</b> 拍 3 下。聽一聽，這個字要拍幾下？</p>
+    <div class="btns"><button class="btn white small" data-say="box">🔊 box 👏</button><button class="btn white small" data-say="un, der. under">🔊 un-der 👏👏</button><button class="btn white small" data-say="oc, to, pus. octopus">🔊 oc-to-pus 👏👏👏</button></div>
+    <div id="sylBox"></div>
+  </div>
+</section>
+
+<!-- ============ 聽力 ============ -->
+<section class="page" id="p-listen">
+  <div class="card">
+    <h2>👂 聽力小測驗</h2>
+    <p class="small">按 🔊 聽英文，選出正確的圖。可以一直重聽喔！</p>
+    <div id="listenQ"></div>
+  </div>
+  <div class="card">
+    <h3>📻 聽問答選位置</h3>
+    <p class="small">聽聽看，東西在哪裡？（句子自編）</p>
+    <div id="listen2Q"></div>
+  </div>
+</section>
+
+<!-- ============ 遊戲 ============ -->
+<section class="page" id="p-game">
+  <div class="card">
+    <h2>🔡 拼字遊戲</h2>
+    <p class="small">看圖和中文，點字母方塊拼出英文單字（有 2 個是多出來的字母喔）。</p>
+    <div id="spellBox"></div>
+  </div>
+  <div class="card">
+    <h2>🧩 圖字配對</h2>
+    <p class="small">先點左邊的單字，再點右邊對應的圖。</p>
+    <div id="matchBox"></div>
+  </div>
+</section>
+
+<!-- ============ 挑戰 ============ -->
+<section class="page" id="p-ch">
+  <div class="card">
+    <h2>🏆 Unit 4 綜合挑戰（10 題）</h2>
+    <p class="small">單字、聽力、找東西、u / u_e 發音和生活用語通通有！答對 9 題以上拿「挑戰王」徽章。</p>
+    <div id="chBox"></div>
+  </div>
+</section>
+
+<!-- ============ 紀錄 ============ -->
+<section class="page" id="p-rec">
+  <div class="card"><h2>🏆 我的紀錄</h2><div class="statgrid" id="stats"></div><div class="badges" id="badges"></div></div>
+  <div class="card"><h3>🔎 常錯的地方</h3><div id="mist"></div></div>
+  <div class="card"><button class="btn gray" id="resetBtn">清除紀錄</button><p class="small">紀錄只存在這台平板的瀏覽器裡。</p>
+    <p class="small">資料來源：本課單字（in, on, under, box, chair, desk；where 是認識字彙）、句型（Where's the eraser? It's under the chair.）、生活用語（Watch out! / Give me a hand, please.；I'm sorry. 出現在同一頁的對話裡）、故事大意與重要句子、地震時的 Drop! Cover! Hold on!、延伸閱讀 Go Bag（first aid kit, flashlight, food, radio, water）、歌謠〈Where's the Cat?〉和曲調、字母拼讀例字（u：cub, cut, duck；u_e：cube, cute, duke）、Let's Chant 韻文、Listen and Circle 字組，以及音節（box, under, octopus 和 pen, umbrella, marker, desk, ruler, eraser），都依孩子使用的康軒 Wonder World 3 課本（Student Book）整理；單字中文意思參考課本的中譯表。</p>
+    <p class="small">✏️ <b>自編說明：</b>故事大意是用自己的話寫的摘要；教室場景和東西擺放、東西在哪裡、聽一聽點點看、聽問答選位置、句子排排看裡的句子組合、生活用語的情境、地震演習的小測驗、位置小韻文、分類遊戲裡的其他 u 字（tub、bug、sun、cup、bus、tube、tune、June、huge）、音節遊戲裡另外加的字（chair、pencil、banana）、Magic e 的配對，以及所有測驗題目，都是為了練習自己編寫的，不是課本原文；emoji 和小圖是自己挑、自己畫的。發音使用裝置的電腦語音，請以課本 CD／Super 電子書為準。</p></div>
+</section>
+</main>
+
+<nav class="tabs" id="tabs">
+  <button class="on" data-p="p-word"><span>🃏</span>單字</button>
+  <button data-p="p-pat"><span>💬</span>句型</button>
+  <button data-p="p-phon"><span>🔤</span>發音</button>
+  <button data-p="p-listen"><span>👂</span>聽力</button>
+  <button data-p="p-game"><span>🎮</span>遊戲</button>
+  <button data-p="p-ch"><span>🏆</span>挑戰</button>
+  <button data-p="p-rec"><span>📊</span>紀錄</button>
+</nav>
+
+<script id="core">
+var Core=(function(){
+"use strict";
+/* 圖示：位置詞 in / on / under、書桌、橡皮擦沒有合適的 emoji，用自己畫的小圖 */
+var BOXD='<rect x="10" y="30" width="44" height="26" rx="2" fill="#d4a373" stroke="#2b2d42" stroke-width="2.5"/>';
+var BALL=function(cx,cy){return '<circle cx="'+cx+'" cy="'+cy+'" r="9" fill="#ff6b9a" stroke="#2b2d42" stroke-width="2.2"/>';};
+var SVG_IN='<svg class="pic" viewBox="0 0 64 64" aria-hidden="true"><path d="M10 30 L18 22 H62 L54 30Z" fill="#e9c49a" stroke="#2b2d42" stroke-width="2.2"/>'+BALL(32,32)+'<rect x="10" y="30" width="44" height="26" rx="2" fill="#d4a373" fill-opacity=".92" stroke="#2b2d42" stroke-width="2.5"/></svg>';
+var SVG_ON='<svg class="pic" viewBox="0 0 64 64" aria-hidden="true">'+BOXD+BALL(32,20)+'</svg>';
+var SVG_UNDER='<svg class="pic" viewBox="0 0 64 64" aria-hidden="true"><rect x="6" y="16" width="52" height="8" rx="2" fill="#a0785a" stroke="#2b2d42" stroke-width="2.5"/><path d="M12 24 V58 M52 24 V58" stroke="#2b2d42" stroke-width="4" stroke-linecap="round"/>'+BALL(32,48)+'</svg>';
+var SVG_DESK='<svg class="pic" viewBox="0 0 64 64" aria-hidden="true"><rect x="4" y="18" width="56" height="8" rx="2" fill="#c08552" stroke="#2b2d42" stroke-width="2.5"/><rect x="34" y="26" width="22" height="14" fill="#e0b083" stroke="#2b2d42" stroke-width="2.2"/><path d="M42 33 h6" stroke="#2b2d42" stroke-width="2.5" stroke-linecap="round"/><path d="M9 26 V60 M55 40 V60" stroke="#2b2d42" stroke-width="4" stroke-linecap="round"/></svg>';
+var SVG_ERASER='<svg class="pic" viewBox="0 0 64 64" aria-hidden="true"><g transform="rotate(-20 32 32)"><rect x="8" y="22" width="48" height="20" rx="4" fill="#ff8fab" stroke="#2b2d42" stroke-width="2.5"/><rect x="28" y="20" width="26" height="24" rx="2" fill="#4d96ff" stroke="#2b2d42" stroke-width="2.5"/><path d="M33 26h16M33 32h16M33 38h10" stroke="#fff" stroke-width="2" stroke-linecap="round"/></g></svg>';
+var PIC={"in":SVG_IN,"on":SVG_ON,"under":SVG_UNDER,box:"📦",chair:"🪑",desk:SVG_DESK,where:"❓",schoolbag:"🎒",
+ eraser:SVG_ERASER,pencil:"✏️",book:"📘",cat:"🐱",ruler:"📏",
+ "first aid kit":"🩹",flashlight:"🔦",food:"🍙",radio:"📻",water:"💧"};
+function pic(w){return PIC[w]||"❓";}
+/* 單字：康軒 Wonder World 3 Unit 4 本課字彙；中文意思參考課本中譯表 */
+var WORDS=[
+ {w:"in",m:"在……裡面",ex:"It's in the box."},
+ {w:"on",m:"在……上面",ex:"It's on the desk."},
+ {w:"under",m:"在……底下",ex:"It's under the chair."},
+ {w:"box",m:"盒子；箱子",ex:"Where's the box?"},
+ {w:"chair",m:"椅子",ex:"It's on the chair."},
+ {w:"desk",m:"書桌",ex:"It's under the desk."}
+];
+/* 句型和故事裡的字（不放進測驗） */
+var EXTRA=[
+ {w:"where",m:"哪裡",ex:"Where's the eraser?"},
+ {w:"schoolbag",m:"書包",ex:"Where's my schoolbag?"}
+];
+/* 延伸閱讀 Go Bag（不放進測驗） */
+var GOBAG=[
+ {w:"first aid kit",m:"急救包",ex:"What's in the go bag? A first aid kit."},
+ {w:"flashlight",m:"手電筒",ex:"A flashlight."},
+ {w:"food",m:"食物",ex:"Food."},
+ {w:"radio",m:"收音機",ex:"A radio."},
+ {w:"water",m:"水",ex:"Water."}
+];
+/* 教室場景：5 個位置（自編練習情境） */
+var POS=[
+ {k:"inbox",p:"in",o:"box",x:110,y:254,zh:"箱子裡面"},
+ {k:"ondesk",p:"on",o:"desk",x:320,y:146,zh:"書桌上面"},
+ {k:"underdesk",p:"under",o:"desk",x:320,y:270,zh:"書桌底下"},
+ {k:"onchair",p:"on",o:"chair",x:506,y:192,zh:"椅子上面"},
+ {k:"underchair",p:"under",o:"chair",x:506,y:272,zh:"椅子底下"}
+];
+var ITEMS=[{w:"eraser",m:"橡皮擦"},{w:"pencil",m:"鉛筆"},{w:"book",m:"書"},{w:"cat",m:"貓"},{w:"schoolbag",m:"書包"},{w:"ruler",m:"尺"}];
+function where(item){return "Where's the "+item+"?";}
+function at(pos){return "It's "+pos.p+" the "+pos.o+".";}
+function posBy(k){for(var i=0;i<POS.length;i++)if(POS[i].k===k)return POS[i];return null;}
+/* 句子排排看（課本句型和故事句子） */
+var ORDER=["Where's the eraser?","It's under the chair.","It's on the desk.","It's in the box.","Where's my schoolbag?","Not on the desk."];
+/* 生活用語：Watch out! / Give me a hand, please.（課本 Daily English；I'm sorry. 出現在同一頁對話）；情境自編 */
+var DAILY=[
+ {p:"Watch out!",m:"小心！",s:"同學走路沒看前面，就快撞到櫃子了。"},
+ {p:"Give me a hand, please.",m:"請幫我一下。",s:"你一個人搬不動很重的箱子，想請同學幫忙。"},
+ {p:"I'm sorry.",m:"對不起。",s:"你不小心把同學的鉛筆盒撞掉在地上。"}
+];
+/* 地震演習（課本 Earthquake Safety 的三個動作；小測驗自編） */
+var DRILL=[{w:"Drop!",m:"趴下",e:"🧎"},{w:"Cover!",m:"掩護（躲在桌子底下，保護頭和脖子）",e:"🛡️"},{w:"Hold on!",m:"穩住（抓緊桌腳，等搖晃停止）",e:"✊"}];
+var DRILLQ=[
+ {q:"廣播說：<b class=\"en\">Earthquake! Please take cover.</b><br>Jello 應該躲在哪裡？",a:"under the desk",o:["under the desk","on the desk","on the chair"],tip:"故事裡 Kevin 說：Not on the desk. Under the desk."},
+ {q:"<b class=\"en\">Drop!</b> 是什麼意思？",a:"趴下",o:["趴下","掩護","穩住"]},
+ {q:"<b class=\"en\">Cover!</b> 是什麼意思？",a:"掩護",o:["趴下","掩護","穩住"],tip:"躲到桌子底下，保護頭和脖子。"},
+ {q:"<b class=\"en\">Hold on!</b> 是什麼意思？",a:"穩住",o:["趴下","掩護","穩住"],tip:"抓緊桌腳，等搖晃停下來。"}
+];
+/* 字母拼讀：短母音 u 與長母音 u_e。課本例字 u：cub, cut, duck；u_e：cube, cute, duke。
+   tub、tube 出自課本 Listen and Circle；tune 出自課本韻文；其他是另外挑的常見字 */
+var PHON=[
+ {w:"cub",s:"short",e:"🐻",m:"幼獸",book:1},
+ {w:"cut",s:"short",e:"✂️",m:"剪；切",book:1},
+ {w:"duck",s:"short",e:"🦆",m:"鴨子",book:1},
+ {w:"tub",s:"short",e:"🛁",m:"浴缸；盆"},
+ {w:"bug",s:"short",e:"🐞",m:"蟲"},
+ {w:"sun",s:"short",e:"☀️",m:"太陽"},
+ {w:"cup",s:"short",e:"🥤",m:"杯子"},
+ {w:"bus",s:"short",e:"🚌",m:"公車"},
+ {w:"cube",s:"long",e:"🧊",m:"立方體",book:1},
+ {w:"cute",s:"long",e:"🥰",m:"可愛的",book:1},
+ {w:"duke",s:"long",e:"🤴",m:"公爵",book:1},
+ {w:"tube",s:"long",e:"🧪",m:"管子"},
+ {w:"tune",s:"long",e:"🎵",m:"曲調"},
+ {w:"June",s:"long",e:"📅",m:"六月"},
+ {w:"huge",s:"long",e:"🐘",m:"巨大的"}
+];
+/* Magic e 變身（本課 u / u_e 配對；kit→kite、hop→hope 複習前兩課） */
+var MAGIC=[{a:"cub",b:"cube"},{a:"cut",b:"cute"},{a:"tub",b:"tube"},{a:"kit",b:"kite"},{a:"hop",b:"hope"}];
+/* 聽音二選一：課本 Unit 4 的 Listen and Circle 字組 */
+var PAIRS=[["duck","duke"],["cut","cute"],["cub","cube"],["tub","tube"]];
+/* 音節：課本 box(1)、under(2)、octopus(3) 和 Syllable Sort 的 6 個字；chair、pencil、banana 自己加 */
+var SYL=[
+ {w:"box",n:1,s:"box",book:1},{w:"under",n:2,s:"un, der",book:1},{w:"octopus",n:3,s:"oc, to, pus",book:1},
+ {w:"pen",n:1,s:"pen",book:1},{w:"umbrella",n:3,s:"um, brel, la",book:1},{w:"marker",n:2,s:"mark, er",book:1},
+ {w:"desk",n:1,s:"desk",book:1},{w:"ruler",n:2,s:"ru, ler",book:1},{w:"eraser",n:3,s:"e, ras, er",book:1},
+ {w:"chair",n:1,s:"chair"},{w:"pencil",n:2,s:"pen, cil"},{w:"banana",n:3,s:"ba, na, na"}
+];
+function shuffle(a,rnd){rnd=rnd||Math.random;var b=a.slice();for(var i=b.length-1;i>0;i--){var j=Math.floor(rnd()*(i+1));var t=b[i];b[i]=b[j];b[j]=t;}return b;}
+function pick(a,n,rnd){return shuffle(a,rnd).slice(0,n);}
+function wordBy(w){var all=WORDS.concat(EXTRA,GOBAG,ITEMS);for(var i=0;i<all.length;i++)if(all[i].w===w)return all[i];return null;}
+/* 隨機擺放：n 樣東西放在 n 個不同的位置 */
+function layout(n,rnd){rnd=rnd||Math.random;var ps=pick(POS,n,rnd),its=pick(ITEMS,n,rnd),L={};ps.forEach(function(p,i){L[p.k]=its[i].w;});return L;}
+/* 教室場景 SVG（L：位置→東西；hot：顯示可以點的虛線框） */
+function scene(L,hot,small){
+ var s='<svg class="scene" viewBox="0 0 640 330" role="img" aria-label="教室裡有箱子、書桌和椅子"'+(small?' style="max-width:420px"':'')+'>'+
+  '<rect width="640" height="300" fill="#f4f1ff"/><rect y="300" width="640" height="30" fill="#e0d4f7"/>'+
+  '<rect x="200" y="20" width="240" height="70" rx="6" fill="#2f6f5b" stroke="#6b4e33" stroke-width="5"/>'+
+  /* 箱子（開口）背板 */
+  '<path d="M50 236 L70 214 H190 L170 236Z" fill="#e9c49a" stroke="#2b2d42" stroke-width="3"/>'+
+  /* 書桌 */
+  '<rect x="214" y="170" width="212" height="16" rx="3" fill="#c08552" stroke="#2b2d42" stroke-width="3"/><rect x="340" y="186" width="70" height="34" fill="#e0b083" stroke="#2b2d42" stroke-width="3"/><path d="M362 203 h26" stroke="#2b2d42" stroke-width="3" stroke-linecap="round"/><path d="M228 186 V300 M412 220 V300" stroke="#2b2d42" stroke-width="8" stroke-linecap="round"/>'+
+  /* 椅子 */
+  '<rect x="458" y="216" width="100" height="12" rx="3" fill="#7aa6ff" stroke="#2b2d42" stroke-width="3"/><rect x="540" y="130" width="14" height="88" rx="4" fill="#7aa6ff" stroke="#2b2d42" stroke-width="3"/><path d="M468 228 V300 M548 228 V300" stroke="#2b2d42" stroke-width="7" stroke-linecap="round"/>';
+ POS.forEach(function(p){var it=L&&L[p.k];if(!it)return;s+=itemAt(it,p.x,p.y);
+   if(p.k==="inbox")s+='<rect x="50" y="236" width="120" height="64" rx="3" fill="#d4a373" fill-opacity=".93" stroke="#2b2d42" stroke-width="3"/>';});
+ if(!(L&&L.inbox))s+='<rect x="50" y="236" width="120" height="64" rx="3" fill="#d4a373" stroke="#2b2d42" stroke-width="3"/>';
+ if(hot)POS.forEach(function(p){s+='<g class="hot" tabindex="0" role="button" data-pos="'+p.k+'" aria-label="'+p.zh+'"><rect x="'+(p.x-40)+'" y="'+(p.y-34)+'" width="80" height="68" rx="12" fill="#fff" fill-opacity=".01" stroke="#9b5de5" stroke-width="3" stroke-dasharray="7 6"/></g>';});
+ return s+'</svg>';
+}
+function itemAt(w,x,y){var p=pic(w);
+ if(p.indexOf("<svg")===0)return p.replace('<svg class="pic"','<svg x="'+(x-26)+'" y="'+(y-26)+'" width="52" height="52"');
+ return '<text x="'+x+'" y="'+(y+2)+'" font-size="46" text-anchor="middle" dominant-baseline="middle">'+p+'</text>';}
+function wordQ(kind,wd,rnd){
+ rnd=rnd||Math.random;var others=pick(WORDS.filter(function(x){return x.w!==wd.w;}),2,rnd),q,a,o;
+ if(kind==="pic"){q='<span class="emo">'+pic(wd.w)+'</span><br>這是哪個字？';a=wd.w;o=[wd.w].concat(others.map(function(x){return x.w;}));}
+ else if(kind==="zh"){q="「"+wd.m+"」的英文是？";a=wd.w;o=[wd.w].concat(others.map(function(x){return x.w;}));}
+ else {q="🔊 聽一聽，是哪一張圖？";a="pic:"+wd.w;o=[a].concat(others.map(function(x){return "pic:"+x.w;}));}
+ return {type:kind==="listen"?"listen":"word",kind:kind,w:wd.w,q:q,a:a,o:shuffle(o,rnd),speak:kind==="listen"?wd.w:null};
+}
+/* 看場景回答 Where's ...? */
+function whereQ(rnd){
+ rnd=rnd||Math.random;var L=layout(3,rnd),ks=Object.keys(L),k=ks[Math.floor(rnd()*ks.length)],p=posBy(k),it=wordBy(L[k]);
+ var wrong=pick(POS.filter(function(x){return x.k!==k;}),2,rnd).map(at);
+ return {type:"where",q:scene(L,false,true)+'<br><b class="en">'+where(it.w)+'</b>（'+it.m+'在哪裡？）',a:at(p),o:shuffle([at(p)].concat(wrong),rnd),speak:where(it.w)};
+}
+function phonQ(rnd){
+ rnd=rnd||Math.random;var want=rnd()<0.5?"long":"short",other=want==="long"?"short":"long";
+ var a=pick(PHON.filter(function(p){return p.s===want;}),1,rnd)[0],o=pick(PHON.filter(function(p){return p.s===other;}),2,rnd);
+ return {type:"phon",q:want==="long"?"哪一個字的 u 念長母音（u_e，念字母 U 的名字）？":"哪一個字的 u 念短母音（像 duck 的 u）？",a:a.w,o:shuffle([a.w,o[0].w,o[1].w],rnd)};
+}
+function dailyQ(rnd){
+ rnd=rnd||Math.random;var d=pick(DAILY,1,rnd)[0];
+ return {type:"daily",q:"情境："+d.s+"<br>這時候可以說什麼？",a:d.p,o:shuffle(DAILY.map(function(x){return x.p;}),rnd)};
+}
+function makeChallenge(rnd){
+ rnd=rnd||Math.random;var ws=pick(WORDS,5,rnd),out=[];
+ out.push(wordQ("pic",ws[0],rnd));out.push(wordQ("zh",ws[1],rnd));out.push(wordQ("zh",ws[2],rnd));
+ out.push(wordQ("listen",ws[3],rnd));out.push(wordQ("listen",ws[4],rnd));
+ out.push(whereQ(rnd));out.push(whereQ(rnd));
+ out.push(phonQ(rnd));out.push(phonQ(rnd));
+ out.push(dailyQ(rnd));
+ return shuffle(out,rnd);
+}
+function phonCheck(w,s){for(var i=0;i<PHON.length;i++)if(PHON[i].w===w)return PHON[i].s===s;return false;}
+function tiles(word,rnd){rnd=rnd||Math.random;var letters=word.split(""),pool="abcdefghijklmnopqrstuvwxyz".split("").filter(function(c){return word.indexOf(c)<0;});
+ return shuffle(letters.concat(pick(pool,2,rnd)),rnd);}
+function tokens(s){return s.replace(/([?.!])$/," $1").split(" ");}
+function stars(correct,total){if(!total)return 0;var r=correct/total;return r>=1?3:r>=0.7?2:r>=0.4?1:0;}
+var BADGES=[
+ {id:"words",n:"🃏 單字收集家",d:"6 張單字卡都聽過"},
+ {id:"listen",n:"👂 順風耳",d:"聽力測驗全對"},
+ {id:"spell",n:"🔡 拼字小高手",d:"6 個單字都拼對過"},
+ {id:"match",n:"🧩 配對王",d:"完成一次圖字配對"},
+ {id:"where",n:"🔍 找東西高手",d:"「聽一聽，點點看」全對"},
+ {id:"drill",n:"🚨 防災小尖兵",d:"地震演習排序全對"},
+ {id:"phon",n:"🪄 Magic e 魔法師",d:"u / u_e 分類全對"},
+ {id:"champ",n:"🏆 挑戰王",d:"綜合挑戰答對 9 題以上"}
+];
+function badges(st){
+ var g={};st=st||{};
+ if(st.heard&&WORDS.every(function(w){return st.heard[w.w];}))g.words=1;
+ if(st.listenBest>=WORDS.length)g.listen=1;
+ if(st.spelled&&WORDS.every(function(w){return st.spelled[w.w];}))g.spell=1;
+ if(st.matchDone>=1)g.match=1;
+ if(st.placePerfect>=1)g.where=1;
+ if(st.drillPerfect>=1)g.drill=1;
+ if(st.phonPerfect>=1)g.phon=1;
+ if(st.chBest>=9)g.champ=1;
+ return g;
+}
+return {PIC:PIC,pic:pic,WORDS:WORDS,EXTRA:EXTRA,GOBAG:GOBAG,POS:POS,ITEMS:ITEMS,ORDER:ORDER,DAILY:DAILY,DRILL:DRILL,DRILLQ:DRILLQ,PHON:PHON,MAGIC:MAGIC,PAIRS:PAIRS,SYL:SYL,BADGES:BADGES,
+ shuffle:shuffle,pick:pick,wordBy:wordBy,where:where,at:at,posBy:posBy,layout:layout,scene:scene,wordQ:wordQ,whereQ:whereQ,phonQ:phonQ,dailyQ:dailyQ,makeChallenge:makeChallenge,
+ phonCheck:phonCheck,tiles:tiles,tokens:tokens,stars:stars,badges:badges};
+})();
+if(typeof module!=="undefined"&&module.exports)module.exports=Core;
+</script>
+<script>
+(function(){
+"use strict";
+if(typeof document==="undefined")return;
+var $=function(id){return document.getElementById(id);};
+var C=Core,KEY="enWW3U4V1";
+function each(list,fn){Array.prototype.forEach.call(list,fn);}
+function fresh(){return {stars:0,heard:{},spelled:{},listenBest:0,matchDone:0,placeDone:0,placePerfect:0,drillPerfect:0,orderDone:0,phonPerfect:0,phonDone:0,sylDone:0,dailyBest:0,chBest:0,slow:false,bad:{}};}
+var store=fresh();
+try{var raw=localStorage.getItem(KEY);if(raw){var o=JSON.parse(raw);for(var k in o)store[k]=o[k];}}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
+var TN={word:"🃏 單字",listen:"👂 聽力",where:"🔍 東西在哪裡",place:"👆 聽一聽點點看",drill:"🚨 地震演習",order:"🧱 句子排排看",daily:"🗣️ 生活用語",phon:"🔤 u / u_e 發音",syl:"👏 音節",spell:"🔡 拼字",match:"🧩 圖字配對"};
+function miss(t){store.bad[t]=(store.bad[t]||0)+1;save();}
+function renderScore(){$("score").textContent="⭐ "+store.stars;}
+function addStars(n,el){if(n<=0)return;store.stars+=n;save();renderScore();var sc=$("score");sc.classList.remove("pop");void sc.offsetWidth;sc.classList.add("pop");
+  if(el&&el.getBoundingClientRect){var r=el.getBoundingClientRect();for(var i=0;i<6;i++){var s=document.createElement("div");s.className="burst";s.textContent=["⭐","✨","🌟"][i%3];
+    s.style.left=(r.left+r.width/2)+"px";s.style.top=(r.top+20)+"px";s.style.setProperty("--dx",(Math.random()*160-80)+"px");s.style.setProperty("--dy",(-60-Math.random()*120)+"px");
+    document.body.appendChild(s);setTimeout(function(x){return function(){if(x.parentNode)x.parentNode.removeChild(x);};}(s),1200);}}}
+var actx=null;function beep(good){try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();(good?[660,880]:[260]).forEach(function(f,i){var o=actx.createOscillator(),g=actx.createGain();o.frequency.value=f;o.type="triangle";g.gain.setValueAtTime(.08,actx.currentTime+i*.08);g.gain.exponentialRampToValueAtTime(.001,actx.currentTime+i*.08+.2);o.connect(g);g.connect(actx.destination);o.start(actx.currentTime+i*.08);o.stop(actx.currentTime+i*.08+.22);});}catch(e){}}
+
+/* ---------- 英文發音（en-US），沒有語音時優雅退回 ---------- */
+var canSpeak=!!(window.speechSynthesis&&window.SpeechSynthesisUtterance),enVoice=null;
+function note(msg){var n=$("voiceNote");if(!msg){n.className="notice hidden";return;}n.className="notice";n.innerHTML=msg;}
+function findVoice(){
+  if(!canSpeak)return;var vs=[];try{vs=speechSynthesis.getVoices()||[];}catch(e){}
+  if(!vs.length)return;enVoice=null;
+  for(var i=0;i<vs.length;i++){if(/^en[-_]US/i.test(vs[i].lang)){enVoice=vs[i];break;}}
+  if(!enVoice)for(var j=0;j<vs.length;j++){if(/^en/i.test(vs[j].lang)){enVoice=vs[j];break;}}
+  if(!enVoice)note("🔈 這台裝置好像沒有英文語音，念出來可能不標準。可以到平板的「設定 → 語言與輸入／朗讀」下載英文（美國）語音，或用課本 CD／Super 電子書聽發音。");
+  else note("");
+}
+if(!canSpeak)note("🔇 這個瀏覽器不能朗讀英文。聽力題會改成「看字作答」，發音請聽課本 CD／Super 電子書。");
+else{findVoice();try{speechSynthesis.onvoiceschanged=findVoice;}catch(e){}}
+function say(t){
+  if(!canSpeak)return false;
+  try{speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(String(t).replace(/<[^>]+>/g,""));u.lang="en-US";if(enVoice)u.voice=enVoice;u.rate=store.slow?.6:.85;speechSynthesis.speak(u);return true;}catch(e){return false;}
+}
+$("slowChk").checked=!!store.slow;
+$("slowChk").addEventListener("change",function(){store.slow=$("slowChk").checked;save();say("Where's the eraser?");});
+$("testVoice").addEventListener("click",function(){if(!say("Hello! Where's the eraser?"))note("🔇 這個瀏覽器不能朗讀英文，請用課本 CD／Super 電子書聽發音。");});
+function bindSay(root){each((root||document).querySelectorAll("[data-say]"),function(b){if(b.getAttribute("data-bound"))return;b.setAttribute("data-bound","1");b.addEventListener("click",function(){say(b.getAttribute("data-say"));});});}
+
+function goTab(p){each(document.querySelectorAll("#tabs button"),function(x){x.classList.toggle("on",x.getAttribute("data-p")===p);});
+  each(document.querySelectorAll("section.page"),function(s){s.classList.toggle("active",s.id===p);});
+  if(p==="p-rec")renderRec();
+  var rb=document.querySelector("#"+p+" .rep");if(rb&&rb.textContent.indexOf("再聽")>=0)setTimeout(function(){rb.click();},300);window.scrollTo(0,0);}
+each(document.querySelectorAll("#tabs button"),function(b){b.addEventListener("click",function(){goTab(b.getAttribute("data-p"));});});
+
+/* ---------- 通用測驗（選項可以是圖：pic:單字） ---------- */
+var sayT=null;
+function runQuiz(boxId,make,opt){
+  var box=$(boxId),items=[],i=0,right=0,answered=false;
+  function start(){items=make();i=0;right=0;draw();}
+  function draw(){
+    clearTimeout(sayT);var it=items[i],h='<div class="prog">';
+    for(var k=0;k<items.length;k++)h+='<i class="'+(k<i?(items[k].ok?"ok":"no"):k===i?"cur":"")+'"></i>';
+    var q=it.q;
+    if(it.speak&&it.type==="listen"&&!canSpeak)q="👀 看字作答：<b class=\"en\">"+it.speak+"</b><br>"+(it.ask||"是哪一張圖？");
+    h+='</div><div class="q">'+q+'</div>';
+    if(it.speak&&canSpeak)h+='<div class="btns cen"><button class="btn purple rep">🔊 '+(it.type==="listen"?"再聽一次":"聽題目")+'</button></div>';
+    h+='<div class="choices"></div><div class="fb"></div><div class="btns cen"><button class="btn org hidden nx">下一題 ➜</button></div>';
+    box.innerHTML=h;answered=false;
+    var ch=box.querySelector(".choices");
+    it.o.forEach(function(op){var b=document.createElement("button");var isPic=op.indexOf("pic:")===0;b.className="btn"+(isPic?" emo":/^[A-Za-z]/.test(op)?" en":"");if(isPic){b.innerHTML=C.pic(op.slice(4));b.setAttribute("aria-label",C.wordBy(op.slice(4)).m);}else b.textContent=op;b.setAttribute("data-v",op);
+      b.addEventListener("click",function(){pickAns(b,op);});ch.appendChild(b);});
+    var rep=box.querySelector(".rep");if(rep)rep.addEventListener("click",function(){say(it.speak);});
+    if(it.speak&&it.type==="listen"&&opt.auto!==false&&canSpeak&&box.offsetParent)say(it.speak);
+    box.querySelector(".nx").addEventListener("click",function(){i++;if(i<items.length)draw();else finish();});
+  }
+  function pickAns(b,op){
+    if(answered)return;answered=true;var it=items[i],ok=op===it.a,f=box.querySelector(".fb");it.ok=ok;
+    each(box.querySelectorAll(".choices .btn"),function(x){var v=x.getAttribute("data-v");if(v===it.a)x.classList.add("ok");x.disabled=x!==b&&v!==it.a;});
+    var wd=it.w&&C.wordBy(it.w),extra=wd?' <b class="en">'+wd.w+'</b>（'+wd.m+'）':"";
+    var ans=it.a.indexOf("pic:")===0?C.wordBy(it.a.slice(4)).w:it.a;
+    if(ok){right++;b.classList.add("ok");beep(true);addStars(1,b);f.className="fb show good";f.innerHTML="✅ 答對了！"+extra+(it.tip?" "+it.tip:"");}
+    else{b.classList.add("no");beep(false);miss(it.type||opt.type);f.className="fb show bad";f.innerHTML="再想想：正確答案是「<b>"+ans+"</b>」。"+extra+(it.tip?" "+it.tip:"");}
+    clearTimeout(sayT);if(/^[A-Za-z]/.test(ans))sayT=setTimeout(function(){say(ans);},250);
+    var nx=box.querySelector(".nx");nx.textContent=i<items.length-1?"下一題 ➜":"看成績 🎉";nx.classList.remove("hidden");
+  }
+  function finish(){
+    var st=C.stars(right,items.length);addStars(st,box);
+    if(opt.onDone)opt.onDone(right,items.length);
+    box.innerHTML='<div class="done">🎉 答對 <b>'+right+'</b> / '+items.length+' 題　'+(st?"再加 "+st+" 顆星！":"")+'<br>'+(right===items.length?"全對！Great job!":"錯的地方再聽一次、看一次，再挑戰一次吧！")+'</div><div class="btns cen"><button class="btn purple again">🔄 再玩一次</button></div>';
+    box.querySelector(".again").addEventListener("click",start);
+  }
+  start();
+  return {restart:start};
+}
+
+/* ---------- 單字卡 ---------- */
+function cardHtml(w,ext){return '<button class="vcard'+(ext?" ext":"")+(store.heard[w.w]?" heard":"")+'" data-w="'+w.w+'"><span class="emo">'+C.pic(w.w)+'</span><span class="w en">'+w.w+'</span><span class="m">'+w.m+'</span></button>';}
+function renderCards(){
+  $("vGrid").innerHTML=C.WORDS.map(function(w){return cardHtml(w,false);}).join("");
+  $("xGrid").innerHTML=C.EXTRA.map(function(w){return cardHtml(w,true);}).join("");
+  $("gGrid").innerHTML=C.GOBAG.map(function(w){return cardHtml(w,true);}).join("");
+  each(document.querySelectorAll(".vcard"),function(b){b.addEventListener("click",function(){var w=C.wordBy(b.getAttribute("data-w"));say(w.w+". "+w.ex);
+    if(!store.heard[w.w]){store.heard[w.w]=1;save();b.classList.add("heard");if(C.WORDS.every(function(x){return store.heard[x.w];})&&C.WORDS.some(function(x){return x.w===w.w;}))addStars(3,b);}});});
+}
+renderCards();
+var CHANT=["Where, where, where's the cat?","In the box, in the box! Look at that!","Where, where, where's my pen?","Under the desk! Look again!"];
+$("chant").innerHTML=CHANT.join("<br>");
+$("chantBtn").addEventListener("click",function(){say(CHANT.join(" "));});
+bindSay();
+
+/* ---------- 地震演習：排順序＋小測驗 ---------- */
+function startDrill(){
+  var box=$("drillBox"),next=0,errs=0,cards=C.shuffle(C.DRILL);
+  function paint(){
+    var h='<div class="slots words en">'+C.DRILL.map(function(d,k){return '<span>'+(k<next?d.e+" "+d.w:(k+1)+".")+'</span>';}).join("")+'</div><div class="tiles en">';
+    cards.forEach(function(d,k){h+='<button class="btn'+(C.DRILL.indexOf(d)<next?" used":"")+'" data-k="'+k+'">'+d.e+' '+d.w+'</button>';});
+    h+='</div><div class="fb" id="dFb"></div>';box.innerHTML=h;
+    each(box.querySelectorAll(".tiles .btn"),function(b){b.addEventListener("click",function(){var d=cards[+b.getAttribute("data-k")],f;
+      if(C.DRILL.indexOf(d)===next){next++;beep(true);say(d.w);paint();f=$("dFb");f.className="fb show good";f.innerHTML='✅ <b class="en">'+d.w+'</b> '+d.m;
+        if(next===C.DRILL.length){var st=errs===0?3:1;addStars(st,box);if(errs===0){store.drillPerfect=(store.drillPerfect||0)+1;save();}
+          box.insertAdjacentHTML("beforeend",'<div class="done">🚨 順序記住了：<b class="en">Drop! Cover! Hold on!</b> 趴下、掩護、穩住！</div><div id="drillQ"></div>');
+          runQuiz("drillQ",function(){return C.DRILLQ.map(function(x){return {type:"drill",q:x.q,a:x.a,o:C.shuffle(x.o),tip:x.tip};});},{type:"drill"});}}
+      else{beep(false);errs++;miss("drill");f=$("dFb");f.className="fb show bad";f.innerHTML="想一想：地震時先做什麼？先趴下（Drop），再躲好（Cover），最後穩住（Hold on）。";}});});
+  }
+  paint();
+}
+startDrill();
+
+/* ---------- 東西在哪裡（看圖選答案） ---------- */
+runQuiz("whereQ",function(){var a=[];for(var k=0;k<5;k++)a.push(C.whereQ());return a;},{type:"where"});
+
+/* ---------- 聽一聽，點點看 ---------- */
+function startPlace(){
+  var box=$("placeBox"),n=6,i=0,errs=0,rounds=[];
+  for(var k=0;k<n;k++)rounds.push({it:C.pick(C.ITEMS,1)[0],pos:C.pick(C.POS,1)[0]});
+  function draw(){
+    var h='<div class="prog">';for(var k=0;k<n;k++)h+='<i class="'+(k<i?"ok":k===i?"cur":"")+'"></i>';h+='</div>';
+    if(i>=n){var st=errs===0?3:errs<=2?2:1;addStars(st,box);store.placeDone=(store.placeDone||0)+1;if(errs===0)store.placePerfect=(store.placePerfect||0)+1;save();
+      box.innerHTML=h+'<div class="done">👆 全部找到了！錯 '+errs+' 次，得到 '+st+' 顆星。'+(errs===0?"全對，你是找東西高手！":"")+'</div><div class="btns cen"><button class="btn purple" id="plAgain">🔄 再玩一次</button></div>';
+      $("plAgain").addEventListener("click",startPlace);return;}
+    var r=rounds[i],line=C.where(r.it.w)+" "+C.at(r.pos);
+    h+='<div class="q"><span class="emo">'+C.pic(r.it.w)+'</span> '+r.it.m+'在哪裡？</div>';
+    h+=canSpeak?'<div class="btns cen"><button class="btn purple" id="plSay">🔊 再聽一次</button></div>':'<div class="bubble en">👀 '+line+'</div>';
+    h+=C.scene(null,true)+'<div class="fb" id="plFb"></div>';
+    box.innerHTML=h;if(canSpeak){say(line);$("plSay").addEventListener("click",function(){say(line);});}
+    each(box.querySelectorAll(".hot"),function(g){var go=function(){var k=g.getAttribute("data-pos"),f=$("plFb");
+        if(k===r.pos.k){beep(true);var L={};L[k]=r.it.w;f.className="fb show good";f.innerHTML='✅ <b class="en">'+C.at(r.pos)+'</b>（在'+r.pos.zh+'）';
+          var sc=box.querySelector("svg.scene");sc.outerHTML=C.scene(L,false);say(C.at(r.pos));setTimeout(function(){i++;draw();},1500);}
+        else{beep(false);errs++;miss("place");f.className="fb show bad";f.innerHTML="不是"+C.posBy(k).zh+"喔！再聽一次：<b class=\"en\">"+C.at(r.pos).replace("It's ","")+"</b> 要注意 in、on、under 和 box、desk、chair。";}};
+      g.addEventListener("click",go);g.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();go();}});});
+  }
+  draw();
+}
+startPlace();
+
+/* ---------- 句子排排看 ---------- */
+function startOrder(){
+  var list=C.shuffle(C.ORDER).slice(0,4),idx=0,errs=0,box=$("orderBox");
+  function draw(){
+    if(idx>=list.length){var st=errs===0?3:errs<=2?2:1;addStars(st,box);store.orderDone=(store.orderDone||0)+1;save();
+      box.innerHTML='<div class="done">🧱 4 個句子都排好了！錯 '+errs+' 次，得到 '+st+' 顆星。</div><div class="btns cen"><button class="btn purple" id="oAgain">🔄 再排一次</button></div>';
+      $("oAgain").addEventListener("click",startOrder);return;}
+    var target=C.tokens(list[idx]),got=[],pool=C.shuffle(target.map(function(t,i){return {t:t,i:i};}));
+    function paint(){
+      var h='<div class="prog">';for(var k=0;k<list.length;k++)h+='<i class="'+(k<idx?"ok":k===idx?"cur":"")+'"></i>';
+      h+='</div><div class="slots words en">'+target.map(function(t,k){return '<span>'+(k<got.length?got[k]:"")+'</span>';}).join("")+'</div><div class="tiles en">';
+      pool.forEach(function(p,k){h+='<button class="btn'+(p.used?" used":"")+'" data-k="'+k+'">'+p.t+'</button>';});
+      h+='</div><div class="fb" id="oFb"></div>';box.innerHTML=h;
+      each(box.querySelectorAll(".tiles .btn"),function(b){b.addEventListener("click",function(){var p=pool[+b.getAttribute("data-k")];if(p.used)return;
+        if(p.t===target[got.length]){p.used=true;got.push(p.t);beep(true);
+          if(got.length===target.length){say(list[idx]);paint();var f=$("oFb");f.className="fb show good";f.innerHTML='✅ <b class="en">'+list[idx]+'</b>';setTimeout(function(){idx++;draw();},1200);return;}
+          paint();}
+        else{beep(false);errs++;miss("order");var f=$("oFb");f.className="fb show bad";f.innerHTML="還不是這個字喔！句子第 "+(got.length+1)+" 個字是什麼？"+(got.length===0?"（句子開頭字母要大寫）":"");}});});
+    }
+    paint();
+  }
+  draw();
+}
+startOrder();
+
+/* ---------- 生活用語 ---------- */
+$("dailyList").innerHTML=C.DAILY.map(function(d){return '<div class="pat"><span class="who">🗣️</span><span class="line en">'+d.p+'<span class="zh">'+d.m+'</span></span><button class="btn white small" data-say="'+d.p.replace(/"/g,"&quot;")+'">🔊</button></div>';}).join("")+'<p class="small">Watch out! 和 Give me a hand, please. 是本課生活用語；I\'m sorry. 出現在課本同一頁的對話裡。情境是自編的。</p>';
+bindSay($("dailyList"));
+runQuiz("dailyQ",function(){return C.shuffle(C.DAILY).map(function(d){return {type:"daily",q:"情境："+d.s+"<br>這時候可以說什麼？",a:d.p,o:C.shuffle(C.DAILY.map(function(x){return x.p;}))};});},{type:"daily",onDone:function(r){store.dailyBest=Math.max(store.dailyBest||0,r);save();}});
+
+/* ---------- 發音：Magic e ---------- */
+$("magicBox").innerHTML=C.MAGIC.map(function(m){return '<div class="magic" style="margin:6px 0"><button class="btn en" data-say="'+m.a+'">'+m.a+'</button><span style="font-size:28px;align-self:center">➜ +e ➜</span><button class="btn en lit" data-say="'+m.b+'">'+m.b+'</button></div>';}).join("");
+bindSay($("magicBox"));
+function startPhon(){
+  var items=C.shuffle(C.PHON).slice(0,10),i=0,errs=0,box=$("phonBox"),placed={short:[],long:[]};
+  function draw(){
+    var h='<div class="prog">';for(var k=0;k<items.length;k++)h+='<i class="'+(k<i?(items[k].ok?"ok":"no"):k===i?"cur":"")+'"></i>';h+='</div>';
+    if(i<items.length){var it=items[i];h+='<div class="big en">'+it.e+' '+it.w+'</div><div class="small" style="text-align:center">'+it.m+(it.book?"（課本例字）":"")+'</div><div class="btns cen"><button class="btn white small" id="pSay">🔊 聽一聽</button></div>'+
+      '<div class="two"><button class="btn sh" data-s="short">短母音 u<br><span class="en">duck 的 u</span></button><button class="btn lo" data-s="long">長母音 u_e<br><span class="en">cute 的 u</span></button></div><div class="fb" id="pFb"></div>';}
+    h+='<div class="bins"><div class="bin sh"><b>短母音 u</b><span class="en">'+placed.short.join("、")+'</span></div><div class="bin lo"><b>長母音 u_e</b><span class="en">'+placed.long.join("、")+'</span></div></div>';
+    if(i>=items.length){var st=errs===0?4:errs<=2?2:1;addStars(st,box);store.phonDone=(store.phonDone||0)+1;if(errs===0)store.phonPerfect=(store.phonPerfect||0)+1;save();
+      h+='<div class="done">🎉 分類完成！錯 '+errs+' 次，得到 '+st+' 顆星。'+(errs===0?"全對，你是 Magic e 魔法師！":"")+'</div><div class="btns cen"><button class="btn purple" id="pAgain">🔄 再玩一次</button></div>';}
+    box.innerHTML=h;
+    if(i>=items.length){$("pAgain").addEventListener("click",startPhon);return;}
+    $("pSay").addEventListener("click",function(){say(items[i].w);});
+    each(box.querySelectorAll(".two .btn"),function(b){b.addEventListener("click",function(){var s=b.getAttribute("data-s"),it=items[i];
+      if(C.phonCheck(it.w,s)){beep(true);if(it.ok!==false)it.ok=true;placed[s].push(it.w);say(it.w);i++;draw();}
+      else{beep(false);errs++;it.ok=false;miss("phon");var f=$("pFb");f.className="fb show bad";f.innerHTML=/u[^aeiou]e$/i.test(it.w)?"看看字尾：有 Magic e，前面的 u 要念「U」的名字喔！":"字尾沒有 Magic e，這個 u 念短短的 /ʌ/，像 duck。";}});});
+  }
+  draw();
+}
+startPhon();
+runQuiz("pairQ",function(){return C.shuffle(C.PAIRS.concat(C.PAIRS)).slice(0,6).map(function(p){var a=p[Math.random()<.5?0:1];return {type:"listen",q:"🔊 聽一聽，念的是哪一個字？",ask:"是這兩個字的哪一個？",a:a,o:C.shuffle(p),speak:a};});},{type:"phon"});
+
+/* ---------- 音節：拍拍手 ---------- */
+function startSyl(){
+  var items=C.shuffle(C.SYL).slice(0,8),i=0,errs=0,box=$("sylBox"),bins={1:[],2:[],3:[]};
+  function draw(){
+    var h='<div class="prog">';for(var k=0;k<items.length;k++)h+='<i class="'+(k<i?(items[k].ok?"ok":"no"):k===i?"cur":"")+'"></i>';h+='</div>';
+    if(i<items.length){var it=items[i];h+='<div class="big en">'+it.w+'</div><div class="small" style="text-align:center">'+(it.book?"（課本的字）":"")+'</div><div class="btns cen"><button class="btn white small" id="sySay">🔊 慢慢念</button></div>'+
+      '<div class="btns cen"><button class="btn white" data-n="1">👏 1 下</button><button class="btn white" data-n="2">👏👏 2 下</button><button class="btn white" data-n="3">👏👏👏 3 下</button></div><div class="fb" id="syFb"></div>';}
+    h+='<div class="bins">'+[1,2,3].map(function(n){return '<div class="bin"><b>'+n+' 個音節</b><span class="en">'+bins[n].join("、")+'</span></div>';}).join("")+'</div>';
+    if(i>=items.length){var st=errs===0?3:errs<=2?2:1;addStars(st,box);store.sylDone=(store.sylDone||0)+1;save();
+      h+='<div class="done">👏 音節分好了！錯 '+errs+' 次，得到 '+st+' 顆星。</div><div class="btns cen"><button class="btn purple" id="syAgain">🔄 再玩一次</button></div>';}
+    box.innerHTML=h;
+    if(i>=items.length){$("syAgain").addEventListener("click",startSyl);return;}
+    var it2=items[i];$("sySay").addEventListener("click",function(){say(it2.s+". "+it2.w);});
+    each(box.querySelectorAll("[data-n]"),function(b){b.addEventListener("click",function(){var n=+b.getAttribute("data-n");
+      if(n===it2.n){beep(true);if(it2.ok!==false)it2.ok=true;bins[n].push(it2.w);say(it2.w);i++;draw();}
+      else{beep(false);errs++;it2.ok=false;miss("syl");var f=$("syFb");f.className="fb show bad";f.innerHTML="再聽一次，跟著拍手：<b class=\"en\">"+it2.s.replace(/, /g," · ")+"</b>";}});});
+  }
+  draw();
+}
+startSyl();
+
+/* ---------- 聽力 ---------- */
+runQuiz("listenQ",function(){return C.shuffle(C.WORDS).map(function(w){return C.wordQ("listen",w);});},{type:"listen",onDone:function(r){store.listenBest=Math.max(store.listenBest||0,r);save();}});
+runQuiz("listen2Q",function(){var a=[];for(var k=0;k<5;k++){var it=C.pick(C.ITEMS,1)[0],p=C.pick(C.POS,1)[0],wrong=C.pick(C.POS.filter(function(x){return x.k!==p.k;}),2).map(function(x){return x.zh;});
+  a.push({type:"listen",q:"🔊 聽一聽，"+it.m+"在哪裡？",ask:it.m+"在哪裡？",a:p.zh,o:C.shuffle([p.zh].concat(wrong)),speak:C.where(it.w)+" "+C.at(p),tip:'<b class="en">'+C.at(p)+'</b>'});}return a;},{type:"listen"});
+
+/* ---------- 拼字 ---------- */
+function startSpell(){
+  var list=C.shuffle(C.WORDS),idx=0,errs=0,box=$("spellBox");
+  function draw(){
+    if(idx>=list.length){var st=errs===0?3:errs<=3?2:1;addStars(st,box);
+      box.innerHTML='<div class="done">🔡 6 個單字都拼好了！錯 '+errs+' 次，得到 '+st+' 顆星。</div><div class="btns cen"><button class="btn purple" id="spAgain">🔄 再玩一次</button></div>';
+      $("spAgain").addEventListener("click",startSpell);return;}
+    var w=list[idx],got="",pool=C.tiles(w.w).map(function(t){return {t:t};});
+    function paint(){
+      var h='<div class="prog">';for(var k=0;k<list.length;k++)h+='<i class="'+(k<idx?"ok":k===idx?"cur":"")+'"></i>';
+      h+='</div><div class="big"><span class="emo">'+C.pic(w.w)+'</span><br>'+w.m+'</div><div class="btns cen"><button class="btn white small" id="spSay">🔊 聽發音</button></div><div class="slots en">';
+      for(var k2=0;k2<w.w.length;k2++)h+='<span>'+(k2<got.length?got.charAt(k2):"")+'</span>';
+      h+='</div><div class="tiles en">';pool.forEach(function(p,k){h+='<button class="btn'+(p.used?" used":"")+'" data-k="'+k+'">'+p.t+'</button>';});
+      h+='</div><div class="btns cen"><button class="btn gray small" id="spBack">⌫ 退一格</button></div><div class="fb" id="spFb"></div>';box.innerHTML=h;
+      $("spSay").addEventListener("click",function(){say(w.w);});
+      $("spBack").addEventListener("click",function(){if(!got.length)return;var last=got.charAt(got.length-1);got=got.slice(0,-1);for(var k=pool.length-1;k>=0;k--)if(pool[k].used&&pool[k].t===last){pool[k].used=false;break;}paint();});
+      each(box.querySelectorAll(".tiles .btn"),function(b){b.addEventListener("click",function(){var p=pool[+b.getAttribute("data-k")];if(p.used)return;p.used=true;got+=p.t;
+        if(got.length<w.w.length){paint();return;}
+        if(got===w.w){beep(true);say(w.w);store.spelled[w.w]=1;save();paint();var f=$("spFb");f.className="fb show good";f.innerHTML='✅ <b class="en">'+w.w+'</b> 拼對了！';setTimeout(function(){idx++;draw();},1100);}
+        else{beep(false);errs++;miss("spell");paint();var f2=$("spFb");f2.className="fb show bad";f2.innerHTML="拼成 <b class=\"en\">"+got+"</b> 不太對，按「⌫ 退一格」改一改，或聽一次發音！";}});});
+    }
+    paint();
+  }
+  draw();
+}
+startSpell();
+
+/* ---------- 圖字配對 ---------- */
+function startMatch(){
+  var set=C.WORDS.slice(),selW=null,left=0,errs=0,box=$("matchBox");
+  box.innerHTML='<div class="match"><div class="col" id="mW"></div><div class="col" id="mM"></div></div><div class="fb" id="mFb"></div>';
+  C.shuffle(set).forEach(function(w){var b=document.createElement("button");b.className="btn en";b.textContent=w.w;b.setAttribute("data-w",w.w);
+    b.addEventListener("click",function(){if(b.classList.contains("ok"))return;each(box.querySelectorAll("#mW .btn"),function(x){x.classList.remove("sel");});b.classList.add("sel");selW=w.w;say(w.w);});$("mW").appendChild(b);});
+  C.shuffle(set).forEach(function(w){var b=document.createElement("button");b.className="btn pic";b.innerHTML=C.pic(w.w);b.setAttribute("aria-label",w.m);
+    b.addEventListener("click",function(){if(b.classList.contains("ok"))return;var f=$("mFb");
+      if(!selW){f.className="fb show info";f.textContent="先點左邊的英文單字喔！";return;}
+      if(selW===w.w){beep(true);b.classList.add("ok");var wb=box.querySelector('#mW [data-w="'+selW+'"]');wb.classList.remove("sel");wb.classList.add("ok");b.disabled=true;wb.disabled=true;
+        f.className="fb show good";f.innerHTML='✅ <b class="en">'+w.w+'</b> '+w.m;selW=null;left++;
+        if(left===set.length){store.matchDone=(store.matchDone||0)+1;var st=Math.max(1,3-errs);addStars(st,box);
+          box.insertAdjacentHTML("beforeend",'<div class="done">🎉 全部配對完成！錯 '+errs+' 次，得到 '+st+' 顆星。</div><div class="btns cen"><button class="btn purple" id="mAgain">🔄 再玩一次</button></div>');$("mAgain").addEventListener("click",startMatch);}}
+      else{beep(false);errs++;miss("match");b.classList.remove("no");void b.offsetWidth;b.classList.add("no");f.className="fb show bad";f.innerHTML='不太對，再想想 <b class="en">'+selW+'</b> 是什麼意思。';}});
+    $("mM").appendChild(b);});
+}
+startMatch();
+
+/* ---------- 挑戰 ---------- */
+runQuiz("chBox",function(){return C.makeChallenge();},{type:"word",onDone:function(r){store.chBest=Math.max(store.chBest||0,r);save();}});
+
+/* ---------- 紀錄 ---------- */
+function renderRec(){
+  var s=store,g=C.badges(s),cnt=function(o){return C.WORDS.filter(function(w){return o&&o[w.w];}).length;};
+  $("stats").innerHTML='<div class="stat"><b>'+s.stars+'</b>⭐ 星星</div><div class="stat"><b>'+cnt(s.heard)+'/6</b>聽過的單字卡</div><div class="stat"><b>'+cnt(s.spelled)+'/6</b>拼對過的單字</div><div class="stat"><b>'+(s.listenBest||0)+'/6</b>聽力最佳</div><div class="stat"><b>'+(s.chBest||0)+'/10</b>挑戰最佳</div><div class="stat"><b>'+(s.placeDone||0)+'</b>點點看次數</div>';
+  $("badges").innerHTML=C.BADGES.map(function(b){return '<div class="bdg'+(g[b.id]?" got":"")+'">'+b.n+'<small>'+b.d+'</small></div>';}).join("");
+  var ks=Object.keys(s.bad).sort(function(a,b){return s.bad[b]-s.bad[a];});
+  $("mist").innerHTML=ks.length?'<table class="rec">'+ks.map(function(k){return "<tr><td>"+(TN[k]||k)+"</td><td>錯 "+s.bad[k]+" 次</td></tr>";}).join("")+"</table>":'<p class="small">還沒有錯題，繼續加油！</p>';
+}
+$("resetBtn").addEventListener("click",function(){if(!confirm("確定要清除這一課的所有紀錄嗎？"))return;var sl=store.slow;store=fresh();store.slow=sl;save();renderScore();renderCards();renderRec();});
+renderScore();
+})();
+</script>
+</body>
+</html>
