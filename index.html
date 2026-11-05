@@ -35,6 +35,9 @@ footer{text-align:center;color:#888;font-size:14px;margin-top:30px}
   <p>四年級上學期・選一個科目開始探險吧！</p>
 </header>
 <main>
+  <!-- 今天的複習 START -->
+  <a href="review/" id="todayReview" style="display:flex;align-items:center;gap:12px;margin:0 0 14px;padding:16px;border-radius:22px;background:linear-gradient(135deg,#d9cfff,#ffe1f0);color:#2b2d42;text-decoration:none;box-shadow:0 6px 0 rgba(0,0,0,.1);border:3px solid #7b61ff"><span style="font-size:44px;line-height:1">🧠</span><span style="flex:1;min-width:0"><b id="trTitle" style="display:block;font-size:clamp(20px,5.4vw,26px)">今天的複習</b><span id="trSub" style="font-size:15px;color:#555">每天 5～10 分鐘，國語、數學、自然混著練，越練記越牢</span></span><span id="trGo" style="font-size:16px;font-weight:800;background:#7b61ff;color:#fff;border-radius:999px;padding:8px 14px;white-space:nowrap">開始 ➜</span></a>
+  <!-- 今天的複習 END -->
   <!-- 10/31 考卷錯題複習 START -->
   <a href="review-1031/" id="r1031" style="display:flex;align-items:center;gap:12px;margin:0 0 14px;padding:14px 16px;border-radius:22px;background:linear-gradient(135deg,#fff1a8,#ffd6e5);color:#2b2d42;text-decoration:none;box-shadow:0 6px 0 rgba(0,0,0,.1);border:3px solid #ffd166"><span style="font-size:40px;line-height:1">📝</span><span style="flex:1;min-width:0"><b style="display:block;font-size:clamp(19px,5vw,24px)">10/31 考卷錯題複習</b><span style="font-size:15px;color:#555">國語、數學、英文：老師扣分的題目，每題都能單獨重做</span></span><span style="font-size:26px">➜</span></a>
   <!-- 10/31 考卷錯題複習 END -->
@@ -60,6 +63,19 @@ document.getElementById("subjects").innerHTML = SUBJECTS.map(function (s) {
   return s.href ? '<a class="card" ' + st + ' href="' + s.href + '">' + inner + '</a>'
                 : '<div class="card soon" ' + st + ' aria-disabled="true">' + inner + '</div>';
 }).join("");
+</script>
+<script src="review/srs.js"></script>
+<script src="review/bank.js"></script>
+<script>
+/* 今天的複習：顯示今天要做幾張、連續幾天（資料在 review/） */
+(function () {
+  if (!window.SRS || !window.REVIEW_BANK) return;
+  var st = SRS.load(), p = SRS.plan(REVIEW_BANK, st), n = SRS.streak(st), started = Object.keys(st.cards).length > 0;
+  var t = document.getElementById("trTitle"), s = document.getElementById("trSub"), g = document.getElementById("trGo");
+  if (p.done) { t.textContent = "✅ 今天的複習完成了！"; s.textContent = "🔥 連續 " + n + " 天，明天見！"; g.textContent = "看記憶樹 ➜"; }
+  else if (!p.queue.length) { t.textContent = "今天的複習"; s.textContent = "今天沒有要複習的卡，太厲害了！"; g.textContent = "看看 ➜"; }
+  else if (started) { t.textContent = "今天的複習：" + p.queue.length + " 張"; s.textContent = "大約 " + SRS.minutes(p.queue.length) + " 分鐘" + (n ? "・🔥 連續 " + n + " 天" : "") + "・國語、數學、自然混著練"; }
+})();
 </script>
 </body>
 </html>
