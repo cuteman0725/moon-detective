@@ -14,6 +14,8 @@
 /math/                    數學（康軒版）
   division/               除法直式特訓班（第四單元 整數的除法；含驗算、乘法直式補強、4下 ÷三位數 預習）
 /phases/                  舊網址，自動轉到 /nature/moon-phases/
+/review/                  今天的複習（國語、數學、自然的間隔＋交錯複習；題庫在 bank.js、排程在 srs.js）
+/docs/learning-design.md  學習設計說明（給爸媽和 Grok，改網站前先看）
 ```
 
 所有連結都是相對路徑，可放在任何子路徑下（例如 `/moon-detective/`）。
