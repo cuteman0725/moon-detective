@@ -179,6 +179,48 @@ main{max-width:760px;margin:0 auto;padding:12px 16px}
 .pinDots i.on{background:var(--violet)}
 .pinDots.shake{animation:shake .4s}
 @keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+/* 英語 */
+.emo{font-size:1.3em}
+.enw{font-family:"Arial Rounded MT Bold","Nunito","Helvetica Neue",Arial,sans-serif;letter-spacing:.5px}
+.spAns{flex-wrap:nowrap!important}
+.spAns,.orAns{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;min-height:56px;margin:8px 0;padding:6px;border-radius:14px;background:#f7f5ff}
+.spBox{width:40px;height:50px;border-bottom:4px solid #c9bff2;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800;font-family:Arial,sans-serif}
+.spBox.ok{border-color:var(--green);color:#1b6b40}.spBox.no{border-color:var(--red);color:#c2362a}
+.tiles{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:6px 0}
+.tile{appearance:none;min-width:46px;min-height:50px;padding:6px 10px;border:3px solid #ddd6f3;border-radius:12px;background:#fff;font-size:24px;font-weight:800;font-family:Arial,sans-serif;color:var(--ink);cursor:pointer;box-shadow:0 3px 0 #ddd6f3}
+.tile.word{font-size:20px}
+.tile.on{border-color:var(--violet);background:#efeaff}
+.tile:disabled{opacity:.3;cursor:default}
+.orAns .tile:disabled{opacity:1}
+/* 拖曳 */
+.dchar{display:grid;width:min(220px,62vw);aspect-ratio:1;margin:10px auto;border:4px solid #c9bff2;border-radius:16px;background:#fffdf6;overflow:hidden}
+.dchar.lr{grid-template-columns:1fr 1fr}.dchar.tb{grid-template-rows:1fr 1fr}
+.dchar .dslot{display:flex;align-items:center;justify-content:center;border:2px dashed #f0c9c9;font-size:15px;color:#aaa}
+.dboard{position:relative;max-width:420px;margin:8px auto}
+.dart{display:block;width:100%;height:auto;border-radius:14px}
+.dslot.onb{position:absolute;transform:translate(-50%,-50%);min-width:58px;min-height:34px;padding:2px 6px;display:flex;align-items:center;justify-content:center;text-align:center;border:2px dashed #7b61ff;border-radius:10px;background:rgba(255,255,255,.88);font-size:12px;line-height:1.3;color:#4f3bc4}
+.dslot.onb.wide{font-size:11px}
+.dslot.full{border-style:solid;border-color:var(--green);background:#eafaf0}
+.dslot .got{font-size:22px;font-weight:900;color:#1b6b40}
+.dchar .dslot .got{font-size:min(84px,22vw);font-family:"BiauKai","DFKai-SB","Kaiti TC",serif;color:#2b2d42}
+.dslot.bad{animation:shake .4s;border-color:var(--red)}
+.dbaskets{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:8px 0}
+.dslot.basket{border:3px dashed #ffd166;border-radius:16px;background:#fffaf0;padding:6px;min-height:120px;text-align:center}
+.dslot.basket b{display:block;font-size:14px;margin-bottom:4px}
+.bin{display:flex;flex-direction:column;align-items:center;gap:4px}
+.dtray{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:10px 0;min-height:56px}
+.dchip{appearance:none;touch-action:none;user-select:none;-webkit-user-select:none;min-width:56px;min-height:52px;padding:6px 12px;border:3px solid #ffb703;border-radius:14px;background:#fff7d6;font-size:24px;font-weight:900;cursor:grab;font-family:inherit;color:var(--ink);box-shadow:0 4px 0 #e0a300}
+.dchip.tri{padding:2px 4px;background:#fff}
+.triBox{display:flex;flex-direction:column;align-items:center;line-height:1.1}
+.triBox small{font-size:12px;font-weight:800;color:#4f3bc4;white-space:nowrap}
+.dchip.sel{outline:4px solid var(--violet);outline-offset:2px}
+.dchip.lift{opacity:.35}
+.dchip.in{box-shadow:none;border-color:var(--green);cursor:default;pointer-events:none;display:inline-flex;align-items:center;justify-content:center}
+.dchip.ghost{position:fixed;z-index:90;pointer-events:none;opacity:.92;transform:scale(1.08)}
+.dchip.shake{animation:shake .4s}
+.dsent{font-size:1.05em}.dsent b{color:#c2362a}
+.dDone{text-align:center;font-size:20px;margin:6px 0}.dbig{font-size:54px;font-family:"BiauKai","DFKai-SB","Kaiti TC",serif;vertical-align:middle}
+.small.warn{color:#c2362a;font-weight:800}
 /* 給爸媽 */
 details.parent{background:#fff;border-radius:var(--radius);padding:12px 16px;margin:12px 0;box-shadow:0 6px 0 rgba(0,0,0,.1)}
 details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:44px;display:flex;align-items:center}
@@ -240,17 +282,29 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
       <li><b>先想再看</b>：每一張都要先在腦袋裡想出答案，再看答案或選項。想得出來，才記得牢。</li>
       <li><b>答對了</b>：這張卡會隔久一點才出現（2 天、4 天、一週、兩週……）。</li>
       <li><b>答錯了</b>：沒關係！這張卡會變成<b>小怪物</b>。等一下會再出現一次，明天複習時答對，就能打倒牠。</li>
+      <li><b>放到對的位置</b>：有些卡要把部件、名稱或圖形拖到對的地方（也可以先點一下，再點位置）。</li>
+      <li><b>英語</b>：會念給你聽，有拼字、聽音選意思和排句子。</li>
       <li><b>找錯小偵探</b>：有些卡要找出小明算錯的那一步，或是句子裡的錯字。找錯，比再寫一題更能練到腦袋。</li>
-      <li><b>各科混著練</b>：國語、數學、自然輪流出，就像考試一樣，要先想「這題要用什麼方法」。</li>
+      <li><b>各科混著練</b>：國語、數學、自然、社會、英語輪流出，就像考試一樣，要先想「這題要用什麼方法」。</li>
       <li>每天做完就好，大約 5～10 分鐘。休息一天，連續天數不會斷。</li>
     </ul>
   </div>
 
   <details class="parent" id="parent">
-    <summary>👨‍👩‍👧 給爸媽：學習紀錄、設定和說明</summary>
+    <summary id="parentSum">👨‍👩‍👧 給爸媽：學習紀錄、獎勵、備份和設定</summary>
     <div class="set">
       <div class="btns col"><button class="btn" type="button" id="toParent">📈 看學習紀錄</button></div>
       <p class="small" style="margin:0">也可以把這個網址加到書籤：review/#parent，打開就是學習紀錄。</p>
+      <h3>💾 備份進度</h3>
+      <p class="small" id="bkInfo"></p>
+      <p class="small" style="margin:0">紀錄只存在這台裝置。建議每週備份一次（整個學習樂園的紀錄都會存進去，包括各課的星星和錯題），存到「檔案」或傳到 LINE。在 Safari 按「分享 → 加入主畫面」，資料也比較不會被清掉。</p>
+      <div class="btns"><button class="btn" type="button" id="bkSave">⬇️ 下載備份檔</button><button class="btn white" type="button" id="bkLoadBtn">📂 用備份檔還原</button><input type="file" id="bkFile" accept=".json,application/json" hidden></div>
+      <details><summary class="small" style="cursor:pointer;min-height:40px;display:flex;align-items:center">下載不了的時候：用文字備份</summary>
+        <div class="btns"><button class="btn white" type="button" id="bkCopy">📋 複製備份文字</button><button class="btn white" type="button" id="bkFromText">用下面的文字還原</button></div>
+        <textarea class="copyBox" id="bkText" placeholder="貼上之前複製的備份文字，再按「用下面的文字還原」"></textarea>
+      </details>
+      <div class="btns"><button class="btn red" type="button" id="bkSure" hidden></button></div>
+      <p class="small" id="bkMsg" aria-live="polite"></p>
       <h3>🎁 獎勵設定</h3>
       <div id="rwSet"></div>
       <h3>每天最多學幾張新卡</h3>
@@ -262,7 +316,7 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
       <h3>小怪物（答錯、還沒打倒的卡）</h3>
       <div class="wrong" id="wrongList"></div>
       <h3>說明</h3>
-      <p class="small">卡片分在 1～6 號盒子：答對往後一盒，下次隔 1、2、4、7、14、30 天出現（新卡第一次就答對，直接從 4 天後開始）；答錯回到 1 號盒、隔天再來，當天也會再練一次。每天先排到期的舊卡，再補新卡，各科交錯出題。國語是看注音寫國字，寫完由孩子自己對答案（可以陪她一起看），另外有改錯字；數學每次出不同的數字，自動改，答錯會說明可能錯在哪；自然是先想再選。「找錯小偵探」是看別人的算法或句子，點出第一個錯的地方。自動改的題目答錯時，要等 3 秒才能按下一張，避免亂猜。答錯的卡會變成小怪物，下次複習答對就打倒。題目都對照孩子的課本。</p>
+      <p class="small">卡片分在 1～6 號盒子：答對往後一盒，下次隔 1、2、4、7、14、30 天出現（新卡第一次就答對，直接從 4 天後開始）；答錯回到 1 號盒、隔天再來，當天也會再練一次。每天先排到期的舊卡，再補新卡，各科交錯出題。國語是看注音寫國字，寫完由孩子自己對答案（可以陪她一起看），另外有改錯字；數學每次出不同的數字，自動改，答錯會說明可能錯在哪；自然是先想再選。「找錯小偵探」是看別人的算法或句子，點出第一個錯的地方。社會是各課小測驗裡的課本題；英語有拼字、聽音選意思、排句子（會用平板念出來）。「放到對的位置」是拖曳卡：國語部件拼字、魚的構造、池塘植物、三角形分類，放錯 1 次算「有一點錯」，2 次以上算答錯。自動改的題目答錯時，要等 3 秒才能按下一張，避免亂猜。答錯的卡會變成小怪物，下次複習答對就打倒。題目都對照孩子的課本。</p>
       <p class="small">紀錄只存在這台裝置的瀏覽器裡，換一台裝置要重新開始。</p>
       <div class="btns"><button class="btn white" type="button" id="resetBtn">🗑️ 清除複習紀錄，重新開始</button></div>
       <p class="small" id="resetMsg" aria-live="polite"></p>
@@ -341,7 +395,7 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
     $('todayTitle').textContent = title; $('todayBody').innerHTML = body;
     if ($('goBtn')) $('goBtn').addEventListener('click', function () { start(p.queue, false); });
     if ($('moreBtn')) $('moreBtn').addEventListener('click', function () { start(S.extra(B, st, 5), true); });
-    renderMonsters(); renderRewards(); renderTree(); renderSubs(); renderSettings(); renderRwSet();
+    renderMonsters(); renderRewards(); renderTree(); renderSubs(); renderSettings(); renderRwSet(); renderBackup();
   }
   /* ---- 星星和獎勵 ---- */
   var RW_SUGGEST = [['多玩 10 分鐘平板', 10], ['晚上多聽一個故事', 8], ['週末選一樣點心', 20], ['假日一起去公園', 30]];
@@ -629,7 +683,8 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
     var it = run.q[run.i], c = it.c, Q = B.make(c);
     it.Q = Q;
     if (run.key) { document.removeEventListener('keydown', run.key); run.key = null; }
-    if (Q.kind === 'write') renderWrite(it); else if (Q.kind === 'num') renderNum(it); else if (Q.kind === 'spot') renderSpot(it); else renderPick(it);
+    if (Q.kind === 'write') renderWrite(it); else if (Q.kind === 'num') renderNum(it); else if (Q.kind === 'spot') renderSpot(it);
+    else if (Q.kind === 'spell') renderSpell(it); else if (Q.kind === 'order') renderOrder(it); else if (Q.kind === 'drag') renderDrag(it); else renderPick(it);
   }
   function result(it, res, btnEl) {
     // 第一次作答才改排程；「再試一次」只是練習
@@ -977,6 +1032,183 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
     return '';
   }
 
+  /* ---------------- 英語：念出來、拼字、排句子 ---------------- */
+  function speak(t) {
+    try {
+      if (!window.speechSynthesis) return;
+      var u = new SpeechSynthesisUtterance(t), vs = speechSynthesis.getVoices().filter(function (v) { return /^en[-_]US/i.test(v.lang); });
+      u.lang = 'en-US'; u.rate = .85; if (vs[0]) u.voice = vs[0];
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+    } catch (e) {}
+  }
+  function renderSpell(it) {
+    var c = it.c, Q = it.Q, ans = [], done = false;
+    $('qCard').innerHTML = head(c, it.again) + '<p class="kicker">🔤 拼拼看</p><div class="q">' + (Q.e ? '<span class="emo">' + esc(Q.e) + '</span> ' : '') + '<b>' + esc(Q.m) + '</b>　的英文怎麼拼？</div>'
+      + '<div class="spAns" id="spAns"></div><div class="tiles" id="spTiles">' + Q.tiles.map(function (t, j) { return '<button type="button" class="tile" data-j="' + j + '">' + esc(t) + '</button>'; }).join('') + '</div>'
+      + '<div class="btns"><button class="btn white" type="button" id="spBack">⌫ 退一格</button><button class="btn white" type="button" id="spHear">🔊 聽一聽（提示）</button></div><div id="spFb"></div>';
+    function paint() {
+      var h = '', bw = Math.max(22, Math.min(40, Math.floor(310 / Q.w.length) - 6)); for (var i = 0; i < Q.w.length; i++) h += '<span class="spBox' + (ans[i] ? ' on' : '') + '" style="width:' + bw + 'px' + (bw < 32 ? ';font-size:' + Math.round(bw * .8) + 'px' : '') + '">' + (ans[i] ? esc(Q.tiles[ans[i].j]) : '') + '</span>';
+      $('spAns').innerHTML = h;
+      Array.prototype.forEach.call($('spTiles').querySelectorAll('.tile'), function (b) { b.disabled = done || ans.some(function (a) { return a.j === +b.dataset.j; }); });
+    }
+    Array.prototype.forEach.call($('spTiles').querySelectorAll('.tile'), function (b) {
+      b.addEventListener('click', function () { if (done || ans.length >= Q.w.length) return; ans.push({ j: +b.dataset.j }); paint(); if (ans.length === Q.w.length) check(); });
+    });
+    $('spBack').addEventListener('click', function () { if (!done) { ans.pop(); paint(); } });
+    $('spHear').addEventListener('click', function () { speak(Q.w); });
+    function check() {
+      done = true; paint();
+      var got = ans.map(function (a) { return Q.tiles[a.j]; }).join(''), ok = got === Q.w;
+      Array.prototype.forEach.call($('spAns').querySelectorAll('.spBox'), function (bx, i) { bx.classList.add(Q.w[i] === got[i] ? 'ok' : 'no'); });
+      $('spBack').disabled = true;
+      result(it, ok ? 'ok' : 'fail', $('spAns'));
+      speak(Q.w);
+      $('spFb').innerHTML = (it.msg || '') + '<div class="fb ' + (ok ? 'ok' : 'no') + '">' + (ok ? '✅ 拼對了！' + comboTxt() : '❌ 正確是 <b class="enw">' + esc(Q.w) + '</b>（你拼的是 ' + esc(got) + '）。' + (it.again ? '' : '等一下會再考一次。')) + (Q.ex ? '<br>例句：' + esc(Q.ex) : '') + '</div>' + nextBtn('', ok ? 0 : 3);
+      bindNext();
+    }
+    paint();
+  }
+  function renderOrder(it) {
+    var c = it.c, Q = it.Q, ans = [], done = false;
+    $('qCard').innerHTML = head(c, it.again) + '<p class="kicker">🧩 排句子</p><div class="q">把字排成正確的句子（點字放上去，點上面的字可以拿回來）。</div>'
+      + '<div class="orAns" id="orAns"></div><div class="tiles" id="orTiles">' + Q.tiles.map(function (t, j) { return '<button type="button" class="tile word" data-j="' + j + '">' + esc(t) + '</button>'; }).join('') + '</div>'
+      + '<div class="btns"><button class="btn white" type="button" id="orHear">🔊 聽一聽（提示）</button></div><div id="orFb"></div>';
+    function paint() {
+      $('orAns').innerHTML = ans.length ? ans.map(function (j, i) { return '<button type="button" class="tile word on" data-i="' + i + '">' + esc(Q.tiles[j]) + '</button>'; }).join('') : '<span class="small">（還沒有放字）</span>';
+      Array.prototype.forEach.call($('orAns').querySelectorAll('.tile'), function (b) { b.disabled = done; b.addEventListener('click', function () { if (done) return; ans.splice(+b.dataset.i, 1); paint(); }); });
+      Array.prototype.forEach.call($('orTiles').querySelectorAll('.tile'), function (b) { b.disabled = done || ans.indexOf(+b.dataset.j) >= 0; });
+    }
+    Array.prototype.forEach.call($('orTiles').querySelectorAll('.tile'), function (b) {
+      b.addEventListener('click', function () { if (done) return; ans.push(+b.dataset.j); paint(); if (ans.length === Q.tiles.length) check(); });
+    });
+    $('orHear').addEventListener('click', function () { speak(Q.sent); });
+    function check() {
+      done = true; paint();
+      var got = ans.map(function (j) { return Q.tiles[j]; }).join(' '), ok = got === Q.sent;
+      result(it, ok ? 'ok' : 'fail', $('orAns'));
+      speak(Q.sent);
+      $('orFb').innerHTML = (it.msg || '') + '<div class="fb ' + (ok ? 'ok' : 'no') + '">' + (ok ? '✅ 排對了！' + comboTxt() + '<br><b class="enw">' + esc(Q.sent) + '</b>' : '❌ 正確是 <b class="enw">' + esc(Q.sent) + '</b>' + (it.again ? '' : '<br>等一下會再考一次。')) + '</div>' + nextBtn('', ok ? 0 : 3);
+      bindNext();
+    }
+    paint();
+  }
+
+  /* ---------------- 拖曳「放到對的位置」：可以拖，也可以先點再點 ---------------- */
+  function triSVG(t, size) {
+    var A = t[0] * Math.PI / 180, Bg = t[1] * Math.PI / 180, C = Math.PI - A - Bg, b = Math.sin(Bg) / Math.sin(C), px = b * Math.cos(A), py = b * Math.sin(A);
+    var xs = [0, 1, px], ys = [0, 0, py], mnx = Math.min.apply(null, xs), mxx = Math.max.apply(null, xs), mxy = Math.max.apply(null, ys), sc = Math.min(70 / (mxx - mnx), 46 / mxy);
+    var X = function (x) { return 12 + (x - mnx) * sc; }, Y = function (y) { return 60 - y * sc; };
+    var pts = [[X(0), Y(0)], [X(1), Y(0)], [X(px), Y(py)]], cx = (pts[0][0] + pts[1][0] + pts[2][0]) / 3, cy = (pts[0][1] + pts[1][1] + pts[2][1]) / 3;
+    var dots = pts.map(function (p, i) { var dx = cx - p[0], dy = cy - p[1], d = Math.hypot(dx, dy) || 1; return '<circle cx="' + f1(p[0] + dx / d * 7) + '" cy="' + f1(p[1] + dy / d * 7) + '" r="2.4" fill="#4f3bc4"/>'; }).join('');
+    return '<span class="triBox"><svg viewBox="0 0 96 72" width="' + size + '" height="' + Math.round(size * .75) + '" aria-hidden="true"><polygon points="' + pts.map(function (p) { return f1(p[0]) + ',' + f1(p[1]); }).join(' ') + '" fill="#fff3d6" stroke="#c98a00" stroke-width="2"/>' + dots + '</svg><small aria-label="三個角是 ' + t.join('°、') + '°">' + t.join('°・') + '°</small></span>';
+  }
+  function boardArt(k) {
+    if (k === 'fish') return '<svg viewBox="0 0 320 180" class="dart" aria-hidden="true"><rect width="320" height="180" rx="14" fill="#dff4fb"/>'
+      + '<path d="M150 46 Q150 16 186 18 Q176 34 182 48Z" fill="#f2a65a" stroke="#c46a2b" stroke-width="2"/><path d="M200 132 Q214 156 236 150 Q226 138 222 128Z" fill="#f2a65a" stroke="#c46a2b" stroke-width="2"/>'
+      + '<path d="M150 134 Q156 160 176 158 Q170 144 168 132Z" fill="#f2a65a" stroke="#c46a2b" stroke-width="2"/><path d="M258 90 L302 56 Q292 90 302 124Z" fill="#f2a65a" stroke="#c46a2b" stroke-width="2"/>'
+      + '<ellipse cx="150" cy="90" rx="112" ry="46" fill="#ffc48a" stroke="#c46a2b" stroke-width="2.4"/><path d="M96 56 Q112 90 96 124" fill="none" stroke="#c46a2b" stroke-width="2.4"/>'
+      + '<path d="M118 104 Q138 112 136 132 Q122 124 116 108Z" fill="#f2a65a" stroke="#c46a2b" stroke-width="2"/>'
+      + '<g fill="none" stroke="#e3955a" stroke-width="1.4" opacity=".7"><path d="M150 70 q10 8 0 16 M170 70 q10 8 0 16 M190 70 q10 8 0 16 M160 92 q10 8 0 16 M180 92 q10 8 0 16 M200 92 q10 8 0 16"/></g>'
+      + '<circle cx="66" cy="80" r="7" fill="#fff"/><circle cx="64" cy="80" r="3.6" fill="#2b2d42"/><path d="M38 92 Q46 96 38 100" stroke="#8a3b12" stroke-width="2.4" fill="none"/></svg>';
+    return '<svg viewBox="0 0 320 200" class="dart" aria-hidden="true"><rect width="320" height="92" fill="#e3f3fb"/><rect y="92" width="320" height="108" fill="#8fd0e4"/><path d="M0 70 L40 70 Q70 74 92 130 Q130 176 320 182 V200 H0Z" fill="#9a7a55"/>'
+      + '<path d="M0 92 H320" stroke="#fff" stroke-width="2"/><text x="8" y="64" font-size="11" fill="#6b5a3a">岸邊</text><text x="300" y="108" text-anchor="end" font-size="11" fill="#2a6f86">水面</text><text x="300" y="196" text-anchor="end" font-size="11" fill="#f3ead2">水底</text></svg>';
+  }
+  function renderDrag(it) {
+    var c = it.c, Q = it.Q, placed = 0, miss = 0, sel = null, done = false, h = '';
+    if (Q.mode === 'char') h = '<div class="dchar ' + Q.lay + '">' + Q.slots.map(function (s) { return '<div class="dslot" data-s="' + s.id + '"><span class="ph">' + s.label + '</span></div>'; }).join('') + '</div>';
+    else if (Q.mode === 'board') h = '<div class="dboard">' + boardArt(Q.board) + Q.slots.map(function (s) { return '<div class="dslot onb' + (s.label ? ' wide' : '') + '" data-s="' + s.id + '" style="left:' + s.x + '%;top:' + s.y + '%' + (s.w ? ';width:' + s.w + '%' : '') + '"><span class="ph">' + (s.label || '？') + '</span></div>'; }).join('') + '</div>';
+    else h = '<div class="dbaskets">' + Q.slots.map(function (s) { return '<div class="dslot basket" data-s="' + s.id + '"><b>' + s.label + '</b><div class="bin"></div></div>'; }).join('') + '</div>';
+    $('qCard').innerHTML = head(c, it.again) + '<p class="kicker">🧲 放到對的位置</p><div class="q">' + Q.q + '</div>' + h
+      + '<div class="dtray" id="dTray">' + Q.items.map(function (x) { return '<button type="button" class="dchip' + (x.tri ? ' tri' : '') + '" data-i="' + x.id + '">' + (x.tri ? triSVG(x.tri, 88) : esc(x.html)) + '</button>'; }).join('') + '</div>'
+      + '<p class="game-msg small" id="dMsg" aria-live="polite">' + (Q.mode === 'char' ? '有兩塊是多出來的，只要放對的那兩塊。' : '') + '</p><div id="dFb"></div>';
+    var item = function (id) { return Q.items.filter(function (x) { return x.id === +id; })[0]; };
+    function tryPlace(chip, slot) {
+      if (done || !chip || !slot) return;
+      var x = item(chip.dataset.i), sid = slot.dataset.s;
+      if (Q.mode !== 'baskets' && slot.classList.contains('full')) return;
+      if (x.slot === sid) {
+        placed++; chip.classList.remove('sel'); sel = null;
+        if (Q.mode === 'baskets') { var tag = document.createElement('span'); tag.className = 'dchip in' + (chip.classList.contains('tri') ? ' tri' : ''); tag.innerHTML = chip.innerHTML; slot.querySelector('.bin').appendChild(tag); chip.remove(); }
+        else { slot.classList.add('full'); slot.innerHTML = '<span class="got">' + (Q.mode === 'char' ? esc(x.html) : esc(x.html)) + '</span>'; chip.remove(); }
+        $('dMsg').textContent = '👍 放對了！';
+        if (placed >= Q.need) finish();
+      } else {
+        miss++; chip.classList.remove('shake'); void chip.offsetWidth; chip.classList.add('shake'); chip.classList.remove('sel'); sel = null;
+        slot.classList.remove('bad'); void slot.offsetWidth; slot.classList.add('bad'); setTimeout(function () { slot.classList.remove('bad'); }, 600);
+        $('dMsg').textContent = '再想想，那裡不對喔。';
+      }
+    }
+    function finish() {
+      done = true;
+      Array.prototype.forEach.call($('dTray').querySelectorAll('.dchip'), function (b) { b.disabled = true; });
+      var res = miss === 0 ? 'ok' : miss === 1 ? 'hard' : 'fail';
+      result(it, res, $('dTray'));
+      $('dFb').innerHTML = (it.msg || '') + (Q.done ? '<p class="dDone">' + Q.done + '</p>' : '') + '<div class="fb ' + (res === 'ok' ? 'ok' : 'no') + '">' + (res === 'ok' ? '✅ 全部放對了！' + comboTxt() : res === 'hard' ? '🤏 放錯了 1 次，明天再練一次就更熟了。' : '❌ 放錯了 ' + miss + ' 次，' + (it.again ? '明天會再來。' : '等一下會再考一次。')) + '<br>' + Q.ex + '</div>' + nextBtn('', res === 'fail' ? 3 : 0);
+      bindNext();
+    }
+    // 拖曳：按住拖到格子放開；沒有移動就當作「點一下」
+    Array.prototype.forEach.call($('dTray').querySelectorAll('.dchip'), function (chip) {
+      chip.addEventListener('pointerdown', function (e) {
+        if (done || chip.disabled) return;
+        var sx = e.clientX, sy = e.clientY, moved = false, ghost = null;
+        var mv = function (ev) {
+          if (!moved && Math.hypot(ev.clientX - sx, ev.clientY - sy) > 8) { moved = true; ghost = chip.cloneNode(true); ghost.className = 'dchip ghost' + (chip.classList.contains('tri') ? ' tri' : ''); document.body.appendChild(ghost); chip.classList.add('lift'); }
+          if (ghost) { ghost.style.left = (ev.clientX - 30) + 'px'; ghost.style.top = (ev.clientY - 24) + 'px'; ev.preventDefault(); }
+        };
+        var up = function (ev) {
+          document.removeEventListener('pointermove', mv); document.removeEventListener('pointerup', up); document.removeEventListener('pointercancel', up);
+          chip.classList.remove('lift');
+          if (ghost) { ghost.remove(); var el = document.elementFromPoint(ev.clientX, ev.clientY), slot = el && el.closest ? el.closest('.dslot') : null; if (slot) tryPlace(chip, slot); }
+          else { if (sel === chip) { chip.classList.remove('sel'); sel = null; } else { if (sel) sel.classList.remove('sel'); sel = chip; chip.classList.add('sel'); $('dMsg').textContent = '再點一下要放的位置。'; } }
+        };
+        document.addEventListener('pointermove', mv, { passive: false }); document.addEventListener('pointerup', up); document.addEventListener('pointercancel', up);
+      });
+    });
+    Array.prototype.forEach.call($('qCard').querySelectorAll('.dslot'), function (slot) { slot.addEventListener('click', function () { if (sel) tryPlace(sel, slot); }); });
+  }
+
+  /* ---------------- 備份與還原（整個網站在這台裝置的紀錄） ---------------- */
+  var BK_KEY = 'studyBackupAt';
+  function backupData() { var d = {}; try { for (var i = 0; i < localStorage.length; i++) { var k = localStorage.key(i); d[k] = localStorage.getItem(k); } } catch (e) {} return { app: 'xuanxuan-study', v: 1, at: new Date().toISOString(), data: d }; }
+  function markBackup() { try { localStorage.setItem(BK_KEY, String(S.dayNum())); } catch (e) {} renderBackup(); }
+  function lastBackup() { try { var x = +localStorage.getItem(BK_KEY); return x || null; } catch (e) { return null; } }
+  function renderBackup() {
+    var lb = lastBackup(), d = S.dayNum(), has = Object.keys(st.cards).length > 0, due = has && (!lb || d - lb >= 7);
+    $('bkInfo').textContent = lb ? '上次備份：' + fmtDay(lb) + (d - lb ? '（' + (d - lb) + ' 天前）' : '（今天）') : '還沒有備份過。';
+    $('bkInfo').className = due ? 'small warn' : 'small';
+    $('parentSum').textContent = '👨‍👩‍👧 給爸媽：學習紀錄、獎勵、備份和設定' + (due ? '（⚠️ 該備份了）' : '');
+  }
+  function restore(text) {
+    var obj = null;
+    try { obj = JSON.parse(text); } catch (e) { obj = null; }
+    if (!obj || obj.app !== 'xuanxuan-study' || !obj.data || typeof obj.data !== 'object') { $('bkMsg').textContent = '❌ 這不是學習樂園的備份檔，沒有還原。'; return; }
+    var n = Object.keys(obj.data).length, when = obj.at ? obj.at.slice(0, 10) : '';
+    var b = $('bkSure'); b.hidden = false; b.textContent = '⚠️ 確定用 ' + when + ' 的備份（' + n + ' 筆）取代這台裝置的紀錄';
+    $('bkMsg').textContent = '還原會用備份檔的紀錄取代現在的紀錄。確定的話，按上面紅色的按鈕。';
+    b.onclick = function () {
+      try { Object.keys(obj.data).forEach(function (k) { localStorage.setItem(k, obj.data[k]); }); } catch (e) { $('bkMsg').textContent = '❌ 還原失敗：' + e.message; return; }
+      b.hidden = true; $('bkMsg').textContent = '✅ 還原好了，重新整理頁面中……';
+      setTimeout(function () { location.reload(); }, 800);
+    };
+  }
+  $('bkSave').addEventListener('click', function () {
+    var json = JSON.stringify(backupData()), t = new Date(), name = 'study-backup-' + t.getFullYear() + '-' + String(t.getMonth() + 1).padStart(2, '0') + '-' + String(t.getDate()).padStart(2, '0') + '.json';
+    try {
+      var url = URL.createObjectURL(new Blob([json], { type: 'application/json' })), a = document.createElement('a');
+      a.href = url; a.download = name; document.body.appendChild(a); a.click();
+      setTimeout(function () { URL.revokeObjectURL(url); a.remove(); }, 1500);
+      markBackup(); $('bkMsg').textContent = '✅ 已經下載「' + name + '」。iPad 會存在「檔案」App 的下載項目，可以再傳到 LINE 或雲端硬碟。';
+    } catch (e) { $('bkMsg').textContent = '下載不了，請改用下面的「用文字備份」。'; }
+  });
+  $('bkLoadBtn').addEventListener('click', function () { $('bkFile').click(); });
+  $('bkFile').addEventListener('change', function () { var f = $('bkFile').files[0]; if (!f) return; var r = new FileReader(); r.onload = function () { restore(String(r.result)); }; r.readAsText(f); $('bkFile').value = ''; });
+  $('bkCopy').addEventListener('click', function () {
+    var t = JSON.stringify(backupData()), box = $('bkText'); box.value = t;
+    var ok = function () { markBackup(); $('bkMsg').textContent = '✅ 已經複製備份文字，可以貼到 LINE 傳給自己。'; };
+    try { if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(ok, function () { box.select(); $('bkMsg').textContent = '請長按上面的文字，選「拷貝」。'; markBackup(); }); else { box.select(); markBackup(); } } catch (e) { box.select(); markBackup(); }
+  });
+  $('bkFromText').addEventListener('click', function () { restore($('bkText').value.trim()); });
+
   // 找錯小偵探：點出第一個錯的地方
   function renderSpot(it) {
     var c = it.c, Q = it.Q, chars = !Q.block && Q.parts.every(function (x) { return x.length === 1; });
@@ -998,9 +1230,11 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
   // 自然、三角形：先想再選
   function renderPick(it) {
     var c = it.c, Q = it.Q, order = S.shuffle(Q.opts.map(function (_, j) { return j; }));
-    $('qCard').innerHTML = head(c, it.again) + '<p class="kicker">先想一想</p>' + (Q.img ? '<div class="img">' + Q.img + '</div>' : '') + '<div class="q">' + Q.q + '</div>'
+    $('qCard').innerHTML = head(c, it.again) + '<p class="kicker">' + (Q.listen ? '🎧 聽一聽' : '先想一想') + '</p>' + (Q.img ? '<div class="img">' + Q.img + '</div>' : '') + '<div class="q">' + Q.q + '</div>'
+      + (Q.listen ? '<div class="btns" style="justify-content:center"><button class="btn sun" type="button" id="hearBtn">🔊 再聽一次</button></div>' : '')
       + '<div id="pickBox"><p class="think">🤔 先在心裡（或小聲）說出答案，想好了再看選項。</p><div class="btns col"><button class="btn" type="button" id="thinkBtn">💡 我想好了，看選項</button></div></div>';
     $('thinkBtn').focus();
+    if (Q.listen) { speak(Q.listen); $('hearBtn').addEventListener('click', function () { speak(Q.listen); }); }
     $('thinkBtn').addEventListener('click', function () {
       $('pickBox').innerHTML = '<p class="think" style="margin-bottom:0">你想的答案在裡面嗎？</p><div class="opts">' + order.map(function (j) { return '<button class="opt" type="button" data-j="' + j + '">' + Q.opts[j] + '</button>'; }).join('') + '</div><div id="pickFb"></div>';
       var btns = $('pickBox').querySelectorAll('.opt');
