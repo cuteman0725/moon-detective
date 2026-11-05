@@ -281,7 +281,7 @@ var Core=(function(){
 var CHARS=[
  {c:"困",zy:"ㄎㄨㄣˋ",bs:"口",ex:4,tot:7,words:["困難","困境","困住"],tx:"克服種種困難",idiom:"困獸猶鬥",look:"因"},
  {c:"舉",zy:"ㄐㄩˇ",bs:"臼",ex:10,tot:17,words:["舉重","舉起","舉手"],tx:"成為舉重國手",idiom:"不勝枚舉"},
- {c:"挑",zy:"ㄊㄧㄠ",bs:"手",bf:"扌",ex:6,tot:9,words:["挑選","挑食","挑戰"],tx:"勇於挑戰自我",idiom:"挑燈夜戰"},
+ {c:"挑",zy:"ㄊㄧㄠˇ",bs:"手",bf:"扌",ex:6,tot:9,words:["挑戰","挑選（ㄊㄧㄠ）","挑食（ㄊㄧㄠ）"],tx:"勇於挑戰自我",idiom:"挑燈夜戰"},
  {c:"戰",zy:"ㄓㄢˋ",bs:"戈",ex:12,tot:16,words:["挑戰","作戰","戰爭"],tx:"勇於挑戰自我",idiom:"背水一戰"},
  {c:"爭",zy:"ㄓㄥ",bs:"爪",bf:"爫",ex:4,tot:8,words:["爭光","爭取","競爭"],tx:"努力為臺灣爭光",idiom:"鷸蚌相爭",look:"掙"},
  {c:"佩",zy:"ㄆㄟˋ",bs:"人",bf:"亻",ex:6,tot:8,words:["佩服","敬佩"],tx:"讓我佩服不已",idiom:""},
@@ -583,7 +583,7 @@ function showChar(ch,tap){cur=ch;
    (ch.idiom?'<div>💡 成語：<span class="chip id">'+ch.idiom+'</span><span class="small">'+C.IDIOMS[ch.idiom]+'</span></div>':"")+
    (ch.look?'<div>👀 小心形近字：「'+ch.c+'」和「'+ch.look+'」長得很像</div>':"")+
    '<div class="btns"><button class="btn white small" id="sayC">🔊 念一念</button><a class="btn teal small ext" style="color:#fff;text-decoration:none;display:inline-flex;align-items:center" href="'+moeLink(ch.c)+'" target="_blank" rel="noopener">🎬 看筆順動畫</a></div></div>';
-  $("charDet").innerHTML=h;$("sayC").addEventListener("click",function(){say(ch.c+"，"+ch.words.join("，"));});
+  $("charDet").innerHTML=h;$("sayC").addEventListener("click",function(){say(ch.c+"，"+ch.words.map(function(w){return w.replace(/（.*?）/g,"");}).join("，"));});
   $("ghost").textContent=ch.c;clearPad();renderGrid();}
 /* 描寫板 */
 var pad=$("pad"),ctx=pad.getContext("2d"),drawing=false,ink=0,last=null;
