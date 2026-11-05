@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2a9d8f">
+<title>人口觀察家 👨‍👩‍👧｜社會 4上 家鄉的人口組成</title>
+<style>:root{--ink:#2b2d42;--teal:#2a9d8f;--sun:#ffb703;--pink:#ff6b9a;--blue:#4d96ff;--purple:#9b5de5;--green:#57cc99;--radius:22px}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:#e9f7ef;overflow-x:hidden}
+html,body{margin:0;padding:0}
+body{font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",system-ui,sans-serif;color:var(--ink);min-height:100vh;
+  background:linear-gradient(180deg,#bde0fe 0,#e9f7ef 320px,#e9f7ef 100%);padding-bottom:calc(92px + env(safe-area-inset-bottom))}
+header{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;padding-top:calc(10px + env(safe-area-inset-top));background:rgba(42,157,143,.95);color:#fff;backdrop-filter:blur(6px)}
+header h1{font-size:clamp(17px,4.6vw,26px);margin:0;letter-spacing:1px;flex:1}
+.back{color:#fff;text-decoration:none;font-weight:800;background:rgba(255,255,255,.22);border-radius:999px;padding:8px 12px;font-size:15px;white-space:nowrap}
+.score{background:var(--sun);color:#5a3b00;font-weight:800;border-radius:999px;padding:6px 14px;font-size:18px;white-space:nowrap;box-shadow:0 3px 0 #c98a00}
+.score.pop{animation:pop .5s}@keyframes pop{40%{transform:scale(1.35)}}
+main{max-width:980px;margin:0 auto;padding:12px}
+section.page{display:none;animation:fadein .3s}section.page.active{display:block}
+@keyframes fadein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.card{background:#fff;border-radius:var(--radius);padding:16px;margin:12px 0;box-shadow:0 6px 0 rgba(0,0,0,.12)}
+.card h2{margin:0 0 8px;font-size:clamp(20px,5vw,26px)}.card h3{margin:6px 0;font-size:20px}
+.lead{font-size:18px;line-height:1.7;margin:6px 0}
+.small{font-size:15px;color:#666}
+.tip{background:#fff7d6;border-left:6px solid var(--sun);border-radius:12px;padding:10px 12px;font-size:17px;line-height:1.6;margin:10px 0}
+.tip.blue{background:#e6f0ff;border-color:var(--blue)}.tip.pink{background:#ffe6ef;border-color:var(--pink)}.tip.green{background:#e3f8ec;border-color:var(--teal)}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-start}.row>*{flex:1 1 300px}
+.btn{appearance:none;border:none;border-radius:16px;padding:12px 16px;min-height:52px;font-size:18px;font-weight:800;cursor:pointer;background:var(--blue);color:#fff;box-shadow:0 4px 0 rgba(0,0,0,.22);font-family:inherit;touch-action:manipulation}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.22)}
+.btn.sun{background:var(--sun);color:#5a3b00}.btn.pink{background:var(--pink)}.btn.teal{background:var(--teal)}.btn.purple{background:var(--purple)}.btn.gray{background:#8d99ae}.btn.white{background:#fff;color:var(--ink);border:3px solid #dfe3ff}
+.btn.small{min-height:46px;font-size:16px;padding:8px 12px}
+.btn.on{outline:4px solid var(--sun);outline-offset:1px}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+svg{display:block;max-width:100%;height:auto}
+.mapbox{background:#fff;border:4px solid #cfe8dc;border-radius:18px;overflow:hidden;touch-action:manipulation;user-select:none}
+#p-what .mapbox{max-width:620px;margin:0 auto}
+.hot{cursor:pointer}
+.hl{animation:glow 1s infinite alternate}
+@keyframes glow{from{stroke:#ff6b9a;stroke-width:4}to{stroke:#ffb703;stroke-width:8}}
+.explain{border-radius:18px;padding:14px;background:#f3f4ff;font-size:18px;line-height:1.7;min-height:120px}
+.explain .t{font-size:24px;font-weight:900;margin-bottom:4px}
+.checks{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.chk{border-radius:999px;padding:5px 12px;background:#eee;font-weight:800;color:#999}.chk.got{background:#d8f3dc;color:#1b5e20}
+.types{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.type{border-radius:18px;padding:12px;background:#f6f7ff;border:3px solid #e3e6ff;text-align:center;font-size:16px;line-height:1.55}
+.type b{display:block;font-size:20px;margin:4px 0}
+.type svg{width:120px;height:90px;margin:0 auto}
+.phone{max-width:430px;margin:0 auto;background:#222;border-radius:34px;padding:12px 10px 16px}
+.screen{background:#fff;border-radius:24px;overflow:hidden}
+.ebar{display:flex;gap:6px;padding:8px;background:#f1f3f4;flex-wrap:wrap;align-items:center}
+.ebar input{flex:1 1 0;min-width:0;min-height:44px;border-radius:999px;border:2px solid #ccc;padding:0 14px;font-size:17px;font-family:inherit}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:6px 8px;background:#f1f3f4}
+.chip{flex:0 0 auto;border:2px solid #ccc;background:#fff;border-radius:999px;padding:8px 12px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;min-height:42px}
+.etools{display:flex;justify-content:space-between;align-items:center;padding:8px;gap:6px;flex-wrap:wrap}
+.einfo{padding:8px 12px 12px;font-size:17px;line-height:1.6;min-height:64px}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}
+.opt{border:3px solid #dfe3ff;background:#f6f7ff;border-radius:16px;padding:12px;font-size:18px;font-weight:800;min-height:58px;cursor:pointer;font-family:inherit;color:var(--ink);touch-action:manipulation}
+.opt.right{background:#d8f3dc;border-color:#2ec4b6}.opt.no{background:#ffe0e6;border-color:#ff4d6d}
+.feedback{font-size:18px;line-height:1.6;margin-top:10px;border-radius:14px;padding:10px;display:none}
+.feedback.show{display:block}.feedback.good{background:#d8f3dc}.feedback.bad{background:#fff3cd}
+.qhead{display:flex;justify-content:space-between;align-items:center;font-weight:800;color:#666}
+.qtext{font-size:21px;font-weight:800;line-height:1.5;margin:8px 0}
+.subtabs{display:flex;gap:8px;flex-wrap:wrap}.subtabs .btn{flex:1 1 40%}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.bdg{background:#eee;border-radius:14px;padding:6px 10px;font-weight:800;color:#999;font-size:15px}.bdg.got{background:linear-gradient(135deg,#ffd166,#ff9f1c);color:#5a3b00}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;justify-content:space-around;background:#fff;padding:6px 4px;padding-bottom:calc(6px + env(safe-area-inset-bottom));box-shadow:0 -4px 16px rgba(0,0,0,.18)}
+nav.tabs button{flex:1;border:none;background:none;font-family:inherit;font-size:12px;font-weight:800;color:#666;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;border-radius:14px;cursor:pointer;min-height:60px;touch-action:manipulation}
+nav.tabs button span{font-size:26px;line-height:1}nav.tabs button.on{background:#c7f0e4;color:#14574f}
+@media (min-width:700px){nav.tabs button{font-size:15px}}
+.burst{position:fixed;z-index:99;pointer-events:none;font-size:30px;animation:fly 1.1s ease-out forwards}
+@keyframes fly{to{transform:translate(var(--dx),var(--dy)) rotate(360deg);opacity:0}}
+.big4{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:8px}
+.big4 div{border-radius:16px;padding:10px;text-align:center;font-weight:900;font-size:18px;color:#fff}
+.xsec{max-width:720px;margin:0 auto}
+.xs{cursor:pointer}
+#xsSvg text,#lfSvg text{pointer-events:none}
+.lbl{font-size:12px;font-weight:800;fill:#333;paint-order:stroke;stroke:#fff;stroke-width:3px;stroke-linejoin:round}
+.xlbl{font-size:20px;font-weight:900;fill:#333;paint-order:stroke;stroke:#fff;stroke-width:4px;stroke-linejoin:round}
+.exs{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.ex{background:#fff;border:2px solid var(--c,#ccc);border-radius:999px;padding:3px 10px;font-size:15px;font-weight:800}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:8px 0}
+.fact{background:#f6f7ff;border-radius:14px;padding:10px;font-size:16px;line-height:1.55}
+.fact b{display:block;font-size:14px;color:#666}
+.src{font-size:13px;color:#777;line-height:1.5;margin-top:6px;word-break:break-all}
+.src a{color:#1c7ed6}
+.src li{margin:4px 0}
+.tag2{display:inline-block;border-radius:999px;padding:2px 10px;font-size:13px;font-weight:800;margin:2px 4px 2px 0}
+.tag2.book{background:#d8f3dc;color:#1b5e20}.tag2.more{background:#fff1c1;color:#7a5200}
+.stops{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:8px 0;font-size:17px;font-weight:800;min-height:40px}
+.stop{background:#e6f0ff;border-radius:12px;padding:6px 10px}
+.qa{background:#fff7d6;border-radius:18px;padding:14px;font-size:18px;line-height:1.7}
+.reveal{display:none}.reveal.show{display:block;animation:fadein .3s}
+.lybtn{border:3px solid var(--c);background:#fff;color:var(--ink)}
+.lybtn.on{background:var(--c);color:#fff;outline:none}
+.mk{cursor:pointer}
+.scene{margin-top:10px;border-radius:20px;padding:14px;background:linear-gradient(180deg,#e6f4ff,#f6fff0);border:3px solid var(--c,#cfe8dc);font-size:18px;line-height:1.7;min-height:150px}
+.scene .big{font-size:56px;line-height:1;float:right;margin-left:8px}
+.scene ul{margin:6px 0;padding-left:4px;list-style:none}
+.scene li{margin:4px 0}
+.subtabs .btn.lbtn{flex:1 1 17%;min-width:88px}
+.cmp{display:grid;grid-template-columns:1fr;gap:8px}
+@media (min-width:700px){.cmp{grid-template-columns:1fr 1fr 1fr}}
+.cmpbox{border-radius:16px;padding:12px;background:#f6f7ff;border:3px solid var(--c,#ccc);font-size:17px;line-height:1.7;text-align:center}
+.cmpbox b:first-child{display:block;font-size:20px}
+.cmpbox.same{--c:#ffb703;background:#fff7d6}
+#p-game .subtabs .btn{flex:1 1 28%;min-width:96px}
+.memo{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}
+@media (min-width:600px){.memo{grid-template-columns:repeat(4,1fr)}}
+@media (min-width:900px){.memo{grid-template-columns:repeat(5,1fr)}}
+.mc{position:relative;min-height:96px;border-radius:16px;border:3px solid #cdd6f6;background:linear-gradient(135deg,#4d96ff,#9b5de5);color:#fff;font-family:inherit;font-weight:900;font-size:34px;cursor:pointer;padding:8px;touch-action:manipulation;box-shadow:0 4px 0 rgba(0,0,0,.18);transition:transform .2s}
+.mc.open{background:#fff;color:var(--ink);border-color:var(--c);font-size:16px;line-height:1.45;transform:rotateY(0)}
+.mc.open.nm{font-size:22px}
+.mc.done{background:#d8f3dc;border-color:#2ec4b6;color:#1b5e20;cursor:default}
+.mc.no{animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-6px)}50%{transform:translateX(6px)}75%{transform:translateX(-4px)}}
+.sotray{display:flex;flex-wrap:wrap;gap:8px;min-height:56px;padding:8px;background:#f6f7ff;border-radius:16px;margin-top:8px}
+.pc{touch-action:none;-webkit-user-select:none;user-select:none;border:3px solid #dfe3ff;background:#fff;border-radius:999px;padding:8px 14px;font-size:17px;font-weight:800;cursor:grab;min-height:48px;font-family:inherit;color:var(--ink)}
+.pc.sel{border-color:#ff9f1c;background:#fff4e0;box-shadow:0 0 0 3px #ffd166}
+.pc.lift{opacity:.35}
+.pc.shake{animation:shake .4s}
+.pcghost{position:fixed;left:0;top:0;pointer-events:none;z-index:50;transform:translate(-50%,-50%);box-shadow:0 6px 14px rgba(0,0,0,.3)}
+.baskets{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}
+@media (min-width:600px){.baskets{grid-template-columns:repeat(5,1fr)}}
+.bk{border:3px dashed var(--c);border-radius:18px;padding:8px;min-height:120px;background:#fff;cursor:pointer;text-align:center}
+.bk h4{margin:0 0 4px;font-size:19px;color:var(--c)}
+.bk .in{display:flex;flex-wrap:wrap;gap:4px;justify-content:center}
+.bk .in span{background:#d8f3dc;border-radius:999px;padding:2px 8px;font-size:14px;font-weight:800}
+.bk.over{background:#fff4e0;border-style:solid}
+.bk.ok{animation:pop .4s}
+.baskets .bk:last-child:nth-child(odd){grid-column:1/-1}
+@media (min-width:600px){.baskets .bk:last-child:nth-child(odd){grid-column:auto}}
+.qbank{background:#f6f7ff;border-radius:14px;padding:8px 10px;margin:6px 0;font-size:16px;line-height:1.7}
+.qbank b{display:inline-block;min-width:28px;text-align:center;background:var(--teal);color:#fff;border-radius:8px;margin-right:4px}
+.qbank span{display:inline-block;margin:2px 10px 2px 0}
+table.dt{border-collapse:collapse;width:100%;font-size:16px;margin:6px 0;background:#fff}
+table.dt th,table.dt td{border:2px solid #cfe8dc;padding:6px 4px;text-align:center}
+table.dt th{background:#d8f3dc}
+table.dt caption{font-weight:900;font-size:16px;padding:4px;caption-side:top}
+.tblwrap{overflow-x:auto}
+.qmodes{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.qmodes .btn{flex:1 1 18%;min-width:84px}
+.tf .opt{font-size:22px}
+.legend{display:flex;flex-wrap:wrap;gap:10px;font-size:15px;font-weight:800;margin:6px 0}
+.legend i{display:inline-block;width:16px;height:16px;border-radius:4px;vertical-align:-2px;margin-right:4px}
+.flip{cursor:pointer;border-radius:18px;border:3px solid var(--c,#cfe8dc);background:#fff;padding:12px;font-size:17px;line-height:1.6;text-align:left;font-family:inherit;color:var(--ink);width:100%;touch-action:manipulation}
+.flip .h{font-size:20px;font-weight:900}
+.flip .b{display:none;margin-top:6px}
+.flip.open .b{display:block;animation:fadein .3s}
+.flip.open{background:#f6fffa}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+.timeline{position:relative;margin:10px 0 4px;padding-left:22px;border-left:5px solid var(--teal)}
+.timeline .ev{position:relative;margin:0 0 10px;font-size:17px;line-height:1.6}
+.timeline .ev:before{content:"";position:absolute;left:-33px;top:4px;width:16px;height:16px;border-radius:50%;background:var(--sun);border:3px solid #fff;box-shadow:0 0 0 2px var(--teal)}
+.timeline .ev b{color:#14574f}
+.bar3{display:flex;height:34px;border-radius:10px;overflow:hidden;font-size:14px;font-weight:900;color:#fff;margin:4px 0}
+.bar3 div{display:flex;align-items:center;justify-content:center;white-space:nowrap;overflow:hidden;transition:width .4s}
+input[type=range]{width:100%;height:36px}
+.calc{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:8px 0}
+@media (min-width:700px){.calc{grid-template-columns:repeat(4,1fr)}}
+.calc div{border-radius:14px;padding:10px;text-align:center;font-weight:900;font-size:18px;background:#f6f7ff;border:3px solid var(--c,#ccc)}
+.calc div small{display:block;font-size:14px;color:#666}
+.numin{font-size:22px;width:120px;min-height:48px;text-align:center;border:3px solid #dfe3ff;border-radius:12px;font-family:inherit}
+</style>
+</head>
+<body>
+<header>
+  <a class="back" href="../">← 社會</a>
+  <h1>👨‍👩‍👧 人口觀察家</h1>
+  <div class="score" id="score">⭐ 0</div>
+</header>
+<main>
+
+<!-- ===== 1 人口分布 ===== -->
+<section class="page active" id="p-dist">
+  <div class="card">
+    <h2>🗺️ 人口分布不平均</h2>
+    <p class="lead">有的地方人擠人，有的地方很少人。一起比比看南投縣的<b>南投市</b>和<b>仁愛鄉</b>！</p>
+    <div class="tblwrap"><table class="dt"><caption>南投市和仁愛鄉（民國 113 年底，內政部戶政司）</caption>
+<tr><th>地方</th><th>主要地形</th><th>人口</th><th>面積</th><th>人口密度</th></tr>
+<tr><td>南投市</td><td>平地、台地</td><td>97,042 人</td><td>71.6 km²</td><td>每 km² 約 1,355 人</td></tr>
+<tr><td>仁愛鄉</td><td>山地</td><td>15,410 人</td><td>1,273.5 km²</td><td>每 km² 約 12 人</td></tr></table></div>
+    <div class="row">
+      <div style="text-align:center"><b>🏙️ 南投市的 1 平方公里</b><div class="mapbox"><svg id="denA" viewBox="0 0 200 200"></svg></div></div>
+      <div style="text-align:center"><b>🏔️ 仁愛鄉的 1 平方公里</b><div class="mapbox"><svg id="denB" viewBox="0 0 200 200"></svg></div></div>
+    </div>
+    <p class="small" style="text-align:center">一個點 ● 代表 10 個人（示意圖）</p>
+    <div class="tip">⛰️ 仁愛鄉面積是南投市的 <b>17 倍多</b>，人口卻只有南投市的<b>六分之一</b>左右，因為大部分是<b>山地</b>。</div>
+  </div>
+  <div class="card">
+    <h2>🧲 什麼樣的地方會吸引人？</h2>
+    <p class="lead">幫「✏️ 自編小鎮」打開條件，看看人口會怎麼變！</p>
+    <div class="btns" id="facBtns"></div>
+    <div class="bar3"><div id="facBar" style="width:10%;background:linear-gradient(90deg,#57cc99,#2a9d8f)"></div></div>
+    <div class="explain" id="facInfo"></div>
+  </div>
+</section>
+
+<!-- ===== 2 年齡組成 ===== -->
+<section class="page" id="p-age">
+  <div class="card">
+    <h2>👶🧑👴 人口的年齡組成</h2>
+    <div class="cmp">
+      <div class="cmpbox" style="--c:#ff6b9a"><b>👶 幼年人口</b>0～14 歲<br>需要被照顧</div>
+      <div class="cmpbox" style="--c:#2a9d8f"><b>🧑‍💼 青壯年人口</b>15～64 歲<br>主要的工作人口</div>
+      <div class="cmpbox" style="--c:#9b5de5"><b>👴 老年人口</b>65 歲以上<br>需要被照顧</div>
+    </div>
+    <div class="tip">💡 分界要記清楚：<b>14 歲</b>還是幼年，<b>15 歲</b>就是青壯年；<b>64 歲</b>還是青壯年，<b>65 歲</b>就是老年。</div>
+  </div>
+  <div class="card">
+    <h2>📊 臺灣的人口變老了</h2>
+    <p class="lead">拉動年份，看三種人口的比例怎麼變（內政部資料）。</p>
+    <div class="qhead"><span>📅 民國 <b id="yrTxt" style="font-size:24px;color:#14574f"></b> 年</span><span id="yrTag"></span></div>
+    <input type="range" id="yr" min="0" max="5" step="1" value="0" aria-label="年份">
+    <div class="bar3" id="yrBar"></div>
+    <div class="legend"><span><i style="background:#ff6b9a"></i>0～14 歲</span><span><i style="background:#2a9d8f"></i>15～64 歲</span><span><i style="background:#9b5de5"></i>65 歲以上</span></div>
+    <div class="explain" id="yrInfo"></div>
+  </div>
+  <div class="card">
+    <h2>🎂 高齡化的三個門檻</h2>
+    <div class="timeline">
+      <div class="ev"><b>民國 82 年</b>：老年人口 7.10% → <b>高齡化社會</b>（超過 7%）</div>
+      <div class="ev"><b>民國 107 年</b>（3 月）：14.05% → <b>高齡社會</b>（超過 14%）</div>
+      <div class="ev"><b>民國 114 年</b>（年底）：20.06% → <b>超高齡社會</b>（超過 20%，大約每 5 人就有 1 位長輩）</div>
+    </div>
+    <div class="tip pink">🧠 口訣：<b>7 化、14 高、20 超</b>！（7% 高齡<b>化</b>社會、14% <b>高</b>齡社會、20% <b>超</b>高齡社會）</div>
+    <div class="tip blue">📖 讀表格小撇步：① 先看標題和單位（%）② 一欄一欄往下看「變多還是變少」③ 拿數字和 7、14、20 比一比。</div>
+  </div>
+</section>
+<section class="page" id="p-game">
+  <div class="card">
+    <h2>🎮 人口挑戰站</h2>
+    <div class="subtabs">
+      <button class="btn small teal on" data-gm="quiz">❓ 考前練習</button>
+      <button class="btn small" data-gm="sort">🧺 年齡分類</button>
+    </div>
+    <div class="badges" id="badges"></div>
+  </div>
+  <div class="card gcard" id="g-quiz">
+    <p class="small">題型和學校考卷一樣：是非、選擇、填代號、表格判讀。每回合隨機 10 題，題目都是<b>自編</b>的練習題。</p>
+    <div class="qmodes" id="qModes"></div>
+    <div class="qhead"><span id="qCount"></span><span id="qScore"></span></div>
+    <div id="qTag"></div>
+    <div id="qPre"></div>
+    <div class="qtext" id="qText"></div>
+    <div class="opts" id="qOpts"></div>
+    <div class="feedback" id="qFb"></div>
+    <div class="btns"><button class="btn" id="qNext" style="display:none">下一題 ➡</button></div>
+  </div>
+  <div class="card gcard" id="g-sort" style="display:none">
+    <div class="qhead"><span>🧺 年齡分類王</span></div>
+    <p class="small">先點一張卡片，再點正確的籃子！</p>
+    <div class="sotray" id="soTray"></div>
+    <div class="baskets" id="soBaskets"></div>
+    <div class="feedback" id="soFb"></div>
+    <div class="btns"><button class="btn small" id="soRestart">🔄 重新開始</button></div>
+  </div>
+  <div class="card">
+    <h3>📚 資料來源</h3>
+    <p class="small">標示 <span class="tag2 more">✏️ 自編</span> 的題目、例子和表格是依課本重點自己編的練習；真實數字都在下面列出出處（政府公開資料、官方網站或新聞報導）。</p>
+    <div class="src" id="srcList"></div>
+  </div>
+</section>
+</main>
+<nav class="tabs" id="tabs">
+  <button class="on" data-p="p-dist"><span>🗺️</span>人口分布</button><button data-p="p-age"><span>🎂</span>年齡組成</button><button data-p="p-game"><span>🎮</span>挑戰</button>
+</nav>
+<script>
+window.PAGE={"key":"popComp","burst":["⭐","👶","🧑","👴"],"badges":[{"need":5,"label":"🔎 人口小偵探"},{"need":15,"label":"📊 人口觀察家"},{"need":30,"label":"👑 人口博士"}],"quiz":[{"t":"tf","q":"人口分布很平均，每個地方住的人都差不多多。","a":1,"x":"錯！人口分布不平均：平地、交通方便的地方人多；高山、交通不便的地方人少。"},{"t":"tf","q":"地形平坦、水源充足、交通方便的地方，通常人口比較多。","a":0,"x":"對！這些條件讓生活和工作都比較方便。"},{"t":"tf","q":"仁愛鄉的面積比南投市大很多，所以住的人也比南投市多。","a":1,"x":"錯！仁愛鄉大多是山地，面積雖大，人口卻比南投市少很多。"},{"t":"tf","q":"15～64 歲的青壯年人口，是主要的工作人口。","a":0,"x":"對！青壯年工作賺錢，也照顧家裡的小孩和長輩。"},{"t":"tf","q":"65 歲以上的老年人口占總人口 14% 時，稱為「超高齡社會」。","a":1,"x":"錯！14% 是「高齡社會」；20% 才是「超高齡社會」。"},{"t":"tf","q":"臺灣在民國 107 年進入「高齡社會」。","a":0,"x":"對！民國 107 年 3 月底，65 歲以上人口占 14.05%（內政部）。"},{"t":"tf","q":"臺灣的幼年人口比例愈來愈高。","a":1,"x":"錯！0～14 歲的比例從民國 70 年約 31.6% 降到 114 年約 11.5%，這就是少子化。"},{"t":"tf","q":"就醫方便、工作機會多、交通發達、教育文化資源多，都會吸引人口移入。","a":0,"x":"對！這些都是人口成長的好條件。"},{"t":"mc","q":"依年齡來分，「幼年人口」是指幾歲的人？","o":["0～14 歲","0～12 歲","0～18 歲"],"a":0,"x":"幼年 0～14 歲；青壯年 15～64 歲；老年 65 歲以上。"},{"t":"mc","q":"爸爸今年 42 歲，他屬於哪一種年齡人口？","o":["青壯年人口","幼年人口","老年人口"],"a":0,"x":"15～64 歲是青壯年人口。"},{"t":"mc","q":"阿公剛滿 65 歲，他屬於哪一種年齡人口？","o":["老年人口","青壯年人口","幼年人口"],"a":0,"x":"65 歲以上就是老年人口。"},{"t":"mc","q":"為什麼平地的人口通常比高山多？","o":["地勢平坦，方便蓋房子、種田和修路","高山比較熱","平地沒有河流"],"a":0,"x":"平地方便居住、耕種和交通，所以人比較多。"},{"t":"mc","q":"臺灣大約在民國幾年成為「高齡化社會」（老年人口超過 7%）？","o":["民國 82 年","民國 107 年","民國 114 年"],"a":0,"x":"民國 82 年老年人口占 7.10%，成為高齡化社會（內政部）。"},{"t":"mc","q":"民國 114 年底，臺灣老年人口占 20.06%，這表示臺灣成為什麼社會？","o":["超高齡社會","高齡化社會","年輕社會"],"a":0,"x":"超過 20% 就是超高齡社會，大約每 5 個人就有 1 位長輩。"},{"t":"mc","q":"哪一群人通常需要被照顧（被扶養）？","o":["幼年人口和老年人口","只有青壯年人口","只有老年人口"],"a":0,"x":"小孩和長輩需要照顧，主要由青壯年工作賺錢來照顧他們。"},{"t":"code","bank":"a","q":"0～14 歲的人口叫做（　）。","a":"甲","x":"甲 幼年人口。"},{"t":"code","bank":"a","q":"主要從事工作、照顧家人的 15～64 歲人口叫做（　）。","a":"乙","x":"乙 青壯年人口。"},{"t":"code","bank":"a","q":"65 歲以上的人口叫做（　）。","a":"丙","x":"丙 老年人口。"},{"t":"code","bank":"a","q":"老年人口占總人口 7% 以上，叫做（　）。","a":"丁","x":"丁 高齡化社會（臺灣在民國 82 年）。"},{"t":"code","bank":"a","q":"老年人口占總人口 14% 以上，叫做（　）。","a":"戊","x":"戊 高齡社會（臺灣在民國 107 年）。"},{"t":"code","bank":"a","q":"老年人口占總人口 20% 以上，叫做（　）。","a":"己","x":"己 超高齡社會（臺灣在民國 114 年）。"},{"t":"table","tbl":"tw","q":"看表格：民國 70 年到 114 年，哪一個年齡層的比例一直變少？","o":["0～14 歲幼年人口","65 歲以上老年人口","都沒有變"],"a":0,"x":"幼年從 31.6% 一路降到 11.5%，表示出生的小孩變少（少子化）。"},{"t":"table","tbl":"tw","q":"看表格：65 歲以上的比例怎麼變化？","o":["愈來愈高（高齡化）","愈來愈低","忽高忽低"],"a":0,"x":"從 4.4% 升到 20.1%，人口愈來愈老（高齡化）。"},{"t":"table","tbl":"tw","q":"看表格判斷：「民國 110 年時，臺灣已經是高齡社會（老年人口超過 14%）」這句話對嗎？","o":["⭕ 對","❌ 錯"],"keep":true,"a":0,"x":"對！110 年老年人口 16.9%，超過 14%。"},{"t":"table","tbl":"tw","q":"看表格判斷：「民國 90 年時，老年人口比幼年人口多」這句話對嗎？","o":["⭕ 對","❌ 錯"],"keep":true,"a":1,"x":"錯！90 年幼年 20.8%，老年只有 8.8%，幼年比較多。"},{"t":"table","tbl":"town","q":"✏️ 看「快樂鎮」表格：快樂鎮在哪一年剛好成為「高齡社會」？","o":["105 年","95 年","115 年"],"a":0,"x":"105 年老年人口 14%，達到高齡社會的標準。"},{"t":"table","tbl":"town","q":"✏️ 看「快樂鎮」表格：哪一年老年人口第一次比幼年人口多？","o":["110 年","100 年","95 年"],"a":0,"x":"110 年老年 18% 比幼年 13% 多；105 年兩個差不多（15 和 14），老年還少一點。"},{"t":"table","tbl":"town","q":"✏️ 看「快樂鎮」表格判斷：「115 年的快樂鎮已經是超高齡社會」這句話對嗎？","o":["⭕ 對","❌ 錯"],"keep":true,"a":0,"x":"對！老年人口 22%，超過 20%。"},{"t":"table","tbl":"den","q":"看表格：為什麼仁愛鄉面積大，人口卻比較少？","o":["大多是山地，交通和生活比較不方便","因為仁愛鄉沒有學校","因為仁愛鄉在海邊"],"a":0,"x":"山地坡度大、交通不便、工作機會少，人口就少。"},{"t":"table","tbl":"den","q":"看表格：南投市每平方公里住的人，大約是仁愛鄉的幾倍？","o":["大約 100 倍","大約 2 倍","差不多"],"a":0,"x":"1,355 ÷ 12 ≈ 113，大約 100 多倍！"}],"banks":{"a":[["甲","幼年人口"],["乙","青壯年人口"],["丙","老年人口"],["丁","高齡化社會"],["戊","高齡社會"],["己","超高齡社會"]]},"tables":{"tw":"<table class=\"dt\"><caption>臺灣三段年齡人口比例（%，各年年底，內政部戶政司）</caption><tr><th>民國</th><th>0～14 歲<br>幼年</th><th>15～64 歲<br>青壯年</th><th>65 歲以上<br>老年</th></tr><tr><td>70 年</td><td>31.6%</td><td>64.0%</td><td>4.4%</td></tr><tr><td>80 年</td><td>26.3%</td><td>67.1%</td><td>6.5%</td></tr><tr><td>90 年</td><td>20.8%</td><td>70.4%</td><td>8.8%</td></tr><tr><td>100 年</td><td>15.1%</td><td>74.0%</td><td>10.9%</td></tr><tr><td>110 年</td><td>12.4%</td><td>70.8%</td><td>16.9%</td></tr><tr><td>114 年</td><td>11.5%</td><td>68.4%</td><td>20.1%</td></tr></table>","town":"<table class=\"dt\"><caption>✏️ 自編：「快樂鎮」三段年齡人口比例（%）</caption>\n<tr><th>民國</th><th>0～14 歲</th><th>15～64 歲</th><th>65 歲以上</th></tr>\n<tr><td>95 年</td><td>22</td><td>70</td><td>8</td></tr>\n<tr><td>100 年</td><td>18</td><td>71</td><td>11</td></tr>\n<tr><td>105 年</td><td>15</td><td>71</td><td>14</td></tr>\n<tr><td>110 年</td><td>13</td><td>69</td><td>18</td></tr>\n<tr><td>115 年</td><td>11</td><td>67</td><td>22</td></tr></table>","den":"<table class=\"dt\"><caption>南投市和仁愛鄉（民國 113 年底，內政部戶政司）</caption>\n<tr><th>地方</th><th>主要地形</th><th>人口</th><th>面積</th><th>人口密度</th></tr>\n<tr><td>南投市</td><td>平地、台地</td><td>97,042 人</td><td>71.6 km²</td><td>每 km² 約 1,355 人</td></tr>\n<tr><td>仁愛鄉</td><td>山地</td><td>15,410 人</td><td>1,273.5 km²</td><td>每 km² 約 12 人</td></tr></table>"},"sort":{"baskets":[["kid","👶 幼年 0～14 歲","#ff6b9a"],["adult","🧑‍💼 青壯年 15～64 歲","#2a9d8f"],["old","👴 老年 65 歲以上","#9b5de5"]],"items":[["剛出生的小寶寶","kid"],["10 歲的我","kid"],["14 歲的國中姊姊","kid"],["15 歲的國中哥哥","adult"],["38 歲的媽媽","adult"],["64 歲的姑婆","adult"],["65 歲的阿公","old"],["90 歲的阿祖","old"]],"hint":{"14 歲的國中姊姊":"14 歲還是幼年人口（0～14 歲）。","15 歲的國中哥哥":"15 歲就算青壯年了（15～64 歲）。","64 歲的姑婆":"64 歲還在 15～64 歲裡面。","65 歲的阿公":"滿 65 歲就是老年人口。"},"done":"記住分界：14｜15、64｜65！"},"src":[["新北市江翠國小四年級教科書版本：社會為翰林版（金石堂 江翠國小書單）",""],["臺南市陽明國小 115 學年度 四年級社會（翰林）課程計畫：第三單元「家鄉的人口與生活」第1課「家鄉的人口組成」（第六～七週），學習重點 Bb-II-1、Ca-II-2","https://course.tn.edu.tw/"],["翰林 4上 第1課分成「人口的分布」「人口年齡的組成」兩部分（三貝德 114 學年 四年級社會翰林版 教學影片目錄）","https://gte5.yicc.net/BCX/BCX1255.htm"],["南投市、仁愛鄉人口、面積、人口密度：內政部戶政司〈各鄉鎮市區人口密度〉113 年（政府資料開放平臺）","https://data.gov.tw/dataset/8410"],["民國 70～110 年三段年齡人口比例：內政部戶政司〈三階段人口及扶養比〉（歷年年底）","https://ws.moi.gov.tw/Download.ashx?icon=.pdf&n=MS0xLnBkZg%3D%3D&u=LzAwMS9VcGxvYWQvNDAwL3JlbGZpbGUvMC8xODkzOC8zMWIxYzhjNi04MjEzLTQ4OTAtYThkNC1mZjMwMTY2Yjk3NzUucGRm"],["民國 114 年 12 月底：0～14 歲 11.51%、15～64 歲 68.43%、65 歲以上 20.06%，臺灣正式成為超高齡社會（內政部戶政司 2025 年 12 月戶籍統計分析；中央社 2026/1/9）","https://www.ris.gov.tw/app/en/2121?sn=26245250"],["民國 82 年底 7.10%（高齡化社會）、107 年 3 月底 14.05%（高齡社會）；7%／14%／20% 的定義：內政部統計處〈內政統計通報〉107 年第 15 週","https://ws.moi.gov.tw/Download.ashx?n=d2VlazEwNzE1LnBkZg%3D%3D&u=LzAwMS9VcGxvYWQvT2xkRmlsZS9zaXRlX25vZGVfZmlsZS83NjM1L3dlZWsxMDcxNS5wZGY%3D"],["「快樂鎮」表格、題目、年齡分類遊戲為自編練習。",""]],"tw":[[70,31.63,63.96,4.41],[80,26.34,67.13,6.53],[90,20.81,70.39,8.81],[100,15.08,74.04,10.89],[110,12.36,70.79,16.85],[114,11.51,68.43,20.06]]};
+</script>
+<script>
+(function(){
+"use strict";
+if(typeof document==="undefined")return;
+var $=function(id){return document.getElementById(id);};
+var P=window.PAGE;
+var KEY=P.key+"Stars",BEST=P.key+"QuizBest",stars=0;
+function getNum(k){try{return parseInt(localStorage.getItem(k)||"0",10)||0;}catch(e){return 0;}}
+function setNum(k,v){try{localStorage.setItem(k,String(v));}catch(e){}}
+stars=getNum(KEY);
+function renderScore(){$("score").textContent="⭐ "+stars;var bd=$("badges");if(bd)bd.innerHTML=P.badges.map(function(b){var g=stars>=b.need;return '<span class="bdg'+(g?" got":"")+'">'+b.label+(g?"":"（"+b.need+"⭐）")+'</span>';}).join("");}
+function burst(x,y){var em=P.burst;for(var i=0;i<10;i++){var s=document.createElement("div");s.className="burst";s.textContent=em[i%em.length];s.style.left=x+"px";s.style.top=y+"px";var a=Math.random()*6.28,r=60+Math.random()*90;s.style.setProperty("--dx",Math.cos(a)*r+"px");s.style.setProperty("--dy",Math.sin(a)*r+"px");document.body.appendChild(s);setTimeout((function(n){return function(){if(n.parentNode)n.parentNode.removeChild(n);};})(s),1200);}}
+var actx=null;function beep(ok){try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();(ok?[660,880,1100]:[300,220]).forEach(function(f,i){var o=actx.createOscillator(),g=actx.createGain();o.frequency.value=f;o.type="triangle";g.gain.setValueAtTime(.12,actx.currentTime+i*.09);g.gain.exponentialRampToValueAtTime(.001,actx.currentTime+i*.09+.25);o.connect(g);g.connect(actx.destination);o.start(actx.currentTime+i*.09);o.stop(actx.currentTime+i*.09+.3);});}catch(e){}}
+function addStars(n,el){stars+=n;setNum(KEY,stars);renderScore();var sc=$("score");sc.classList.remove("pop");void sc.offsetWidth;sc.classList.add("pop");
+  var x=innerWidth/2,y=innerHeight/2;if(el&&el.getBoundingClientRect){var r=el.getBoundingClientRect();x=r.left+r.width/2;y=r.top;}burst(x,y);beep(true);}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function each(list,fn){Array.prototype.forEach.call(list,fn);}
+function closest(el,cls){while(el&&el.nodeType===1){if(el.classList&&el.classList.contains(cls))return el;el=el.parentNode;}return null;}
+window.U={$:$,addStars:addStars,beep:beep,shuffle:shuffle,each:each,closest:closest,getNum:getNum,setNum:setNum};
+
+/* tabs */
+var tabBtns=document.querySelectorAll("#tabs button");
+each(tabBtns,function(b){b.addEventListener("click",function(){each(tabBtns,function(x){x.classList.toggle("on",x===b);});each(document.querySelectorAll("section.page"),function(p){p.classList.toggle("active",p.id===b.getAttribute("data-p"));});window.scrollTo(0,0);});});
+
+/* flip cards */
+document.addEventListener("click",function(ev){var f=closest(ev.target,"flip");if(!f)return;var was=f.classList.contains("open");f.classList.toggle("open");
+  if(!was&&!f.getAttribute("data-seen")){f.setAttribute("data-seen","1");addStars(1,f);}});
+
+/* sources */
+if($("srcList"))$("srcList").innerHTML="<ul>"+P.src.map(function(s){return '<li>'+s[0]+(s[1]?'<br><a href="'+s[1]+'" target="_blank" rel="noopener">'+s[1]+'</a>':'')+'</li>';}).join("")+"</ul>";
+
+/* games switch */
+each(document.querySelectorAll("[data-gm]"),function(b){b.addEventListener("click",function(){var g=b.getAttribute("data-gm");
+  each(document.querySelectorAll("[data-gm]"),function(x){x.classList.toggle("teal",x===b);x.classList.toggle("on",x===b);});
+  each(document.querySelectorAll(".gcard"),function(c){c.style.display=c.id==="g-"+g?"":"none";});});});
+
+/* quiz: t = tf 是非 / mc 選擇 / code 填代號 / table 表格判讀 */
+var TYPE={tf:"⭕❌ 是非",mc:"🔤 選擇",code:"🏷️ 填代號",table:"📊 表格判讀"};
+var qz={list:[],i:0,score:0,ans:false,mode:"all"};
+function pool(m){return P.quiz.filter(function(q){return m==="all"||q.t===m;});}
+function qNew(){var l=shuffle(pool(qz.mode));qz.list=l.slice(0,Math.min(10,l.length));qz.i=0;qz.score=0;qDraw();}
+function qOpts(q){if(q.t==="tf")return ["⭕ 對","❌ 錯"];if(q.t==="code"){var b=P.banks[q.bank];return b.map(function(x){return x[0];});}return q.o;}
+function qDraw(){var q=qz.list[qz.i];$("qCount").textContent="第 "+(qz.i+1)+" / "+qz.list.length+" 題";$("qScore").textContent="答對 "+qz.score+"　🏆 最佳 "+getNum(BEST);
+  $("qTag").innerHTML='<span class="tag2 '+(q.s==="more"?"more":"book")+'">'+TYPE[q.t]+'</span><span class="tag2 more">✏️ 自編練習</span>';
+  var pre="";if(q.t==="code"){pre='<div class="qbank">'+P.banks[q.bank].map(function(x){return '<span><b>'+x[0]+'</b>'+x[1]+'</span>';}).join("")+'</div>';}
+  if(q.tbl)pre+='<div class="tblwrap">'+P.tables[q.tbl]+'</div>';
+  $("qPre").innerHTML=pre;$("qText").innerHTML=q.q;
+  var o=qOpts(q),idx=[];for(var k=0;k<o.length;k++)idx.push(k);if(q.t==="mc"||(q.t==="table"&&!q.keep))idx=shuffle(idx);
+  $("qOpts").className="opts"+(q.t==="tf"?" tf":"");
+  $("qOpts").innerHTML=idx.map(function(j){return '<button class="opt" data-j="'+j+'">'+o[j]+'</button>';}).join("");
+  $("qFb").className="feedback";$("qNext").style.display="none";qz.ans=false;}
+function ansIndex(q){if(q.t==="code"){var b=P.banks[q.bank];for(var k=0;k<b.length;k++)if(b[k][0]===q.a)return k;}return q.a;}
+if($("qOpts")){
+$("qOpts").addEventListener("click",function(ev){var b=closest(ev.target,"opt");if(!b||qz.ans)return;qz.ans=true;var q=qz.list[qz.i],j=+b.getAttribute("data-j"),A=ansIndex(q),fb=$("qFb");
+  each(document.querySelectorAll("#qOpts .opt"),function(o){if(+o.getAttribute("data-j")===A)o.classList.add("right");});
+  if(j===A){qz.score++;fb.className="feedback show good";fb.innerHTML="✅ "+q.x;addStars(1,b);}else{b.classList.add("no");beep(false);fb.className="feedback show bad";fb.innerHTML="💡 "+q.x;}
+  var last=qz.i>=qz.list.length-1;if(last&&qz.score>getNum(BEST))setNum(BEST,qz.score);
+  $("qScore").textContent="答對 "+qz.score+"　🏆 最佳 "+getNum(BEST);$("qNext").textContent=last?"🔄 再玩一次":"下一題 ➡";$("qNext").style.display="";
+  if(last)fb.innerHTML+="<br>🏁 這回合結束：答對 <b>"+qz.score+" / "+qz.list.length+"</b> 題！";});
+$("qNext").addEventListener("click",function(){if(qz.i>=qz.list.length-1){qNew();return;}qz.i++;qDraw();});
+var mh='<button class="btn small teal on" data-qm="all">🎲 全部</button>';["tf","mc","code","table"].forEach(function(t){if(pool(t).length)mh+='<button class="btn small" data-qm="'+t+'">'+TYPE[t]+'（'+pool(t).length+'）</button>';});
+$("qModes").innerHTML=mh;
+$("qModes").addEventListener("click",function(ev){var b=closest(ev.target,"btn");if(!b)return;qz.mode=b.getAttribute("data-qm");each(document.querySelectorAll("#qModes .btn"),function(x){x.classList.toggle("teal",x===b);x.classList.toggle("on",x===b);});qNew();});
+qNew();}
+
+/* sort game (tap a chip, then tap a basket) */
+var so={sel:null,left:0,err:0};
+function soNew(){if(!P.sort||!$("soTray"))return;var items=shuffle(P.sort.items);so={sel:null,left:items.length,err:0};
+  $("soTray").innerHTML=items.map(function(it,i){return '<button class="pc" data-b="'+it[1]+'" data-i="'+i+'">'+it[0]+'</button>';}).join("");
+  $("soBaskets").innerHTML=P.sort.baskets.map(function(b){return '<div class="bk" style="--c:'+b[2]+'" data-b="'+b[0]+'"><h4>'+b[1]+'</h4><div class="in"></div></div>';}).join("");
+  $("soFb").className="feedback";}
+if($("soTray")){
+$("soTray").addEventListener("click",function(ev){var c=closest(ev.target,"pc");if(!c)return;each(document.querySelectorAll("#soTray .pc"),function(x){x.classList.toggle("sel",x===c&&!x.classList.contains("sel"));});so.sel=c.classList.contains("sel")?c:null;});
+$("soBaskets").addEventListener("click",function(ev){var bk=closest(ev.target,"bk");if(!bk||!so.sel)return;var c=so.sel,fb=$("soFb");
+  if(c.getAttribute("data-b")===bk.getAttribute("data-b")){var s=document.createElement("span");s.textContent=c.textContent;bk.querySelector(".in").appendChild(s);c.parentNode.removeChild(c);so.sel=null;so.left--;bk.classList.remove("ok");void bk.offsetWidth;bk.classList.add("ok");beep(true);
+    if(so.left===0){fb.className="feedback show good";fb.innerHTML="🎉 全部分對了！"+(so.err?"（錯 "+so.err+" 次）":"零失誤！")+" "+P.sort.done;addStars(so.err?2:3,bk);}
+  }else{so.err++;c.classList.remove("shake");void c.offsetWidth;c.classList.add("shake");beep(false);fb.className="feedback show bad";fb.innerHTML="💡 再想想：「"+c.textContent+"」"+(P.sort.hint[c.textContent]||"不是放這裡喔！");}});
+$("soRestart").addEventListener("click",soNew);soNew();}
+
+renderScore();
+window.__sg={stars:function(){return stars;},qz:function(){return qz;},P:P};
+})();
+
+</script>
+<script>
+
+(function(){
+"use strict";
+var $=U.$,P=window.PAGE;
+function dots(id,n,col){var h='<rect width="200" height="200" fill="#f6fff0"/>',seed=7;function rnd(){seed=(seed*9301+49297)%233280;return seed/233280;}
+  for(var i=0;i<n;i++)h+='<circle cx="'+(6+rnd()*188).toFixed(1)+'" cy="'+(6+rnd()*188).toFixed(1)+'" r="4" fill="'+col+'"/>';
+  if(id==="denB")h+='<text x="100" y="190" text-anchor="middle" font-size="14">🌲⛰️🌲</text>';
+  $(id).innerHTML=h;}
+dots("denA",136,"#e76f51");dots("denB",1,"#e76f51");
+
+var FAC=[["flat","🏞️ 地形平坦"],["water","💧 水源充足"],["traffic","🚆 交通發達"],["job","🏭 工作機會多"],["doctor","🏥 就醫方便"],["school","📚 教育文化資源多"]],on={};
+function drawFac(){$("facBtns").innerHTML=FAC.map(function(f){return '<button class="btn small'+(on[f[0]]?" teal on":" white")+'" data-f="'+f[0]+'">'+(on[f[0]]?"✅ ":"")+f[1]+'</button>';}).join("");
+  var n=0;FAC.forEach(function(f){if(on[f[0]])n++;});$("facBar").style.width=(10+n*15)+"%";
+  var t=["🏚️ 條件很少，年輕人搬出去找工作，人口<b>減少</b>。","🙂 開始有一點吸引力了。","🙂 人口慢慢穩定。","😀 人口開始<b>增加</b>！","😀 很多人想搬來住！","🤩 好熱鬧，人口<b>快速增加</b>！","🏙️ 六個條件都有，變成大城市！但也要注意塞車、房子變貴的問題喔。"][n];
+  $("facInfo").innerHTML='<div class="t">已開啟 '+n+' / 6 個條件</div>'+t;}
+$("facBtns").addEventListener("click",function(ev){var b=U.closest(ev.target,"btn");if(!b)return;var k=b.getAttribute("data-f");on[k]=!on[k];drawFac();
+  var all=FAC.every(function(f){return on[f[0]];});if(all&&!window.__facDone){window.__facDone=1;U.addStars(1,b);}});
+drawFac();
+
+var TW=P.tw;
+function drawYr(){var r=TW[+$("yr").value];$("yrTxt").textContent=r[0];
+  $("yrBar").innerHTML='<div style="width:'+r[1]+'%;background:#ff6b9a">'+r[1].toFixed(1)+'%</div><div style="width:'+r[2]+'%;background:#2a9d8f">'+r[2].toFixed(1)+'%</div><div style="width:'+r[3]+'%;background:#9b5de5">'+r[3].toFixed(1)+'%</div>';
+  var lv=r[3]>=20?"超高齡社會":r[3]>=14?"高齡社會":r[3]>=7?"高齡化社會":"還沒到高齡化社會";
+  $("yrTag").innerHTML='<span class="tag2 book">'+lv+'</span>';
+  var kids=Math.round(r[1]),old=Math.round(r[3]);
+  $("yrInfo").innerHTML='每 100 個人裡面，大約有 <b>'+kids+'</b> 個小孩、<b>'+old+'</b> 位長輩。'+(r[3]>r[1]?'<br>👴 長輩已經比小孩多了！':'')+(r[0]===114?'<br>🎉 老年人口超過 20%，臺灣正式成為<b>超高齡社會</b>。':'');}
+$("yr").addEventListener("input",drawYr);$("yr").addEventListener("change",drawYr);drawYr();
+})();
+
+</script>
+</body>
+</html>

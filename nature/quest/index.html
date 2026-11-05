@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#5b4fc4">
+<title>🗺️ 偵探闖關地圖｜自然 4上</title>
+<style>
+:root{--ink:#2b2d42;--blue:#4d96ff;--sun:#ffb703;--pink:#ff6b9a;--teal:#2a9d8f;--green:#57cc99;--purple:#9b5de5;--radius:22px}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:#e6f0ff;overflow-x:hidden}
+html,body{margin:0;padding:0}
+body{font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",system-ui,sans-serif;color:var(--ink);min-height:100vh;overflow-x:hidden;
+ background:linear-gradient(180deg,#bde0fe 0,#e6f0ff 320px,#e6f0ff 100%);padding-bottom:calc(40px + env(safe-area-inset-bottom))}
+header{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:8px;padding:10px 12px;padding-top:calc(10px + env(safe-area-inset-top));background:rgba(77,150,255,.96);color:#fff;box-shadow:0 3px 10px rgba(0,0,0,.12)}
+header h1{font-size:clamp(17px,4.6vw,26px);margin:0;letter-spacing:1px;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.back{color:#fff;text-decoration:none;font-weight:800;background:rgba(255,255,255,.22);border-radius:999px;padding:10px 12px;font-size:15px;white-space:nowrap;min-height:44px;display:inline-flex;align-items:center}
+.score{background:var(--sun);color:#5a3b00;font-weight:800;border-radius:999px;padding:6px 12px;font-size:17px;white-space:nowrap;box-shadow:0 3px 0 #c98a00}
+.score.pop{animation:pop .5s}@keyframes pop{40%{transform:scale(1.35)}}
+.iconbtn{appearance:none;border:none;background:rgba(255,255,255,.22);color:#fff;border-radius:999px;min-width:44px;min-height:44px;font-size:20px;cursor:pointer;font-family:inherit}
+main{max-width:1200px;margin:0 auto;padding:12px}
+section.page{display:none;animation:fadein .3s}section.page.active{display:block}
+@keyframes fadein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.card{background:#fff;border-radius:var(--radius);padding:16px;margin:12px 0;box-shadow:0 6px 0 rgba(0,0,0,.12)}
+.card h2{margin:0 0 8px;font-size:clamp(20px,5vw,26px)}
+.lead{font-size:18px;line-height:1.7;margin:6px 0}
+.small{font-size:15px;color:#666;line-height:1.6}
+.tip{background:#fff7d6;border-left:6px solid var(--sun);border-radius:12px;padding:10px 12px;font-size:17px;line-height:1.6;margin:10px 0}
+.tip.blue{background:#e6f0ff;border-color:var(--blue)}.tip.pink{background:#ffe6ef;border-color:var(--pink)}.tip.green{background:#e3f8ec;border-color:var(--teal)}
+.btn{appearance:none;border:none;border-radius:16px;padding:12px 16px;min-height:52px;font-size:18px;font-weight:800;cursor:pointer;background:var(--blue);color:#fff;box-shadow:0 4px 0 rgba(0,0,0,.22);font-family:inherit}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.22)}
+.btn.sun{background:var(--sun);color:#5a3b00}.btn.pink{background:var(--pink)}.btn.teal{background:var(--teal)}.btn.white{background:#fff;color:var(--ink)}.btn.small{min-height:46px;font-size:16px;padding:8px 12px}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.tag{display:inline-block;font-size:12px;font-weight:800;border-radius:999px;padding:2px 8px;background:#f3e8ff;color:#6a1b9a;vertical-align:middle}
+header{background:rgba(91,79,196,.97)}
+body{background:linear-gradient(180deg,#d9d4ff 0,#f1efff 320px,#f1efff 100%)}
+html{background:#f1efff}
+/* 進度 */
+.hero{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.hero .hi{flex:1 1 260px;min-width:0}
+.hero h2{margin:0 0 4px}
+.pbar{height:22px;border-radius:999px;background:#e6e3fa;overflow:hidden;box-shadow:inset 0 2px 0 rgba(0,0,0,.08);margin:8px 0 4px}
+.pbar i{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,#ffd166,#ff9f1c);transition:width .8s}
+.ptext{font-size:18px;font-weight:900;color:#4a3fb0}
+.namebox{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:16px;font-weight:800;margin-top:8px}
+.namebox input{font:inherit;font-size:18px;border:3px solid #c9c2f5;border-radius:14px;padding:8px 12px;min-height:46px;width:170px;max-width:100%}
+.nextbox{flex:1 1 240px;background:#fff7d6;border-radius:20px;padding:12px;border:3px dashed #ffb703;min-width:0}
+.nextbox .k{font-size:15px;font-weight:900;color:#8a4b00}
+.nextbox .nm{font-size:21px;font-weight:900;margin:2px 0 8px}
+a.btn{display:inline-flex;align-items:center;text-decoration:none}
+/* 地圖 */
+.mapwrap{position:relative;width:100%;margin:8px auto 4px;border-radius:26px;overflow:hidden;box-shadow:0 6px 0 rgba(0,0,0,.14);background:#bfe8c6}
+.mapwrap svg.bg{position:absolute;left:0;top:0;width:100%;height:100%;display:block}
+.stn{position:absolute;width:118px;margin-left:-59px;margin-top:-36px;display:flex;flex-direction:column;align-items:center;text-decoration:none;color:var(--ink);appearance:none;border:none;background:none;padding:0;font-family:inherit;cursor:pointer;z-index:3;touch-action:manipulation}
+.stn .c{position:relative;width:72px;height:72px;border-radius:50%;background:#fff;border:5px solid #b9b3d6;font-size:36px;line-height:1;display:flex;align-items:center;justify-content:center;box-shadow:0 5px 0 rgba(0,0,0,.25)}
+.stn .no{position:absolute;left:-8px;top:-6px;min-width:26px;height:26px;border-radius:13px;background:#5b4fc4;color:#fff;font-size:14px;font-weight:900;display:flex;align-items:center;justify-content:center;padding:0 5px;border:2px solid #fff}
+.stn .lb{margin-top:5px;background:rgba(255,255,255,.96);border-radius:12px;padding:3px 8px;font-size:15px;font-weight:900;text-align:center;line-height:1.25;max-width:118px;box-shadow:0 2px 0 rgba(0,0,0,.15)}
+.stn .pg{display:block;font-size:12px;color:#5a5a6e;font-weight:800}
+.stn.done .c{border-color:#ffb703;background:#fff3c4;box-shadow:0 0 0 7px rgba(255,214,10,.5),0 5px 0 #c98a00;animation:shine 2.4s ease-in-out infinite}
+.stn.done .pg{color:#1b7a4c}
+.stn .ck{position:absolute;right:-8px;bottom:-6px;width:28px;height:28px;border-radius:50%;background:#2a9d8f;color:#fff;font-size:17px;font-weight:900;display:flex;align-items:center;justify-content:center;border:2px solid #fff}
+.stn.part .c{border-color:#4d96ff;border-style:dashed}
+.stn.part .pg{color:#1f5fbf}
+.stn.quiz .c{border-radius:22px}
+.stn.hq .c{border-color:#9b5de5;background:#f3e8ff}
+.stn.hq.done .c{border-color:#ffb703;background:#fff3c4}
+.stn .pin{position:absolute;top:-36px;left:50%;margin-left:-40px;width:80px;text-align:center;background:#ff6b9a;color:#fff;font-size:14px;font-weight:900;border-radius:12px;padding:3px 0;animation:bob 1.1s ease-in-out infinite;box-shadow:0 3px 0 #c43c6b;z-index:4}
+.stn .pin:after{content:"";position:absolute;left:50%;bottom:-8px;margin-left:-7px;border:7px solid transparent;border-top-color:#ff6b9a;border-bottom:0}
+.stn:focus-visible{outline:4px solid #ffb703;outline-offset:4px;border-radius:18px}
+.stn:active .c{transform:translateY(3px)}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes shine{0%,100%{box-shadow:0 0 0 5px rgba(255,214,10,.45),0 5px 0 #c98a00}50%{box-shadow:0 0 0 11px rgba(255,214,10,.2),0 5px 0 #c98a00}}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;justify-content:center;font-size:14px;font-weight:800;color:#555;margin:6px 0 10px}
+.legend span{display:inline-flex;align-items:center;gap:4px}
+.legend i{display:inline-block;width:16px;height:16px;border-radius:50%;border:3px solid #b9b3d6;background:#fff}
+.legend i.d{border-color:#ffb703;background:#fff3c4}.legend i.p{border-color:#4d96ff;border-style:dashed}
+/* 偵探卡 */
+h2.sec{font-size:clamp(20px,5vw,26px);margin:22px 0 4px}
+.unit{font-size:18px;margin:14px 0 6px;color:#4a3fb0}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (min-width:700px){.cards{grid-template-columns:repeat(4,1fr)}}
+.dc{background:#fff;border-radius:20px;padding:10px;box-shadow:0 5px 0 rgba(0,0,0,.12);border:4px solid #ffb703;text-align:center;min-width:0;display:flex;flex-direction:column;align-items:center}
+.dc svg{width:84px;height:92px;display:block}
+.dc b{font-size:17px;display:block;margin:2px 0}
+.dc p{margin:4px 0 0;font-size:14.5px;line-height:1.55;text-align:left}
+.dc .st{font-size:13px;font-weight:900;border-radius:999px;padding:2px 8px;background:#e3f8ec;color:#1b7a4c;margin-top:4px}
+.dc.lock{border:4px dashed #c9c2e0;background:#f6f5fb;color:#777}
+.dc.lock .st{background:#eceaf6;color:#666}
+.dc.part .st{background:#e0f0ff;color:#1f5fbf}
+.dc a,.dc button.go{margin-top:8px}
+/* 證書 */
+.cert{position:relative;background:#fffdf4;border-radius:24px;padding:22px 16px;border:6px double #c99a2e;box-shadow:0 6px 0 rgba(0,0,0,.14);text-align:center;margin:10px 0}
+.cert h3{font-size:clamp(26px,7vw,40px);margin:4px 0;letter-spacing:4px;color:#7a4b00}
+.cert .who{font-size:clamp(24px,6vw,34px);font-weight:900;border-bottom:3px solid #c99a2e;display:inline-block;min-width:160px;padding:0 10px;margin:6px 0}
+.cert p{font-size:18px;line-height:1.8;margin:6px 0}
+.cert svg.medal{width:120px;height:140px}
+.cert.lock{filter:grayscale(.8);opacity:.75;border-style:dashed}
+.cert .date{font-size:16px;color:#6b5a2e}
+/* 測驗 */
+.overlay{position:fixed;left:0;top:0;right:0;bottom:0;z-index:200;background:rgba(30,20,80,.62);display:none;align-items:center;justify-content:center;padding:14px;overflow:hidden}
+.overlay.show{display:flex}
+.box{position:relative;z-index:2;background:#fff;border-radius:28px;padding:18px 16px;max-width:520px;width:100%;max-height:calc(100% - 8px);overflow-y:auto;box-shadow:0 10px 0 rgba(0,0,0,.18);animation:popin .45s}
+@keyframes popin{0%{transform:scale(.6);opacity:0}70%{transform:scale(1.04)}100%{transform:scale(1);opacity:1}}
+.box h2{margin:2px 0 6px;font-size:24px;text-align:center}
+.dots{display:flex;justify-content:center;gap:8px;margin:4px 0 8px}
+.dots i{width:16px;height:16px;border-radius:50%;background:#e1ddf7;display:block}
+.dots i.ok{background:#57cc99}.dots i.no{background:#ff6b9a}.dots i.cur{box-shadow:0 0 0 3px #5b4fc4}
+.qq{font-size:20px;font-weight:900;line-height:1.55;margin:4px 0 10px}
+.opts{display:grid;grid-template-columns:1fr;gap:8px}
+.opt{appearance:none;font-family:inherit;font-size:18px;font-weight:800;text-align:left;background:#f4f2ff;border:3px solid #d7d1fb;border-radius:16px;padding:10px 14px;min-height:56px;cursor:pointer;color:var(--ink)}
+.opt.right{background:#e3f8ec;border-color:#2a9d8f}.opt.wrong{background:#ffe6ef;border-color:#ff6b9a}
+.opt:disabled{cursor:default;opacity:1}
+.fb{border-radius:14px;padding:10px 12px;font-size:17px;line-height:1.6;margin:10px 0 0}
+.fb.ok{background:#e3f8ec}.fb.no{background:#fff0f5}
+.center{text-align:center}
+.bigst{font-size:44px;letter-spacing:6px;text-align:center}
+.jump{font-size:46px;display:inline-block;animation:jump 1.2s ease-in-out infinite}
+.jump.d2{animation-delay:.4s}.jump.d3{animation-delay:.8s}
+@keyframes jump{0%,100%{transform:translateY(0) rotate(0)}40%{transform:translateY(-24px) rotate(-20deg)}70%{transform:translateY(-8px) rotate(15deg)}}
+.conf{position:absolute;top:-40px;font-size:26px;z-index:1;pointer-events:none;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(540deg)}}
+.newcards{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:8px 0}
+.newcards span{background:#fff3c4;border:3px solid #ffb703;border-radius:14px;padding:6px 10px;font-weight:900;font-size:16px}
+details.parent{background:#fff;border-radius:22px;padding:12px 16px;margin:20px 0 16px;box-shadow:0 6px 0 rgba(0,0,0,.12);font-size:16px;line-height:1.7}
+details summary{font-weight:900;font-size:19px;cursor:pointer;min-height:44px;display:flex;align-items:center}
+details.parent ul{padding-left:20px;margin:6px 0}
+#certSec,#cards{scroll-margin-top:84px}
+footer{text-align:center;color:#888;font-size:14px;margin-top:20px}
+@media (prefers-reduced-motion:reduce){.stn.done .c,.stn .pin,.jump{animation:none}}
+</style>
+</head>
+<body>
+<header>
+  <a class="back" href="../">← 自然</a>
+  <h1>🗺️ 偵探闖關地圖</h1>
+  <span class="score" id="score">🕵️ 0/8</span>
+  <button class="iconbtn" id="snd" type="button" aria-label="音效開關">🔊</button>
+</header>
+<main>
+  <div class="card hero">
+    <div class="hi">
+      <h2 id="hello">🕵️ 自然小偵探，出發！</h2>
+      <div class="pbar" role="progressbar" aria-valuemin="0" aria-valuemax="8" id="pbar"><i id="pfill"></i></div>
+      <div class="ptext" id="ptext">再過 8 關就集滿偵探卡！</div>
+      <label class="namebox">偵探名字：<input id="nameIn" type="text" maxlength="12" autocomplete="off" placeholder="寫上你的名字"></label>
+    </div>
+    <div class="nextbox" id="nextbox"></div>
+  </div>
+
+  <div class="mapwrap" id="map"></div>
+  <div class="legend"><span><i></i>還沒去</span><span><i class="p"></i>玩過、還沒過關</span><span><i class="d"></i>點亮了！</span><span>👆 點一站就出發</span></div>
+
+  <h2 class="sec">🃏 我的偵探卡 <span class="tag" id="cardCnt">0/8</span></h2>
+  <div id="cards"></div>
+
+  <h2 class="sec" id="certSec">🏅 自然小偵探證書</h2>
+  <div id="cert"></div>
+
+  <details class="parent">
+    <summary>👨‍👩‍👧 給爸媽</summary>
+    <ul>
+      <li><b>這一頁做什麼：</b>把「自然」裡全部的活動串成一張地圖（第一單元 閃亮的天空 → 第二單元 水域環境），每完成一站就點亮、拿到一張偵探卡，集滿 8 張就能拿到「自然小偵探」證書。點地圖上的一站，就會直接打開那個活動。</li>
+      <li><b>怎麼判斷「完成」（只讀取、不改動各活動的紀錄）：</b>
+        <ul>
+          <li>月亮小偵探 第一課：通過「偵探大考驗」（拿到任務五的印章）。地圖上另外顯示已蓋幾個章。</li>
+          <li>瑄瑄的月亮探險隊：累積 15 顆星（拿到「🔭 觀測小隊長」徽章）。</li>
+          <li>月相轉盤、打造我的池塘、水中動物翻牌配對：3 關都過關（每關至少 1 顆星）。</li>
+          <li>水邊小偵探（月亮小偵探 第二課）：通過「水邊大考驗」（拿到任務五的印章）。</li>
+          <li>兩個小測驗關卡：3 題答對 2 題以上。</li>
+        </ul>
+      </li>
+      <li><b>自編的部分：</b>地圖、偵探卡上的短句、證書和兩個小測驗（每次從題庫抽 3 題）都是自編的，內容對照翰林版自然 4上 第一、二單元，以及網站上各活動已經用過的說法。圖案是自己畫的簡單示意圖。</li>
+      <li><b>名字：</b>如果在「月亮小偵探」的證書上寫過名字，這裡會自動帶入；在這裡改名字只會存在這一頁，不會改到月亮小偵探。</li>
+      <li><b>紀錄：</b>都存在這台平板的瀏覽器裡（不會上傳）。下面的按鈕只會清除這一頁的小測驗、名字和偵探卡提示紀錄；各活動自己的星星和印章，要到那個活動頁面裡清除。</li>
+    </ul>
+    <div class="btns"><button class="btn white small" type="button" id="resetBtn">🗑️ 清除這一頁的紀錄</button></div>
+  </details>
+  <footer>自編學習遊戲・地圖和圖案皆為自己畫的簡單圖示</footer>
+</main>
+
+<div class="overlay" id="qz" role="dialog" aria-modal="true" aria-labelledby="qzTitle">
+  <div class="box" id="qzBox"></div>
+</div>
+<div class="overlay" id="win" role="dialog" aria-modal="true" aria-labelledby="winTitle">
+  <div class="box center" id="winBox"></div>
+</div>
+<script>
+(function () {
+'use strict';
+/* ================= 小工具 ================= */
+function $(id) { return document.getElementById(id); }
+function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+function shuffle(a) { var b = a.slice(), i, j, t; for (i = b.length - 1; i > 0; i--) { j = Math.floor(Math.random() * (i + 1)); t = b[i]; b[i] = b[j]; b[j] = t; } return b; }
+function up(el, test) { while (el && el.nodeType === 1) { if (test(el)) return el; el = el.parentNode; } return null; }
+function hasCls(el, c) { return (' ' + (el.getAttribute('class') || '') + ' ').indexOf(' ' + c + ' ') >= 0; }
+/* 只「讀」其他活動的紀錄，絕對不寫入 */
+function readRaw(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+function readJSON(k) { var v = readRaw(k); if (!v) return null; try { return JSON.parse(v); } catch (e) { return null; } }
+function isObj(o) { return !!o && typeof o === 'object' && !(o instanceof Array); }
+
+/* ================= 地圖上的每一站 ================= */
+var ST = [
+  { id: 's1', u: 0, ico: '🌙', name: '月亮小偵探', sub: '第一課', href: '../moon-detective/#lesson1', card: '月亮偵探卡', fact: '月亮和太陽一樣東升西落，而且每天大約晚 50 分鐘升起。', how: '通過第一課的「偵探大考驗」' },
+  { id: 's2', u: 0, ico: '🚀', name: '月亮探險隊', sub: '', href: '../moon-phases/', card: '探險隊員卡', fact: '上半月右邊亮，下半月左邊亮；農曆十五左右是圓圓的滿月。', how: '累積 15 顆星，拿到「觀測小隊長」' },
+  { id: 's3', u: 0, ico: '🌗', name: '月相轉盤', sub: '', href: '../moon-wheel/', card: '轉盤高手卡', fact: '月亮永遠有一半被太陽照亮，我們從地球看到亮的部分不一樣，就是月相。', how: '3 關都過關' },
+  { id: 'q1', u: 0, quiz: 1, ico: '❓', name: '月亮關卡', sub: '小測驗', card: '月亮通行證', fact: '月相大約 29～30 天變化一輪，所以農曆一個月有 29 天或 30 天。', how: '小測驗 3 題答對 2 題以上' },
+  { id: 's4', u: 1, ico: '💧', name: '水邊小偵探', sub: '第二課', href: '../moon-detective/#lesson2', card: '水邊偵探卡', fact: '水生植物分成挺水、浮葉、漂浮、沉水四種，各有住在水裡的好方法。', how: '通過第二課的「水邊大考驗」' },
+  { id: 's5', u: 1, ico: '🐟', name: '打造我的池塘', sub: '', href: '../pond/', card: '池塘建築師卡', fact: '池塘的岸邊、水面、水中、水底，住著不一樣的生物。', how: '3 關都過關' },
+  { id: 's6', u: 1, ico: '🃏', name: '翻牌配對', sub: '', href: '../match/', card: '絕招專家卡', fact: '魚用鰓呼吸；紅娘華把尾巴的呼吸管伸出水面吸空氣。', how: '3 關都過關' },
+  { id: 'q2', u: 1, quiz: 2, ico: '❓', name: '水域關卡', sub: '小測驗', card: '水域通行證', fact: '布袋蓮的葉柄膨大，裡面有很多空氣，像游泳圈一樣浮在水面。', how: '小測驗 3 題答對 2 題以上' }
+];
+var UNITS = ['🌙 第一單元 閃亮的天空', '💧 第二單元 水域環境'];
+var TOTAL = ST.length;
+
+/* ================= 自己的紀錄（natQuestV1） ================= */
+var KEY = 'natQuestV1';
+var st = load();
+function load() {
+  var d = readJSON(KEY), k, q;
+  if (!isObj(d)) d = {};
+  if (!isObj(d.quiz)) d.quiz = {};
+  for (k in d.quiz) {
+    if (!Object.prototype.hasOwnProperty.call(d.quiz, k)) continue;
+    q = d.quiz[k];
+    if (!isObj(q) || (k !== 'q1' && k !== 'q2')) { delete d.quiz[k]; continue; }
+    q.pass = !!q.pass; q.best = Math.max(0, Math.min(3, +q.best || 0)); q.tries = Math.max(0, +q.tries || 0);
+  }
+  if (typeof d.name !== 'string') d.name = null;
+  if (!(d.seen instanceof Array)) d.seen = [];
+  if (typeof d.mute !== 'boolean') d.mute = false;
+  if (typeof d.cert !== 'number') d.cert = null;
+  return d;
+}
+function save() { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} }
+
+/* ================= 讀各活動的進度 ================= */
+function mdStatus(keys, finalKey) { // 月亮小偵探（moon-detective-v1）：stamps 裡有時間戳記就是蓋了章
+  var d = readJSON('moon-detective-v1'), s = isObj(d) && isObj(d.stamps) ? d.stamps : {}, n = 0, i;
+  for (i = 0; i < keys.length; i++) if (s[keys[i]]) n++;
+  return { done: !!s[finalKey], part: n > 0, pg: n > 0 ? '印章 ' + n + '/' + keys.length : '', detail: '已經蓋了 ' + n + ' 個章（共 ' + keys.length + ' 個）' };
+}
+function starsStatus() { // 月亮探險隊（moonStars / moonBadges）
+  var n = parseInt(readRaw('moonStars') || '0', 10) || 0, b = readJSON('moonBadges');
+  if (n < 0) n = 0;
+  var done = n >= 15 || (isObj(b) && (!!b.b2 || !!b.b3));
+  return { done: done, part: n > 0, pg: n > 0 ? '⭐ ' + n + (done ? '' : '/15') : '', detail: '已經有 ' + n + ' 顆星' + (done ? '' : '（15 顆星過關）') };
+}
+function levelStatus(key) { // 月相轉盤／池塘／翻牌：stars.l1～l3 至少 1 顆就是過關
+  var d = readJSON(key), s = isObj(d) && isObj(d.stars) ? d.stars : {}, c = 0, t = 0, i, v;
+  for (i = 1; i <= 3; i++) { v = +s['l' + i] || 0; if (v > 0) { c++; t += Math.min(3, v); } }
+  var played = isObj(d) && +d.plays > 0;
+  return { done: c === 3, part: c > 0 || played, pg: c === 3 ? '⭐ ' + t + '/9' : (c > 0 ? '過關 ' + c + '/3' : (played ? '玩過了' : '')), detail: '已過 ' + c + '/3 關，星星 ' + t + '/9' };
+}
+function quizStatus(n) {
+  var q = st.quiz['q' + n];
+  if (!q) return { done: false, part: false, pg: '', detail: '還沒挑戰' };
+  return { done: q.pass, part: q.tries > 0, pg: q.pass ? '答對 ' + q.best + '/3' : '最好 ' + q.best + '/3', detail: '挑戰 ' + q.tries + ' 次，最好答對 ' + q.best + '/3 題' };
+}
+function statusOf(s) {
+  switch (s.id) {
+    case 's1': return mdStatus(['m1', 'm2', 'm3', 'm4', 'mb', 'm5'], 'm5');
+    case 's2': return starsStatus();
+    case 's3': return levelStatus('natMoonWheelV1');
+    case 's4': return mdStatus(['w1', 'w2', 'w3', 'w4', 'w5'], 'w5');
+    case 's5': return levelStatus('natPondV1');
+    case 's6': return levelStatus('natMatchV1');
+    case 'q1': return quizStatus(1);
+    case 'q2': return quizStatus(2);
+  }
+  return { done: false, part: false, pg: '', detail: '' };
+}
+function compute() {
+  var list = [], count = 0, next = -1, i, x;
+  for (i = 0; i < ST.length; i++) {
+    x = statusOf(ST[i]); x.s = ST[i]; x.i = i; list.push(x);
+    if (x.done) count++; else if (next < 0) next = i;
+  }
+  return { list: list, count: count, next: next };
+}
+function curName() {
+  if (typeof st.name === 'string') return st.name;
+  var d = readJSON('moon-detective-v1');
+  return isObj(d) && typeof d.name === 'string' ? d.name.slice(0, 12) : '';
+}
+/* ================= 地圖（自己畫的 SVG） ================= */
+var ORDER = ['s1', 's2', 's3', 'q1', 's4', 's5', 's6', 'q2', 'hq'];
+var LAY = {
+  land: { w: 1000, h: 560, p: { s1: [95, 420], s2: [255, 330], s3: [120, 190], q1: [395, 120], s4: [590, 210], s5: [450, 420], s6: [735, 420], q2: [835, 300], hq: [910, 90] } },
+  port: { w: 400, h: 1100, p: { s1: [100, 125], s2: [300, 215], s3: [105, 330], q1: [295, 450], s4: [100, 560], s5: [300, 670], s6: [105, 790], q2: [295, 890], hq: [150, 980] } }
+};
+var STARS_L = [[30, 70], [150, 50], [210, 120], [60, 160], [300, 200], [40, 280], [180, 250], [310, 300], [250, 30], [90, 110], [320, 150]];
+var STARS_P = [[30, 60], [120, 40], [220, 90], [370, 150], [40, 220], [200, 160], [360, 280], [20, 330], [250, 300], [180, 40], [380, 30]];
+function defs() {
+  return '<defs><linearGradient id="qNight" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#151a46"/><stop offset="1" stop-color="#3b3f8f"/></linearGradient>' +
+    '<linearGradient id="qWater" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fdcf5"/><stop offset="1" stop-color="#3a9fd0"/></linearGradient>' +
+    '<radialGradient id="qGlow"><stop offset="0" stop-color="#fff6c8" stop-opacity=".9"/><stop offset="1" stop-color="#fff6c8" stop-opacity="0"/></radialGradient></defs>';
+}
+function star(x, y, r) { return '<path d="M' + x + ' ' + (y - r) + ' L' + (x + r * 0.3) + ' ' + (y - r * 0.3) + ' L' + (x + r) + ' ' + y + ' L' + (x + r * 0.3) + ' ' + (y + r * 0.3) + ' L' + x + ' ' + (y + r) + ' L' + (x - r * 0.3) + ' ' + (y + r * 0.3) + ' L' + (x - r) + ' ' + y + ' L' + (x - r * 0.3) + ' ' + (y - r * 0.3) + 'Z" fill="#fff7c2"/>'; }
+function moon(x, y, r) {
+  return '<circle cx="' + x + '" cy="' + y + '" r="' + (r * 2.2) + '" fill="url(#qGlow)"/><circle cx="' + x + '" cy="' + y + '" r="' + r + '" fill="#fff3c4"/>' +
+    '<circle cx="' + (x - r * 0.35) + '" cy="' + (y - r * 0.2) + '" r="' + (r * 0.18) + '" fill="#efdc9a"/><circle cx="' + (x + r * 0.3) + '" cy="' + (y + r * 0.35) + '" r="' + (r * 0.24) + '" fill="#efdc9a"/><circle cx="' + (x + r * 0.35) + '" cy="' + (y - r * 0.4) + '" r="' + (r * 0.12) + '" fill="#efdc9a"/>';
+}
+function tree(x, y, s) { return '<rect x="' + (x - 4 * s) + '" y="' + y + '" width="' + (8 * s) + '" height="' + (18 * s) + '" rx="3" fill="#8b5a2b"/><circle cx="' + x + '" cy="' + (y - 6 * s) + '" r="' + (18 * s) + '" fill="#4caf50"/><circle cx="' + (x - 9 * s) + '" cy="' + (y + 2 * s) + '" r="' + (11 * s) + '" fill="#43a047"/><circle cx="' + (x + 10 * s) + '" cy="' + (y + 1 * s) + '" r="' + (12 * s) + '" fill="#5cbf60"/>'; }
+function pad(x, y, r) { return '<path d="M' + (x - r) + ' ' + y + ' A' + r + ' ' + (r * 0.45) + ' 0 1 0 ' + (x + r) + ' ' + y + ' A' + r + ' ' + (r * 0.45) + ' 0 0 0 ' + (x + 4) + ' ' + (y - r * 0.4) + ' L' + x + ' ' + y + ' L' + (x - 4) + ' ' + (y - r * 0.42) + ' A' + r + ' ' + (r * 0.45) + ' 0 0 0 ' + (x - r) + ' ' + y + 'Z" fill="#5fae4a"/>'; }
+function reed(x, y) { return '<path d="M' + x + ' ' + y + ' Q' + (x - 4) + ' ' + (y - 30) + ' ' + (x - 10) + ' ' + (y - 58) + ' M' + (x + 6) + ' ' + y + ' Q' + (x + 8) + ' ' + (y - 34) + ' ' + (x + 16) + ' ' + (y - 60) + '" stroke="#4f8a3a" stroke-width="4" fill="none" stroke-linecap="round"/><rect x="' + (x - 3) + '" y="' + (y - 50) + '" width="7" height="20" rx="3.5" fill="#8b5a2b"/>'; }
+function fish(x, y, c) { return '<path d="M' + x + ' ' + y + ' q12 -9 24 0 q-12 9 -24 0z M' + (x + 23) + ' ' + y + ' l8 -6 v12z" fill="' + c + '"/><circle cx="' + (x + 6) + '" cy="' + (y - 1) + '" r="1.6" fill="#123"/>'; }
+function gate(x, y) { return '<path d="M' + (x - 58) + ' ' + (y + 62) + ' V' + (y - 4) + ' A58 58 0 0 1 ' + (x + 58) + ' ' + (y - 4) + ' V' + (y + 62) + '" stroke="#8b5a2b" stroke-width="10" fill="none" stroke-linecap="round"/><path d="M' + (x - 58) + ' ' + (y - 4) + ' A58 58 0 0 1 ' + (x + 58) + ' ' + (y - 4) + '" stroke="#ffd166" stroke-width="3" stroke-dasharray="4 8" fill="none"/>'; }
+function flag(x, y, c) { return '<path d="M' + x + ' ' + y + ' V' + (y - 46) + '" stroke="#6b4a2b" stroke-width="4"/><path d="M' + x + ' ' + (y - 46) + ' l26 8 l-26 9z" fill="' + c + '"/>'; }
+function scene(m) {
+  var h = defs(), i, P = STARS_P;
+  if (m === 'land') {
+    h += '<rect width="1000" height="560" fill="#bfe8c6"/><rect width="1000" height="150" fill="#d6f1ff"/><path d="M330 150 Q520 90 700 150 Q850 110 1000 140 V170 H330Z" fill="#a9dcb4"/>';
+    h += '<path d="M0 0 H360 C330 160 300 300 340 560 H0 Z" fill="url(#qNight)"/>';
+    for (i = 0; i < STARS_L.length; i++) h += star(STARS_L[i][0], STARS_L[i][1], i % 3 === 0 ? 7 : 4.5);
+    h += moon(285, 95, 30) + '<path d="M0 560 Q100 470 210 500 Q300 525 345 560 Z" fill="#262b63"/>';
+    h += '<ellipse cx="600" cy="425" rx="255" ry="118" fill="#7cc95e"/><ellipse cx="600" cy="428" rx="236" ry="104" fill="url(#qWater)"/><ellipse cx="600" cy="428" rx="190" ry="76" fill="none" stroke="#c9f0ff" stroke-width="3" opacity=".6"/>';
+    h += pad(540, 470, 26) + pad(660, 372, 22) + pad(800, 455, 20) + fish(560, 360, '#ff9f1c') + fish(650, 480, '#ff6b9a') + reed(380, 430) + reed(830, 380) + reed(395, 470);
+    h += tree(470, 120, 1) + tree(720, 110, 0.9) + tree(980, 330, 1) + tree(960, 520, 0.8) + '<path d="M820 170 Q910 40 1000 120 V170Z" fill="#9fd8a8"/>' + flag(960, 140, '#ff6b9a') + flag(860, 160, '#ffb703');
+    h += '<text x="18" y="36" font-size="22" font-weight="900" fill="#fff">' + UNITS[0] + '</text><text x="480" y="40" font-size="22" font-weight="900" fill="#1f5f4a">' + UNITS[1] + '</text>';
+  } else {
+    h += '<rect width="400" height="1100" fill="#bfe8c6"/>';
+    h += '<path d="M0 0 H400 V370 Q200 440 0 395 Z" fill="url(#qNight)"/>';
+    for (i = 0; i < P.length; i++) h += star(P[i][0], P[i][1], i % 3 === 0 ? 6 : 4);
+    h += moon(335, 95, 26) + '<path d="M0 395 Q90 330 200 380 Q240 400 260 418 Q120 430 0 395Z" fill="#262b63"/>';
+    h += '<ellipse cx="200" cy="730" rx="200" ry="165" fill="#7cc95e"/><ellipse cx="200" cy="732" rx="184" ry="150" fill="url(#qWater)"/><ellipse cx="200" cy="732" rx="140" ry="108" fill="none" stroke="#c9f0ff" stroke-width="3" opacity=".6"/>';
+    h += pad(210, 600, 20) + pad(250, 790, 18) + pad(80, 700, 16) + fish(160, 700, '#ff9f1c') + fish(220, 850, '#ff6b9a') + reed(20, 640) + reed(372, 760);
+    h += tree(360, 530, 0.8) + tree(40, 900, 0.8) + tree(370, 1000, 0.9) + '<path d="M0 1100 Q100 940 300 1010 Q360 1030 400 1100Z" fill="#9fd8a8"/>' + flag(240, 1050, '#ff6b9a') + flag(60, 1060, '#ffb703');
+    h += '<text x="14" y="34" font-size="19" font-weight="900" fill="#fff">' + UNITS[0] + '</text><text x="178" y="612" font-size="19" font-weight="900" fill="#1f5f4a">' + UNITS[1] + '</text>';
+  }
+  return h;
+}
+function seg(a, b, c, d) { // Catmull-Rom → Bezier
+  var c1x = b[0] + (c[0] - a[0]) / 6, c1y = b[1] + (c[1] - a[1]) / 6, c2x = c[0] - (d[0] - b[0]) / 6, c2y = c[1] - (d[1] - b[1]) / 6;
+  return 'M' + b[0] + ' ' + b[1] + ' C' + c1x.toFixed(1) + ' ' + c1y.toFixed(1) + ' ' + c2x.toFixed(1) + ' ' + c2y.toFixed(1) + ' ' + c[0] + ' ' + c[1];
+}
+function pathSVG(L, r) {
+  var pts = [], i, base = '', lit = '', d, n;
+  for (i = 0; i < ORDER.length; i++) pts.push(L.p[ORDER[i]]);
+  n = pts.length;
+  for (i = 0; i < n - 1; i++) {
+    d = seg(pts[Math.max(0, i - 1)], pts[i], pts[i + 1], pts[Math.min(n - 1, i + 2)]);
+    base += '<path d="' + d + '" stroke="#fff8e7" stroke-width="16" fill="none" stroke-linecap="round"/><path d="' + d + '" stroke="#b08968" stroke-width="4" stroke-dasharray="2 12" fill="none" stroke-linecap="round"/>';
+    if (r.list[i] && r.list[i].done) lit += '<path class="lit" d="' + d + '" stroke="#ffd166" stroke-width="12" fill="none" stroke-linecap="round"/><path d="' + d + '" stroke="#fff" stroke-width="3" stroke-dasharray="2 12" fill="none" stroke-linecap="round"/>';
+  }
+  return base + lit;
+}
+function stnHTML(x, L, isNext) {
+  var s = x.s, p = L.p[s.id], cls = 'stn' + (x.done ? ' done' : (x.part ? ' part' : '')) + (s.quiz ? ' quiz' : ''),
+    pos = 'left:' + (p[0] / L.w * 100).toFixed(2) + '%;top:' + (p[1] / L.h * 100).toFixed(2) + '%',
+    stt = x.done ? '點亮了！' : (x.pg || '還沒去'),
+    inner = (isNext ? '<span class="pin">下一站</span>' : '') + '<span class="c">' + s.ico + '<span class="no">' + (x.i + 1) + '</span>' + (x.done ? '<span class="ck">✓</span>' : '') + '</span>' +
+      '<span class="lb">' + esc(s.name) + (s.sub ? '<br>' + esc(s.sub) : '') + '<span class="pg">' + esc(stt) + '</span></span>',
+    al = ' aria-label="第 ' + (x.i + 1) + ' 站 ' + esc(s.name + (s.sub ? ' ' + s.sub : '')) + '：' + esc(stt) + '"';
+  if (s.quiz) return '<button type="button" class="' + cls + '" data-quiz="' + s.quiz + '" data-id="' + s.id + '" style="' + pos + '"' + al + '>' + inner + '</button>';
+  return '<a class="' + cls + '" href="' + s.href + '" data-id="' + s.id + '" style="' + pos + '"' + al + '>' + inner + '</a>';
+}
+function renderMap(r) {
+  var wrap = $('map'), main = wrap.parentNode, avail = main.clientWidth - 24, m = avail < 600 ? 'port' : 'land', L = LAY[m], h, i, p = L.p.hq;
+  wrap.setAttribute('data-mode', m);
+  wrap.style.maxWidth = m === 'land' ? Math.max(600, Math.round((window.innerHeight - 70) * L.w / L.h)) + 'px' : '';
+  wrap.style.paddingTop = (L.h / L.w * 100).toFixed(3) + '%';
+  h = '<svg class="bg" viewBox="0 0 ' + L.w + ' ' + L.h + '" preserveAspectRatio="none" aria-hidden="true">' + scene(m) + pathSVG(L, r) + '</svg>';
+  for (i = 0; i < r.list.length; i++) h += stnHTML(r.list[i], L, i === r.next);
+  h += '<a class="stn hq' + (r.count === TOTAL ? ' done' : '') + '" href="#certSec" data-id="hq" style="left:' + (p[0] / L.w * 100).toFixed(2) + '%;top:' + (p[1] / L.h * 100).toFixed(2) + '%" aria-label="偵探總部：證書">' +
+    '<span class="c">🏅' + (r.count === TOTAL ? '<span class="ck">✓</span>' : '') + '</span><span class="lb">偵探總部<span class="pg">' + (r.count === TOTAL ? '拿證書！' : r.count + '/' + TOTAL + ' 張卡') + '</span></span></a>';
+  wrap.innerHTML = h;
+}
+/* ================= 偵探卡、證書、進度 ================= */
+function emblem(s, on) {
+  var c = on ? (s.u ? '#2a9d8f' : '#3a3f8f') : '#c9c5dc', inn = on ? '#fff8e1' : '#eceaf6';
+  return '<svg viewBox="0 0 84 92" aria-hidden="true"><path d="M42 3 L77 15 V44 C77 67 61 81 42 89 C23 81 7 67 7 44 V15 Z" fill="' + c + '"/>' +
+    '<path d="M42 11 L69 20 V44 C69 61 57 72 42 80 C27 72 15 61 15 44 V20 Z" fill="' + inn + '"/>' +
+    (on ? '<path d="M14 64 L4 80 L16 78 L22 88 L30 72 Z M70 64 L80 80 L68 78 L62 88 L54 72 Z" fill="#ffb703"/>' + star(42, 19, 5) : '') +
+    '<text x="42" y="58" text-anchor="middle" font-size="30">' + (on ? s.ico : '🔒') + '</text></svg>';
+}
+function goBtn(s, label) {
+  if (s.quiz) return '<button class="btn small sun go" type="button" data-quiz="' + s.quiz + '">' + label + '</button>';
+  return '<a class="btn small" href="' + s.href + '">' + label + '</a>';
+}
+function renderCards(r) {
+  var h = '', u, i, x;
+  for (u = 0; u < UNITS.length; u++) {
+    h += '<h3 class="unit">' + UNITS[u] + '</h3><div class="cards">';
+    for (i = 0; i < r.list.length; i++) {
+      x = r.list[i]; if (x.s.u !== u) continue;
+      if (x.done) h += '<div class="dc" data-id="' + x.s.id + '">' + emblem(x.s, true) + '<b>' + esc(x.s.card) + '</b><span class="st">✓ 點亮了</span><p>' + esc(x.s.fact) + '</p></div>';
+      else h += '<div class="dc lock' + (x.part ? ' part' : '') + '" data-id="' + x.s.id + '">' + emblem(x.s, false) + '<b>' + esc(x.s.card) + '</b><span class="st">' + esc(x.part ? x.detail : '還沒去') + '</span><p>🔑 ' + esc(x.s.how) + '，就能拿到這張卡。</p>' + goBtn(x.s, (x.s.quiz ? '開始測驗' : '出發') + ' ➜') + '</div>';
+    }
+    h += '</div>';
+  }
+  $('cards').innerHTML = h;
+  $('cardCnt').textContent = r.count + '/' + TOTAL;
+}
+function rocDate(t) { var d = new Date(t); return '中華民國 ' + (d.getFullYear() - 1911) + ' 年 ' + (d.getMonth() + 1) + ' 月 ' + d.getDate() + ' 日'; }
+function medal() {
+  return '<svg class="medal" viewBox="0 0 120 140" aria-hidden="true"><path d="M30 0 H54 L66 52 H42 Z" fill="#4d96ff"/><path d="M90 0 H66 L54 52 H78 Z" fill="#ff6b9a"/>' +
+    '<circle cx="60" cy="88" r="46" fill="#ffb703"/><circle cx="60" cy="88" r="37" fill="#ffd166" stroke="#fff3c4" stroke-width="3"/>' +
+    '<circle cx="54" cy="82" r="15" fill="#fff8e1" stroke="#7a4b00" stroke-width="5"/><path d="M65 93 L80 108" stroke="#7a4b00" stroke-width="7" stroke-linecap="round"/>' +
+    star(30, 64, 6) + star(92, 70, 5) + '</svg>';
+}
+function renderCert(r) {
+  var nm = curName(), left = TOTAL - r.count;
+  if (r.count === TOTAL) {
+    $('cert').innerHTML = '<div class="cert">' + medal() + '<h3>自然小偵探</h3><p>茲證明</p><div class="who" id="certName">' + (nm ? esc(nm) : '＿＿＿＿') + '</div>' +
+      '<p>走完翰林版自然 4上「閃亮的天空」和「水域環境」偵探闖關地圖，<br>集滿 ' + TOTAL + ' 張偵探卡，特頒此證，以資鼓勵！</p><p class="date">' + rocDate(st.cert || Date.now()) + '</p>' +
+      (nm ? '' : '<p class="small">在最上面的「偵探名字」寫上名字，證書就會出現你的名字。</p>') + '</div>';
+  } else {
+    $('cert').innerHTML = '<div class="cert lock">' + medal() + '<h3>自然小偵探</h3><p>集滿 ' + TOTAL + ' 張偵探卡，這裡就會出現你的證書！<br><b>還差 ' + left + ' 張</b>，加油！</p></div>';
+  }
+}
+function renderHero(r) {
+  var nm = curName(), left = TOTAL - r.count, nx = r.next >= 0 ? r.list[r.next] : null, h;
+  $('hello').textContent = '🕵️ ' + (nm ? nm + ' 偵探' : '自然小偵探') + (r.count === TOTAL ? '，全部破案！' : (r.count ? '，繼續闖關！' : '，出發！'));
+  $('pfill').style.width = Math.round(r.count / TOTAL * 100) + '%';
+  $('pbar').setAttribute('aria-valuenow', r.count);
+  $('ptext').textContent = left === 0 ? '🎉 偵探卡全部集滿了！' : '已點亮 ' + r.count + '/' + TOTAL + ' 關，再過 ' + left + ' 關就集滿偵探卡！';
+  $('score').textContent = '🕵️ ' + r.count + '/' + TOTAL;
+  if (nx) {
+    h = '<div class="k">👉 建議下一站</div><div class="nm">' + nx.s.ico + ' 第 ' + (nx.i + 1) + ' 站：' + esc(nx.s.name + (nx.s.sub ? ' ' + nx.s.sub : '')) + '</div>' +
+      '<div class="small">' + esc(nx.part ? '已經開始了：' + nx.detail + '。' : '') + '過關方法：' + esc(nx.s.how) + '</div><div class="btns">' + goBtn(nx.s, (nx.s.quiz ? '開始測驗' : '出發') + ' ➜') + '</div>';
+  } else {
+    h = '<div class="k">🏅 全部完成！</div><div class="nm">你是自然小偵探了！</div><div class="btns"><a class="btn sun" href="#certSec">看我的證書 ➜</a></div>';
+  }
+  $('nextbox').innerHTML = h;
+  var inp = $('nameIn'); if (document.activeElement !== inp) inp.value = nm;
+}
+var R = null;
+function render() {
+  R = compute();
+  renderHero(R); renderMap(R); renderCards(R); renderCert(R);
+}
+
+/* ================= 音效、彩帶 ================= */
+var actx = null, acted = false;
+['pointerdown', 'touchstart', 'keydown', 'click'].forEach(function (ev) { document.addEventListener(ev, function () { acted = true; }, true); });
+function beep(kind) {
+  if (st.mute || !acted) return; // 瀏覽器要求：使用者先點過畫面才出聲
+  try {
+    if (!actx) { var AC = window.AudioContext || window.webkitAudioContext; if (!AC) return; actx = new AC(); }
+    var notes = kind === 'win' ? [523, 659, 784, 1047] : (kind ? [660, 880] : [300, 240]), i;
+    for (i = 0; i < notes.length; i++) {
+      var o = actx.createOscillator(), g = actx.createGain(), t0 = actx.currentTime + i * (kind === 'win' ? 0.14 : 0.11), len = kind === 'win' ? 0.3 : 0.2;
+      o.type = kind ? 'triangle' : 'sine'; o.frequency.value = notes[i];
+      g.gain.setValueAtTime(0.0001, t0); g.gain.exponentialRampToValueAtTime(0.18, t0 + 0.015); g.gain.exponentialRampToValueAtTime(0.0001, t0 + len);
+      o.connect(g); g.connect(actx.destination); o.start(t0); o.stop(t0 + len + 0.02);
+    }
+  } catch (e) {}
+}
+function confetti(box) {
+  var em = ['⭐', '🌙', '🐟', '✨', '🕵️', '🪷', '🏅'], i;
+  for (i = 0; i < 26; i++) {
+    var c = document.createElement('span'); c.className = 'conf';
+    c.textContent = em[i % em.length];
+    c.style.left = (Math.random() * 96) + '%';
+    c.style.animationDuration = (2 + Math.random() * 2.5) + 's';
+    c.style.animationDelay = (Math.random() * 0.8) + 's';
+    box.appendChild(c);
+    (function (c) { setTimeout(function () { if (c.parentNode) c.parentNode.removeChild(c); }, 5600); })(c);
+  }
+}
+function updSnd() { $('snd').textContent = st.mute ? '🔇' : '🔊'; $('snd').setAttribute('aria-pressed', st.mute ? 'false' : 'true'); }
+/* ================= 小測驗（自編題庫，每次抽 3 題） ================= */
+var QB = {
+  1: [
+    { q: '農曆十五左右，晚上看到的月亮是什麼樣子？', o: ['滿月', '上弦月', '下弦月', '眉月'], a: 0, ex: '農曆十五前後月亮最圓，是滿月。' },
+    { q: '在臺灣看，上弦月是哪一邊亮？', o: ['右半邊亮', '左半邊亮', '整個都亮', '整個都暗'], a: 0, ex: '上弦月在上半月（大約農曆初七、初八），右半邊亮。' },
+    { q: '月相大約多少天會變化一輪？', o: ['大約 7 天', '大約 15 天', '大約 29～30 天', '大約 365 天'], a: 2, ex: '月相大約 29～30 天變化一輪，所以農曆一個月有 29 天或 30 天。' },
+    { q: '月亮每天升起的時間，大約會怎麼變？', o: ['每天晚大約 50 分鐘', '每天早大約 50 分鐘', '每天都一樣', '每天晚大約 5 小時'], a: 0, ex: '月亮每天大約晚 50 分鐘升起。' },
+    { q: '月亮為什麼看起來亮亮的？', o: ['月亮自己會發光', '月亮反射太陽的光', '月亮反射路燈的光', '因為月亮很熱'], a: 1, ex: '月亮自己不會發光，我們看到的亮光是月亮反射的太陽光。' },
+    { q: '月亮在天空中移動的方向是？', o: ['東升西落', '西升東落', '南升北落', '一直停在同一個地方'], a: 0, ex: '月亮和太陽一樣，從東方升起、西方落下。' }
+  ],
+  2: [
+    { q: '紅娘華在水裡怎麼呼吸？', o: ['把尾巴的呼吸管伸出水面', '用鰓', '只用皮膚', '不用呼吸'], a: 0, ex: '紅娘華是昆蟲，尾巴有呼吸管，把尖端伸出水面就能吸到空氣。' },
+    { q: '布袋蓮為什麼可以浮在水面上？', o: ['葉柄膨大，裡面有空氣', '根很長，抓住水底的泥土', '葉子又厚又重', '被魚頂著'], a: 0, ex: '布袋蓮的葉柄膨大，裡面有很多空氣，像游泳圈一樣，所以能漂浮。' },
+    { q: '魚是用身體的哪個部位呼吸？', o: ['鰓', '肺', '鰭', '尾巴'], a: 0, ex: '魚用鰓呼吸，水流過鰓，鰓就能吸收水裡的氧氣。' },
+    { q: '金魚藻整株都長在水面下，它是哪一類水生植物？', o: ['挺水植物', '浮葉植物', '漂浮植物', '沉水植物'], a: 3, ex: '金魚藻整株都在水面下，是沉水植物。' },
+    { q: '水黽為什麼可以站在水面上不沉下去？', o: ['腳上有細毛', '牠會用鰓呼吸', '牠的身體很重', '牠一直在游泳'], a: 0, ex: '水黽的腳又細又長，腳上有細毛，可以站在水面上。' },
+    { q: '荷花的葉子和花高高地挺出水面，它是哪一類水生植物？', o: ['沉水植物', '挺水植物', '漂浮植物', '浮葉植物'], a: 1, ex: '荷花的根長在水底泥土裡，葉子和花挺出水面，是挺水植物。' }
+  ]
+};
+var Q = null;
+function stnByQuiz(n) { var i; for (i = 0; i < ST.length; i++) if (ST[i].quiz === n) return ST[i]; return null; }
+function openQuiz(n) {
+  Q = { n: n, list: [], i: 0, score: 0, res: [], answered: false };
+  var pool = shuffle(QB[n]).slice(0, 3), i, k, x, o;
+  for (i = 0; i < pool.length; i++) {
+    x = pool[i]; o = [];
+    for (k = 0; k < x.o.length; k++) o.push({ t: x.o[k], ok: k === x.a });
+    Q.list.push({ q: x.q, o: shuffle(o), ex: x.ex });
+  }
+  $('qz').className = 'overlay show';
+  renderQ();
+}
+function qHead() {
+  var s = stnByQuiz(Q.n), d = '', i;
+  for (i = 0; i < 3; i++) d += '<i class="' + (i < Q.res.length ? (Q.res[i] ? 'ok' : 'no') : (i === Q.i ? 'cur' : '')) + '"></i>';
+  return '<button class="btn white small" type="button" id="qClose" style="position:absolute;right:10px;top:10px" aria-label="關閉">✕</button>' +
+    '<h2 id="qzTitle">' + (Q.n === 1 ? '🌙' : '💧') + ' ' + s.name + '</h2><div class="dots">' + d + '</div>';
+}
+function renderQ() {
+  var it = Q.list[Q.i], h = qHead() + '<div class="qq">第 ' + (Q.i + 1) + ' 題：' + esc(it.q) + '</div><div class="opts">', k;
+  for (k = 0; k < it.o.length; k++) h += '<button class="opt" type="button" data-k="' + k + '">' + esc(it.o[k].t) + '</button>';
+  h += '</div><div id="qfb" aria-live="polite"></div>';
+  $('qzBox').innerHTML = h; $('qzBox').scrollTop = 0;
+}
+function answer(k) {
+  if (!Q || Q.answered) return;
+  Q.answered = true;
+  var it = Q.list[Q.i], ok = it.o[k].ok, btns = $('qzBox').querySelectorAll('.opt'), i, right = '';
+  for (i = 0; i < btns.length; i++) {
+    btns[i].disabled = true;
+    if (it.o[i].ok) { btns[i].className = 'opt right'; right = it.o[i].t; }
+    else if (i === k) btns[i].className = 'opt wrong';
+  }
+  Q.res.push(ok); if (ok) Q.score++;
+  beep(ok);
+  var last = Q.i === Q.list.length - 1;
+  $('qfb').innerHTML = '<div class="fb ' + (ok ? 'ok' : 'no') + '">' + (ok ? '✅ 答對了！' : '❌ 不對喔，答案是「' + esc(right) + '」。') + esc(it.ex) + '</div>' +
+    '<div class="btns" style="justify-content:center"><button class="btn" type="button" id="qNext">' + (last ? '看結果' : '下一題 ➜') + '</button></div>';
+  var dots = $('qzBox').querySelectorAll('.dots i'); dots[Q.i].className = ok ? 'ok' : 'no';
+  try { $('qNext').focus({ preventScroll: true }); } catch (e) {}
+}
+function qResult() {
+  var key = 'q' + Q.n, rec = st.quiz[key] || { pass: false, best: 0, tries: 0 }, pass = Q.score >= 2, first = pass && !rec.pass, s = stnByQuiz(Q.n), i, stars = '';
+  rec.tries++; if (Q.score > rec.best) rec.best = Q.score; if (pass) rec.pass = true;
+  st.quiz[key] = rec;
+  if (pass && st.seen.indexOf(s.id) < 0) st.seen.push(s.id);
+  save();
+  for (i = 0; i < 3; i++) stars += i < Q.score ? '⭐' : '☆';
+  $('qzBox').innerHTML = qHead() + '<div class="center"><div class="bigst">' + stars + '</div><p class="lead">答對 <b>' + Q.score + '</b> 題（共 3 題）</p>' +
+    (pass ? (first ? '<p class="lead">🎉 通過關卡！拿到「<b>' + esc(s.card) + '</b>」！</p>' + emblem(s, true).replace('<svg ', '<svg style="width:96px;height:105px" ') : '<p class="lead">👍 通過關卡！你已經有這張偵探卡了。</p>')
+      : '<p class="lead">差一點點！答對 2 題就能通過，再挑戰一次吧！</p>') +
+    '<div class="btns" style="justify-content:center"><button class="btn sun" type="button" id="qAgain">🔁 再挑戰（換新題目）</button><button class="btn white" type="button" id="qDone">回地圖</button></div></div>';
+  beep(pass ? 'win' : false);
+  if (first) confetti($('qz'));
+  render();
+  var all = R.count === TOTAL;
+  if (all && !st.cert) { st.cert = Date.now(); save(); renderCert(R); Q.allNow = true; }
+}
+function closeQuiz() {
+  var all = Q && Q.allNow;
+  $('qz').className = 'overlay'; Q = null;
+  render();
+  if (all) showWin([], true);
+}
+$('qzBox').addEventListener('click', function (e) {
+  var b = up(e.target, function (el) { return el.tagName === 'BUTTON'; });
+  if (!b || !Q) return;
+  if (b.id === 'qClose' || b.id === 'qDone') { closeQuiz(); return; }
+  if (b.id === 'qAgain') { var n = Q.n, all = Q.allNow; openQuiz(n); Q.allNow = all; return; }
+  if (b.id === 'qNext') { if (Q.i < Q.list.length - 1) { Q.i++; Q.answered = false; renderQ(); } else qResult(); return; }
+  if (hasCls(b, 'opt')) answer(+b.getAttribute('data-k'));
+});
+
+/* ================= 新的偵探卡、全部集滿 ================= */
+function showWin(nw, all) {
+  var h = '<div><span class="jump">🕵️</span><span class="jump d2">🌙</span><span class="jump d3">🐟</span></div>', i, left = TOTAL - R.count;
+  h += '<h2 id="winTitle">' + (all ? '🏅 全部破案！' : '🎉 新的偵探卡！') + '</h2>';
+  if (nw.length) { h += '<div class="newcards">'; for (i = 0; i < nw.length; i++) h += '<span>' + nw[i].ico + ' ' + esc(nw[i].card) + '</span>'; h += '</div>'; }
+  h += '<p class="lead">' + (all ? '你集滿 ' + TOTAL + ' 張偵探卡，成為「自然小偵探」了！證書在下面，記得寫上名字。' : '已經點亮 ' + R.count + '/' + TOTAL + ' 關，再過 ' + left + ' 關就集滿！') + '</p>';
+  h += '<div class="btns" style="justify-content:center">' + (all ? '<button class="btn sun" type="button" id="wCert">🏅 看證書</button>' : '<button class="btn sun" type="button" id="wCards">🃏 看偵探卡</button>') + '<button class="btn white" type="button" id="wOk">繼續闖關</button></div>';
+  $('winBox').innerHTML = h;
+  $('win').className = 'overlay show';
+  confetti($('win')); beep('win');
+}
+$('winBox').addEventListener('click', function (e) {
+  var b = up(e.target, function (el) { return el.tagName === 'BUTTON'; });
+  if (!b) return;
+  $('win').className = 'overlay';
+  if (b.id === 'wCert') $('certSec').scrollIntoView();
+  if (b.id === 'wCards') $('cards').scrollIntoView();
+});
+function checkNew() {
+  var r = compute(), nw = [], i, x, keep = [];
+  for (i = 0; i < st.seen.length; i++) if (r.list.some(function (y) { return y.s.id === st.seen[i] && y.done; })) keep.push(st.seen[i]);
+  var changed = keep.length !== st.seen.length; st.seen = keep;
+  for (i = 0; i < r.list.length; i++) { x = r.list[i]; if (x.done && st.seen.indexOf(x.s.id) < 0) { nw.push(x.s); st.seen.push(x.s.id); } }
+  var all = r.count === TOTAL, firstAll = all && !st.cert;
+  if (!all && st.cert) { st.cert = null; changed = true; }
+  if (firstAll) st.cert = Date.now();
+  if (nw.length || firstAll || changed) save();
+  render();
+  if ((nw.length || firstAll) && !Q) showWin(nw, firstAll);
+  else if (firstAll && Q) Q.allNow = true;
+}
+
+/* ================= 事件 ================= */
+document.addEventListener('click', function (e) {
+  var b = up(e.target, function (el) { return el.getAttribute && el.getAttribute('data-quiz'); });
+  if (b) { e.preventDefault(); openQuiz(+b.getAttribute('data-quiz')); }
+});
+$('snd').addEventListener('click', function () { st.mute = !st.mute; save(); updSnd(); if (!st.mute) beep(true); });
+$('nameIn').addEventListener('input', function () { st.name = this.value.slice(0, 12); save(); R = compute(); renderHero(R); renderCert(R); });
+$('resetBtn').addEventListener('click', function () {
+  if (!window.confirm('要清除這一頁的小測驗、名字和偵探卡提示紀錄嗎？（各活動自己的星星和印章不會被清除）')) return;
+  st = { quiz: {}, name: null, seen: [], mute: st.mute, cert: null };
+  var r = compute(), i; for (i = 0; i < r.list.length; i++) if (r.list[i].done) st.seen.push(r.list[i].s.id); // 重設後不再跳出「新卡片」
+  save(); render();
+});
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape' || e.keyCode === 27) { if (Q) closeQuiz(); else $('win').className = 'overlay'; }
+});
+var rzT = null;
+window.addEventListener('resize', function () { clearTimeout(rzT); rzT = setTimeout(function () { if (R) renderMap(R); }, 150); });
+function refresh() { if (document.visibilityState === 'hidden') return; checkNew(); }
+window.addEventListener('pageshow', function (e) { if (e.persisted) refresh(); });
+document.addEventListener('visibilitychange', refresh);
+window.addEventListener('storage', function (e) { if (e.key === KEY) st = load(); refresh(); });
+
+/* 測試用 */
+window.QuestData = {
+  status: function () { var r = compute(); return { count: r.count, next: r.next >= 0 ? r.list[r.next].s.id : null, list: r.list.map(function (x) { return { id: x.s.id, done: x.done, part: x.part, pg: x.pg }; }) }; },
+  state: function () { return JSON.parse(JSON.stringify(st)); },
+  quiz: function () { if (!Q) return null; var it = Q.list[Q.i], k; for (k = 0; k < it.o.length; k++) if (it.o[k].ok) return { n: Q.n, i: Q.i, ans: k, answered: Q.answered }; return null; }
+};
+
+updSnd();
+checkNew();
+})();
+</script>
+</body>
+</html>

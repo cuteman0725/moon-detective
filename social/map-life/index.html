@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2a9d8f">
+<title>地圖生活家 🧳｜社會 4上 善用地圖好生活</title>
+<style>:root{--ink:#2b2d42;--teal:#2a9d8f;--sun:#ffb703;--pink:#ff6b9a;--blue:#4d96ff;--purple:#9b5de5;--green:#57cc99;--radius:22px}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:#e9f7ef;overflow-x:hidden}
+html,body{margin:0;padding:0}
+body{font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",system-ui,sans-serif;color:var(--ink);min-height:100vh;
+  background:linear-gradient(180deg,#bde0fe 0,#e9f7ef 320px,#e9f7ef 100%);padding-bottom:calc(92px + env(safe-area-inset-bottom))}
+header{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;padding-top:calc(10px + env(safe-area-inset-top));background:rgba(42,157,143,.95);color:#fff;backdrop-filter:blur(6px)}
+header h1{font-size:clamp(17px,4.6vw,26px);margin:0;letter-spacing:1px;flex:1}
+.back{color:#fff;text-decoration:none;font-weight:800;background:rgba(255,255,255,.22);border-radius:999px;padding:8px 12px;font-size:15px;white-space:nowrap}
+.score{background:var(--sun);color:#5a3b00;font-weight:800;border-radius:999px;padding:6px 14px;font-size:18px;white-space:nowrap;box-shadow:0 3px 0 #c98a00}
+.score.pop{animation:pop .5s}@keyframes pop{40%{transform:scale(1.35)}}
+main{max-width:980px;margin:0 auto;padding:12px}
+section.page{display:none;animation:fadein .3s}section.page.active{display:block}
+@keyframes fadein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.card{background:#fff;border-radius:var(--radius);padding:16px;margin:12px 0;box-shadow:0 6px 0 rgba(0,0,0,.12)}
+.card h2{margin:0 0 8px;font-size:clamp(20px,5vw,26px)}.card h3{margin:6px 0;font-size:20px}
+.lead{font-size:18px;line-height:1.7;margin:6px 0}
+.small{font-size:15px;color:#666}
+.tip{background:#fff7d6;border-left:6px solid var(--sun);border-radius:12px;padding:10px 12px;font-size:17px;line-height:1.6;margin:10px 0}
+.tip.blue{background:#e6f0ff;border-color:var(--blue)}.tip.pink{background:#ffe6ef;border-color:var(--pink)}.tip.green{background:#e3f8ec;border-color:var(--teal)}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-start}.row>*{flex:1 1 300px}
+.btn{appearance:none;border:none;border-radius:16px;padding:12px 16px;min-height:52px;font-size:18px;font-weight:800;cursor:pointer;background:var(--blue);color:#fff;box-shadow:0 4px 0 rgba(0,0,0,.22);font-family:inherit;touch-action:manipulation}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.22)}
+.btn.sun{background:var(--sun);color:#5a3b00}.btn.pink{background:var(--pink)}.btn.teal{background:var(--teal)}.btn.purple{background:var(--purple)}.btn.gray{background:#8d99ae}.btn.white{background:#fff;color:var(--ink);border:3px solid #dfe3ff}
+.btn.small{min-height:46px;font-size:16px;padding:8px 12px}
+.btn.on{outline:4px solid var(--sun);outline-offset:1px}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+svg{display:block;max-width:100%;height:auto}
+.mapbox{background:#fff;border:4px solid #cfe8dc;border-radius:18px;overflow:hidden;touch-action:manipulation;user-select:none}
+#p-what .mapbox{max-width:620px;margin:0 auto}
+.hot{cursor:pointer}
+.hl{animation:glow 1s infinite alternate}
+@keyframes glow{from{stroke:#ff6b9a;stroke-width:4}to{stroke:#ffb703;stroke-width:8}}
+.explain{border-radius:18px;padding:14px;background:#f3f4ff;font-size:18px;line-height:1.7;min-height:120px}
+.explain .t{font-size:24px;font-weight:900;margin-bottom:4px}
+.checks{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.chk{border-radius:999px;padding:5px 12px;background:#eee;font-weight:800;color:#999}.chk.got{background:#d8f3dc;color:#1b5e20}
+.types{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.type{border-radius:18px;padding:12px;background:#f6f7ff;border:3px solid #e3e6ff;text-align:center;font-size:16px;line-height:1.55}
+.type b{display:block;font-size:20px;margin:4px 0}
+.type svg{width:120px;height:90px;margin:0 auto}
+.phone{max-width:430px;margin:0 auto;background:#222;border-radius:34px;padding:12px 10px 16px}
+.screen{background:#fff;border-radius:24px;overflow:hidden}
+.ebar{display:flex;gap:6px;padding:8px;background:#f1f3f4;flex-wrap:wrap;align-items:center}
+.ebar input{flex:1 1 0;min-width:0;min-height:44px;border-radius:999px;border:2px solid #ccc;padding:0 14px;font-size:17px;font-family:inherit}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:6px 8px;background:#f1f3f4}
+.chip{flex:0 0 auto;border:2px solid #ccc;background:#fff;border-radius:999px;padding:8px 12px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;min-height:42px}
+.etools{display:flex;justify-content:space-between;align-items:center;padding:8px;gap:6px;flex-wrap:wrap}
+.einfo{padding:8px 12px 12px;font-size:17px;line-height:1.6;min-height:64px}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}
+.opt{border:3px solid #dfe3ff;background:#f6f7ff;border-radius:16px;padding:12px;font-size:18px;font-weight:800;min-height:58px;cursor:pointer;font-family:inherit;color:var(--ink);touch-action:manipulation}
+.opt.right{background:#d8f3dc;border-color:#2ec4b6}.opt.no{background:#ffe0e6;border-color:#ff4d6d}
+.feedback{font-size:18px;line-height:1.6;margin-top:10px;border-radius:14px;padding:10px;display:none}
+.feedback.show{display:block}.feedback.good{background:#d8f3dc}.feedback.bad{background:#fff3cd}
+.qhead{display:flex;justify-content:space-between;align-items:center;font-weight:800;color:#666}
+.qtext{font-size:21px;font-weight:800;line-height:1.5;margin:8px 0}
+.subtabs{display:flex;gap:8px;flex-wrap:wrap}.subtabs .btn{flex:1 1 40%}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.bdg{background:#eee;border-radius:14px;padding:6px 10px;font-weight:800;color:#999;font-size:15px}.bdg.got{background:linear-gradient(135deg,#ffd166,#ff9f1c);color:#5a3b00}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;justify-content:space-around;background:#fff;padding:6px 4px;padding-bottom:calc(6px + env(safe-area-inset-bottom));box-shadow:0 -4px 16px rgba(0,0,0,.18)}
+nav.tabs button{flex:1;border:none;background:none;font-family:inherit;font-size:12px;font-weight:800;color:#666;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;border-radius:14px;cursor:pointer;min-height:60px;touch-action:manipulation}
+nav.tabs button span{font-size:26px;line-height:1}nav.tabs button.on{background:#c7f0e4;color:#14574f}
+@media (min-width:700px){nav.tabs button{font-size:15px}}
+.burst{position:fixed;z-index:99;pointer-events:none;font-size:30px;animation:fly 1.1s ease-out forwards}
+@keyframes fly{to{transform:translate(var(--dx),var(--dy)) rotate(360deg);opacity:0}}
+.big4{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:8px}
+.big4 div{border-radius:16px;padding:10px;text-align:center;font-weight:900;font-size:18px;color:#fff}
+.cty{cursor:pointer}
+.cty text{pointer-events:none}
+.lbl{font-size:12px;font-weight:800;fill:#333;paint-order:stroke;stroke:#fff;stroke-width:3px;stroke-linejoin:round}
+.ctybtns{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.ctybtns .chip{min-height:44px}
+.chip.on{background:#2a9d8f;color:#fff;border-color:#2a9d8f}
+.chip.sea{border-color:#4d96ff}.chip.inland{border-color:#9c6644}.chip.island{border-color:#9b5de5}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:8px 0}
+.fact{background:#f6f7ff;border-radius:14px;padding:10px;font-size:16px;line-height:1.55}
+.fact b{display:block;font-size:14px;color:#666}
+.src{font-size:13px;color:#777;line-height:1.5;margin-top:6px;word-break:break-all}
+.src a{color:#1c7ed6}
+.tag2{display:inline-block;border-radius:999px;padding:2px 10px;font-size:13px;font-weight:800;margin:2px 4px 2px 0}
+.tag2.book{background:#d8f3dc;color:#1b5e20}.tag2.more{background:#fff1c1;color:#7a5200}.tag2.other{background:#e8dcff;color:#4a2a8a}
+.stops{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:8px 0;font-size:17px;font-weight:800}
+.stop{background:#e6f0ff;border-radius:12px;padding:6px 10px}
+.ride{color:#666;font-size:15px}
+.chart{width:100%}
+.legendrow{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.qa{background:#fff7d6;border-radius:18px;padding:14px;font-size:18px;line-height:1.7}
+.reveal{display:none}.reveal.show{display:block;animation:fadein .3s}
+.mt{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mt .opt{font-size:16px;min-height:64px}
+.mt .opt.sel{outline:4px solid var(--sun)}
+.mt .opt.done{opacity:.55;background:#d8f3dc;border-color:#2ec4b6;cursor:default}
+table.rain{border-collapse:collapse;font-size:14px;width:100%}
+table.rain td,table.rain th{border:1px solid #ddd;padding:3px 4px;text-align:center}
+.scroll{overflow-x:auto}
+
+.pzwrap{display:flex;flex-direction:column;gap:10px}
+.pztray{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;min-height:92px}
+.pzp{touch-action:none;-webkit-user-select:none;user-select:none;background:#fff;border:3px solid #e0e6ee;border-radius:16px;padding:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:grab;min-height:84px;font-size:15px;font-weight:800;color:#333}
+.pzp svg{width:56px;height:52px;pointer-events:none}
+.pzp span{pointer-events:none}
+.pzp.sel{border-color:#ff9f1c;background:#fff4e0;box-shadow:0 0 0 3px #ffd166}
+.pzp.lift{opacity:.35}
+.pzp.shake{animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-6px)}50%{transform:translateX(6px)}75%{transform:translateX(-4px)}}
+.pzboard{margin:0 auto;width:100%;max-width:460px;touch-action:manipulation}
+.pzboard svg{display:block}
+.pzghost{position:fixed;left:0;top:0;pointer-events:none;z-index:50;filter:drop-shadow(0 4px 6px rgba(0,0,0,.35))}
+.pzslot{fill:#eef1f4;stroke:#a9b8c6;stroke-width:.8}
+.pzslot.hint{fill:#ffd166;animation:blink .5s 4 alternate}
+@keyframes blink{to{fill:#fff4e0}}
+.pzbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;margin-top:8px;font-weight:800}
+.pzcard{position:fixed;left:50%;bottom:86px;transform:translate(-50%,30px);width:min(92vw,440px);background:#fff;border:4px solid #2a9d8f;border-radius:20px;padding:12px 14px;box-shadow:0 8px 24px rgba(0,0,0,.25);z-index:60;opacity:0;pointer-events:none;transition:all .25s;font-size:16px;line-height:1.6}
+.pzcard.show{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+.pzcard .t{font-size:20px;font-weight:900;color:#2a9d8f}
+.pzcard .s{font-size:12px;color:#777}
+.pzfind{background:#f0fbf9;border-radius:18px;padding:10px;margin-top:10px}
+@media (min-width:900px){.pzwrap{flex-direction:row-reverse;align-items:flex-start}.pztray{grid-template-columns:repeat(2,1fr);width:230px;flex:0 0 230px}.pzboard{flex:1}}
+#twSvg text,#pzSvg text,#seaSvg text,.mapbox text{pointer-events:none}
+#p-game .subtabs .btn{flex:1 1 28%;min-width:96px}
+@media (min-width:900px){.pztray{position:sticky;top:70px}}
+</style>
+</head>
+<body>
+<header>
+  <a class="back" href="../">← 社會</a>
+  <h1>🧳 地圖生活家</h1>
+  <div class="score" id="score">⭐ 0</div>
+</header>
+<main>
+
+<!-- ===== 1 行政區域圖 ===== -->
+<section class="page active" id="p-admin">
+  <div class="card">
+    <h2>🏙️ 利用地圖探索家鄉</h2>
+    <p class="small">翰林版 社會 4上・第一單元「家鄉的地圖與運用」・第 2 課「善用地圖好生活」</p>
+    <p class="lead">上一課學會看地圖，這一課要<b>用地圖解決生活中的問題</b>：認識家鄉的位置、規畫交通路線、拿著地圖去旅行！</p>
+    <p class="lead">👇 這是<b>臺灣行政區域圖</b>。點一點縣市，看看它<b>靠不靠海</b>？</p>
+    <div class="btns">
+      <button class="btn small teal" id="aSea">🌊 把靠海的縣市塗藍</button>
+      <button class="btn small white" id="aClear">🧽 清除</button>
+    </div>
+    <div class="mapbox" style="max-width:520px;margin:0 auto"><svg id="twSvg" viewBox="0 0 400 545" aria-label="臺灣行政區域圖"></svg></div>
+    <div class="explain" id="aInfo"><div class="t">👆 點地圖上的縣市</div>會告訴你它在哪裡、靠不靠海。</div>
+    <div class="ctybtns" id="aBtns"></div>
+    <p class="small">※ 縣市形狀來自內政部國土測繪中心的縣市界線圖資（政府資料開放授權），為了在平板上順順的，有把線條簡化；金門、連江縮小放在左上角的小框框裡（不是實際位置）。</p>
+  </div>
+  <div class="card">
+    <h3>📖 課本例子：臺中市行政區域圖</h3>
+    <div class="facts">
+      <div class="fact"><b>面積最大的區</b>和平區（在山區）</div>
+      <div class="fact"><b>靠臺灣海峽的區（北→南）</b>大甲、大安、清水、梧棲、龍井</div>
+      <div class="fact"><b>相鄰的縣市</b>苗栗縣、新竹縣、宜蘭縣、花蓮縣、南投縣、彰化縣</div>
+    </div>
+    <div class="tip green">🔎 看行政區域圖，可以找出：家鄉在哪裡、<b>旁邊有哪些縣市</b>、<b>哪些地方靠海</b>、面積誰大誰小。縣市的形狀也很有趣：有人說臺北市像<b>鸚鵡</b>、臺中市像<b>孔雀魚</b>、南投縣像<b>棒球本壘板</b>！</div>
+  </div>
+</section>
+
+<!-- ===== 2 交通路線 ===== -->
+<section class="page" id="p-route">
+  <div class="card">
+    <h2>🚆 規畫我的交通路線</h2>
+    <p class="lead">課本裡的<b>嘉家</b>要從<b>新店</b>出發去<b>日月潭</b>玩。幫他們一站一站選交通工具吧！</p>
+    <div class="mapbox"><svg id="rtSvg" viewBox="0 0 420 300" aria-label="交通路線示意圖"></svg></div>
+    <div class="stops" id="rtStops"></div>
+    <div class="qtext" id="rtQ"></div>
+    <div class="opts" id="rtOpts"></div>
+    <div class="feedback" id="rtFb"></div>
+    <div class="btns"><button class="btn gray small" id="rtReset">↩️ 重新規畫</button></div>
+    <div class="checks" id="rtChecks"></div>
+  </div>
+  <div class="card">
+    <h3>🤔 怎麼選最好的路線？</h3>
+    <div class="tip">規畫路線時要想一想：<b>花多少時間</b>？<b>花多少錢</b>？要<b>換幾次車</b>？有沒有<b>老人或小小孩</b>同行、行李多不多？</div>
+    <div class="tip blue">💡 三個方案都能到日月潭！沒有一定「最好」的，要看<b>大家的需求</b>來選。</div>
+  </div>
+</section>
+
+<!-- ===== 3 觀光導覽圖 ===== -->
+<section class="page" id="p-tour">
+  <div class="card">
+    <h2>⛵ 拿著地圖去旅行</h2>
+    <p class="lead">這是<b>日月潭觀光導覽圖（示意）</b>。點下面的圖例，地圖上一樣的符號會閃閃發亮！</p>
+    <div class="legendrow" id="tLegend"></div>
+    <div class="mapbox" style="max-width:620px;margin:0 auto"><svg id="tSvg" viewBox="0 0 420 380" aria-label="日月潭觀光導覽圖（示意）"></svg></div>
+    <div class="explain" id="tInfo"><div class="t">🗺️ 日月潭</div>點地圖上的景點或符號看看。</div>
+  </div>
+  <div class="card">
+    <h3>🎯 導覽任務</h3>
+    <div class="qtext" id="tQ"></div>
+    <div class="feedback" id="tFb"></div>
+    <div class="btns"><button class="btn small" id="tNext" style="display:none">下一個任務 ➡</button></div>
+    <div class="tip green">🍵 日月潭在<b>南投縣魚池鄉</b>，這裡種的<b>紅茶</b>很有名；湖邊住著<b>邵族</b>，「Thao」就是「人」的意思。</div>
+  </div>
+</section>
+
+<!-- ===== 4 地點偵探 ===== -->
+<section class="page" id="p-place">
+  <div class="card">
+    <h2>🔍 地點偵探：澎湖・石碇・蘭嶼</h2>
+    <p><span class="tag2 more">延伸補充</span><span class="small">這一頁回答瑄瑄的問題，用的是中央氣象署、公所等資料，<b>不是翰林第 2 課課本內容</b>。</span></p>
+    <div class="subtabs" id="plBtns">
+      <button class="btn small teal on" data-pl="ph">🏝️ 澎湖</button>
+      <button class="btn small purple" data-pl="sd">⛰️ 石碇</button>
+      <button class="btn small pink" data-pl="ly">🌊 蘭嶼</button>
+    </div>
+    <div id="plBox"></div>
+  </div>
+  <div class="card">
+    <h3>🌧️ 雨量偵探：誰的雨最多？</h3>
+    <div class="btns" id="rnBtns"></div>
+    <div class="mapbox"><svg class="chart" id="rnSvg" viewBox="0 0 420 260"></svg></div>
+    <div class="tip blue" id="rnTip"></div>
+    <div class="mapbox" style="margin-top:8px"><svg class="chart" id="rnYear" viewBox="0 0 420 170"></svg></div>
+    <p class="src">資料：中央氣象署「氣候月平均 降水量」1991～2020 年平均（澎湖、臺北、蘭嶼測站）；石碇為新北市石碇區公所〈石碇區地區災害特色〉的平均年雨量 1,500～2,000 公釐（不是氣象署測站資料，所以畫成一個範圍）。</p>
+  </div>
+  <div class="card">
+    <h3>🙋 瑄瑄的問題：「蘭嶼有沒有石板屋？」</h3>
+    <div class="qa">先猜猜看！
+      <div class="btns"><button class="btn small sun" data-g="yes">有！</button><button class="btn small purple" data-g="no">沒有！</button></div>
+      <div class="reveal" id="lyAns">
+        <p><b>答案：蘭嶼傳統的房子不是石板屋，是「地下屋」（也叫半穴居）。</b></p>
+        <p>蘭嶼的<b>達悟族</b>把主屋蓋在<b>往下挖的坑裡</b>，屋頂差不多和地面一樣高，可以躲避強風和颱風；地上鋪<b>鵝卵石</b>、四周砌石牆，讓雨水很快排掉。所以地下屋也會用到石頭，但不是用石板疊起來的「石板屋」。</p>
+        <p><b>石板屋</b>是<b>排灣族、魯凱族</b>（還有布農族）在<b>山區</b>蓋的，用山上的板岩、頁岩切成石板，蓋牆壁和屋頂，冬暖夏涼。</p>
+        <p class="small">📚 課本對照：翰林版 4上 第 2 課沒有教房子。<b>康軒版</b> 4上 第二單元「家鄉的傳統住屋與器物」有教：用<b>屏東縣瑪家鄉</b>介紹石板屋、用<b>臺東縣蘭嶼鄉</b>介紹地下屋。</p>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>🏠 房子配對：哪裡的房子？</h3>
+    <p class="lead">先點左邊的房子，再點右邊的地方。</p>
+    <div class="mt"><div id="mtL"></div><div id="mtR"></div></div>
+    <div class="feedback" id="mtFb"></div>
+    <div class="btns"><button class="btn gray small" id="mtReset">↩️ 再玩一次</button></div>
+  </div>
+  <div class="card">
+    <h3>📚 資料來源</h3>
+    <div class="src" id="srcList"></div>
+  </div>
+</section>
+
+<!-- ===== 5 挑戰 ===== -->
+<section class="page" id="p-game">
+  <div class="card">
+    <h2>🎮 生活家挑戰站</h2>
+    <div class="subtabs">
+      <button class="btn small teal on" data-gm="sea">🌊 靠海偵探</button>
+      <button class="btn small" data-gm="puzzle">🧩 縣市拼圖</button>
+      <button class="btn small" data-gm="quiz">❓ 小博士測驗</button>
+    </div>
+    <div class="badges" id="badges"></div>
+  </div>
+  <div class="card gcard" id="g-sea">
+    <div class="qhead"><span>🌊 靠海偵探</span><span id="seaScore"></span></div>
+    <div class="qtext" id="seaQ"></div>
+    <div class="mapbox" style="max-width:360px;margin:0 auto"><svg id="seaSvg" viewBox="0 0 400 545"></svg></div>
+    <div class="opts" id="seaOpts"></div>
+    <div class="feedback" id="seaFb"></div>
+    <div class="btns"><button class="btn" id="seaNext" style="display:none">下一題 ➡</button></div>
+  </div>
+  <div class="card gcard" id="g-puzzle" style="display:none">
+    <div class="qhead"><span>🧩 臺灣縣市拼圖</span><span>⏱ <b id="pzTime">0:00</b>　🏆 最快 <b id="pzBest">—</b></span></div>
+    <p class="hint" id="pzMsg">把縣市拼圖<b>拖到地圖上</b>正確的位置！（也可以先點一塊，再點地圖上的位置）</p>
+    <div class="pzwrap">
+      <div class="pztray" id="pzTray"></div>
+      <div class="mapbox pzboard"><svg id="pzSvg" viewBox="0 0 400 545"></svg></div>
+    </div>
+    <div class="pzbar"><span id="pzCount"></span>
+      <button class="btn small" id="pzHint">💡 提示</button>
+      <button class="btn small" id="pzRestart">🔄 重新開始</button></div>
+    <div id="pzFind" class="pzfind" style="display:none">
+      <div class="qhead"><span>🔎 找找看</span><span id="fdCount"></span></div>
+      <div class="qtext" id="fdQ"></div>
+      <div class="feedback" id="fdFb"></div>
+      <div class="btns"><button class="btn" id="fdNext" style="display:none">下一題 ➡</button></div>
+    </div>
+    <p class="src" id="pzSrc"></p>
+  </div>
+  <div class="pzcard" id="pzCard" role="status" aria-live="polite"></div>
+  <div class="card gcard" id="g-quiz" style="display:none">
+    <div class="qhead"><span id="qCount"></span><span id="qScore"></span></div>
+    <div id="qTag"></div>
+    <div class="qtext" id="qText"></div>
+    <div class="opts" id="qOpts"></div>
+    <div class="feedback" id="qFb"></div>
+    <div class="btns"><button class="btn" id="qNext" style="display:none">下一題 ➡</button></div>
+  </div>
+</section>
+</main>
+
+<nav class="tabs" id="tabs">
+  <button class="on" data-p="p-admin"><span>🏙️</span>行政區域</button>
+  <button data-p="p-route"><span>🚆</span>交通路線</button>
+  <button data-p="p-tour"><span>⛵</span>觀光導覽</button>
+  <button data-p="p-place"><span>🔍</span>地點偵探</button>
+  <button data-p="p-game"><span>🎮</span>挑戰</button>
+</nav>
+<script id="core">
+var Core=(function(){
+"use strict";
+/* ---- 臺灣縣市（示意位置：經緯度大約值）。sea: 1 靠海, 0 不靠海；island: 離島縣 ---- */
+var COUNTIES=[
+ {n:"基隆市",lon:121.74,lat:25.13,sea:1},
+ {n:"臺北市",lon:121.55,lat:25.05,sea:0,note:"四周被新北市圍起來，<b>不靠海</b>。"},
+ {n:"新北市",lon:121.62,lat:24.86,sea:1,note:"有靠海的區（像<b>淡水區</b>），也有不靠海的山區（像<b>石碇區</b>）。同一個縣市，各區也不一樣喔！"},
+ {n:"桃園市",lon:121.20,lat:24.90,sea:1},
+ {n:"新竹市",lon:120.95,lat:24.80,sea:1},
+ {n:"新竹縣",lon:121.20,lat:24.68,sea:1},
+ {n:"苗栗縣",lon:120.86,lat:24.50,sea:1},
+ {n:"臺中市",lon:120.95,lat:24.22,sea:1,note:"課本例子：面積最大的是<b>和平區</b>；靠臺灣海峽的區由北到南是<b>大甲、大安、清水、梧棲、龍井</b>。"},
+ {n:"彰化縣",lon:120.48,lat:23.98,sea:1},
+ {n:"南投縣",lon:120.97,lat:23.85,sea:0,note:"臺灣<b>唯一不靠海的縣</b>。課本旅行的目的地<b>日月潭</b>就在這裡！"},
+ {n:"雲林縣",lon:120.40,lat:23.70,sea:1},
+ {n:"嘉義市",lon:120.45,lat:23.48,sea:0,note:"被嘉義縣圍起來，<b>不靠海</b>。"},
+ {n:"嘉義縣",lon:120.62,lat:23.38,sea:1},
+ {n:"臺南市",lon:120.30,lat:23.10,sea:1},
+ {n:"高雄市",lon:120.58,lat:23.02,sea:1},
+ {n:"屏東縣",lon:120.62,lat:22.50,sea:1,note:"山區有<b>排灣族、魯凱族</b>的<b>石板屋</b>部落。"},
+ {n:"宜蘭縣",lon:121.68,lat:24.62,sea:1},
+ {n:"花蓮縣",lon:121.40,lat:23.75,sea:1},
+ {n:"臺東縣",lon:121.05,lat:22.90,sea:1,note:"<b>蘭嶼</b>（蘭嶼鄉）屬於臺東縣，是達悟族住的小島。"},
+ {n:"澎湖縣",lon:119.58,lat:23.57,sea:1,island:1,note:"在臺灣本島<b>西邊</b>的臺灣海峽上，<b>四面環海</b>，由許多島嶼組成。"},
+ {n:"金門縣",lon:0,lat:0,sea:1,island:1,inset:"km",note:"靠近中國大陸福建沿海的離島（地圖上放在小框框裡）。"},
+ {n:"連江縣",lon:0,lat:0,sea:1,island:1,inset:"lj",note:"又叫<b>馬祖</b>，是在臺灣北邊很遠的離島（地圖上放在小框框裡）。"}
+];
+function proj(lon,lat){return {x:Math.round((lon-119.3)*137.5*10)/10,y:Math.round((25.45-lat)*150*10)/10};}
+/* 縣市真實邊界：內政部國土測繪中心「直轄市、縣市界線(TWD97經緯度)」（政府資料開放授權條款第1版，data.gov.tw/dataset/7442），
+   經 taiwan-atlas 2021.9.20（MIT，counties-10t.json）轉成 TopoJSON，再用 Douglas-Peucker 簡化、用 proj() 投影。
+   金門縣、連江縣縮放後放進左上角小框框（不是實際位置）。c = 縣市內部的一個點（放標籤／判斷拼圖位置用）。 */
+var SHAPES={"連江縣":{d:"M43.9,50.2 44.2,50.4 43.4,51.5 42,52 42.8,50.5 43.9,50.2ZM40.7,49.2 40.9,49.5 39.6,50.5 39.1,49.3 40.7,49.2ZM38.5,32.3 39.4,32.5 39,33.4 39.9,33.6 40,34.1 40.4,33.7 40.3,33.1 42.3,33 41.7,34.3 41.1,34.2 40.5,35.1 39.8,34.8 39.1,35.5 37.8,34.9 38.5,33.8 38.1,33.6 38.6,33.1 38.5,32.3ZM44.8,26.7 45.6,27.1 45.4,28 46.4,27.7 46.1,28.8 45.4,28.1 44.4,28.8 44.1,28.5 43.2,28.8 42.8,30.1 43.2,30.7 42.4,30.6 42.5,28.2 43.8,27.9 44.8,26.7ZM44.3,22.9 44.3,24 43.6,24.2 43.6,23.2 44.3,22.9ZM83.7,14 83.8,15.1 84.6,15.1 85.3,14.4 85.2,15 85.8,14.9 86.2,15.6 85.4,15.3 84.8,16.3 84,16.4 84.1,15.3 83.5,15.4 83.4,14.4 82.8,15.1 83.2,14 83.7,14Z",c:[39.1,34.3]},"宜蘭縣":{d:"M366.6,70 361,72.2 358.1,76.5 356,76.9 355.4,79.8 350.8,84 347.5,91.1 346.3,102.8 347.3,107.5 349.2,110.1 349.5,119.1 351.8,125 355.6,127.4 353.9,128 354.6,128.8 353.7,129.9 354.7,130.5 353.3,131.6 353.7,137.8 349.7,139.3 349.1,140.6 349.3,142.8 350.7,143.3 350.7,144.8 352.3,145.3 349.8,146 346.7,148.1 346,150.5 344,152.4 342.5,156.3 342,161.6 339.8,166.9 340.2,170.2 338.1,170.4 336.2,169.1 328.4,167.4 328,166.4 326.7,166.9 323.2,163.5 323,165.1 320.5,161.9 319.1,163.1 319.9,165 321.1,165.2 320.8,167.3 318.8,165.7 318.6,167.5 315.7,167.8 317,171.1 315.9,170.1 311.6,169.6 308.7,166.8 305.5,166 302.2,166.6 295.9,162.8 295.3,161.3 294.6,161.5 293.4,160 288.8,160.6 286.5,162.3 285.1,162.3 283.9,159.1 282.6,158.5 280.3,159 278.6,157.5 278.9,152.4 277.4,151.3 280.8,145.2 282.9,144.5 284.9,142.6 285.1,141 286.5,140.9 289,138.1 288,134.2 290.4,131.5 289.2,128.7 290.5,127 292.6,126.6 296.6,116.9 299.7,116.4 301.5,116.5 304.2,114.8 307.6,114.2 308.5,111.6 312.2,110.4 312.8,111 313.3,109.1 314.6,109.5 315.9,108.3 315.1,105.8 315.7,105.3 314.7,104.2 315.9,101.6 315.1,99.4 319.7,98.3 319.8,96.2 322.4,96.1 322.8,95.4 324.6,95.9 325.7,94.8 328.4,95.1 328.3,93.8 329.5,92.3 334.2,89.2 336.3,89.6 340.4,87.7 341.7,86.4 341.2,84.1 342.6,82.6 348.5,81.5 351.2,78.6 349.1,75.8 350.2,73.4 355.9,73 357.9,71.3 363.5,69.3 366.1,69.3 366.6,70Z",c:[322.0,135.5]},"彰化縣":{d:"M159,186.4 165.6,188.8 168.4,194.6 168.3,196.6 171.2,200 180.5,202.1 181.3,206.2 182.2,207.2 182.2,213 184.9,213.6 185.2,212.4 189.6,215.4 188.5,215.9 188.7,216.6 184,216.4 183.7,218.2 185.6,219.8 185.2,223 183.8,224.6 182.5,224 183.4,224.5 182.5,224.7 183.8,226.9 182.6,227.8 183.9,228.8 182.8,230.8 183.6,232.7 181.5,237.3 182.6,238.9 180.9,241.4 182.3,241.2 182.2,242 183.3,242.4 181.9,243 183.8,242.6 184.2,243.7 183.4,243.6 185.7,245.6 189.3,244.6 190.3,247 184.3,249.6 172,247.3 166,247.4 158.4,244.9 155.8,243 138.6,244.5 131.3,242.4 126.5,237.6 128.6,234.7 131.3,233.4 132.1,229.5 134.6,227.5 135.1,224.3 138.6,221.5 139.8,217.6 142.3,215.1 143,208.5 146.2,205.4 149.1,204.3 149.4,202.9 148.5,203.2 150.8,199.9 153.8,191.4 154.6,190 157.3,189.2 159,186.4Z",c:[161.6,222.7]},"南投縣":{d:"M184.3,249.6 190.3,247 189.3,244.6 185.7,245.6 183.4,243.6 184.2,243.7 183.8,242.6 181.9,243 183.3,242.4 182.2,242 182.3,241.2 180.9,241.4 182.6,238.9 181.5,237.3 183.6,232.7 182.8,230.8 183.9,228.8 182.6,227.8 183.8,226.9 182.5,224.7 183.4,224.5 182.5,224 183.8,224.6 185.2,223 185.6,219.8 183.7,218.2 184,216.4 188.7,216.6 188.5,215.9 189.6,215.4 193.4,216.7 196.9,216.1 198.8,217.7 202.2,216.1 205.3,212.6 207.2,207.9 210.3,206.8 210.4,202.2 212.4,198.8 213.7,198.8 214.3,200.1 216.2,200 217.1,201.1 217,204.7 218.8,202.9 218.8,200.2 222.7,201.4 226.9,198.3 228.4,199.5 232.2,199.7 236.5,193.7 237.6,193.6 238.3,195.2 238.9,193.8 240.3,193.5 241,194.3 245.4,191.1 247.8,188.1 252.5,188 254.1,185.5 255.9,185.2 256.8,183.7 258.6,185.7 264,183.1 266.5,184.5 268.8,181 270.2,180.6 272.3,183 274.1,183.1 275.1,182 280.9,184 281.8,187.6 278.5,188.1 276,190.4 273.1,190.9 273.4,193.8 272.3,193.8 272.9,194.7 272.4,197.1 278.9,200.8 277.6,203.2 278.2,204.8 275,208.2 272.7,209.4 273,211.5 269.5,218.7 270.1,221.1 271.3,221.2 272,222.6 271.1,225.3 271.7,231 269.6,232.1 270.6,235 270,235.3 270.2,236.6 268.5,237.3 266.7,241.5 266.6,244.2 264.9,246.8 265.4,249.3 261.9,251.6 263.1,253.9 265.7,254.9 265.3,258 266.7,258.9 266.9,262.7 265.7,265.8 266.2,267.8 264.6,271.6 264.5,274 262.1,278.1 260.4,277.4 258.1,280.1 254.8,279.5 254.6,281.4 255.8,282.3 255.4,283.6 253.9,284.3 254.5,288.4 252.4,290.2 250,289.3 247.2,289.2 245.9,290.4 243.2,289.7 242.3,292.6 239.1,296.3 241.7,298.5 240.9,299.8 235.8,302.2 235.2,301 235.9,299.8 234.9,298.2 227.9,297.1 226.5,297.4 221.4,296.1 218.2,296.2 217.4,297.4 215,296.5 211.2,296.6 210,295 209.1,289.3 207.4,287.1 209.7,279.5 208.7,277.6 205.5,277.9 199.8,275.3 196.7,275.9 195.1,273 193.9,274.6 191.3,274.4 190.2,275.9 188.3,276.1 185.8,275.1 186,273.1 185,272.9 183.6,274.5 183,274.2 182.7,272.2 185.4,265.1 184.1,260.9 184.2,258.1 184.9,257 186.4,257.2 186.4,254.2 184.3,249.6Z",c:[226.3,244.4]},"雲林縣":{d:"M107.4,288.9 109.1,289.8 109.4,290.9 107.6,290.6 106.9,292.1 105.9,291.9 105.5,292.5 106.4,292.7 105.4,292.7 106.1,293.4 105.6,294 105.2,293.3 103.7,293.7 105.1,294.4 104.8,295.4 103.5,295.6 104.3,295.1 103.5,294.3 103,296 102.2,296 103.3,293.6 102.7,293.2 101.8,295.7 101.1,295 101.2,295.9 99.6,296.3 99.5,298.6 98.2,298.5 98.7,297.1 97.6,297.8 98.9,302.1 95.8,297.6 96.3,296.6 107.4,288.9ZM126.5,237.6 131.3,242.4 138.6,244.5 155.8,243 158.4,244.9 166,247.4 172,247.3 184.3,249.6 186.4,254.2 186.4,257.2 184.9,257 184.2,258.1 184.1,260.9 185.4,265.1 182.7,272.2 183,274.2 183.6,274.5 185,272.9 186,273.1 185.8,275.1 188.3,276.1 190.2,275.9 191.3,274.4 193.9,274.6 195.1,273 196.7,275.9 195.9,277 197,277.9 197.5,281.9 195,282.1 191.7,281 189.2,281.9 188.4,280.7 185.7,281.6 184.7,281.1 185.3,278.5 180.1,280.1 176.2,280.2 170.1,278.3 166.4,274.6 165.5,272.2 158.7,273.6 157.3,272.9 154.8,274.8 154,273.7 153.4,274.3 152.2,273.7 151.9,272.4 151.6,273.5 149.4,274.3 148.5,276 146.6,276.3 145.6,278.3 142.3,278.6 141.2,281.4 138.5,281.3 139,282.8 136.1,283.2 136.2,284.9 134.2,286 133.6,287.9 132.5,287.5 131.5,285.6 129.7,286 130.2,290.1 129.1,291.3 126.9,291.9 123.5,290.5 121.1,291 116.3,289.4 116.9,287.7 115.2,283.3 115.9,282.4 116.1,277.8 115.7,277.3 115.5,277.9 115.5,275.5 114.5,275.1 115.2,272.3 113.5,274.3 112,272.3 113.5,270.6 119,256.2 119.5,253.7 117.8,249.8 120.4,247 119.7,246.5 121.1,246 124.6,242.4 124.3,240.5 125.7,239.9 126.5,237.6Z",c:[135.5,262.0]},"基隆市":{d:"M344.2,47.1 344.4,48.7 343,48.5 343.6,49.6 343,50.6 340,49.5 339.2,50.6 336.9,51 338.2,52.4 338.5,55.7 340.4,57 339.9,58 336.3,59.5 334.1,59.5 331.7,57.3 329.9,57.4 327.3,55.9 327.3,54.3 326.4,55.1 323.9,53.5 322.2,48.3 319.9,46.6 326.9,44.1 331.3,41 331.2,42.7 333.4,42.6 336.7,44.1 338.9,42.9 341,43.7 340,44.2 340.7,44.8 344.7,45.1 344.2,47.1Z",c:[331.1,48.9]},"臺北市":{d:"M312.3,37.9 314,38.3 313.1,42.4 314.9,42.9 314.8,44.7 317.3,48 315.9,51.1 319.9,53.1 320.1,55 318.5,57.9 319.6,59.1 318.5,59.9 318.9,61 322.7,63.3 325.3,63 324.9,64.1 320.7,63.7 319.3,64.9 317.5,64.4 315.9,65.3 316.3,71 319,72.1 316.4,73.4 310.9,72.8 309.7,69.5 308.7,69.9 307.3,68.2 306.9,68.9 306.9,66.3 304.9,64.4 303.8,64.3 301.5,66.1 300.3,61.8 303.1,60 303.3,56.3 301,53 296.6,51.4 296.8,49.1 302.9,41.5 305.3,42.1 305.5,40.7 308.1,39.4 310.5,36 312.3,37.9Z",c:[311.0,58.4]},"新北市":{d:"M366.6,70 366.1,69.3 363.5,69.3 357.9,71.3 355.9,73 350.2,73.4 349.1,75.8 351.2,78.6 348.5,81.5 342.6,82.6 341.2,84.1 341.7,86.4 340.4,87.7 336.3,89.6 334.2,89.2 329.5,92.3 328.3,93.8 328.4,95.1 325.7,94.8 324.6,95.9 322.8,95.4 322.4,96.1 319.8,96.2 319.7,98.3 315.1,99.4 315.9,101.6 314.7,104.2 315.7,105.3 315.1,105.8 315.9,108.3 314.6,109.5 313.3,109.1 312.8,111 312.2,110.4 308.5,111.6 307.6,114.2 304.2,114.8 301.5,116.5 299.7,116.4 299,113.1 295.7,111.7 293.5,108 292,103.2 295.6,99.6 295.7,98.9 294,98.2 293.8,95.7 289.1,91 285,92.5 282.5,90.9 279.9,90.9 283,89.5 281.2,87.5 282.4,86 281.3,85.5 280.8,83.6 279.6,83.7 279.6,82.6 278.7,83.1 277.8,82.5 278.6,81.1 277.4,80 280.5,78.2 278,78.3 277.2,76.7 279.3,75.6 278.9,71.8 278.3,71.6 280.9,70.2 284.6,70.9 286.8,69.5 286.6,68.1 288,68.5 289.2,67.6 287.6,65.7 290.4,64.7 288.5,63 288.9,61.8 287.5,61.2 288.8,61 288,60.1 288.8,59.8 286.6,59.6 287.1,58.1 282.5,57.7 281.4,57 282.4,56.5 281.9,56 280.6,56.4 281.8,55.1 275.4,53 274.8,51.8 273.8,52.1 272.7,51.1 272.7,49.8 274,49.6 274.5,48.6 277.8,49 281.2,48.2 287.3,45.3 287.6,42.3 289.1,43.7 291.3,40.9 289.3,40 289.4,39 291.3,38.8 296,29.6 298.6,29.1 299.9,26.9 303.7,25.1 304,23.7 304.8,24.8 306.3,24.5 307.6,22.5 309.4,23.8 313.2,22.7 318.7,25.8 320.9,28.5 320.9,31.6 322.1,32.9 323.5,32.6 323.1,34.1 324.9,36.4 327,37.1 330.3,35.1 328.1,39.1 329,40.5 331.3,41 326.9,44.1 319.9,46.6 322.2,48.3 323.9,53.5 326.4,55.1 327.3,54.3 327.3,55.9 329.9,57.4 331.7,57.3 334.1,59.5 336.3,59.5 339.9,58 340.4,57 338.5,55.7 338.2,52.4 336.9,51 339.2,50.6 340,49.5 343,50.6 343.6,49.6 343,48.5 344.4,48.7 344.2,47.1 347.4,47.2 346.5,48.1 346.8,49.3 349.5,48.2 357.1,49.5 361.1,48 359.7,50.4 361.2,51.3 359.5,54.7 359.6,56 361.4,56.9 361.9,58 361.9,62.1 364,64.3 368.2,63.5 369.9,64.3 370,65.6 371.1,64.6 372.3,65.7 372,67.3 366.6,70ZM312.3,37.9 310.5,36 308.1,39.4 305.5,40.7 305.3,42.1 302.9,41.5 296.8,49.1 296.6,51.4 301,53 303.3,56.3 303.1,60 300.3,61.8 301.5,66.1 303.8,64.3 304.9,64.4 306.9,66.3 306.9,68.9 307.3,68.2 308.7,69.9 309.7,69.5 310.9,72.8 316.4,73.4 319,72.1 316.3,71 315.9,65.3 317.5,64.4 319.3,64.9 320.7,63.7 324.9,64.1 325.3,63 322.7,63.3 318.9,61 318.5,59.9 319.6,59.1 318.5,57.9 320.1,55 319.9,53.1 315.9,51.1 317.3,48 314.8,44.7 314.9,42.9 313.1,42.4 314,38.3 312.3,37.9Z",c:[312.5,74.2]},"臺中市":{d:"M277.4,151.3 278.9,152.4 278.6,157.5 280.3,159 282.6,158.5 283.9,159.1 285.1,162.3 286.5,162.3 288.8,160.6 293.4,160 294.6,161.5 295.3,161.3 295.9,162.8 293.9,164.7 293.6,169.1 291.9,171.3 289.5,171.3 288.3,174.2 286.1,175.6 286.7,179.2 282.2,180.9 280.9,184 275.1,182 274.1,183.1 272.3,183 270.2,180.6 268.8,181 266.5,184.5 264,183.1 258.6,185.7 256.8,183.7 255.9,185.2 254.1,185.5 252.5,188 247.8,188.1 245.4,191.1 241,194.3 240.3,193.5 238.9,193.8 238.3,195.2 237.6,193.6 236.5,193.7 232.2,199.7 228.4,199.5 226.9,198.3 222.7,201.4 218.8,200.2 218.8,202.9 217,204.7 217.1,201.1 216.2,200 214.3,200.1 213.7,198.8 212.4,198.8 210.4,202.2 210.3,206.8 207.2,207.9 205.3,212.6 202.2,216.1 198.8,217.7 196.9,216.1 193.4,216.7 189.6,215.4 185.2,212.4 184.9,213.6 182.2,213 182.2,207.2 181.3,206.2 180.5,202.1 171.2,200 168.3,196.6 168.4,194.6 165.6,188.8 159,186.4 160.2,185.4 159.7,185 160.7,185.3 161.7,183.9 163.7,179.2 163.1,178.9 164.1,177.6 164.8,177.9 168.3,170.1 173.1,165 175,160.9 181.8,151.5 184.2,153.3 185.1,155.7 187.5,157.2 191.6,162.5 196.7,164.7 201.2,168.6 207.3,170.2 210.9,173.9 213.1,174.2 216.5,173.3 221.6,173.4 223.1,172 222.3,167.1 224.9,166.1 229.1,167.5 234.4,167.7 236.5,171.1 238.6,172.9 240.5,173.1 241.4,171 243.4,170.1 243.8,169.1 246.4,169.7 248.7,167.8 250.5,167.9 253.1,163.6 256.8,163.4 258.1,161 259.9,160.3 260.9,158 262.7,158.1 263.4,160.6 265.6,159.9 267.2,156.6 267.3,154.5 269.2,153.7 269.4,151.8 269.5,153.1 270.9,153.4 275.8,152.6 277.4,151.3Z",c:[186.4,182.8]},"臺南市":{d:"M186.1,333.8 186.5,334.9 183.8,339 184.4,340.1 178.9,345.9 175.3,353.8 172.5,357.2 169.2,359.1 162.6,365.2 162.3,367.1 159.6,366.9 159.7,368.9 158.9,368.8 158.5,370.8 157.1,370.9 153.5,380 152.4,380.6 151.1,379.2 148.8,379.3 144.6,384.4 142,384.1 140.9,382.4 140.3,383.3 135.4,381.8 134.5,381.8 134.7,383.1 131.7,382.3 131.2,383.4 128.3,381.7 127.7,380 126.2,381.1 122.7,379.3 120.3,380.7 119.9,375 118.6,372.8 117.6,372.8 118.2,371.5 115.6,368.1 109.2,363.2 104.2,361 101.6,357.3 100,357.3 101.6,351 103.8,348.7 104.4,343.7 107.3,336.1 107.3,331.9 108.9,328.6 109.3,323.1 111.5,320.9 111.5,317.7 112.5,316.5 116.7,319.5 116.9,320.5 119.5,321.6 120.8,323.7 122.2,324 122.2,322.3 125.4,323.7 126.9,322.8 129,318.4 131.6,317.7 133,316.4 132.1,315.8 132.8,314.7 135.6,315 135.5,312.5 136.5,311.2 139,311.2 139.5,309.2 140.7,310 144.3,307.3 148.6,307 152.4,305.5 154,306.9 156.7,305.4 161.3,307.8 162.2,309.4 164.1,308.3 164.9,309.3 162.9,310.6 162.8,312.1 165.7,312.2 166.7,313.5 166.5,314.4 165.7,314.3 165.7,315.8 169.6,317 170.5,318.3 168.1,320.7 168.6,323.1 167.8,326.7 169.4,329.2 167.6,331.6 168.5,332.8 172.5,334.9 174,334.4 175.7,335.3 177.7,331.5 178.4,333.2 180.1,334.1 182.6,333.1 186.1,333.8Z",c:[136.8,348.8]},"桃園市":{d:"M299.7,116.4 296.6,116.9 292.6,126.6 290.5,127 289.2,128.7 287,129.5 284.3,127.7 283.1,124.9 284.1,122.7 283,122.5 282.2,121 282.4,117.3 280.4,117.5 280.4,115.6 277.5,112.8 274.9,113.2 276,109.5 274.7,107.5 276.1,104.3 275.2,103 269.5,100.2 269.5,98.5 267.8,98 267.2,96.2 264.2,97.6 264,95.7 261.9,96.4 261.7,94.9 257.6,93.4 258,92.7 254.4,90.8 255.9,88.6 255.2,85.4 249.7,85.2 248.6,84.6 248.7,82.8 246.3,83.5 241.7,81.6 241.8,77 240.1,76 239,75.5 236.4,76.4 234.7,75.6 232.8,77.2 231.3,76.5 235.1,71.2 235.1,68.9 237.7,64.4 241.5,60.6 263.1,50.9 266.7,50.2 266.7,49 267.3,49.7 269.5,49 272.7,49.8 272.7,51.1 273.8,52.1 274.8,51.8 275.4,53 281.8,55.1 280.6,56.4 281.9,56 282.4,56.5 281.4,57 282.5,57.7 287.1,58.1 286.6,59.6 288.8,59.8 288,60.1 288.8,61 287.5,61.2 288.9,61.8 288.5,63 290.4,64.7 287.6,65.7 289.2,67.6 288,68.5 286.6,68.1 286.8,69.5 284.6,70.9 280.9,70.2 278.3,71.6 278.9,71.8 279.3,75.6 277.2,76.7 278,78.3 280.5,78.2 277.4,80 278.6,81.1 277.8,82.5 278.7,83.1 279.6,82.6 279.6,83.7 280.8,83.6 281.3,85.5 282.4,86 281.2,87.5 283,89.5 279.9,90.9 282.5,90.9 285,92.5 289.1,91 293.8,95.7 294,98.2 295.7,98.9 295.6,99.6 292,103.2 293.5,108 295.7,111.7 299,113.1 299.7,116.4Z",c:[262.1,69.1]},"苗栗縣":{d:"M269.4,151.8 269.2,153.7 267.3,154.5 267.2,156.6 265.6,159.9 263.4,160.6 262.7,158.1 260.9,158 259.9,160.3 258.1,161 256.8,163.4 253.1,163.6 250.5,167.9 248.7,167.8 246.4,169.7 243.8,169.1 243.4,170.1 241.4,171 240.5,173.1 238.6,172.9 236.5,171.1 234.4,167.7 229.1,167.5 224.9,166.1 222.3,167.1 223.1,172 221.6,173.4 216.5,173.3 213.1,174.2 210.9,173.9 207.3,170.2 201.2,168.6 196.7,164.7 191.6,162.5 187.5,157.2 185.1,155.7 184.2,153.3 181.8,151.5 187.7,145 194.7,127.4 199.7,123.4 200.4,121.3 203.3,118.1 209.6,116.5 214,112.1 214.7,109.3 216.5,106.8 218.8,107.7 221.1,106.3 221.9,109.9 224.9,110.6 225.8,111.4 226.8,110.8 227.3,111.9 230.2,110.7 230.1,113 228.9,115 230.4,114.8 231.9,117.9 233.4,119.3 235.2,119.1 234.9,120.9 237.2,121.3 240.8,125.2 242.4,124.2 244.1,125.8 245.2,129 243.5,133 241.8,133.8 244.8,136.4 244.5,138.1 243,139.1 243.6,142.7 245.5,142.3 247.2,143 249.9,141.2 252.6,141.5 253.7,140.7 257,142.1 263.5,140.2 264.5,141.5 263.8,142.8 269.9,149.2 269.4,151.8Z",c:[217.0,141.9]},"嘉義市":{d:"M157.8,289.8 159.1,290.2 160.3,292.7 161.4,291.5 162.7,291.7 162.8,293.1 165.2,294 166.3,296.7 164.3,299.6 160.7,298.3 158.5,300.8 156.7,301.6 155.3,298.3 150.4,298.1 151.1,295.7 149.8,292.7 151.3,292.7 152.5,291.5 152.9,292.6 155.8,291.2 155.9,289.9 156.8,290.7 156.8,289.8 157.8,289.8Z",c:[157.2,294.8]},"嘉義縣":{d:"M196.7,275.9 199.8,275.3 205.5,277.9 208.7,277.6 209.7,279.5 207.4,287.1 209.1,289.3 210,295 211.2,296.6 215,296.5 217.4,297.4 218.2,296.2 221.4,296.1 226.5,297.4 227.9,297.1 225,297.9 223.9,299.2 222.2,298.7 220,299.4 218.2,302.2 213.2,304.4 209.7,311.8 206.9,311.9 203.9,316.2 200.5,315.9 199.7,318.5 196.9,320.4 196.7,321.7 194.2,321.2 193.4,321.8 192.4,324.8 184.8,323.1 184,327.2 186.1,333.8 182.6,333.1 180.1,334.1 178.4,333.2 177.7,331.5 175.7,335.3 174,334.4 172.5,334.9 168.5,332.8 167.6,331.6 169.4,329.2 167.8,326.7 168.6,323.1 168.1,320.7 170.5,318.3 169.6,317 165.7,315.8 165.7,314.3 166.5,314.4 166.7,313.5 165.7,312.2 162.8,312.1 162.9,310.6 164.9,309.3 164.1,308.3 162.2,309.4 161.3,307.8 156.7,305.4 154,306.9 152.4,305.5 148.6,307 144.3,307.3 140.7,310 139.5,309.2 139,311.2 136.5,311.2 135.5,312.5 135.6,315 132.8,314.7 132.1,315.8 133,316.4 131.6,317.7 129,318.4 126.9,322.8 125.4,323.7 122.2,322.3 122.2,324 120.8,323.7 119.5,321.6 116.9,320.5 116.7,319.5 112.5,316.5 114.4,309.8 117.2,309.2 117.8,310.5 117.4,309.3 118.1,309.3 117.4,309.1 118.8,308.5 118.2,306.6 117.1,307.7 116.8,306.6 116.8,304.1 117.7,303.2 116.3,303.2 117.6,300.3 117.2,299.2 114.9,300.3 114.6,299.8 116.1,298.5 117.6,293.8 119.6,293.7 118,293.2 113.8,294.3 112.7,293.2 113,289.6 116.3,289.4 121.1,291 123.5,290.5 126.9,291.9 129.1,291.3 130.2,290.1 129.7,286 131.5,285.6 132.5,287.5 133.6,287.9 134.2,286 136.2,284.9 136.1,283.2 139,282.8 138.5,281.3 141.2,281.4 142.3,278.6 145.6,278.3 146.6,276.3 148.5,276 149.4,274.3 151.6,273.5 151.9,272.4 152.2,273.7 153.4,274.3 154,273.7 154.8,274.8 157.3,272.9 158.7,273.6 165.5,272.2 166.4,274.6 170.1,278.3 176.2,280.2 180.1,280.1 185.3,278.5 184.7,281.1 185.7,281.6 188.4,280.7 189.2,281.9 191.7,281 195,282.1 197.5,281.9 197,277.9 195.9,277 196.7,275.9ZM157.8,289.8 156.8,289.8 156.8,290.7 155.9,289.9 155.8,291.2 152.9,292.6 152.5,291.5 151.3,292.7 149.8,292.7 151.1,295.7 150.4,298.1 155.3,298.3 156.7,301.6 158.5,300.8 160.7,298.3 164.3,299.6 166.3,296.7 165.2,294 162.8,293.1 162.7,291.7 161.4,291.5 160.3,292.7 159.1,290.2 157.8,289.8Z",c:[184.6,302.2]},"金門縣":{d:"M48.7,87.5 51.5,89 50.6,92.6 49.5,92.2 48.2,93.9 46.8,93.8 45.5,95.2 43.8,94.5 45.7,88.7 48.7,87.5ZM71,76.1 74.1,77.2 74.3,78.8 76.3,79.3 77.5,82.9 78.9,83.4 78.2,85.8 80.2,88.4 79.4,89.7 77.8,90.3 78.6,91.2 77.3,92 77,93.5 73,94.9 74,93.5 73.2,92.3 70.7,91.8 71,91.2 69.8,90.7 67.5,90.7 62.7,92.8 59.5,97.9 55.1,96.6 52.7,94 54.4,93.1 56.1,90.2 53.8,84.7 54.7,82.4 57.5,81.6 61,84.7 64.4,85.2 67.5,81.9 67.3,79.7 69.5,77.6 69.1,76.7 71,76.1Z",c:[72.0,85.4]},"高雄市":{d:"M227.9,297.1 234.9,298.2 235.9,299.8 235.2,301 235.8,302.2 235.7,302.9 237.8,304.1 237.6,306.9 234.2,308.3 234.8,309.8 232.1,311.9 231.9,313 235.1,315.6 236.5,314.9 237.5,316.9 240.5,318.8 240,321.3 237.6,322.9 231.8,325.4 230,325.2 225.2,330.8 222.1,331.9 220.8,337.6 221.5,340.1 219.8,341.1 219.3,343.4 216.8,344.8 218,345.8 218.5,350.9 218,354.1 215.8,358.5 217.2,360.3 217.3,362.1 214.7,362.9 214.6,366.3 213.3,366.7 213.1,368 209.1,373.1 209.3,377.3 210.8,380.7 210.2,381.9 211.7,385.1 215.2,386.7 214.4,388 215.8,388.8 215.1,391 213.6,388.9 212.7,389.7 211.4,387.9 209.6,387.5 206.4,389.8 205.3,389.7 205.2,391.3 203.3,392.2 200.1,387.8 195.9,385.4 193.1,385.4 191.2,387.8 188.7,389 187.1,388.5 186.7,385.5 185.4,385.9 184.9,384.7 179.6,386.5 172.5,393.2 169.2,392.5 166.4,393.2 164,391.9 161.4,392 158.7,401.8 158.5,411.9 156.2,418.3 155.9,424.9 157.7,429.6 157,433.5 154.4,439.7 154.6,447.2 151,446.2 145.6,442.4 142.1,439.3 142.1,438.2 141,439 141.6,437.4 139.2,440.3 135.9,435.9 138,437.6 138.5,437.2 139.8,438.9 140.5,438.3 138.5,435.7 137.3,435.4 137.9,433.8 132.4,427.3 132.8,425.9 131.5,424.8 132.5,423.6 130.6,419.7 131,417.7 132.6,416.2 132.4,414.1 131.7,414.1 132.2,412.3 125.9,396.9 123.5,396.7 122.4,395.5 124.7,394.1 122.3,388.7 122.8,387.8 120.3,380.7 122.7,379.3 126.2,381.1 127.7,380 128.3,381.7 131.2,383.4 131.7,382.3 134.7,383.1 134.5,381.8 135.4,381.8 140.3,383.3 140.9,382.4 142,384.1 144.6,384.4 148.8,379.3 151.1,379.2 152.4,380.6 153.5,380 157.1,370.9 158.5,370.8 158.9,368.8 159.7,368.9 159.6,366.9 162.3,367.1 162.6,365.2 169.2,359.1 172.5,357.2 175.3,353.8 178.9,345.9 184.4,340.1 183.8,339 186.5,334.9 186.1,333.8 184,327.2 184.8,323.1 192.4,324.8 193.4,321.8 194.2,321.2 196.7,321.7 196.9,320.4 199.7,318.5 200.5,315.9 203.9,316.2 206.9,311.9 209.7,311.8 213.2,304.4 218.2,302.2 220,299.4 222.2,298.7 223.9,299.2 225,297.9 227.9,297.1Z",c:[195.4,357.1]},"臺東縣":{d:"M303.1,504.8 306.5,505.6 312.1,505.1 311.8,506.5 312.9,508.5 311.8,508.8 311.3,510.2 311.8,511.6 316.6,514.5 315.3,517.2 312.2,517.2 310.3,514.2 307.7,513.8 304.9,510.6 303.7,510.5 303.9,507.4 302.4,505.4 303.1,504.8ZM301.3,415.9 303.9,415.9 303.7,419.4 302.4,420.6 303.4,422.6 301.8,422.6 301,421.1 298.9,420.5 299.1,418.7 297.6,416.8 297.8,416 301.3,415.9ZM215.1,391 215.8,388.8 214.4,388 215.2,386.7 211.7,385.1 210.2,381.9 210.8,380.7 209.3,377.3 209.1,373.1 213.1,368 213.3,366.7 214.6,366.3 214.7,362.9 217.3,362.1 217.2,360.3 215.8,358.5 218,354.1 218.5,350.9 218,345.8 216.8,344.8 219.3,343.4 219.8,341.1 221.5,340.1 220.8,337.6 222.1,331.9 225.2,330.8 230,325.2 231.8,325.4 237.6,322.9 239.1,322.4 241.5,324 244.7,332.6 251.5,334 253.8,337.6 257.9,336 259.8,336.9 263,344.3 262.9,345.9 265.5,346.6 266.5,348.2 268,347.8 269.2,348.6 270.5,350.4 270.1,351.9 271.2,352.8 273.8,351.1 277.2,351 278,349.9 277.8,346.8 278.7,344.7 277.6,342.3 278.3,340.7 279.8,340.8 281.4,334.9 282.9,333.9 282.2,332.8 283.2,329.6 285.7,327.1 285.7,322.4 291.9,314.1 289.3,312.4 288.8,309.5 291.4,304.6 295.1,301 298.8,301.4 300.1,303 302,302.3 299,309.5 297.3,320.6 295.2,321.2 293.3,324.3 290.8,332.3 291.6,333.6 288.3,336.7 289.8,342.5 288.7,347.2 289.6,348.7 292.1,348.7 288.1,350.5 286.4,353.2 283.7,353.4 281.6,357.8 280.1,364.5 278,367.2 278.3,368.4 274.3,374.3 272.6,375.4 270.7,380.8 267.7,385.3 266.5,385.9 265.8,387.8 262.5,388 260.1,390 259.4,392.6 260.9,395.2 261.4,398.1 258.7,400.1 258,403.7 250.8,410.1 244.9,412.8 237.3,419.1 235.5,424.6 235,429.2 231.8,432.1 230.6,434.4 226.4,449 219.3,467.3 218.9,475.1 219.5,480.5 215.4,483 214.3,481.4 211,480.7 208.3,478 206,478.8 206,476 207.2,475.9 207,474.9 205.3,474.6 203.1,472.1 203.2,471.2 205.7,470.1 205.2,467.2 204.2,465.7 201.7,465.3 201.2,463.7 198.5,462.4 200.3,459.2 199.8,456.7 202.6,456.5 204.8,454.9 202.9,449.9 199.5,448.5 199.5,445.6 201.3,443.2 197.9,434.4 198.2,432.2 199.2,431.7 198.8,429.1 200,427.5 199.8,425.7 204.3,418.3 205.1,415.6 204.4,413.6 207.5,414.2 211.3,412.9 212.9,410 217.7,409.9 219.3,406.9 218.9,403 220.5,401.1 220.5,397.5 218.8,395.8 215.7,395 214.7,393.5 215.1,391Z",c:[244.7,364.7]},"花蓮縣":{d:"M295.9,162.8 302.2,166.6 305.5,166 308.7,166.8 311.6,169.6 315.9,170.1 317,171.1 315.7,167.8 318.6,167.5 318.8,165.7 320.8,167.3 321.1,165.2 319.9,165 319.1,163.1 320.5,161.9 323,165.1 323.2,163.5 326.7,166.9 328,166.4 328.4,167.4 336.2,169.1 338.1,170.4 340.2,170.2 339.6,172.1 337,174.7 336,178.5 325,188.4 324.3,191.7 325,197.3 318.9,204.1 318.8,209.5 322.8,216.2 320.1,222.1 319.3,220.8 317.3,223.5 317.9,227.5 316,238.9 312.5,247.4 312.5,254 309.4,260 309.8,262.7 306.8,273.5 306.1,281 304.1,284.8 303,289.5 303.6,293.8 304.4,294.4 302,302.3 300.1,303 298.8,301.4 295.1,301 291.4,304.6 288.8,309.5 289.3,312.4 291.9,314.1 285.7,322.4 285.7,327.1 283.2,329.6 282.2,332.8 282.9,333.9 281.4,334.9 279.8,340.8 278.3,340.7 277.6,342.3 278.7,344.7 277.8,346.8 278,349.9 277.2,351 273.8,351.1 271.2,352.8 270.1,351.9 270.5,350.4 269.2,348.6 268,347.8 266.5,348.2 265.5,346.6 262.9,345.9 263,344.3 259.8,336.9 257.9,336 253.8,337.6 251.5,334 244.7,332.6 241.5,324 239.1,322.4 237.6,322.9 240,321.3 240.5,318.8 237.5,316.9 236.5,314.9 235.1,315.6 231.9,313 232.1,311.9 234.8,309.8 234.2,308.3 237.6,306.9 237.8,304.1 235.7,302.9 235.8,302.2 240.9,299.8 241.7,298.5 239.1,296.3 242.3,292.6 243.2,289.7 245.9,290.4 247.2,289.2 250,289.3 252.4,290.2 254.5,288.4 253.9,284.3 255.4,283.6 255.8,282.3 254.6,281.4 254.8,279.5 258.1,280.1 260.4,277.4 262.1,278.1 264.5,274 264.6,271.6 266.2,267.8 265.7,265.8 266.9,262.7 266.7,258.9 265.3,258 265.7,254.9 263.1,253.9 261.9,251.6 265.4,249.3 264.9,246.8 266.6,244.2 266.7,241.5 268.5,237.3 270.2,236.6 270,235.3 270.6,235 269.6,232.1 271.7,231 271.1,225.3 272,222.6 271.3,221.2 270.1,221.1 269.5,218.7 273,211.5 272.7,209.4 275,208.2 278.2,204.8 277.6,203.2 278.9,200.8 272.4,197.1 272.9,194.7 272.3,193.8 273.4,193.8 273.1,190.9 276,190.4 278.5,188.1 281.8,187.6 280.9,184 282.2,180.9 286.7,179.2 286.1,175.6 288.3,174.2 289.5,171.3 291.9,171.3 293.6,169.1 293.9,164.7 295.9,162.8Z",c:[264.4,309.8]},"澎湖縣":{d:"M19.3,334.3 20.3,334.5 19.6,337.4 18.2,337.6 17.8,339.5 16.7,338.1 16,338.4 16.6,337 15.1,335.1 19.3,334.3ZM51.9,327.9 51,330.8 50.2,328.7 51.9,327.9ZM32.6,311.2 33.5,312.8 31.9,312.5 31,313.9 30.3,313.5 30.2,312.5 32.6,311.2ZM26.6,307.9 27.4,309 28.5,308.7 28.6,310.9 29.3,310.9 28.8,311.9 29.8,311.4 29.7,312.3 28.6,312.8 29.3,314.6 25.6,314.1 26.8,312.7 26.9,309.4 26,308.3 26.6,307.9ZM2.7,305.8 4.2,306.8 2.2,307.7 2.7,305.8ZM33.2,293.1 31.5,294.5 28.7,294.7 29,293.8 29.8,294.5 31.5,293.1 33.2,293.1ZM39.1,266 41.2,266.4 42.4,268.1 42.9,270 41.6,270.2 40.9,271.6 41.5,272.4 42.7,272.1 41.6,273.2 43.1,274.6 43.1,277.2 45.5,276.4 44.7,277.4 44.6,280.4 45.6,280 46.4,277.7 46.8,279.5 47.4,279.1 48.3,276 49.1,276.6 48.9,277.7 50.2,278.3 49.5,278.8 50.6,278.8 51.2,277.3 52.6,279.9 52.7,282.7 54.2,283.4 54.3,284.3 52,284.8 50.8,283.2 50.8,284 50.4,283.3 47,283.8 46.1,285.4 42,288.2 42.9,289.3 42.1,291.3 41,290.4 37.5,291.3 37.5,289.2 35.3,289 34.3,286.6 33.2,286.7 34.2,284.4 34.3,286.4 35.3,286.8 35,288.1 37.4,287.7 37.7,289.5 38.9,287.6 40.7,288.5 41.2,287.8 40.6,286.8 41.7,286.5 41.6,285.3 40.2,284.6 37.5,285.6 36.1,285 36.2,283.8 37.9,284.3 37.5,283 38.4,283 37.7,282.3 36.9,283.2 35.2,283 36.8,281.3 36,279.7 37.7,279.8 39.1,278.4 39.3,281.5 40.4,281.3 40.9,282.2 41.5,280.9 41,280.1 42.2,279.5 41.7,277.4 42.9,276.7 40.8,275 42,274.5 41.9,273.8 41.2,274.4 39.7,274.1 40.6,272.1 38.6,268.2 37.3,268.1 36.2,269.8 35,268.9 33,272.4 30,273.2 30.7,277.2 29.2,278.7 29.7,282.8 27,282.3 26.1,283.1 23,283.3 24.9,281.2 26.4,282 28,280.6 28,279.2 26.1,278.2 26.7,277.2 28.1,277.9 28.7,275.7 27.4,274.5 29.1,270.4 30.2,270.4 29.5,269.2 30.8,269.1 30.5,271.1 32.7,271.6 34.9,268.9 35.1,267.2 39.1,266ZM42.9,254.1 44.5,255.9 42.8,256.3 43.3,256.9 42.1,257 41.7,258.7 40.7,256.8 42.9,254.1Z",c:[44.1,283.1]},"新竹市":{d:"M224.9,110.6 221.9,109.9 221.1,106.3 218.8,107.7 216.5,106.8 219.7,102.8 218.9,101.5 218.9,98.7 220.4,93.9 222.2,91.3 221.8,89.4 223.5,89.3 225.6,90 227.6,92.3 231.5,92.9 234.9,95.1 237.3,97.7 236.6,98.4 238.4,102.9 236.6,104 234.9,101.3 232.8,100.4 231.8,101 232.2,102.3 229.6,102.7 227.9,105.7 226.1,105.8 224.9,110.6Z",c:[225.3,98.4]},"新竹縣":{d:"M289.2,128.7 290.4,131.5 288,134.2 289,138.1 286.5,140.9 285.1,141 284.9,142.6 282.9,144.5 280.8,145.2 277.4,151.3 275.8,152.6 270.9,153.4 269.5,153.1 269.4,151.8 269.9,149.2 263.8,142.8 264.5,141.5 263.5,140.2 257,142.1 253.7,140.7 252.6,141.5 249.9,141.2 247.2,143 245.5,142.3 243.6,142.7 243,139.1 244.5,138.1 244.8,136.4 241.8,133.8 243.5,133 245.2,129 244.1,125.8 242.4,124.2 240.8,125.2 237.2,121.3 234.9,120.9 235.2,119.1 233.4,119.3 231.9,117.9 230.4,114.8 228.9,115 230.1,113 230.2,110.7 227.3,111.9 226.8,110.8 225.8,111.4 224.9,110.6 226.1,105.8 227.9,105.7 229.6,102.7 232.2,102.3 231.8,101 232.8,100.4 234.9,101.3 236.6,104 238.4,102.9 236.6,98.4 237.3,97.7 234.9,95.1 231.5,92.9 227.6,92.3 225.6,90 223.5,89.3 225.9,86.7 229.6,78.2 231.3,76.5 232.8,77.2 234.7,75.6 236.4,76.4 239,75.5 240.1,76 241.8,77 241.7,81.6 246.3,83.5 248.7,82.8 248.6,84.6 249.7,85.2 255.2,85.4 255.9,88.6 254.4,90.8 258,92.7 257.6,93.4 261.7,94.9 261.9,96.4 264,95.7 264.2,97.6 267.2,96.2 267.8,98 269.5,98.5 269.5,100.2 275.2,103 276.1,104.3 274.7,107.5 276,109.5 274.9,113.2 277.5,112.8 280.4,115.6 280.4,117.5 282.4,117.3 282.2,121 283,122.5 284.1,122.7 283.1,124.9 284.3,127.7 287,129.5 289.2,128.7Z",c:[255.3,112.5]},"屏東縣":{d:"M154.6,447.2 154.4,439.7 157,433.5 157.7,429.6 155.9,424.9 156.2,418.3 158.5,411.9 158.7,401.8 161.4,392 164,391.9 166.4,393.2 169.2,392.5 172.5,393.2 179.6,386.5 184.9,384.7 185.4,385.9 186.7,385.5 187.1,388.5 188.7,389 191.2,387.8 193.1,385.4 195.9,385.4 200.1,387.8 203.3,392.2 205.2,391.3 205.3,389.7 206.4,389.8 209.6,387.5 211.4,387.9 212.7,389.7 213.6,388.9 215.1,391 214.7,393.5 215.7,395 218.8,395.8 220.5,397.5 220.5,401.1 218.9,403 219.3,406.9 217.7,409.9 212.9,410 211.3,412.9 207.5,414.2 204.4,413.6 205.1,415.6 204.3,418.3 199.8,425.7 200,427.5 198.8,429.1 199.2,431.7 198.2,432.2 197.9,434.4 201.3,443.2 199.5,445.6 199.5,448.5 202.9,449.9 204.8,454.9 202.6,456.5 199.8,456.7 200.3,459.2 198.5,462.4 201.2,463.7 201.7,465.3 204.2,465.7 205.2,467.2 205.7,470.1 203.2,471.2 203.1,472.1 205.3,474.6 207,474.9 207.2,475.9 206,476 206,478.8 208.3,478 211,480.7 214.3,481.4 215.4,483 219.5,480.5 219.5,487 218.7,488.2 219.6,495.9 218.2,498.2 219,501 220.3,501.7 219,507.3 220.1,512.5 218.5,513.6 216.7,517.7 212.7,519.4 212,523.5 215.4,532.4 213.3,533 212.6,530.4 211.1,529.9 209.3,527.3 203.9,526 201.4,523.6 199.2,525.1 198,529.6 196.2,529.6 195.2,527.6 194,527.4 194.4,520.4 191.7,517.1 190.5,513.7 192.1,511.4 192.2,509.3 193.3,508.5 192.5,504.9 194.8,503.5 194.7,501.8 192.3,497 190.4,486 188.7,482.5 185.7,479.7 185.9,477.3 184.6,472.3 176.8,462.1 167.4,455.8 159.3,451.6 155.8,447.2 154.6,447.2Z",c:[180.8,414.4]}};
+var SHAPE_SRC="內政部國土測繪中心〈直轄市、縣市界線(TWD97經緯度)〉（政府資料開放平臺 data.gov.tw/dataset/7442，政府資料開放授權條款第1版）；經 taiwan-atlas（MIT 授權）轉檔後簡化";
+/* ---- 拼圖 ---- */
+var PZ_TOL=24;
+function pzSnap(n,x,y,tol){var s=SHAPES[n];if(!s)return false;var dx=x-s.c[0],dy=y-s.c[1];return Math.sqrt(dx*dx+dy*dy)<=(tol||PZ_TOL);}
+function pzBest(prev,t){if(!(t>0))return prev||0;if(!(prev>0))return t;return Math.min(prev,t);}
+function fmtTime(sec){sec=Math.max(0,Math.floor(sec||0));var m=Math.floor(sec/60),s=sec%60;return m+":"+(s<10?"0":"")+s;}
+/* 拼圖放好時的小卡（有出處的才寫） */
+var PZ_FACT={
+ "澎湖縣":{t:"離島、少雨多風！一年雨量約 <b>1,030.5 毫米</b>，不到臺北（約 2,329.5 毫米）的一半；冬天<b>東北季風</b>又乾又強。",s:"中央氣象署 1991～2020 年平均、澎湖氣象站介紹"},
+ "臺東縣":{t:"東南方海上的<b>蘭嶼</b>屬於臺東縣，一年雨量約 <b>2,978.7 毫米</b>；達悟族傳統住的是<b>地下屋</b>，不是石板屋。",s:"中央氣象署 1991～2020 年平均；史前館、文化部國家文化記憶庫"},
+ "新北市":{t:"<b>石碇區</b>在新北市的山區，不靠海，潮濕多雨，年雨量約 <b>1,500～2,000 公釐</b>。",s:"新北市石碇區公所〈地區災害特色〉"},
+ "南投縣":{t:"臺灣<b>唯一不靠海的縣</b>；課本裡嘉家要去的<b>日月潭</b>就在這裡。",s:"翰林 4上 第2課；縣市界線圖"},
+ "臺中市":{t:"課本例子：面積最大的是<b>和平區</b>；靠海的區有<b>大甲、大安、清水、梧棲、龍井</b>。",s:"翰林 4上 第2課"},
+ "臺北市":{t:"四周被<b>新北市</b>圍起來，所以<b>不靠海</b>。",s:"縣市界線圖；維基百科「臺北市」"},
+ "嘉義市":{t:"四周被<b>嘉義縣</b>圍起來，所以<b>不靠海</b>。",s:"縣市界線圖"},
+ "屏東縣":{t:"山區有<b>排灣族、魯凱族</b>的<b>石板屋</b>部落。",s:"原住民族文化事業基金會「原視界」"}
+};
+/* 拼完後的「找找看」：點地圖回答 */
+var FIND=[
+ {q:"點出全部 <b>3 個不靠海</b>的縣市！",a:["臺北市","南投縣","嘉義市"]},
+ {q:"<b>澎湖縣</b>在哪裡？點點看！",a:["澎湖縣"]},
+ {q:"課本裡的<b>日月潭</b>在哪一個縣？",a:["南投縣"]},
+ {q:"<b>蘭嶼</b>屬於哪一個縣？",a:["臺東縣"]},
+ {q:"<b>石碇區</b>在哪一個市？",a:["新北市"]},
+ {q:"課本例子：<b>和平區、梧棲區</b>在哪一個市？",a:["臺中市"]},
+ {q:"四周被<b>新北市</b>圍起來的是哪一個市？",a:["臺北市"]}
+];
+function findCheck(i,n,got){var f=FIND[i];if(!f)return {ok:false,done:false};got=got||{};var ok=f.a.indexOf(n)>=0;var g={};for(var k in got)g[k]=got[k];if(ok)g[n]=1;var cnt=0;f.a.forEach(function(x){if(g[x])cnt++;});return {ok:ok,again:ok&&!!got[n],got:g,done:cnt===f.a.length};}
+function county(n){for(var i=0;i<COUNTIES.length;i++)if(COUNTIES[i].n===n)return COUNTIES[i];return null;}
+function seaKind(n){var c=county(n);if(!c)return null;return c.island?"island":(c.sea?"sea":"inland");}
+var KIND_TXT={sea:"🌊 靠海",inland:"⛰️ 不靠海",island:"🏝️ 離島（四面環海）"};
+function inlandList(){return COUNTIES.filter(function(c){return !c.sea;}).map(function(c){return c.n;});}
+
+/* ---- 中央氣象署 1991～2020 年氣候平均：月降水量（毫米） ---- */
+var RAIN={
+ "澎湖":{m:[20.9,38.1,50.7,77.9,117.8,148.0,163.2,229.4,100.3,30.1,26.0,28.1],y:1030.5,color:"#ff9f1c"},
+ "臺北":{m:[90.5,143.2,157.2,152.5,239.9,345.0,226.1,337.8,315.2,150.2,83.2,88.7],y:2329.5,color:"#4d96ff"},
+ "蘭嶼":{m:[249.9,190.7,135.2,142.9,247.2,245.8,252.0,328.8,361.1,299.0,282.6,243.5],y:2978.7,color:"#9b5de5"}
+};
+var SHIDING_RAIN=[1500,2000]; /* 新北市石碇區公所：平均年雨量 1,500～2,000 公釐 */
+function total(a){var s=0;for(var i=0;i<a.length;i++)s+=a[i];return Math.round(s*10)/10;}
+function wettest(a){var b=0;for(var i=1;i<a.length;i++)if(a[i]>a[b])b=i;return b;}
+function driest(a){var b=0;for(var i=1;i<a.length;i++)if(a[i]<a[b])b=i;return b;}
+function times(a,b){return Math.round(a/b*10)/10;}
+
+/* ---- 課本：嘉家從新店到日月潭 ---- */
+var STATIONS={xd:"新店",cks:"中正紀念堂",tpe:"臺北車站",tcr:"臺中火車站",tch:"高鐵臺中站",sml:"日月潭"};
+var EDGES=[
+ {id:"g",from:"xd",to:"cks",icon:"🚇",mode:"捷運綠線",plans:"ABC"},
+ {id:"r",from:"cks",to:"tpe",icon:"🚇",mode:"捷運紅線",plans:"ABC"},
+ {id:"kk",from:"tpe",to:"sml",icon:"🚌",mode:"國光客運",plans:"A"},
+ {id:"tra",from:"tpe",to:"tcr",icon:"🚆",mode:"臺鐵",plans:"B"},
+ {id:"tw",from:"tcr",to:"sml",icon:"🚌",mode:"臺灣好行",plans:"B"},
+ {id:"hsr",from:"tpe",to:"tch",icon:"🚄",mode:"高鐵",plans:"C"},
+ {id:"nt",from:"tch",to:"sml",icon:"🚌",mode:"南投客運",plans:"C"}
+];
+function edge(id){for(var i=0;i<EDGES.length;i++)if(EDGES[i].id===id)return EDGES[i];return null;}
+function nextEdges(st){return EDGES.filter(function(e){return e.from===st;});}
+function routeEnd(ids){var st="xd";for(var i=0;i<ids.length;i++){var e=edge(ids[i]);if(!e||e.from!==st)return null;st=e.to;}return st;}
+function planOf(ids){if(routeEnd(ids)!=="sml")return null;var p="ABC";ids.forEach(function(id){var e=edge(id),q="";for(var k=0;k<p.length;k++)if(e.plans.indexOf(p[k])>=0)q+=p[k];p=q;});return p.length===1?p:null;}
+function transfers(ids){return Math.max(0,ids.length-1);}
+function planRoute(p){return EDGES.filter(function(e){return e.plans===p||e.plans==="ABC";}).map(function(e){return e.id;});}
+
+/* ---- 日月潭觀光導覽圖（示意）：圖例種類 ---- */
+var LEGEND=[
+ {k:"visitor",icon:"ℹ️",name:"遊客中心"},
+ {k:"pier",icon:"⛴️",name:"碼頭"},
+ {k:"cable",icon:"🚡",name:"纜車站"},
+ {k:"toilet",icon:"🚻",name:"廁所"},
+ {k:"shop",icon:"🛍️",name:"購物站"},
+ {k:"mount",icon:"⛰️",name:"山"},
+ {k:"trail",icon:"🥾",name:"步道"},
+ {k:"road",icon:"🛣️",name:"道路"}
+];
+function legend(k){for(var i=0;i<LEGEND.length;i++)if(LEGEND[i].k===k)return LEGEND[i];return null;}
+
+/* ---- 房子大不同 ---- */
+var HOUSES=[
+ {id:"slate",house:"🪨 石板屋",where:"屏東等南部山區",who:"排灣族、魯凱族",why:"山上容易取得板岩、頁岩，切成石板蓋牆和屋頂，冬暖夏涼。"},
+ {id:"under",house:"🕳️ 地下屋（半穴居）",where:"蘭嶼",who:"達悟族",why:"主屋往地下挖，屋頂幾乎和地面一樣高，可以躲強風和颱風；地上鋪鵝卵石幫忙排水。"},
+ {id:"coral",house:"🪸 咾咕石屋",where:"澎湖",who:"澎湖居民",why:"海邊有很多珊瑚礁石灰岩（咾咕石），就地取材蓋房子、砌防風牆「菜宅」，擋強勁的東北季風。"}
+];
+
+/* ---- 小博士測驗 ---- */
+var QUIZ=[
+ {q:"想知道臺中市分成哪些區、哪一區最大，最適合看哪一種地圖？",o:["行政區域圖","交通路線圖","觀光導覽圖"],a:0,x:"行政區域圖可以看出區域的劃分和大小。",t:"book"},
+ {q:"課本的臺中市行政區域圖中，面積最大的是哪一區？",o:["和平區","梧棲區","中區"],a:0,x:"和平區在山區，面積最大。",t:"book"},
+ {q:"下列哪一組是臺中市靠臺灣海峽的區？",o:["大甲、清水、梧棲","和平、新社、東勢","北屯、南屯、西屯"],a:0,x:"由北到南：大甲、大安、清水、梧棲、龍井。",t:"book"},
+ {q:"臺灣唯一不靠海的「縣」是哪一個？",o:["南投縣","嘉義縣","苗栗縣"],a:0,x:"南投縣四周都被別的縣市圍住。（臺北市、嘉義市也不靠海，但它們是「市」。）",t:"more"},
+ {q:"規畫交通路線時，下面哪一件事「最不需要」考慮？",o:["要花多少時間","要換幾次車","車子是什麼顏色"],a:2,x:"時間、費用、換車次數、方不方便才重要，顏色不影響行程。",t:"book"},
+ {q:"嘉家的方案A，從臺北車站到日月潭坐的是什麼？",o:["國光客運","高鐵","臺灣好行"],a:0,x:"方案A：捷運綠線→捷運紅線→國光客運，直接到日月潭。",t:"book"},
+ {q:"嘉家的方案C，從臺北坐高鐵到高鐵臺中站，接著坐什麼？",o:["南投客運","臺灣好行","捷運"],a:0,x:"方案C：高鐵到臺中，再轉南投客運到日月潭。",t:"book"},
+ {q:"到日月潭玩，想知道碼頭、遊客中心、纜車站在哪裡，最適合看？",o:["觀光導覽圖","行政區域圖","衛星影像圖"],a:0,x:"觀光導覽圖會標出景點和旅遊設施。",t:"book"},
+ {q:"日月潭中間的拉魯島，是哪一族的聖地？",o:["邵族","達悟族","排灣族"],a:0,x:"邵族（Thao）的意思是「人」，拉魯島是邵族的聖地。",t:"book"},
+ {q:"澎湖縣在臺灣本島的哪一邊？",o:["西邊","東邊","北邊"],a:0,x:"澎湖在臺灣本島西邊的臺灣海峽上，四面環海。",t:"more"},
+ {q:"依中央氣象署資料，澎湖一年的平均雨量大約多少？",o:["約 1,000 毫米","約 2,300 毫米","約 3,000 毫米"],a:0,x:"澎湖約 1,030 毫米，只有臺北（約 2,330 毫米）的一半不到。",t:"more"},
+ {q:"澎湖冬天的天氣有什麼特色？",o:["東北季風很強、空氣乾燥","每天下大雪","常常起大霧都不颳風"],a:0,x:"中央氣象署：澎湖冬季吹東北風，空氣乾燥，風力強勁。",t:"more"},
+ {q:"石碇區在哪裡？",o:["新北市的山區，不靠海","澎湖的小島","臺東外海"],a:0,x:"石碇區在新北市中間，多丘陵和山，四周都是別的區。",t:"more"},
+ {q:"石碇區的氣候是？",o:["潮濕多雨","乾燥少雨","整年下雪"],a:0,x:"石碇區公所：氣候潮濕多雨，平均年雨量約 1,500～2,000 公釐。",t:"more"},
+ {q:"蘭嶼達悟族傳統的房子是哪一種？",o:["地下屋（半穴居）","石板屋","咾咕石屋"],a:0,x:"蘭嶼傳統是地下屋；石板屋是排灣族、魯凱族在山區蓋的。",t:"other"},
+ {q:"石板屋主要是哪些族群蓋的？",o:["排灣族、魯凱族","達悟族","邵族"],a:0,x:"排灣族、魯凱族（還有布農族）在山區用石板蓋房子。",t:"other"},
+ {q:"澎湖人用來砌房子和防風牆的「咾咕石」是什麼？",o:["珊瑚礁石灰岩","火山噴出的玻璃","河邊的沙子"],a:0,x:"咾咕石（硓𥑮石）是海邊的珊瑚礁石灰岩，現在已經禁止開採了。",t:"other"}
+];
+return {COUNTIES:COUNTIES,proj:proj,SHAPES:SHAPES,SHAPE_SRC:SHAPE_SRC,PZ_TOL:PZ_TOL,pzSnap:pzSnap,pzBest:pzBest,fmtTime:fmtTime,PZ_FACT:PZ_FACT,FIND:FIND,findCheck:findCheck,county:county,seaKind:seaKind,KIND_TXT:KIND_TXT,inlandList:inlandList,
+ RAIN:RAIN,SHIDING_RAIN:SHIDING_RAIN,total:total,wettest:wettest,driest:driest,times:times,
+ STATIONS:STATIONS,EDGES:EDGES,edge:edge,nextEdges:nextEdges,routeEnd:routeEnd,planOf:planOf,transfers:transfers,planRoute:planRoute,
+ LEGEND:LEGEND,legend:legend,HOUSES:HOUSES,QUIZ:QUIZ};
+})();
+if(typeof module!=="undefined")module.exports=Core;
+</script>
+<script>
+(function(){
+"use strict";
+if(typeof document==="undefined")return;
+var $=function(id){return document.getElementById(id);};
+var C=Core;
+
+/* ---------------- stars ---------------- */
+var KEY="mapLifeStars", stars=0;
+try{stars=parseInt(localStorage.getItem(KEY)||"0",10)||0;}catch(e){}
+var BADGES=[{need:5,label:"🧭 生活小幫手"},{need:15,label:"🚆 路線規畫師"},{need:30,label:"👑 地圖生活家"}];
+function renderScore(){$("score").textContent="⭐ "+stars;$("badges").innerHTML=BADGES.map(function(b){var g=stars>=b.need;return '<span class="bdg'+(g?" got":"")+'">'+b.label+(g?"":"（"+b.need+"⭐）")+'</span>';}).join("");}
+function addStars(n,el){stars+=n;try{localStorage.setItem(KEY,String(stars));}catch(e){}renderScore();var sc=$("score");sc.classList.remove("pop");void sc.offsetWidth;sc.classList.add("pop");
+  var x=innerWidth/2,y=innerHeight/2;if(el){var r=el.getBoundingClientRect();x=r.left+r.width/2;y=r.top;}burst(x,y);beep(true);}
+function burst(x,y){var em=["⭐","🧳","✨","🚆"];for(var i=0;i<10;i++){var s=document.createElement("div");s.className="burst";s.textContent=em[i%4];s.style.left=x+"px";s.style.top=y+"px";var a=Math.random()*6.28,r=60+Math.random()*90;s.style.setProperty("--dx",Math.cos(a)*r+"px");s.style.setProperty("--dy",Math.sin(a)*r+"px");document.body.appendChild(s);setTimeout((function(n){return function(){if(n.parentNode)n.parentNode.removeChild(n);};})(s),1200);}}
+var actx=null;function beep(ok){try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();(ok?[660,880,1100]:[300,220]).forEach(function(f,i){var o=actx.createOscillator(),g=actx.createGain();o.frequency.value=f;o.type="triangle";g.gain.setValueAtTime(.12,actx.currentTime+i*.09);g.gain.exponentialRampToValueAtTime(.001,actx.currentTime+i*.09+.25);o.connect(g);g.connect(actx.destination);o.start(actx.currentTime+i*.09);o.stop(actx.currentTime+i*.09+.3);});}catch(e){}}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function each(list,fn){Array.prototype.forEach.call(list,fn);}
+
+/* ---------------- tabs ---------------- */
+var tabBtns=document.querySelectorAll("#tabs button");
+each(tabBtns,function(b){b.addEventListener("click",function(){each(tabBtns,function(x){x.classList.toggle("on",x===b);});each(document.querySelectorAll("section.page"),function(p){p.classList.toggle("active",p.id===b.getAttribute("data-p"));});window.scrollTo(0,0);});});
+
+/* ---------------- Taiwan map ---------------- */
+var POS0={"基隆市":[334,48,"r"],"臺北市":[308,62,"l"],"新北市":[318,90,"r"],"桃園市":[261,82,"l"],"新竹市":[227,97,"l"],"新竹縣":[259,113,"r"],"苗栗縣":[214,142,"l"],"臺中市":[227,184,"r"],"彰化縣":[162,220,"l"],"南投縣":[229,242,"r"],"雲林縣":[151,262,"l"],"嘉義市":[158,295,"l"],"嘉義縣":[181,312,"r"],"臺南市":[138,352,"l"],"高雄市":[178,366,"r"],"屏東縣":[182,442,"r"],"宜蘭縣":[327,124,"r"],"花蓮縣":[289,255,"r"],"臺東縣":[241,382,"r"],"澎湖縣":[38,282,"b"],"金門縣":[60,92,"b"],"連江縣":[60,36,"b"]};
+var POS={};C.COUNTIES.forEach(function(c){var p=POS0[c.n],q=C.SHAPES[c.n].c;POS[c.n]=[q[0],q[1],p[2]];});
+var KCOL={sea:"#4d96ff",inland:"#9c6644",island:"#9b5de5"};
+var FILL={sea:"#fdf6e3",inland:"#fdf6e3",island:"#fdf6e3"};
+function insets(){return '<rect x="6" y="8" width="112" height="50" rx="8" fill="#f3f8ff" stroke="#9fb3c8" stroke-dasharray="4 3"/><text x="112" y="20" font-size="9" fill="#678" text-anchor="end">↑實際在更北邊</text>'+
+  '<rect x="6" y="64" width="112" height="46" rx="8" fill="#f3f8ff" stroke="#9fb3c8" stroke-dasharray="4 3"/><text x="112" y="104" font-size="9" fill="#678" text-anchor="end">←實際在更西邊</text>';}
+function seaDeco(){return '<text x="70" y="200" font-size="12" fill="#1c7ed6" font-weight="700" text-anchor="middle">臺灣海峽</text><text x="352" y="300" font-size="12" fill="#1c7ed6" font-weight="700" transform="rotate(90 352 300)">太平洋</text>'+
+  '<g transform="translate(375,30)"><circle r="16" fill="#fff" stroke="#4d96ff" stroke-width="2"/><polygon points="0,-12 5,4 0,1 -5,4" fill="#e63946"/><text x="0" y="13" font-size="8" font-weight="900" text-anchor="middle" fill="#e63946">北</text></g>';}
+/* 離島的大一點的點擊範圍 */
+function hitArea(n){if(n==="連江縣")return '<rect x="6" y="8" width="112" height="50" fill="transparent"/>';if(n==="金門縣")return '<rect x="6" y="64" width="112" height="46" fill="transparent"/>';if(n==="澎湖縣")return '<rect x="0" y="250" width="60" height="94" fill="transparent"/>';return "";}
+function twMap(o){
+  o=o||{};var h='<rect width="400" height="545" fill="#e6f4ff"/>'+insets()+seaDeco();
+  C.COUNTIES.forEach(function(c){
+    var k=C.seaKind(c.n),sel=o.sel===c.n,f=o.color?KCOL[k]:(sel?"#ffd166":"#fdf6e3");
+    if(o.color&&sel)f="#ffd166";
+    h+='<g class="cty" data-n="'+c.n+'">'+hitArea(c.n)+'<path d="'+C.SHAPES[c.n].d+'" fill="'+f+'" fill-opacity="'+(o.color&&!sel?.55:1)+'" fill-rule="evenodd" stroke="'+(sel?"#ff6b9a":"#7a8b99")+'" stroke-width="'+(sel?2.2:.8)+'" stroke-linejoin="round"/></g>';
+  });
+  if(o.lanyu)h+='<circle cx="309" cy="511" r="13" fill="none" stroke="#ff6b9a" stroke-width="4" class="hl"/>';
+  h+='<text x="322" y="515" class="lbl" font-size="11">蘭嶼</text>';
+  if(o.shiding){h+='<text x="'+o.shiding[0]+'" y="'+(o.shiding[1]+5)+'" font-size="16" text-anchor="middle">⭐</text><text x="'+(o.shiding[0]+10)+'" y="'+(o.shiding[1]-6)+'" class="lbl" font-size="11">石碇</text>';}
+  C.COUNTIES.forEach(function(c){
+    var p=POS[c.n],sel=o.sel===c.n;
+    if(o.labels!==false||sel){
+      var tx=p[0]+6,ty=p[1]+4,an="start";
+      if(p[2]==="l"){tx=p[0]-6;an="end";}else if(p[2]==="b"){tx=p[0];ty=p[1]+20;an="middle";}
+      if(c.inset){tx=12;ty=c.inset==="lj"?21:77;an="start";}
+      h+=(c.inset?'':'<circle cx="'+p[0]+'" cy="'+p[1]+'" r="3" fill="#2a9d8f" pointer-events="none"/>')+'<text x="'+tx+'" y="'+ty+'" class="lbl" text-anchor="'+an+'">'+c.n+'</text>';
+    }
+  });
+  return h;
+}
+function bindMap(svg,fn){svg.addEventListener("click",function(ev){var t=ev.target;while(t&&t!==svg&&!(t.getAttribute&&t.getAttribute("data-n")))t=t.parentNode;if(t&&t!==svg)fn(t.getAttribute("data-n"),t);});}
+
+/* ---------------- 1. admin map ---------------- */
+var aSel=null,aColor=false,foundInland={};
+function drawA(){$("twSvg").innerHTML=twMap({sel:aSel,color:aColor});
+  $("aBtns").innerHTML=C.COUNTIES.map(function(c){var k=C.seaKind(c.n);return '<button class="chip'+(aColor?" "+k:"")+(aSel===c.n?" on":"")+'" data-n="'+c.n+'">'+c.n+'</button>';}).join("");
+  var inl=C.inlandList();$("aInfo").setAttribute("data-sel",aSel||"");
+  var chk='<div class="checks">'+inl.map(function(n){return '<span class="chk'+(foundInland[n]?" got":"")+'">'+(foundInland[n]?"✅ ":"❓ ")+(foundInland[n]?n:"不靠海的縣市")+'</span>';}).join("")+'</div>';
+  if(aSel){var c=C.county(aSel),k=C.seaKind(aSel);$("aInfo").innerHTML='<div class="t">'+aSel+'</div><b>'+C.KIND_TXT[k]+'</b>'+(c.note?'<br>'+c.note:'')+chk;}
+  else $("aInfo").innerHTML='<div class="t">👆 點地圖上的縣市</div>找一找：全臺灣有 <b>3 個縣市不靠海</b>，你能全部找到嗎？'+chk;
+}
+function pickA(n,el){aSel=n;var k=C.seaKind(n);if(k==="inland"&&!foundInland[n]){foundInland[n]=1;drawA();addStars(1,$("aInfo"));}else drawA();}
+bindMap($("twSvg"),pickA);
+$("aBtns").addEventListener("click",function(ev){var n=ev.target.getAttribute&&ev.target.getAttribute("data-n");if(n)pickA(n,ev.target);});
+$("aSea").addEventListener("click",function(){aColor=true;drawA();$("aSea").classList.add("on");});
+$("aClear").addEventListener("click",function(){aColor=false;aSel=null;$("aSea").classList.remove("on");drawA();});
+drawA();
+
+/* ---------------- 2. route ---------------- */
+var SP={xd:[60,262],cks:[60,176],tpe:[60,86],tcr:[240,150],tch:[240,236],sml:[372,190]};
+var ECOL={g:"#2a9d8f",r:"#e63946",kk:"#ff9f1c",tra:"#4d96ff",tw:"#57cc99",hsr:"#f77f00",nt:"#9b5de5"};
+var route=[],plansDone={};
+function edgePath(e){var a=SP[e.from],b=SP[e.to];if(e.id==="kk")return "M"+a[0]+","+a[1]+" C180,10 330,40 "+b[0]+","+b[1];return "M"+a[0]+","+a[1]+" L"+b[0]+","+b[1];}
+function edgeMid(e){var a=SP[e.from],b=SP[e.to];if(e.id==="kk")return [230,42];return [(a[0]+b[0])/2,(a[1]+b[1])/2];}
+function drawRoute(){
+  var cur=C.routeEnd(route),h='<rect width="420" height="300" fill="#fbfaf5"/>';
+  C.EDGES.forEach(function(e){var on=route.indexOf(e.id)>=0;h+='<path d="'+edgePath(e)+'" fill="none" stroke="'+ECOL[e.id]+'" stroke-width="'+(on?9:4)+'" stroke-linecap="round" opacity="'+(on?1:.45)+'"'+(on?'':' stroke-dasharray="8 6"')+'/>';});
+  C.EDGES.forEach(function(e){var m=edgeMid(e);h+='<text x="'+m[0]+'" y="'+(m[1]+6)+'" font-size="18" text-anchor="middle">'+e.icon+'</text>';});
+  Object.keys(SP).forEach(function(k){var p=SP[k],isCur=k===cur;
+    if(isCur)h+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="20" fill="#ffd166" class="hl" stroke="#ff6b9a"/>';
+    h+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="11" fill="#fff" stroke="#2b2d42" stroke-width="3"/>';
+    var lx=p[0],ly=p[1]+30,an="middle";if(k==="tpe"){ly=p[1]-18;}if(k==="sml"){ly=p[1]+32;}if(k==="xd"||k==="cks"){lx=p[0]+18;ly=p[1]+5;an="start";}
+    h+='<text x="'+lx+'" y="'+ly+'" class="lbl" font-size="14" text-anchor="'+an+'">'+(k==="sml"?"🏞️ ":"")+C.STATIONS[k]+'</text>';});
+  if(cur==="sml")h+='<text x="372" y="160" font-size="26" text-anchor="middle">🎉</text>';
+  $("rtSvg").innerHTML=h;
+  $("rtStops").innerHTML='<span class="stop">🏠 新店</span>'+route.map(function(id){var e=C.edge(id);return '<span class="ride">'+e.icon+e.mode+' ➜</span><span class="stop">'+C.STATIONS[e.to]+'</span>';}).join("");
+  var nx=C.nextEdges(cur);
+  if(cur==="sml"){var p=C.planOf(route);$("rtQ").textContent="🎉 到日月潭了！";$("rtOpts").innerHTML="";
+    var fb=$("rtFb");fb.className="feedback show good";fb.innerHTML="這就是課本的<b>方案"+p+"</b>！一共坐了 <b>"+route.length+"</b> 段車，換了 <b>"+C.transfers(route)+"</b> 次車。"+(p==="A"?"<br>👍 優點：到臺北車站後一路坐到日月潭，換車次數最少。":p==="B"?"<br>🚆 先坐臺鐵到臺中火車站，再坐臺灣好行。":"<br>🚄 高鐵很快，到高鐵臺中站再轉南投客運。")+"<br>試試看其他方案吧！";
+    if(!plansDone[p]){plansDone[p]=1;addStars(2,fb);}
+  }else{$("rtQ").textContent="📍 現在在「"+C.STATIONS[cur]+"」，接下來要坐什麼？";$("rtFb").className="feedback";
+    $("rtOpts").innerHTML=nx.map(function(e){return '<button class="opt" data-e="'+e.id+'">'+e.icon+" "+e.mode+"<br><span class=\"small\">到 "+C.STATIONS[e.to]+'</span></button>';}).join("");}
+  $("rtChecks").innerHTML=["A","B","C"].map(function(p){return '<span class="chk'+(plansDone[p]?" got":"")+'">'+(plansDone[p]?"✅":"⬜")+" 方案"+p+'</span>';}).join("");
+}
+$("rtOpts").addEventListener("click",function(ev){var t=ev.target;while(t&&t!==this&&!t.getAttribute("data-e"))t=t.parentNode;if(!t||t===this)return;route.push(t.getAttribute("data-e"));drawRoute();});
+$("rtReset").addEventListener("click",function(){route=[];drawRoute();});
+drawRoute();
+
+/* ---------------- 3. tour map ---------------- */
+var TOUR=[
+ {id:"shuishe",x:118,y:118,k:"place",icon:"🏘️",name:"水社",info:"湖的西北邊，很熱鬧，有遊客中心和碼頭，可以坐船遊湖。"},
+ {id:"wenwu",x:236,y:56,k:"place",icon:"🏯",name:"文武廟",info:"在湖北邊山坡上的大廟。"},
+ {id:"ita",x:330,y:236,k:"place",icon:"🏘️",name:"伊達邵",info:"湖的東南邊，是邵族的部落，有碼頭和很多小店。"},
+ {id:"xuan",x:196,y:300,k:"place",icon:"🛕",name:"玄光寺",info:"在湖的南邊，有碼頭；這裡離拉魯島很近。"},
+ {id:"lalu",x:236,y:222,k:"place",icon:"🌿",name:"拉魯島",info:"湖中的小島，是<b>邵族的聖地</b>，不能上島喔。"},
+ {id:"xiang",x:70,y:262,k:"visitor",icon:"ℹ️",name:"向山遊客中心",info:"湖西南邊的遊客中心，可以拿地圖、問路。"},
+ {id:"v1",x:94,y:96,k:"visitor",icon:"ℹ️",name:"水社遊客中心",info:"在水社旁邊。"},
+ {id:"p1",x:140,y:142,k:"pier",icon:"⛴️",name:"水社碼頭",info:"坐遊湖船的地方。"},
+ {id:"p2",x:312,y:258,k:"pier",icon:"⛴️",name:"伊達邵碼頭",info:"坐遊湖船的地方。"},
+ {id:"p3",x:218,y:286,k:"pier",icon:"⛴️",name:"玄光寺碼頭",info:"坐遊湖船的地方。"},
+ {id:"cable",x:382,y:196,k:"cable",icon:"🚡",name:"纜車站",info:"日月潭纜車可以坐到九族文化村。"},
+ {id:"t1",x:150,y:94,k:"toilet",icon:"🚻",name:"廁所",info:"出去玩要知道廁所在哪裡！"},
+ {id:"t2",x:350,y:262,k:"toilet",icon:"🚻",name:"廁所",info:"出去玩要知道廁所在哪裡！"},
+ {id:"s1",x:120,y:72,k:"shop",icon:"🛍️",name:"購物站",info:"可以買紀念品、紅茶。"},
+ {id:"s2",x:356,y:220,k:"shop",icon:"🛍️",name:"購物站",info:"可以買紀念品、紅茶。"},
+ {id:"m1",x:40,y:170,k:"mount",icon:"⛰️",name:"山",info:"日月潭四周都是山。"},
+ {id:"m2",x:300,y:40,k:"mount",icon:"⛰️",name:"山",info:"日月潭四周都是山。"},
+ {id:"m3",x:150,y:350,k:"mount",icon:"⛰️",name:"山",info:"日月潭四周都是山。"},
+ {id:"tr1",x:176,y:330,k:"trail",icon:"🥾",name:"步道",info:"可以走路爬山、看風景的路。"},
+ {id:"tr2",x:268,y:34,k:"trail",icon:"🥾",name:"步道",info:"可以走路爬山、看風景的路。"}
+];
+var tHl=null,tTask=0,TASKS=shuffle([{k:"pier",q:"想坐船遊湖，請點一個「碼頭」⛴️"},{k:"visitor",q:"迷路了！請點一個「遊客中心」ℹ️"},{k:"cable",q:"想去九族文化村，請點「纜車站」🚡"},{k:"mount",q:"日月潭四周有什麼？請點一座「山」⛰️"},{k:"lalu",q:"請找到湖中間的小島「拉魯島」"},{k:"toilet",q:"想上廁所，請點「廁所」🚻"}]),tDone={};
+function drawTour(){
+  var h='<rect width="420" height="380" fill="#e9f5db"/>';
+  h+='<text x="210" y="22" font-size="17" font-weight="900" text-anchor="middle" fill="#14574f">日月潭觀光導覽圖（示意）</text>';
+  h+='<path d="M60,200 C40,130 110,80 190,96 C250,80 300,110 330,150 C380,190 360,250 320,270 C270,300 220,310 170,290 C120,280 80,250 60,200Z" fill="none" stroke="#adb5bd" stroke-width="12" stroke-linejoin="round" opacity="'+(tHl==="road"?1:.8)+'"'+(tHl==="road"?' class="hl"':'')+'/>';
+  h+='<path d="M80,198 C66,140 120,104 190,116 C246,104 290,128 312,160 C346,196 334,240 304,254 C262,276 222,284 178,272 C134,262 96,240 80,198Z" fill="#74c0fc" stroke="#4dabf7" stroke-width="3"/>';
+  h+='<text x="200" y="180" font-size="16" fill="#1c5d99" font-weight="900" text-anchor="middle" opacity=".7">日月潭</text>';
+  h+='<ellipse cx="236" cy="222" rx="12" ry="8" fill="#8ce99a" stroke="#2b8a3e" stroke-width="2"/>';
+  h+='<path d="M382,196 L414,150" stroke="#555" stroke-width="2" stroke-dasharray="4 3"/><text x="410" y="142" font-size="10" text-anchor="end" fill="#555">往九族文化村</text>';
+  TOUR.forEach(function(t){var on=tHl&&(t.k===tHl||t.id===tHl);
+    h+='<g class="cty" data-t="'+t.id+'"><circle cx="'+t.x+'" cy="'+t.y+'" r="17" fill="'+(on?"#ffd166":"rgba(255,255,255,.75)")+'" stroke="'+(on?"#ff6b9a":"#ccc")+'" stroke-width="'+(on?3:1)+'"'+(on?' class="hl"':'')+'/>';
+    if(t.id!=="lalu")h+='<text x="'+t.x+'" y="'+(t.y+6)+'" font-size="17" text-anchor="middle">'+t.icon+'</text>';
+    if(t.k==="place"){var ly=t.y+(t.id==="lalu"?-14:30);h+='<text x="'+t.x+'" y="'+ly+'" class="lbl" font-size="12" text-anchor="middle">'+t.name+'</text>';}
+    h+='</g>';});
+  h+='<g transform="translate(392,350)"><circle r="16" fill="#fff" stroke="#4d96ff" stroke-width="2"/><polygon points="0,-12 5,4 0,1 -5,4" fill="#e63946"/><text x="0" y="13" font-size="8" font-weight="900" text-anchor="middle" fill="#e63946">北</text></g>';
+  $("tSvg").innerHTML=h;
+  $("tLegend").innerHTML=C.LEGEND.map(function(l){return '<button class="chip'+(tHl===l.k?" on":"")+'" data-k="'+l.k+'">'+l.icon+" "+l.name+'</button>';}).join("");
+}
+function tourItem(id){for(var i=0;i<TOUR.length;i++)if(TOUR[i].id===id)return TOUR[i];return null;}
+function showTask(){var t=TASKS[tTask%TASKS.length];$("tQ").textContent="任務 "+(tTask%TASKS.length+1)+"／"+TASKS.length+"："+t.q;$("tFb").className="feedback";$("tNext").style.display="none";}
+$("tLegend").addEventListener("click",function(ev){var k=ev.target.getAttribute&&ev.target.getAttribute("data-k");if(!k)return;tHl=tHl===k?null:k;drawTour();var l=C.legend(k);$("tInfo").innerHTML='<div class="t">'+l.icon+" "+l.name+'</div>'+(k==="road"?"灰色的粗線是繞著湖的道路。":"地圖上發亮的就是「"+l.name+"」。");});
+$("tSvg").addEventListener("click",function(ev){var t=ev.target;while(t&&t!==this&&!(t.getAttribute&&t.getAttribute("data-t")))t=t.parentNode;if(!t||t===this)return;
+  var it=tourItem(t.getAttribute("data-t"));$("tInfo").innerHTML='<div class="t">'+it.icon+" "+it.name+'</div>'+it.info;
+  var task=TASKS[tTask%TASKS.length],fb=$("tFb");if($("tNext").style.display!=="none")return;
+  if(it.k===task.k||it.id===task.k){fb.className="feedback show good";fb.innerHTML="✅ 找到了！"+it.name+"。";$("tNext").style.display="";if(!tDone[task.k]){tDone[task.k]=1;addStars(1,fb);}}
+  else{fb.className="feedback show bad";fb.innerHTML="這是「"+it.name+"」，再找找看！可以先點上面的圖例幫忙。";beep(false);}});
+$("tNext").addEventListener("click",function(){tTask++;tHl=null;drawTour();showTask();});
+drawTour();showTask();
+
+/* ---------------- 4. places ---------------- */
+var SD=C.proj(121.66,24.99);
+var PLACE={
+ ph:{title:"🏝️ 澎湖縣",map:{sel:"澎湖縣"},facts:[["在哪裡","臺灣本島<b>西邊</b>的臺灣海峽上，由許多島嶼組成。"],["靠海嗎？","<b>四面環海</b>的離島縣。"],["雨多嗎？","<b>雨很少！</b>一年平均約 <b>1,030.5 毫米</b>，不到臺北的一半。雨大多下在夏天（8 月最多），常是颱風帶來的雨。"],["風大嗎？","冬天吹<b>東北季風</b>，空氣乾燥、風力很強。"],["特別的房子","用海邊的<b>咾咕石</b>（珊瑚礁石灰岩）蓋房子、砌<b>菜宅</b>防風牆。"]],src:"中央氣象署 澎湖站 1991～2020 年平均；中央氣象署〈澎湖氣象站〉測站特色；澎湖縣文化局（中央社報導）。"},
+ sd:{title:"⛰️ 新北市石碇區",map:{sel:"新北市",shiding:[SD.x,SD.y]},facts:[["在哪裡","<b>新北市</b>的中間、臺北市的東南邊。"],["靠海嗎？","<b>不靠海！</b>四周是汐止、深坑、新店、烏來、坪林、平溪和臺北市南港、文山。"],["地形","<b>丘陵和山</b>，海拔大約 100～600 公尺，平地很少。"],["雨多嗎？","<b>潮濕多雨</b>，平均年雨量約 <b>1,500～2,000 公釐</b>（公釐＝毫米），夏秋雨又大。"],["小知識","<b>翡翠水庫</b>大部分在石碇，供應大臺北的用水；以前是茶葉買賣的集散地。"]],src:"新北市石碇區公所〈石碇區地區災害特色〉；維基百科「石碇區」（引用《石碇鄉志》）。"},
+ ly:{title:"🌊 臺東縣蘭嶼鄉",map:{sel:"臺東縣",lanyu:1},facts:[["在哪裡","臺灣<b>東南方太平洋</b>上的小島，屬於臺東縣。"],["靠海嗎？","<b>四面環海</b>的小島。"],["雨多嗎？","<b>雨很多！</b>一年平均約 <b>2,978.7 毫米</b>，比臺北還多，而且每個月都會下不少雨。"],["誰住在這裡","<b>達悟族</b>，以前靠海捕魚，會划拼板舟。"],["特別的房子","傳統<b>地下屋（半穴居）</b>：挖坑蓋屋，擋強風和颱風。<b>不是石板屋</b>喔！"]],src:"中央氣象署 蘭嶼站 1991～2020 年平均；國立臺灣史前文化博物館、文化部國家文化記憶庫。"}
+};
+var plSeen={};
+function drawPlace(k){var p=PLACE[k];
+  each(document.querySelectorAll("#plBtns button"),function(b){b.classList.toggle("on",b.getAttribute("data-pl")===k);});
+  $("plBox").innerHTML='<h3>'+p.title+'</h3><div class="row"><div style="flex:1 1 220px;max-width:330px;margin:0 auto"><div class="mapbox"><svg viewBox="0 0 400 545">'+twMap({sel:p.map.sel,lanyu:p.map.lanyu,shiding:p.map.shiding,labels:false})+'</svg></div></div><div style="flex:2 1 300px"><div class="facts">'+p.facts.map(function(f){return '<div class="fact"><b>'+f[0]+'</b>'+f[1]+'</div>';}).join("")+'</div><p class="src">📚 '+p.src+'</p></div></div>';
+  if(!plSeen[k]){plSeen[k]=1;addStars(1,$("plBox"));}
+}
+$("plBtns").addEventListener("click",function(ev){var k=ev.target.getAttribute&&ev.target.getAttribute("data-pl");if(k)drawPlace(k);});
+plSeen.ph=1;drawPlace("ph");
+
+/* rain charts */
+var rnSel="all";
+function drawRain(){
+  var names=rnSel==="all"?["澎湖","臺北","蘭嶼"]:[rnSel],h='<rect width="420" height="260" fill="#fff"/>',max=400,x0=42,w=(420-x0-8)/12,base=226;
+  for(var v=0;v<=max;v+=100){var y=base-v/max*200;h+='<line x1="'+x0+'" y1="'+y+'" x2="414" y2="'+y+'" stroke="#eee"/><text x="'+(x0-4)+'" y="'+(y+4)+'" font-size="10" text-anchor="end" fill="#888">'+v+'</text>';}
+  h+='<text x="6" y="14" font-size="10" fill="#888">毫米</text>';
+  for(var m=0;m<12;m++){var bw=(w-4)/names.length;names.forEach(function(n,i){var val=C.RAIN[n].m[m],bh=val/max*200;h+='<rect x="'+(x0+m*w+2+i*bw)+'" y="'+(base-bh)+'" width="'+(bw-1)+'" height="'+bh+'" fill="'+C.RAIN[n].color+'" rx="2"/>';});
+    h+='<text x="'+(x0+m*w+w/2)+'" y="'+(base+14)+'" font-size="10" text-anchor="middle" fill="#555">'+(m+1)+'月</text>';}
+  names.forEach(function(n,i){h+='<rect x="'+(x0+10+i*90)+'" y="240" width="12" height="12" fill="'+C.RAIN[n].color+'"/><text x="'+(x0+26+i*90)+'" y="251" font-size="12">'+n+'</text>';});
+  $("rnSvg").innerHTML=h;
+  $("rnBtns").innerHTML=["all","澎湖","臺北","蘭嶼"].map(function(n){return '<button class="chip'+(rnSel===n?" on":"")+'" data-r="'+n+'">'+(n==="all"?"📊 三地比較":n)+'</button>';}).join("");
+  var tip;
+  if(rnSel==="all")tip="📊 同一個月比比看：<b>澎湖</b>（橘色）的柱子幾乎都最矮；<b>蘭嶼</b>（紫色）冬天也下很多雨。";
+  else{var r=C.RAIN[rnSel];tip="🌧️ <b>"+rnSel+"</b>：一年約 <b>"+r.y.toLocaleString("en-US")+" 毫米</b>。雨最多是 <b>"+(C.wettest(r.m)+1)+" 月</b>（"+r.m[C.wettest(r.m)]+"），最少是 <b>"+(C.driest(r.m)+1)+" 月</b>（"+r.m[C.driest(r.m)]+"）。";
+    if(rnSel==="澎湖")tip+="<br>澎湖 10 月到隔年 2 月，每個月都不到 40 毫米，很乾燥！";}
+  $("rnTip").innerHTML=tip;
+  // yearly bars
+  var Y=[["澎湖",C.RAIN["澎湖"].y,null,"#ff9f1c"],["石碇",C.SHIDING_RAIN[0],C.SHIDING_RAIN[1],"#57cc99"],["臺北",C.RAIN["臺北"].y,null,"#4d96ff"],["蘭嶼",C.RAIN["蘭嶼"].y,null,"#9b5de5"]],g='<rect width="420" height="170" fill="#fff"/><text x="210" y="16" font-size="13" font-weight="900" text-anchor="middle">一年的雨量（毫米）</text>',sc=290/3000;
+  Y.forEach(function(r,i){var y=28+i*34;g+='<text x="44" y="'+(y+17)+'" font-size="13" font-weight="800" text-anchor="end">'+r[0]+'</text>';
+    if(r[2]){g+='<rect x="50" y="'+(y+4)+'" width="'+(r[1]*sc)+'" height="18" fill="'+r[3]+'" rx="3"/><rect x="'+(50+r[1]*sc)+'" y="'+(y+4)+'" width="'+((r[2]-r[1])*sc)+'" height="18" fill="'+r[3]+'" opacity=".35" rx="3"/><text x="'+(56+r[2]*sc)+'" y="'+(y+17)+'" font-size="12">約 1,500～2,000</text>';}
+    else{g+='<rect x="50" y="'+(y+4)+'" width="'+(r[1]*sc)+'" height="18" fill="'+r[3]+'" rx="3"/><text x="'+(56+r[1]*sc)+'" y="'+(y+17)+'" font-size="12">'+r[1].toLocaleString("en-US")+'</text>';}});
+  $("rnYear").innerHTML=g;
+}
+var rnSeen={};
+$("rnBtns").addEventListener("click",function(ev){var n=ev.target.getAttribute&&ev.target.getAttribute("data-r");if(!n)return;rnSel=n;drawRain();if(n!=="all"&&!rnSeen[n]){rnSeen[n]=1;addStars(1,$("rnTip"));}});
+drawRain();
+
+/* Lanyu question */
+var lyGuess=null;
+each(document.querySelectorAll(".qa [data-g]"),function(b){b.addEventListener("click",function(){var first=lyGuess===null;lyGuess=b.getAttribute("data-g");$("lyAns").classList.add("show");if(first&&lyGuess==="no")addStars(2,b);else if(first)beep(false);});});
+
+/* house matching */
+var mtSel=null,mtDone={};
+var WHERE={slate:"⛰️ 南部山區（排灣族、魯凱族）",under:"🌊 蘭嶼（達悟族）",coral:"🏝️ 澎湖"};
+function drawMt(){
+  $("mtL").innerHTML=C.HOUSES.map(function(h){return '<button class="opt'+(mtDone[h.id]?" done":"")+(mtSel===h.id?" sel":"")+'" data-h="'+h.id+'" style="width:100%;margin-bottom:8px">'+h.house+'</button>';}).join("");
+  if(!$("mtR").getAttribute("data-order"))$("mtR").setAttribute("data-order",shuffle(C.HOUSES.map(function(h){return h.id;})).join(","));
+  $("mtR").innerHTML=$("mtR").getAttribute("data-order").split(",").map(function(id){return '<button class="opt'+(mtDone[id]?" done":"")+'" data-w="'+id+'" style="width:100%;margin-bottom:8px">'+WHERE[id]+'</button>';}).join("");
+}
+$("mtL").addEventListener("click",function(ev){var t=ev.target.closest?ev.target.closest("[data-h]"):ev.target;if(!t||!t.getAttribute("data-h"))return;var id=t.getAttribute("data-h");if(mtDone[id])return;mtSel=id;drawMt();});
+$("mtR").addEventListener("click",function(ev){var t=ev.target.closest?ev.target.closest("[data-w]"):ev.target;if(!t||!t.getAttribute("data-w"))return;var id=t.getAttribute("data-w"),fb=$("mtFb");if(mtDone[id])return;
+  if(!mtSel){fb.className="feedback show bad";fb.textContent="先點左邊的房子喔！";return;}
+  if(id===mtSel){var h=null;C.HOUSES.forEach(function(x){if(x.id===id)h=x;});mtDone[id]=1;mtSel=null;drawMt();fb.className="feedback show good";fb.innerHTML="✅ "+h.house+"："+h.why+(Object.keys(mtDone).length===3?"<br>🎉 全部配對成功！":"");addStars(1,fb);}
+  else{fb.className="feedback show bad";fb.textContent="不對喔，想一想：那裡有山？有海？有珊瑚礁？";beep(false);}});
+$("mtReset").addEventListener("click",function(){mtSel=null;mtDone={};$("mtR").removeAttribute("data-order");$("mtFb").className="feedback";drawMt();});
+drawMt();
+
+$("srcList").innerHTML=[
+ ["中央氣象署〈氣候月平均〉降水量 1991～2020","https://www.cwa.gov.tw/V8/C/C/Statistics/monthlymean.html"],
+ ["中央氣象署〈澎湖氣象站〉","https://www.cwa.gov.tw/V8/C/A/organ/46735.html"],
+ ["新北市石碇區公所〈石碇區地區災害特色〉","https://www.shiding.ntpc.gov.tw/"],
+ ["國立臺灣史前文化博物館 常設展「生活與器具」（達悟族半穴居）","https://museum.org.tw/exhibition_detail.php?id=6&lang=zh-tw"],
+ ["文化部 國家文化記憶庫「蘭嶼野銀部落傳統地下屋」","https://curation.culture.tw/curation/CollectionItem?a=68&id=40132&listid=67"],
+ ["國立臺灣藝術教育館〈臺灣傳統建築欣賞〉（排灣、魯凱、達悟住屋）","https://web.arte.gov.tw/architecture/01-2.html"],
+ ["原住民族文化事業基金會 原視界〈告別混凝土 住進原住民生活〉","https://insight.ipcf.org.tw/article/251"],
+ ["中央社〈澎湖老手藝 再見硓𥑮石傳統建築工法〉（澎湖文化局）","https://www.cna.com.tw/news/acul/202004260113.aspx"],
+ ["內政部國土測繪中心〈直轄市、縣市界線(TWD97經緯度)〉政府資料開放授權條款第1版（拼圖和地圖的縣市形狀）","https://data.gov.tw/dataset/7442"],
+ ["taiwan-atlas（MIT 授權，把上面的內政部圖資轉成 TopoJSON）","https://github.com/dkaoster/taiwan-atlas"],
+ ["維基百科「臺北市」「石碇區」","https://zh.wikipedia.org/wiki/臺北市"],
+ ["翰林版 4上 教學計畫（第一單元第 2 課 善用地圖好生活）","https://course.cyc.edu.tw/upfile/course114/sub1/15953804239158350.pdf"]
+].map(function(s){return '• '+s[0]+'<br><a href="'+s[1]+'" target="_blank" rel="noopener">'+s[1]+'</a>';}).join("<br>");
+
+/* ---------------- 5. games ---------------- */
+var gmBtns=document.querySelectorAll("[data-gm]");
+each(gmBtns,function(b){b.addEventListener("click",function(){each(gmBtns,function(x){x.classList.toggle("on",x===b);});each(document.querySelectorAll(".gcard"),function(c){c.style.display=c.id==="g-"+b.getAttribute("data-gm")?"":"none";});});});
+var seaQ=null,seaBag=[],seaOk=0,seaN=0,seaTried=false;
+function newSea(){if(!seaBag.length)seaBag=shuffle(C.COUNTIES.map(function(c){return c.n;}));seaQ=seaBag.pop();seaTried=false;
+  $("seaQ").innerHTML="「<b>"+seaQ+"</b>」靠海嗎？";$("seaSvg").innerHTML=twMap({sel:seaQ,labels:false});
+  $("seaOpts").innerHTML=["sea","inland","island"].map(function(k){return '<button class="opt" data-k="'+k+'">'+C.KIND_TXT[k]+'</button>';}).join("");
+  $("seaFb").className="feedback";$("seaNext").style.display="none";$("seaScore").textContent="答對 "+seaOk+"／"+seaN;}
+$("seaOpts").addEventListener("click",function(ev){var t=ev.target.closest?ev.target.closest("[data-k]"):ev.target;if(!t||!t.getAttribute("data-k")||$("seaNext").style.display!=="none")return;
+  var k=t.getAttribute("data-k"),ans=C.seaKind(seaQ),c=C.county(seaQ),fb=$("seaFb");
+  if(k===ans){t.classList.add("right");if(!seaTried){seaOk++;addStars(1,t);}else beep(true);seaN+=seaTried?0:1;if(seaTried)seaN++;
+    fb.className="feedback show good";fb.innerHTML="✅ 答對了！"+seaQ+"："+C.KIND_TXT[ans]+(c.note?"<br>"+c.note:"");$("seaNext").style.display="";$("seaScore").textContent="答對 "+seaOk+"／"+seaN;}
+  else{t.classList.add("no");seaTried=true;fb.className="feedback show bad";fb.textContent="再想想看！看看地圖上它的位置，旁邊是海還是別的縣市？";beep(false);}});
+$("seaNext").addEventListener("click",newSea);
+newSea();
+
+var qList=[],qi=0,qOk=0,qAnswered=false;
+var TAGS={book:'<span class="tag2 book">📖 課本</span>',more:'<span class="tag2 more">🔍 延伸</span>',other:'<span class="tag2 other">🏠 別的單元・課外</span>'};
+function newQuiz(){qList=shuffle(C.QUIZ);qi=0;qOk=0;showQ();}
+function showQ(){if(qi>=qList.length){$("qText").innerHTML="🎉 全部答完了！答對 "+qOk+"／"+qList.length+" 題";$("qOpts").innerHTML='<button class="opt" id="qAgain">🔁 再玩一次</button>';$("qTag").innerHTML="";$("qFb").className="feedback";$("qNext").style.display="none";$("qCount").textContent="";return;}
+  var q=qList[qi];qAnswered=false;$("qCount").textContent="第 "+(qi+1)+"／"+qList.length+" 題";$("qScore").textContent="答對 "+qOk;$("qTag").innerHTML=TAGS[q.t]||"";$("qText").textContent=q.q;
+  var order=shuffle([0,1,2]);$("qOpts").innerHTML=order.map(function(i){return '<button class="opt" data-i="'+i+'">'+q.o[i]+'</button>';}).join("");$("qFb").className="feedback";$("qNext").style.display="none";}
+$("qOpts").addEventListener("click",function(ev){var t=ev.target.closest?ev.target.closest("button"):ev.target;if(!t)return;if(t.id==="qAgain"){newQuiz();return;}if(qAnswered||!t.getAttribute("data-i"))return;
+  var q=qList[qi],i=+t.getAttribute("data-i"),fb=$("qFb");qAnswered=true;
+  each($("qOpts").querySelectorAll("button"),function(b){if(+b.getAttribute("data-i")===q.a)b.classList.add("right");});
+  if(i===q.a){qOk++;fb.className="feedback show good";fb.innerHTML="✅ 答對了！"+q.x;addStars(1,t);}else{t.classList.add("no");fb.className="feedback show bad";fb.innerHTML="💡 "+q.x;beep(false);}
+  $("qScore").textContent="答對 "+qOk;$("qNext").style.display="";});
+$("qNext").addEventListener("click",function(){qi++;showQ();});
+newQuiz();
+renderScore();
+
+/* ---------------- 5c. 縣市拼圖 + 找找看 ---------------- */
+var PZKEY="mapLifePuzzleBest",pzBestT=0;
+try{pzBestT=parseInt(localStorage.getItem(PZKEY)||"0",10)||0;}catch(e){}
+var PZCOL=["#ffadad","#ffd6a5","#fdffb6","#caffbf","#9bf6ff","#a0c4ff","#bdb2ff","#ffc6ff"];
+var pzOrder=[],pzPlaced={},pzSel=null,pzStart=0,pzEnd=0,pzTimer=null,pzMiss={},fdI=-1,fdGot={},fdDone=false,fdScore=0;
+function pzColor(n){var i=0;C.COUNTIES.forEach(function(c,k){if(c.n===n)i=k;});return PZCOL[i%PZCOL.length];}
+function pzLeft(){return pzOrder.filter(function(n){return !pzPlaced[n];});}
+function pzElapsed(){if(!pzStart)return 0;return Math.floor(((pzEnd||Date.now())-pzStart)/1000);}
+function pzTick(){$("pzTime").textContent=C.fmtTime(pzElapsed());}
+function pzStartTimer(){if(pzStart)return;pzStart=Date.now();pzTimer=setInterval(pzTick,500);}
+function pzMini(n){var s=C.SHAPES[n],m=s.d.match(/-?\d+(\.\d+)?/g).map(Number),x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;
+  for(var i=0;i+1<m.length;i+=2){x0=Math.min(x0,m[i]);x1=Math.max(x1,m[i]);y0=Math.min(y0,m[i+1]);y1=Math.max(y1,m[i+1]);}
+  return {x0:x0,y0:y0,w:Math.max(x1-x0,4),h:Math.max(y1-y0,4)};}
+var PZBB={};C.COUNTIES.forEach(function(c){PZBB[c.n]=pzMini(c.n);});
+function pieceSvg(n,pad){var b=PZBB[n];pad=pad||2;return '<svg viewBox="'+(b.x0-pad)+' '+(b.y0-pad)+' '+(b.w+pad*2)+' '+(b.h+pad*2)+'"><path d="'+C.SHAPES[n].d+'" fill="'+pzColor(n)+'" fill-rule="evenodd" stroke="#555" stroke-width="'+(C.county(n).island?Math.max(1.2,b.w/22):Math.max(.6,b.w/60))+'"/></svg>';}
+function drawBoard(){
+  var h='<rect width="400" height="545" fill="#e6f4ff"/>'+insets()+seaDeco();
+  C.COUNTIES.forEach(function(c){var p=pzPlaced[c.n];
+    h+='<g class="cty" data-n="'+c.n+'">'+hitArea(c.n)+'<path class="'+(p?"":"pzslot")+'" id="slot-'+c.n+'" d="'+C.SHAPES[c.n].d+'" fill-rule="evenodd"'+(p?' fill="'+(fdGotAll(c.n)?"#ffd166":pzColor(c.n))+'" stroke="#555" stroke-width=".8"':'')+'/></g>';});
+  C.COUNTIES.forEach(function(c){if(!pzPlaced[c.n]||fdI>=0&&!fdDone)return;var p=POS[c.n];
+    if(c.inset)h+='<text x="12" y="'+(c.inset==="lj"?21:77)+'" class="lbl" font-size="11">'+c.n+'</text>';
+    else h+='<text x="'+p[0]+'" y="'+(p[1]+4)+'" class="lbl" font-size="10" text-anchor="middle">'+c.n.replace(/[縣市]$/,"")+'</text>';});
+  $("pzSvg").innerHTML=h;
+}
+function fdGotAll(n){return fdI>=0&&!!fdGot[n];}
+function drawTray(){
+  var left=pzLeft().slice(0,6);
+  $("pzTray").innerHTML=left.map(function(n){return '<div class="pzp'+(pzSel===n?" sel":"")+'" data-pz="'+n+'" role="button" tabindex="0" aria-label="'+n+'">'+pieceSvg(n)+'<span>'+n+'</span></div>';}).join("")||'<div style="grid-column:1/-1;text-align:center;font-size:20px;font-weight:900;padding:20px">🎉 全部拼好了！</div>';
+  var nPl=0;for(var k in pzPlaced)nPl++;
+  $("pzCount").textContent="已拼好 "+nPl+" / "+C.COUNTIES.length;
+  $("pzBest").textContent=pzBestT?C.fmtTime(pzBestT):"—";
+}
+var cardT=null;
+function showCard(n){var c=C.county(n),k=C.seaKind(n),f=C.PZ_FACT[n];
+  $("pzCard").innerHTML='<div class="t">'+n+' <span style="font-size:15px">'+({sea:"🌊",inland:"⛰️",island:"🏝️"}[k])+'</span></div><b>'+C.KIND_TXT[k]+'</b><br>'+(f?f.t+'<div class="s">📚 '+f.s+'</div>':(c.note||""));
+  $("pzCard").classList.add("show");clearTimeout(cardT);cardT=setTimeout(function(){$("pzCard").classList.remove("show");},4200);}
+$("pzCard").addEventListener("click",function(){$("pzCard").classList.remove("show");});
+function pzPlace(n,el){
+  if(pzPlaced[n])return;pzStartTimer();pzPlaced[n]=1;pzSel=null;drawBoard();drawTray();showCard(n);beep(true);
+  if(!pzLeft().length)pzFinish();
+}
+function pzWrong(n){pzMiss[n]=(pzMiss[n]||0)+1;beep(false);
+  var el=document.querySelector('.pzp[data-pz="'+n+'"]');if(el){el.classList.remove("shake");void el.offsetWidth;el.classList.add("shake");}
+  $("pzMsg").innerHTML="差一點！<b>"+n+"</b> 不在那裡，再想想看～"+(pzMiss[n]>=2?"（可以按 💡 提示）":"");}
+function pzFinish(){pzEnd=Date.now();clearInterval(pzTimer);pzTick();var t=Math.max(1,pzElapsed()),old=pzBestT,nb=C.pzBest(old,t);var rec=!old||t<old;pzBestT=nb;
+  try{localStorage.setItem(PZKEY,String(pzBestT));}catch(e){}
+  clearTimeout(cardT);cardT=setTimeout(function(){$("pzCard").classList.remove("show");},2500);drawTray();$("pzMsg").innerHTML="🎉 拼好了！花了 <b>"+C.fmtTime(t)+"</b>"+(rec?"，<b>新紀錄！</b>":"（最快 "+C.fmtTime(pzBestT)+"）")+"　接著來玩「找找看」！";
+  addStars(rec&&old?4:3,$("pzSvg"));fdI=0;fdGot={};fdDone=false;fdScore=0;$("pzFind").style.display="";drawFind();}
+function drawFind(){var f=C.FIND[fdI];drawBoard();
+  if(!f){$("fdQ").innerHTML="🏅 找找看完成！答對 "+fdScore+" / "+C.FIND.length+" 題。";$("fdCount").textContent="";$("fdNext").style.display="none";fdFb("","");fdDone=true;drawBoard();return;}
+  $("fdCount").textContent=(fdI+1)+" / "+C.FIND.length;$("fdQ").innerHTML="👆 "+f.q+(f.a.length>1?"（還差 "+(f.a.length-cntGot(f))+" 個）":"");$("fdNext").style.display="none";}
+function cntGot(f){var c=0;f.a.forEach(function(x){if(fdGot[x])c++;});return c;}
+var fdWrong=0;function fdFb(cls,h){var e=$("fdFb");e.className="feedback"+(cls?" show "+cls:"");e.innerHTML=h||"";}
+function fdTap(n){if(fdI<0||fdDone)return;$("pzCard").classList.remove("show");var f=C.FIND[fdI];if(!f||$("fdNext").style.display!=="none")return;
+  var r=C.findCheck(fdI,n,fdGot);
+  if(r.ok){fdGot=r.got;if(r.done){if(!fdWrong){fdScore++;addStars(1,$("fdQ"));}else beep(true);fdFb("good",'✅ 答對了！'+f.a.join("、")+(C.PZ_FACT[n]?'<br>'+C.PZ_FACT[n].t:""));$("fdNext").style.display="";}
+    else{beep(true);fdFb("good",'✅ '+n+' 找到了！');}
+    drawBoard();$("fdQ").innerHTML="👆 "+f.q+(f.a.length>1&&!r.done?"（還差 "+(f.a.length-cntGot(f))+" 個）":"");}
+  else{fdWrong++;beep(false);fdFb("bad",'❌ 你點的是 <b>'+n+'</b>，再找找看！');}}
+$("fdNext").addEventListener("click",function(){fdI++;fdGot={};fdWrong=0;fdFb("","");drawFind();});
+function pzReset(){pzOrder=shuffle(C.COUNTIES.map(function(c){return c.n;}));pzPlaced={};pzSel=null;pzStart=0;pzEnd=0;clearInterval(pzTimer);pzMiss={};fdI=-1;fdGot={};fdDone=false;fdWrong=0;
+  $("pzFind").style.display="none";$("pzMsg").innerHTML="把縣市拼圖<b>拖到地圖上</b>正確的位置！（也可以先點一塊，再點地圖上的位置）";pzTick();drawBoard();drawTray();}
+$("pzRestart").addEventListener("click",pzReset);
+$("pzHint").addEventListener("click",function(){var n=pzSel||pzLeft()[0];if(!n)return;pzSel=n;drawTray();var s=$("slot-"+n);if(s){s.classList.remove("hint");void s.getBoundingClientRect();s.classList.add("hint");}$("pzMsg").innerHTML="💡 <b>"+n+"</b> 在發亮的地方！";});
+$("pzSrc").innerHTML="🗺️ 地圖邊界："+C.SHAPE_SRC+"。金門縣、連江縣放在左上角小框框裡（縮小、不是實際位置）。小卡資料來源寫在每張卡下面。";
+/* 拖曳 */
+var drag=null;
+function svgPt(cx,cy){var svg=$("pzSvg"),m=svg.getScreenCTM();if(!m)return null;var p=svg.createSVGPoint();p.x=cx;p.y=cy;var q=p.matrixTransform(m.inverse());return {x:q.x,y:q.y};}
+function boardScale(){var r=$("pzSvg").getBoundingClientRect();return r.width/400;}
+$("pzTray").addEventListener("pointerdown",function(ev){var t=ev.target;while(t&&t!==this&&!(t.getAttribute&&t.getAttribute("data-pz")))t=t.parentNode;if(!t||t===this)return;
+  var n=t.getAttribute("data-pz");ev.preventDefault();try{t.setPointerCapture(ev.pointerId);}catch(e){}
+  drag={n:n,el:t,x0:ev.clientX,y0:ev.clientY,moved:false,lift:ev.pointerType==="touch"?50:0,g:null};});
+$("pzTray").addEventListener("pointermove",function(ev){if(!drag)return;var dx=ev.clientX-drag.x0,dy=ev.clientY-drag.y0;
+  if(!drag.moved&&Math.sqrt(dx*dx+dy*dy)<8)return;
+  if(!drag.moved){drag.moved=true;pzStartTimer();var b=PZBB[drag.n],k=boardScale(),g=document.createElement("div");g.className="pzghost";g.innerHTML=pieceSvg(drag.n,0);
+    var w=Math.max(b.w*k,6),h=Math.max(b.h*k,6);g.firstChild.setAttribute("width",w);g.firstChild.setAttribute("height",h);document.body.appendChild(g);drag.g=g;drag.w=w;drag.h=h;drag.el.classList.add("lift");
+    var c=C.SHAPES[drag.n].c;drag.ox=(c[0]-b.x0)*k;drag.oy=(c[1]-b.y0)*k;}
+  ev.preventDefault();drag.g.style.transform="translate("+(ev.clientX-drag.ox)+"px,"+(ev.clientY-drag.lift-drag.oy)+"px)";});
+function endDrag(ev,cancel){if(!drag)return;var d=drag;drag=null;if(d.g&&d.g.parentNode)d.g.parentNode.removeChild(d.g);d.el.classList.remove("lift");
+  if(cancel)return;
+  if(!d.moved){pzSel=pzSel===d.n?null:d.n;drawTray();$("pzMsg").innerHTML=pzSel?"👉 現在點地圖上 <b>"+pzSel+"</b> 的位置":"把縣市拼圖<b>拖到地圖上</b>正確的位置！";return;}
+  var p=svgPt(ev.clientX,ev.clientY-d.lift);
+  if(!p||p.x<0||p.y<0||p.x>400||p.y>545){return;}
+  if(C.pzSnap(d.n,p.x,p.y))pzPlace(d.n);else pzWrong(d.n);}
+$("pzTray").addEventListener("pointerup",function(ev){endDrag(ev,false);});
+$("pzTray").addEventListener("pointercancel",function(ev){endDrag(ev,true);});
+$("pzTray").addEventListener("keydown",function(ev){var n=ev.target.getAttribute&&ev.target.getAttribute("data-pz");if(n&&(ev.key==="Enter"||ev.key===" ")){ev.preventDefault();pzSel=n;drawTray();}});
+/* 點地圖：放拼圖 或 找找看 */
+$("pzSvg").addEventListener("click",function(ev){
+  var t=ev.target,svg=this;while(t&&t!==svg&&!(t.getAttribute&&t.getAttribute("data-n")))t=t.parentNode;var hit=t&&t!==svg?t.getAttribute("data-n"):null;
+  if(fdI>=0&&!fdDone){if(hit&&pzPlaced[hit])fdTap(hit);return;}
+  if(!pzSel)return;var p=svgPt(ev.clientX,ev.clientY);
+  if(hit===pzSel||(p&&C.pzSnap(pzSel,p.x,p.y)))pzPlace(pzSel);else pzWrong(pzSel);});
+pzReset();
+window.__ml={Core:C,stars:function(){return stars;},route:function(){return route.slice();},plans:function(){return plansDone;},seaQ:function(){return seaQ;},quiz:function(){return qList[qi];},task:function(){return TASKS[tTask%TASKS.length];},tour:TOUR,found:function(){return foundInland;},pz:{place:function(n){pzPlace(n);},left:pzLeft,placed:function(){return pzPlaced;},best:function(){return pzBestT;},elapsed:pzElapsed,fd:function(){return {i:fdI,got:fdGot,done:fdDone,score:fdScore};},tap:fdTap,reset:pzReset,pos:POS}};
+})();
+</script>
+</body>
+</html>

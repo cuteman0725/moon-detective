@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ff9f1c">
+<title>三角形小建築師 🔺｜康軒數學 4上 三角形</title>
+<style>
+
+:root{--ink:#2b2d42;--org:#ff9f1c;--sun:#ffd166;--pink:#ff6b9a;--blue:#4d96ff;--teal:#2a9d8f;--purple:#9b5de5;--wan:#9b5de5;--ge:#2a9d8f;--cw:clamp(30px,8.6vw,46px)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:#fff8ec;overflow-x:hidden}
+html,body{margin:0;padding:0}
+body{font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",system-ui,sans-serif;color:var(--ink);min-height:100vh;background:linear-gradient(180deg,#ffe8c2 0,#fff8ec 260px);padding-bottom:calc(92px + env(safe-area-inset-bottom))}
+header{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:8px;padding:10px 12px;padding-top:calc(10px + env(safe-area-inset-top));background:rgba(255,159,28,.97);color:#fff}
+header h1{font-size:clamp(17px,4.6vw,26px);margin:0;flex:1;letter-spacing:1px}
+.back{color:#fff;text-decoration:none;font-weight:800;background:rgba(255,255,255,.25);border-radius:999px;padding:8px 12px;font-size:15px;white-space:nowrap}
+.score{background:#fff;color:#a65c00;font-weight:900;border-radius:999px;padding:6px 12px;font-size:17px;white-space:nowrap;box-shadow:0 3px 0 #c97a00}
+.score.pop{animation:pop .5s}@keyframes pop{40%{transform:scale(1.3)}}
+main{max-width:1000px;margin:0 auto;padding:10px}
+section.page{display:none}section.page.active{display:block;animation:fadein .3s}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.card{background:#fff;border-radius:22px;padding:14px;margin:10px 0;box-shadow:0 6px 0 rgba(0,0,0,.1)}
+.card h2{margin:0 0 6px;font-size:clamp(20px,5vw,25px)}.card h3{margin:4px 0 6px;font-size:19px}
+.small{font-size:14px;color:#666;line-height:1.5}
+.lead{font-size:17px;line-height:1.65;margin:6px 0}
+.btn{appearance:none;border:none;border-radius:16px;padding:10px 14px;min-height:50px;font-size:17px;font-weight:800;cursor:pointer;background:var(--blue);color:#fff;box-shadow:0 4px 0 rgba(0,0,0,.22);font-family:inherit;touch-action:manipulation}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.22)}
+.btn.org{background:var(--org)}.btn.pink{background:var(--pink)}.btn.teal{background:var(--teal)}.btn.purple{background:var(--purple)}.btn.gray{background:#8d99ae}
+.btn.white{background:#fff;color:var(--ink);border:3px solid #ffe0b0}.btn.on{outline:4px solid var(--org);outline-offset:1px;background:#fff3dc}
+.btn.small{min-height:44px;font-size:15px;padding:6px 10px}
+.btn:disabled{opacity:.4}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0;align-items:center}
+.levels{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
+.title{font-size:22px;font-weight:900;text-align:center;margin:4px 0 8px}
+.bubble{background:#eef4ff;border-radius:18px;padding:12px 14px;font-size:18px;line-height:1.65;min-height:64px;border:3px solid #d6e4ff}
+.bubble b{color:#c1121f}
+.fb{margin-top:8px;border-radius:14px;padding:8px 12px;font-size:17px;line-height:1.55;display:none}
+.fb.show{display:block}.fb.good{background:#d8f3dc}.fb.bad{background:#fff3cd}.fb.info{background:#f3e8ff}
+.done{background:linear-gradient(135deg,#d8f3dc,#fff1a8);border-radius:18px;padding:12px;font-size:18px;line-height:1.6;margin-top:10px;display:none}
+.done.show{display:block}
+/* ---- quiz ---- */
+.q{font-size:22px;line-height:1.6;font-weight:800;text-align:center;margin:6px 0}
+.q .num{font-size:clamp(28px,7vw,40px);font-variant-numeric:tabular-nums;letter-spacing:2px}
+.q .red{color:#e63946;text-decoration:underline;text-decoration-thickness:4px}
+.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin-top:8px}
+.choices .btn{background:#fff;color:var(--ink);border:3px solid #d6e4ff;font-size:19px;min-height:58px}
+.choices .btn.ok{background:#d8f3dc;border-color:#2ec4b6}.choices .btn.no{background:#ffd6dc;border-color:#ff6b9a;animation:shake .4s}
+.cmp{display:flex;gap:10px;justify-content:center;margin-top:8px}.cmp .btn{font-size:34px;min-width:84px;min-height:70px}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.ansbox{font-size:30px;font-weight:900;text-align:center;border:3px solid #9db8ff;background:#f1f5ff;border-radius:16px;min-height:56px;padding:6px;font-variant-numeric:tabular-nums;letter-spacing:2px;margin:8px auto;max-width:420px}
+.pad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px auto 0;max-width:420px}
+.pad button{min-height:56px;font-size:26px;font-weight:900;border-radius:16px;background:#fff;box-shadow:0 4px 0 #e3c48f;border:3px solid #ffe0b0;font-family:inherit;color:var(--ink);cursor:pointer;touch-action:manipulation}
+.pad button:active{transform:translateY(3px);box-shadow:0 1px 0 #e3c48f}
+.pad button.fn{font-size:18px;background:#fff3dc}
+.prog{display:flex;gap:4px;justify-content:center;margin:4px 0}
+.prog i{width:22px;height:10px;border-radius:6px;background:#eee;display:block}.prog i.ok{background:#2ec4b6}.prog i.no{background:#ff6b9a}.prog i.cur{background:var(--sun)}
+/* ---- 紀錄 ---- */
+table.rec{border-collapse:collapse;width:100%;font-size:16px}
+table.rec td,table.rec th{padding:8px;border-bottom:1px solid #eee;text-align:left;vertical-align:top}
+.statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.stat{background:#fff3dc;border-radius:16px;padding:10px;text-align:center}.stat b{display:block;font-size:28px;color:#a65c00}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.bdg{background:#eee;border-radius:14px;padding:6px 10px;font-weight:800;color:#999;font-size:15px}.bdg.got{background:linear-gradient(135deg,#ffd166,#ff9f1c);color:#5a3b00}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;justify-content:space-around;background:#fff;padding:6px 4px;padding-bottom:calc(6px + env(safe-area-inset-bottom));box-shadow:0 -4px 16px rgba(0,0,0,.15)}
+nav.tabs button{flex:1;border:none;background:none;font-family:inherit;font-size:13px;font-weight:800;color:#666;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;border-radius:14px;cursor:pointer;min-height:60px;touch-action:manipulation}
+nav.tabs button span{font-size:26px;line-height:1}nav.tabs button.on{background:#ffe8c2;color:#8a4b00}
+.burst{position:fixed;z-index:99;pointer-events:none;font-size:30px;animation:fly 1.1s ease-out forwards}
+@keyframes fly{to{transform:translate(var(--dx),var(--dy)) rotate(360deg);opacity:0}}
+.tip{background:#fffbea;border:3px dashed var(--sun);border-radius:16px;padding:8px 12px;font-size:16px;line-height:1.6;margin-top:8px}
+
+.seg{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+.hidden{display:none!important}
+/* ---- 三角形 ---- */
+svg.lsvg{width:100%;max-width:560px;height:auto;display:block;margin:6px auto;background:#fffdf7;border:3px solid #ffe0b0;border-radius:18px;user-select:none;-webkit-user-select:none;touch-action:manipulation}
+svg.lsvg.small{max-width:240px}
+svg.lsvg.geo{max-width:440px;background:#fff8ec}
+#dragSvg{touch-action:none}
+svg text.lb{font-family:inherit;font-weight:900;paint-order:stroke;stroke:#fff;stroke-width:5px;stroke-linejoin:round;pointer-events:none}
+svg text.vn{font-size:19px;fill:#2b2d42}
+svg text.sl{font-size:15px;fill:#1d6fd6}
+svg text.al{font-size:15px;fill:#7b2cbf}
+svg text.al.big{font-size:19px}
+svg text.qm{fill:#e63946;font-size:20px}
+svg text.nm2{font-size:18px}
+svg .tg{cursor:pointer}
+svg .grab{cursor:grab}
+svg g.new{animation:fadein .6s}
+svg g.slidein{animation:slidein .45s ease-out}
+@keyframes slidein{from{transform:translateX(-160px);opacity:0}to{transform:none;opacity:1}}
+.cen{justify-content:center}
+.em{font-size:26px}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin-top:10px}
+.fact{background:#fff3dc;border-radius:16px;padding:10px;text-align:center;font-size:16px;line-height:1.5}
+.kindbar{text-align:center;font-size:18px;line-height:1.6;border-radius:16px;padding:8px;margin:6px 0;background:#eef2f7;transition:background .3s}
+.kindbar.acute{background:#d8f3dc}.kindbar.right{background:#ffe8c2}.kindbar.obtuse{background:#ffd6dc}
+.sliders{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:6px 0}
+.sliders label{display:flex;align-items:center;gap:6px;font-weight:800}
+.sliders input{flex:1;min-width:0;height:34px}
+.kinds{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:10px}
+.kind{border-radius:16px;padding:8px;text-align:center;line-height:1.5;font-size:15px}
+.kind svg{width:100%;max-width:200px;display:block;margin:0 auto}
+.kind b{display:block;font-size:18px}
+.kind.acute{background:#d8f3dc}.kind.right{background:#ffe8c2}.kind.obtuse{background:#ffd6dc}
+.steplist{margin:6px 0;padding-left:24px;line-height:1.7;font-size:17px}
+.steplist li.new{animation:fadein .5s;font-weight:700}
+.chk{display:flex;align-items:center;justify-content:center;gap:8px;font-weight:800;margin:6px 0;font-size:16px}
+.chk input{width:24px;height:24px}
+.byline{text-align:center;font-size:19px;border-radius:14px;padding:6px;margin:4px 0;background:#eef2f7}
+.byline.side{background:#e3ecff}.byline.angle{background:#f1e3ff}
+.bins{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:6px 0}
+.bins .btn{min-height:64px;font-size:17px;padding:6px}
+.bins .btn.no{background:#ffd6dc;animation:shake .4s}
+.ropts{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:8px 0}
+.ropt{background:#fff;border:3px solid #d6e4ff;border-radius:16px;padding:4px;cursor:pointer;font-family:inherit;touch-action:manipulation}
+.ropt svg{width:100%;height:auto;display:block}
+.ropt.ok{background:#d8f3dc;border-color:#2ec4b6}.ropt.no{background:#ffd6dc;border-color:#ff6b9a;animation:shake .4s}
+.clue{font-size:19px;text-align:center}
+.tripbar{display:flex;justify-content:space-between;font-weight:900;font-size:18px;margin:4px 0}
+.timer{text-align:center;font-weight:900;font-size:22px;font-variant-numeric:tabular-nums}
+.onebox{display:flex;align-items:center;justify-content:center;gap:8px}
+.onebox .ansbox{min-width:120px;margin:8px 0}
+.onebox span{font-weight:900;font-size:20px}
+@media (max-width:420px){.bins .btn{font-size:15px}.sliders{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <a class="back" href="../">← 數學</a>
+  <h1>🔺 三角形小建築師</h1>
+  <div class="score" id="score">⭐ 0</div>
+</header>
+<main>
+
+<!-- ============ 學習 ============ -->
+<section class="page active" id="p-learn">
+  <div class="card">
+    <h2>📖 第六單元 三角形</h2>
+    <p class="small">康軒 4上 第六單元：6-1 三角形、6-2 以邊分類三角形、6-3 以角分類三角形、6-4 繪製三角形、6-5 全等圖形與全等三角形。選一節開始：</p>
+    <div class="seg" id="seg">
+      <button class="btn white on" data-s="61">6-1 三角形</button>
+      <button class="btn white" data-s="62">6-2 以邊分類</button>
+      <button class="btn white" data-s="63">6-3 以角分類</button>
+      <button class="btn white" data-s="64">6-4 繪製三角形</button>
+      <button class="btn white" data-s="65">6-5 全等</button>
+    </div>
+  </div>
+
+  <div id="l61">
+    <div class="card">
+      <h3>🔍 生活中的三角形</h3>
+      <div class="facts">
+        <div class="fact"><span class="em">⚠️</span>路上的警告標誌</div>
+        <div class="fact"><span class="em">⛺</span>帳篷的門</div>
+        <div class="fact"><span class="em">📐</span>三角板</div>
+        <div class="fact"><span class="em">🍙</span>三角飯糰</div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>🔺 三角形的「頂點、邊、角」</h3>
+      <p class="small">按下面的按鈕，看看三角形有幾個頂點、幾條邊、幾個角。</p>
+      <svg class="lsvg" id="t61Svg" viewBox="0 0 400 250"></svg>
+      <div class="btns cen" id="t61Btns"><button class="btn white" data-k="v">🔴 頂點</button><button class="btn white" data-k="e">🟦 邊</button><button class="btn white" data-k="a">🟢 角</button></div>
+      <div class="bubble" id="t61Say">由 <b>3 條直直的線</b>（邊）頭尾相接圍成的圖形，叫做<b>三角形</b>。</div>
+    </div>
+    <div class="card">
+      <h3>🤔 是不是三角形？</h3>
+      <svg class="lsvg small" id="isSvg" viewBox="0 0 200 200"></svg>
+      <div class="cmp" id="isBtns"><button class="btn white" data-i="0">⭕ 是</button><button class="btn white" data-i="1">❌ 不是</button></div>
+      <div class="fb" id="isFb"></div>
+      <p class="small">想一想：三角形要有 <b>3 條直直的邊</b>，而且要<b>頭尾相接、圍起來</b>。</p>
+    </div>
+  </div>
+
+  <div id="l62" class="hidden">
+    <div class="card">
+      <h3>📏 量一量，比一比</h3>
+      <div class="seg" id="msSeg">
+        <button class="btn white on" data-m="equi">三角形 A</button>
+        <button class="btn white" data-m="iso">三角形 B</button>
+        <button class="btn white" data-m="scal">三角形 C</button>
+      </div>
+      <svg class="lsvg" id="msSvg" viewBox="0 0 400 260"></svg>
+      <div class="btns cen"><button class="btn org" id="msSide">📏 量邊長</button><button class="btn purple" id="msAng">📐 量角度</button></div>
+      <div class="bubble" id="msSay">先量量看三條邊有多長。</div>
+    </div>
+    <div class="card">
+      <h3>🏷️ 等腰三角形的名字</h3>
+      <svg class="lsvg" id="isoSvg" viewBox="0 0 400 260"></svg>
+      <ol class="steplist" id="isoSteps"></ol>
+      <div class="btns"><button class="btn org" id="isoNext">下一步 ➜</button><button class="btn gray small" id="isoReset">重來</button></div>
+    </div>
+    <div class="card">
+      <h3>📐 兩塊三角板拼一拼</h3>
+      <div class="seg" id="tbSeg">
+        <button class="btn white on" data-t="0">兩塊 30°、60° 三角板</button>
+        <button class="btn white" data-t="1">兩塊 45° 三角板</button>
+      </div>
+      <svg class="lsvg" id="tbSvg" viewBox="0 0 400 260"></svg>
+      <div class="btns cen"><button class="btn org" id="tbGo">🔄 翻過來拼上去</button></div>
+      <div class="bubble" id="tbSay"></div>
+    </div>
+  </div>
+
+  <div id="l63" class="hidden">
+    <div class="card">
+      <h3>🖐️ 拉拉看頂點</h3>
+      <p class="small">用手指拖動橘色的頂點<b>甲</b>（或拉下面的滑桿），看看三個角怎麼變，三角形是哪一種？</p>
+      <svg class="lsvg" id="dragSvg" viewBox="0 0 400 280"></svg>
+      <div class="sliders"><label>左右 <input type="range" id="apx" min="0" max="40" value="18"></label><label>高低 <input type="range" id="apy" min="2" max="22" value="14"></label></div>
+      <div class="kindbar" id="dragKind"></div>
+      <div class="btns cen"><button class="btn white small" data-p="20,12">變成直角</button><button class="btn white small" data-p="36,6">變成鈍角</button><button class="btn white small" data-p="18,16">變成銳角</button></div>
+    </div>
+    <div class="card">
+      <h3>📋 依角來分</h3>
+      <div class="kinds" id="kinds"></div>
+      <div class="tip">💡 一個三角形<b>最多只有 1 個直角</b>或 <b>1 個鈍角</b>。有一個直角、兩條邊又一樣長的，叫做<b>等腰直角三角形</b>。</div>
+    </div>
+  </div>
+
+  <div id="l64" class="hidden">
+    <div class="card">
+      <h3>✏️ 一步一步畫三角形</h3>
+      <div class="seg" id="dwSeg">
+        <button class="btn white on" data-d="0">直角三角形</button>
+        <button class="btn white" data-d="1">等腰三角形</button>
+        <button class="btn white" data-d="2">正三角形</button>
+        <button class="btn white" data-d="3">等腰直角三角形</button>
+      </div>
+      <div class="q" id="dwQ"></div>
+      <svg class="lsvg" id="dwSvg" viewBox="0 0 400 300"></svg>
+      <div class="bubble" id="dwSay"></div>
+      <div class="btns"><button class="btn org" id="dwNext">下一步 ➜</button><button class="btn gray small" id="dwReset">重來</button></div>
+      <div class="tip">📌 想自己動手圍三角形？到下面的「<b>釘板</b>」分頁完成任務！</div>
+    </div>
+  </div>
+
+  <div id="l65" class="hidden">
+    <div class="card">
+      <h3>🧩 全等圖形</h3>
+      <p class="small">把藍色圖形<b>移一移、轉一轉、翻一翻</b>，看看能不能和橘色圖形完全疊在一起。</p>
+      <svg class="lsvg" id="cgSvg" viewBox="0 0 400 240"></svg>
+      <div class="btns cen" id="cgBtns"><button class="btn white small" data-c="rot">⟳ 轉一轉</button><button class="btn white small" data-c="flip">↔ 翻一翻</button><button class="btn org" data-c="go">➡️ 移過去疊疊看</button><button class="btn gray small" data-c="new">換一組</button></div>
+      <div class="bubble" id="cgSay">兩個圖形可以<b>完全疊合</b>（形狀一樣、大小也一樣），就說它們<b>全等</b>。</div>
+    </div>
+    <div class="card">
+      <h3>🔗 對應頂點、對應邊、對應角</h3>
+      <p class="small">三角形甲乙丙和三角形丁戊己全等。點左邊三角形的<b>頂點、邊或角</b>，看看右邊哪裡是它的「對應」！</p>
+      <svg class="lsvg" id="crSvg" viewBox="0 0 400 230"></svg>
+      <div class="bubble" id="crSay">疊在一起的頂點叫<b>對應頂點</b>，疊在一起的邊叫<b>對應邊</b>，疊在一起的角叫<b>對應角</b>。</div>
+      <div class="tip">💡 全等三角形：<b>對應邊一樣長、對應角一樣大</b>。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 練習 ============ -->
+<section class="page" id="p-pr">
+  <div class="card">
+    <h2>✏️ 三角形練習</h2>
+    <div class="levels" id="prLevels"></div>
+  </div>
+  <div class="card">
+    <div class="prog" id="prProg"></div>
+    <div class="q" id="prQ"></div>
+    <svg class="lsvg" id="prSvg" viewBox="0 0 400 240"></svg>
+    <div class="choices" id="prChoices"></div>
+    <div id="prNum"><div class="onebox"><div class="ansbox" id="prAns">？</div><span id="prUnit"></span></div><div class="pad" id="prPad"></div></div>
+    <div class="btns cen"><button class="btn purple small" id="prHint">💡 提示</button></div>
+    <div class="fb" id="prFb"></div>
+    <div class="done" id="prDone"></div>
+  </div>
+</section>
+
+<!-- ============ 釘板 ============ -->
+<section class="page" id="p-geo">
+  <div class="card">
+    <h2>📌 釘板任務</h2>
+    <p class="small">點釘子放上頂點（3 個），橡皮筋會圍成三角形。點已經放好的頂點可以拿掉。</p>
+    <div class="prog" id="geoProg"></div>
+    <div class="q" id="geoQ"></div>
+    <svg class="lsvg geo" id="geoSvg" viewBox="0 0 340 340"></svg>
+    <label class="chk"><input type="checkbox" id="geoHelp"> 👀 顯示小幫手（一樣長的邊、直角記號）</label>
+    <div class="btns cen"><button class="btn org" id="geoCheck">✔ 檢查</button><button class="btn gray small" id="geoClear">清除</button><button class="btn white small" id="geoSkip">跳過 ➜</button></div>
+    <div class="fb" id="geoFb"></div>
+    <div class="tip">🤫 小秘密：在方格釘板上，<b>正三角形</b>是圍不出來的喔！要用直尺和量角器才能畫（看「6-4 繪製三角形」）。</div>
+  </div>
+</section>
+
+<!-- ============ 挑戰 ============ -->
+<section class="page" id="p-game">
+  <div class="card">
+    <h2>🎮 三角形挑戰</h2>
+    <div class="seg" id="gSeg">
+      <button class="btn white on" data-g="fac">🏭 分類工廠</button>
+      <button class="btn white" data-g="puz">🧩 全等拼拼看</button>
+      <button class="btn white" data-g="rid">🕵️ 三角形猜謎</button>
+    </div>
+  </div>
+  <div class="card" id="gFac">
+    <p class="small">三角形一個一個送過來！看清楚上面寫「<b>依邊分</b>」還是「<b>依角分</b>」，丟進正確的箱子。12 個，越快越好！</p>
+    <div class="prog" id="fProg"></div>
+    <div class="timer" id="fTime">0.0 秒</div>
+    <div class="byline" id="fBy"></div>
+    <svg class="lsvg" id="fSvg" viewBox="0 0 400 220"></svg>
+    <div class="bins" id="fBins"></div>
+    <div class="btns cen"><button class="btn org" id="fStart">開始 ▶</button></div>
+    <div class="fb" id="fFb"></div>
+    <div class="done" id="fDone"></div>
+  </div>
+  <div class="card hidden" id="gPuz">
+    <p class="small">把藍色三角形轉一轉、翻一翻，方向和橘色框框一樣再按「疊上去」。如果大小不一樣，就按「不是全等」！</p>
+    <div class="tripbar"><span id="pHeart"></span><span id="pCnt"></span></div>
+    <svg class="lsvg" id="pSvg" viewBox="0 0 400 230"></svg>
+    <div class="btns cen" id="pBtns"><button class="btn white" data-a="l">⟲ 左轉</button><button class="btn white" data-a="r">⟳ 右轉</button><button class="btn white" data-a="f">↔ 翻面</button></div>
+    <div class="btns cen"><button class="btn org" id="pGo">✅ 疊上去</button><button class="btn pink" id="pFake">🚫 不是全等</button></div>
+    <div class="choices" id="pVq"></div>
+    <div class="fb" id="pFb"></div>
+    <div class="done" id="pDone"></div>
+  </div>
+  <div class="card hidden" id="gRid">
+    <p class="small">聽聽三角形的自我介紹，猜猜它是哪一個？</p>
+    <div class="prog" id="rProg"></div>
+    <div class="bubble clue" id="rClue"></div>
+    <div class="ropts" id="rOpts"></div>
+    <div class="fb" id="rFb"></div>
+    <div class="done" id="rDone"></div>
+  </div>
+</section>
+
+<!-- ============ 紀錄 ============ -->
+<section class="page" id="p-rec">
+  <div class="card"><h2>🏆 我的紀錄</h2><div class="statgrid" id="stats"></div><div class="badges" id="badges"></div></div>
+  <div class="card"><h3>🔎 常錯的地方</h3><div id="mist"></div></div>
+  <div class="card"><h3>🕘 最近錯的題目</h3><div id="recent"></div></div>
+  <div class="card"><button class="btn gray" id="resetBtn">清除紀錄</button><p class="small">紀錄只存在這台平板的瀏覽器裡。</p></div>
+</section>
+</main>
+
+<nav class="tabs" id="tabs">
+  <button class="on" data-p="p-learn"><span>📖</span>學習</button>
+  <button data-p="p-pr"><span>✏️</span>練習</button>
+  <button data-p="p-geo"><span>📌</span>釘板</button>
+  <button data-p="p-game"><span>🎮</span>挑戰</button>
+  <button data-p="p-rec"><span>🏆</span>紀錄</button>
+</nav>
+
+<script id="core">
+var Core=(function(){
+"use strict";
+var V1=["甲","乙","丙"],V2=["丁","戊","己"];
+var SK={equi:"正三角形",iso:"等腰三角形",scal:"三邊都不一樣長"};
+var AK={acute:"銳角三角形",right:"直角三角形",obtuse:"鈍角三角形"};
+function rnd(a,b){return a+Math.floor(Math.random()*(b-a+1));}
+function pick(a){return a[Math.floor(Math.random()*a.length)];}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function d2(p,q){var x=p[0]-q[0],y=p[1]-q[1];return x*x+y*y;}
+function cross(a,b,c){return (b[0]-a[0])*(c[1]-a[1])-(b[1]-a[1])*(c[0]-a[0]);}
+function dot(o,b,c){return (b[0]-o[0])*(c[0]-o[0])+(b[1]-o[1])*(c[1]-o[1]);}
+/* exact classification of 3 integer points (geoboard) */
+function classify(P){
+  if(cross(P[0],P[1],P[2])===0)return {tri:false};
+  var s=[d2(P[1],P[2]),d2(P[0],P[2]),d2(P[0],P[1])];/* side opposite vertex i */
+  var e=(s[0]===s[1]?1:0)+(s[1]===s[2]?1:0)+(s[0]===s[2]?1:0);
+  var side=e===3?"equi":(e>=1?"iso":"scal"),angle="acute",at=-1;
+  for(var i=0;i<3;i++){var d=dot(P[i],P[(i+1)%3],P[(i+2)%3]);if(d===0){angle="right";at=i;}else if(d<0){angle="obtuse";at=i;}}
+  return {tri:true,side:side,angle:angle,at:at,s:s};}
+function sideKind(a,b,c){if(a===b&&b===c)return "equi";if(a===b||b===c||a===c)return "iso";return "scal";}
+function angleKind(A,B,C){var m=Math.max(A,B,C);return m===90?"right":(m>90?"obtuse":"acute");}
+function triOK(a,b,c){return a+b>c&&a+c>b&&b+c>a;}
+function fromSides(a,b,c){/* a=乙丙 (opp 甲), b=甲丙, c=甲乙 ; 乙=(0,0) 丙=(a,0) */
+  var x=(a*a+c*c-b*b)/(2*a),y=Math.sqrt(Math.max(0,c*c-x*x));return [[x,y],[0,0],[a,0]];}
+function fromAngles(A,B,C){var r=Math.PI/180,c=Math.sin(C*r)/Math.sin(A*r);return [[c*Math.cos(B*r),c*Math.sin(B*r)],[0,0],[1,0]];}
+function degs(P){var o=[];for(var i=0;i<3;i++){var a=P[i],b=P[(i+1)%3],c=P[(i+2)%3],v1=[b[0]-a[0],b[1]-a[1]],v2=[c[0]-a[0],c[1]-a[1]];
+  var cs=(v1[0]*v2[0]+v1[1]*v2[1])/Math.sqrt((v1[0]*v1[0]+v1[1]*v1[1])*(v2[0]*v2[0]+v2[1]*v2[1]));o.push(Math.acos(Math.max(-1,Math.min(1,cs)))*180/Math.PI);}return o;}
+function genSides(k){var a,b,c,t;
+  if(k==="equi"){a=rnd(3,12);return [a,a,a];}
+  if(k==="iso"){var L=rnd(4,12),B;do{B=rnd(2,Math.min(15,2*L-1));}while(B===L);t=[L,L,B];var r=rnd(0,2);return [t[r],t[(r+1)%3],t[(r+2)%3]];}
+  do{a=rnd(3,13);b=rnd(3,13);c=rnd(3,13);}while(!triOK(a,b,c)||a===b||b===c||a===c||Math.max(a,b,c)-Math.min(a,b,c)<2);return [a,b,c];}
+function genAngles(k){var A,B,C,t3;
+  if(k==="right"){B=5*rnd(4,14);t3=[90,B,90-B];}
+  else if(k==="obtuse"){A=5*rnd(19,30);B=5*rnd(3,Math.floor((180-A-15)/5));t3=[A,B,180-A-B];}
+  else{do{A=5*rnd(5,17);B=5*rnd(5,17);C=180-A-B;}while(C<25||C>=90);t3=[A,B,C];}
+  var r=rnd(0,2);return [t3[r],t3[(r+1)%3],t3[(r+2)%3]];}
+/* angles for a (side,angle) combo, used by riddles / factory */
+function comboAngles(s,a){var x,y,t;
+  if(s==="equi")return [60,60,60];
+  if(s==="iso"){if(a==="right")t=[90,45,45];else if(a==="obtuse"){x=pick([100,110,120,130,140]);t=[x,(180-x)/2,(180-x)/2];}else{x=pick([30,40,50,70,80]);t=[x,(180-x)/2,(180-x)/2];}}
+  else if(a==="right"){x=pick([25,30,35,40,50,55,60,65]);t=[90,x,90-x];}
+  else if(a==="obtuse"){do{x=5*rnd(20,28);y=5*rnd(3,Math.floor((180-x-15)/5));}while(y===180-x-y);t=[x,y,180-x-y];}
+  else{do{x=5*rnd(8,17);y=5*rnd(8,17);}while(180-x-y>=90||180-x-y<=35||x===y||y===180-x-y||x===180-x-y);t=[x,y,180-x-y];}
+  var r=rnd(0,2);return [t[r],t[(r+1)%3],t[(r+2)%3]];}
+/* ---------- 6-1 shapes (0..200 box) ---------- */
+var SHAPES=[
+ {tri:false,why:"沒有圍起來，有一個開口。",d:"M40 170 L100 30 L160 170 L120 170"},
+ {tri:false,why:"有一條邊是彎的，三角形的邊都是直直的線。",d:"M40 170 L100 30 L160 170 Q100 120 40 170Z"},
+ {tri:false,why:"有 4 條邊、4 個角，是四邊形。",d:"M40 160 L70 40 L160 60 L170 170Z"},
+ {tri:false,why:"邊超出去了，線沒有剛好頭尾相接。",d:"M20 170 L180 170 M40 190 L110 20 M160 190 L90 20"},
+ {tri:false,why:"三個點在同一條直線上，圍不起來。",d:"M30 120 L170 80",dots:[[30,120],[100,100],[170,80]]},
+ {tri:true,why:"3 條直直的邊，頭尾相接圍起來，是三角形。",d:"M40 170 L100 30 L160 170Z"},
+ {tri:true,why:"3 條直直的邊，頭尾相接圍起來；斜斜的也是三角形。",d:"M30 60 L170 40 L80 180Z"},
+ {tri:true,why:"3 條直直的邊、3 個頂點，是三角形（倒過來也是）。",d:"M30 40 L170 40 L100 180Z"},
+ {tri:true,why:"3 條直直的邊、3 個角，是三角形。",d:"M30 170 L170 170 L30 40Z"}];
+/* ---------- practice levels ---------- */
+var LV=[null,{name:"認識三角形",sub:"頂點・邊・角"},{name:"以邊分類",sub:"正三角形・等腰"},{name:"以角分類",sub:"銳角・直角・鈍角"},{name:"特殊三角形的性質",sub:"腰・底角・周長"},{name:"全等三角形",sub:"對應頂點・邊・角"}];
+function partTxt(t){var i=+t.charAt(1),j=+t.charAt(2);if(t.charAt(0)==="v")return "頂點"+V1[i];if(t.charAt(0)==="a")return "角"+V1[i];return "邊"+V1[i]+V1[j];}
+function gen(lv,sub){var q,k,t,i;
+  if(lv===1){t=sub||pick(["is","is","is","tap","tap","tap","tap","cnt"]);
+    if(t==="is"){var sh=pick(SHAPES);return {lv:1,type:"is",mode:"choice",text:"這個圖形是不是三角形？",shape:sh,opts:["是三角形","不是三角形"],ans:sh.tri?0:1,exp:sh.why,diag:"notTri"};}
+    if(t==="tap"){k=pick(["v","e","a"]);i=rnd(0,2);var tg=k==="e"?"e"+Math.min(i,(i+1)%3)+Math.max(i,(i+1)%3):k+i;
+      return {lv:1,type:"tap",mode:"tap",text:"點一點：<b>"+partTxt(tg)+"</b> 在哪裡？",fig:{P:fromSides.apply(null,genSides(pick(["scal","iso"]))),N:V1},ans:tg,
+        exp:k==="v"?"頂點是兩條邊相接的那個點。":(k==="e"?"邊"+V1[tg.charAt(1)]+V1[tg.charAt(2)]+"是連接頂點"+V1[tg.charAt(1)]+"和頂點"+V1[tg.charAt(2)]+"的那條線。":"角"+V1[i]+"是在頂點"+V1[i]+"、兩條邊夾住的地方。"),diag:"parts"};}
+    k=pick([["一個三角形有幾個頂點？",3,"個"],["一個三角形有幾條邊？",3,"條"],["一個三角形有幾個角？",3,"個"],["兩個三角形的邊，一共有幾條？",6,"條"],["三個三角形的頂點，一共有幾個？",9,"個"]]);
+    return {lv:1,type:"cnt",mode:"num",text:k[0],unit:k[2],ans:k[1],exp:"每個三角形都有 3 個頂點、3 條邊、3 個角。",diag:"parts"};}
+  if(lv===2){k=sub||pick(["equi","iso","iso","scal","scal"]);var s=genSides(k);
+    return {lv:2,type:"side",mode:"choice",text:"量一量三條邊，依<b>邊</b>來分，這是什麼三角形？",fig:{P:fromSides(s[0],s[1],s[2]),N:V1,sl:[s[0]+" 公分",s[1]+" 公分",s[2]+" 公分"]},sides:s,kind:k,
+      opts:["正三角形","等腰三角形","三邊都不一樣長"],ans:k==="equi"?0:(k==="iso"?1:2),
+      exp:k==="equi"?"三條邊都是 "+s[0]+" 公分，一樣長，是<b>正三角形</b>。":(k==="iso"?"有兩條邊一樣長（"+(s[0]===s[1]||s[0]===s[2]?s[0]:s[1])+" 公分），是<b>等腰三角形</b>。":"三條邊 "+s.join("、")+" 公分都不一樣長。"),diag:"side"};}
+  if(lv===3){t=sub||pick(["ang","ang","ang","ang","ri","max"]);
+    if(t==="ang"){k=pick(["acute","right","obtuse"]);var a=genAngles(k);
+      return {lv:3,type:"ang",mode:"choice",text:"量一量三個角，依<b>角</b>來分，這是什麼三角形？",fig:{P:fromAngles(a[0],a[1],a[2]),N:V1,al:a},angs:a,kind:k,opts:["銳角三角形","直角三角形","鈍角三角形"],ans:k==="acute"?0:(k==="right"?1:2),
+        exp:k==="acute"?"三個角 "+a.join("°、")+"° 都比 90° 小，都是銳角，是<b>銳角三角形</b>。":(k==="right"?"有一個角是 90°（直角），是<b>直角三角形</b>。":"有一個角是 "+Math.max.apply(null,a)+"°，比 90° 大，是鈍角，所以是<b>鈍角三角形</b>。"),diag:"angle"};}
+    if(t==="ri"){var ra=pick([[90,45,45],[45,90,45],[45,45,90]]);return {lv:3,type:"ri",mode:"choice",text:"這個三角形有一個直角，另外兩個角都是 45°，兩條邊一樣長。它叫什麼三角形？",fig:{P:fromAngles(ra[0],ra[1],ra[2]),N:V1,al:ra},opts:shuffle(["等腰直角三角形","正三角形","鈍角三角形"]),ansT:"等腰直角三角形",exp:"有一個直角、又有兩條邊一樣長，叫做<b>等腰直角三角形</b>（三角板就有一塊是這種）。",diag:"angle"};}
+    var mx=pick([["直角",1],["鈍角",1],["銳角",3]]);
+    return {lv:3,type:"max",mode:"num",text:"一個三角形<b>最多</b>可以有幾個"+mx[0]+"？",unit:"個",ans:mx[1],exp:mx[0]==="銳角"?"銳角三角形的 3 個角都是銳角。":"兩個"+mx[0]+"的邊會分開、圍不起來，所以最多只有 1 個"+mx[0]+"。",diag:"angle"};}
+  if(lv===4){t=sub||pick(["leg","bang","eang","eper","eside","iper"]);var L,B,x;
+    if(t==="leg"){L=rnd(4,12);B=rnd(3,9);if(B===L)B++;return {lv:4,type:t,mode:"num",unit:"公分",text:"等腰三角形甲乙丙，甲是頂點，邊甲乙 ＝ "+L+" 公分，底邊乙丙 ＝ "+B+" 公分。邊甲丙是幾公分？",fig:{P:fromSides(B,L,L),N:V1,sl:[B+" 公分","？",L+" 公分"],tk:[0,1,1]},ans:L,wrong:[B],exp:"等腰三角形的兩個<b>腰</b>一樣長：甲丙 ＝ 甲乙 ＝ "+L+" 公分。",diag:"isoProp"};}
+    if(t==="bang"){do{x=5*rnd(6,16);}while(x===60);var ap=180-2*x;return {lv:4,type:t,mode:"num",unit:"度",text:"等腰三角形甲乙丙，甲乙 ＝ 甲丙，底角乙是 "+x+"°。底角丙是幾度？",fig:{P:fromAngles(ap,x,x),N:V1,al:["",x,"？"],tk:[0,1,1]},ans:x,wrong:[ap],exp:"等腰三角形的兩個<b>底角</b>一樣大：角丙 ＝ 角乙 ＝ "+x+"°。",diag:"isoProp"};}
+    if(t==="eang")return {lv:4,type:t,mode:"num",unit:"度",text:"正三角形的每一個角是幾度？",fig:{P:fromSides(1,1,1),N:V1,al:["？","？","？"],tk:[1,1,1]},ans:60,exp:"用量角器量正三角形的 3 個角，每個角都是 <b>60°</b>。",diag:"equiProp"};
+    if(t==="eper"){x=rnd(3,15);return {lv:4,type:t,mode:"num",unit:"公分",text:"正三角形的一邊是 "+x+" 公分，周長是幾公分？",fig:{P:fromSides(1,1,1),N:V1,sl:[x+" 公分","",""],tk:[1,1,1]},ans:3*x,wrong:[x,2*x],exp:"正三角形 3 條邊一樣長：周長 ＝ "+x+" × 3 ＝ "+(3*x)+" 公分。",diag:"perim"};}
+    if(t==="eside"){x=rnd(3,15);return {lv:4,type:t,mode:"num",unit:"公分",text:"用一條 "+(3*x)+" 公分長的鐵絲，剛好圍成一個正三角形。一邊是幾公分？",fig:{P:fromSides(1,1,1),N:V1,sl:["？","",""],tk:[1,1,1]},ans:x,wrong:[3*x],exp:"3 條邊一樣長：一邊 ＝ "+(3*x)+" ÷ 3 ＝ "+x+" 公分。",diag:"perim"};}
+    L=rnd(4,12);B=rnd(3,10);if(B===L)B++;return {lv:4,type:"iper",mode:"num",unit:"公分",text:"等腰三角形的兩個腰都是 "+L+" 公分，底是 "+B+" 公分，周長是幾公分？",fig:{P:fromSides(B,L,L),N:V1,sl:[B+" 公分",L+" 公分",""],tk:[0,1,1]},ans:2*L+B,wrong:[L+B],exp:"周長是 3 條邊加起來："+L+" ＋ "+L+" ＋ "+B+" ＝ "+(2*L+B)+" 公分（腰有兩條！）。",diag:"perim"};}
+  /* lv5 全等 */
+  t=sub||pick(["side","side","ang","ang","vtx"]);var pm=shuffle([0,1,2]),rot=rnd(1,5)*60+rnd(-15,15),fl=Math.random()<.5,P,lab;
+  var map="（"+V1[0]+"對應"+V2[pm[0]]+"、"+V1[1]+"對應"+V2[pm[1]]+"、"+V1[2]+"對應"+V2[pm[2]]+"）";
+  var N2=[V2[pm[0]],V2[pm[1]],V2[pm[2]]];
+  if(t==="side"||t==="vtx"){var ss=genSides("scal");P=fromSides(ss[0],ss[1],ss[2]);i=rnd(0,2);
+    var e1=(i+1)%3,e2=(i+2)%3,nm=N2[Math.min(e1,e2)]+N2[Math.max(e1,e2)];
+    if(t==="vtx"){var vi=rnd(0,2);return {lv:5,type:"vtx",mode:"choice",text:"兩個三角形全等（可以完全疊合）。頂點<b>"+V1[vi]+"</b>的對應頂點是哪一個？",fig:{P:P,N:V1,sl:[ss[0]+"",ss[1]+"",ss[2]+""]},fig2:{P:P,N:N2,sl:[ss[0]+"",ss[1]+"",ss[2]+""],rot:rot,fl:fl},opts:V2.slice(),ans:pm[vi],
+      exp:"疊起來看：頂點"+V1[vi]+"對面的邊是 "+ss[vi]+"，所以對應頂點是對面也是 "+ss[vi]+" 的<b>"+V2[pm[vi]]+"</b>。",diag:"cong"};}
+    return {lv:5,type:"side",mode:"num",unit:"公分",text:"三角形甲乙丙和三角形"+N2.join("")+"全等"+map+"。邊<b>"+nm+"</b>是幾公分？",fig:{P:P,N:V1,sl:[ss[0]+" 公分",ss[1]+" 公分",ss[2]+" 公分"]},fig2:{P:P,N:N2,sl:i===0?["？","",""]:(i===1?["","？",""]:["","","？"]),rot:rot,fl:fl},ans:ss[i],wrong:[ss[(i+1)%3],ss[(i+2)%3]],
+      exp:"邊"+nm+"的對應邊是邊"+V1[Math.min(e1,e2)]+V1[Math.max(e1,e2)]+"，對應邊一樣長：<b>"+ss[i]+" 公分</b>。",diag:"cong"};}
+  var aa=genAngles(pick(["acute","obtuse","right"]));while(aa[0]===aa[1]||aa[1]===aa[2]||aa[0]===aa[2])aa=genAngles(pick(["acute","obtuse"]));P=fromAngles(aa[0],aa[1],aa[2]);i=rnd(0,2);
+  lab=["","",""];lab[i]="？";
+  return {lv:5,type:"ang",mode:"num",unit:"度",text:"三角形甲乙丙和三角形"+N2.join("")+"全等"+map+"。角<b>"+N2[i]+"</b>是幾度？",fig:{P:P,N:V1,al:aa},fig2:{P:P,N:N2,al:lab,rot:rot,fl:fl},ans:aa[i],wrong:[aa[(i+1)%3],aa[(i+2)%3]],
+    exp:"角"+N2[i]+"的對應角是角"+V1[i]+"，對應角一樣大：<b>"+aa[i]+"°</b>。",diag:"cong"};}
+function ansText(q){if(q.mode==="choice")return q.ansT||q.opts[q.ans];if(q.mode==="tap")return partTxt(q.ans);return q.ans+" "+q.unit;}
+function choiceIdx(q){return q.ansT?q.opts.indexOf(q.ansT):q.ans;}
+function diag(q,v){/* v = picked index / number / tap id */
+  if(q.lv===2&&q.kind==="equi"&&v===1)return "equiIso";
+  if(q.lv===4&&q.type==="iper"&&v===q.wrong[0])return "perim";
+  if(q.mode==="num"&&q.wrong&&q.wrong.indexOf(v)>=0)return q.diag;
+  if(q.mode==="num"&&q.lv>=4&&(!q.wrong||q.wrong.indexOf(v)<0))return q.lv===5?"cong":"calc";
+  return q.diag;}
+/* ---------- geoboard missions (pegs 0..6) ---------- */
+var MIS=[
+ {t:"任意圍一個三角形",c:{}},{t:"直角三角形",c:{angle:"right"}},{t:"鈍角三角形",c:{angle:"obtuse"}},{t:"銳角三角形",c:{angle:"acute"}},
+ {t:"等腰三角形",c:{side:"iso"}},{t:"等腰直角三角形",c:{angle:"right",side:"iso"}},{t:"兩條直角邊是 3 格和 4 格的直角三角形",c:{angle:"right",legs:[9,16]}},
+ {t:"鈍角的等腰三角形",c:{angle:"obtuse",side:"iso"}},{t:"銳角的等腰三角形",c:{angle:"acute",side:"iso"}},{t:"三邊都不一樣長的鈍角三角形",c:{angle:"obtuse",side:"scal"}}];
+function mission(m,P){var r=classify(P);if(!r.tri)return {ok:false,why:"notTri",r:r};var c=m.c;
+  if(c.angle&&r.angle!==c.angle)return {ok:false,why:"angle",r:r};
+  if(c.side&&r.side!==c.side)return {ok:false,why:"side",r:r};
+  if(c.legs){var i=r.at,l=[r.s[(i+1)%3],r.s[(i+2)%3]].sort(function(a,b){return a-b;});if(l[0]!==c.legs[0]||l[1]!==c.legs[1])return {ok:false,why:"legs",r:r};}
+  return {ok:true,r:r};}
+/* ---------- games ---------- */
+var COMBOS=[["equi","acute","我的三條邊都一樣長，三個角也一樣大。"],["iso","right","我有一個直角，還有兩條邊一樣長。"],["iso","obtuse","我有一個鈍角，還有兩條邊一樣長。"],["iso","acute","我三個角都是銳角，只有兩條邊一樣長。"],
+ ["scal","right","我有一個直角，三條邊都不一樣長。"],["scal","obtuse","我有一個鈍角，三條邊都不一樣長。"],["scal","acute","我三個角都是銳角，三條邊都不一樣長。"]];
+function genRiddle(){var c=pick(COMBOS),others=shuffle(COMBOS.filter(function(x){return x!==c;})).slice(0,3),all=shuffle([c].concat(others));
+  return {clue:c[2],opts:all.map(function(x){var a=comboAngles(x[0],x[1]);return {side:x[0],angle:x[1],al:a,P:fromAngles(a[0],a[1],a[2])};}),ans:all.indexOf(c),side:c[0],angle:c[1]};}
+function genFactory(n){var o=[];for(var i=0;i<n;i++){var by=i%2===0?"side":"angle",s=pick(["equi","iso","iso","scal","scal"]),a=pick(["acute","right","obtuse"]);
+  if(s==="equi")a="acute";var al=comboAngles(s,a);o.push({by:by,side:s,angle:a,al:al,P:fromAngles(al[0],al[1],al[2])});}return o;}
+var PIECES=[[[0,0],[4,0],[1,3]],[[0,0],[3,0],[0,2]],[[0,0],[4,0],[3,2]],[[0,0],[2,0],[-1,3]],[[0,0],[5,0],[1,2]],[[0,0],[3,0],[4,3]]];
+function xf(P,r,f){return P.map(function(p){var x=f?-p[0]:p[0],y=p[1];for(var i=0;i<r;i++){var t=x;x=-y;y=t;}return [x,y];});}
+function sameOri(r,f){return r===0&&f===0;}
+function flipState(r,f){return {r:(4-r)%4,f:f?0:1};}
+function genPuzzle(n){var o=[],ps=shuffle(PIECES);for(var i=0;i<n;i++){var r,f;do{r=rnd(0,3);f=rnd(0,1);}while(r===0&&f===0);o.push({P:ps[i%ps.length],r:r,f:f,fake:i>0&&Math.random()<.25});}return o;}
+function fmtTime(ms){return (ms/1000).toFixed(1)+" 秒";}
+var api={V1:V1,V2:V2,SK:SK,AK:AK,LV:LV,SHAPES:SHAPES,MIS:MIS,COMBOS:COMBOS,PIECES:PIECES,rnd:rnd,pick:pick,shuffle:shuffle,d2:d2,classify:classify,sideKind:sideKind,angleKind:angleKind,triOK:triOK,
+ fromSides:fromSides,fromAngles:fromAngles,degs:degs,genSides:genSides,genAngles:genAngles,comboAngles:comboAngles,gen:gen,ansText:ansText,choiceIdx:choiceIdx,diag:diag,partTxt:partTxt,
+ mission:mission,genRiddle:genRiddle,genFactory:genFactory,xf:xf,sameOri:sameOri,flipState:flipState,genPuzzle:genPuzzle,fmtTime:fmtTime};
+if(typeof module!=="undefined"&&module.exports)module.exports=api;
+return api;})();
+</script>
+<script>
+(function(){
+"use strict";
+if(typeof document==="undefined")return;
+var $=function(id){return document.getElementById(id);};
+var C=Core,KEY="mathTriV1",V1=C.V1,V2=C.V2;
+function fresh(){return {stars:0,pr:{},geo:{},facBest:0,facPerfect:0,puzWins:0,puzPlays:0,ridBest:0,ridPlays:0,bad:{},recent:[],seen:{}};}
+var store=fresh();
+try{var raw=localStorage.getItem(KEY);if(raw){var o=JSON.parse(raw);for(var k in o)store[k]=o[k];}}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
+var TN={notTri:"🔺 是不是三角形",parts:"📍 頂點、邊、角",side:"📏 依邊分類",equiIso:"🟰 正三角形和等腰三角形",angle:"📐 依角分類",isoProp:"🏷️ 等腰三角形的性質",equiProp:"🔺 正三角形的性質",perim:"➰ 三角形的周長",cong:"🧩 全等的對應",calc:"✏️ 計算粗心",draw:"📌 釘板圍三角形"};
+var TIPS={notTri:"三角形要有 3 條直直的邊，頭尾相接圍起來。",parts:"頂點是兩條邊相接的點；邊是直直的線；角是兩條邊夾住的地方。每個三角形都有 3 個頂點、3 條邊、3 個角。",
+  side:"先量三條邊：三條都一樣長是正三角形；只有兩條一樣長是等腰三角形。",equiIso:"三條邊都一樣長，要叫它<b>正三角形</b>（它也是一種特別的等腰三角形，但名字要選最貼切的）。",
+  angle:"找最大的角：比 90° 小 → 銳角三角形；剛好 90° → 直角三角形；比 90° 大 → 鈍角三角形。",isoProp:"等腰三角形：兩個<b>腰</b>一樣長，兩個<b>底角</b>一樣大。",
+  equiProp:"正三角形：3 條邊一樣長，3 個角都是 60°。",perim:"周長是 3 條邊加起來；正三角形周長 ＝ 一邊 × 3。",cong:"全等三角形：先找對應頂點，對應邊一樣長、對應角一樣大。",
+  calc:"慢慢算，算完再檢查一次。",draw:"數一數格子，看邊有沒有一樣長；直角記號要剛好是方方的角。"};
+function miss(t,p){store.bad[t]=(store.bad[t]||0)+1;var r0=store.recent[0];if(!(r0&&r0.p===p&&r0.k===t))store.recent.unshift({p:p,k:t});store.recent=store.recent.slice(0,10);save();}
+function renderScore(){$("score").textContent="⭐ "+store.stars;}
+function addStars(n,el){store.stars+=n;save();renderScore();var sc=$("score");sc.classList.remove("pop");void sc.offsetWidth;sc.classList.add("pop");
+  if(el){var r=el.getBoundingClientRect();for(var i=0;i<6;i++){var s=document.createElement("div");s.className="burst";s.textContent=["⭐","✨","🌟"][i%3];
+    s.style.left=(r.left+r.width/2)+"px";s.style.top=(r.top+20)+"px";s.style.setProperty("--dx",(Math.random()*200-100)+"px");s.style.setProperty("--dy",(-60-Math.random()*120)+"px");
+    document.body.appendChild(s);setTimeout(function(x){return function(){x.remove();};}(s),1200);}}}
+var actx=null;function beep(good){try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();(good?[660,880]:[260]).forEach(function(f,i){var o=actx.createOscillator(),g=actx.createGain();o.frequency.value=f;o.type="triangle";g.gain.setValueAtTime(.08,actx.currentTime+i*.08);g.gain.exponentialRampToValueAtTime(.001,actx.currentTime+i*.08+.2);o.connect(g);g.connect(actx.destination);o.start(actx.currentTime+i*.08);o.stop(actx.currentTime+i*.08+.22);});}catch(e){}}
+function say(t){try{if(!window.speechSynthesis)return;speechSynthesis.cancel();t=String(t).replace(/<[^>]+>/g,"").replace(/＝/g,"等於").replace(/＋/g,"加").replace(/－/g,"減").replace(/×/g,"乘").replace(/÷/g,"除以").replace(/°/g,"度").replace(/？/g,"多少");
+  var u=new SpeechSynthesisUtterance(t);u.lang="zh-TW";u.rate=.85;speechSynthesis.speak(u);}catch(e){}}
+function fb(id,cls,html){var e=$(id);e.className="fb show "+cls;e.innerHTML=html;}
+function fbHide(id){$(id).className="fb";}
+function show(id,on){$(id).classList.toggle("hidden",!on);}
+function goTab(p){document.querySelectorAll("#tabs button").forEach(function(x){x.classList.toggle("on",x.dataset.p===p);});
+  document.querySelectorAll("section.page").forEach(function(s){s.classList.toggle("active",s.id===p);});
+  if(p==="p-rec")renderRec();window.scrollTo(0,0);}
+document.querySelectorAll("#tabs button").forEach(function(b){b.addEventListener("click",function(){goTab(b.dataset.p);});});
+function segs(id,attr,fn){var bs=document.querySelectorAll("#"+id+" button");bs.forEach(function(b){b.addEventListener("click",function(){bs.forEach(function(x){x.classList.toggle("on",x===b);});fn(b.getAttribute(attr),b);});});}
+function makePad(id,onKey){var h="";["1","2","3","4","5","6","7","8","9","del","0","ok"].forEach(function(k){h+='<button data-k="'+k+'"'+(k.length>1?' class="fn"':'')+'>'+(k==="del"?"⌫":(k==="ok"?"✔ 確定":k))+'</button>';});
+  $(id).innerHTML=h;$(id).addEventListener("click",function(e){var b=e.target.closest("button");if(b)onKey(b.dataset.k);});}
+
+/* ---------- 畫三角形（共用） ---------- */
+function R1(v){return Math.round(v*10)/10;}
+function place(P,rot,fl,bx,pad){var r=(rot||0)*Math.PI/180,c=Math.cos(r),s=Math.sin(r);
+  var Q=P.map(function(p){var x=fl?-p[0]:p[0],y=p[1];return [x*c-y*s,-(x*s+y*c)];});
+  var xs=Q.map(function(p){return p[0];}),ys=Q.map(function(p){return p[1];}),x0=Math.min.apply(null,xs),x1=Math.max.apply(null,xs),y0=Math.min.apply(null,ys),y1=Math.max.apply(null,ys);
+  var sc=Math.min((bx.w-2*pad)/((x1-x0)||1),(bx.h-2*pad)/((y1-y0)||1));if(bx.max)sc=Math.min(sc,bx.max);
+  var ox=bx.x+bx.w/2-sc*(x0+x1)/2,oy=bx.y+bx.h/2-sc*(y0+y1)/2;
+  return Q.map(function(p){return [ox+sc*p[0],oy+sc*p[1]];});}
+function unit(a,b){var x=b[0]-a[0],y=b[1]-a[1],l=Math.sqrt(x*x+y*y)||1;return [x/l,y/l];}
+function txt(x,y,s,cls,fill){return '<text x="'+R1(x)+'" y="'+R1(y)+'" class="lb '+(cls||"")+'"'+(fill?' fill="'+fill+'"':'')+' text-anchor="middle" dominant-baseline="central">'+s+'</text>';}
+function dg(v){return typeof v==="number"?v+"°":v;}
+/* fig {P,N,sl,al,tk,rot,fl}; o {bx,tap,hl:{v,e,a},fill,stroke,arcs,pad,dash} */
+function triSVG(fig,o){o=o||{};var bx=o.bx||{x:0,y:0,w:400,h:240},S=o.raw?fig.P:place(fig.P,fig.rot,fig.fl,bx,o.pad||38),D=C.degs(fig.P),G=[(S[0][0]+S[1][0]+S[2][0])/3,(S[0][1]+S[1][1]+S[2][1])/3],h="",hl=o.hl||{},i;
+  function has(k,v){return hl[k]&&hl[k].indexOf(v)>=0;}
+  var pts=S.map(function(p){return R1(p[0])+","+R1(p[1]);}).join(" ");
+  h+='<polygon points="'+pts+'" fill="'+(o.fill||"#ffe8c2")+'" stroke="none"'+(o.dash?' opacity=".35"':'')+'/>';
+  for(i=0;i<3;i++){var V=S[i],u1=unit(V,S[(i+1)%3]),u2=unit(V,S[(i+2)%3]),cr=u1[0]*u2[1]-u1[1]*u2[0],sw=cr>0?1:0,ga=has("a",i);
+    var rr=ga?34:22;
+    if(o.tap)h+='<path data-t="a'+i+'" class="tg" d="M'+R1(V[0])+' '+R1(V[1])+' L'+R1(V[0]+u1[0]*52)+' '+R1(V[1]+u1[1]*52)+' A52 52 0 0 '+sw+' '+R1(V[0]+u2[0]*52)+' '+R1(V[1]+u2[1]*52)+'Z" fill="transparent"/>';
+    var showA=(fig.al&&fig.al[i]!==""&&fig.al[i]!==undefined)||ga||(o.arcs);
+    if(showA){if(Math.abs(D[i]-90)<0.6){var q=12+(ga?8:0);h+='<path d="M'+R1(V[0]+u1[0]*q)+' '+R1(V[1]+u1[1]*q)+' L'+R1(V[0]+u1[0]*q+u2[0]*q)+' '+R1(V[1]+u1[1]*q+u2[1]*q)+' L'+R1(V[0]+u2[0]*q)+' '+R1(V[1]+u2[1]*q)+'" fill="'+(ga?"#b7efe4":"none")+'" stroke="'+(ga?"#2a9d8f":"#e63946")+'" stroke-width="3"/>';}
+      else h+='<path d="M'+R1(V[0])+' '+R1(V[1])+' L'+R1(V[0]+u1[0]*rr)+' '+R1(V[1]+u1[1]*rr)+' A'+rr+' '+rr+' 0 0 '+sw+' '+R1(V[0]+u2[0]*rr)+' '+R1(V[1]+u2[1]*rr)+'Z" fill="'+(ga?"#b7efe4":"#fff3")+'" stroke="'+(ga?"#2a9d8f":"#9b5de5")+'" stroke-width="'+(ga?3:2)+'"/>';}}
+  for(i=0;i<3;i++){var a=S[(i+1)%3],b=S[(i+2)%3],j=Math.min((i+1)%3,(i+2)%3),k=Math.max((i+1)%3,(i+2)%3),ge=has("e",""+j+k);
+    if(o.tap)h+='<line data-t="e'+j+k+'" class="tg" x1="'+R1(a[0])+'" y1="'+R1(a[1])+'" x2="'+R1(b[0])+'" y2="'+R1(b[1])+'" stroke="transparent" stroke-width="28"/>';
+    h+='<line x1="'+R1(a[0])+'" y1="'+R1(a[1])+'" x2="'+R1(b[0])+'" y2="'+R1(b[1])+'" stroke="'+(ge?"#1d6fd6":(o.stroke||"#2b2d42"))+'" stroke-width="'+(ge?8:4)+'" stroke-linecap="round"'+(o.dash?' stroke-dasharray="8 6"':'')+(o.tap?' pointer-events="none"':'')+'/>';
+    var M=[(a[0]+b[0])/2,(a[1]+b[1])/2],ue=unit(a,b),nx=-ue[1],ny=ue[0];if((M[0]-G[0])*nx+(M[1]-G[1])*ny<0){nx=-nx;ny=-ny;}
+    if(fig.tk&&fig.tk[i]){for(var t=0;t<fig.tk[i];t++){var off=(t-(fig.tk[i]-1)/2)*7,cx=M[0]+ue[0]*off,cy=M[1]+ue[1]*off;h+='<line x1="'+R1(cx-nx*8)+'" y1="'+R1(cy-ny*8)+'" x2="'+R1(cx+nx*8)+'" y2="'+R1(cy+ny*8)+'" stroke="#e63946" stroke-width="3"/>';}}
+    if(fig.sl&&fig.sl[i])h+=txt(M[0]+nx*20,M[1]+ny*20,fig.sl[i],"sl"+(fig.sl[i]==="？"?" qm":""));}
+  for(i=0;i<3;i++){var V2_=S[i],gv=has("v",i),ou=unit(G,V2_);
+    if(fig.al&&fig.al[i]!==""&&fig.al[i]!==undefined){var half=D[i]*Math.PI/360,dd=Math.min(64,Math.max(36,16/Math.sin(half)));var iu=unit(V2_,G);h+=txt(V2_[0]+iu[0]*dd,V2_[1]+iu[1]*dd,dg(fig.al[i]),"al"+(fig.al[i]==="？"?" qm":""));}
+    if(o.tap)h+='<circle data-t="v'+i+'" class="tg" cx="'+R1(V2_[0])+'" cy="'+R1(V2_[1])+'" r="18" fill="transparent"/>';
+    h+='<circle cx="'+R1(V2_[0])+'" cy="'+R1(V2_[1])+'" r="'+(gv?10:5)+'" fill="'+(gv?"#e63946":"#2b2d42")+'"'+(o.tap?' pointer-events="none"':'')+'/>';
+    if(fig.N)h+=txt(V2_[0]+ou[0]*22,V2_[1]+ou[1]*22,fig.N[i],"vn",gv?"#e63946":null);}
+  return h;}
+function roundDegs(P){var d=C.degs(P).map(Math.round),s=d[0]+d[1]+d[2];if(s!==180){var m=d.indexOf(Math.max.apply(null,d));d[m]+=180-s;}return d;}
+
+/* ---------- 學習 tabs ---------- */
+segs("seg","data-s",function(s){["61","62","63","64","65"].forEach(function(x){show("l"+x,x===s);});store.seen[s]=1;save();});
+
+/* ---------- 6-1 ---------- */
+var T61={P:C.fromSides(9,7,8),N:V1},t61T=null;
+function t61Draw(hl){$("t61Svg").innerHTML=triSVG(T61,{bx:{x:0,y:0,w:400,h:250},hl:hl});}
+t61Draw({});
+$("t61Btns").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;var k=b.dataset.k,ids=k==="e"?["01","12","02"]:[0,1,2],n=0,nm={v:"頂點",e:"邊",a:"角"}[k],u=k==="e"?"條":"個";
+  clearTimeout(t61T);(function step(){n++;var hl={};hl[k]=ids.slice(0,n);t61Draw(hl);
+    var names=ids.slice(0,n).map(function(x){return k==="e"?"邊"+V1[+String(x).charAt(0)]+V1[+String(x).charAt(1)]:nm+V1[x];});
+    $("t61Say").innerHTML=names.join("、")+(n<3?"……":" → 一共 <b>3 "+u+nm+"</b>！");
+    if(n<3)t61T=setTimeout(step,650);else{say("三角形有3"+u+nm);store.seen["t61"+k]=1;save();if(store.seen.t61v&&store.seen.t61e&&store.seen.t61a&&!store.seen.t61all){store.seen.t61all=1;save();addStars(1,b);}}})();});
+var isList=C.shuffle(C.SHAPES),isI=0,isLock=false;
+function isRender(){var sh=isList[isI%isList.length];isLock=false;fbHide("isFb");
+  $("isSvg").innerHTML='<path d="'+sh.d+'" fill="'+(sh.tri?"#ffe8c2":"none")+'" stroke="#2b2d42" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>'+(sh.dots?sh.dots.map(function(p){return '<circle cx="'+p[0]+'" cy="'+p[1]+'" r="8" fill="#e63946"/>';}).join(""):"");
+  document.querySelectorAll("#isBtns button").forEach(function(b){b.classList.remove("ok","no");});}
+$("isBtns").addEventListener("click",function(e){var b=e.target.closest("button");if(!b||isLock)return;var sh=isList[isI%isList.length],right=(+b.dataset.i===0)===sh.tri;
+  if(right){isLock=true;b.classList.add("ok");beep(true);fb("isFb","good","✅ "+sh.why);say(sh.why);if(!store.seen["is"+isI]&&isI<6){store.seen["is"+isI]=1;addStars(1,b);}setTimeout(function(){isI++;isRender();},1700);}
+  else{b.classList.add("no");beep(false);fb("isFb","bad","再看看！"+(sh.tri?"它有 3 條直直的邊，也有圍起來喔。":"它是不是有地方不符合：3 條直直的邊、頭尾相接圍起來？"));}});
+isRender();
+
+/* ---------- 6-2 量一量 ---------- */
+var MS={equi:[6,6,6],iso:[5,8,8],scal:[7,9,5]},msK="equi",msSide=false,msAngle=false;
+function msDraw(){var s=MS[msK],P=C.fromSides(s[0],s[1],s[2]),d=roundDegs(P),tk=[0,0,0];
+  if(msSide){var kd=C.sideKind(s[0],s[1],s[2]);for(var i=0;i<3;i++){var c=0;for(var j=0;j<3;j++)if(s[j]===s[i])c++;tk[i]=kd==="equi"?1:(c>1?1:0);}}
+  $("msSvg").innerHTML=triSVG({P:P,N:V1,sl:msSide?s.map(function(x){return x+" 公分";}):null,al:msAngle?d:null,tk:tk},{bx:{x:0,y:0,w:400,h:260}});
+  var t;if(!msSide&&!msAngle)t="先量量看三條邊有多長，再量量看三個角。";
+  else if(msSide&&!msAngle)t="三條邊是 "+s.join("、")+" 公分。"+(msK==="equi"?"三條邊<b>都一樣長</b>！":(msK==="iso"?"有<b>兩條邊一樣長</b>！":"三條邊<b>都不一樣長</b>。"))+"再量量角看看。";
+  else if(!msSide)t="三個角是 "+d.join("°、")+"°。再量量邊看看。";
+  else if(msK==="equi")t="三條邊都一樣長的三角形，叫做<b>正三角形</b>。正三角形的三個角也一樣大，<b>都是 60°</b>。<br>（三條邊都一樣長，當然也有兩條邊一樣長，所以正三角形也是一種特別的等腰三角形。）";
+  else if(msK==="iso")t="有兩條邊一樣長的三角形，叫做<b>等腰三角形</b>。一樣長的兩條邊，對面的兩個角也<b>一樣大</b>（"+d[1]+"° 和 "+d[2]+"°）！";
+  else t="三條邊都不一樣長，三個角也都不一樣大。它不是正三角形，也不是等腰三角形。";
+  $("msSay").innerHTML=t;
+  if(msSide&&msAngle&&!store.seen["ms"+msK]){store.seen["ms"+msK]=1;save();addStars(1,$("msSvg"));say(t);}}
+segs("msSeg","data-m",function(m){msK=m;msSide=false;msAngle=false;msDraw();});
+$("msSide").addEventListener("click",function(){msSide=true;msDraw();});
+$("msAng").addEventListener("click",function(){msAngle=true;msDraw();});
+msDraw();
+var ISO=["一樣長的兩條邊（邊甲乙、邊甲丙）叫做<b>腰</b>。","另外一條邊（邊乙丙）叫做<b>底</b>。","兩個腰夾住的角（角甲）叫做<b>頂角</b>。","底的兩端的角（角乙、角丙）叫做<b>底角</b>，兩個底角<b>一樣大</b>。","沿著虛線對摺，兩個腰、兩個底角剛好疊在一起！"],isoN=0;
+function isoDraw(){var P=C.fromSides(6,8,8),hl={},al=null,ex="",S;
+  if(isoN===1)hl={e:["01","02"]};if(isoN===2)hl={e:["12"]};if(isoN===3)hl={a:[0]};if(isoN>=4){hl={a:[1,2]};al=["",70,70];}
+  var h=triSVG({P:P,N:V1,tk:isoN>=1?[0,1,1]:null,al:al},{bx:{x:0,y:0,w:400,h:260},hl:hl});
+  S=place(P,0,false,{x:0,y:0,w:400,h:260},38);
+  if(isoN>=1)ex+=txt((S[0][0]+S[1][0])/2-40,(S[0][1]+S[1][1])/2,"腰","nm2","#1d6fd6")+txt((S[0][0]+S[2][0])/2+40,(S[0][1]+S[2][1])/2,"腰","nm2","#1d6fd6");
+  if(isoN>=2)ex+=txt((S[1][0]+S[2][0])/2,S[1][1]+26,"底","nm2","#1d6fd6");
+  if(isoN>=3)ex+=txt(S[0][0]+46,S[0][1]+6,"頂角","nm2","#2a9d8f");
+  if(isoN>=4)ex+=txt(S[1][0]-30,S[1][1]+22,"底角","nm2","#2a9d8f")+txt(S[2][0]+30,S[2][1]+22,"底角","nm2","#2a9d8f");
+  if(isoN>=5)ex+='<line x1="'+R1(S[0][0])+'" y1="'+R1(S[0][1]-10)+'" x2="'+R1(S[0][0])+'" y2="'+R1(S[1][1]+10)+'" stroke="#ff9f1c" stroke-width="4" stroke-dasharray="8 6"/>';
+  $("isoSvg").innerHTML=h+ex;var li="";for(var i=0;i<isoN;i++)li+='<li'+(i===isoN-1?' class="new"':'')+'>'+ISO[i]+'</li>';$("isoSteps").innerHTML=li;$("isoNext").disabled=isoN>=ISO.length;}
+$("isoNext").addEventListener("click",function(){if(isoN<ISO.length){isoN++;isoDraw();say(ISO[isoN-1]);if(isoN===ISO.length&&!store.seen.iso){store.seen.iso=1;save();addStars(1,$("isoNext"));}}});
+$("isoReset").addEventListener("click",function(){isoN=0;isoDraw();});
+isoDraw();
+var TB=[{L:[[96,225],[200,225],[200,45]],ang:["60°","90°","30°"],res:"拼成了<b>正三角形</b>！上面 30° ＋ 30° ＝ 60°，三個角都是 60°，三條邊也一樣長。"},
+        {L:[[110,215],[200,215],[200,125]],ang:["45°","90°","45°"],res:"拼成了<b>等腰直角三角形</b>！上面 45° ＋ 45° ＝ 90° 是直角，兩條邊一樣長。"}],tbI=0,tbT=0,tbAnim=false;
+function tbDraw(t){var c=TB[tbI],L=c.L,k=Math.cos(Math.PI*t);function pl(P,f){return P.map(function(p){return R1(f(p)[0])+","+R1(f(p)[1]);}).join(" ");}
+  var h='<polygon points="'+pl(L,function(p){return p;})+'" fill="#ffd6a5" stroke="#2b2d42" stroke-width="3"/>';
+  h+='<polygon points="'+pl(L,function(p){return [200+(p[0]-200)*k,p[1]];})+'" fill="'+(k>0?"#ffd6a5":"#bde0fe")+'" stroke="#2b2d42" stroke-width="3" opacity=".92"/>';
+  if(t===0){h+=txt(L[0][0]+28,L[0][1]-14,c.ang[0],"al")+txt(L[2][0]-14,L[2][1]+(tbI?34:46),c.ang[2],"al");h+='<path d="M188 '+L[1][1]+' v-12 h12" fill="none" stroke="#e63946" stroke-width="3"/>';}
+  if(t===1){var R=[400-L[0][0],L[0][1]];h+=txt(L[0][0]+(tbI?30:26),L[0][1]-14,c.ang[0],"al")+txt(R[0]-(tbI?30:26),R[1]-14,c.ang[0],"al")+txt(200,L[2][1]+(tbI?30:44),tbI?"90°":"60°","al big");
+    h+='<polygon points="'+L[0].join(",")+' '+R.join(",")+' '+L[2].join(",")+'" fill="none" stroke="#e63946" stroke-width="5" stroke-linejoin="round"/>';}
+  $("tbSvg").innerHTML=h;$("tbSay").innerHTML=t===1?c.res:"拿兩塊一樣的三角板，把一塊<b>翻過來</b>，靠著直角邊拼在一起，會變成什麼三角形？";}
+segs("tbSeg","data-t",function(v){tbI=+v;tbDraw(0);});
+$("tbGo").addEventListener("click",function(){if(tbAnim)return;tbAnim=true;var t0=null;function st(ts){if(t0===null)t0=ts;var t=Math.min(1,(ts-t0)/900);tbDraw(t===1?1:t);if(t<1)requestAnimationFrame(st);else{tbAnim=false;say(TB[tbI].res);if(!store.seen["tb"+tbI]){store.seen["tb"+tbI]=1;save();addStars(1,$("tbGo"));}}}requestAnimationFrame(st);});
+tbDraw(0);
+
+/* ---------- 6-3 拉頂點 ---------- */
+var BX=80,CX=320,BY=240;
+function apXY(){return [40+8*(+$("apx").value),240-10*(+$("apy").value)];}
+function dragDraw(){var A=apXY(),P=[A,[BX,BY],[CX,BY]],d=roundDegs(P),k=C.angleKind(d[0],d[1],d[2]),cls=C.classify(P);if(cls.angle==="right")k="right";
+  var grid="";for(var x=40;x<=360;x+=40)grid+='<line x1="'+x+'" y1="10" x2="'+x+'" y2="'+BY+'" stroke="#eef2f7"/>';
+  $("dragSvg").innerHTML=grid+'<line x1="20" y1="'+BY+'" x2="380" y2="'+BY+'" stroke="#e8e8e8" stroke-width="2"/>'+triSVG({P:P,N:V1,al:d},{raw:true,fill:{acute:"#d8f3dc",right:"#ffe8c2",obtuse:"#ffd6dc"}[k]})+
+    '<circle cx="'+A[0]+'" cy="'+A[1]+'" r="16" fill="#ff9f1c" fill-opacity=".55" stroke="#ff9f1c" stroke-width="3" class="grab"/>';
+  var big=Math.max.apply(null,d),bi=d.indexOf(big);
+  $("dragKind").className="kindbar "+k;
+  $("dragKind").innerHTML='角甲 '+d[0]+'°・角乙 '+d[1]+'°・角丙 '+d[2]+'°<br>'+(k==="acute"?"三個角都是銳角 → <b>銳角三角形</b>":(k==="right"?"角"+V1[bi]+"是直角 → <b>直角三角形</b>":"角"+V1[bi]+"是鈍角 → <b>鈍角三角形</b>"));
+  if(!store.seen["drag"+k]){store.seen["drag"+k]=1;save();if(store.seen.dragacute&&store.seen.dragright&&store.seen.dragobtuse&&!store.seen.dragall){store.seen.dragall=1;save();addStars(2,$("dragKind"));say("三種三角形都找到了");}}}
+["apx","apy"].forEach(function(id){$(id).addEventListener("input",dragDraw);});
+document.querySelectorAll("#l63 [data-p]").forEach(function(b){b.addEventListener("click",function(){var v=b.dataset.p.split(",");$("apx").value=v[0];$("apy").value=v[1];dragDraw();});});
+(function(){var sv=$("dragSvg"),on=false;
+  function mv(e){var r=sv.getBoundingClientRect(),x=(e.clientX-r.left)*400/r.width,y=(e.clientY-r.top)*280/r.height;
+    $("apx").value=Math.max(0,Math.min(40,Math.round((x-40)/8)));$("apy").value=Math.max(2,Math.min(22,Math.round((240-y)/10)));dragDraw();}
+  sv.addEventListener("pointerdown",function(e){var A=apXY(),r=sv.getBoundingClientRect(),x=(e.clientX-r.left)*400/r.width,y=(e.clientY-r.top)*280/r.height;
+    if(Math.abs(x-A[0])<40&&Math.abs(y-A[1])<40){on=true;try{sv.setPointerCapture(e.pointerId);}catch(er){}e.preventDefault();}});
+  sv.addEventListener("pointermove",function(e){if(on){mv(e);e.preventDefault();}});
+  sv.addEventListener("pointerup",function(){on=false;});sv.addEventListener("pointercancel",function(){on=false;});})();
+dragDraw();
+(function(){var K=[["acute","銳角三角形","三個角都是<b>銳角</b>（比 90° 小）",[70,50,60]],["right","直角三角形","有一個角是<b>直角</b>（90°）",[90,35,55]],["obtuse","鈍角三角形","有一個角是<b>鈍角</b>（比 90° 大）",[110,30,40]]];
+  $("kinds").innerHTML=K.map(function(k){return '<div class="kind '+k[0]+'"><svg viewBox="0 0 200 150">'+triSVG({P:C.fromAngles(k[3][0],k[3][1],k[3][2]),al:k[3]},{bx:{x:0,y:0,w:200,h:150},pad:24,fill:{acute:"#d8f3dc",right:"#ffe8c2",obtuse:"#ffd6dc"}[k[0]]})+'</svg><b>'+k[1]+'</b><span>'+k[2]+'</span></div>';}).join("");})();
+
+/* ---------- 6-4 繪製 ---------- */
+var U=30;
+function ln(a,b,c,w,dash){return '<line x1="'+a[0]+'" y1="'+a[1]+'" x2="'+b[0]+'" y2="'+b[1]+'" stroke="'+(c||"#2b2d42")+'" stroke-width="'+(w||4)+'" stroke-linecap="round"'+(dash?' stroke-dasharray="8 6"':'')+'/>';}
+function dot(p,c){return '<circle cx="'+R1(p[0])+'" cy="'+R1(p[1])+'" r="6" fill="'+(c||"#e63946")+'"/>';}
+function ruler(a,b){var len=b[0]-a[0],h='<rect x="'+(a[0]-10)+'" y="'+(a[1]+8)+'" width="'+(len+20)+'" height="26" rx="4" fill="#ffd166" opacity=".85"/>';
+  for(var i=0;i<=len/U;i++)h+=ln([a[0]+i*U,a[1]+8],[a[0]+i*U,a[1]+20],"#7a5c00",2)+'<text x="'+(a[0]+i*U)+'" y="'+(a[1]+31)+'" font-size="11" text-anchor="middle" fill="#7a5c00">'+i+'</text>';return h;}
+function sq(a,ux,uy){return '<path d="M'+(a[0]+ux*14)+' '+(a[1]+uy*0)+' L'+(a[0]+ux*14)+' '+(a[1]-14*uy)+' L'+a[0]+' '+(a[1]-14*uy)+'" fill="none" stroke="#e63946" stroke-width="3"/>';}
+function setsq(a){return '<path d="M'+a[0]+' '+a[1]+' L'+a[0]+' '+(a[1]-110)+' L'+(a[0]+70)+' '+a[1]+'Z" fill="#a0c4ff" opacity=".5" stroke="#1d6fd6" stroke-width="2"/>';}
+function prot(a,flip){var r=62,h='<path d="M'+(a[0]-r)+' '+a[1]+' A'+r+' '+r+' 0 0 1 '+(a[0]+r)+' '+a[1]+'Z" fill="#cdb4db" opacity=".55" stroke="#7b2cbf" stroke-width="2"/>';
+  for(var d=0;d<=180;d+=10){var t=d*Math.PI/180,x1=a[0]+Math.cos(t)*r,y1=a[1]-Math.sin(t)*r,x2=a[0]+Math.cos(t)*(r-(d%30?6:12)),y2=a[1]-Math.sin(t)*(r-(d%30?6:12));h+=ln([R1(x1),R1(y1)],[R1(x2),R1(y2)],"#7b2cbf",1.5);}
+  var t6=(flip?120:60)*Math.PI/180;h+=dot([a[0]+Math.cos(t6)*(r-2),a[1]-Math.sin(t6)*(r-2)],"#ff9f1c")+'<text x="'+R1(a[0]+Math.cos(t6)*(r+14))+'" y="'+R1(a[1]-Math.sin(t6)*(r+14))+'" font-size="15" font-weight="900" text-anchor="middle" fill="#7b2cbf">60°</text>';return h;}
+function lab(p,s,dx,dy){return txt(p[0]+dx,p[1]+dy,s,"vn");}
+var DW=(function(){var B=[90,240],Cc=[210,240],A=[90,150],B2=[60,240],C2=[240,240],M=[150,240],A2=[150,120],B3=[125,250],C3=[275,250],A3=[200,R1(250-150*Math.sqrt(3)/2)],B4=[120,240],C4=[240,240],A4=[120,120];
+  return [
+  {q:"畫一個直角三角形，兩條直角邊是 4 公分和 3 公分。",s:[
+   ["用直尺畫一條 4 公分的線段，兩端是乙、丙。",function(){return ruler(B,Cc)+ln(B,Cc)+dot(B)+dot(Cc)+lab(B,"乙",-14,-14)+lab(Cc,"丙",14,-14);}],
+   ["把三角板的直角對準乙點，沿著三角板畫一條 3 公分的線，端點是甲。",function(){return setsq(B)+ln(B,A)+dot(A)+lab(A,"甲",-16,-6);}],
+   ["用直尺把甲和丙連起來。",function(){return ln(A,Cc,"#ff9f1c");}],
+   ["完成！角乙是直角，這是<b>直角三角形</b>。",function(){return '<polygon points="'+A+' '+B+' '+Cc+'" fill="#ffe8c2" opacity=".7"/>'+sq(B,1,1);}]]},
+  {q:"在方格紙上畫一個等腰三角形，底是 6 公分。",s:[
+   ["畫一條 6 公分的線段當作底，兩端是乙、丙。",function(){return ln(B2,C2)+dot(B2)+dot(C2)+lab(B2,"乙",-14,-14)+lab(C2,"丙",14,-14);}],
+   ["找出底的<b>中點</b>（3 公分的地方）。",function(){return dot(M,"#1d6fd6")+'<text x="'+M[0]+'" y="'+(M[1]+26)+'" font-size="15" font-weight="900" text-anchor="middle" fill="#1d6fd6">3 公分｜3 公分</text>';}],
+   ["從中點沿著方格線，往上畫一條和底垂直的虛線。",function(){return ln(M,[M[0],60],"#1d6fd6",3,true)+sq(M,1,1);}],
+   ["在虛線上點一個點，當作頂點甲。",function(){return dot(A2)+lab(A2,"甲",18,-8);}],
+   ["把甲和乙、甲和丙連起來。兩個腰一樣長，這是<b>等腰三角形</b>！",function(){return '<polygon points="'+A2+' '+B2+' '+C2+'" fill="#ffe8c2" opacity=".7"/>'+ln(A2,B2,"#ff9f1c")+ln(A2,C2,"#ff9f1c");}]]},
+  {q:"用直尺和量角器，畫一個邊長 5 公分的正三角形。",s:[
+   ["畫一條 5 公分的線段，兩端是乙、丙。",function(){return ruler(B3,C3)+ln(B3,C3)+dot(B3)+dot(C3)+lab(B3,"乙",-14,-14)+lab(C3,"丙",14,-14);}],
+   ["量角器的中心對準乙，在 60° 的地方點一個點，畫一條線。",function(){return prot(B3)+ln(B3,[B3[0]+Math.cos(Math.PI/3)*175,R1(B3[1]-Math.sin(Math.PI/3)*175)],"#7b2cbf",2);}],
+   ["量角器的中心對準丙，也量 60°，畫一條線。",function(){return prot(C3,true)+ln(C3,[C3[0]-Math.cos(Math.PI/3)*175,R1(C3[1]-Math.sin(Math.PI/3)*175)],"#7b2cbf",2);}],
+   ["兩條線交叉的點就是頂點甲。描出甲乙、甲丙。",function(){return dot(A3)+lab(A3,"甲",0,-20)+ln(A3,B3,"#ff9f1c")+ln(A3,C3,"#ff9f1c");}],
+   ["量量看：甲乙、甲丙也是 5 公分，三個角都是 60°，是<b>正三角形</b>！",function(){return '<polygon points="'+A3+' '+B3+' '+C3+'" fill="#ffe8c2" opacity=".7"/>'+txt((A3[0]+B3[0])/2-28,(A3[1]+B3[1])/2,"5 公分","sl")+txt((A3[0]+C3[0])/2+28,(A3[1]+C3[1])/2,"5 公分","sl");}]]},
+  {q:"畫一個等腰直角三角形，兩條直角邊都是 4 公分。",s:[
+   ["畫一條 4 公分的線段，兩端是乙、丙。",function(){return ruler(B4,C4)+ln(B4,C4)+dot(B4)+dot(C4)+lab(B4,"乙",-14,-14)+lab(C4,"丙",14,-14);}],
+   ["在乙點用三角板畫一條垂直的線，也是 4 公分，端點是甲。",function(){return setsq(B4)+ln(B4,A4)+dot(A4)+lab(A4,"甲",-16,-6);}],
+   ["把甲和丙連起來。",function(){return ln(A4,C4,"#ff9f1c");}],
+   ["完成！有一個直角，兩條邊一樣長（4 公分），是<b>等腰直角三角形</b>，兩個底角都是 45°。",function(){return '<polygon points="'+A4+' '+B4+' '+C4+'" fill="#ffe8c2" opacity=".7"/>'+sq(B4,1,1)+txt(A4[0]+26,A4[1]+40,"45°","al")+txt(C4[0]-40,C4[1]-14,"45°","al");}]]}];})();
+var dwI=0,dwN=0;
+function dwRender(){var d=DW[dwI],g="";for(var x=0;x<=400;x+=U)g+='<line x1="'+x+'" y1="0" x2="'+x+'" y2="300" stroke="#dbe9ff"/>';for(var y=0;y<=300;y+=U)g+='<line x1="0" y1="'+y+'" x2="400" y2="'+y+'" stroke="#dbe9ff"/>';
+  for(var i=0;i<dwN;i++)g+='<g'+(i===dwN-1?' class="new"':'')+'>'+d.s[i][1]()+'</g>';
+  $("dwQ").innerHTML=d.q;$("dwSvg").innerHTML=g;$("dwSay").innerHTML=dwN?(dwN+". "+d.s[dwN-1][0]):"按「下一步」開始畫（方格紙一格是 1 公分）。";$("dwNext").disabled=dwN>=d.s.length;}
+segs("dwSeg","data-d",function(v){dwI=+v;dwN=0;dwRender();});
+$("dwNext").addEventListener("click",function(){var d=DW[dwI];if(dwN<d.s.length){dwN++;dwRender();say(d.s[dwN-1][0]);if(dwN===d.s.length&&!store.seen["dw"+dwI]){store.seen["dw"+dwI]=1;save();addStars(1,$("dwNext"));}}});
+$("dwReset").addEventListener("click",function(){dwN=0;dwRender();});
+dwRender();
+
+/* ---------- 6-5 全等 ---------- */
+var CGS=[[[0,0],[3,0],[3,1],[1,1],[1,3],[0,3]],[[0,0],[4,0],[1,3]],[[0,0],[3,0],[3,2],[1,3]],[[0,0],[2,0],[2,1],[3,1],[3,2],[0,2]]];
+function canon(P){var mx=Math.min.apply(null,P.map(function(p){return p[0];})),my=Math.min.apply(null,P.map(function(p){return p[1];}));return P.map(function(p){return (p[0]-mx)+","+(p[1]-my);}).sort().join(";");}
+function polyAt(P,cx,cy,u,fill,stroke,extra){var xs=P.map(function(p){return p[0];}),ys=P.map(function(p){return p[1];}),mx=(Math.min.apply(null,xs)+Math.max.apply(null,xs))/2,my=(Math.min.apply(null,ys)+Math.max.apply(null,ys))/2;
+  return '<polygon points="'+P.map(function(p){return R1(cx+(p[0]-mx)*u)+","+R1(cy-(p[1]-my)*u);}).join(" ")+'" fill="'+fill+'" stroke="'+stroke+'" stroke-width="4" stroke-linejoin="round"'+(extra||"")+'/>';}
+var cg={i:0,r:1,f:1,fake:false,busy:false};
+function cgDraw(x,over){var P=CGS[cg.i],Q=C.xf(P,cg.r,cg.f),u=cg.fake?24:32;
+  $("cgSvg").innerHTML=polyAt(P,290,120,32,"#ffd6a5","#ff9f1c")+polyAt(Q,x===undefined?100:x,120,u,over?"#9b5de5":"#a0c4ff","#1d6fd6",' fill-opacity=".75"');}
+function cgNew(){var n;do{n=C.rnd(0,CGS.length-1);}while(n===cg.i);cg.i=n;do{cg.r=C.rnd(0,3);cg.f=C.rnd(0,1);}while(canon(C.xf(CGS[n],cg.r,cg.f))===canon(CGS[n]));cg.fake=Math.random()<.3;cgDraw();
+  $("cgSay").innerHTML="兩個圖形可以<b>完全疊合</b>（形狀一樣、大小也一樣），就說它們<b>全等</b>。";}
+$("cgBtns").addEventListener("click",function(e){var b=e.target.closest("button");if(!b||cg.busy)return;var c=b.dataset.c;
+  if(c==="rot"){cg.r=(cg.r+1)%4;cgDraw();}else if(c==="flip"){var fs=C.flipState(cg.r,cg.f);cg.r=fs.r;cg.f=fs.f;cgDraw();}else if(c==="new")cgNew();
+  else{cg.busy=true;var t0=null,match=canon(C.xf(CGS[cg.i],cg.r,cg.f))===canon(CGS[cg.i])&&!cg.fake;
+    (function st(ts){if(t0===null)t0=ts;var t=Math.min(1,(ts-t0)/700);cgDraw(100+190*t,t===1&&match);if(t<1)requestAnimationFrame(st);else{cg.busy=false;
+      if(match){beep(true);$("cgSay").innerHTML="🎉 <b>完全疊合</b>！這兩個圖形<b>全等</b>。移動、旋轉、翻面都不會改變形狀和大小。";say("完全疊合，兩個圖形全等");if(!store.seen.cg){store.seen.cg=1;save();addStars(1,$("cgSvg"));}}
+      else if(cg.fake){$("cgSay").innerHTML="🤔 形狀一樣，可是<b>大小不一樣</b>，怎麼轉都疊不起來，所以<b>不是全等</b>。按「換一組」再試試。";}
+      else{beep(false);$("cgSay").innerHTML="還沒對齊喔！回去再<b>轉一轉、翻一翻</b>，方向要和橘色一樣。";setTimeout(function(){cgDraw();},900);}}})(performance.now());}});
+cgNew();
+var CR={P:C.fromSides(7,8,5),sl:["7 公分","8 公分","5 公分"]},crSel=null;
+function crDraw(){var hl={},d=roundDegs(CR.P);if(crSel){var k=crSel.charAt(0);hl[k]=[k==="e"?crSel.slice(1):+crSel.charAt(1)];}
+  var al=null;if(crSel&&crSel.charAt(0)==="a"){al=["","",""];al[+crSel.charAt(1)]=d[+crSel.charAt(1)];}
+  $("crSvg").innerHTML='<line x1="200" y1="10" x2="200" y2="220" stroke="#eee" stroke-width="2"/>'+triSVG({P:CR.P,N:V1,sl:CR.sl,al:al},{bx:{x:0,y:0,w:200,h:230},pad:46,tap:true,hl:hl})+
+    triSVG({P:CR.P,N:V2,sl:CR.sl,al:al,rot:200,fl:true},{bx:{x:200,y:0,w:200,h:230},pad:46,hl:hl,fill:"#dbe9ff"});}
+$("crSvg").addEventListener("click",function(e){var t=e.target.closest("[data-t]");if(!t)return;crSel=t.getAttribute("data-t");crDraw();var k=crSel.charAt(0),i=+crSel.charAt(1),j=+crSel.charAt(2),d=roundDegs(CR.P),m;
+  if(k==="v")m="頂點<b>"+V1[i]+"</b> 的對應頂點是頂點<b>"+V2[i]+"</b>。";
+  else if(k==="e"){var o=3-i-j;m="邊<b>"+V1[i]+V1[j]+"</b> 的對應邊是邊<b>"+V2[i]+V2[j]+"</b>，都是 "+CR.sl[o]+"，<b>一樣長</b>。";}
+  else m="角<b>"+V1[i]+"</b> 的對應角是角<b>"+V2[i]+"</b>，都是 "+d[i]+"°，<b>一樣大</b>。";
+  $("crSay").innerHTML=m;say(m);store.seen["cr"+k]=1;save();if(store.seen.crv&&store.seen.cre&&store.seen.cra&&!store.seen.crall){store.seen.crall=1;save();addStars(1,$("crSvg"));}});
+crDraw();
+
+/* ---------- 練習 ---------- */
+var N=10,prLv=1,prQs=[],prI=0,prRes=[],prTry=0,prLock=false,prV="",prPick=null;
+function prog(id,res,cur,n){var h="";for(var i=0;i<(n||N);i++)h+='<i class="'+(res[i]===true?"ok":(res[i]===false?"no":(i===cur?"cur":"")))+'"></i>';$(id).innerHTML=h;}
+function strip(s){return String(s).replace(/<[^>]+>/g,"");}
+$("prLevels").innerHTML=C.LV.slice(1).map(function(l,i){return '<button class="btn white'+(i===0?" on":"")+'" data-l="'+(i+1)+'">'+(i+1)+'. '+l.name+'<br><span class="small">'+l.sub+'</span></button>';}).join("");
+segs("prLevels","data-l",function(l){prLv=+l;prStart();});
+makePad("prPad",function(k){if(prLock)return;var q=prQs[prI];if(!q||q.mode!=="num")return;
+  if(k==="del")prV=prV.slice(0,-1);else if(k==="ok"){if(prV==="")return;prCheck(+prV);return;}else if(prV.length<3)prV+=k;$("prAns").textContent=prV===""?"？":prV;});
+function prStart(){prQs=[];var last="";for(var i=0;i<N;i++){var q,t=0;do{q=C.gen(prLv);t++;}while(strip(q.text)===last&&t<5);last=strip(q.text);prQs.push(q);}prI=0;prRes=[];prShow();}
+function prDraw(q,hl){var h="";
+  if(q.shape)h='<g transform="translate(110,10) scale(1.1)"><path d="'+q.shape.d+'" fill="none" stroke="#2b2d42" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>'+(q.shape.dots?q.shape.dots.map(function(p){return '<circle cx="'+p[0]+'" cy="'+p[1]+'" r="7" fill="#e63946"/>';}).join(""):"")+'</g>';
+  else if(q.fig2)h=triSVG(q.fig,{bx:{x:0,y:0,w:200,h:240},pad:34,hl:hl})+'<line x1="200" y1="20" x2="200" y2="220" stroke="#eee" stroke-width="2"/>'+triSVG(q.fig2,{bx:{x:200,y:0,w:200,h:240},pad:34,fill:"#dbe9ff",hl:hl});
+  else if(q.fig)h=triSVG(q.fig,{bx:{x:0,y:0,w:400,h:240},tap:q.mode==="tap",hl:hl});
+  $("prSvg").innerHTML=h;show("prSvg",!!h);}
+function prShow(){var q=prQs[prI];prTry=0;prLock=false;prV="";prPick=null;fbHide("prFb");$("prDone").className="done";prog("prProg",prRes,prI);
+  $("prQ").innerHTML='<span class="small">第 '+(prI+1)+' 題</span><br>'+q.text;prDraw(q,{});
+  show("prChoices",q.mode==="choice");show("prNum",q.mode==="num");
+  if(q.mode==="choice")$("prChoices").innerHTML=q.opts.map(function(o,i){return '<button class="btn" data-i="'+i+'">'+o+'</button>';}).join("");
+  if(q.mode==="num"){$("prAns").textContent="？";$("prUnit").textContent=q.unit||"";}}
+function prOk(q,v){if(q.mode==="choice")return v===C.choiceIdx(q);return v===q.ans;}
+function prCheck(v){if(prLock)return;var q=prQs[prI];
+  if(prOk(q,v)){prLock=true;if(prTry===0){prRes[prI]=true;addStars(1,$("prQ"));}else prRes[prI]=false;beep(true);
+    if(q.mode==="tap")prDraw(q,(function(){var o={};o[q.ans.charAt(0)]=[q.ans.charAt(0)==="e"?q.ans.slice(1):+q.ans.charAt(1)];return o;})());
+    fb("prFb","good","✅ 答對了！"+q.exp);setTimeout(prNext,q.lv>=4?2000:1400);return;}
+  prTry++;beep(false);var d=q.mode==="tap"?"parts":C.diag(q,v);miss(d,strip(q.text));
+  if(q.mode==="choice"){var bs=$("prChoices").querySelectorAll("button");if(bs[v])bs[v].classList.add("no");}
+  if(prTry>=2){prLock=true;prRes[prI]=false;
+    if(q.mode==="choice"){var bt=$("prChoices").querySelectorAll("button")[C.choiceIdx(q)];if(bt)bt.classList.add("ok");}
+    if(q.mode==="tap")prDraw(q,(function(){var o={};o[q.ans.charAt(0)]=[q.ans.charAt(0)==="e"?q.ans.slice(1):+q.ans.charAt(1)];return o;})());
+    fb("prFb","bad","😅 正確答案是 <b>"+C.ansText(q)+"</b><br>"+q.exp+'<div class="btns"><button class="btn org small" id="prGo">下一題 ➜</button></div>');$("prGo").addEventListener("click",prNext);}
+  else{var t=TIPS[d]||"";if(d==="equiIso")t="三條邊都一樣長喔！"+TIPS.equiIso;if(q.mode==="tap")t="你點到的是 <b>"+C.partTxt(v)+"</b>。"+t;fb("prFb","bad","再想想！"+t);if(q.mode==="num"){prV="";$("prAns").textContent="？";}}}
+function prNext(){prI++;if(prI<N)prShow();else prFinish();}
+function prFinish(){var ok=prRes.filter(function(x){return x;}).length;prog("prProg",prRes,-1);var b=store.pr[prLv]||0;if(ok>b)store.pr[prLv]=ok;save();
+  $("prDone").className="done show";$("prDone").innerHTML="🎉 第 "+prLv+" 關「"+C.LV[prLv].name+"」完成！一次就答對 <b>"+ok+" / "+N+"</b> 題。"+(ok===N?"全對，太厲害了！🏅":"")+
+  '<div class="btns"><button class="btn org" id="prAgain">再玩一次</button>'+(prLv<5?'<button class="btn teal" id="prUp">下一關 ➜</button>':'')+'</div>';
+  $("prAgain").addEventListener("click",prStart);if(prLv<5)$("prUp").addEventListener("click",function(){document.querySelectorAll("#prLevels button")[prLv].click();});say("完成了，答對"+ok+"題");}
+$("prChoices").addEventListener("click",function(e){var b=e.target.closest("button");if(!b||prLock)return;var q=prQs[prI],v=+b.dataset.i;if(prOk(q,v))b.classList.add("ok");prCheck(v);});
+$("prSvg").addEventListener("click",function(e){var q=prQs[prI];if(!q||q.mode!=="tap"||prLock)return;var t=e.target.closest("[data-t]");if(!t)return;var v=t.getAttribute("data-t");
+  if(v!==q.ans){var o={};o[v.charAt(0)]=[v.charAt(0)==="e"?v.slice(1):+v.charAt(1)];prDraw(q,o);}prCheck(v);});
+$("prHint").addEventListener("click",function(){var q=prQs[prI];if(q)fb("prFb","info","💡 "+(TIPS[q.diag]||""));});
+
+/* ---------- 釘板 ---------- */
+var GP=46,GO=32,geoI=0,geoSel=[];
+function gxy(p){return [GO+p[0]*GP,GO+(6-p[1])*GP];}
+function geoDraw(){var h='<rect x="8" y="8" width="324" height="324" rx="18" fill="#f6e7c9"/>',i,j,P=geoSel.map(gxy);
+  if(geoSel.length===3){var cl=C.classify(geoSel);
+    if(cl.tri){var help=$("geoHelp").checked,tk=[0,0,0],al=null;
+      if(help){var s=cl.s;for(i=0;i<3;i++)tk[i]=(s[i]===s[(i+1)%3]||s[i]===s[(i+2)%3])?1:0;if(cl.angle==="right"){al=["","",""];al[cl.at]="90°";}}
+      h+=triSVG({P:P,tk:help?tk:null,al:al},{raw:true,fill:"#ffd6a5",stroke:"#e76f51"});}
+    else h+='<polyline points="'+P.map(function(p){return p.join(",");}).join(" ")+'" fill="none" stroke="#e76f51" stroke-width="4"/>';}
+  else if(geoSel.length===2)h+='<line x1="'+P[0][0]+'" y1="'+P[0][1]+'" x2="'+P[1][0]+'" y2="'+P[1][1]+'" stroke="#e76f51" stroke-width="4" stroke-linecap="round"/>';
+  for(i=0;i<=6;i++)for(j=0;j<=6;j++){var q=gxy([i,j]),on=geoSel.some(function(p){return p[0]===i&&p[1]===j;});
+    h+='<circle cx="'+q[0]+'" cy="'+q[1]+'" r="'+(on?10:6)+'" fill="'+(on?"#e63946":"#8d6e63")+'"/><circle data-g="'+i+","+j+'" cx="'+q[0]+'" cy="'+q[1]+'" r="22" fill="transparent" class="tg"/>';}
+  $("geoSvg").innerHTML=h;}
+function geoShow(){var m=C.MIS[geoI];geoSel=[];fbHide("geoFb");var res=[];for(var i=0;i<10;i++)res[i]=store.geo[i]?true:undefined;prog("geoProg",res,geoI,10);
+  $("geoQ").innerHTML='<span class="small">任務 '+(geoI+1)+' / 10</span><br>圍一個 <b>'+m.t+'</b>';geoDraw();}
+$("geoSvg").addEventListener("click",function(e){var t=e.target.closest("[data-g]");if(!t)return;var v=t.getAttribute("data-g").split(",").map(Number);
+  var k=-1;geoSel.forEach(function(p,i){if(p[0]===v[0]&&p[1]===v[1])k=i;});
+  if(k>=0)geoSel.splice(k,1);else if(geoSel.length<3)geoSel.push(v);else{fb("geoFb","info","已經有 3 個頂點了！點一下紅色的頂點可以拿掉。");return;}
+  fbHide("geoFb");geoDraw();});
+$("geoHelp").addEventListener("change",geoDraw);
+$("geoClear").addEventListener("click",function(){geoSel=[];fbHide("geoFb");geoDraw();});
+$("geoSkip").addEventListener("click",function(){geoI=(geoI+1)%10;geoShow();});
+$("geoCheck").addEventListener("click",function(){if(geoSel.length<3){fb("geoFb","info","要放 3 個頂點喔（現在 "+geoSel.length+" 個）。");return;}
+  var m=C.MIS[geoI],r=C.mission(m,geoSel),cl=r.r,nm;
+  if(r.ok){beep(true);var first=!store.geo[geoI];store.geo[geoI]=1;save();if(first)addStars(2,$("geoQ"));
+    nm=(cl.side==="scal"?"":C.SK[cl.side]+"・")+C.AK[cl.angle];
+    var all=0;for(var i=0;i<10;i++)if(store.geo[i])all++;
+    fb("geoFb","good","✅ 任務完成！這是"+nm+"。"+(all===10?"🏅 10 個任務全部完成！":"")+'<div class="btns"><button class="btn org small" id="geoGo">下一個任務 ➜</button></div>');
+    $("geoGo").addEventListener("click",function(){var n=geoI;for(var j=1;j<=10;j++){if(!store.geo[(geoI+j)%10]){n=(geoI+j)%10;break;}}if(n===geoI)n=(geoI+1)%10;geoI=n;geoShow();});say("任務完成");return;}
+  beep(false);miss("draw","釘板："+m.t);
+  var msg={notTri:"三個點在同一條直線上，圍不成三角形喔！",angle:"這是<b>"+(cl.angle?C.AK[cl.angle]:"")+"</b>，任務要的不一樣。"+TIPS.angle,
+    side:"這個三角形"+(cl.side==="scal"?"<b>三邊都不一樣長</b>":"是<b>"+(cl.side?C.SK[cl.side]:"")+"</b>")+"，再調整看看。"+(cl.side==="equi"?"":"打開小幫手可以看哪些邊一樣長。"),
+    legs:"是直角三角形沒錯，可是直角旁邊的兩條邊要剛好是 <b>3 格和 4 格</b>。"}[r.why];
+  fb("geoFb","bad",msg);});
+
+/* ---------- 挑戰 ---------- */
+segs("gSeg","data-g",function(g){show("gFac",g==="fac");show("gPuz",g==="puz");show("gRid",g==="rid");});
+function eqTk(al){return al.map(function(a,i){return (a===al[(i+1)%3]||a===al[(i+2)%3])?1:0;});}
+/* 分類工廠 */
+var FN=12,F={items:[],i:0,res:[],t0:0,tm:null,on:false,miss:0};
+var BIN={side:[["equi","正三角形"],["iso","等腰三角形"],["scal","三邊都不一樣長"]],angle:[["acute","銳角三角形"],["right","直角三角形"],["obtuse","鈍角三角形"]]};
+function fTick(){$("fTime").textContent=C.fmtTime(Date.now()-F.t0);}
+function fShow(){var it=F.items[F.i];prog("fProg",F.res,F.i,FN);
+  $("fBy").innerHTML=it.by==="side"?"📏 依<b>邊</b>分（看一樣長的記號）":"📐 依<b>角</b>分（看角的度數）";$("fBy").className="byline "+it.by;
+  var fig={P:it.P,N:null,tk:it.by==="side"?eqTk(it.al):null,al:it.by==="angle"?it.al:null,rot:C.rnd(0,11)*30};
+  $("fSvg").innerHTML='<rect x="0" y="196" width="400" height="20" rx="6" fill="#adb5bd"/>'+[20,80,140,200,260,320,380].map(function(x){return '<circle cx="'+x+'" cy="206" r="6" fill="#6c757d"/>';}).join("")+
+    '<g class="slidein">'+triSVG(fig,{bx:{x:60,y:0,w:280,h:196},pad:30,fill:"#ffe8c2"})+'</g>';
+  $("fBins").innerHTML=BIN[it.by].map(function(b){return '<button class="btn white" data-b="'+b[0]+'">📦 '+b[1]+'</button>';}).join("");}
+function fStart(){F={items:C.genFactory(FN),i:0,res:[],t0:Date.now(),tm:null,on:true,miss:0};clearInterval(F.tm);F.tm=setInterval(fTick,100);
+  show("fStart",false);$("fDone").className="done";fbHide("fFb");fShow();}
+$("fStart").addEventListener("click",fStart);
+$("fBins").addEventListener("click",function(e){var b=e.target.closest("button");if(!b||!F.on)return;var it=F.items[F.i],ans=it.by==="side"?it.side:it.angle;
+  if(b.dataset.b===ans){beep(true);if(F.res[F.i]!==false)F.res[F.i]=true;fbHide("fFb");F.i++;if(F.i<FN)fShow();else fEnd();}
+  else{beep(false);F.res[F.i]=false;F.miss++;b.classList.add("no");miss(it.by==="side"?(it.side==="equi"&&b.dataset.b==="iso"?"equiIso":"side"):"angle","分類工廠："+(it.by==="side"?"依邊分 → "+C.SK[it.side]:"依角分 → "+C.AK[it.angle]));
+    fb("fFb","bad",it.by==="side"?TIPS.side:TIPS.angle);}});
+function fEnd(){F.on=false;clearInterval(F.tm);var ms=Date.now()-F.t0,ok=F.res.filter(function(x){return x;}).length;fTick();prog("fProg",F.res,-1,FN);
+  if(ok>(store.facBest||0))store.facBest=ok;var nb=false;if(ok===FN){store.facPerfect=(store.facPerfect||0)+1;if(!store.facTime||ms<store.facTime){store.facTime=ms;nb=true;}}save();addStars(Math.ceil(ok/3),$("fTime"));
+  $("fDone").className="done show";$("fDone").innerHTML="🏭 下班囉！一次就放對 <b>"+ok+" / "+FN+"</b> 個，用了 "+C.fmtTime(ms)+"。"+(ok===FN?(nb?"🏅 全對新紀錄！":"全對！"):"")+'<div class="btns"><button class="btn org" id="fAgain">再玩一次</button></div>';
+  $("fAgain").addEventListener("click",fStart);$("fBins").innerHTML="";say("完成了，放對"+ok+"個");}
+$("fBy").innerHTML="按「開始」，三角形就會開始送過來！";
+/* 全等拼拼看 */
+var PZ={list:[],i:0,heart:3,r:0,f:0,r0:0,f0:0,lock:false,ok:0},PL=["甲","乙","丙"],PB=["丁","戊","己"];
+function pzPts(P,cx,cy,u){var xs=P.map(function(p){return p[0];}),ys=P.map(function(p){return p[1];}),mx=(Math.min.apply(null,xs)+Math.max.apply(null,xs))/2,my=(Math.min.apply(null,ys)+Math.max.apply(null,ys))/2;
+  return P.map(function(p){return [cx+(p[0]-mx)*u,cy-(p[1]-my)*u];});}
+function pzTri(S,fill,stroke,names,dash,op){var G=[(S[0][0]+S[1][0]+S[2][0])/3,(S[0][1]+S[1][1]+S[2][1])/3];
+  var h='<polygon points="'+S.map(function(p){return R1(p[0])+","+R1(p[1]);}).join(" ")+'" fill="'+fill+'" stroke="'+stroke+'" stroke-width="4" stroke-linejoin="round"'+(dash?' stroke-dasharray="9 6"':'')+(op?' fill-opacity="'+op+'"':'')+'/>';
+  if(names)S.forEach(function(p,i){var u=unit(G,p);h+=txt(p[0]+u[0]*18,p[1]+u[1]*18,names[i],"vn",stroke);});return h;}
+function pzDraw(x,over){var it=PZ.list[PZ.i],u=32,T=pzPts(it.P,295,115,u),B=pzPts(C.xf(it.P,PZ.r,PZ.f),x===undefined?105:x,115,it.fake?23:u);
+  $("pSvg").innerHTML='<line x1="200" y1="15" x2="200" y2="215" stroke="#eee" stroke-width="2"/>'+pzTri(T,"#fff3e0","#ff9f1c",PL,true)+pzTri(B,over?"#9b5de5":"#a0c4ff","#1d6fd6",x===undefined||!over?PB:null,false,.8);}
+function pzHUD(){var h="";for(var i=0;i<3;i++)h+=i<PZ.heart?"❤️":"🤍";$("pHeart").textContent=h;$("pCnt").textContent="第 "+Math.min(PZ.i+1,6)+" / 6 關";}
+function pzShow(){var it=PZ.list[PZ.i];PZ.r=it.r;PZ.f=it.f;PZ.r0=it.r;PZ.f0=it.f;PZ.lock=false;$("pVq").innerHTML="";fbHide("pFb");pzHUD();pzDraw();show("pBtns",true);show("pGo",true);show("pFake",true);}
+function pzStart(){PZ={list:C.genPuzzle(6),i:0,heart:3,r:0,f:0,lock:false,ok:0};store.puzPlays=(store.puzPlays||0)+1;save();$("pDone").className="done";pzShow();}
+function pzMatch(){var it=PZ.list[PZ.i];return canon(C.xf(it.P,PZ.r,PZ.f))===canon(it.P);}
+function pzLose(msg){PZ.heart--;beep(false);pzHUD();miss("cong","全等拼拼看");
+  if(PZ.heart<=0){PZ.lock=true;fb("pFb","bad",msg);$("pDone").className="done show";$("pDone").innerHTML="💔 愛心用完了！過了 "+PZ.ok+" 關。"+'<div class="btns"><button class="btn org" id="pAgain">再玩一次</button></div>';$("pAgain").addEventListener("click",pzStart);}
+  else fb("pFb","bad",msg);}
+function pzNext(){PZ.i++;if(PZ.i<6)pzShow();else{PZ.lock=true;store.puzWins=(store.puzWins||0)+1;save();addStars(3,$("pSvg"));$("pDone").className="done show";
+  $("pDone").innerHTML="🏆 6 關全部過關！還剩 "+PZ.heart+" 顆愛心。"+'<div class="btns"><button class="btn org" id="pAgain">再玩一次</button></div>';$("pAgain").addEventListener("click",pzStart);say("全部過關");}}
+function pzBonus(){show("pGo",false);show("pFake",false);PZ.r=PZ.r0;PZ.f=PZ.f0;pzDraw();var vi=C.rnd(0,2);
+  $("pVq").innerHTML='<div class="q" style="grid-column:1/-1">🎁 加分題：藍色的頂點<b>'+PB[vi]+'</b>，對應橘色的哪一個頂點？</div>'+PL.map(function(n,i){return '<button class="btn" data-v="'+i+'" data-a="'+vi+'">頂點'+n+'</button>';}).join("");}
+$("pVq").addEventListener("click",function(e){var b=e.target.closest("button");if(!b||b.dataset.done)return;var ok=b.dataset.v===b.dataset.a;
+  $("pVq").querySelectorAll("button").forEach(function(x){x.dataset.done=1;if(x.dataset.v===x.dataset.a)x.classList.add("ok");});
+  if(ok){beep(true);addStars(1,b);fb("pFb","good","✅ 對！疊起來的時候，"+PB[+b.dataset.a]+"剛好壓在"+PL[+b.dataset.a]+"上面。");}else{b.classList.add("no");beep(false);miss("cong","全等拼拼看：對應頂點");fb("pFb","bad","疊起來的時候，"+PB[+b.dataset.a]+"是壓在<b>"+PL[+b.dataset.a]+"</b>上面喔。");}
+  setTimeout(pzNext,1500);});
+$("pBtns").addEventListener("click",function(e){var b=e.target.closest("button");if(!b||PZ.lock)return;var a=b.dataset.a;
+  if(a==="l")PZ.r=(PZ.r+1)%4;else if(a==="r")PZ.r=(PZ.r+3)%4;else{var s=C.flipState(PZ.r,PZ.f);PZ.r=s.r;PZ.f=s.f;}pzDraw();});
+$("pGo").addEventListener("click",function(){if(PZ.lock)return;var it=PZ.list[PZ.i];
+  if(it.fake){pzLose("仔細看，藍色的<b>比較小</b>，大小不一樣就不能完全疊合，<b>不是全等</b>！");PZ.lock=true;setTimeout(function(){if(PZ.heart>0)pzNext();},1800);return;}
+  if(!pzMatch()){pzLose("方向還不一樣喔！再轉一轉、翻一翻，讓藍色和橘色的形狀方向一樣。");return;}
+  PZ.lock=true;var t0=null;show("pBtns",false);
+  requestAnimationFrame(function st(ts){if(t0===null)t0=ts;var t=Math.min(1,(ts-t0)/600);pzDraw(105+190*t,t===1);if(t<1)requestAnimationFrame(st);else{beep(true);PZ.ok++;addStars(1,$("pSvg"));fb("pFb","good","🎉 完全疊合！它們是<b>全等三角形</b>。");setTimeout(pzBonus,1000);}});});
+$("pFake").addEventListener("click",function(){if(PZ.lock)return;var it=PZ.list[PZ.i];
+  if(it.fake){PZ.lock=true;beep(true);PZ.ok++;addStars(1,$("pFake"));fb("pFb","good","👀 好眼力！藍色比較小，大小不一樣，<b>不是全等</b>。");setTimeout(pzNext,1500);}
+  else pzLose("它們的大小一樣喔，只是方向不同。轉一轉、翻一翻就能疊在一起，是<b>全等</b>的！");});
+/* 三角形猜謎 */
+var RN=8,RD={i:0,res:[],q:null,lock:false};
+function ridShow(){var q=C.genRiddle();RD.q=q;RD.lock=false;fbHide("rFb");prog("rProg",RD.res,RD.i,RN);$("rClue").innerHTML="🔺 「"+q.clue+"」";say(q.clue);
+  $("rOpts").innerHTML=q.opts.map(function(o,i){return '<button class="ropt" data-i="'+i+'"><svg viewBox="0 0 200 150">'+triSVG({P:o.P,al:o.al,tk:eqTk(o.al),rot:C.rnd(0,3)*90},{bx:{x:0,y:0,w:200,h:150},pad:26})+'</svg></button>';}).join("");}
+function ridStart(){RD={i:0,res:[],q:null,lock:false};$("rDone").className="done";ridShow();}
+$("rOpts").addEventListener("click",function(e){var b=e.target.closest("button");if(!b||RD.lock)return;var q=RD.q,v=+b.dataset.i,nm=(q.side==="scal"?"三邊都不一樣長的":C.SK[q.side]+"・")+C.AK[q.angle];
+  if(q.side==="equi")nm="正三角形";
+  if(v===q.ans){RD.lock=true;b.classList.add("ok");beep(true);if(RD.res[RD.i]!==false){RD.res[RD.i]=true;addStars(1,b);}fb("rFb","good","✅ 猜對了！我是<b>"+nm+"</b>。");setTimeout(ridNext,1500);}
+  else{b.classList.add("no");beep(false);var o=q.opts[v];miss(o.angle!==q.angle?"angle":"side","三角形猜謎："+q.clue);
+    if(RD.res[RD.i]===false){RD.lock=true;$("rOpts").querySelectorAll("button")[q.ans].classList.add("ok");fb("rFb","bad","答案是<b>"+nm+"</b>。看看紅色的記號（一樣長的邊）和角的度數。"+'<div class="btns"><button class="btn org small" id="rGo">下一題 ➜</button></div>');$("rGo").addEventListener("click",ridNext);}
+    else{RD.res[RD.i]=false;fb("rFb","bad","不是這個喔！這個是"+(o.side==="equi"?"正三角形":(o.side==="scal"?"三邊都不一樣長的":C.SK[o.side]+"・")+C.AK[o.angle])+"。再找找看！");}}});
+function ridNext(){RD.i++;if(RD.i<RN){ridShow();return;}var ok=RD.res.filter(function(x){return x;}).length;prog("rProg",RD.res,-1,RN);if(ok>(store.ridBest||0))store.ridBest=ok;store.ridPlays=(store.ridPlays||0)+1;save();
+  $("rDone").className="done show";$("rDone").innerHTML="🕵️ 猜謎結束！一次就猜對 <b>"+ok+" / "+RN+"</b> 題。"+(ok===RN?"🏅 猜謎王！":"")+'<div class="btns"><button class="btn org" id="rAgain">再玩一次</button></div>';$("rAgain").addEventListener("click",ridStart);$("rOpts").innerHTML="";}
+
+/* ---------- 紀錄 ---------- */
+function geoCount(){var n=0;for(var i=0;i<10;i++)if(store.geo[i])n++;return n;}
+var BADGES=[["🔺","認識三角形",function(){return !!store.seen.t61all;}],["📏","分類新手",function(){return (store.pr[2]||0)>=8||(store.pr[3]||0)>=8;}],["🏅","分類高手",function(){return (store.pr[2]||0)>=10&&(store.pr[3]||0)>=10;}],
+ ["🔎","全等小偵探",function(){return (store.pr[5]||0)>=8;}],["📌","釘板建築師",function(){return geoCount()>=5;}],["🏗️","釘板大師",function(){return geoCount()>=10;}],
+ ["🏭","工廠全對",function(){return (store.facPerfect||0)>=1;}],["🧩","全等拼圖過關",function(){return (store.puzWins||0)>=1;}],["🕵️","猜謎王",function(){return (store.ridBest||0)>=RN;}],["🌟","50 顆星",function(){return store.stars>=50;}]];
+function renderRec(){var pr=[];for(var i=1;i<=5;i++)pr.push(store.pr[i]||0);
+  var st=[["⭐",store.stars,"星星"],["✏️",Math.max.apply(null,pr)+" / 10","練習最佳一關"],["📌",geoCount()+" / 10","釘板任務"],["🏭",(store.facBest||0)+" / 12","分類工廠最佳"+(store.facTime?"<br>全對最快 "+C.fmtTime(store.facTime):"")],
+    ["🧩",(store.puzWins||0)+" 次","全等拼拼看過關"],["🕵️",(store.ridBest||0)+" / 8","猜謎最佳"]];
+  $("stats").innerHTML=st.map(function(s){return '<div class="stat"><b>'+s[0]+" "+s[1]+'</b><span>'+s[2]+'</span></div>';}).join("");
+  $("badges").innerHTML=BADGES.map(function(b){var g=b[2]();return '<div class="bdg'+(g?" got":"")+'"><span>'+b[0]+'</span>'+b[1]+'</div>';}).join("");
+  var ks=Object.keys(store.bad).sort(function(a,b){return store.bad[b]-store.bad[a];});
+  $("mist").innerHTML=ks.length?ks.map(function(k){return '<div class="tip"><b>'+(TN[k]||k)+'</b>（'+store.bad[k]+' 次）<br>'+(TIPS[k]||"")+'</div>';}).join(""):'<p class="small">還沒有錯題，好棒！</p>';
+  $("recent").innerHTML=store.recent.length?'<ul>'+store.recent.map(function(r){return '<li>'+r.p+' <span class="small">— '+(TN[r.k]||r.k)+'</span></li>';}).join("")+'</ul>':'<p class="small">沒有最近的錯題。</p>';}
+$("resetBtn").addEventListener("click",function(){if(!confirm("確定要清除所有紀錄嗎？"))return;store=fresh();save();renderScore();renderRec();geoShow();});
+
+/* ---------- 鍵盤 ---------- */
+document.addEventListener("keydown",function(e){var pg=document.querySelector("section.page.active");if(!pg)return;
+  var k=e.key;if(k==="Backspace")k="del";else if(k==="Enter")k="ok";
+  if(!/^[0-9]$/.test(k)&&k!=="del"&&k!=="ok")return;if(e.target&&e.target.tagName==="INPUT")return;
+  var pads=pg.querySelectorAll(".pad");for(var i=0;i<pads.length;i++){var p=pads[i];if(p.offsetParent!==null){var bt=p.querySelector('[data-k="'+k+'"]');if(bt){bt.click();e.preventDefault();}return;}}});
+
+/* ---------- init ---------- */
+renderScore();prStart();geoShow();pzStart();ridStart();
+window.__tri={C:C,store:function(){return store;},pr:function(){return prQs[prI];},prI:function(){return prI;},geo:function(){return {i:geoI,sel:geoSel};},fac:function(){return F;},puz:function(){return PZ;},rid:function(){return RD;},goTab:goTab,triSVG:triSVG};
+})();
+</script>
+</body>
+</html>

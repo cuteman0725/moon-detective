@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ff9f1c">
+<title>公里小旅行家 🚗｜康軒數學 4上 公里</title>
+<style>
+
+:root{--ink:#2b2d42;--org:#ff9f1c;--sun:#ffd166;--pink:#ff6b9a;--blue:#4d96ff;--teal:#2a9d8f;--purple:#9b5de5;--wan:#9b5de5;--ge:#2a9d8f;--cw:clamp(30px,8.6vw,46px)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:#fff8ec;overflow-x:hidden}
+html,body{margin:0;padding:0}
+body{font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",system-ui,sans-serif;color:var(--ink);min-height:100vh;background:linear-gradient(180deg,#ffe8c2 0,#fff8ec 260px);padding-bottom:calc(92px + env(safe-area-inset-bottom))}
+header{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:8px;padding:10px 12px;padding-top:calc(10px + env(safe-area-inset-top));background:rgba(255,159,28,.97);color:#fff}
+header h1{font-size:clamp(17px,4.6vw,26px);margin:0;flex:1;letter-spacing:1px}
+.back{color:#fff;text-decoration:none;font-weight:800;background:rgba(255,255,255,.25);border-radius:999px;padding:8px 12px;font-size:15px;white-space:nowrap}
+.score{background:#fff;color:#a65c00;font-weight:900;border-radius:999px;padding:6px 12px;font-size:17px;white-space:nowrap;box-shadow:0 3px 0 #c97a00}
+.score.pop{animation:pop .5s}@keyframes pop{40%{transform:scale(1.3)}}
+main{max-width:1000px;margin:0 auto;padding:10px}
+section.page{display:none}section.page.active{display:block;animation:fadein .3s}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.card{background:#fff;border-radius:22px;padding:14px;margin:10px 0;box-shadow:0 6px 0 rgba(0,0,0,.1)}
+.card h2{margin:0 0 6px;font-size:clamp(20px,5vw,25px)}.card h3{margin:4px 0 6px;font-size:19px}
+.small{font-size:14px;color:#666;line-height:1.5}
+.lead{font-size:17px;line-height:1.65;margin:6px 0}
+.btn{appearance:none;border:none;border-radius:16px;padding:10px 14px;min-height:50px;font-size:17px;font-weight:800;cursor:pointer;background:var(--blue);color:#fff;box-shadow:0 4px 0 rgba(0,0,0,.22);font-family:inherit;touch-action:manipulation}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.22)}
+.btn.org{background:var(--org)}.btn.pink{background:var(--pink)}.btn.teal{background:var(--teal)}.btn.purple{background:var(--purple)}.btn.gray{background:#8d99ae}
+.btn.white{background:#fff;color:var(--ink);border:3px solid #ffe0b0}.btn.on{outline:4px solid var(--org);outline-offset:1px;background:#fff3dc}
+.btn.small{min-height:44px;font-size:15px;padding:6px 10px}
+.btn:disabled{opacity:.4}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0;align-items:center}
+.levels{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
+.title{font-size:22px;font-weight:900;text-align:center;margin:4px 0 8px}
+.bubble{background:#eef4ff;border-radius:18px;padding:12px 14px;font-size:18px;line-height:1.65;min-height:64px;border:3px solid #d6e4ff}
+.bubble b{color:#c1121f}
+.fb{margin-top:8px;border-radius:14px;padding:8px 12px;font-size:17px;line-height:1.55;display:none}
+.fb.show{display:block}.fb.good{background:#d8f3dc}.fb.bad{background:#fff3cd}.fb.info{background:#f3e8ff}
+.done{background:linear-gradient(135deg,#d8f3dc,#fff1a8);border-radius:18px;padding:12px;font-size:18px;line-height:1.6;margin-top:10px;display:none}
+.done.show{display:block}
+/* ---- quiz ---- */
+.q{font-size:22px;line-height:1.6;font-weight:800;text-align:center;margin:6px 0}
+.q .num{font-size:clamp(28px,7vw,40px);font-variant-numeric:tabular-nums;letter-spacing:2px}
+.q .red{color:#e63946;text-decoration:underline;text-decoration-thickness:4px}
+.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin-top:8px}
+.choices .btn{background:#fff;color:var(--ink);border:3px solid #d6e4ff;font-size:19px;min-height:58px}
+.choices .btn.ok{background:#d8f3dc;border-color:#2ec4b6}.choices .btn.no{background:#ffd6dc;border-color:#ff6b9a;animation:shake .4s}
+.cmp{display:flex;gap:10px;justify-content:center;margin-top:8px}.cmp .btn{font-size:34px;min-width:84px;min-height:70px}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.ansbox{font-size:30px;font-weight:900;text-align:center;border:3px solid #9db8ff;background:#f1f5ff;border-radius:16px;min-height:56px;padding:6px;font-variant-numeric:tabular-nums;letter-spacing:2px;margin:8px auto;max-width:420px}
+.pad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px auto 0;max-width:420px}
+.pad button{min-height:56px;font-size:26px;font-weight:900;border-radius:16px;background:#fff;box-shadow:0 4px 0 #e3c48f;border:3px solid #ffe0b0;font-family:inherit;color:var(--ink);cursor:pointer;touch-action:manipulation}
+.pad button:active{transform:translateY(3px);box-shadow:0 1px 0 #e3c48f}
+.pad button.fn{font-size:18px;background:#fff3dc}
+.prog{display:flex;gap:4px;justify-content:center;margin:4px 0}
+.prog i{width:22px;height:10px;border-radius:6px;background:#eee;display:block}.prog i.ok{background:#2ec4b6}.prog i.no{background:#ff6b9a}.prog i.cur{background:var(--sun)}
+/* ---- 紀錄 ---- */
+table.rec{border-collapse:collapse;width:100%;font-size:16px}
+table.rec td,table.rec th{padding:8px;border-bottom:1px solid #eee;text-align:left;vertical-align:top}
+.statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.stat{background:#fff3dc;border-radius:16px;padding:10px;text-align:center}.stat b{display:block;font-size:28px;color:#a65c00}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.bdg{background:#eee;border-radius:14px;padding:6px 10px;font-weight:800;color:#999;font-size:15px}.bdg.got{background:linear-gradient(135deg,#ffd166,#ff9f1c);color:#5a3b00}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;justify-content:space-around;background:#fff;padding:6px 4px;padding-bottom:calc(6px + env(safe-area-inset-bottom));box-shadow:0 -4px 16px rgba(0,0,0,.15)}
+nav.tabs button{flex:1;border:none;background:none;font-family:inherit;font-size:13px;font-weight:800;color:#666;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;border-radius:14px;cursor:pointer;min-height:60px;touch-action:manipulation}
+nav.tabs button span{font-size:26px;line-height:1}nav.tabs button.on{background:#ffe8c2;color:#8a4b00}
+.burst{position:fixed;z-index:99;pointer-events:none;font-size:30px;animation:fly 1.1s ease-out forwards}
+@keyframes fly{to{transform:translate(var(--dx),var(--dy)) rotate(360deg);opacity:0}}
+.tip{background:#fffbea;border:3px dashed var(--sun);border-radius:16px;padding:8px 12px;font-size:16px;line-height:1.6;margin-top:8px}
+
+.seg{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+.hidden{display:none!important}
+/* ---- 公里 ---- */
+svg.lsvg{width:100%;max-width:560px;height:auto;display:block;margin:6px auto;background:#fffdf7;border:3px solid #ffe0b0;border-radius:18px;user-select:none;-webkit-user-select:none}
+.kmc{color:#d35400}.mc{color:#1d6fd6}.cmc{color:#2a9d8f}
+.cen{justify-content:center}
+.ladder{display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;margin:8px 0}
+.ladder .u{border-radius:14px;padding:8px 12px;font-weight:900;font-size:18px}
+.ladder .cm{background:#d8f3ef;color:#1b6f66}.ladder .m{background:#e3ecff;color:#1d4fa0}.ladder .km{background:#ffe6cc;color:#a14500}
+.ladder i{font-style:normal;font-weight:900;color:#888}
+.meter{position:relative;height:34px;background:#eee;border-radius:17px;overflow:hidden;margin:6px 0}
+.meter .bar{position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(90deg,#ffd166,#ff9f1c);transition:width .8s}
+.meter span{position:relative;display:block;text-align:center;line-height:34px;font-weight:900;font-size:18px}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin-top:10px}
+.fact{background:#fff3dc;border-radius:16px;padding:10px;text-align:center;font-size:16px;line-height:1.5}
+.board{display:flex;justify-content:center;gap:4px;margin:10px 0;flex-wrap:nowrap}
+.col{display:flex;flex-direction:column;align-items:center;gap:4px;width:clamp(52px,15vw,74px)}
+.col .nm{font-size:14px;font-weight:800;color:#666}
+.col .dg{width:100%;height:clamp(56px,15vw,72px);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:clamp(30px,8vw,42px);font-weight:900;font-variant-numeric:tabular-nums}
+.col.k .dg{background:#ffe6cc;color:#a14500;border:3px solid #ffb877}.col.m .dg{background:#e3ecff;color:#1d4fa0;border:3px solid #9db8ff}
+.col.k .dg.z{color:#e0b48a}.col button{width:100%;min-height:40px;border:none;border-radius:12px;background:#fff3dc;font-size:18px;font-weight:900;cursor:pointer;color:var(--ink);box-shadow:0 3px 0 #e3c48f;touch-action:manipulation}
+.col button:active{transform:translateY(2px);box-shadow:none}
+.divider{width:6px;border-radius:3px;background:repeating-linear-gradient(180deg,#e63946 0 10px,transparent 10px 16px);margin:0 4px}
+.bigeq{text-align:center;font-size:clamp(20px,5.4vw,28px);font-weight:900;margin:6px 0;line-height:1.5}
+.steplist li{margin:4px 0}.steplist li.new{animation:fadein .4s}
+.vwrap{overflow-x:auto;text-align:center}
+.vform{display:inline-grid;grid-template-columns:40px repeat(2,auto);gap:4px 8px;font-size:clamp(24px,6.4vw,34px);font-weight:900;font-variant-numeric:tabular-nums;margin:8px auto;align-items:center}
+.vform .h{font-size:16px;color:#666;text-align:center}
+.vform .c{min-width:clamp(78px,20vw,110px);text-align:right;padding:2px 8px;border-radius:10px;position:relative}
+.vform .c.k{background:#fff1e3}.vform .c.m{background:#eef3ff}
+.vform .op{text-align:center}
+.vform .ln{grid-column:1/4;height:4px;background:var(--ink);border-radius:2px}
+.vform .c.box{border:3px dashed #bbb;background:#fff;min-height:1.4em}
+.vform .c.box.act{border:3px solid var(--org);background:#fff8e6;animation:hlp 1s infinite}
+.vform .c.box.ok{border:3px solid #2ec4b6;background:#e9fbf4}
+.vform .note{display:block;font-size:15px;color:#e63946;line-height:1;text-align:right;min-height:15px}
+.vform s{color:#999}
+.hlp{animation:hlp 1s infinite}@keyframes hlp{50%{opacity:.45}}
+.twobox,.onebox{display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:nowrap;font-size:clamp(18px,4.8vw,22px);white-space:nowrap;font-weight:900;margin:8px 0}
+.onebox .ansbox{margin:0;min-width:0;flex:0 1 260px}
+.slot{min-width:clamp(72px,21vw,110px);padding:0 6px;min-height:58px;font-size:30px;font-weight:900;border:3px solid #9db8ff;background:#f1f5ff;border-radius:16px;font-family:inherit;color:var(--ink);cursor:pointer;font-variant-numeric:tabular-nums}
+.slot.on{border-color:var(--org);background:#fff3dc;box-shadow:0 0 0 3px #ffd9a0}
+.cmp .btn.ok{background:#d8f3dc}.cmp .btn.no{background:#ffd6dc;animation:shake .4s}
+.ub .btn{font-size:24px;min-width:96px}
+.timer{text-align:center;font-weight:900;font-size:20px;color:#a65c00}
+.tripbar{display:flex;justify-content:space-between;font-weight:900;font-size:18px;flex-wrap:wrap;gap:6px}
+.race{background:#e9f7e1;border-radius:16px;padding:8px;margin:6px 0}
+.lane{position:relative;height:48px;border-bottom:3px dashed #b8d8a8}
+.lane:last-child{border-bottom:none}
+.runner{position:absolute;left:0;top:4px;font-size:34px;transition:left .5s}
+.flag{position:absolute;right:4px;top:6px;font-size:30px}
+.vs{display:flex;align-items:center;gap:10px;justify-content:center;flex-wrap:wrap;margin:8px 0}
+.vs .btn{flex:1 1 220px;min-height:76px;font-size:clamp(20px,5.4vw,26px);border:3px solid #d6e4ff}
+.vs .btn.ok{background:#d8f3dc;border-color:#2ec4b6}.vs .btn.no{background:#ffd6dc;border-color:#ff6b9a;animation:shake .4s}
+.vs b{font-size:22px;color:#e63946}
+.bubble.step{border-color:#ffd9a0;background:#fff8e6}
+.sign{font-weight:900}
+</style>
+</head>
+<body>
+<header>
+  <a class="back" href="../">← 數學</a>
+  <h1>🚗 公里小旅行家</h1>
+  <div class="score" id="score">⭐ 0</div>
+</header>
+<main>
+
+<!-- ============ 學習 ============ -->
+<section class="page active" id="p-learn">
+  <div class="card">
+    <h2>📖 第五單元 公里</h2>
+    <p class="small">康軒 4上 第五單元：5-1 認識公里、5-2 公里、公尺和公分的換算、5-3 公里和公尺的加減計算。選一節開始：</p>
+    <div class="seg" id="seg">
+      <button class="btn white on" data-s="51">5-1 認識公里</button>
+      <button class="btn white" data-s="52">5-2 公里、公尺和公分的換算</button>
+      <button class="btn white" data-s="53">5-3 公里和公尺的加減</button>
+    </div>
+  </div>
+
+  <div id="l51">
+    <div class="card">
+      <h3>🛣️ 路上的「公里」</h3>
+      <svg class="lsvg" id="signSvg" viewBox="0 0 400 210"></svg>
+      <p class="lead">路邊的綠色牌子寫著 <b>km</b>，就是長度單位「<b class="kmc">公里</b>」。比較遠的距離，用公里來說比較方便。</p>
+      <div class="ladder">
+        <span class="u cm">公分 cm</span><i>×100</i><span class="u m">公尺 m</span><i>×1000</i><span class="u km">公里 km</span>
+      </div>
+      <div class="bubble"><b>1 公里 ＝ 1000 公尺</b><br>1 公尺 ＝ 100 公分，所以 1 公里 ＝ 100000 公分。</div>
+    </div>
+    <div class="card">
+      <h3>🏃 1 公里有多長？</h3>
+      <p class="small">學校操場跑道一圈是 200 公尺。按按看，跑幾圈才有 1 公里？</p>
+      <svg class="lsvg" id="trackSvg" viewBox="0 0 400 230"></svg>
+      <div class="meter"><div class="bar" id="trackBar"></div><span id="trackTxt">0 公尺</span></div>
+      <div class="btns"><button class="btn org" id="lapBtn">🏃 跑一圈（＋200 公尺）</button><button class="btn gray small" id="lapReset">重來</button></div>
+      <div class="fb" id="lapFb"></div>
+      <div class="facts">
+        <div class="fact">🏃‍♀️ 100 公尺賽跑<br>跑 <b>10</b> 次 ＝ 1 公里</div>
+        <div class="fact">🚶 用平常的速度走路<br>大約 <b>15 分鐘</b> 走 1 公里</div>
+        <div class="fact">🚲 騎腳踏車<br>大約 <b>4 分鐘</b> 騎 1 公里</div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>🤔 用哪個單位？</h3>
+      <div class="q" id="uQ"></div>
+      <div class="btns cen" id="uBtns"><button class="btn white" data-u="公分">公分</button><button class="btn white" data-u="公尺">公尺</button><button class="btn white" data-u="公里">公里</button></div>
+      <div class="fb" id="uFb"></div>
+      <p class="small">想一想：很短的東西用公分，教室、操場用公尺，城市和城市之間用公里。更多題目在「🎮 挑戰 → 單位選選看」。</p>
+    </div>
+  </div>
+
+  <div id="l52" class="hidden">
+    <div class="card">
+      <h3>🧮 公里｜公尺 換算板</h3>
+      <p class="small">按 ▲▼ 改變數字。<b class="kmc">萬位、千位</b>是公里，<b class="mc">百位、十位、個位</b>是公尺。</p>
+      <div class="board" id="board"></div>
+      <div class="bigeq" id="boardEq"></div>
+      <div class="tip" id="boardTip"></div>
+      <div class="btns"><button class="btn white small" data-bx="4083">4083</button><button class="btn white small" data-bx="12500">12500</button><button class="btn white small" data-bx="7006">7006</button><button class="btn white small" data-bx="3000">3000</button><button class="btn white small" data-bx="950">950</button></div>
+    </div>
+    <div class="card">
+      <h3>👣 一步一步換算</h3>
+      <div class="seg" id="exSeg">
+        <button class="btn white on" data-e="0">公里→公尺</button>
+        <button class="btn white" data-e="1">小心補 0</button>
+        <button class="btn white" data-e="2">公尺→公里</button>
+        <button class="btn white" data-e="3">公里→公分</button>
+        <button class="btn white" data-e="4">比大小</button>
+      </div>
+      <div class="q" id="exQ"></div>
+      <ol class="steplist" id="exSteps"></ol>
+      <div class="btns"><button class="btn org" id="exNext">下一步 ➜</button><button class="btn gray small" id="exReset">重來</button></div>
+    </div>
+  </div>
+
+  <div id="l53" class="hidden">
+    <div class="card">
+      <h3>🗺️ 路線圖上的加減</h3>
+      <div class="seg" id="vxSeg">
+        <button class="btn white on" data-v="0">加法</button>
+        <button class="btn white" data-v="1">加法進位</button>
+        <button class="btn white" data-v="2">減法</button>
+        <button class="btn white" data-v="3">減法借位</button>
+      </div>
+      <svg class="lsvg" id="vxMap" viewBox="0 0 400 150"></svg>
+      <div class="bubble" id="vxStory"></div>
+      <div class="vwrap"><div class="vform" id="vxForm"></div></div>
+      <div class="bubble" id="vxSay"></div>
+      <div class="btns"><button class="btn org" id="vxNext">下一步 ➜</button><button class="btn gray small" id="vxReset">重來</button></div>
+      <div class="tip">💡 口訣：<b>公尺對公尺、公里對公里</b>，先算公尺再算公里。加起來公尺滿 1000 就換 1 公里；公尺不夠減就跟公里借 1 個（1 公里 ＝ 1000 公尺）。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 換算練習 ============ -->
+<section class="page" id="p-cv">
+  <div class="card">
+    <h2>🔁 換算練習</h2>
+    <div class="levels" id="cvLevels"></div>
+  </div>
+  <div class="card">
+    <div class="prog" id="cvProg"></div>
+    <div class="q" id="cvQ"></div>
+    <div id="cvTwo" class="twobox hidden"><button class="slot on" id="cvK">？</button><span>公里</span><button class="slot" id="cvM">？</button><span>公尺</span></div>
+    <div id="cvOne" class="onebox"><div class="ansbox" id="cvAns">？</div><span id="cvUnit"></span></div>
+    <div id="cvCmp" class="cmp hidden"><button class="btn white" data-c="&gt;">＞</button><button class="btn white" data-c="&lt;">＜</button><button class="btn white" data-c="=">＝</button></div>
+    <div class="pad" id="cvPad"></div>
+    <div class="btns cen"><button class="btn purple small" id="cvHint">💡 提示</button></div>
+    <div class="fb" id="cvFb"></div>
+    <div class="done" id="cvDone"></div>
+  </div>
+</section>
+
+<!-- ============ 加減直式 ============ -->
+<section class="page" id="p-as">
+  <div class="card">
+    <h2>🧾 公里公尺加減</h2>
+    <div class="levels" id="asLevels"></div>
+  </div>
+  <div class="card">
+    <svg class="lsvg" id="asMap" viewBox="0 0 400 150"></svg>
+    <div class="bubble" id="asStory"></div>
+    <div class="vwrap"><div class="vform" id="asForm"></div></div>
+    <div class="bubble step" id="asQ"></div>
+    <div class="choices" id="asChoices"></div>
+    <div id="asPadWrap"><div class="ansbox" id="asAns">？</div><div class="pad" id="asPad"></div></div>
+    <div class="fb" id="asFb"></div>
+    <div class="done" id="asDone"></div>
+  </div>
+</section>
+
+<!-- ============ 挑戰 ============ -->
+<section class="page" id="p-game">
+  <div class="card">
+    <h2>🎮 公里挑戰</h2>
+    <div class="seg" id="gSeg">
+      <button class="btn white on" data-g="trip">🚗 公里小旅行</button>
+      <button class="btn white" data-g="sort">📏 單位選選看</button>
+      <button class="btn white" data-g="race">🐰 比遠近賽跑</button>
+    </div>
+  </div>
+  <div class="card" id="gTrip">
+    <p class="small">開車去旅行！每到一站回答一題，車子才會往前開。答錯會用掉一格油 ⛽。</p>
+    <div class="tripbar"><span id="tFuel"></span><span id="tOdo"></span></div>
+    <svg class="lsvg" id="tripSvg" viewBox="0 0 400 300"></svg>
+    <div class="q" id="tQ"></div>
+    <div id="tTwo" class="twobox hidden"><button class="slot on" id="tK">？</button><span>公里</span><button class="slot" id="tM">？</button><span>公尺</span></div>
+    <div id="tOne" class="onebox"><div class="ansbox" id="tAns">？</div><span>公尺</span></div>
+    <div class="pad" id="tPad"></div>
+    <div class="fb" id="tFb"></div>
+    <div class="done" id="tDone"></div>
+  </div>
+  <div class="card hidden" id="gSort">
+    <p class="small">句子後面要接哪一個單位？越快越好！</p>
+    <div class="prog" id="sProg"></div>
+    <div class="timer" id="sTime">0.0 秒</div>
+    <div class="q" id="sQ"></div>
+    <div class="cmp ub" id="sBtns"><button class="btn white" data-u="公分">公分</button><button class="btn white" data-u="公尺">公尺</button><button class="btn white" data-u="公里">公里</button></div>
+    <div class="fb" id="sFb"></div>
+    <div class="done" id="sDone"></div>
+  </div>
+  <div class="card hidden" id="gRace">
+    <p class="small">點<b>比較長</b>的距離，答對小兔子就往前跑！小烏龜會慢慢爬，別被追過了 🐢</p>
+    <div class="race"><div class="lane"><span class="runner" id="rMe">🐰</span><span class="flag">🏁</span></div><div class="lane"><span class="runner" id="rTur">🐢</span><span class="flag">🏁</span></div></div>
+    <div class="prog" id="rProg"></div>
+    <div class="vs" id="rVs"><button class="btn white" id="rL"></button><b>VS</b><button class="btn white" id="rR"></button></div>
+    <div class="btns cen"><button class="btn org" id="rStart">開始賽跑 🏁</button></div>
+    <div class="fb" id="rFb"></div>
+    <div class="done" id="rDone"></div>
+  </div>
+</section>
+
+<!-- ============ 紀錄 ============ -->
+<section class="page" id="p-rec">
+  <div class="card"><h2>🏆 我的紀錄</h2><div class="statgrid" id="stats"></div><div class="badges" id="badges"></div></div>
+  <div class="card"><h3>🔎 常錯的地方</h3><div id="mist"></div></div>
+  <div class="card"><h3>🕘 最近錯的題目</h3><div id="recent"></div></div>
+  <div class="card"><button class="btn gray" id="resetBtn">清除紀錄</button><p class="small">紀錄只存在這台平板的瀏覽器裡。</p></div>
+</section>
+</main>
+
+<nav class="tabs" id="tabs">
+  <button class="on" data-p="p-learn"><span>📖</span>學習</button>
+  <button data-p="p-cv"><span>🔁</span>換算</button>
+  <button data-p="p-as"><span>🧾</span>加減</button>
+  <button data-p="p-game"><span>🎮</span>挑戰</button>
+  <button data-p="p-rec"><span>🏆</span>紀錄</button>
+</nav>
+
+<script id="core">
+var Core=(function(){
+"use strict";
+function ri(a,b){return a+Math.floor(Math.random()*(b-a+1));}
+function pick(a){return a[Math.floor(Math.random()*a.length)];}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function toM(km,m){return km*1000+m;}
+function split(m){return [Math.floor(m/1000),m%1000];}
+function grp(n){return String(n);}
+/* 3 公里 50 公尺 ／ 850 公尺 ／ 2 公里 */
+function fmt(km,m){if(km&&m)return km+" 公里 "+m+" 公尺";if(km)return km+" 公里";return m+" 公尺";}
+function fmtM(t){var s=split(t);return fmt(s[0],s[1]);}
+/* meters part that makes the "zero trap" (needs padding when written in 公尺) */
+function mPart(kind){if(kind==="z")return pick([ri(1,9),ri(10,99)]);if(kind==="r")return ri(1,9)*100;return ri(101,999);}
+/* ---------- 換算 ---------- */
+var CVL=[null,
+ {name:"公里 → 公尺",sub:"幾公里幾公尺換成公尺"},
+ {name:"公尺 → 公里",sub:"換成幾公里幾公尺"},
+ {name:"公里 ↔ 公分",sub:"1 公里 ＝ 100000 公分"},
+ {name:"比大小",sub:"先換成一樣的單位"},
+ {name:"綜合挑戰",sub:"全部混在一起"}];
+function genCv(lv){
+  if(lv===5)lv=pick([1,1,2,2,3,4]);
+  var km,m,q={lv:lv};
+  if(lv===1){var t=ri(0,9);km=ri(1,15);m=t<2?0:mPart(t<6?"z":(t<7?"r":"n"));
+    q.type="k2m";q.km=km;q.m=m;q.mode="one";q.unit="公尺";q.ans=toM(km,m);q.text=fmt(km,m)+" ＝ ？ 公尺";}
+  else if(lv===2){var t2=ri(0,9);km=ri(1,15);m=t2<1?0:mPart(t2<5?"z":(t2<6?"r":"n"));
+    q.type="m2k";q.km=km;q.m=m;q.mode="two";q.total=toM(km,m);q.ans=[km,m];q.text=grp(q.total)+" 公尺 ＝ ？ 公里 ？ 公尺";}
+  else if(lv===3){km=ri(1,9);if(Math.random()<.5){q.type="k2c";q.mode="one";q.unit="公分";q.km=km;q.ans=km*100000;q.text=km+" 公里 ＝ ？ 公分";}
+    else{q.type="c2k";q.mode="one";q.unit="公里";q.km=km;q.ans=km;q.cm=km*100000;q.text=grp(q.cm)+" 公分 ＝ ？ 公里";}}
+  else{q.type="cmp";q.mode="cmp";km=ri(1,9);m=pick([ri(1,99),ri(100,999)]);var L=toM(km,m),R,v=ri(0,4);
+    /* the right side is in 公尺 only; traps: digits look alike (3 公里 50 公尺 vs 350 公尺 / 3500 公尺) */
+    if(v===0)R=L;else if(v===1)R=Number(String(km)+String(m));else if(v===2)R=L+pick([-1,1])*ri(1,9)*(m<100?10:100);else if(v===3)R=km*1000+(m<100?m*10:m-pick([100,10]));else R=(km+pick([-1,1]))*1000+m;
+    if(R<=0)R=L+10;if(R===L&&v!==0)R=L+1;
+    var sw=Math.random()<.5;q.left=sw?grp(R)+" 公尺":fmt(km,m);q.right=sw?fmt(km,m):grp(R)+" 公尺";var a=sw?R:L,b=sw?L:R;
+    q.a=a;q.b=b;q.ans=a>b?">":(a<b?"<":"=");q.text=q.left+" ○ "+q.right;}
+  return q;}
+/* diagnose a wrong conversion answer */
+function cvDiag(q,v){
+  if(q.type==="k2m"){if(v===Number(String(q.km)+String(q.m))&&q.m<100&&q.m>0)return "zero";if(q.m&&v===q.km*1000)return "forgot";if(v===q.km*100+q.m||v===q.km*10000+q.m)return "x1000";return "calc";}
+  if(q.type==="m2k"){if(v[0]===q.km&&v[1]!==q.m)return "split";if(v[0]===Math.floor(q.total/100)||v[0]===Math.floor(q.total/10000))return "x1000";return "calc";}
+  if(q.type==="k2c"){if(v===q.km*1000||v===q.km*100||v===q.km*10000)return "cm";return "calc";}
+  if(q.type==="c2k"){if(v===q.cm/1000||v===q.cm/100||v===q.cm/10000)return "cm";return "calc";}
+  if(q.type==="cmp")return "cmp";return "calc";}
+/* ---------- 加減直式 ---------- */
+var ASL=[null,{name:"加法",sub:"公尺不滿 1000"},{name:"加法進位",sub:"公尺滿 1000 進 1 公里"},{name:"減法",sub:"公尺夠減"},{name:"減法借位",sub:"借 1 公里 ＝ 1000 公尺"},{name:"綜合挑戰",sub:"加減混合"}];
+var PLACES=["家","學校","公園","圖書館","車站","動物園","海邊","外婆家","博物館","夜市"];
+function genAs(lv){
+  if(lv===5)lv=pick([2,2,4,4,1,3]);
+  var a,b,ak,am,bk,bm,op;
+  for(var guard=0;guard<200;guard++){
+    if(lv===1){op="+";ak=ri(1,9);bk=ri(0,8);am=ri(100,800);bm=ri(10,999-am);}
+    else if(lv===2){op="+";ak=ri(1,9);bk=ri(0,8);am=ri(200,980);bm=ri(1000-am,999);}
+    else if(lv===3){op="-";ak=ri(3,15);bk=ri(1,ak-1);am=ri(200,999);bm=ri(10,am);}
+    else{op="-";ak=ri(3,15);bk=ri(0,ak-1);am=ri(0,800);bm=ri(am+1,999);}
+    if(op==="+"&&ak+bk>=1&&!(bk===0&&bm===0))break;if(op==="-"&&toM(ak,am)>toM(bk,bm))break;}
+  var p={lv:lv,op:op,a:[ak,am],b:[bk,bm]};var r=op==="+"?toM(ak,am)+toM(bk,bm):toM(ak,am)-toM(bk,bm);p.ans=split(r);p.total=r;
+  var pl=shuffle(PLACES);p.p=pl.slice(0,3);
+  if(op==="+")p.story="從"+pl[0]+"到"+pl[1]+"是 "+fmt(ak,am)+"，"+pl[1]+"到"+pl[2]+"是 "+fmt(bk,bm)+"。從"+pl[0]+"經過"+pl[1]+"到"+pl[2]+"，一共是幾公里幾公尺？";
+  else p.story="從"+pl[0]+"到"+pl[2]+"全長 "+fmt(ak,am)+"，已經走了 "+fmt(bk,bm)+"。還剩下幾公里幾公尺？";
+  return p;}
+/* step list for the vertical form */
+function asSteps(p){var s=[],ak=p.a[0],am=p.a[1],bk=p.b[0],bm=p.b[1];
+  if(p.op==="+"){var ms=am+bm;
+    s.push({id:"ask",kind:"choice",q:"公尺：<b>"+am+" ＋ "+bm+"</b> 會不會滿 1000 公尺？",opts:["滿 1000，要進位","不滿 1000"],ans:ms>=1000?0:1});
+    if(ms>=1000){s.push({id:"m",kind:"num",q:am+" ＋ "+bm+" ＝ "+ms+" 公尺，換掉 1000 公尺（＝1 公里）後還剩幾公尺？",ans:ms-1000});
+      s.push({id:"k",kind:"num",q:"公里：<b>"+ak+" ＋ "+bk+" ＋ 1（進位）</b> ＝ ？",ans:ak+bk+1});}
+    else{s.push({id:"m",kind:"num",q:"公尺：<b>"+am+" ＋ "+bm+"</b> ＝ ？",ans:ms});s.push({id:"k",kind:"num",q:"公里：<b>"+ak+" ＋ "+bk+"</b> ＝ ？",ans:ak+bk});}}
+  else{s.push({id:"ask",kind:"choice",q:"公尺：<b>"+am+" － "+bm+"</b> 夠不夠減？",opts:["不夠減，要借 1 公里","夠減"],ans:am<bm?0:1});
+    if(am<bm){s.push({id:"m",kind:"num",q:"借 1 公里＝1000 公尺：<b>"+(am+1000)+" － "+bm+"</b> ＝ ？",ans:am+1000-bm});
+      s.push({id:"k",kind:"num",q:"公里：借走 1 個，剩 <b>"+(ak-1)+" － "+bk+"</b> ＝ ？",ans:ak-1-bk});}
+    else{s.push({id:"m",kind:"num",q:"公尺：<b>"+am+" － "+bm+"</b> ＝ ？",ans:am-bm});s.push({id:"k",kind:"num",q:"公里：<b>"+ak+" － "+bk+"</b> ＝ ？",ans:ak-bk});}}
+  return s;}
+/* ---------- 單位選選看 ---------- */
+var UNITS=[["一枝新鉛筆長約 18","公分"],["橡皮擦長約 4","公分"],["數學課本長約 26","公分"],["手掌長約 15","公分"],["一片葉子長約 8","公分"],["小朋友身高約 135","公分"],
+ ["教室長約 9","公尺"],["學校操場跑道一圈 200","公尺"],["游泳池長約 25","公尺"],["籃球場長約 28","公尺"],["長頸鹿高約 5","公尺"],["台北 101 大樓高約 508","公尺"],["一張床長約 2","公尺"],
+ ["走路 15 分鐘大約走 1","公里"],["馬拉松全程約 42","公里"],["台北到高雄約 350","公里"],["騎腳踏車 1 小時約 15","公里"],["高速公路上「新竹 30」的標誌，表示還有 30","公里"],["臺灣本島南北長約 394","公里"]];
+function genSort(n){return shuffle(UNITS).slice(0,n).map(function(x){return {t:x[0],u:x[1]};});}
+/* ---------- 比遠近賽跑 ---------- */
+function genRace(n){var out=[];for(var i=0;i<n;i++){var q=genCv(4);while(q.ans==="=")q=genCv(4);out.push(q);}return out;}
+/* ---------- 公里小旅行家（路線上的每一站） ---------- */
+function genTrip(){var pl=shuffle(PLACES).slice(0,6),legs=[],qs=[];
+  for(var i=0;i<5;i++){var km=ri(1,4),m=pick([0,ri(5,95),ri(100,950),ri(100,950)]);legs.push([km,m]);}
+  for(var j=0;j<5;j++){var L=legs[j],t=j===0?"conv":pick(["conv","add","conv2","add"]),q={leg:j,from:pl[j],to:pl[j+1]};
+    if(t==="conv"){q.mode="one";q.unit="公尺";q.ans=toM(L[0],L[1]);q.text=pl[j]+" → "+pl[j+1]+" 是 "+fmt(L[0],L[1])+"，等於幾公尺？";}
+    else if(t==="conv2"){q.mode="two";q.ans=L.slice();q.text=pl[j]+" → "+pl[j+1]+" 是 "+grp(toM(L[0],L[1]))+" 公尺，是幾公里幾公尺？";}
+    else{var P=legs[j-1],s=toM(P[0],P[1])+toM(L[0],L[1]);q.mode="two";q.ans=split(s);q.text=pl[j-1]+" → "+pl[j]+" 是 "+fmt(P[0],P[1])+"，"+pl[j]+" → "+pl[j+1]+" 是 "+fmt(L[0],L[1])+"。從"+pl[j-1]+"到"+pl[j+1]+"一共幾公里幾公尺？";}
+    qs.push(q);}
+  var tot=0;legs.forEach(function(l){tot+=toM(l[0],l[1]);});
+  return {places:pl,legs:legs,qs:qs,total:tot,final:{mode:"two",ans:split(tot),text:"🏁 整趟旅行（"+pl[0]+" → "+pl[5]+"）一共走了幾公里幾公尺？"}};}
+function fmtTime(ms){var s=Math.round(ms/100)/10;return s.toFixed(1)+" 秒";}
+return {ri:ri,pick:pick,shuffle:shuffle,toM:toM,split:split,grp:grp,fmt:fmt,fmtM:fmtM,CVL:CVL,genCv:genCv,cvDiag:cvDiag,ASL:ASL,PLACES:PLACES,genAs:genAs,asSteps:asSteps,UNITS:UNITS,genSort:genSort,genRace:genRace,genTrip:genTrip,fmtTime:fmtTime};
+})();
+if(typeof module!=="undefined")module.exports=Core;
+</script>
+<script>
+(function(){
+"use strict";
+if(typeof document==="undefined")return;
+var $=function(id){return document.getElementById(id);};
+var C=Core,KEY="mathKmV1";
+function fresh(){return {stars:0,cv:{},as:{},tripBest:0,trips:0,sortBest:0,sortPerfect:0,raceWins:0,races:0,bad:{},recent:[],seen:{}};}
+var store=fresh();
+try{var raw=localStorage.getItem(KEY);if(raw){var o=JSON.parse(raw);for(var k in o)store[k]=o[k];}}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
+var TN={zero:"🕳️ 公尺不滿 100 忘了補 0",x1000:"🔢 把 1 公里當成 100 或 10000 公尺",split:"✂️ 公里公尺拆錯",cm:"📏 公里和公分的換算",cmp:"⚖️ 比大小沒先換單位",carry:"➕ 加法忘了進位",borrow:"➖ 減法忘了借位",forgot:"🙈 漏掉公尺的部分",unit:"📐 單位感",calc:"✏️ 計算粗心"};
+var TIPS={zero:"4 公里 83 公尺 ＝ 4000 ＋ 83 ＝ 4083 公尺，百位要補 0，不是 483！",x1000:"1 公里 ＝ 1000 公尺，是 3 個 0。",split:"從右邊數 3 位是公尺，再往左就是公里：12500 公尺 ＝ 12 公里 500 公尺。",
+  cm:"1 公里 ＝ 1000 公尺 ＝ 100000 公分（1 後面 5 個 0）。",cmp:"先把兩邊都換成「公尺」再比。",carry:"公尺加起來滿 1000，就換成 1 公里，加到公里那一欄。",borrow:"公尺不夠減，就跟公里借 1 個，變成多 1000 公尺；公里那欄要記得少 1。",
+  forgot:"幾公里幾公尺換成公尺：公里×1000 之後，還要加上後面的公尺。",unit:"很短的東西用公分，教室、操場用公尺，城市和城市之間用公里。",calc:"慢慢算，算完再檢查一次。"};
+function miss(t,p){store.bad[t]=(store.bad[t]||0)+1;var r0=store.recent[0];if(!(r0&&r0.p===p&&r0.k===t))store.recent.unshift({p:p,k:t});store.recent=store.recent.slice(0,10);save();}
+function renderScore(){$("score").textContent="⭐ "+store.stars;}
+function addStars(n,el){store.stars+=n;save();renderScore();var sc=$("score");sc.classList.remove("pop");void sc.offsetWidth;sc.classList.add("pop");
+  if(el){var r=el.getBoundingClientRect();for(var i=0;i<6;i++){var s=document.createElement("div");s.className="burst";s.textContent=["⭐","✨","🌟"][i%3];
+    s.style.left=(r.left+r.width/2)+"px";s.style.top=(r.top+20)+"px";s.style.setProperty("--dx",(Math.random()*200-100)+"px");s.style.setProperty("--dy",(-60-Math.random()*120)+"px");
+    document.body.appendChild(s);setTimeout(function(x){return function(){x.remove();};}(s),1200);}}}
+var actx=null;function beep(good){try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();(good?[660,880]:[260]).forEach(function(f,i){var o=actx.createOscillator(),g=actx.createGain();o.frequency.value=f;o.type="triangle";g.gain.setValueAtTime(.08,actx.currentTime+i*.08);g.gain.exponentialRampToValueAtTime(.001,actx.currentTime+i*.08+.2);o.connect(g);g.connect(actx.destination);o.start(actx.currentTime+i*.08);o.stop(actx.currentTime+i*.08+.25);});}catch(e){}}
+function say(t){try{if(!window.speechSynthesis)return;speechSynthesis.cancel();t=String(t).replace(/<[^>]+>/g,"").replace(/＝/g,"等於").replace(/＋/g,"加").replace(/－/g,"減").replace(/？/g,"多少").replace(/km/g,"公里");
+  var u=new SpeechSynthesisUtterance(t);u.lang="zh-TW";u.rate=.85;speechSynthesis.speak(u);}catch(e){}}
+function fb(id,cls,html){var e=$(id);e.className="fb show "+cls;e.innerHTML=html;}
+function fbHide(id){$(id).className="fb";}
+function show(id,on){$(id).classList.toggle("hidden",!on);}
+function F(km,m){return C.fmt(km,m);}
+
+/* ---------- tabs ---------- */
+function goTab(p){document.querySelectorAll("#tabs button").forEach(function(x){x.classList.toggle("on",x.dataset.p===p);});
+  document.querySelectorAll("section.page").forEach(function(s){s.classList.toggle("active",s.id===p);});
+  if(p==="p-rec")renderRec();window.scrollTo(0,0);}
+document.querySelectorAll("#tabs button").forEach(function(b){b.addEventListener("click",function(){goTab(b.dataset.p);});});
+function segs(id,attr,fn){var bs=document.querySelectorAll("#"+id+" button");bs.forEach(function(b){b.addEventListener("click",function(){bs.forEach(function(x){x.classList.toggle("on",x===b);});fn(b.getAttribute(attr),b);});});}
+function makePad(id,onKey){var h="";["1","2","3","4","5","6","7","8","9","del","0","ok"].forEach(function(k){h+='<button data-k="'+k+'"'+(k.length>1?' class="fn"':'')+'>'+(k==="del"?"⌫":(k==="ok"?"✔ 確定":k))+'</button>';});
+  $(id).innerHTML=h;$(id).addEventListener("click",function(e){var b=e.target.closest("button");if(b)onKey(b.dataset.k);});}
+/* answer widget: one box (公尺/公分/公里) or two boxes (公里＋公尺) */
+function makeAns(o){var A={mode:"one",one:"",k:"",m:"",act:"k"};
+  function paint(){$(o.one).textContent=A.one===""?"？":A.one;$(o.k).textContent=A.k===""?"？":A.k;$(o.m).textContent=A.m===""?"？":A.m;
+    $(o.k).classList.toggle("on",A.act==="k");$(o.m).classList.toggle("on",A.act==="m");}
+  $(o.k).addEventListener("click",function(){A.act="k";paint();});$(o.m).addEventListener("click",function(){A.act="m";paint();});
+  A.reset=function(mode){A.mode=mode;A.one="";A.k="";A.m="";A.act="k";show(o.oneWrap,mode==="one");show(o.twoWrap,mode==="two");paint();};
+  A.key=function(k){if(A.mode==="one"){if(k==="del")A.one=A.one.slice(0,-1);else if(k==="ok"){if(A.one!=="")o.check(Number(A.one));return;}else if(A.one.length<7)A.one=(A.one==="0"?"":A.one)+k;}
+    else{var f=A.act;if(k==="del")A[f]=A[f].slice(0,-1);else if(k==="ok"){if(A.k===""){A.act="k";paint();return;}if(A.m===""){A.act="m";paint();if(f==="m")o.need();return;}o.check([Number(A.k),Number(A.m)]);return;}
+      else{var max=f==="k"?3:3;if(A[f].length<max)A[f]=(A[f]==="0"?"":A[f])+k;}}
+    paint();};
+  A.paint=paint;makePad(o.pad,A.key);return A;}
+
+/* ---------- 5-1 ---------- */
+segs("seg","data-s",function(s){["51","52","53"].forEach(function(x){show("l"+x,x===s);});store.seen[s]=1;save();if(s==="52")bRender();if(s==="53")vxRender();});
+$("signSvg").innerHTML='<rect x="0" y="160" width="400" height="50" fill="#8d99ae"/><rect x="0" y="182" width="400" height="5" fill="#fff" stroke-dasharray="20 14" stroke="#fff"/>'+
+  '<rect x="192" y="120" width="10" height="45" fill="#6c757d"/><rect x="95" y="14" width="210" height="112" rx="12" fill="#1b7f3b" stroke="#fff" stroke-width="5"/>'+
+  '<text x="120" y="58" fill="#fff" font-size="28" font-weight="900" class="sign">新竹</text><text x="285" y="58" fill="#fff" font-size="28" font-weight="900" text-anchor="end" class="sign">30 km</text>'+
+  '<text x="120" y="104" fill="#fff" font-size="28" font-weight="900" class="sign">臺中</text><text x="285" y="104" fill="#fff" font-size="28" font-weight="900" text-anchor="end" class="sign">98 km</text>'+
+  '<text x="330" y="150" font-size="34">🚗</text>';
+/* track */
+var lapM=0,lapBusy=false;
+function trackPt(t){var a=t*2*Math.PI-Math.PI/2;return {x:200+150*Math.cos(a),y:112+78*Math.sin(a)};}
+function trackDraw(t){var p=trackPt(t);$("trackSvg").innerHTML='<ellipse cx="200" cy="112" rx="165" ry="92" fill="#e76f51"/><ellipse cx="200" cy="112" rx="135" ry="64" fill="#8cc63f"/>'+
+  '<ellipse cx="200" cy="112" rx="150" ry="78" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="8 6"/><line x1="200" y1="20" x2="200" y2="48" stroke="#fff" stroke-width="4"/>'+
+  '<text x="200" y="104" text-anchor="middle" font-size="20" font-weight="900" fill="#fff">一圈 200 公尺</text><text x="200" y="134" text-anchor="middle" font-size="22" font-weight="900" fill="#fff">已跑 '+(lapM/200)+' 圈</text>'+
+  '<text x="'+p.x+'" y="'+(p.y+12)+'" text-anchor="middle" font-size="30">🏃</text>';}
+function lapPaint(){$("trackBar").style.width=Math.min(100,lapM/10)+"%";$("trackTxt").textContent=lapM>=1000?lapM+" 公尺 ＝ "+C.fmtM(lapM):lapM+" 公尺";}
+$("lapBtn").addEventListener("click",function(){if(lapBusy||lapM>=2000)return;lapBusy=true;var t0=null;
+  function st(t){if(t0===null)t0=t;var k=Math.min(1,(t-t0)/700);trackDraw(k);if(k<1)requestAnimationFrame(st);else{lapM+=200;lapBusy=false;trackDraw(0);lapPaint();
+    if(lapM===1000){fb("lapFb","good","🎉 跑了 <b>5 圈</b>：200×5 ＝ 1000 公尺 ＝ <b>1 公里</b>！");say("跑了5圈，1000公尺，就是1公里");beep(true);if(!store.seen.lap){store.seen.lap=1;addStars(1,$("lapBtn"));}}
+    else if(lapM<1000)fb("lapFb","info","還差 "+(1000-lapM)+" 公尺才到 1 公里，再跑 "+((1000-lapM)/200)+" 圈！");
+    else fb("lapFb","info",lapM+" 公尺 ＝ <b>"+C.fmtM(lapM)+"</b>");}}
+  requestAnimationFrame(st);});
+$("lapReset").addEventListener("click",function(){lapM=0;trackDraw(0);lapPaint();fbHide("lapFb");});
+trackDraw(0);lapPaint();
+var uList=C.genSort(19),uI=0;
+function uRender(){var q=uList[uI%uList.length];$("uQ").innerHTML=q.t+" <b>（　）</b>";document.querySelectorAll("#uBtns button").forEach(function(b){b.classList.remove("ok","no");});}
+$("uBtns").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;var q=uList[uI%uList.length];
+  if(b.dataset.u===q.u){b.classList.add("ok");fb("uFb","good","✅ "+q.t+" <b>"+q.u+"</b>");beep(true);setTimeout(function(){uI++;uRender();},900);}else{b.classList.add("no");beep(false);fb("uFb","bad","想一想："+TIPS.unit);}});
+uRender();
+
+/* ---------- 5-2 換算板 ---------- */
+var bv=4083;
+var BCOL=[["萬",10000,"k"],["千",1000,"k"],["百",100,"m"],["十",10,"m"],["個",1,"m"]];
+function bRender(){var h="",s=String(100000+bv).slice(1),lead=true;
+  BCOL.forEach(function(c,i){var d=s.charAt(i);if(d!=="0"||i>=1)lead=lead&&d==="0"&&i<1;
+    if(i===2)h+='<div class="divider"></div>';
+    h+='<div class="col '+c[2]+'"><span class="nm">'+c[0]+'</span><button data-b="'+i+'" data-d="1">▲</button><div class="dg'+(c[2]==="k"&&d==="0"&&(i===0||s.charAt(0)==="0")?" z":"")+'">'+d+'</div><button data-b="'+i+'" data-d="-1">▼</button></div>';});
+  $("board").innerHTML=h;var k=Math.floor(bv/1000),m=bv%1000;
+  $("boardEq").innerHTML='<span class="mc">'+bv+' 公尺</span> ＝ '+(k?'<span class="kmc">'+k+' 公里</span> ':'')+(m||!k?'<span class="mc">'+m+' 公尺</span>':'');
+  var tip;if(!k)tip="不到 1000 公尺，還不滿 1 公里。";else if(m===0)tip="剛好 "+k+" 個 1000 公尺，就是 <b>"+k+" 公里</b>。";
+  else if(m<100)tip="公尺只有 "+String(m).length+" 位數！倒過來寫成公尺時，<b>空的位要補 0</b>："+F(k,m)+" ＝ "+bv+" 公尺（不是 "+k+""+m+"）。";
+  else tip="從右邊數 3 位（百、十、個）是 <b>"+m+" 公尺</b>，再往左的 "+k+" 是 <b>"+k+" 公里</b>。";
+  $("boardTip").innerHTML="💡 "+tip;}
+$("board").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;var i=+b.dataset.b,pl=BCOL[i][1],d=Math.floor(bv/pl)%10,nd=(d+(+b.dataset.d)+10)%10;bv+=(nd-d)*pl;bRender();});
+document.querySelectorAll("[data-bx]").forEach(function(b){b.addEventListener("click",function(){bv=+b.dataset.bx;bRender();});});
+var EX=[
+ {q:"3 公里 250 公尺 ＝ ？ 公尺",s:["1 公里 ＝ 1000 公尺，所以 3 公里 ＝ 3000 公尺。","再加上 250 公尺：3000 ＋ 250 ＝ 3250。","答：3 公里 250 公尺 ＝ <b>3250 公尺</b> ✅"]},
+ {q:"4 公里 83 公尺 ＝ ？ 公尺",s:["4 公里 ＝ 4000 公尺。","4000 ＋ 83 ＝ 4083。","⚠️ 83 只有 2 位數，百位要補 0，寫成 4<b>0</b>83，不是 483！","答：<b>4083 公尺</b> ✅"]},
+ {q:"6075 公尺 ＝ ？ 公里 ？ 公尺",s:["從右邊數 3 位：<b>075</b> 是公尺 → 75 公尺。","左邊剩下 <b>6</b>，表示 6 個 1000 公尺 ＝ 6 公里。","答：6075 公尺 ＝ <b>6 公里 75 公尺</b> ✅"]},
+ {q:"2 公里 ＝ ？ 公分",s:["先換成公尺：2 公里 ＝ 2000 公尺。","1 公尺 ＝ 100 公分，2000 公尺 ＝ 2000 × 100 ＝ 200000 公分。","答：<b>200000 公分</b>（2 後面 5 個 0）✅"]},
+ {q:"3 公里 50 公尺 ○ 3500 公尺",s:["單位不一樣，先都換成公尺。","3 公里 50 公尺 ＝ 3000 ＋ 50 ＝ 3050 公尺。","3050 ＜ 3500，所以 <b>3 公里 50 公尺 ＜ 3500 公尺</b> ✅"]}];
+var exI=0,exN=0;
+function exRender(){var e=EX[exI];$("exQ").innerHTML=e.q;var h="";for(var i=0;i<exN;i++)h+='<li'+(i===exN-1?' class="new"':'')+'>'+e.s[i]+'</li>';$("exSteps").innerHTML=h;$("exNext").disabled=exN>=e.s.length;}
+segs("exSeg","data-e",function(v){exI=+v;exN=0;exRender();});
+$("exNext").addEventListener("click",function(){var e=EX[exI];if(exN<e.s.length){exN++;exRender();say(e.s[exN-1]);if(exN===e.s.length&&!store.seen["ex"+exI]){store.seen["ex"+exI]=1;addStars(1,$("exNext"));}}});
+$("exReset").addEventListener("click",function(){exN=0;exRender();});
+exRender();
+
+/* ---------- 路線圖＋直式（共用） ---------- */
+function mapSVG(p){var s='<rect x="0" y="0" width="400" height="150" fill="#eaf6e4"/>';
+  function node(x,name,em){return '<circle cx="'+x+'" cy="95" r="12" fill="#ff9f1c" stroke="#fff" stroke-width="4"/><text x="'+x+'" y="132" text-anchor="middle" font-size="17" font-weight="900" fill="#2b2d42">'+name+'</text>'+(em?'<text x="'+x+'" y="72" text-anchor="middle" font-size="22">'+em+'</text>':'');}
+  if(p.op==="+"){s+='<path d="M40 95 Q120 60 200 95 T360 95" fill="none" stroke="#8d99ae" stroke-width="10" stroke-linecap="round"/>';
+    s+='<text x="120" y="40" text-anchor="middle" font-size="16" font-weight="900" fill="#d35400">'+F(p.a[0],p.a[1])+'</text><text x="280" y="40" text-anchor="middle" font-size="16" font-weight="900" fill="#1d6fd6">'+F(p.b[0],p.b[1])+'</text>';
+    s+=node(40,p.p[0],"🏠")+node(200,p.p[1])+node(360,p.p[2],"🚩");}
+  else{var f=40+320*C.toM(p.b[0],p.b[1])/C.toM(p.a[0],p.a[1]);
+    s+='<line x1="40" y1="95" x2="360" y2="95" stroke="#8d99ae" stroke-width="10" stroke-linecap="round"/><line x1="40" y1="95" x2="'+f+'" y2="95" stroke="#ff9f1c" stroke-width="10" stroke-linecap="round"/>';
+    s+='<path d="M40 30 V40 H360 V30" fill="none" stroke="#d35400" stroke-width="3"/><text x="200" y="26" text-anchor="middle" font-size="16" font-weight="900" fill="#d35400">全長 '+F(p.a[0],p.a[1])+'</text>';
+    s+='<text x="'+((40+f)/2)+'" y="66" text-anchor="middle" font-size="15" font-weight="900" fill="#1d6fd6">已走 '+F(p.b[0],p.b[1])+'</text><text x="'+((f+360)/2)+'" y="66" text-anchor="middle" font-size="18" font-weight="900" fill="#e63946">？</text>';
+    s+=node(40,p.p[0],"🏠")+node(360,p.p[2],"🚩")+'<text x="'+f+'" y="102" text-anchor="middle" font-size="24">🚶</text>';}
+  return s;}
+/* st: {k,m (answers or null), act:'k'|'m'|null, carry, borrow} */
+function vformHTML(p,st){var ak=p.a[0],am=p.a[1],bk=p.b[0],bm=p.b[1],h='<div></div><div class="h">公里</div><div class="h">公尺</div>';
+  var kTop=st.borrow?'<span class="note">'+(ak-1)+'</span><s>'+ak+'</s>':(st.carry?'<span class="note">＋1</span>'+ak:'<span class="note"></span>'+ak);
+  var mTop=st.borrow?'<span class="note">＋1000</span>'+am:'<span class="note"></span>'+am;
+  h+='<div></div><div class="c k">'+kTop+'</div><div class="c m">'+mTop+'</div>';
+  h+='<div class="op">'+(p.op==="+"?"＋":"－")+'</div><div class="c k">'+bk+'</div><div class="c m">'+bm+'</div><div class="ln"></div>';
+  function bx(v,f){return '<div class="c box '+f+(st.act===f?" act":"")+(v!==null&&v!==undefined?" ok":"")+'">'+(v!==null&&v!==undefined?v:"")+'</div>';}
+  h+='<div></div>'+bx(st.k,"k")+bx(st.m,"m");return h;}
+function stepDone(t){var r=t.q.replace(/＝ ？$/,"＝ <b>"+t.ans+"</b>");return r===t.q?t.q+" → <b>"+t.ans+" 公尺</b>":r;}
+var VX=[{op:"+",a:[2,350],b:[1,420],p:["家","學校","圖書館"]},{op:"+",a:[3,680],b:[2,540],p:["家","公園","動物園"]},{op:"-",a:[5,900],b:[2,350],p:["家","","海邊"]},{op:"-",a:[6,200],b:[2,750],p:["學校","","博物館"]}];
+var vxI=0,vxN=0;
+function vxP(){var p=VX[vxI],r=p.op==="+"?C.toM(p.a[0],p.a[1])+C.toM(p.b[0],p.b[1]):C.toM(p.a[0],p.a[1])-C.toM(p.b[0],p.b[1]);p.ans=C.split(r);return p;}
+function vxRender(){var p=vxP(),steps=C.asSteps(p),st={k:null,m:null,act:null,carry:false,borrow:false},say1;
+  $("vxMap").innerHTML=mapSVG(p);
+  $("vxStory").innerHTML=p.op==="+"?"從"+p.p[0]+"到"+p.p[1]+"是 "+F(p.a[0],p.a[1])+"，"+p.p[1]+"到"+p.p[2]+"是 "+F(p.b[0],p.b[1])+"。一共是幾公里幾公尺？":"從"+p.p[0]+"到"+p.p[2]+"全長 "+F(p.a[0],p.a[1])+"，已經走了 "+F(p.b[0],p.b[1])+"，還剩幾公里幾公尺？";
+  var big=steps[0].ans===0;
+  if(vxN===0)say1="直式：<b>公尺對公尺、公里對公里</b>。先算公尺那一欄。";
+  if(vxN>=1){say1=steps[0].q+" → <b>"+steps[0].opts[steps[0].ans]+"</b>";st.act="m";if(big){if(p.op==="+")st.carry=true;else st.borrow=true;}}
+  if(vxN>=2){st.m=steps[1].ans;st.act="k";say1=stepDone(steps[1]);}
+  if(vxN>=3){st.k=steps[2].ans;st.act=null;say1=stepDone(steps[2]);}
+  if(vxN>=4){say1="答："+(p.op==="+"?"一共是 ":"還剩 ")+"<b>"+F(p.ans[0],p.ans[1])+"</b> 🎉";}
+  $("vxForm").innerHTML=vformHTML(p,st);$("vxSay").innerHTML=say1;$("vxNext").disabled=vxN>=4;}
+segs("vxSeg","data-v",function(v){vxI=+v;vxN=0;vxRender();});
+$("vxNext").addEventListener("click",function(){if(vxN<4){vxN++;vxRender();say($("vxSay").innerHTML);if(vxN===4&&!store.seen["vx"+vxI]){store.seen["vx"+vxI]=1;addStars(1,$("vxNext"));}}});
+$("vxReset").addEventListener("click",function(){vxN=0;vxRender();});
+
+/* ---------- 換算練習 ---------- */
+var N=10,cvLv=1,cvQs=[],cvI=0,cvRes=[],cvTry=0,cvLock=false;
+$("cvLevels").innerHTML=C.CVL.slice(1).map(function(l,i){return '<button class="btn white'+(i===0?" on":"")+'" data-l="'+(i+1)+'">'+(i+1)+'. '+l.name+'<br><span class="small">'+l.sub+'</span></button>';}).join("");
+segs("cvLevels","data-l",function(l){cvLv=+l;cvStart();});
+var cvA=makeAns({one:"cvAns",k:"cvK",m:"cvM",oneWrap:"cvOne",twoWrap:"cvTwo",pad:"cvPad",check:function(v){cvCheck(v);},need:function(){fb("cvFb","info","公尺那格也要填喔（沒有公尺就填 0）。");}});
+function prog(id,res,cur){var h="";for(var i=0;i<N;i++)h+='<i class="'+(res[i]===true?"ok":(res[i]===false?"no":(i===cur?"cur":"")))+'"></i>';$(id).innerHTML=h;}
+function cvStart(){cvQs=[];for(var i=0;i<N;i++)cvQs.push(C.genCv(cvLv));cvI=0;cvRes=[];cvShow();}
+function cvShow(){var q=cvQs[cvI];cvTry=0;cvLock=false;fbHide("cvFb");$("cvDone").className="done";prog("cvProg",cvRes,cvI);
+  $("cvQ").innerHTML='<span class="small">第 '+(cvI+1)+' 題</span><br>'+(q.mode==="cmp"?q.left+' <b style="color:#e63946">○</b> '+q.right+'<br><span class="small">○ 裡要填 ＞、＜ 還是 ＝？</span>':q.text);
+  show("cvCmp",q.mode==="cmp");show("cvPad",q.mode!=="cmp");document.querySelectorAll("#cvCmp .btn").forEach(function(b){b.classList.remove("ok","no");});
+  if(q.mode==="cmp"){show("cvOne",false);show("cvTwo",false);}else{cvA.reset(q.mode);$("cvUnit").textContent=q.unit||"";}}
+function cvAnsTxt(q){if(q.mode==="two")return F(q.ans[0],q.ans[1])+(q.ans[1]===0?"（"+q.ans[0]+" 公里 0 公尺）":"");if(q.mode==="cmp")return q.left+" "+q.ans+" "+q.right;return q.ans+" "+q.unit;}
+function cvHintTxt(q){if(q.type==="k2m")return q.km+" 公里 ＝ "+(q.km*1000)+" 公尺，再加 "+q.m+" 公尺。";if(q.type==="m2k")return "從右邊數 3 位是公尺，左邊剩下的是公里。";
+  if(q.type==="k2c")return "1 公里 ＝ 100000 公分，"+q.km+" 公里就是 "+q.km+" 個 100000。";if(q.type==="c2k")return "100000 公分 ＝ 1 公里，數數看有幾個 100000。";return "先把兩邊都換成公尺再比。";}
+function same(q,v){return q.mode==="two"?(v[0]===q.ans[0]&&v[1]===q.ans[1]):v===q.ans;}
+function cvCheck(v){if(cvLock)return;var q=cvQs[cvI];
+  if(same(q,v)){cvLock=true;if(cvTry===0){cvRes[cvI]=true;addStars(1,$("cvQ"));}else cvRes[cvI]=false;beep(true);
+    fb("cvFb","good","✅ 答對了！"+(q.mode==="cmp"?q.left+" ＝ "+q.a+" 公尺，"+q.right+" ＝ "+q.b+" 公尺，所以 <b>"+q.ans+"</b>":"<b>"+cvAnsTxt(q)+"</b>"));setTimeout(cvNext,1100);return;}
+  cvTry++;beep(false);var d=C.cvDiag(q,v);miss(d,q.text);
+  if(q.mode==="cmp"){document.querySelectorAll("#cvCmp .btn").forEach(function(b){if(b.dataset.c===v)b.classList.add("no");});}
+  if(cvTry>=2){cvLock=true;cvRes[cvI]=false;fb("cvFb","bad","😅 正確答案是 <b>"+cvAnsTxt(q)+"</b><br>"+TIPS[d]+'<div class="btns"><button class="btn org small" id="cvGo">下一題 ➜</button></div>');$("cvGo").addEventListener("click",cvNext);}
+  else{fb("cvFb","bad","再想想！"+TIPS[d]);if(q.mode!=="cmp")cvA.reset(q.mode);}}
+function cvNext(){cvI++;if(cvI<N)cvShow();else cvFinish();}
+function cvFinish(){var ok=cvRes.filter(function(x){return x;}).length;prog("cvProg",cvRes,-1);var b=store.cv[cvLv]||0;if(ok>b)store.cv[cvLv]=ok;save();
+  $("cvDone").className="done show";$("cvDone").innerHTML="🎉 第 "+cvLv+" 關完成！一次就答對 <b>"+ok+" / "+N+"</b> 題。"+(ok===N?"全對，太厲害了！🏅":"")+
+  '<div class="btns"><button class="btn org" id="cvAgain">再玩一次</button>'+(cvLv<5?'<button class="btn teal" id="cvUp">下一關 ➜</button>':'')+'</div>';
+  $("cvAgain").addEventListener("click",cvStart);if(cvLv<5)$("cvUp").addEventListener("click",function(){document.querySelectorAll("#cvLevels button")[cvLv].click();});
+  say("完成了，答對"+ok+"題");}
+$("cvCmp").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;var q=cvQs[cvI];if(cvLock)return;if(b.dataset.c===q.ans)b.classList.add("ok");cvCheck(b.dataset.c);});
+$("cvHint").addEventListener("click",function(){var q=cvQs[cvI];if(q)fb("cvFb","info","💡 "+cvHintTxt(q));});
+
+/* ---------- 加減直式 ---------- */
+var asLv=1,asP=null,asS=[],asK=0,asV="",asI=0,asRes=[],asMiss=0,asSt=null,AN=6;
+$("asLevels").innerHTML=C.ASL.slice(1).map(function(l,i){return '<button class="btn white'+(i===0?" on":"")+'" data-l="'+(i+1)+'">'+(i+1)+'. '+l.name+'<br><span class="small">'+l.sub+'</span></button>';}).join("");
+segs("asLevels","data-l",function(l){asLv=+l;asStart();});
+function asStart(){asI=0;asRes=[];asNew();}
+function asProg(){var h="";for(var i=0;i<AN;i++)h+='<i class="'+(asRes[i]===true?"ok":(asRes[i]===false?"no":(i===asI?"cur":"")))+'"></i>';$("asStory").insertAdjacentHTML("afterbegin",'<div class="prog">'+h+'</div>');}
+function asNew(){asP=C.genAs(asLv);asS=C.asSteps(asP);asK=0;asV="";asMiss=0;asSt={k:null,m:null,act:null,carry:false,borrow:false};
+  $("asDone").className="done";fbHide("asFb");$("asMap").innerHTML=mapSVG(asP);$("asStory").innerHTML='<span class="small">第 '+(asI+1)+' / '+AN+' 題</span><br>'+asP.story;asProg();asStep();}
+function asStep(){var s=asS[asK];$("asForm").innerHTML=vformHTML(asP,asSt);
+  if(!s){$("asQ").innerHTML="答："+(asP.op==="+"?"一共是 ":"還剩下 ")+"<b>"+F(asP.ans[0],asP.ans[1])+"</b> 🎉";show("asChoices",false);show("asPadWrap",false);return;}
+  $("asQ").innerHTML=(asK+1)+". "+s.q;
+  if(s.kind==="choice"){show("asChoices",true);show("asPadWrap",false);$("asChoices").innerHTML=s.opts.map(function(o,i){return '<button class="btn white" data-i="'+i+'">'+o+'</button>';}).join("");}
+  else{show("asChoices",false);show("asPadWrap",true);asV="";$("asAns").textContent="？";}}
+function asWrong(t,msg){asMiss++;beep(false);miss(t,asP.story);fb("asFb","bad",msg);}
+$("asChoices").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;var s=asS[asK];
+  if(+b.dataset.i===s.ans){beep(true);fbHide("asFb");if(s.ans===0){if(asP.op==="+")asSt.carry=true;else asSt.borrow=true;}asSt.act="m";asK++;asStep();}
+  else{b.classList.add("no");asWrong(asP.op==="+"?"carry":"borrow",asP.op==="+"?"再算算看："+asP.a[1]+" ＋ "+asP.b[1]+" ＝ "+(asP.a[1]+asP.b[1])+"，有沒有到 1000？":"比比看："+asP.a[1]+" 比 "+asP.b[1]+(asP.a[1]<asP.b[1]?" 小":" 大")+"，夠不夠減？");}});
+makePad("asPad",function(k){var s=asS[asK];if(!s||s.kind!=="num")return;
+  if(k==="del")asV=asV.slice(0,-1);else if(k==="ok"){if(asV!=="")asCheck(Number(asV));return;}else if(asV.length<4)asV=(asV==="0"?"":asV)+k;
+  $("asAns").textContent=asV===""?"？":asV;});
+function asCheck(v){var s=asS[asK],am=asP.a[1],bm=asP.b[1],ak=asP.a[0],bk=asP.b[0];
+  if(v===s.ans){beep(true);fbHide("asFb");if(s.id==="m"){asSt.m=v;asSt.act="k";}else{asSt.k=v;asSt.act=null;}asK++;asStep();if(asK>=asS.length)asFinish();return;}
+  asV="";$("asAns").textContent="？";
+  if(s.id==="m"){if(asP.op==="+"&&v===am+bm)asWrong("carry","公尺加起來是 "+v+"，已經超過 1000 了！要把 1000 公尺換成 1 公里進到公里那一欄，公尺那格只寫剩下的。");
+    else if(asP.op==="-"&&v===bm-am)asWrong("borrow","不可以倒過來用 "+bm+" － "+am+"！上面的 "+am+" 不夠減，要先跟公里借 1000。");
+    else asWrong("calc","再算一次公尺那一欄。"+TIPS.calc);}
+  else{if(asP.op==="+"&&v===ak+bk&&s.ans===ak+bk+1)asWrong("carry","別忘了公尺進上來的 <b>1</b> 公里！");
+    else if(asP.op==="-"&&v===ak-bk&&s.ans===ak-1-bk)asWrong("borrow","公里借走 1 個給公尺了，要用 "+(ak-1)+" 來減！");
+    else asWrong("calc","再算一次公里那一欄。");}}
+function asFinish(){var ok=asMiss===0;asRes[asI]=ok;if(ok)addStars(2,$("asForm"));else addStars(1,$("asForm"));
+  var b=store.as[asLv]||0;var cnt=asRes.filter(function(x){return x;}).length;if(cnt>b)store.as[asLv]=cnt;save();say("答對了");
+  $("asDone").className="done show";
+  if(asI<AN-1){$("asDone").innerHTML=(ok?"🌟 全部一次就對！＋2 顆星":"👍 完成了！＋1 顆星")+'<div class="btns"><button class="btn org" id="asGo">下一題 ➜</button></div>';$("asGo").addEventListener("click",function(){asI++;asNew();});}
+  else{$("asDone").innerHTML="🎉 這一關 "+AN+" 題都完成了！一次全對的有 <b>"+cnt+"</b> 題。"+'<div class="btns"><button class="btn org" id="asGo">再玩一次</button>'+(asLv<5?'<button class="btn teal" id="asUp">下一關 ➜</button>':'')+'</div>';
+    $("asGo").addEventListener("click",asStart);if(asLv<5)$("asUp").addEventListener("click",function(){document.querySelectorAll("#asLevels button")[asLv].click();});}}
+
+/* ---------- 挑戰：切換 ---------- */
+segs("gSeg","data-g",function(g){show("gTrip",g==="trip");show("gSort",g==="sort");show("gRace",g==="race");if(g==="sort"&&!S.on&&!S.done)sortStart();});
+
+/* ---------- 🚗 公里小旅行 ---------- */
+var TP=[[45,250],[215,250],[355,170],[190,150],[45,95],[300,45]],LBL=[[0,28],[0,28],[0,28],[0,28],[-2,28],[0,-16]],T=null;
+var tA=makeAns({one:"tAns",k:"tK",m:"tM",oneWrap:"tOne",twoWrap:"tTwo",pad:"tPad",check:function(v){tCheck(v);},need:function(){fb("tFb","info","公尺那格也要填喔（沒有公尺就填 0）。");}});
+function tripStart(){T={g:C.genTrip(),k:0,fuel:3,tries:0,at:0,car:TP[0].slice(),done:false};$("tDone").className="done";fbHide("tFb");tShow();}
+function tCur(){return T.k<5?T.g.qs[T.k]:T.g.final;}
+function tDraw(){var s='<rect width="400" height="300" fill="#eaf6e4"/>',g=T.g,i;
+  for(i=0;i<5;i++){var a=TP[i],b=TP[i+1],pas=i<T.at;s+='<line x1="'+a[0]+'" y1="'+a[1]+'" x2="'+b[0]+'" y2="'+b[1]+'" stroke="'+(pas?"#ff9f1c":"#8d99ae")+'" stroke-width="9" stroke-linecap="round"/>';}
+  for(var j=0;j<6;j++){var p=TP[j];s+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="9" fill="'+(j<=T.at?"#2ec4b6":"#fff")+'" stroke="#2b2d42" stroke-width="3"/><text x="'+(p[0]+LBL[j][0])+'" y="'+(p[1]+LBL[j][1])+'" text-anchor="middle" font-size="16" font-weight="900" fill="#2b2d42">'+g.places[j]+'</text>';}
+  for(i=0;i<5;i++){var a2=TP[i],b2=TP[i+1],mx=(a2[0]+b2[0])/2,my=(a2[1]+b2[1])/2,pas2=i<T.at,lb=pas2?F(g.legs[i][0],g.legs[i][1]):"？",lw=pas2?lb.replace(/ /g,"").length*12+10:30;
+    s+='<rect x="'+(mx-lw/2)+'" y="'+(my-13)+'" width="'+lw+'" height="25" rx="10" fill="#fff" stroke="'+(pas2?"#ffb877":"#ccc")+'" stroke-width="2"/><text x="'+mx+'" y="'+(my+6)+'" text-anchor="middle" font-size="14" font-weight="900" fill="'+(pas2?"#d35400":"#999")+'">'+lb+'</text>';}
+  s+='<text x="'+T.car[0]+'" y="'+(T.car[1]+9)+'" text-anchor="middle" font-size="30">🚗</text>';$("tripSvg").innerHTML=s;
+  var odo=0;for(var k=0;k<T.at;k++)odo+=C.toM(g.legs[k][0],g.legs[k][1]);
+  $("tFuel").textContent="油量 "+(T.fuel?new Array(T.fuel+1).join("⛽"):"（空）");$("tOdo").textContent="已開 "+odo+" 公尺";}
+function tShow(){var q=tCur();T.tries=0;tDraw();$("tQ").innerHTML='<span class="small">'+(T.k<5?"第 "+(T.k+1)+" 站 / 5":"終點題")+'</span><br>'+q.text;tA.reset(q.mode);fbHide("tFb");}
+function tDrive(to,cb){var f=T.car.slice(),t0=null;function st(t){if(t0===null)t0=t;var k=Math.min(1,(t-t0)/900);T.car=[f[0]+(to[0]-f[0])*k,f[1]+(to[1]-f[1])*k];tDraw();if(k<1)requestAnimationFrame(st);else cb();}requestAnimationFrame(st);}
+function tAnsTxt(q){return q.mode==="two"?F(q.ans[0],q.ans[1]):q.ans+" 公尺";}
+function tCheck(v){if(T.done||T.busy)return;var q=tCur();
+  if(same(q,v)){beep(true);fb("tFb","good","✅ 答對了！<b>"+tAnsTxt(q)+"</b>"+(T.k<5?"，出發 🚗💨":""));tAdvance();return;}
+  T.fuel--;T.tries++;beep(false);var d=q.mode==="one"?C.cvDiag({type:"k2m",km:T.g.legs[q.leg][0],m:T.g.legs[q.leg][1]},v):(T.k<5&&q.text.indexOf("一共")<0?C.cvDiag({type:"m2k",km:q.ans[0],m:q.ans[1],total:C.toM(q.ans[0],q.ans[1])},v):"carry");
+  if(d==="carry"&&!(v[0]===q.ans[0]-1&&v[1]===q.ans[1])&&v[1]<1000)d="calc";miss(d,q.text);tDraw();
+  if(T.fuel<=0){T.done=true;store.trips=store.trips||0;save();fb("tFb","bad","⛽ 沒油了！這題的答案是 <b>"+tAnsTxt(q)+"</b>。<br>"+TIPS[d]);
+    $("tDone").className="done show";$("tDone").innerHTML='🚧 車子停在路邊了…再試一次吧！<div class="btns"><button class="btn org" id="tAgain">重新出發 🚗</button></div>';$("tAgain").addEventListener("click",tripStart);return;}
+  if(T.tries>=2){fb("tFb","bad","答案是 <b>"+tAnsTxt(q)+"</b>。"+TIPS[d]);T.busy=true;setTimeout(function(){T.busy=false;tAdvance();},1600);}
+  else{fb("tFb","bad","用掉一格油 ⛽！"+TIPS[d]);tA.reset(q.mode);}}
+function tAdvance(){if(T.k<5){T.busy=true;var to=TP[T.k+1];tDrive(to,function(){T.at=T.k+1;T.k++;T.busy=false;tDraw();setTimeout(tShow,500);});}
+  else{T.done=true;store.trips=(store.trips||0)+1;if(T.fuel>store.tripBest)store.tripBest=T.fuel;save();addStars(T.fuel+1,$("tripSvg"));say("抵達終點");
+    $("tDone").className="done show";$("tDone").innerHTML="🏁 抵達"+T.g.places[5]+"！整趟一共 <b>"+C.fmtM(T.g.total)+"</b>（"+T.g.total+" 公尺）。<br>剩下油量："+(T.fuel?new Array(T.fuel+1).join("⛽"):"0")+"，得到 "+(T.fuel+1)+" 顆星！"+'<div class="btns"><button class="btn org" id="tAgain">換一條路線 🗺️</button></div>';
+    $("tAgain").addEventListener("click",tripStart);}}
+
+/* ---------- 📏 單位選選看 ---------- */
+var S={on:false,done:false},SN=12;
+function sortStart(){S={on:true,done:false,qs:C.genSort(SN),i:0,res:[],t0:Date.now(),lock:false};$("sDone").className="done";fbHide("sFb");sShow();clearInterval(S.tm);S.tm=setInterval(function(){if(S.on)$("sTime").textContent=C.fmtTime(Date.now()-S.t0);},100);}
+function sShow(){var h="";for(var i=0;i<SN;i++)h+='<i class="'+(S.res[i]===true?"ok":(S.res[i]===false?"no":(i===S.i?"cur":"")))+'"></i>';$("sProg").innerHTML=h;
+  $("sQ").innerHTML=S.qs[S.i].t+" <b>（　）</b>";document.querySelectorAll("#sBtns .btn").forEach(function(b){b.classList.remove("ok","no");});S.lock=false;}
+$("sBtns").addEventListener("click",function(e){var b=e.target.closest("button");if(!b||!S.on||S.lock)return;var q=S.qs[S.i];S.lock=true;
+  if(b.dataset.u===q.u){b.classList.add("ok");S.res[S.i]=true;beep(true);fbHide("sFb");}else{b.classList.add("no");S.res[S.i]=false;beep(false);miss("unit",q.t+"（"+q.u+"）");fb("sFb","bad","是 <b>"+q.u+"</b>："+q.t+" "+q.u);}
+  setTimeout(function(){S.i++;if(S.i<SN)sShow();else sFinish();},S.res[S.i]?450:1300);});
+function sFinish(){S.on=false;S.done=true;clearInterval(S.tm);var ms=Date.now()-S.t0,ok=S.res.filter(function(x){return x;}).length;$("sTime").textContent=C.fmtTime(ms);sShow2();
+  var rec="";if(ok===SN){store.sortPerfect=(store.sortPerfect||0)+1;if(!store.sortBest||ms<store.sortBest){store.sortBest=ms;rec="🏆 新紀錄！";}}save();addStars(ok>=10?2:1,$("sQ"));
+  $("sDone").className="done show";$("sDone").innerHTML="⏱️ 用了 <b>"+C.fmtTime(ms)+"</b>，答對 <b>"+ok+" / "+SN+"</b> 題。"+rec+'<div class="btns"><button class="btn org" id="sAgain">再玩一次</button></div>';$("sAgain").addEventListener("click",sortStart);}
+function sShow2(){var h="";for(var i=0;i<SN;i++)h+='<i class="'+(S.res[i]?"ok":"no")+'"></i>';$("sProg").innerHTML=h;}
+
+/* ---------- 🐰 比遠近賽跑 ---------- */
+var R={on:false},RN=10;
+function rPaint(){var me=R.ok/RN*82,tu=(R.i*.6+R.bad*1.5)/RN*82;$("rMe").style.left=me+"%";$("rTur").style.left=Math.min(82,tu)+"%";
+  var h="";for(var i=0;i<RN;i++)h+='<i class="'+(R.res&&R.res[i]===true?"ok":(R.res&&R.res[i]===false?"no":(i===R.i&&R.on?"cur":"")))+'"></i>';$("rProg").innerHTML=h;}
+function raceStart(){R={on:true,qs:C.genRace(RN),i:0,ok:0,bad:0,res:[],lock:false};show("rStart",false);show("rVs",true);$("rDone").className="done";fbHide("rFb");rShow();}
+function rShow(){var q=R.qs[R.i];$("rL").innerHTML=q.left;$("rR").innerHTML=q.right;$("rL").className="btn white";$("rR").className="btn white";R.lock=false;rPaint();}
+function rPick(side){if(!R.on||R.lock)return;R.lock=true;var q=R.qs[R.i],good=(side==="L")===(q.ans===">");
+  if(good){R.ok++;R.res[R.i]=true;$(side==="L"?"rL":"rR").className="btn white ok";beep(true);fbHide("rFb");}
+  else{R.bad++;R.res[R.i]=false;$(side==="L"?"rL":"rR").className="btn white no";beep(false);miss("cmp",q.text);var cv=q.left.indexOf("公里")>=0?q.left+" ＝ "+q.a+" 公尺":q.right+" ＝ "+q.b+" 公尺";fb("rFb","bad","換成公尺："+cv+"。"+q.a+(q.a>q.b?" ＞ ":" ＜ ")+q.b+"，<b>"+(q.ans===">"?q.left:q.right)+"</b> 比較長。");}
+  R.i++;rPaint();setTimeout(function(){if(R.i<RN)rShow();else rFinish();},good?600:1600);}
+function rFinish(){R.on=false;var me=R.ok/RN*82,tu=(R.i*.6+R.bad*1.5)/RN*82,win=me>tu;store.races=(store.races||0)+1;if(win)store.raceWins=(store.raceWins||0)+1;save();addStars(win?2:1,$("rProg"));
+  show("rVs",false);rPaint();$("rDone").className="done show";$("rDone").innerHTML=(win?"🐰🏆 小兔子贏了！":"🐢 小烏龜贏了…下次加油！")+" 答對 <b>"+R.ok+" / "+RN+"</b> 題。"+'<div class="btns"><button class="btn org" id="rAgain">再比一次</button></div>';
+  $("rAgain").addEventListener("click",raceStart);say(win?"小兔子贏了":"小烏龜贏了");}
+$("rStart").addEventListener("click",raceStart);$("rL").addEventListener("click",function(){rPick("L");});$("rR").addEventListener("click",function(){rPick("R");});
+show("rVs",false);R={on:false,ok:0,bad:0,i:0};rPaint();
+
+/* ---------- 紀錄 ---------- */
+function bestOf(o){var b=0;for(var k in o)if(o[k]>b)b=o[k];return b;}
+var BADGES=[["🏃","跑完 1 公里",function(){return !!store.seen.lap;}],["🔁","換算新手",function(){return bestOf(store.cv)>=8;}],["🧮","換算高手",function(){return (store.cv[5]||0)>=10;}],
+ ["➕","進位達人",function(){return (store.as[2]||0)>=4;}],["➖","借位達人",function(){return (store.as[4]||0)>=4;}],["🚗","小旅行家",function(){return (store.trips||0)>=1;}],
+ ["⛽","油箱滿滿",function(){return store.tripBest>=3;}],["📏","單位小博士",function(){return (store.sortPerfect||0)>=1;}],["🐰","賽跑冠軍",function(){return (store.raceWins||0)>=1;}],["🌟","50 顆星",function(){return store.stars>=50;}]];
+function renderRec(){var cv=[],as=[];for(var i=1;i<=5;i++){cv.push(store.cv[i]||0);as.push(store.as[i]||0);}
+  var st=[["⭐",store.stars,"星星"],["🔁",Math.max.apply(null,cv)+" / 10","換算最佳一關"],["🧾",Math.max.apply(null,as)+" / 6","加減最佳一關（一次全對）"],["🚗",(store.trips||0)+" 趟","完成旅行"],
+    ["📏",store.sortBest?C.fmtTime(store.sortBest):"—","單位選選看全對最快"],["🐰",(store.raceWins||0)+" / "+(store.races||0),"賽跑勝場"]];
+  $("stats").innerHTML=st.map(function(s){return '<div class="stat"><b>'+s[0]+" "+s[1]+'</b><span>'+s[2]+'</span></div>';}).join("");
+  $("badges").innerHTML=BADGES.map(function(b){var g=b[2]();return '<div class="bdg'+(g?" got":"")+'"><span>'+b[0]+'</span>'+b[1]+'</div>';}).join("");
+  var ks=Object.keys(store.bad).sort(function(a,b){return store.bad[b]-store.bad[a];});
+  $("mist").innerHTML=ks.length?ks.map(function(k){return '<div class="tip"><b>'+(TN[k]||k)+'</b>（'+store.bad[k]+' 次）<br>'+(TIPS[k]||"")+'</div>';}).join(""):'<p class="small">還沒有錯題，好棒！</p>';
+  $("recent").innerHTML=store.recent.length?'<ul>'+store.recent.map(function(r){return '<li>'+r.p+' <span class="small">— '+(TN[r.k]||r.k)+'</span></li>';}).join("")+'</ul>':'<p class="small">沒有最近的錯題。</p>';}
+$("resetBtn").addEventListener("click",function(){if(!confirm("確定要清除所有紀錄嗎？"))return;store=fresh();save();renderScore();renderRec();});
+
+/* ---------- 鍵盤 ---------- */
+document.addEventListener("keydown",function(e){var pg=document.querySelector("section.page.active");if(!pg)return;
+  var k=e.key;if(k==="Backspace")k="del";else if(k==="Enter")k="ok";
+  if(pg.id==="p-cv"&&!$("cvCmp").classList.contains("hidden")){var c={">":">","<":"<","=":"="}[e.key];if(c){var b=document.querySelector('#cvCmp [data-c="'+c+'"]');if(b){b.click();e.preventDefault();}}return;}
+  if(!/^[0-9]$/.test(k)&&k!=="del"&&k!=="ok")return;
+  var pads=pg.querySelectorAll(".pad");for(var i=0;i<pads.length;i++){var p=pads[i];if(p.offsetParent!==null){var bt=p.querySelector('[data-k="'+k+'"]');if(bt){bt.click();e.preventDefault();}return;}}});
+
+/* ---------- init ---------- */
+renderScore();cvStart();asStart();tripStart();bRender();vxRender();
+window.__km={C:C,store:function(){return store;},cv:function(){return cvQs[cvI];},cvI:function(){return cvI;},as:function(){return {p:asP,s:asS,k:asK};},trip:function(){return T;},sort:function(){return S;},race:function(){return R;},goTab:goTab};
+})();
+</script>
+</body>
+</html>

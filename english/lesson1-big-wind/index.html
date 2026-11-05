@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#9b5de5">
+<title>The Big Wind 🌬️｜康軒 Wonder World 3 Unit 1</title>
+<style>
+:root{--ink:#2b2d42;--org:#ff9f1c;--sun:#ffd166;--pink:#ff6b9a;--blue:#4d96ff;--teal:#2a9d8f;--purple:#9b5de5;--green:#52b788}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:#f8f3ff;overflow-x:hidden}
+html,body{margin:0;padding:0}
+body{font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",system-ui,sans-serif;color:var(--ink);min-height:100vh;background:linear-gradient(180deg,#e4d4ff 0,#f8f3ff 260px);padding-bottom:calc(92px + env(safe-area-inset-bottom))}
+header{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:8px;padding:10px 12px;padding-top:calc(10px + env(safe-area-inset-top));background:rgba(155,93,229,.97);color:#fff}
+header h1{font-size:clamp(17px,4.6vw,26px);margin:0;flex:1;letter-spacing:1px;min-width:0}
+.back{color:#fff;text-decoration:none;font-weight:800;background:rgba(255,255,255,.25);border-radius:999px;padding:8px 12px;font-size:15px;white-space:nowrap}
+.score{background:#fff;color:#5b2a9e;font-weight:900;border-radius:999px;padding:6px 12px;font-size:17px;white-space:nowrap;box-shadow:0 3px 0 #6a3ab0}
+.score.pop{animation:pop .5s}@keyframes pop{40%{transform:scale(1.3)}}
+main{max-width:1000px;margin:0 auto;padding:10px}
+section.page{display:none}section.page.active{display:block;animation:fadein .3s}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.card{background:#fff;border-radius:22px;padding:14px;margin:10px 0;box-shadow:0 6px 0 rgba(0,0,0,.1)}
+.card h2{margin:0 0 6px;font-size:clamp(20px,5vw,25px)}.card h3{margin:4px 0 6px;font-size:19px}
+.small{font-size:14px;color:#666;line-height:1.5}
+.lead{font-size:17px;line-height:1.75;margin:6px 0}
+.btn{appearance:none;border:none;border-radius:16px;padding:10px 14px;min-height:50px;font-size:17px;font-weight:800;cursor:pointer;background:var(--blue);color:#fff;box-shadow:0 4px 0 rgba(0,0,0,.22);font-family:inherit;touch-action:manipulation}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.22)}
+.btn.org{background:var(--org)}.btn.pink{background:var(--pink)}.btn.teal{background:var(--teal)}.btn.purple{background:var(--purple)}.btn.gray{background:#8d99ae}.btn.green{background:var(--green)}
+.btn.white{background:#fff;color:var(--ink);border:3px solid #dcc8ff}.btn.on{outline:4px solid var(--purple);outline-offset:1px;background:#f6efff}
+.btn.small{min-height:44px;font-size:15px;padding:6px 10px}
+.btn:disabled{opacity:.4}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0;align-items:center}.cen{justify-content:center}
+.seg{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
+.hidden{display:none!important}
+.bubble{background:#eef4ff;border-radius:18px;padding:12px 14px;font-size:18px;line-height:1.7;min-height:64px;border:3px solid #d6e4ff}
+.bubble b{color:#c1121f}
+.fb{margin-top:8px;border-radius:14px;padding:8px 12px;font-size:17px;line-height:1.55;display:none}
+.fb.show{display:block}.fb.good{background:#d8f3dc}.fb.bad{background:#fff3cd}.fb.info{background:#f3e8ff}
+.done{background:linear-gradient(135deg,#d8f3dc,#fff1a8);border-radius:18px;padding:12px;font-size:18px;line-height:1.6;margin-top:10px}
+.tip{background:#fffbea;border:3px dashed var(--sun);border-radius:16px;padding:8px 12px;font-size:16px;line-height:1.6;margin-top:8px}
+.q{font-size:21px;line-height:1.6;font-weight:800;text-align:center;margin:6px 0;word-break:break-word}
+.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin-top:8px}
+.choices .btn{background:#fff;color:var(--ink);border:3px solid #d6e4ff;font-size:19px;min-height:58px;line-height:1.4}
+.choices .btn.ok{background:#d8f3dc;border-color:#2ec4b6}.choices .btn.no{background:#ffd6dc;border-color:#ff6b9a;animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.prog{display:flex;gap:4px;justify-content:center;margin:4px 0;flex-wrap:wrap}
+.prog i{width:20px;height:10px;border-radius:6px;background:#eee;display:block}.prog i.ok{background:#2ec4b6}.prog i.no{background:#ff6b9a}.prog i.cur{background:var(--sun)}
+table.rec{border-collapse:collapse;width:100%;font-size:16px}
+table.rec td,table.rec th{padding:8px;border-bottom:1px solid #eee;text-align:left;vertical-align:top}
+.statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.stat{background:#f3e8ff;border-radius:16px;padding:10px;text-align:center}.stat b{display:block;font-size:28px;color:#5b2a9e}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.bdg{background:#eee;border-radius:14px;padding:6px 10px;font-weight:800;color:#999;font-size:15px}.bdg.got{background:linear-gradient(135deg,#ffd166,#ff9f1c);color:#5a3b00}
+.bdg small{display:block;font-weight:600;font-size:12px}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;justify-content:space-around;background:#fff;padding:6px 4px;padding-bottom:calc(6px + env(safe-area-inset-bottom));box-shadow:0 -4px 16px rgba(0,0,0,.15)}
+nav.tabs button{flex:1;min-width:0;border:none;background:none;font-family:inherit;font-size:13px;font-weight:800;color:#666;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 1px;border-radius:14px;cursor:pointer;min-height:60px;touch-action:manipulation}
+nav.tabs button span{font-size:24px;line-height:1}nav.tabs button.on{background:#efe3ff;color:#5b2a9e}
+.burst{position:fixed;z-index:99;pointer-events:none;font-size:30px;animation:fly 1.1s ease-out forwards}
+@keyframes fly{to{transform:translate(var(--dx),var(--dy)) rotate(360deg);opacity:0}}
+/* ---- 英語 ---- */
+.en{font-family:"Arial Rounded MT Bold","Nunito","Varela Round","Trebuchet MS",Arial,sans-serif;letter-spacing:.5px}
+.emo{font-size:54px;line-height:1.1}
+.info{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:8px 0}
+.info div{background:#f6efff;border-radius:14px;padding:8px 10px;font-size:16px}.info b{display:block;font-size:13px;color:#5b2a9e}
+.notice{background:#fff3cd;border:3px solid #ffd166;border-radius:16px;padding:8px 12px;font-size:16px;line-height:1.6;margin:8px 0}
+.slow{display:flex;align-items:center;gap:6px;font-size:15px;font-weight:700}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.vcard{appearance:none;font-family:inherit;background:#fff;border:3px solid #dcc8ff;border-radius:20px;padding:10px 6px;cursor:pointer;text-align:center;position:relative;touch-action:manipulation;box-shadow:0 4px 0 #dcc8ff;color:var(--ink)}
+.vcard:active{transform:translateY(3px);box-shadow:0 1px 0 #dcc8ff}
+.vcard .emo{font-size:58px;display:block}.vcard .w{display:block;font-size:26px;font-weight:900;margin-top:2px}.vcard .m{display:block;font-size:15px;color:#666;margin-top:2px}
+.vcard.heard:after{content:"✓";position:absolute;right:8px;top:4px;color:var(--teal);font-weight:900;font-size:18px}
+.vcard.ext{border-style:dashed}
+.pat{background:#f6efff;border-radius:18px;padding:10px 12px;margin:8px 0;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.pat .who{font-size:30px}.pat .line{flex:1;min-width:180px;font-size:22px;font-weight:800}.pat .zh{display:block;font-size:15px;font-weight:600;color:#666}
+.map{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin:8px 0}
+.city{appearance:none;font-family:inherit;border:3px solid #cfe8ff;background:#f0f8ff;border-radius:16px;padding:8px;text-align:center;cursor:pointer;color:var(--ink);min-height:96px;touch-action:manipulation}
+.city .emo{font-size:40px;display:block}.city b{display:block;font-size:19px}.city small{font-size:13px;color:#666}
+.city.on{border-color:var(--purple);background:#f6efff}
+.tiles{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:8px 0}
+.tiles .btn{min-width:54px;min-height:54px;font-size:24px;background:#fff;color:var(--ink);border:3px solid #dcc8ff;text-transform:none}
+.tiles .btn.used{visibility:hidden}
+.slots{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;min-height:60px;margin:8px 0}
+.slots span{min-width:46px;height:56px;border-bottom:4px solid var(--purple);font-size:30px;font-weight:900;display:flex;align-items:center;justify-content:center;padding:0 4px}
+.slots.words span{min-width:60px;font-size:22px;background:#f6efff;border-radius:10px;border-bottom:none;padding:0 10px}
+.big{font-size:30px;font-weight:900;text-align:center;margin:6px 0}
+.big .e{color:#c1121f;text-decoration:underline}
+.magic{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.magic .btn{min-width:150px;min-height:70px;font-size:26px;background:#fff;color:var(--ink);border:3px solid #dcc8ff}
+.magic .btn.lit{background:#fff1a8;border-color:#ffd166}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+.two .btn{min-height:80px;font-size:19px;color:var(--ink);border:3px solid #ddd}
+.sh{background:#e6f0ff!important;border-color:#4d96ff!important}.lo{background:#fff1d6!important;border-color:#ff9f1c!important}
+.bins{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin-top:10px}
+.bin{border-radius:14px;padding:6px 8px;font-size:17px;line-height:1.5;min-height:48px;border:3px solid #eee}
+.bin b{display:block;font-size:15px}
+.match{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.match .col{display:flex;flex-direction:column;gap:8px}
+.match .btn{background:#fff;color:var(--ink);border:3px solid #d6e4ff;font-size:22px;min-height:60px;line-height:1.2;padding:6px 8px}
+.match .btn.pic{font-size:36px}
+.match .btn.sel{border-color:var(--purple);background:#f6efff}.match .btn.ok{background:#d8f3dc;border-color:#2ec4b6;opacity:.55}.match .btn.no{animation:shake .4s;border-color:#ff6b9a}
+.choices .btn.emo{font-size:44px;min-height:76px}
+.chant{background:#fffbea;border-radius:16px;padding:10px 14px;font-size:20px;line-height:1.8;font-weight:700}
+a.ext{color:#1d4ed8;font-weight:800}
+@media (max-width:420px){.vgrid{grid-template-columns:repeat(2,1fr)}.magic .btn{min-width:120px}.tiles .btn{min-width:46px;min-height:50px;font-size:22px}.pat .line{font-size:19px}}
+</style>
+</head>
+<body>
+<header>
+  <a class="back" href="../">← 英語</a>
+  <h1>🌬️ <span class="en">The Big Wind</span></h1>
+  <div class="score" id="score">⭐ 0</div>
+</header>
+<main>
+<div class="notice hidden" id="voiceNote"></div>
+
+<!-- ============ 單字 ============ -->
+<section class="page active" id="p-word">
+  <div class="card">
+    <h2>🌦️ Unit 1 <span class="en">The Big Wind</span>（天氣）</h2>
+    <div class="info">
+      <div><b>版本</b>康軒 Wonder World 3</div>
+      <div><b>單元</b>Unit 1 The Big Wind</div>
+      <div><b>主題</b>天氣 Weather</div>
+      <div><b>發音</b>e / e_e（Magic e）</div>
+    </div>
+    <div class="btns"><label class="slow"><input type="checkbox" id="slowChk"> 🐢 慢速朗讀</label><button class="btn white small" id="testVoice">🔊 試聽聲音</button></div>
+    <p class="small">點一下卡片就會念英文。發音是平板的電腦語音，正確的念法還是以課本 CD／Super 電子書為準喔！</p>
+  </div>
+
+  <div class="card">
+    <h3>🃏 本課單字（點卡片聽發音）</h3>
+    <div class="vgrid" id="vGrid"></div>
+    <h3 style="margin-top:14px">➕ 延伸單字</h3>
+    <div class="vgrid" id="xGrid"></div>
+    <p class="small">weather 是句型裡的字；snowy 出現在部分學校的學習單，不是本課必學字，也不會出現在測驗裡。</p>
+  </div>
+
+  <div class="card">
+    <h3>📚 故事：<span class="en">The Big Wind</span></h3>
+    <p class="lead">本課故事在課本第 15 頁，故事裡有 <b class="en">Ted</b> 和 <b class="en">Pete</b>，還會出現 <b class="en">theme park</b>（主題樂園）這個字。</p>
+    <p class="small">故事內容請跟著課本或 Super 電子書一起讀；這裡不抄課文。</p>
+    <div class="btns"><button class="btn white small" data-say="Ted">🔊 Ted</button><button class="btn white small" data-say="Pete">🔊 Pete</button><button class="btn white small" data-say="theme park">🔊 theme park</button></div>
+  </div>
+
+  <div class="card">
+    <h3>🎵 天氣小韻文（自編）</h3>
+    <p class="small">課本的歌謠是〈How's the Weather?〉，請聽課本 CD 跟唱。下面是另外寫的練習小韻文：</p>
+    <div class="chant en" id="chant"></div>
+    <div class="btns"><button class="btn purple" id="chantBtn">🔊 念給我聽</button></div>
+  </div>
+</section>
+
+<!-- ============ 句型 ============ -->
+<section class="page" id="p-pat">
+  <div class="card">
+    <h2>💬 本課句型</h2>
+    <div class="pat"><span class="who">🙋</span><span class="line en">How's the weather?<span class="zh">天氣怎麼樣？</span></span><button class="btn white small" data-say="How's the weather?">🔊</button></div>
+    <div class="pat"><span class="who">🧑‍🏫</span><span class="line en">It's sunny.<span class="zh">是晴天。</span></span><button class="btn white small" data-say="It's sunny.">🔊</button></div>
+    <div class="tip">💡 <b class="en">How's</b> = How is，<b class="en">It's</b> = It is。把 <b class="en">sunny</b> 換成 cloudy、rainy、windy、hot、cold 就能回答各種天氣！<br>➕ 延伸：問某個城市可以說 <b class="en">How's the weather in Taipei?</b></div>
+  </div>
+
+  <div class="card">
+    <h3>🗺️ 小小氣象臺（點城市聽問答）</h3>
+    <p class="small">今天的天氣預報（自編練習情境）。點一個城市，聽聽怎麼問、怎麼答。</p>
+    <div class="map" id="map"></div>
+    <div class="bubble en" id="mapSay">👆 先點一個城市</div>
+    <div class="btns"><button class="btn white small" id="newMap">🔄 換一份預報</button></div>
+  </div>
+
+  <div class="card">
+    <h3>🎤 氣象主播問答</h3>
+    <p class="small">看天氣預報，選出正確的回答。</p>
+    <div id="sentQ"></div>
+  </div>
+
+  <div class="card">
+    <h3>🧱 句子排排看</h3>
+    <p class="small">照順序點單字方塊，排出正確的句子。（句子是依本課句型自編）</p>
+    <div id="orderBox"></div>
+  </div>
+
+  <div class="card">
+    <h3>🚶 生活用語</h3>
+    <div id="dailyList"></div>
+    <div id="dailyQ"></div>
+  </div>
+</section>
+
+<!-- ============ 發音 ============ -->
+<section class="page" id="p-phon">
+  <div class="card">
+    <h2>🔤 字母拼讀：e 和 e_e</h2>
+    <div class="formula"><span class="f2">短母音 e：/ɛ/　bed、pen</span><br><span class="f3">長母音 e_e：念字母 E 的名字　Pete、theme</span></div>
+    <p class="lead">字尾有一個不發音的 <b>e</b>（Magic e）時，前面的 e 會念出自己的名字「E」。</p>
+    <p class="small">課本的 e_e 例字：<b class="en">Pete, theme park, Chinese</b>。短母音 e 的例字（bed、pen、ten……）是自己挑的常見字。</p>
+    <div class="btns"><button class="btn white small" data-say="Pete">🔊 Pete</button><button class="btn white small" data-say="theme park">🔊 theme park</button><button class="btn white small" data-say="Chinese">🔊 Chinese</button></div>
+  </div>
+  <div class="card">
+    <h3>🪄 Magic e 變變變</h3>
+    <p class="small">點左邊的字聽一聽，再點右邊加上 e 的字，比較母音怎麼變了。下面也複習 Get Ready 的 a / a_e（cape, mate, tape）。</p>
+    <div id="magicBox"></div>
+  </div>
+  <div class="card">
+    <h3>🧺 e 還是 e_e？分一分</h3>
+    <p class="small">聽一聽、看一看，這個字的 e 是短母音還是長母音？</p>
+    <div id="phonBox"></div>
+  </div>
+</section>
+
+<!-- ============ 聽力 ============ -->
+<section class="page" id="p-listen">
+  <div class="card">
+    <h2>👂 聽力小測驗</h2>
+    <p class="small">按 🔊 聽英文，選出正確的天氣圖。可以一直重聽喔！</p>
+    <div id="listenQ"></div>
+  </div>
+  <div class="card">
+    <h3>📻 聽句子選天氣</h3>
+    <p class="small">聽聽氣象主播說什麼天氣？（句子自編）</p>
+    <div id="listen2Q"></div>
+  </div>
+</section>
+
+<!-- ============ 遊戲 ============ -->
+<section class="page" id="p-game">
+  <div class="card">
+    <h2>🔡 拼字遊戲</h2>
+    <p class="small">看圖和中文，點字母方塊拼出英文單字（有 2 個是多出來的字母喔）。</p>
+    <div id="spellBox"></div>
+  </div>
+  <div class="card">
+    <h2>🧩 圖字配對</h2>
+    <p class="small">先點左邊的單字，再點右邊對應的圖。</p>
+    <div id="matchBox"></div>
+  </div>
+</section>
+
+<!-- ============ 挑戰 ============ -->
+<section class="page" id="p-ch">
+  <div class="card">
+    <h2>🏆 Unit 1 綜合挑戰（10 題）</h2>
+    <p class="small">單字、聽力、句型、e / e_e 發音和生活用語通通有！答對 9 題以上拿「挑戰王」徽章。</p>
+    <div id="chBox"></div>
+  </div>
+</section>
+
+<!-- ============ 紀錄 ============ -->
+<section class="page" id="p-rec">
+  <div class="card"><h2>🏆 我的紀錄</h2><div class="statgrid" id="stats"></div><div class="badges" id="badges"></div></div>
+  <div class="card"><h3>🔎 常錯的地方</h3><div id="mist"></div></div>
+  <div class="card"><button class="btn gray" id="resetBtn">清除紀錄</button><p class="small">紀錄只存在這台平板的瀏覽器裡。</p>
+    <p class="small">資料來源：康軒 Wonder World 3 的單元架構、本課字彙（cloudy, rainy, sunny, windy, cold, hot）、句型（How's the weather? It's sunny.）、生活用語（Line up, please. / Let's go.）、歌謠名稱〈How's the Weather?〉和字母拼讀例字（Pete, theme park, Chinese）依臺北市國小 114 學年英語課程計畫；I can't wait.、繪本 The Weather Girls 依東園國小課程計畫；中文意思、Ted／Pete 和 theme park 參考老師製作的 Wonder World 3 Unit 1 Quizlet 單字卡；故事頁數（第 15 頁）參考學校英語網站。</p>
+    <p class="small">✏️ <b>自編說明：</b>天氣預報的城市和天氣、句子排排看的句子、生活用語的情境、聽句子選天氣、天氣小韻文、短母音 e 例字（bed、pen、ten、hen、red、net、leg、pet、them）和 these、Eve、gene、Magic e 的 pet→Pete、them→theme，以及所有測驗題目，都是為了練習自己編寫的，不是課本原文；emoji 圖示是自己挑的；延伸單字 snowy 不是本課必學字。發音使用裝置的電腦語音，請以課本 CD／Super 電子書為準。</p></div>
+</section>
+</main>
+
+<nav class="tabs" id="tabs">
+  <button class="on" data-p="p-word"><span>🃏</span>單字</button>
+  <button data-p="p-pat"><span>💬</span>句型</button>
+  <button data-p="p-phon"><span>🔤</span>發音</button>
+  <button data-p="p-listen"><span>👂</span>聽力</button>
+  <button data-p="p-game"><span>🎮</span>遊戲</button>
+  <button data-p="p-ch"><span>🏆</span>挑戰</button>
+  <button data-p="p-rec"><span>📊</span>紀錄</button>
+</nav>
+
+<script id="core">
+var Core=(function(){
+"use strict";
+/* 單字：康軒 Wonder World 3 Unit 1 The Big Wind 本課字彙（臺北市國小 114 學年課程計畫：cloudy, rainy, sunny, windy, cold, hot）
+   中文意思參考老師製作的 Quizlet 單字卡；emoji 是自己挑的圖示 */
+var WORDS=[
+ {w:"sunny",e:"☀️",m:"晴朗的",ex:"It's sunny."},
+ {w:"cloudy",e:"☁️",m:"陰天的；多雲的",ex:"It's cloudy."},
+ {w:"rainy",e:"🌧️",m:"下雨的",ex:"It's rainy."},
+ {w:"windy",e:"🌬️",m:"颳風的",ex:"It's windy."},
+ {w:"hot",e:"🥵",m:"熱的",ex:"It's hot."},
+ {w:"cold",e:"🥶",m:"冷的",ex:"It's cold."}
+];
+/* 延伸（不放進測驗）：weather 是句型裡的字；snowy 出現在部分學校的學習單 */
+var EXTRA=[
+ {w:"weather",e:"🌦️",m:"天氣",ex:"How's the weather?"},
+ {w:"snowy",e:"❄️",m:"下雪的",ex:"It's snowy."}
+];
+/* 天氣預報地圖（城市和天氣都是自編的練習情境） */
+var CITIES=["Taipei","Taichung","Tainan","Kaohsiung","Hualien","Taitung","Keelung","Yilan"];
+var CITYZH={Taipei:"臺北",Taichung:"臺中",Tainan:"臺南",Kaohsiung:"高雄",Hualien:"花蓮",Taitung:"臺東",Keelung:"基隆",Yilan:"宜蘭"};
+/* 句子排排看（課本句型 How's the weather? It's sunny.；加上 in + 城市的延伸練習，句子自編） */
+var ORDER=[
+ "How's the weather?",
+ "It's sunny.",
+ "How's the weather in Taipei?",
+ "It's rainy in Tainan.",
+ "It's windy today.",
+ "It's cold and cloudy."
+];
+/* 生活用語：Line up, please. / Let's go.（課程計畫）；I can't wait.（東園國小課程計畫）；情境自編 */
+var DAILY=[
+ {p:"Line up, please.",m:"請排隊。",s:"老師要大家在教室門口排好隊，準備去操場。"},
+ {p:"Let's go.",m:"我們走吧！",s:"大家都準備好了，要一起出發去主題樂園。"},
+ {p:"I can't wait.",m:"我等不及了！",s:"明天就要去遠足，你好期待、好興奮。"}
+];
+/* 字母拼讀：短母音 e 與長母音 e_e（Magic e）。課本例字 Pete, theme (park), Chinese（課程計畫）；短母音 e 例字自編 */
+var PHON=[
+ {w:"bed",s:"short",e:"🛏️",m:"床"},
+ {w:"pen",s:"short",e:"🖊️",m:"原子筆"},
+ {w:"ten",s:"short",e:"🔟",m:"十"},
+ {w:"hen",s:"short",e:"🐔",m:"母雞"},
+ {w:"red",s:"short",e:"🔴",m:"紅色"},
+ {w:"net",s:"short",e:"🥅",m:"網子"},
+ {w:"leg",s:"short",e:"🦵",m:"腿"},
+ {w:"pet",s:"short",e:"🐶",m:"寵物"},
+ {w:"them",s:"short",e:"👥",m:"他們（受詞）"},
+ {w:"Pete",s:"long",e:"👦",m:"彼特（人名）",book:1},
+ {w:"theme",s:"long",e:"🎢",m:"主題（theme park 主題樂園）",book:1},
+ {w:"Chinese",s:"long",e:"🀄",m:"中文；中國的",book:1},
+ {w:"these",s:"long",e:"👉",m:"這些"},
+ {w:"Eve",s:"long",e:"👧",m:"伊芙（人名）"},
+ {w:"gene",s:"long",e:"🧬",m:"基因"}
+];
+/* Magic e 變身：加上 e，前面的母音就念自己的名字（e_e 的 pet→Pete、them→theme 自編；a_e 的 cape, mate, tape 是 Get Ready 課本例字） */
+var MAGIC=[
+ {a:"pet",b:"Pete",v:"e"},
+ {a:"them",b:"theme",v:"e"},
+ {a:"cap",b:"cape",v:"a"},
+ {a:"mat",b:"mate",v:"a"},
+ {a:"tap",b:"tape",v:"a"}
+];
+function shuffle(a,rnd){rnd=rnd||Math.random;var b=a.slice();for(var i=b.length-1;i>0;i--){var j=Math.floor(rnd()*(i+1));var t=b[i];b[i]=b[j];b[j]=t;}return b;}
+function pick(a,n,rnd){return shuffle(a,rnd).slice(0,n);}
+function wordBy(w){var all=WORDS.concat(EXTRA);for(var i=0;i<all.length;i++)if(all[i].w===w)return all[i];return null;}
+function cap(s){return s.charAt(0).toUpperCase()+s.slice(1);}
+/* 天氣預報：每個城市配一種天氣 */
+function forecast(n,rnd){rnd=rnd||Math.random;var cs=pick(CITIES,n||4,rnd);return cs.map(function(c){return {city:c,w:pick(WORDS,1,rnd)[0].w};});}
+function answerFor(f){return "It's "+f.w+".";}
+function questionFor(city){return city?"How's the weather in "+city+"?":"How's the weather?";}
+function wordQ(kind,wd,rnd){
+ rnd=rnd||Math.random;var others=pick(WORDS.filter(function(x){return x.w!==wd.w;}),2,rnd),q,a,o;
+ if(kind==="pic"){q='<span class="emo">'+wd.e+'</span><br>這是哪個字？';a=wd.w;o=[wd.w].concat(others.map(function(x){return x.w;}));}
+ else if(kind==="zh"){q="「"+wd.m+"」的英文是？";a=wd.w;o=[wd.w].concat(others.map(function(x){return x.w;}));}
+ else {q="🔊 聽一聽，是哪一張圖？";a=wd.e;o=[wd.e].concat(others.map(function(x){return x.e;}));}
+ return {type:kind==="listen"?"listen":"word",kind:kind,w:wd.w,q:q,a:a,o:shuffle(o,rnd),speak:kind==="listen"?wd.w:null};
+}
+function sentQ(rnd){
+ rnd=rnd||Math.random;var f=forecast(3,rnd),t=f[0];
+ var wrong=pick(WORDS.filter(function(x){return x.w!==t.w;}),2,rnd).map(function(x){return "It's "+x.w+".";});
+ return {type:"sent",q:"🗺️ 天氣預報："+f.map(function(x){return x.city+" "+wordBy(x.w).e;}).join("　")+"<br><b>"+questionFor(t.city)+"</b>",a:answerFor(t),o:shuffle([answerFor(t)].concat(wrong),rnd),speak:questionFor(t.city)};
+}
+function phonQ(rnd){
+ rnd=rnd||Math.random;var want=rnd()<0.5?"long":"short",other=want==="long"?"short":"long";
+ var a=pick(PHON.filter(function(p){return p.s===want;}),1,rnd)[0],o=pick(PHON.filter(function(p){return p.s===other;}),2,rnd);
+ return {type:"phon",q:want==="long"?"哪一個字的 e 念長母音（e_e，念字母 E 的名字）？":"哪一個字的 e 念短母音（像 bed 的 e）？",a:a.w,o:shuffle([a.w,o[0].w,o[1].w],rnd)};
+}
+function dailyQ(rnd){
+ rnd=rnd||Math.random;var d=pick(DAILY,1,rnd)[0];
+ return {type:"daily",q:"情境："+d.s+"<br>這時候可以說什麼？",a:d.p,o:shuffle(DAILY.map(function(x){return x.p;}),rnd)};
+}
+function makeChallenge(rnd){
+ rnd=rnd||Math.random;var ws=pick(WORDS,5,rnd),out=[];
+ out.push(wordQ("pic",ws[0],rnd));out.push(wordQ("zh",ws[1],rnd));out.push(wordQ("zh",ws[2],rnd));
+ out.push(wordQ("listen",ws[3],rnd));out.push(wordQ("listen",ws[4],rnd));
+ out.push(sentQ(rnd));out.push(sentQ(rnd));
+ out.push(phonQ(rnd));out.push(phonQ(rnd));
+ out.push(dailyQ(rnd));
+ return shuffle(out,rnd);
+}
+function check(q,ans){return q.a===ans;}
+function phonCheck(w,s){for(var i=0;i<PHON.length;i++)if(PHON[i].w===w)return PHON[i].s===s;return false;}
+function matchCheck(word,emoji){var x=wordBy(word);return !!x&&x.e===emoji;}
+/* 拼字：字母方塊＝這個字的字母＋2 個干擾字母 */
+function tiles(word,rnd){rnd=rnd||Math.random;var letters=word.split(""),pool="abcdefghijklmnopqrstuvwxyz".split("").filter(function(c){return word.indexOf(c)<0;});
+ return shuffle(letters.concat(pick(pool,2,rnd)),rnd);}
+function spellCheck(word,typed){return String(typed).toLowerCase()===word.toLowerCase();}
+/* 句子排排看：切成單字方塊 */
+function tokens(s){return s.replace(/([?.!])$/," $1").split(" ");}
+function joinTokens(t){return t.join(" ").replace(/ ([?.!])$/,"$1");}
+function stars(correct,total){if(!total)return 0;var r=correct/total;return r>=1?3:r>=0.7?2:r>=0.4?1:0;}
+var BADGES=[
+ {id:"words",n:"🃏 單字收集家",d:"6 張單字卡都聽過"},
+ {id:"listen",n:"👂 順風耳",d:"聽力測驗全對"},
+ {id:"spell",n:"🔡 拼字小高手",d:"6 個單字都拼對過"},
+ {id:"match",n:"🧩 配對王",d:"完成一次圖字配對"},
+ {id:"sent",n:"🗺️ 氣象小主播",d:"天氣預報問答和句子排排看都完成"},
+ {id:"phon",n:"🪄 Magic e 魔法師",d:"e / e_e 分類全對"},
+ {id:"daily",n:"🚶 生活用語通",d:"生活用語全對"},
+ {id:"champ",n:"🏆 挑戰王",d:"綜合挑戰答對 9 題以上"}
+];
+function badges(st){
+ var g={};st=st||{};
+ if(st.heard&&WORDS.every(function(w){return st.heard[w.w];}))g.words=1;
+ if(st.listenBest>=WORDS.length)g.listen=1;
+ if(st.spelled&&WORDS.every(function(w){return st.spelled[w.w];}))g.spell=1;
+ if(st.matchDone>=1)g.match=1;
+ if(st.sentDone>=1&&st.orderDone>=1)g.sent=1;
+ if(st.phonPerfect>=1)g.phon=1;
+ if(st.dailyBest>=DAILY.length)g.daily=1;
+ if(st.chBest>=9)g.champ=1;
+ return g;
+}
+function lcg(seed){var s=seed>>>0;return function(){s=(s*1664525+1013904223)>>>0;return s/4294967296;};}
+return {WORDS:WORDS,EXTRA:EXTRA,CITIES:CITIES,CITYZH:CITYZH,ORDER:ORDER,DAILY:DAILY,PHON:PHON,MAGIC:MAGIC,BADGES:BADGES,
+ shuffle:shuffle,pick:pick,wordBy:wordBy,cap:cap,forecast:forecast,answerFor:answerFor,questionFor:questionFor,wordQ:wordQ,sentQ:sentQ,phonQ:phonQ,dailyQ:dailyQ,
+ makeChallenge:makeChallenge,check:check,phonCheck:phonCheck,matchCheck:matchCheck,tiles:tiles,spellCheck:spellCheck,tokens:tokens,joinTokens:joinTokens,stars:stars,badges:badges,lcg:lcg};
+})();
+if(typeof module!=="undefined"&&module.exports)module.exports=Core;
+</script>
+<script>
+(function(){
+"use strict";
+if(typeof document==="undefined")return;
+var $=function(id){return document.getElementById(id);};
+var C=Core,KEY="enWW3U1V1";
+function each(list,fn){Array.prototype.forEach.call(list,fn);}
+function fresh(){return {stars:0,heard:{},spelled:{},listenBest:0,matchDone:0,sentDone:0,orderDone:0,phonPerfect:0,phonDone:0,dailyBest:0,chBest:0,slow:false,bad:{}};}
+var store=fresh();
+try{var raw=localStorage.getItem(KEY);if(raw){var o=JSON.parse(raw);for(var k in o)store[k]=o[k];}}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
+var TN={word:"🃏 單字",listen:"👂 聽力",sent:"🗺️ 天氣問答",order:"🧱 句子排排看",daily:"🚶 生活用語",phon:"🔤 e / e_e 發音",spell:"🔡 拼字",match:"🧩 圖字配對"};
+function miss(t){store.bad[t]=(store.bad[t]||0)+1;save();}
+function renderScore(){$("score").textContent="⭐ "+store.stars;}
+function addStars(n,el){if(n<=0)return;store.stars+=n;save();renderScore();var sc=$("score");sc.classList.remove("pop");void sc.offsetWidth;sc.classList.add("pop");
+  if(el&&el.getBoundingClientRect){var r=el.getBoundingClientRect();for(var i=0;i<6;i++){var s=document.createElement("div");s.className="burst";s.textContent=["⭐","✨","🌟"][i%3];
+    s.style.left=(r.left+r.width/2)+"px";s.style.top=(r.top+20)+"px";s.style.setProperty("--dx",(Math.random()*160-80)+"px");s.style.setProperty("--dy",(-60-Math.random()*120)+"px");
+    document.body.appendChild(s);setTimeout(function(x){return function(){if(x.parentNode)x.parentNode.removeChild(x);};}(s),1200);}}}
+var actx=null;function beep(good){try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();(good?[660,880]:[260]).forEach(function(f,i){var o=actx.createOscillator(),g=actx.createGain();o.frequency.value=f;o.type="triangle";g.gain.setValueAtTime(.08,actx.currentTime+i*.08);g.gain.exponentialRampToValueAtTime(.001,actx.currentTime+i*.08+.2);o.connect(g);g.connect(actx.destination);o.start(actx.currentTime+i*.08);o.stop(actx.currentTime+i*.08+.22);});}catch(e){}}
+
+/* ---------- 英文發音（en-US），沒有語音時優雅退回 ---------- */
+var canSpeak=!!(window.speechSynthesis&&window.SpeechSynthesisUtterance),enVoice=null,voiceChecked=false;
+function note(msg){var n=$("voiceNote");if(!msg){n.className="notice hidden";return;}n.className="notice";n.innerHTML=msg;}
+function findVoice(){
+  if(!canSpeak)return;var vs=[];try{vs=speechSynthesis.getVoices()||[];}catch(e){}
+  if(!vs.length)return;voiceChecked=true;enVoice=null;
+  for(var i=0;i<vs.length;i++){if(/^en[-_]US/i.test(vs[i].lang)){enVoice=vs[i];break;}}
+  if(!enVoice)for(var j=0;j<vs.length;j++){if(/^en/i.test(vs[j].lang)){enVoice=vs[j];break;}}
+  if(!enVoice)note("🔈 這台裝置好像沒有英文語音，念出來可能不標準。可以到平板的「設定 → 語言與輸入／朗讀」下載英文（美國）語音，或用課本 CD／Super 電子書聽發音。");
+  else note("");
+}
+if(!canSpeak)note("🔇 這個瀏覽器不能朗讀英文。聽力題會改成「看字作答」，發音請聽課本 CD／Super 電子書。");
+else{findVoice();try{speechSynthesis.onvoiceschanged=findVoice;}catch(e){}}
+function say(t){
+  if(!canSpeak)return false;
+  try{speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(String(t).replace(/<[^>]+>/g,""));u.lang="en-US";if(enVoice)u.voice=enVoice;u.rate=store.slow?.6:.85;speechSynthesis.speak(u);return true;}catch(e){return false;}
+}
+$("slowChk").checked=!!store.slow;
+$("slowChk").addEventListener("change",function(){store.slow=$("slowChk").checked;save();say("How's the weather?");});
+$("testVoice").addEventListener("click",function(){if(!say("Hello! How's the weather?"))note("🔇 這個瀏覽器不能朗讀英文，請用課本 CD／Super 電子書聽發音。");});
+function bindSay(root){each((root||document).querySelectorAll("[data-say]"),function(b){if(b.getAttribute("data-bound"))return;b.setAttribute("data-bound","1");b.addEventListener("click",function(){say(b.getAttribute("data-say"));});});}
+
+function goTab(p){each(document.querySelectorAll("#tabs button"),function(x){x.classList.toggle("on",x.getAttribute("data-p")===p);});
+  each(document.querySelectorAll("section.page"),function(s){s.classList.toggle("active",s.id===p);});
+  if(p==="p-rec")renderRec();
+  var rb=document.querySelector("#"+p+" .rep");if(rb&&rb.textContent.indexOf("再聽")>=0)setTimeout(function(){rb.click();},300);window.scrollTo(0,0);}
+each(document.querySelectorAll("#tabs button"),function(b){b.addEventListener("click",function(){goTab(b.getAttribute("data-p"));});});
+
+/* ---------- 通用測驗（支援聽力題） ---------- */
+var sayT=null;
+function runQuiz(boxId,make,opt){
+  var box=$(boxId),items=[],i=0,right=0,answered=false;
+  function start(){items=make();i=0;right=0;draw();}
+  function draw(){
+    clearTimeout(sayT);var it=items[i],h='<div class="prog">';
+    for(var k=0;k<items.length;k++)h+='<i class="'+(k<i?(items[k].ok?"ok":"no"):k===i?"cur":"")+'"></i>';
+    var q=it.q;
+    if(it.speak&&it.type==="listen"&&!canSpeak)q="👀 看字作答：<b class=\"en\">"+it.speak+"</b><br>是哪一張圖？";
+    h+='</div><div class="q">'+q+'</div>';
+    if(it.speak&&canSpeak)h+='<div class="btns cen"><button class="btn purple rep">🔊 '+(it.type==="listen"?"再聽一次":"聽題目")+'</button></div>';
+    h+='<div class="choices"></div><div class="fb"></div><div class="btns cen"><button class="btn org hidden nx">下一題 ➜</button></div>';
+    box.innerHTML=h;answered=false;
+    var ch=box.querySelector(".choices");
+    it.o.forEach(function(op){var b=document.createElement("button");b.className="btn"+(/^[\u2600-\u27BF\uD83C-\uDBFF]/.test(op)&&op.length<=4?" emo":" en");b.textContent=op;b.addEventListener("click",function(){pickAns(b,op);});ch.appendChild(b);});
+    var rep=box.querySelector(".rep");if(rep)rep.addEventListener("click",function(){say(it.speak);});
+    if(it.speak&&it.type==="listen"&&opt.auto!==false&&canSpeak&&box.offsetParent)say(it.speak);
+    box.querySelector(".nx").addEventListener("click",function(){i++;if(i<items.length)draw();else finish();});
+  }
+  function pickAns(b,op){
+    if(answered)return;answered=true;var it=items[i],ok=op===it.a,f=box.querySelector(".fb");it.ok=ok;
+    each(box.querySelectorAll(".choices .btn"),function(x){if(x.textContent===it.a)x.classList.add("ok");x.disabled=x!==b&&x.textContent!==it.a;});
+    var extra=it.w?' <b class="en">'+it.w+'</b>（'+C.wordBy(it.w).m+'）':"";
+    if(ok){right++;b.classList.add("ok");beep(true);addStars(1,b);f.className="fb show good";f.innerHTML="✅ 答對了！"+extra+(it.tip?" "+it.tip:"");}
+    else{b.classList.add("no");beep(false);miss(it.type||opt.type);f.className="fb show bad";f.innerHTML="再想想：正確答案是「<b>"+it.a+"</b>」。"+extra+(it.tip?" "+it.tip:"");}
+    clearTimeout(sayT);if(/^[A-Za-z]/.test(it.a))sayT=setTimeout(function(){say(it.a);},250);else if(it.w)sayT=setTimeout(function(){say(it.w);},250);
+    var nx=box.querySelector(".nx");nx.textContent=i<items.length-1?"下一題 ➜":"看成績 🎉";nx.classList.remove("hidden");
+  }
+  function finish(){
+    var st=C.stars(right,items.length);addStars(st,box);
+    if(opt.onDone)opt.onDone(right,items.length);
+    box.innerHTML='<div class="done">🎉 答對 <b>'+right+'</b> / '+items.length+' 題　'+(st?"再加 "+st+" 顆星！":"")+'<br>'+(right===items.length?"全對！Great job!":"錯的地方再聽一次、看一次，再挑戰一次吧！")+'</div><div class="btns cen"><button class="btn purple again">🔄 再玩一次</button></div>';
+    box.querySelector(".again").addEventListener("click",start);
+  }
+  start();
+  return {restart:start};
+}
+
+/* ---------- 單字卡 ---------- */
+function cardHtml(w,ext){return '<button class="vcard'+(ext?" ext":"")+(store.heard[w.w]?" heard":"")+'" data-w="'+w.w+'"><span class="emo">'+w.e+'</span><span class="w en">'+w.w+'</span><span class="m">'+w.m+'</span></button>';}
+function renderCards(){
+  $("vGrid").innerHTML=C.WORDS.map(function(w){return cardHtml(w,false);}).join("");
+  $("xGrid").innerHTML=C.EXTRA.map(function(w){return cardHtml(w,true);}).join("");
+  each(document.querySelectorAll(".vcard"),function(b){b.addEventListener("click",function(){var w=C.wordBy(b.getAttribute("data-w"));say(w.w+". "+w.ex);
+    if(!store.heard[w.w]){store.heard[w.w]=1;save();b.classList.add("heard");if(C.WORDS.every(function(x){return store.heard[x.w];})&&C.WORDS.some(function(x){return x.w===w.w;}))addStars(3,b);}});});
+}
+renderCards();
+var CHANT=["Sunny, sunny, it's sunny!","Rainy, rainy, it's rainy!","How's the weather? How's the weather?","Windy, windy, it's windy! Whoosh!"];
+$("chant").innerHTML=CHANT.join("<br>");
+$("chantBtn").addEventListener("click",function(){say(CHANT.join(" "));});
+bindSay();
+
+/* ---------- 句型：天氣地圖 ---------- */
+var fc=[];
+function drawMap(){fc=C.forecast(4);$("map").innerHTML=fc.map(function(f,i){var w=C.wordBy(f.w);return '<button class="city" data-i="'+i+'"><span class="emo">'+w.e+'</span><b class="en">'+f.city+'</b><small>'+C.CITYZH[f.city]+'</small></button>';}).join("");
+  $("mapSay").innerHTML="👆 先點一個城市";
+  each($("map").querySelectorAll(".city"),function(b){b.addEventListener("click",function(){var f=fc[+b.getAttribute("data-i")];each($("map").querySelectorAll(".city"),function(x){x.classList.toggle("on",x===b);});
+    $("mapSay").innerHTML="🙋 "+C.questionFor(f.city)+"<br>🧑‍🏫 "+C.answerFor(f)+' <span class="small">（'+C.CITYZH[f.city]+"："+C.wordBy(f.w).m+"）</span>";say(C.questionFor(f.city)+" "+C.answerFor(f));});});}
+drawMap();$("newMap").addEventListener("click",drawMap);
+runQuiz("sentQ",function(){var a=[];for(var k=0;k<6;k++)a.push(C.sentQ());return a;},{type:"sent",onDone:function(){store.sentDone=(store.sentDone||0)+1;save();}});
+
+/* ---------- 句子排排看 ---------- */
+function startOrder(){
+  var list=C.shuffle(C.ORDER).slice(0,4),idx=0,errs=0,box=$("orderBox");
+  function draw(){
+    if(idx>=list.length){var st=errs===0?3:errs<=2?2:1;addStars(st,box);store.orderDone=(store.orderDone||0)+1;save();
+      box.innerHTML='<div class="done">🧱 4 個句子都排好了！錯 '+errs+' 次，得到 '+st+' 顆星。</div><div class="btns cen"><button class="btn purple" id="oAgain">🔄 再排一次</button></div>';
+      $("oAgain").addEventListener("click",startOrder);return;}
+    var target=C.tokens(list[idx]),got=[],pool=C.shuffle(target.map(function(t,i){return {t:t,i:i};}));
+    function paint(){
+      var h='<div class="prog">';for(var k=0;k<list.length;k++)h+='<i class="'+(k<idx?"ok":k===idx?"cur":"")+'"></i>';
+      h+='</div><div class="slots words en">'+target.map(function(t,k){return '<span>'+(k<got.length?got[k]:"")+'</span>';}).join("")+'</div><div class="tiles en">';
+      pool.forEach(function(p,k){h+='<button class="btn'+(p.used?" used":"")+'" data-k="'+k+'">'+p.t+'</button>';});
+      h+='</div><div class="fb" id="oFb"></div>';box.innerHTML=h;
+      each(box.querySelectorAll(".tiles .btn"),function(b){b.addEventListener("click",function(){var p=pool[+b.getAttribute("data-k")];if(p.used)return;
+        if(p.t===target[got.length]){p.used=true;got.push(p.t);beep(true);
+          if(got.length===target.length){say(list[idx]);paint();var f=$("oFb");f.className="fb show good";f.innerHTML='✅ <b class="en">'+list[idx]+'</b>';setTimeout(function(){idx++;draw();},1200);return;}
+          paint();}
+        else{beep(false);errs++;miss("order");b.classList.remove("no");var f=$("oFb");f.className="fb show bad";f.innerHTML="還不是這個字喔！句子第 "+(got.length+1)+" 個字是什麼？"+(got.length===0?"（句子開頭字母要大寫）":"");}});});
+    }
+    paint();
+  }
+  draw();
+}
+startOrder();
+
+/* ---------- 生活用語 ---------- */
+$("dailyList").innerHTML=C.DAILY.map(function(d){return '<div class="pat"><span class="who">🗣️</span><span class="line en">'+d.p+'<span class="zh">'+d.m+'</span></span><button class="btn white small" data-say="'+d.p.replace(/"/g,"&quot;")+'">🔊</button></div>';}).join("")+'<p class="small">Line up, please. 和 Let\'s go. 是本課生活用語；I can\'t wait. 依部分學校課程計畫列入。情境是自編的。</p>';
+bindSay($("dailyList"));
+runQuiz("dailyQ",function(){return C.shuffle(C.DAILY).map(function(d){return {type:"daily",q:"情境："+d.s+"<br>這時候可以說什麼？",a:d.p,o:C.shuffle(C.DAILY.map(function(x){return x.p;}))};});},{type:"daily",onDone:function(r){store.dailyBest=Math.max(store.dailyBest||0,r);save();}});
+
+/* ---------- 發音：Magic e ---------- */
+$("magicBox").innerHTML=C.MAGIC.map(function(m){return '<div class="magic" style="margin:6px 0"><button class="btn en" data-say="'+m.a+'">'+m.a+'</button><span style="font-size:28px;align-self:center">➜ +e ➜</span><button class="btn en lit" data-say="'+m.b+'">'+m.b+'</button></div>';}).join("")+'<p class="small">前兩組練習本課的 e / e_e（自編）；後三組複習 Get Ready 的 a / a_e。</p>';
+bindSay($("magicBox"));
+/* 發音分類 */
+function startPhon(){
+  var items=C.shuffle(C.PHON).slice(0,10),i=0,errs=0,box=$("phonBox"),placed={short:[],long:[]};
+  function draw(){
+    var h='<div class="prog">';for(var k=0;k<items.length;k++)h+='<i class="'+(k<i?(items[k].ok?"ok":"no"):k===i?"cur":"")+'"></i>';h+='</div>';
+    if(i<items.length){var it=items[i];h+='<div class="big en">'+it.e+' '+it.w+'</div><div class="small" style="text-align:center">'+it.m+(it.book?"（課本例字）":"")+'</div><div class="btns cen"><button class="btn white small" id="pSay">🔊 聽一聽</button></div>'+
+      '<div class="two"><button class="btn sh" data-s="short">短母音 e<br><span class="en">bed 的 e</span></button><button class="btn lo" data-s="long">長母音 e_e<br><span class="en">Pete 的 e</span></button></div><div class="fb" id="pFb"></div>';}
+    h+='<div class="bins"><div class="bin sh"><b>短母音 e</b><span class="en">'+placed.short.join("、")+'</span></div><div class="bin lo"><b>長母音 e_e</b><span class="en">'+placed.long.join("、")+'</span></div></div>';
+    if(i>=items.length){var st=errs===0?4:errs<=2?2:1;addStars(st,box);store.phonDone=(store.phonDone||0)+1;if(errs===0)store.phonPerfect=(store.phonPerfect||0)+1;save();
+      h+='<div class="done">🎉 分類完成！錯 '+errs+' 次，得到 '+st+' 顆星。'+(errs===0?"全對，你是 Magic e 魔法師！":"")+'</div><div class="btns cen"><button class="btn purple" id="pAgain">🔄 再玩一次</button></div>';}
+    box.innerHTML=h;
+    if(i>=items.length){$("pAgain").addEventListener("click",startPhon);return;}
+    $("pSay").addEventListener("click",function(){say(items[i].w);});
+    each(box.querySelectorAll(".two .btn"),function(b){b.addEventListener("click",function(){var s=b.getAttribute("data-s"),it=items[i];
+      if(C.phonCheck(it.w,s)){beep(true);if(it.ok!==false)it.ok=true;placed[s].push(it.w);say(it.w);i++;draw();}
+      else{beep(false);errs++;it.ok=false;miss("phon");var f=$("pFb");f.className="fb show bad";f.innerHTML=/e[^aeiou]e$/i.test(it.w)?"看看字尾：有 Magic e，前面的 e 要念「E」的名字喔！":"字尾沒有 Magic e，這個 e 念短短的 /ɛ/，像 bed。";}});});
+  }
+  draw();
+}
+startPhon();
+
+/* ---------- 聽力 ---------- */
+runQuiz("listenQ",function(){return C.shuffle(C.WORDS).map(function(w){return C.wordQ("listen",w);});},{type:"listen",onDone:function(r){store.listenBest=Math.max(store.listenBest||0,r);save();}});
+runQuiz("listen2Q",function(){return C.pick(C.forecast(8),5).map(function(f){var w=C.wordBy(f.w),o=[w.e].concat(C.pick(C.WORDS.filter(function(x){return x.w!==w.w;}),2).map(function(x){return x.e;}));
+  var s="It's "+f.w+" in "+f.city+".";return {type:"listen",q:"🔊 聽一聽，"+C.CITYZH[f.city]+"是什麼天氣？",a:w.e,o:C.shuffle(o),speak:s,w:w.w};});},{type:"listen"});
+
+/* ---------- 拼字 ---------- */
+function startSpell(){
+  var list=C.shuffle(C.WORDS),idx=0,errs=0,box=$("spellBox");
+  function draw(){
+    if(idx>=list.length){var st=errs===0?3:errs<=3?2:1;addStars(st,box);
+      box.innerHTML='<div class="done">🔡 6 個單字都拼好了！錯 '+errs+' 次，得到 '+st+' 顆星。</div><div class="btns cen"><button class="btn purple" id="spAgain">🔄 再玩一次</button></div>';
+      $("spAgain").addEventListener("click",startSpell);return;}
+    var w=list[idx],got="",pool=C.tiles(w.w).map(function(t){return {t:t};});
+    function paint(){
+      var h='<div class="prog">';for(var k=0;k<list.length;k++)h+='<i class="'+(k<idx?"ok":k===idx?"cur":"")+'"></i>';
+      h+='</div><div class="big"><span class="emo">'+w.e+'</span><br>'+w.m+'</div><div class="btns cen"><button class="btn white small" id="spSay">🔊 聽發音</button></div><div class="slots en">';
+      for(var k2=0;k2<w.w.length;k2++)h+='<span>'+(k2<got.length?got.charAt(k2):"")+'</span>';
+      h+='</div><div class="tiles en">';pool.forEach(function(p,k){h+='<button class="btn'+(p.used?" used":"")+'" data-k="'+k+'">'+p.t+'</button>';});
+      h+='</div><div class="btns cen"><button class="btn gray small" id="spBack">⌫ 退一格</button></div><div class="fb" id="spFb"></div>';box.innerHTML=h;
+      $("spSay").addEventListener("click",function(){say(w.w);});
+      $("spBack").addEventListener("click",function(){if(!got.length)return;var last=got.charAt(got.length-1);got=got.slice(0,-1);for(var k=pool.length-1;k>=0;k--)if(pool[k].used&&pool[k].t===last){pool[k].used=false;break;}paint();});
+      each(box.querySelectorAll(".tiles .btn"),function(b){b.addEventListener("click",function(){var p=pool[+b.getAttribute("data-k")];if(p.used)return;p.used=true;got+=p.t;
+        if(got.length<w.w.length){paint();return;}
+        if(C.spellCheck(w.w,got)){beep(true);say(w.w);var first=!store.spelled[w.w];store.spelled[w.w]=1;save();paint();var f=$("spFb");f.className="fb show good";f.innerHTML='✅ <b class="en">'+w.w+'</b> 拼對了！';setTimeout(function(){idx++;draw();},1100);}
+        else{beep(false);errs++;miss("spell");paint();var f2=$("spFb");f2.className="fb show bad";f2.innerHTML="拼成 <b class=\"en\">"+got+"</b> 不太對，按「⌫ 退一格」改一改，或聽一次發音！";}});});
+    }
+    paint();
+  }
+  draw();
+}
+startSpell();
+
+/* ---------- 圖字配對 ---------- */
+function startMatch(){
+  var set=C.WORDS.slice(),selW=null,left=0,errs=0,box=$("matchBox");
+  box.innerHTML='<div class="match"><div class="col" id="mW"></div><div class="col" id="mM"></div></div><div class="fb" id="mFb"></div>';
+  C.shuffle(set).forEach(function(w){var b=document.createElement("button");b.className="btn en";b.textContent=w.w;b.setAttribute("data-w",w.w);
+    b.addEventListener("click",function(){if(b.classList.contains("ok"))return;each(box.querySelectorAll("#mW .btn"),function(x){x.classList.remove("sel");});b.classList.add("sel");selW=w.w;say(w.w);});$("mW").appendChild(b);});
+  C.shuffle(set).forEach(function(w){var b=document.createElement("button");b.className="btn pic";b.textContent=w.e;b.setAttribute("aria-label",w.m);
+    b.addEventListener("click",function(){if(b.classList.contains("ok"))return;var f=$("mFb");
+      if(!selW){f.className="fb show info";f.textContent="先點左邊的英文單字喔！";return;}
+      if(C.matchCheck(selW,w.e)){beep(true);b.classList.add("ok");var wb=box.querySelector('#mW [data-w="'+selW+'"]');wb.classList.remove("sel");wb.classList.add("ok");b.disabled=true;wb.disabled=true;
+        f.className="fb show good";f.innerHTML='✅ <b class="en">'+selW+'</b> '+w.e+' '+w.m;selW=null;left++;
+        if(left===set.length){store.matchDone=(store.matchDone||0)+1;var st=Math.max(1,3-errs);addStars(st,box);
+          box.insertAdjacentHTML("beforeend",'<div class="done">🎉 全部配對完成！錯 '+errs+' 次，得到 '+st+' 顆星。</div><div class="btns cen"><button class="btn purple" id="mAgain">🔄 再玩一次</button></div>');$("mAgain").addEventListener("click",startMatch);}}
+      else{beep(false);errs++;miss("match");b.classList.remove("no");void b.offsetWidth;b.classList.add("no");f.className="fb show bad";f.innerHTML='不太對，再想想 <b class="en">'+selW+'</b> 是什麼天氣。';}});
+    $("mM").appendChild(b);});
+}
+startMatch();
+
+/* ---------- 挑戰 ---------- */
+runQuiz("chBox",function(){return C.makeChallenge();},{type:"word",onDone:function(r){store.chBest=Math.max(store.chBest||0,r);save();}});
+
+/* ---------- 紀錄 ---------- */
+function renderRec(){
+  var s=store,g=C.badges(s),cnt=function(o){return C.WORDS.filter(function(w){return o&&o[w.w];}).length;};
+  $("stats").innerHTML='<div class="stat"><b>'+s.stars+'</b>⭐ 星星</div><div class="stat"><b>'+cnt(s.heard)+'/6</b>聽過的單字卡</div><div class="stat"><b>'+cnt(s.spelled)+'/6</b>拼對過的單字</div><div class="stat"><b>'+(s.listenBest||0)+'/6</b>聽力最佳</div><div class="stat"><b>'+(s.chBest||0)+'/10</b>挑戰最佳</div><div class="stat"><b>'+(s.phonDone||0)+'</b>發音分類次數</div>';
+  $("badges").innerHTML=C.BADGES.map(function(b){return '<div class="bdg'+(g[b.id]?" got":"")+'">'+b.n+'<small>'+b.d+'</small></div>';}).join("");
+  var ks=Object.keys(s.bad).sort(function(a,b){return s.bad[b]-s.bad[a];});
+  $("mist").innerHTML=ks.length?'<table class="rec">'+ks.map(function(k){return "<tr><td>"+(TN[k]||k)+"</td><td>錯 "+s.bad[k]+" 次</td></tr>";}).join("")+"</table>":'<p class="small">還沒有錯題，繼續加油！</p>';
+}
+$("resetBtn").addEventListener("click",function(){if(!confirm("確定要清除這一課的所有紀錄嗎？"))return;var sl=store.slow;store=fresh();store.slow=sl;save();renderScore();renderCards();renderRec();});
+renderScore();
+})();
+</script>
+</body>
+</html>
