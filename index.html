@@ -72,7 +72,7 @@ document.getElementById("subjects").innerHTML = SUBJECTS.map(function (s) {
   if (!window.SRS || !window.REVIEW_BANK) return;
   var st = SRS.load(), p = SRS.plan(REVIEW_BANK, st), n = SRS.streak(st), started = Object.keys(st.cards).length > 0;
   var t = document.getElementById("trTitle"), s = document.getElementById("trSub"), g = document.getElementById("trGo");
-  if (p.done) { t.textContent = "✅ 今天的複習完成了！"; s.textContent = "🔥 連續 " + n + " 天，明天見！"; g.textContent = "看記憶樹 ➜"; }
+  if (p.done) { t.textContent = "✅ 今天的複習完成了！"; s.textContent = "🔥 連續 " + n + " 天・⭐ " + SRS.stars(st).left + " 顆星星，明天見！"; g.textContent = "看看 ➜"; }
   else if (!p.queue.length) { t.textContent = "今天的複習"; s.textContent = "今天沒有要複習的卡，太厲害了！"; g.textContent = "看看 ➜"; }
   else if (started) {
     var d = SRS.dayNum(), mon = SRS.monsters(REVIEW_BANK, st).filter(function (c) { return st.cards[c.id].due <= d; }).length;

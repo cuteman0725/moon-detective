@@ -77,13 +77,13 @@
       var n, s, k, d;
       for (var t = 0; t < 100; t++) { n = bigNum(ri(7, 8), .3); s = String(n); k = ri(0, s.length - 2); d = s[k]; if (d !== '0' && s.split(d).length === 2) break; }
       var pos = s.length - 1 - k, v = +d * Math.pow(10, pos);
-      return { q: '在 <b class="num">' + grp(n) + '</b> 裡，數字 <b>' + d + '</b> 代表多少？', fields: [{ pre: '', unit: '' }], ans: [v],
+      return { q: '在 <b class="num">' + grp(n) + '</b> 裡，數字 <b>' + d + '</b> 代表多少？', fields: [{ pre: '', unit: '' }], ans: [v], viz: { t: 'place', n: n, pos: pos, d: +d },
         ex: d + ' 在<b>' + PLACE[pos] + '位</b>，代表 ' + d + ' 個' + (PLACE[pos] === '個' ? '一' : PLACE[pos]) + '，也就是 <b>' + grp(v) + '</b>。',
         dg: function (x) { x = x[0]; if (x === +d) return '數字 ' + d + ' 不只代表 ' + d + '，要看它在哪一位。'; if (x === v * 10 || x * 10 === v) return '位數數錯了一位：從個位往左數，個、十、百、千、萬、十萬、百萬、千萬。'; return ''; } };
     },
     write: function () {
       var n = bigNum(ri(7, 8), .35), hi = Math.floor(n / 1e4), lo = n % 1e4;
-      return { q: '把「<b>' + readNum(n) + '</b>」寫成數字。', fields: [{ pre: '', unit: '' }], ans: [n],
+      return { q: '把「<b>' + readNum(n) + '</b>」寫成數字。', fields: [{ pre: '', unit: '' }], ans: [n], viz: { t: 'write', n: n },
         ex: readNum(hi) + '萬 → ' + hi + ' 萬；' + (lo ? readNum(lo).replace(/^零/, '') + ' → ' + String(lo).padStart(4, '0') : '後面四位都是 0') + '。合起來是 <b>' + grp(n) + '</b>。',
         dg: function (x) { var a = String(x[0]).length, b = String(n).length; if (a < b) return '位數不夠：「萬」後面一定要有 4 位，讀到「零」或沒有讀出來的位要補 0。'; if (a > b) return '位數太多了：「萬」後面只有千、百、十、個 4 位。'; return ''; } };
     },
@@ -100,7 +100,7 @@
       if (dir < 0) base += st * 5;
       var arr = []; for (var i = 0; i < 5; i++) arr.push(base + dir * st * i);
       var p = ri(1, 4);
-      return { q: '找規律，□ 是多少？<div class="seq">' + arr.map(function (x, i) { return i === p ? '<span class="blank">□</span>' : grp(x); }).join('、') + '</div>', fields: [{ pre: '□ ＝', unit: '' }], ans: [arr[p]],
+      return { q: '找規律，□ 是多少？<div class="seq">' + arr.map(function (x, i) { return i === p ? '<span class="blank">□</span>' : grp(x); }).join('、') + '</div>', fields: [{ pre: '□ ＝', unit: '' }], ans: [arr[p]], viz: { t: 'seq', arr: arr, p: p },
         ex: '每次' + (dir > 0 ? '多' : '少') + ' ' + grp(st) + '，所以 □ 是 <b>' + grp(arr[p]) + '</b>。',
         dg: function (x) { x = x[0]; if (x === arr[p - 1] - dir * st) return '看清楚數字是越來越' + (dir > 0 ? '大' : '小') + '喔。'; if (Math.abs(x - arr[p - 1]) !== st) return '先算出相鄰兩個數差多少，□ 就是前一個數' + (dir > 0 ? '加' : '減') + '這麼多。'; return ''; } };
     },
@@ -124,7 +124,7 @@
       else if (t === 2) { a = ri(2, 9) * 10; b = ri(2, 9) * 10; }
       else { a = ri(11, 49); if (a % 10 === 0) a++; b = ri(2, 9) * 10; }
       var za = String(a).match(/0*$/)[0].length, zb = String(b).match(/0*$/)[0].length, ca = a / Math.pow(10, za), cb = b / Math.pow(10, zb), ans = a * b;
-      return { q: '補 0 快算：<b class="num">' + a + ' × ' + b + '</b> ＝ ？', fields: [{ pre: '', unit: '' }], ans: [ans],
+      return { q: '補 0 快算：<b class="num">' + a + ' × ' + b + '</b> ＝ ？', fields: [{ pre: '', unit: '' }], ans: [ans], viz: { t: 'zero', a: a, b: b, ca: ca, cb: cb, za: za, zb: zb },
         ex: '先算 ' + ca + ' × ' + cb + ' ＝ ' + (ca * cb) + '，再在後面補 <b>' + (za + zb) + ' 個 0</b> → <b>' + ans + '</b>。',
         dg: function (x) { x = x[0]; if (x === ca * cb) return '別忘了在後面補 0：一共要補 ' + (za + zb) + ' 個。'; if (x * 10 === ans) return '少補了一個 0：兩個數後面一共有 ' + (za + zb) + ' 個 0。'; if (x === ans * 10) return '多補了一個 0：兩個數後面一共只有 ' + (za + zb) + ' 個 0。'; return ''; } };
     },
@@ -229,7 +229,8 @@
     /* 自然：看月相猜農曆 */
     moon: function () {
       var P = [[40, '初三、初四'], [90, '初七、初八'], [180, '十五、十六'], [270, '廿二、廿三']], i = ri(0, 3);
-      return { kind: 'pick', img: moonSVG(P[i][0], 120), q: '看到這樣的月亮，大約是農曆哪幾天？', opts: P.map(function (p) { return p[1]; }), a: i,
+      var ang = {}; P.forEach(function (p) { ang[p[1]] = p[0]; });
+      return { kind: 'pick', img: moonSVG(P[i][0], 120), q: '看到這樣的月亮，大約是農曆哪幾天？', opts: P.map(function (p) { return p[1]; }), a: i, wi: { t: 'moon', ang: ang },
         ex: ['初三、初四是彎彎的鐮刀月，右邊亮。', '初七、初八是上弦月，右半邊亮。', '十五、十六月亮最圓，課本叫做「望」。', '廿二、廿三是下弦月，左半邊亮。'][i] };
     },
     /* 自然：這種生物住在哪一種水域？ */
@@ -463,10 +464,22 @@
   X('na2', 'algae', ['廢水或農業肥料流入水域，', '藻類會大量減少，', '水中生物難以呼吸。'], 1, '藻類會<b>大量繁殖</b>，水中生物才會難以呼吸。');
   X('na2', 'putBack', ['到水域調查後，', '把撈到的生物帶回家養', '。'], 1, '觀察完後要<b>放回原來的水域環境</b>。');
 
+  // 如果這樣會怎樣：選錯時畫出「你選的那個」會是什麼樣子，再跟正確的比
+  var WI = {
+    'na:shuo': { t: 'moon', ang: { '朔（看不到月亮）': 0, '望（圓圓的）': 180, '上弦月': 90 } },
+    'na:first': { t: 'moon', ang: { '上弦月，右半邊亮': 90, '下弦月，左半邊亮': 270, '整個圓圓的': 180 } },
+    'na:wang': { t: 'moon', ang: { '望': 180, '朔': 0, '下弦月': 270 } },
+    'na:last': { t: 'moon', ang: { '下弦月，左半邊亮': 270, '上弦月，右半邊亮': 90, '看不到月亮': 0 } },
+    'na:right': { t: 'moon', ang: { '右邊': 90, '左邊': 270 } },
+    'na:lotus': { t: 'plant', plant: '蓮' }, 'na:lily': { t: 'plant', plant: '睡蓮' }, 'na:hyacinth': { t: 'plant', plant: '布袋蓮' },
+    'na:elodea': { t: 'plant', plant: '水蘊草' }, 'na:lettuce': { t: 'plant', plant: '大萍' }
+  };
+  cards.forEach(function (c) { if (WI[c.id]) c.wi = WI[c.id]; });
+
   /* 出題：把卡片變成這一次要作答的題目 */
   function make(card) {
     if (card.gen) { var g = GEN[card.gen](); g.kind = g.kind || 'num'; return g; }
-    if (card.type === 'pick') { var opts = [card.a].concat(card.w); return { kind: 'pick', q: card.q, opts: opts, a: 0, ex: card.ex }; }
+    if (card.type === 'pick') { var opts = [card.a].concat(card.w); return { kind: 'pick', q: card.q, opts: opts, a: 0, ex: card.ex, wi: card.wi }; }
     if (card.type === 'spot') return { kind: 'spot', block: false, q: card.q, parts: card.parts, bad: card.bad, fix: card.fix, ex: card.ex };
     return { kind: card.type };
   }
