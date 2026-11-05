@@ -84,9 +84,12 @@
     d = d === undefined ? dayNum() : d;
     var r = st.cards[card.id], isNew = !r;
     if (!r) r = st.cards[card.id] = { b: 0, due: d, n: 0, ok: 0, ng: 0 };
-    var day = dayRec(st, d);
+    var day = dayRec(st, d), wasMonster = r.res === 'fail';
     if (isNew) day.nw++;
     day.n++; r.n++; r.last = d; r.res = res;
+    // 小怪物：答錯（想不起來）的卡會變成小怪物，下次複習答對就打倒牠
+    if (res === 'fail' && !wasMonster) day.mon = (day.mon || 0) + 1;
+    if (res === 'ok' && wasMonster) { st.beat = (st.beat || 0) + 1; day.beat = (day.beat || 0) + 1; }
     // 新卡第一次就答對（上課已經學會）直接放 3 號盒，4 天後再考；之後每答對一次往後一盒
     if (res === 'ok') { r.ok++; day.ok++; r.b = isNew ? 3 : Math.min(6, r.b + 1); r.due = d + INTERVAL[r.b]; }
     else if (res === 'hard') { r.ng++; r.b = Math.max(1, isNew ? 1 : r.b); r.due = d + 1; }
@@ -94,6 +97,11 @@
     save(st);
     return r;
   }
+  /* 小怪物清單：最後一次答錯、還沒打倒的卡（due＝哪一天會出現） */
+  function monsters(bank, st) {
+    return bank.cards.filter(function (c) { var r = st.cards[c.id]; return r && r.res === 'fail' && inScope(st, c); });
+  }
+  function isMonster(st, card) { var r = st.cards[card.id]; return !!(r && r.res === 'fail'); }
   function finish(st, d) { d = d === undefined ? dayNum() : d; dayRec(st, d).fin = true; save(st); }
 
   /* 連續天數：中間休息一天不會斷 */
@@ -120,5 +128,5 @@
   }
   function minutes(n) { return Math.max(1, Math.round(n * 25 / 60)); }
 
-  root.SRS = { KEY: KEY, INTERVAL: INTERVAL, MASTER_BOX: MASTER_BOX, dayNum: dayNum, load: load, save: save, plan: plan, extra: extra, grade: grade, finish: finish, streak: streak, stats: stats, minutes: minutes, shuffle: shuffle, interleave: interleave, blank: blank };
+  root.SRS = { monsters: monsters, isMonster: isMonster, KEY: KEY, INTERVAL: INTERVAL, MASTER_BOX: MASTER_BOX, dayNum: dayNum, load: load, save: save, plan: plan, extra: extra, grade: grade, finish: finish, streak: streak, stats: stats, minutes: minutes, shuffle: shuffle, interleave: interleave, blank: blank };
 })(typeof window !== 'undefined' ? window : this);

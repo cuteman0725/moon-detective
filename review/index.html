@@ -100,6 +100,38 @@ main{max-width:760px;margin:0 auto;padding:12px 16px}
 .burst{position:fixed;pointer-events:none;font-size:26px;z-index:50;animation:fly 1s ease-out forwards}
 @keyframes fly{to{transform:translate(var(--dx),var(--dy)) scale(.6);opacity:0}}
 @media (prefers-reduced-motion: reduce){.burst,.combo{animation:none}.prog i{transition:none}}
+/* 小怪物 */
+.mons{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:8px;margin:8px 0}
+.mon{background:#f7f3ff;border-radius:16px;padding:6px 4px;text-align:center;font-size:13px;line-height:1.35}
+.mon svg{display:block;margin:0 auto}
+.mon b{display:block;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mon i{font-style:normal;color:#8a4b00}
+.beat{font-size:17px;font-weight:800;margin:6px 0 0}
+.monHead{display:flex;align-items:center;gap:10px;background:#fff3e0;border-radius:14px;padding:6px 10px;margin:8px 0 0;font-weight:800;color:#8a4b00}
+/* 數字鍵盤、草稿紙 */
+.kbox{appearance:none;font-size:26px;font-weight:800;min-width:4.2em;min-height:54px;padding:6px 10px;border:3px solid #c9bff2;border-radius:14px;background:#fff;font-family:inherit;color:var(--ink);text-align:center;cursor:pointer;font-variant-numeric:tabular-nums}
+.kbox.on{border-color:var(--violet);box-shadow:0 0 0 3px #d9cfff}
+.kbox.ok{border-color:var(--green);background:#eafaf0}.kbox.no{border-color:var(--red);background:#fdecec}
+.kbox:empty::after{content:"　";}
+.keys{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;max-width:360px;margin:10px auto 0}
+.keys button{appearance:none;border:none;border-radius:14px;min-height:56px;font-size:24px;font-weight:800;background:#f1edff;color:var(--ink);box-shadow:0 3px 0 #cfc5f0;cursor:pointer;font-family:inherit}
+.keys button:active{transform:translateY(2px);box-shadow:0 1px 0 #cfc5f0}
+.keys .go{background:var(--violet);color:#fff;box-shadow:0 3px 0 #4f3bc4;font-size:20px}
+.keys .del{background:#fff;border:2px solid #e2dcf5}
+.keys button:disabled{opacity:.4}
+.scratch{position:relative;width:100%;height:260px;border:3px dashed #c9bff2;border-radius:16px;background:repeating-linear-gradient(#fffdf6 0 31px,#efe9d8 31px 32px);touch-action:none;overflow:hidden;margin-top:8px}
+.scratch canvas{position:absolute;inset:0;width:100%;height:100%}
+/* 找錯小偵探 */
+.steps{display:grid;gap:8px;margin:8px 0}
+.steps .part{text-align:left;font-size:clamp(18px,5vw,22px);font-variant-numeric:tabular-nums}
+.spotline{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;align-items:center}
+.part{appearance:none;border:3px solid #ddd6f3;background:#fff;border-radius:14px;padding:8px 10px;min-height:52px;font-size:19px;cursor:pointer;font-family:inherit;color:var(--ink);line-height:1.4}
+.spotline.chars .part{min-width:48px;font-size:28px;padding:6px 8px}
+.part:disabled{cursor:default}
+.part.found{border-color:var(--red);background:#fdecec;box-shadow:0 0 0 3px #f7c3c5}
+.part.no{border-color:#9aa0a6;background:#f1f1f1}
+.part.okfound{border-color:var(--green);background:#eafaf0;box-shadow:0 0 0 3px #bfe9cf}
+.wait{font-size:15px;color:#666;text-align:center;margin:6px 0 0}
 /* 給爸媽 */
 details.parent{background:#fff;border-radius:var(--radius);padding:12px 16px;margin:12px 0;box-shadow:0 6px 0 rgba(0,0,0,.1)}
 details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:44px;display:flex;align-items:center}
@@ -132,6 +164,11 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
     <div id="todayBody"></div>
   </div>
 
+  <div class="card" id="monCard">
+    <h2>👾 小怪物</h2>
+    <div id="monBox"></div>
+  </div>
+
   <div class="card">
     <h2>🌳 我的記憶樹</h2>
     <svg class="tree" id="tree" viewBox="0 0 320 280" role="img" aria-label="記憶樹"></svg>
@@ -149,7 +186,8 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
     <ul>
       <li><b>先想再看</b>：每一張都要先在腦袋裡想出答案，再看答案或選項。想得出來，才記得牢。</li>
       <li><b>答對了</b>：這張卡會隔久一點才出現（2 天、4 天、一週、兩週……）。</li>
-      <li><b>答錯了</b>：沒關係！等一下會再出現一次，明天也會再來。</li>
+      <li><b>答錯了</b>：沒關係！這張卡會變成<b>小怪物</b>。等一下會再出現一次，明天複習時答對，就能打倒牠。</li>
+      <li><b>找錯小偵探</b>：有些卡要找出小明算錯的那一步，或是句子裡的錯字。找錯，比再寫一題更能練到腦袋。</li>
       <li><b>各科混著練</b>：國語、數學、自然輪流出，就像考試一樣，要先想「這題要用什麼方法」。</li>
       <li>每天做完就好，大約 5～10 分鐘。休息一天，連續天數不會斷。</li>
     </ul>
@@ -164,10 +202,10 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
       <div class="seg" id="setCap"></div>
       <h3>複習範圍（還沒教的單元可以先關掉）</h3>
       <div class="units" id="setUnits"></div>
-      <h3>最近答錯、明天會再出現的卡</h3>
+      <h3>小怪物（答錯、還沒打倒的卡）</h3>
       <div class="wrong" id="wrongList"></div>
       <h3>說明</h3>
-      <p class="small">卡片分在 1～6 號盒子：答對往後一盒，下次隔 1、2、4、7、14、30 天出現（新卡第一次就答對，直接從 4 天後開始）；答錯回到 1 號盒、隔天再來，當天也會再練一次。每天先排到期的舊卡，再補新卡，各科交錯出題。國語是看注音寫國字，寫完由孩子自己對答案（可以陪她一起看）；數學每次出不同的數字，自動改；自然是先想再選，自動改。題目都對照孩子的課本。</p>
+      <p class="small">卡片分在 1～6 號盒子：答對往後一盒，下次隔 1、2、4、7、14、30 天出現（新卡第一次就答對，直接從 4 天後開始）；答錯回到 1 號盒、隔天再來，當天也會再練一次。每天先排到期的舊卡，再補新卡，各科交錯出題。國語是看注音寫國字，寫完由孩子自己對答案（可以陪她一起看），另外有改錯字；數學每次出不同的數字，自動改，答錯會說明可能錯在哪；自然是先想再選。「找錯小偵探」是看別人的算法或句子，點出第一個錯的地方。自動改的題目答錯時，要等 3 秒才能按下一張，避免亂猜。答錯的卡會變成小怪物，下次複習答對就打倒。題目都對照孩子的課本。</p>
       <p class="small">紀錄只存在這台裝置的瀏覽器裡，換一台裝置要重新開始。</p>
       <div class="btns"><button class="btn white" type="button" id="resetBtn">🗑️ 清除複習紀錄，重新開始</button></div>
       <p class="small" id="resetMsg" aria-live="polite"></p>
@@ -225,12 +263,38 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
     $('todayTitle').textContent = title; $('todayBody').innerHTML = body;
     if ($('goBtn')) $('goBtn').addEventListener('click', function () { start(p.queue, false); });
     if ($('moreBtn')) $('moreBtn').addEventListener('click', function () { start(S.extra(B, st, 5), true); });
-    renderTree(); renderSubs(); renderSettings();
+    renderMonsters(); renderTree(); renderSubs(); renderSettings();
   }
+  // 小怪物：每張卡固定長相（顏色＝科目）
+  function hash(t) { var h = 7; for (var i = 0; i < t.length; i++) h = (h * 31 + t.charCodeAt(i)) >>> 0; return h; }
+  function monsterSVG(c, size) {
+    var h = hash(c.id), col = SUB[c.s].color, v = h % 4, e = (h >> 4) % 3, top = '';
+    if (v === 0) top = '<path d="M-14 -20 L-20 -36 L-6 -24Z M14 -20 L20 -36 L6 -24Z" fill="' + col + '"/>';
+    else if (v === 1) top = '<path d="M0 -24 Q4 -34 0 -40" stroke="#4a3b7a" stroke-width="2.4" fill="none"/><circle cy="-42" r="5" fill="#ffd166"/>';
+    else if (v === 2) top = '<circle cx="-18" cy="-20" r="8" fill="' + col + '"/><circle cx="18" cy="-20" r="8" fill="' + col + '"/>';
+    else top = '<path d="M-8 -24 Q-6 -36 0 -30 Q4 -40 8 -24Z" fill="' + col + '"/>';
+    var eyes = e === 0 ? '<circle cx="-9" cy="-6" r="6.5" fill="#fff"/><circle cx="9" cy="-6" r="6.5" fill="#fff"/><circle cx="-8" cy="-5" r="3" fill="#2b2d42"/><circle cx="10" cy="-5" r="3" fill="#2b2d42"/>'
+      : e === 1 ? '<circle cy="-6" r="10" fill="#fff"/><circle cx="1" cy="-5" r="4.6" fill="#2b2d42"/><circle cx="3" cy="-7" r="1.4" fill="#fff"/>'
+      : '<circle cx="-11" cy="-4" r="4.6" fill="#fff"/><circle cy="-10" r="4.6" fill="#fff"/><circle cx="11" cy="-4" r="4.6" fill="#fff"/><circle cx="-11" cy="-3" r="2" fill="#2b2d42"/><circle cy="-9" r="2" fill="#2b2d42"/><circle cx="11" cy="-3" r="2" fill="#2b2d42"/>';
+    return '<svg viewBox="-34 -48 68 76" width="' + size + '" height="' + Math.round(size * 76 / 68) + '" aria-hidden="true">' + top
+      + '<ellipse cx="-12" cy="22" rx="8" ry="4" fill="#4a3b7a" opacity=".55"/><ellipse cx="12" cy="22" rx="8" ry="4" fill="#4a3b7a" opacity=".55"/>'
+      + '<path d="M-26 16 Q-30 -24 0 -26 Q30 -24 26 16 Q13 24 0 17 Q-13 24 -26 16Z" fill="' + col + '"/><path d="M-18 -16 Q-10 -22 -2 -20" stroke="#fff" stroke-width="3" fill="none" opacity=".5" stroke-linecap="round"/>'
+      + eyes + '<path d="M-8 8 Q0 14 8 8" stroke="#2b2d42" stroke-width="2.4" fill="none" stroke-linecap="round"/><path d="M-3 9.5 L-1 13 L1 9.8Z" fill="#fff"/></svg>';
+  }
+  function renderMonsters() {
+    var d = S.dayNum(), list = S.monsters(B, st), beat = st.beat || 0;
+    if (!list.length) { $('monBox').innerHTML = '<p class="lead">目前沒有小怪物 🎉</p>' + (beat ? '<p class="beat">🏆 已經打倒 ' + beat + ' 隻小怪物</p>' : '<p class="small">答錯的卡會變成小怪物，下次複習時答對，就能打倒牠。</p>'); return; }
+    var show = list.slice(0, 12);
+    $('monBox').innerHTML = '<p class="small" style="margin:0">答錯的卡變成了小怪物。複習時再遇到牠，答對就能打倒！</p><div class="mons">' + show.map(function (c) {
+      var r = st.cards[c.id], when = r.due <= d ? '今天出現' : (r.due - d) + ' 天後出現';
+      return '<div class="mon">' + monsterSVG(c, 56) + '<b>' + esc(shortName(c)) + '</b><i>' + when + '</i></div>';
+    }).join('') + '</div>' + (list.length > show.length ? '<p class="small">還有 ' + (list.length - show.length) + ' 隻……</p>' : '') + '<p class="beat">🏆 已經打倒 ' + beat + ' 隻</p>';
+  }
+  function shortName(c) { return c.s === 'cn' && c.type === 'write' ? c.c : (c.label || cardName(c)).replace(/^找錯：|^改錯字：/, '').slice(0, 8); }
   // 記憶樹：每張卡一個位置；學過＝小綠芽，記牢了＝彩色葉子
   var SPOTS = (function () {
     var pts = [], seed = 7, rnd = function () { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
-    for (var y = 22; y <= 196; y += 12) for (var x = 26; x <= 294; x += 12) {
+    for (var y = 22; y <= 196; y += 10) for (var x = 26; x <= 294; x += 10) {
       var dx = (x - 160) / 136, dy = (y - 112) / 92; if (dx * dx + dy * dy <= 1) pts.push([x + (rnd() - .5) * 6, y + (rnd() - .5) * 6, rnd()]);
     }
     return pts.sort(function (a, b) { return a[2] - b[2]; });
@@ -273,7 +337,7 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
     Array.prototype.forEach.call($('setUnits').querySelectorAll('input'), function (el) {
       el.addEventListener('change', function () { if (el.checked) delete st.set.off[el.dataset.u]; else st.set.off[el.dataset.u] = true; S.save(st); renderHome(); });
     });
-    var d = S.dayNum(), wrong = B.cards.filter(function (c) { var r = st.cards[c.id]; return r && r.res === 'fail' && r.due > d - 1; });
+    var wrong = S.monsters(B, st);
     $('wrongList').innerHTML = wrong.length ? wrong.map(function (c) { return '<span>' + SUB[c.s].icon + ' ' + esc(cardName(c)) + '</span>'; }).join('') : '<span>目前沒有 👍</span>';
   }
   function cardName(c) { return c.s === 'cn' ? c.c + '（' + c.zy + '）' : c.label || (c.q ? c.q.replace(/<[^>]+>/g, '').slice(0, 16) + '…' : c.gen === 'moon' ? '看月相猜農曆' : '水域和生物'); }
@@ -288,7 +352,7 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
   var run = null;
   function start(queue, isExtra) {
     if (!queue.length) return;
-    run = { q: queue.map(function (c) { return { c: c, again: false }; }), i: 0, total: queue.length, ok: 0, first: 0, fresh: 0, combo: 0, isExtra: isExtra, wrongIds: [] };
+    run = { q: queue.map(function (c) { return { c: c, again: false }; }), i: 0, total: queue.length, ok: 0, first: 0, fresh: 0, combo: 0, isExtra: isExtra, wrongIds: [], beat: 0, mon: 0, key: null };
     queue.forEach(function (c) { if (!st.cards[c.id]) run.fresh++; });
     show('vRun'); next();
   }
@@ -299,22 +363,29 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
   function head(c, again) {
     var sb = SUB[c.s];
     return '<span class="chip" style="background:' + sb.bg + ';color:#333">' + sb.icon + ' ' + sb.name + '</span><span class="unit">' + esc(UNIT[c.u].name) + '</span>'
-      + (again ? ' <span class="chip" style="background:#fff3e0;color:#8a4b00">🔁 再試一次</span>' : !st.cards[c.id] ? ' <span class="chip" style="background:#e3f8ec;color:#1b6b40">✨ 新卡</span>' : '');
+      + (again ? ' <span class="chip" style="background:#fff3e0;color:#8a4b00">🔁 再試一次</span>' : !st.cards[c.id] ? ' <span class="chip" style="background:#e3f8ec;color:#1b6b40">✨ 新卡</span>' : '')
+      + (!again && S.isMonster(st, c) ? '<div class="monHead">' + monsterSVG(c, 40) + '<span>小怪物來了！答對就能打倒牠！</span></div>' : '');
   }
   function next() {
     if (run.i >= run.q.length) { finish(); return; }
     progress();
     var it = run.q[run.i], c = it.c, Q = B.make(c);
     it.Q = Q;
-    if (Q.kind === 'write') renderWrite(it); else if (Q.kind === 'num') renderNum(it); else renderPick(it);
+    if (run.key) { document.removeEventListener('keydown', run.key); run.key = null; }
+    if (Q.kind === 'write') renderWrite(it); else if (Q.kind === 'num') renderNum(it); else if (Q.kind === 'spot') renderSpot(it); else renderPick(it);
   }
   function result(it, res, btnEl) {
     // 第一次作答才改排程；「再試一次」只是練習
+    var wasMon = !it.again && S.isMonster(st, it.c);
+    it.msg = '';
     if (!it.again) {
       S.grade(st, it.c, res);
       run.first++;
       if (res === 'ok') run.ok++;
-    }
+      if (res === 'ok' && wasMon) { run.beat++; it.msg = '<div class="monHead">💥 打倒小怪物了！</div>'; }
+      if (res === 'fail' && !wasMon) { run.mon++; it.msg = '<div class="monHead">' + monsterSVG(it.c, 34) + '<span>這張變成小怪物了，明天會再來找你！</span></div>'; }
+      if (res === 'fail' && wasMon) it.msg = '<div class="monHead">' + monsterSVG(it.c, 34) + '<span>小怪物還在！明天再挑戰一次。</span></div>';
+    } else if (res === 'ok') it.msg = '<div class="monHead">✨ 小怪物變弱了！明天再答對就能打倒牠。</div>';
     if (res === 'ok') { run.combo++; if (btnEl) burst(btnEl); }
     else {
       run.combo = 0;
@@ -323,8 +394,19 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
     }
   }
   function comboTxt() { return run.combo >= 3 ? '<span class="combo">連對 ' + run.combo + ' 張！</span>' : ''; }
-  function nextBtn(label) { return '<div class="btns col"><button class="btn" type="button" id="nextBtn">' + (label || '下一張 ➜') + '</button></div>'; }
-  function bindNext() { var b = $('nextBtn'); b.addEventListener('click', function () { run.i++; next(); }); b.focus(); }
+  // wait：答錯時要等幾秒才能按下一張（看清楚解說，也避免亂猜）
+  function nextBtn(label, wait) { return '<div class="btns col"><button class="btn" type="button" id="nextBtn"' + (wait ? ' disabled data-wait="' + wait + '"' : '') + '>' + (label || '下一張 ➜') + '</button></div>' + (wait ? '<p class="wait" id="waitTxt">先看一下解說，' + wait + ' 秒後可以繼續</p>' : ''); }
+  function bindNext() {
+    var b = $('nextBtn'), w = +b.dataset.wait || 0, me = run;
+    b.addEventListener('click', function () { if (b.disabled) return; run.i++; next(); });
+    if (!w) { b.focus(); return; }
+    var left = w, tick = setInterval(function () {
+      if (run !== me || !b.isConnected) { clearInterval(tick); return; }
+      left--; var t = $('waitTxt');
+      if (left <= 0) { clearInterval(tick); b.disabled = false; if (t) t.remove(); b.focus(); }
+      else if (t) t.textContent = '先看一下解說，' + left + ' 秒後可以繼續';
+    }, 1000);
+  }
 
   // 直排注音：一個符號一行，聲調放在最後一個符號右邊，輕聲放最上面
   function zyHTML(zy) {
@@ -348,17 +430,17 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
       Array.prototype.forEach.call($('rateBox').querySelectorAll('button'), function (b) {
         b.addEventListener('click', function () {
           result(it, b.dataset.r, b);
-          var msg = b.dataset.r === 'ok' ? '太棒了！這個字會隔久一點再考你。' + comboTxt() : b.dataset.r === 'hard' ? '差一點！明天再寫一次就會更熟。' : '沒關係，' + (it.again ? '明天會再來。' : '等一下會再出現一次，明天也會再來。') + '多看一下「' + c.c + '」怎麼寫。';
-          $('rateBox').innerHTML = '<div class="fb ' + (b.dataset.r === 'ok' ? 'ok' : 'no') + '">' + msg + '</div>' + nextBtn();
+          var msg = b.dataset.r === 'ok' ? '太棒了！這個字會隔久一點再考你。' + comboTxt() : b.dataset.r === 'hard' ? '差一點！明天再寫一次就會更熟。' : '沒關係，' + (it.again ? '明天會再來。' : '等一下會再出現一次。') + '多看一下「' + c.c + '」怎麼寫。';
+          $('rateBox').innerHTML = (it.msg || '') + '<div class="fb ' + (b.dataset.r === 'ok' ? 'ok' : 'no') + '">' + msg + '</div>' + nextBtn();
           bindNext();
         });
       });
       $('rateBox').querySelector('button').focus();
     });
   }
-  function setupPad(cv) {
+  function setupPad(cv, lw) {
     var ctx = cv.getContext('2d'), drawing = false, last = null, dpr = Math.max(1, window.devicePixelRatio || 1);
-    function size() { var r = cv.getBoundingClientRect(); cv.width = Math.round(r.width * dpr); cv.height = Math.round(r.height * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.strokeStyle = '#1b1b2b'; ctx.lineWidth = Math.max(6, r.width / 32); }
+    function size() { var r = cv.getBoundingClientRect(); cv.width = Math.round(r.width * dpr); cv.height = Math.round(r.height * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.strokeStyle = '#1b1b2b'; ctx.lineWidth = lw || Math.max(6, r.width / 32); }
     size();
     function pt(e) { var r = cv.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; }
     cv.addEventListener('pointerdown', function (e) { e.preventDefault(); drawing = true; last = pt(e); try { cv.setPointerCapture(e.pointerId); } catch (x) {} ctx.beginPath(); ctx.arc(last[0], last[1], ctx.lineWidth / 2, 0, 7); ctx.fillStyle = '#1b1b2b'; ctx.fill(); });
@@ -367,23 +449,66 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
     return { clear: function () { ctx.clearRect(0, 0, cv.width, cv.height); } };
   }
 
-  // 數學：填數字
+  // 數學：填數字（用畫面上的數字鍵盤，平板不會跳出系統鍵盤；電腦也可以直接打字）
   function renderNum(it) {
-    var c = it.c, Q = it.Q;
-    $('qCard').innerHTML = head(c, it.again) + '<p class="kicker">算算看（可以拿紙筆算）</p><div class="q">' + Q.q + '</div>'
-      + '<form id="numForm" autocomplete="off"><div class="fields">' + Q.fields.map(function (f, j) { return (f.pre ? '<span>' + f.pre + '</span>' : '') + '<input id="in' + j + '" inputmode="numeric" pattern="[0-9 ]*" aria-label="' + (f.pre || '答案') + (f.unit ? '（' + f.unit + '）' : '') + '">' + (f.unit ? '<span>' + f.unit + '</span>' : ''); }).join('') + '</div>'
-      + '<div class="btns col"><button class="btn" type="submit" id="subBtn">✔️ 送出答案</button></div></form><div id="numFb"></div>';
-    var first = $('in0'); setTimeout(function () { first.focus(); }, 60);
-    $('numForm').addEventListener('submit', function (e) {
-      e.preventDefault();
-      var vals = Q.fields.map(function (_, j) { return $('in' + j).value.replace(/[^0-9]/g, ''); });
-      if (vals.some(function (v) { return v === ''; })) { $('numFb').innerHTML = '<div class="fb no">每一格都要填喔。</div>'; return; }
-      var ok = vals.every(function (v, j) { return +v === Q.ans[j]; });
-      Q.fields.forEach(function (_, j) { var el = $('in' + j); el.readOnly = true; el.classList.add(+vals[j] === Q.ans[j] ? 'ok' : 'no'); });
-      $('subBtn').disabled = true;
-      result(it, ok ? 'ok' : 'fail', $('subBtn'));
-      $('numFb').innerHTML = '<div class="fb ' + (ok ? 'ok' : 'no') + '">' + (ok ? '✅ 答對了！' + comboTxt() + '<br>' : '❌ 正確答案是 <b>' + Q.ans.map(function (a, j) { return (Q.fields[j].pre ? Q.fields[j].pre + ' ' : '') + a + (Q.fields[j].unit || ''); }).join('，') + '</b>。' + (it.again ? '' : '等一下會換數字再考一次。') + '<br>') + Q.ex + '</div>' + nextBtn();
+    var c = it.c, Q = it.Q, vals = Q.fields.map(function () { return ''; }), cur = 0, done = false;
+    $('qCard').innerHTML = head(c, it.again) + '<p class="kicker">算算看</p><div class="q">' + Q.q + '</div>'
+      + '<div class="fields">' + Q.fields.map(function (f, j) { return (f.pre ? '<span>' + f.pre + '</span>' : '') + '<button type="button" class="kbox' + (j ? '' : ' on') + '" id="in' + j + '" data-j="' + j + '" aria-label="' + (f.pre || '答案') + (f.unit ? '（' + f.unit + '）' : '') + '"></button>' + (f.unit ? '<span>' + f.unit + '</span>' : ''); }).join('') + '</div>'
+      + '<div class="keys" id="keys">' + ['1', '2', '3', '4', '5', '6', '7', '8', '9', '⌫', '0', '✔️ 送出'].map(function (k) { return '<button type="button" data-k="' + k + '" class="' + (k === '⌫' ? 'del' : k.length > 1 ? 'go' : '') + '" aria-label="' + (k === '⌫' ? '刪掉一個數字' : k.length > 1 ? '送出答案' : k) + '">' + k + '</button>'; }).join('') + '</div>'
+      + '<div class="btns"><button class="btn white" type="button" id="scrBtn">✏️ 草稿紙</button></div><div id="scrBox" hidden><div class="scratch"><canvas id="scv"></canvas></div><div class="btns"><button class="btn white" type="button" id="scrClr">🧽 擦掉草稿</button></div></div>'
+      + '<div id="numFb"></div>';
+    function paint() { Q.fields.forEach(function (_, j) { var el = $('in' + j); el.textContent = vals[j]; el.classList.toggle('on', j === cur && !done); }); }
+    function press(k) {
+      if (done) return;
+      if (k === '⌫') vals[cur] = vals[cur].slice(0, -1);
+      else if (k.length > 1) { submit(); return; }
+      else if (vals[cur].length < 9) vals[cur] = (vals[cur] === '0' ? '' : vals[cur]) + k;
+      paint();
+    }
+    Array.prototype.forEach.call($('keys').querySelectorAll('button'), function (b) { b.addEventListener('click', function () { press(b.dataset.k); }); });
+    Q.fields.forEach(function (_, j) { $('in' + j).addEventListener('click', function () { if (!done) { cur = j; paint(); } }); });
+    run.key = function (e) {
+      if (/^[0-9]$/.test(e.key)) { press(e.key); e.preventDefault(); }
+      else if (e.key === 'Backspace') { press('⌫'); e.preventDefault(); }
+      else if (e.key === 'Enter' && !done) { submit(); e.preventDefault(); }
+      else if ((e.key === 'Tab' || e.key === 'ArrowRight') && !done && Q.fields.length > 1) { cur = (cur + 1) % Q.fields.length; paint(); e.preventDefault(); }
+    };
+    document.addEventListener('keydown', run.key);
+    $('scrBtn').addEventListener('click', function () {
+      var box = $('scrBox'); box.hidden = !box.hidden; $('scrBtn').textContent = box.hidden ? '✏️ 草稿紙' : '✏️ 收起草稿紙';
+      if (!box.hidden && !box.dataset.ready) { box.dataset.ready = '1'; var sp = setupPad($('scv'), 4); $('scrClr').addEventListener('click', sp.clear); }
+    });
+    function submit() {
+      if (vals.some(function (v) { return v === ''; })) { cur = vals.findIndex(function (v) { return v === ''; }); paint(); $('numFb').innerHTML = '<div class="fb no">每一格都要填喔。</div>'; return; }
+      done = true;
+      var nums = vals.map(Number), ok = nums.every(function (v, j) { return v === Q.ans[j]; });
+      Q.fields.forEach(function (_, j) { $('in' + j).classList.add(nums[j] === Q.ans[j] ? 'ok' : 'no'); });
+      paint();
+      Array.prototype.forEach.call($('keys').querySelectorAll('button'), function (b) { b.disabled = true; });
+      result(it, ok ? 'ok' : 'fail', $('keys'));
+      var why = !ok && Q.dg ? Q.dg(nums) : '';
+      $('numFb').innerHTML = (it.msg || '') + '<div class="fb ' + (ok ? 'ok' : 'no') + '">' + (ok ? '✅ 答對了！' + comboTxt() + '<br>'
+        : '❌ 正確答案是 <b>' + Q.ans.map(function (a, j) { return (Q.fields[j].pre ? Q.fields[j].pre + ' ' : '') + a + (Q.fields[j].unit || ''); }).join('，') + '</b>。' + (it.again ? '' : '等一下會換數字再考一次。') + '<br>'
+          + (why ? '🔎 <b>可能錯在這裡：</b>' + why + '<br>' : '')) + Q.ex + '</div>' + nextBtn('', ok ? 0 : 3);
       bindNext();
+    }
+  }
+
+  // 找錯小偵探：點出第一個錯的地方
+  function renderSpot(it) {
+    var c = it.c, Q = it.Q, chars = !Q.block && Q.parts.every(function (x) { return x.length === 1; });
+    $('qCard').innerHTML = head(c, it.again) + '<p class="kicker">🔍 找錯小偵探</p><div class="q">' + Q.q + '</div>'
+      + '<div class="' + (Q.block ? 'steps' : 'spotline' + (chars ? ' chars' : '')) + '" id="spotBox">' + Q.parts.map(function (x, j) { return '<button type="button" class="part" data-j="' + j + '">' + esc(x) + '</button>'; }).join('') + '</div><div id="spotFb"></div>';
+    var btns = $('spotBox').querySelectorAll('.part');
+    Array.prototype.forEach.call(btns, function (b) {
+      b.addEventListener('click', function () {
+        var ok = +b.dataset.j === Q.bad;
+        Array.prototype.forEach.call(btns, function (x) { x.disabled = true; if (+x.dataset.j === Q.bad) x.classList.add(ok ? 'okfound' : 'found'); });
+        if (!ok) b.classList.add('no');
+        result(it, ok ? 'ok' : 'fail', b);
+        $('spotFb').innerHTML = (it.msg || '') + '<div class="fb ' + (ok ? 'ok' : 'no') + '">' + (ok ? '✅ 找到了！' + comboTxt() + '<br>' : '❌ 第一個錯的地方是圈起來的那一格。' + (it.again ? '' : '等一下會再考一次。') + '<br>') + Q.fix + (Q.ex ? '<br>' + Q.ex : '') + '</div>' + nextBtn('', ok ? 0 : 3);
+        bindNext();
+      });
     });
   }
 
@@ -402,7 +527,7 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
           Array.prototype.forEach.call(btns, function (x) { x.disabled = true; if (+x.dataset.j === Q.a) x.classList.add('ok'); });
           if (!ok) b.classList.add('no');
           result(it, ok ? 'ok' : 'fail', b);
-          $('pickFb').innerHTML = '<div class="fb ' + (ok ? 'ok' : 'no') + '">' + (ok ? '✅ 答對了！' + comboTxt() : '❌ 答案是「' + Q.opts[Q.a] + '」。' + (it.again ? '' : '等一下會再考一次。')) + (Q.ex ? '<br>' + Q.ex : '') + '</div>' + nextBtn();
+          $('pickFb').innerHTML = (it.msg || '') + '<div class="fb ' + (ok ? 'ok' : 'no') + '">' + (ok ? '✅ 答對了！' + comboTxt() : '❌ 答案是「' + Q.opts[Q.a] + '」。' + (it.again ? '' : '等一下會再考一次。')) + (Q.ex ? '<br>' + Q.ex : '') + '</div>' + nextBtn('', ok ? 0 : 3);
           bindNext();
         });
       });
@@ -419,16 +544,17 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
       document.body.appendChild(s); setTimeout(function () { s.remove(); }, 1100);
     });
   }
-  $('pauseBtn').addEventListener('click', function () { run = null; renderHome(); show('vHome'); });
+  $('pauseBtn').addEventListener('click', function () { if (run && run.key) document.removeEventListener('keydown', run.key); run = null; renderHome(); show('vHome'); });
 
   function finish() {
+    if (run.key) { document.removeEventListener('keydown', run.key); run.key = null; }
     if (!run.isExtra) S.finish(st);
     flame();
     var p = S.plan(B, st), tm = S.plan(B, st, p.day + 1), ss = S.stats(B, st), master = 0;
     Object.keys(ss).forEach(function (k) { master += ss[k].master; });
     var pct = run.first ? Math.round(run.ok / run.first * 100) : 0;
     $('doneCard').innerHTML = '<div class="doneBox"><b class="big">🎉 今天的複習完成了！</b>'
-      + '第一次就答對 <b>' + run.ok + '</b> / ' + run.first + ' 張（' + pct + '%）<br>新學了 <b>' + run.fresh + '</b> 張・記牢了 <b>' + master + '</b> 張<br>🔥 連續 <b>' + S.streak(st) + '</b> 天</div>'
+      + '第一次就答對 <b>' + run.ok + '</b> / ' + run.first + ' 張（' + pct + '%）<br>新學了 <b>' + run.fresh + '</b> 張・記牢了 <b>' + master + '</b> 張<br>' + (run.beat ? '💥 打倒了 <b>' + run.beat + '</b> 隻小怪物<br>' : '') + (run.mon ? '👾 新出現 <b>' + run.mon + '</b> 隻小怪物，明天再來打倒牠們<br>' : '') + '🔥 連續 <b>' + S.streak(st) + '</b> 天</div>'
       + '<p class="lead" style="text-align:center">明天大約有 <b>' + (tm.dueTake.length + tm.newTake.length) + '</b> 張。' + (pct >= 90 ? '你今天超專心！' : pct >= 60 ? '答錯的卡明天會再來，多練幾次就記住了。' : '今天的卡比較難，明天再練一次就會更熟。') + '</p>'
       + '<div class="btns col"><button class="btn" type="button" id="homeBtn">🌳 看我的記憶樹</button>' + (p.freshLeft ? '<button class="btn white" type="button" id="more2">➕ 還想玩：再學 5 張新卡</button>' : '') + '<a class="btn white" href="../" style="text-align:center;text-decoration:none">← 回首頁</a></div>';
     run = null;
