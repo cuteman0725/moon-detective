@@ -101,6 +101,19 @@
     save(st);
     return r;
   }
+  /* 星星：只給努力，不看答對率。每天做完複習 ＋2，打倒一隻小怪物 ＋1；爸媽設定的獎勵用星星換 */
+  var STAR_DAY = 2, STAR_BEAT = 1;
+  function stars(st) {
+    var earned = 0;
+    Object.keys(st.days).forEach(function (k) { if (st.days[k].fin) earned += STAR_DAY; });
+    earned += (st.beat || 0) * STAR_BEAT;
+    var spent = (st.rw && st.rw.spent) || 0;
+    return { earned: earned, spent: spent, left: Math.max(0, earned - spent) };
+  }
+  function rw(st) { if (!st.rw || typeof st.rw !== 'object') st.rw = {}; if (!Array.isArray(st.rw.items)) st.rw.items = []; if (!Array.isArray(st.rw.log)) st.rw.log = []; if (typeof st.rw.spent !== 'number') st.rw.spent = 0; return st.rw; }
+  // 家長密碼只存雜湊（防小孩順手看到，不是真正的加密）
+  function pinHash(pin) { var h = 5381, t = 'studyReview:' + pin; for (var i = 0; i < t.length; i++) h = ((h << 5) + h + t.charCodeAt(i)) >>> 0; return 'h' + h.toString(36); }
+
   /* 小怪物清單：最後一次答錯、還沒打倒的卡（due＝哪一天會出現） */
   function monsters(bank, st) {
     return bank.cards.filter(function (c) { var r = st.cards[c.id]; return r && r.res === 'fail' && inScope(st, c); });
@@ -132,5 +145,5 @@
   }
   function minutes(n) { return Math.max(1, Math.round(n * 25 / 60)); }
 
-  root.SRS = { monsters: monsters, isMonster: isMonster, KEY: KEY, INTERVAL: INTERVAL, MASTER_BOX: MASTER_BOX, dayNum: dayNum, load: load, save: save, plan: plan, extra: extra, grade: grade, finish: finish, streak: streak, stats: stats, minutes: minutes, shuffle: shuffle, interleave: interleave, blank: blank };
+  root.SRS = { stars: stars, rw: rw, pinHash: pinHash, STAR_DAY: STAR_DAY, STAR_BEAT: STAR_BEAT, monsters: monsters, isMonster: isMonster, KEY: KEY, INTERVAL: INTERVAL, MASTER_BOX: MASTER_BOX, dayNum: dayNum, load: load, save: save, plan: plan, extra: extra, grade: grade, finish: finish, streak: streak, stats: stats, minutes: minutes, shuffle: shuffle, interleave: interleave, blank: blank };
 })(typeof window !== 'undefined' ? window : this);
