@@ -890,13 +890,13 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
     var V = Q.viz, cap = $('vzCap');
     if (['place', 'write', 'seq', 'zero'].indexOf(V.t) >= 0) { playMore(Q, nums, ok); return; }
     if (V.t === 'clock') {
-      var cx = 150, cy = 130, R = 104, a0 = (V.from % 12) * 30, deg = Math.min(nums[0], 720), corr = Q.ans[0];
+      var cx = 150, cy = 130, R = 104, a0 = (V.from % 12) * 30, deg = Math.min(nums[0], 720), corr = Q.ans[0], sg = V.ccw ? -1 : 1;
       var P = function (ph, rr) { ph = ph * Math.PI / 180; return f1(cx + rr * Math.sin(ph)) + ' ' + f1(cy - rr * Math.cos(ph)); };
-      var arc = function (t, rr) { if (t >= 359.9) return 'M' + cx + ' ' + (cy - rr) + ' A' + rr + ' ' + rr + ' 0 1 1 ' + cx + ' ' + (cy + rr) + ' A' + rr + ' ' + rr + ' 0 1 1 ' + cx + ' ' + (cy - rr) + 'Z'; return 'M' + cx + ' ' + cy + ' L' + P(a0, rr) + ' A' + rr + ' ' + rr + ' 0 ' + (t > 180 ? 1 : 0) + ' 1 ' + P(a0 + t, rr) + 'Z'; };
+      var arc = function (t, rr) { if (t >= 359.9) return 'M' + cx + ' ' + (cy - rr) + ' A' + rr + ' ' + rr + ' 0 1 1 ' + cx + ' ' + (cy + rr) + ' A' + rr + ' ' + rr + ' 0 1 1 ' + cx + ' ' + (cy - rr) + 'Z'; return 'M' + cx + ' ' + cy + ' L' + P(sg > 0 ? a0 : a0 - t, rr) + ' A' + rr + ' ' + rr + ' 0 ' + (t > 180 ? 1 : 0) + ' 1 ' + P(sg > 0 ? a0 + t : a0, rr) + 'Z'; };
       var hand = $('vzHand'), sw = $('vzSweep');
       hand.setAttribute('transform', 'rotate(' + a0 + ' ' + cx + ' ' + cy + ')');
-      anim(1300, function (k) { var t = deg * ease(k); sw.setAttribute('d', t > .5 ? arc(t, R - 34) : ''); hand.setAttribute('transform', 'rotate(' + f1(a0 + t) + ' ' + cx + ' ' + cy + ')'); }, function () {
-        if (!ok) { var tg = $('vzTarget'); tg.setAttribute('d', 'M' + cx + ' ' + cy + ' L' + P(a0 + corr, R - 30)); tg.setAttribute('opacity', '1'); }
+      anim(1300, function (k) { var t = deg * ease(k); sw.setAttribute('d', t > .5 ? arc(t, R - 34) : ''); hand.setAttribute('transform', 'rotate(' + f1(a0 + sg * t) + ' ' + cx + ' ' + cy + ')'); }, function () {
+        if (!ok) { var tg = $('vzTarget'); tg.setAttribute('d', 'M' + cx + ' ' + cy + ' L' + P(a0 + sg * corr, R - 30)); tg.setAttribute('opacity', '1'); }
         cap.innerHTML = ok ? '🎯 指針剛好轉到 <b>' + V.to + '</b>！' : '指針轉了 ' + nums[0] + '°，停在紫色的地方；要轉到 <b>' + V.to + '</b>（綠色虛線），也就是 <b>' + corr + '°</b>。';
       });
     } else if (V.t === 'line') {
