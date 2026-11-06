@@ -28,6 +28,8 @@
     { k: 'ma4', s: 'ma', name: '整數的除法', href: 'math/division/' },
     { k: 'ma5', s: 'ma', name: '公里', href: 'math/kilometers/' },
     { k: 'ma6', s: 'ma', name: '三角形', href: 'math/triangles/' },
+    // later：學校還沒教的單元，預設關掉，爸媽在「給爸媽」打勾才出題
+    { k: 'ma7', s: 'ma', name: '小數', href: 'math/decimals/', later: true },
     { k: 'na1', s: 'na', name: '第一單元 閃亮的天空', href: 'nature/moon-detective/#lesson1' },
     { k: 'na2', s: 'na', name: '第二單元 水域環境', href: 'nature/moon-detective/#lesson2' },
     { k: 'so1', s: 'so', name: '閱讀生活中的地圖', href: 'social/reading-maps/' },
@@ -371,8 +373,189 @@
         ['河川', ['苦花魚', '拉氏清溪蟹', '臺灣水龍'], ['海龜', '小丑魚', '水稻']], ['海洋', ['海龜', '小丑魚', '海藻'], ['泥鰍', '石田螺', '水稻', '苦花魚', '香蒲']]];
       var w = pick(W), right = pick(w[1]), opts = [right].concat(w[2].slice().sort(function () { return Math.random() - .5; }).slice(0, 2));
       return { kind: 'pick', q: '課本到<b>' + w[0] + '</b>調查時，看到了下面哪一種生物？', opts: opts, a: 0, ex: '課本在' + w[0] + '看到：' + w[1].join('、') + '。' };
+    },
+    /* ===== 第 7 單元 小數（課本 p.85～98） ===== */
+    decGrid: function () {
+      var k = pick([ri(1, 9), ri(1, 9) * 10, ri(11, 99), ri(11, 99), ri(11, 99)]), whole = Math.random() < .15, h = k + (whole ? 100 : 0);
+      var pic = (whole ? gridSVG(100, 110) + ' ' : '') + gridSVG(k, 110);
+      return decQ('一張正方形色紙平分成 100 格，塗色的部分是幾張？<div class="qimg">' + pic + '</div>', h, '張',
+        '1 格是 1/100 張，也就是 <b>0.01 張</b>。' + (whole ? '1 整張再加 ' : '') + k + ' 格是 ' + k + ' 個 0.01，' + (whole ? '合起來是 ' : '是 ') + '<b>' + fmtD(h) + ' 張</b>。',
+        function (r, x) { if (x === k || x === h) return '1 格是 0.01 張：' + k + ' 格是 ' + k + ' 個 0.01，要寫成小數。'; if (k < 10 && r === k * 10) return k + ' 格是 ' + k + ' 個 0.01，是 0.0' + k + '；0.' + k + ' 要塗 ' + (k * 10) + ' 格（' + k + ' 整條）。'; if (r === Math.floor(k / 10) * 10 + (whole ? 100 : 0) && k % 10) return '別忘了零散的 ' + (k % 10) + ' 格，每格是 0.01。'; return ''; });
+    },
+    decBuild: function () {
+      var a = Math.random() < .15 ? ri(10, 20) : ri(0, 9), b = Math.random() < .25 ? 0 : ri(1, 9), c = Math.random() < .3 ? ri(10, 19) : ri(1, 9), h = a * 100 + b * 10 + c;
+      var parts = []; if (a) parts.push(a + ' 個 1'); if (b) parts.push(b + ' 個 0.1'); parts.push(c + ' 個 0.01');
+      return decQ('<b>' + (parts.length > 1 ? parts.slice(0, -1).join('、') + ' 和 ' + parts[parts.length - 1] : parts[0]) + '</b> 合起來是多少？', h, '',
+        (c >= 10 ? c + ' 個 0.01 是 ' + fmtD(c) + '：10 個 0.01 換成 1 個 0.1。' : '') + '1 記在個位、0.1 記在十分位、0.01 記在百分位，合起來是 <b>' + fmtD(h) + '</b>。',
+        function (r, x) { if (c >= 10 && r === a * 100 + b * 10 + c % 10) return '十分位忘了加上換來的 1 個 0.1（10 個 0.01 ＝ 0.1）。'; if (!b && c < 10 && r === a * 100 + c * 10) return '沒有 0.1 的時候，十分位要寫 0：' + fmtD(h) + '。'; if (c >= 10 && String(x).indexOf(String(c)) > 0) return c + ' 個 0.01 是 ' + fmtD(c) + '，不能直接把 ' + c + ' 接在後面。'; return ''; });
+    },
+    decSplit: function () {
+      var a = ri(1, 20), b = Math.random() < .3 ? 0 : ri(1, 9), c = Math.random() < .3 ? 0 : ri(1, 9); if (!b && !c) c = ri(1, 9);
+      var h = a * 100 + b * 10 + c, rev = Math.random() < .3;
+      var f = rev ? [{ pre: '', unit: '個 0.01' }, { pre: '', unit: '個 0.1' }, { pre: '', unit: '個 1' }] : [{ pre: '', unit: '個 1' }, { pre: '', unit: '個 0.1' }, { pre: '', unit: '個 0.01' }];
+      var ans = rev ? [c, b, a] : [a, b, c];
+      return { q: '<b class="num">' + fmtD(h) + '</b> 是幾個' + (rev ? ' 0.01、幾個 0.1 和幾個 1' : ' 1、幾個 0.1 和幾個 0.01') + ' 合起來的？', fields: f, ans: ans,
+        ex: fmtD(h) + '：個位是 ' + a + '、十分位是 ' + b + '、百分位是 ' + c + '，所以是 ' + a + ' 個 1、' + b + ' 個 0.1 和 ' + c + ' 個 0.01。',
+        dg: function (v) { if (rev && v[0] === a && v[2] === c) return '看清楚每一格問的是 0.01、0.1 還是 1：這一題的順序是倒過來的。'; if (!c && (rev ? v[0] : v[2]) === b) return fmtD(h) + ' 的百分位是 0，所以有 0 個 0.01；' + b + ' 是 0.1 的個數。'; if (!b && (rev ? v[1] : v[1]) === c) return '十分位是 0，' + c + ' 在百分位，是 ' + c + ' 個 0.01。'; return ''; } };
+    },
+    decCount: function () {
+      if (Math.random() < .5) { var n = pick([ri(1, 99), ri(1, 9) * 10, 100]);
+        return decQ('<b>' + n + ' 個 0.01</b> 合起來是多少？', n, '', n + ' 個 0.01 是 <b>' + fmtD(n) + '</b>' + (n % 10 === 0 ? '（' + (n / 10) + ' 個 0.1' + (n === 100 ? '，就是 1' : '') + '）' : '') + '。',
+          function (r, x) { if (x === n) return '是 ' + n + ' 個 0.01，要寫成小數。'; if (n % 10 === 0 && r === n / 10) return '10 個 0.01 是 0.1，' + n + ' 個 0.01 是 ' + (n / 10) + ' 個 0.1，就是 ' + fmtD(n) + '。'; return ''; }); }
+      var m = pick([ri(1, 99), ri(1, 9) * 10]);
+      return { q: '<b class="num">' + fmtD(m) + '</b> 是幾個 0.01？', fields: [{ pre: '', unit: '個' }], ans: [m], ex: fmtD(m) + ' 是 <b>' + m + ' 個 0.01</b>' + (m % 10 === 0 ? '（' + (m / 10) + ' 整條，每條 10 格）' : '') + '。',
+        dg: function (v) { if (m % 10 === 0 && v[0] === m / 10) return fmtD(m) + ' 是 ' + (m / 10) + ' 個 0.1，也就是 ' + m + ' 個 0.01。'; return ''; } };
+    },
+    decPlace: function () {
+      var d; do { d = [ri(1, 9), ri(0, 9), ri(1, 9), ri(1, 9)]; } while (new Set(d).size < 4);
+      var h = d[0] * 1000 + d[1] * 100 + d[2] * 10 + d[3], k = ri(0, 3), nm = ['十位', '個位', '十分位', '百分位'][k];
+      return { q: '<b class="num">' + fmtD(h) + '</b> 的<b>' + nm + '</b>數字是多少？', fields: [{ pre: '', unit: '' }], ans: [d[k]],
+        ex: '小數點左邊是個位、十位；右邊第 1 位是十分位、第 2 位是百分位。' + fmtD(h) + ' 的' + nm + '是 <b>' + d[k] + '</b>。',
+        dg: function (v) { var i = d.indexOf(v[0]); if (i < 0) return ''; if (k === 2 && i === 0) return '十位在小數點左邊第 2 位，十分位在小數點右邊第 1 位。'; if (k === 3 && i === 2) return '百分位是小數點右邊第 2 位，記的是有幾個 0.01。'; if (k === 1 && i === 0) return '個位緊貼在小數點的左邊。'; return '一位一位數：十位、個位、小數點、十分位、百分位。'; } };
+    },
+    decRead: function () {
+      var w = pick([ri(1, 9), ri(10, 99), 0]), f = pick([ri(1, 9), ri(1, 9) * 10, ri(11, 99), ri(1, 9)]), h = w * 100 + f; if (f % 10 === 0 && Math.random() < .5) h = w * 100 + ri(1, 9);
+      var s = fmtD(h), dec = s.split('.')[1] || '';
+      if (Math.random() < .5) {
+        var right = readD(h), opts = [right], wr = [];
+        if (dec.length === 2 && dec[0] !== '0') wr.push(readNum(w) + '點' + readNum(+dec)); // 小數部分當整數讀
+        if (w >= 10) wr.push(String(w).split('').map(function (c) { return DIG[+c]; }).join('') + '點' + dec.split('').map(function (c) { return DIG[+c]; }).join(''));
+        if (dec.indexOf('0') === 0) wr.push(readNum(w) + '點' + DIG[+dec[1]]);
+        wr.push(readNum(w) + '點' + dec.split('').reverse().map(function (c) { return DIG[+c]; }).join(''));
+        wr.forEach(function (x) { if (opts.indexOf(x) < 0 && opts.length < 3) opts.push(x); });
+        if (opts.length < 2) return GEN.decRead();
+        return { kind: 'pick', q: '<b class="num">' + s + '</b> 怎麼讀？', opts: opts, a: 0, ex: '整數部分照平常讀，小數點讀「點」，小數點後面<b>一個數字一個數字</b>讀，0 讀「零」：' + s + ' 讀作<b>' + right + '</b>。' };
+      }
+      var opts2 = [s], alt = [];
+      if (dec.length === 2 && dec[0] === '0') { alt.push(w + '.' + dec[1]); alt.push(String(w * 10) + '.' + dec[1]); }
+      alt.push(fmtD(h * 10 > 9999 ? h + 1 : h * 10)); alt.push(String(w) + String(dec));
+      alt.forEach(function (x) { if (opts2.indexOf(x) < 0 && opts2.length < 3 && x !== s) opts2.push(x); });
+      return { kind: 'pick', q: '「<b>' + readD(h) + '</b>」要怎麼寫？', opts: opts2, a: 0, ex: '「點」前面是整數部分，「點」後面一個字是一位：' + readD(h) + ' 寫成 <b>' + s + '</b>。' };
+    },
+    decCm: function () {
+      var t = ri(0, 2), cm, ex, q;
+      if (t === 0) { cm = pick([ri(1, 9), ri(1, 9) * 10, ri(11, 99)]); q = '<b>' + cm + ' 公分</b> ＝ ？ 公尺'; }
+      else if (t === 1) { cm = ri(101, 300); q = '<b>' + cm + ' 公分</b> ＝ ？ 公尺'; }
+      else { var a = ri(1, 3), b = Math.random() < .35 ? ri(1, 9) : ri(11, 99); cm = a * 100 + b; q = '<b>' + a + ' 公尺 ' + b + ' 公分</b> ＝ ？ 公尺'; }
+      return decQ(q, cm, '公尺', '1 公分 ＝ 0.01 公尺。' + cm + ' 公分是 ' + cm + ' 個 0.01 公尺，就是 <b>' + fmtD(cm) + ' 公尺</b>。',
+        function (r, x) { if (x === cm) return '題目問的是公尺：1 公分是 0.01 公尺。'; var b = cm % 100; if (b < 10 && r === Math.floor(cm / 100) * 100 + b * 10) return b + ' 公分是 0.0' + b + ' 公尺，要寫在百分位。'; if (r * 10 === cm) return '100 公分才是 1 公尺：' + cm + ' 公分是 ' + fmtD(cm) + ' 公尺。'; return ''; });
+    },
+    decM: function () {
+      var h = pick([ri(101, 399), ri(11, 39) * 10]), a = Math.floor(h / 100), b = h % 100;
+      if (Math.random() < .3) { var s = pick([ri(1, 9) * 10, ri(11, 99), ri(1, 9)]); return { q: '<b>' + fmtD(s) + ' 公尺</b> ＝ ？ 公分', fields: [{ pre: '', unit: '公分' }], ans: [s], ex: fmtD(s) + ' 公尺是 ' + s + ' 個 0.01 公尺，就是 <b>' + s + ' 公分</b>。', dg: function (v) { return s % 10 === 0 && v[0] === s / 10 ? fmtD(s) + ' 公尺是 ' + s + ' 個 0.01 公尺，所以是 ' + s + ' 公分。' : ''; } }; }
+      return { q: '<b>' + fmtD(h) + ' 公尺</b> ＝ ？ 公尺 ？ 公分', fields: [{ pre: '', unit: '公尺' }, { pre: '', unit: '公分' }], ans: [a, b],
+        ex: '個位的 ' + a + ' 是 ' + a + ' 公尺；小數部分是 ' + b + ' 個 0.01 公尺，就是 ' + b + ' 公分。答案是 <b>' + a + ' 公尺 ' + b + ' 公分</b>。',
+        dg: function (v) { if (b % 10 === 0 && v[1] === b / 10) return '十分位的 ' + (b / 10) + ' 是 ' + (b / 10) + ' 個 0.1 公尺，就是 ' + b + ' 公分。'; if (b < 10 && v[1] === b * 10) return '百分位的 ' + b + ' 是 ' + b + ' 個 0.01 公尺，就是 ' + b + ' 公分。'; return ''; } };
+    },
+    decCmp: function () {
+      var t = ri(0, 4), A, B, sa, sb;
+      if (t === 0) { var w = ri(0, 9), x = ri(1, 9); A = w * 100 + x * 10; B = w * 100 + (x - 1) * 10 + ri(1, 9); if (x === 1) B = w * 100 + ri(1, 9); }
+      else if (t === 1) { var d = [ri(1, 9), ri(1, 9), ri(1, 9)]; A = d[0] * 1000 + d[1] * 100 + d[2] * 10; B = d[0] * 100 + d[1] * 10 + d[2]; }
+      else if (t === 2) { A = ri(10, 12) * 100 + ri(1, 9) * 10; B = ri(8, 9) * 100 + ri(50, 99); }
+      else if (t === 3) { A = ri(1, 20) * 100 + ri(1, 9) * 10; B = A; }
+      else { A = ri(1, 9) * 100 + ri(1, 9); B = Math.floor(A / 100) * 100 + (A % 100) * 10; if (Math.random() < .4) B = A; }
+      if (Math.random() < .5) { var tt = A; A = B; B = tt; }
+      sa = t === 3 && Math.random() < .5 ? fmtD(A) + '0' : (t === 4 && Math.random() < .5 ? readD(A) : fmtD(A)); sb = fmtD(B);
+      if (t === 3 && sa === fmtD(A) && A % 10 === 0) sa = fmtD(A) + '0';
+      var a = A > B ? 0 : A < B ? 1 : 2;
+      var p2s = function (x) { return Math.floor(x / 100) + '.' + ('0' + x % 100).slice(-2); };
+      var why = t === 0 ? '位數不一樣時，在後面補 0 再比：' + p2s(A) + ' 和 ' + p2s(B) + '，比百分之幾就看得出來。'
+        : t === 1 ? '數字一樣，但小數點的位置不一樣：' + fmtD(Math.max(A, B)) + ' 的整數部分比較大。'
+          : t === 2 ? '先比整數部分：' + Math.floor(Math.max(A, B) / 100) + ' 比 ' + Math.floor(Math.min(A, B) / 100) + ' 大，後面的小數就不用比了。'
+            : t === 3 ? '末位的 0 可以省略：' + sa + ' 和 ' + sb + ' 一樣大。' : '把國字讀法先寫成數字再比。';
+      return { kind: 'pick', q: '在 □ 裡填 ＞、＜ 或 ＝：<div class="q2"><b class="num">' + sa + '</b> □ <b class="num">' + sb + '</b></div>', opts: ['＞', '＜', '＝'], a: a, ex: '先比整數部分，再比十分位，再比百分位。' + why };
+    },
+    decSeq: function () {
+      var st = Math.random() < .8 ? 1 : 10, dir = Math.random() < .7 ? 1 : -1, cross = Math.random() < .5, base;
+      if (st === 1) base = cross ? pick([ri(0, 9) * 10 + 7, ri(1, 3) * 100 - 3]) + (dir < 0 ? 6 : 0) : ri(1, 290);
+      else base = ri(1, 25) * 10 + (Math.random() < .5 ? ri(1, 9) : 0);
+      if (dir < 0) base += st * 5;
+      var arr = []; for (var i = 0; i < 5; i++) arr.push(base + dir * st * i);
+      if (arr.some(function (x) { return x <= 0; })) return GEN.decSeq();
+      var p = ri(1, 4); if (cross) { for (var j = 1; j < 5; j++) if (arr[j] % 10 === 0) { p = j; break; } }
+      return decQ('依序' + (dir > 0 ? '加' : '減') + '下去，□ 是多少？<div class="seq">' + arr.map(function (x, i) { return i === p ? '<span class="blank">□</span>' : fmtD(x); }).join('、') + '</div>', arr[p], '',
+        '每次' + (dir > 0 ? '多' : '少') + ' ' + fmtD(st) + '，所以 □ 是 <b>' + fmtD(arr[p]) + '</b>。' + (arr[p] % 10 === 0 ? '（末位的 0 可以省略）' : ''),
+        function (r, x) { if (dir > 0 && r < arr[p - 1]) return fmtD(arr[p - 1]) + ' 再多 ' + fmtD(st) + '，是 ' + fmtD(arr[p]) + '：' + (arr[p] % 100 === 0 ? '100 個 0.01 就是 1。' : '10 個 0.01 就是 0.1。'); if (dir < 0 && r > arr[p - 1]) return '數字越來越小喔，' + fmtD(arr[p - 1]) + ' 少 ' + fmtD(st) + ' 是 ' + fmtD(arr[p]) + '。'; return '先算相鄰兩個數差多少。'; });
+    },
+    decAdd: function () {
+      var t = ri(0, 4), a, b;
+      if (t === 0) { a = ri(101, 899); b = ri(101, 899); }
+      else if (t === 1) { a = ri(1, 9) * 100 + ri(1, 9) * 10; b = ri(101, 999); }
+      else if (t === 2) { a = ri(11, 99); b = ri(2, 20) * 100; }
+      else if (t === 3) { a = ri(101, 899); b = (Math.ceil(a / 100) + ri(0, 3)) * 100 - a; if (b < 11) b += 100; }
+      else { a = ri(1, 9) * 100 + ri(1, 9) * 10; b = ri(10, 20) * 100 + ri(11, 99); }
+      if (a % 100 === 0 && b % 100 === 0) return GEN.decAdd();
+      if (Math.random() < .5) { var t2 = a; a = b; b = t2; }
+      var h = a + b, sa = fmtD(a), sb = fmtD(b);
+      var rightAlign = function (x, y) { var dx = sx(x), dy = sx(y), m = Math.max(dx, dy); return Math.round((x / Math.pow(10, 2 - dx) + y / Math.pow(10, 2 - dy)) * Math.pow(10, 2 - m)); }; // 末位對齊的錯誤
+      function sx(x) { var s = fmtD(x); return s.indexOf('.') < 0 ? 0 : s.split('.')[1].length; }
+      var wrong = sx(a) !== sx(b) ? rightAlign(a, b) : -1;
+      return decQ('<b class="num">' + sa + ' ＋ ' + sb + '</b> ＝ ？', h, '', '直式要<b>小數點對齊</b>（' + (sx(a) === 0 || sx(b) === 0 ? '整數的個位對齊個位' : '同一位對齊') + '），從百分位開始加，滿 10 要進 1。答案是 <b>' + fmtD(h) + '</b>' + (h % 10 === 0 && h % 100 ? '（末位的 0 可以省略）' : '') + '。',
+        function (r) { if (r === wrong) return '直式要小數點對齊，不是最後一位對齊：' + (sx(a) < sx(b) ? sa : sb) + ' 的位要對齊另一個數的同一位。'; if (r === h - 10 || r === h - 100) return '有一位加起來滿 10，要進 1 到左邊那一位。'; return ''; });
+    },
+    decSub: function () {
+      var t = ri(0, 4), a, b;
+      if (t === 0) { b = ri(101, 499); a = b + ri(101, 399); }
+      else if (t === 1) { a = ri(3, 9) * 100 + ri(0, 4) * 10 + ri(0, 4); b = ri(101, a - 50); }
+      else if (t === 2) { a = ri(3, 9) * 100 + ri(1, 9) * 10; b = ri(101, a - 11); if (b % 10 === 0) b++; }
+      else if (t === 3) { a = ri(3, 20) * 100; b = ri(101, a - 11); }
+      else { a = ri(10, 19) * 100 + ri(11, 99); b = ri(101, 999); }
+      if (b >= a || (a % 100 === 0 && b % 100 === 0) || b % 10 === 0 && t === 3) return GEN.decSub();
+      var h = a - b, sa = fmtD(a), sb = fmtD(b);
+      // 大減小：每一位都用大的減小的
+      var da = ('000' + a).slice(-4).split('').map(Number), db = ('000' + b).slice(-4).split('').map(Number), big = +da.map(function (x, i) { return Math.abs(x - db[i]); }).join('');
+      return decQ('<b class="num">' + sa + ' － ' + sb + '</b> ＝ ？', h, '', '直式小數點對齊' + (t >= 2 ? '，缺的位先補 0（' + sa + ' 想成 ' + (a % 100 === 0 ? sa + '.00' : sa + '0') + '）' : '') + '，從百分位開始減，不夠減就向左邊借 1，換成 10 個。答案是 <b>' + fmtD(h) + '</b>。',
+        function (r) { if (r === big && big !== h) return '不夠減的時候不能倒過來減，要向左邊那一位借 1，換成 10 個再減。'; if (r === h + 10 || r === h + 100 || r === h + 110) return '借給右邊以後，這一位要少 1，可以劃斜線寫上新的數。'; return ''; });
+    },
+    decWord: function () {
+      var t = ri(0, 3), a = ri(101, 599), b = ri(51, 399), it = pick(['緞帶', '彩帶', '繩子']), u = '公尺', h, q, ex, wrongOp;
+      if (t === 0) { q = '一條' + it + '剪掉 <b>' + fmtD(b) + ' ' + u + '</b> 以後，還剩 <b>' + fmtD(a) + ' ' + u + '</b>。原來長幾公尺？'; h = a + b; wrongOp = Math.abs(a - b); ex = '剪掉的加上剩下的，才是原來的長度：' + fmtD(b) + ' ＋ ' + fmtD(a) + ' ＝ <b>' + fmtD(h) + ' 公尺</b>。'; }
+      else if (t === 1) { var w = pick(['糯米', '麵粉', '綠豆']); u = '公斤'; q = '媽媽用了 <b>' + fmtD(a) + ' 公斤</b>的' + w + '，又用了 <b>' + fmtD(b) + ' 公斤</b>，一共用了幾公斤？'; h = a + b; wrongOp = Math.abs(a - b); ex = '合起來用加法：' + fmtD(a) + ' ＋ ' + fmtD(b) + ' ＝ <b>' + fmtD(h) + ' 公斤</b>。'; }
+      else if (t === 2) { u = '公尺'; var x = ri(101, 299), y = x + ri(11, 99); q = '跳遠比賽，第一個人跳 <b>' + fmtD(y) + ' 公尺</b>，第二個人跳 <b>' + fmtD(x) + ' 公尺</b>，兩人相差幾公尺？'; h = y - x; wrongOp = x + y; ex = '相差用減法，大的減小的：' + fmtD(y) + ' － ' + fmtD(x) + ' ＝ <b>' + fmtD(h) + ' 公尺</b>。'; }
+      else { u = '公升'; var tot = ri(150, 450), dr = ri(51, tot - 21); q = '一瓶果汁有 <b>' + fmtD(tot) + ' 公升</b>，喝掉 <b>' + fmtD(dr) + ' 公升</b>，還剩幾公升？'; h = tot - dr; wrongOp = tot + dr; ex = '還剩多少用減法：' + fmtD(tot) + ' － ' + fmtD(dr) + ' ＝ <b>' + fmtD(h) + ' 公升</b>。'; }
+      return decQ(q, h, u, ex, function (r) { if (r === wrongOp) return t === 0 ? '剪掉的加上剩下的，才是原來的長度，要用加法。' : t === 1 ? '合起來要用加法。' : '這一題要用減法。'; return ''; });
+    },
+    spotDecAdd: function () {
+      var a, b; do { a = ri(101, 899); b = ri(101, 899); } while (a % 10 + b % 10 < 10 || Math.floor(a / 10) % 10 + Math.floor(b / 10) % 10 + 1 < 10 || a % 10 === 0 || b % 10 === 0);
+      var h = a + b, e = ri(0, 2), s = function (x) { return fmtD(x); };
+      var p1 = a % 10 + b % 10, p2 = Math.floor(a / 10) % 10 + Math.floor(b / 10) % 10 + 1, p3 = Math.floor(a / 100) + Math.floor(b / 100) + 1;
+      var steps = ['① 小數點對齊寫好直式', '② 百分位 ' + (a % 10) + ' ＋ ' + (b % 10) + ' ＝ ' + p1 + '，寫 ' + (p1 % 10) + '，進 1', '③ 十分位 ' + (Math.floor(a / 10) % 10) + ' ＋ ' + (Math.floor(b / 10) % 10) + ' ＋ 1 ＝ ' + p2 + '，寫 ' + (p2 % 10) + '，進 1', '④ 個位 ' + Math.floor(a / 100) + ' ＋ ' + Math.floor(b / 100) + ' ＋ 1 ＝ ' + p3, '⑤ 答案 ' + s(h)];
+      var fix;
+      if (e === 0) { steps[2] = '③ 十分位 ' + (Math.floor(a / 10) % 10) + ' ＋ ' + (Math.floor(b / 10) % 10) + ' ＝ ' + (p2 - 1) + '，寫 ' + ((p2 - 1) % 10); fix = '③ 十分位要加上百分位進來的 1：＝ ' + p2 + '，寫 ' + (p2 % 10) + '，進 1'; }
+      else if (e === 1) { steps[4] = '⑤ 答案 ' + (p3 * 10 + Math.floor((h % 100) / 10)) + '.' + (h % 10); fix = '⑤ 答案的小數點要和上面對齊點下來：' + s(h); }
+      else { steps[0] = '① 兩個數靠右邊寫好直式（' + s(a) + ' 和 ' + s(b) + '）'; e = -1; }
+      if (e === -1) return GEN.spotDecAdd();
+      return { kind: 'spot', block: true, q: '小明用直式算 <b class="num">' + s(a) + ' ＋ ' + s(b) + '</b>，他第一個錯的是哪一步？', parts: steps, bad: e === 0 ? 2 : 4, fix: fix, ex: '正確答案是 <b>' + s(h) + '</b>。' };
+    },
+    spotDecSub: function () {
+      var a = ri(3, 9) * 100 + ri(1, 9) * 10, b = ri(101, a - 20); if (b % 10 === 0) b++;
+      var h = a - b, e = ri(0, 1), s = fmtD;
+      var steps = ['① ' + s(a) + ' 補 0，寫成 ' + s(a) + '0', '② 百分位 0 不夠減 ' + (b % 10) + '，向十分位借 1：10 － ' + (b % 10) + ' ＝ ' + (10 - b % 10), '③ 再算十分位和個位', '④ 答案 ' + s(h)];
+      var fix;
+      if (e === 0) { steps[1] = '② 百分位 ' + (b % 10) + ' － 0 ＝ ' + (b % 10) + '（大的減小的）'; fix = '② 0 不夠減 ' + (b % 10) + '，要向十分位借 1，10 － ' + (b % 10) + ' ＝ ' + (10 - b % 10) + '，不能倒過來減'; }
+      else { steps[0] = '① ' + s(a) + ' 補 0，寫成 ' + Math.floor(a / 100) + '.0' + ((a % 100) / 10); fix = '① 0 要補在最後面：' + s(a) + '0（十分位的數字不能動）'; }
+      return { kind: 'spot', block: true, q: '小明用直式算 <b class="num">' + s(a) + ' － ' + s(b) + '</b>，他第一個錯的是哪一步？', parts: steps, bad: e === 0 ? 1 : 0, fix: fix, ex: '正確答案是 <b>' + s(h) + '</b>。' };
     }
   };
+  /* ---------------- 第 7 單元 小數：用「幾個 0.01」的整數來算，避免小數誤差 ---------------- */
+  // h：百分之幾的整數（2.34 → 234）
+  function fmtD(h) { var w = Math.floor(h / 100), f = h % 100; if (!f) return String(w); return w + '.' + (f % 10 ? (f < 10 ? '0' : '') + f : String(f / 10)); }
+  var DIG = '零一二三四五六七八九';
+  function readD(h) { var s = fmtD(h), p = s.split('.'); return readNum(+p[0]) + (p[1] ? '點' + p[1].split('').map(function (c) { return DIG[+c]; }).join('') : ''); }
+  // 百格板：k 格塗色（先一整條一整條塗，再塗零散的）
+  function gridSVG(k, size, col) {
+    size = size || 150; var c = size / 10, h = '<svg viewBox="0 0 ' + size + ' ' + size + '" width="' + size + '" height="' + size + '" class="grid100" role="img" aria-label="百格板塗了 ' + k + ' 格">';
+    for (var i = 0; i < 100; i++) { var col_ = Math.floor(i / 10), row = i % 10; h += '<rect x="' + (col_ * c + .5) + '" y="' + (row * c + .5) + '" width="' + (c - 1) + '" height="' + (c - 1) + '" fill="' + (i < k ? (col || '#ff9f1c') : '#fff') + '" stroke="#c9bff2" stroke-width="1"/>'; }
+    return h + '<rect x=".5" y=".5" width="' + (size - 1) + '" height="' + (size - 1) + '" fill="none" stroke="#7b61ff" stroke-width="2"/></svg>';
+  }
+  // 小數答案的診斷：拿到孩子的數字 x，正確的是 h（幾個 0.01）
+  function decHint(x, h) {
+    var r = Math.round(x * 100);
+    if (Math.abs(x * 100 - r) > 1e-6) return '小數點後面最多寫到百分位（第 2 位）喔。';
+    if (r === h * 10 || r * 10 === h) return '小數點的位置差了一位：0.1 記在十分位（小數點後第 1 位），0.01 記在百分位（第 2 位）。';
+    return '';
+  }
+  function decQ(q, h, unit, ex, dg) { return { q: q, fields: [{ pre: '', unit: unit || '' }], ans: [h / 100], dec: true, ex: ex, dg: function (v) { return (dg && dg(Math.round(v[0] * 100), v[0])) || decHint(v[0], h); } }; }
   /* 乘數是二位數的直式：第一行幾個一、第二行幾個十（課本 p.22～28） */
   function mulTwo(a, b) {
     var u = b % 10, tn = Math.floor(b / 10), p1 = a * u, p2 = a * tn, ans = a * b;
@@ -533,8 +716,11 @@
    ['ma4', 'div41', '四位數 ÷ 一位數'], ['ma4', 'div22', '二位數 ÷ 二位數'], ['ma4', 'div32', '三位數 ÷ 二位數'], ['ma4', 'div42', '四位數 ÷ 二位數'],
    ['ma5', 'km1', '公里換公尺'], ['ma5', 'km2', '公尺換公里'], ['ma5', 'km3', '公里公尺加減'],
    ['ma6', 'triAngle', '以角分類三角形'], ['ma6', 'triSide', '以邊分類三角形'], ['ma6', 'triIso', '等腰三角形'], ['ma6', 'triEqui', '正三角形'],
+   ['ma7', 'decGrid', '百格板讀小數'], ['ma7', 'decBuild', '幾個 1、0.1、0.01 合起來'], ['ma7', 'decSplit', '拆成幾個 1、0.1、0.01'], ['ma7', 'decCount', '幾個 0.01'], ['ma7', 'decPlace', '十分位、百分位的數字'],
+   ['ma7', 'decRead', '小數的讀法和記法'], ['ma7', 'decCm', '公分換成公尺'], ['ma7', 'decM', '公尺換成公尺公分'], ['ma7', 'decCmp', '小數比大小'], ['ma7', 'decSeq', '小數依序加減'],
+   ['ma7', 'decAdd', '小數加法'], ['ma7', 'decSub', '小數減法'], ['ma7', 'decWord', '小數應用題'],
    // 找錯小偵探：看小明的算法，點出第一個錯的那一步
-   ['ma1', 'spotBig', '找錯：大數寫成數字'], ['ma2', 'spotMul', '找錯：乘法直式'], ['ma3', 'spotAngle', '找錯：平角計算'], ['ma5', 'spotKm', '找錯：公里換公尺']
+   ['ma1', 'spotBig', '找錯：大數寫成數字'], ['ma2', 'spotMul', '找錯：乘法直式'], ['ma3', 'spotAngle', '找錯：平角計算'], ['ma5', 'spotKm', '找錯：公里換公尺'], ['ma7', 'spotDecAdd', '找錯：小數加法'], ['ma7', 'spotDecSub', '找錯：小數減法補 0']
   ].forEach(function (x) { var g = GEN[x[1]]; cards.push({ id: 'ma:' + x[1], s: 'ma', u: x[0], type: g().kind || 'num', gen: x[1], label: x[2] }); });
 
   // 自然：課本重點（先想再選）。n＝卡片 id 的後半；a＝正確答案；w＝其他選項
@@ -805,5 +991,9 @@
     return { kind: card.type };
   }
 
-  root.REVIEW_BANK = { subjects: SUBJECTS, units: UNITS, cards: cards, make: make, readNum: readNum, moonSVG: moonSVG, GEN: GEN };
+  // 還沒教的單元：卡片帶 later，排程才知道預設關掉
+  var LATER = {}; UNITS.forEach(function (u) { if (u.later) LATER[u.k] = true; });
+  cards.forEach(function (c) { if (LATER[c.u]) c.later = true; });
+
+  root.REVIEW_BANK = { subjects: SUBJECTS, units: UNITS, cards: cards, make: make, readNum: readNum, moonSVG: moonSVG, GEN: GEN, fmtD: fmtD, readD: readD, gridSVG: gridSVG };
 })(typeof window !== 'undefined' ? window : this);
