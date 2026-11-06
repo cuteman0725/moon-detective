@@ -117,6 +117,11 @@ main{max-width:760px;margin:0 auto;padding:12px 16px}
 .keys button{appearance:none;border:none;border-radius:14px;min-height:56px;font-size:24px;font-weight:800;background:#f1edff;color:var(--ink);box-shadow:0 3px 0 #cfc5f0;cursor:pointer;font-family:inherit}
 .keys button:active{transform:translateY(2px);box-shadow:0 1px 0 #cfc5f0}
 .keys .go{background:var(--violet);color:#fff;box-shadow:0 3px 0 #4f3bc4;font-size:20px}
+.keys .go.wide{grid-column:1/-1}.keys .dot{font-size:30px}
+.kbox.sm{min-width:2.4em}
+.frin{display:inline-flex;flex-direction:column;align-items:center;gap:4px}.frin i{display:block;width:100%;height:3px;background:var(--ink);border-radius:2px}
+.fq{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1.05;margin:0 2px;font-variant-numeric:tabular-nums}.fq b{font-weight:800}.fq i{display:block;align-self:stretch;height:2px;background:currentColor;margin:1px 0}
+.mx{display:inline-flex;align-items:center;gap:1px;vertical-align:middle}
 .keys .del{background:#fff;border:2px solid #e2dcf5}
 .keys button:disabled{opacity:.4}
 .scratch{position:relative;width:100%;height:260px;border:3px dashed #c9bff2;border-radius:16px;background:repeating-linear-gradient(#fffdf6 0 31px,#efe9d8 31px 32px);touch-action:none;overflow:hidden;margin-top:8px}
@@ -557,11 +562,12 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
     var h = '', last = '';
     B.units.forEach(function (u) {
       if (u.s !== last) { h += '<div class="g">' + SUB[u.s].icon + ' ' + SUB[u.s].name + '</div>'; last = u.s; }
-      h += '<label><input type="checkbox" data-u="' + u.k + '"' + (st.set.off[u.k] ? '' : ' checked') + '>' + esc(u.name) + '</label>';
+      var on = S.unitOn(st, u.k, u.later);
+      h += '<label><input type="checkbox" data-u="' + u.k + '"' + (u.later ? ' data-later="1"' : '') + (on ? ' checked' : '') + '>' + esc(u.name) + (u.later && !on ? ' <span class="tag2">還沒教</span>' : '') + '</label>';
     });
     $('setUnits').innerHTML = h;
     Array.prototype.forEach.call($('setUnits').querySelectorAll('input'), function (el) {
-      el.addEventListener('change', function () { if (el.checked) delete st.set.off[el.dataset.u]; else st.set.off[el.dataset.u] = true; S.save(st); renderHome(); });
+      el.addEventListener('change', function () { S.setUnit(st, el.dataset.u, !!el.dataset.later, el.checked); S.save(st); renderHome(); });
     });
     var wrong = S.monsters(B, st);
     $('wrongList').innerHTML = wrong.length ? wrong.map(function (c) { return '<span>' + SUB[c.s].icon + ' ' + esc(cardName(c)) + '</span>'; }).join('') : '<span>目前沒有 👍</span>';
@@ -583,7 +589,7 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
     return B.units.map(function (u) {
       var list = B.cards.filter(function (c) { return c.u === u.k; }), a = cardAcc(list);
       return { u: u, total: list.length, seen: list.filter(function (c) { return st.cards[c.id]; }).length, n: a.n, ok: a.ok,
-        mon: list.filter(function (c) { return S.isMonster(st, c); }).length, off: !!st.set.off[u.k] };
+        mon: list.filter(function (c) { return S.isMonster(st, c); }).length, off: !S.unitOn(st, u.k, u.later) };
     });
   }
   function weakest(rows) { var w = null; rows.forEach(function (r) { if (r.n >= 5 && (!w || r.ok / r.n < w.ok / w.n)) w = r; }); return w && w.ok / w.n < .9 ? w : null; }
@@ -762,11 +768,23 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
   }
 
   // 數學：填數字（用畫面上的數字鍵盤，平板不會跳出系統鍵盤；電腦也可以直接打字）
+  // 填答格：一般是一格一格排；分數（fr: 'w' 整數、'n' 分子、'd' 分母）排成帶分數的樣子
+  function fieldsHTML(Q) {
+    var box = function (f, j, cls) { return '<button type="button" class="kbox' + (cls || '') + (j ? '' : ' on') + '" id="in' + j + '" data-j="' + j + '" aria-label="' + (f.pre || (f.fr === 'w' ? '整數' : f.fr === 'n' ? '分子' : f.fr === 'd' ? '分母' : '答案')) + (f.unit ? '（' + f.unit + '）' : '') + '"></button>'; };
+    var h = '';
+    for (var j = 0; j < Q.fields.length; j++) {
+      var f = Q.fields[j], g = Q.fields[j + 1];
+      if (f.pre) h += '<span>' + f.pre + '</span>';
+      if (f.fr === 'n' && g && g.fr === 'd') { h += '<span class="frin">' + box(f, j, ' sm') + '<i></i>' + box(g, j + 1, ' sm') + '</span>' + (g.unit ? '<span>' + g.unit + '</span>' : ''); j++; continue; }
+      h += box(f, j, f.fr ? ' sm' : '') + (f.unit ? '<span>' + f.unit + '</span>' : '');
+    }
+    return h;
+  }
   function renderNum(it) {
     var c = it.c, Q = it.Q, vals = Q.fields.map(function () { return ''; }), cur = 0, done = false;
     $('qCard').innerHTML = head(c, it.again) + '<p class="kicker">算算看</p><div class="q">' + Q.q + '</div>'
-      + '<div class="fields">' + Q.fields.map(function (f, j) { return (f.pre ? '<span>' + f.pre + '</span>' : '') + '<button type="button" class="kbox' + (j ? '' : ' on') + '" id="in' + j + '" data-j="' + j + '" aria-label="' + (f.pre || '答案') + (f.unit ? '（' + f.unit + '）' : '') + '"></button>' + (f.unit ? '<span>' + f.unit + '</span>' : ''); }).join('') + '</div>'
-      + '<div class="keys" id="keys">' + ['1', '2', '3', '4', '5', '6', '7', '8', '9', '⌫', '0', '✔️ 送出'].map(function (k) { return '<button type="button" data-k="' + k + '" class="' + (k === '⌫' ? 'del' : k.length > 1 ? 'go' : '') + '" aria-label="' + (k === '⌫' ? '刪掉一個數字' : k.length > 1 ? '送出答案' : k) + '">' + k + '</button>'; }).join('') + '</div>'
+      + '<div class="fields">' + fieldsHTML(Q) + '</div>'
+      + '<div class="keys" id="keys">' + (Q.dec ? ['1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '0', '⌫', '✔️ 送出'] : ['1', '2', '3', '4', '5', '6', '7', '8', '9', '⌫', '0', '✔️ 送出']).map(function (k) { return '<button type="button" data-k="' + k + '" class="' + (k === '⌫' ? 'del' : k.length > 1 ? 'go' + (Q.dec ? ' wide' : '') : k === '.' ? 'dot' : '') + '" aria-label="' + (k === '⌫' ? '刪掉一個數字' : k.length > 1 ? '送出答案' : k === '.' ? '小數點' : k) + '">' + k + '</button>'; }).join('') + '</div>'
       + '<div class="btns"><button class="btn white" type="button" id="scrBtn">✏️ 草稿紙</button></div><div id="scrBox" hidden><div class="scratch"><canvas id="scv"></canvas></div><div class="btns"><button class="btn white" type="button" id="scrClr">🧽 擦掉草稿</button></div></div>'
       + '<div id="numFb"></div>';
     function paint() { Q.fields.forEach(function (_, j) { var el = $('in' + j); el.textContent = vals[j]; el.classList.toggle('on', j === cur && !done); }); }
@@ -774,13 +792,14 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
       if (done) return;
       if (k === '⌫') vals[cur] = vals[cur].slice(0, -1);
       else if (k.length > 1) { submit(); return; }
+      else if (k === '.') { if (!Q.dec || vals[cur].indexOf('.') >= 0) return; vals[cur] = (vals[cur] || '0') + '.'; }
       else if (vals[cur].length < 9) vals[cur] = (vals[cur] === '0' ? '' : vals[cur]) + k;
       paint();
     }
     Array.prototype.forEach.call($('keys').querySelectorAll('button'), function (b) { b.addEventListener('click', function () { press(b.dataset.k); }); });
     Q.fields.forEach(function (_, j) { $('in' + j).addEventListener('click', function () { if (!done) { cur = j; paint(); } }); });
     run.key = function (e) {
-      if (/^[0-9]$/.test(e.key)) { press(e.key); e.preventDefault(); }
+      if (/^[0-9]$/.test(e.key) || (e.key === '.' && Q.dec)) { press(e.key); e.preventDefault(); }
       else if (e.key === 'Backspace') { press('⌫'); e.preventDefault(); }
       else if (e.key === 'Enter' && !done) { submit(); e.preventDefault(); }
       else if ((e.key === 'Tab' || e.key === 'ArrowRight') && !done && Q.fields.length > 1) { cur = (cur + 1) % Q.fields.length; paint(); e.preventDefault(); }
@@ -793,14 +812,14 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
     function submit() {
       if (vals.some(function (v) { return v === ''; })) { cur = vals.findIndex(function (v) { return v === ''; }); paint(); $('numFb').innerHTML = '<div class="fb no">每一格都要填喔。</div>'; return; }
       done = true;
-      var nums = vals.map(Number), ok = nums.every(function (v, j) { return v === Q.ans[j]; });
-      Q.fields.forEach(function (_, j) { $('in' + j).classList.add(nums[j] === Q.ans[j] ? 'ok' : 'no'); });
+      var nums = vals.map(Number), same = function (j) { return Math.abs(nums[j] - Q.ans[j]) < 1e-9; }, ok = nums.every(function (v, j) { return same(j); });
+      Q.fields.forEach(function (_, j) { $('in' + j).classList.add(same(j) ? 'ok' : 'no'); });
       paint();
       Array.prototype.forEach.call($('keys').querySelectorAll('button'), function (b) { b.disabled = true; });
       result(it, ok ? 'ok' : 'fail', $('keys'));
       var why = !ok && Q.dg ? Q.dg(nums) : '';
       $('numFb').innerHTML = (Q.viz ? vizHTML(Q, nums) : '') + (it.msg || '') + '<div class="fb ' + (ok ? 'ok' : 'no') + '">' + (ok ? '✅ 答對了！' + comboTxt() + '<br>'
-        : '❌ 正確答案是 <b>' + Q.ans.map(function (a, j) { return (Q.fields[j].pre ? Q.fields[j].pre + ' ' : '') + a + (Q.fields[j].unit || ''); }).join('，') + '</b>。' + (it.again ? '' : '等一下會換數字再考一次。') + '<br>'
+        : '❌ 正確答案是 <b>' + (Q.ansText || Q.ans.map(function (a, j) { return (Q.fields[j].pre ? Q.fields[j].pre + ' ' : '') + a + (Q.fields[j].unit || ''); }).join('，')) + '</b>。' + (it.again ? '' : '等一下會換數字再考一次。') + '<br>'
           + (why ? '🔎 <b>可能錯在這裡：</b>' + why + '<br>' : '')) + Q.ex + '</div>' + nextBtn('', ok ? 0 : 3);
       if (Q.viz) playViz(Q, nums, ok);
       bindNext();

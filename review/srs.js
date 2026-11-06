@@ -12,9 +12,10 @@
   var INTERVAL = [0, 1, 2, 4, 7, 14, 30];
   var MASTER_BOX = 4; // 4 號盒以上（隔 7 天以上）算「記牢了」
   var DEFAULTS = { newPerDay: 8, cap: 20, off: {} };
+  // 單元開關：一般單元預設打開（關掉的記在 off）；還沒教的單元（bank 裡標 later）預設關掉（打開的記在 on）
 
   function dayNum(d) { d = d || new Date(); return Math.floor(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / 864e5); }
-  function blank() { return { v: 1, cards: {}, days: {}, set: { newPerDay: DEFAULTS.newPerDay, cap: DEFAULTS.cap, off: {} } }; }
+  function blank() { return { v: 1, cards: {}, days: {}, set: { newPerDay: DEFAULTS.newPerDay, cap: DEFAULTS.cap, off: {}, on: {} } }; }
   function load() {
     var st = null;
     try { st = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) { st = null; }
@@ -25,12 +26,18 @@
     if ([3, 5, 8, 12].indexOf(st.set.newPerDay) < 0) st.set.newPerDay = DEFAULTS.newPerDay;
     if ([10, 15, 20, 30].indexOf(st.set.cap) < 0) st.set.cap = DEFAULTS.cap;
     if (!st.set.off || typeof st.set.off !== 'object') st.set.off = {};
+    if (!st.set.on || typeof st.set.on !== 'object') st.set.on = {};
     return st;
   }
   function save(st) { try { localStorage.setItem(KEY, JSON.stringify(st)); return true; } catch (e) { return false; } }
   function dayRec(st, d) { var r = st.days[d]; if (!r) r = st.days[d] = { n: 0, ok: 0, nw: 0, fin: false }; return r; }
 
-  function inScope(st, card) { return !st.set.off[card.u]; }
+  function unitOn(st, k, later) { return later ? !!st.set.on[k] : !st.set.off[k]; }
+  function setUnit(st, k, later, on) {
+    if (later) { if (on) st.set.on[k] = true; else delete st.set.on[k]; }
+    else { if (on) delete st.set.off[k]; else st.set.off[k] = true; }
+  }
+  function inScope(st, card) { return unitOn(st, card.u, card.later); }
   function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
 
   /* 交錯：各科輪流出，同一科盡量不要連在一起 */
@@ -145,5 +152,5 @@
   }
   function minutes(n) { return Math.max(1, Math.round(n * 25 / 60)); }
 
-  root.SRS = { stars: stars, rw: rw, pinHash: pinHash, STAR_DAY: STAR_DAY, STAR_BEAT: STAR_BEAT, monsters: monsters, isMonster: isMonster, KEY: KEY, INTERVAL: INTERVAL, MASTER_BOX: MASTER_BOX, dayNum: dayNum, load: load, save: save, plan: plan, extra: extra, grade: grade, finish: finish, streak: streak, stats: stats, minutes: minutes, shuffle: shuffle, interleave: interleave, blank: blank };
+  root.SRS = { stars: stars, rw: rw, pinHash: pinHash, STAR_DAY: STAR_DAY, STAR_BEAT: STAR_BEAT, monsters: monsters, isMonster: isMonster, KEY: KEY, INTERVAL: INTERVAL, MASTER_BOX: MASTER_BOX, dayNum: dayNum, load: load, save: save, plan: plan, extra: extra, grade: grade, finish: finish, streak: streak, stats: stats, minutes: minutes, shuffle: shuffle, interleave: interleave, blank: blank, unitOn: unitOn, setUnit: setUnit };
 })(typeof window !== 'undefined' ? window : this);
