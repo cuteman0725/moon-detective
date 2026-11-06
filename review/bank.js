@@ -30,6 +30,7 @@
     { k: 'ma6', s: 'ma', name: '三角形', href: 'math/triangles/' },
     // later：學校還沒教的單元，預設關掉，爸媽在「給爸媽」打勾才出題
     { k: 'ma7', s: 'ma', name: '小數', href: 'math/decimals/', later: true },
+    { k: 'ma8', s: 'ma', name: '整數四則計算', href: 'math/mixed-ops/', later: true },
     { k: 'na1', s: 'na', name: '第一單元 閃亮的天空', href: 'nature/moon-detective/#lesson1' },
     { k: 'na2', s: 'na', name: '第二單元 水域環境', href: 'nature/moon-detective/#lesson2' },
     { k: 'so1', s: 'so', name: '閱讀生活中的地圖', href: 'social/reading-maps/' },
@@ -535,8 +536,158 @@
       if (e === 0) { steps[1] = '② 百分位 ' + (b % 10) + ' － 0 ＝ ' + (b % 10) + '（大的減小的）'; fix = '② 0 不夠減 ' + (b % 10) + '，要向十分位借 1，10 － ' + (b % 10) + ' ＝ ' + (10 - b % 10) + '，不能倒過來減'; }
       else { steps[0] = '① ' + s(a) + ' 補 0，寫成 ' + Math.floor(a / 100) + '.0' + ((a % 100) / 10); fix = '① 0 要補在最後面：' + s(a) + '0（十分位的數字不能動）'; }
       return { kind: 'spot', block: true, q: '小明用直式算 <b class="num">' + s(a) + ' － ' + s(b) + '</b>，他第一個錯的是哪一步？', parts: steps, bad: e === 0 ? 1 : 0, fix: fix, ex: '正確答案是 <b>' + s(h) + '</b>。' };
+    },
+    /* ===== 第 8 單元 整數四則計算（課本 p.99～114）：有括號先算括號；只有加減或只有乘除，由左往右；混合時先乘除後加減 ===== */
+    ordAS: function () {
+      var t = ri(0, 5), a, b, c, e, ans, lr, msg;
+      for (var g = 0; g < 100; g++) {
+        a = ri(30, 99); b = ri(5, 60); c = ri(5, 60); if (Math.random() < .2) b = ri(2, 9);
+        if (t === 0) { e = a + ' ＋ ' + b + ' ＋ ' + c; ans = a + b + c; lr = -1; }
+        else if (t === 1) { e = a + ' － ' + b + ' ＋ ' + c; ans = a - b + c; lr = a - (b + c); }
+        else if (t === 2) { e = a + ' － ' + b + ' － ' + c; ans = a - b - c; lr = a - (b - c); }
+        else if (t === 3) { a = Math.random() < .3 ? 100 : a; e = a + ' － (' + b + ' ＋ ' + c + ')'; ans = a - (b + c); lr = a - b + c; }
+        else if (t === 4) { if (b < c) { var x = b; b = c; c = x; } e = a + ' － (' + b + ' － ' + c + ')'; ans = a - (b - c); lr = a - b - c; }
+        else { if (b < c) { var y = b; b = c; c = y; } e = a + ' ＋ ' + b + ' － ' + c; ans = a + b - c; lr = -1; }
+        if (ans >= 0 && a - b >= 0 && (lr < 0 || lr !== ans) && b !== c) break;
+      }
+      msg = t === 1 || t === 2 ? '沒有括號、只有加和減，要<b>由左往右</b>一步一步算：先算 ' + a + ' － ' + b + '。' : t >= 3 && t <= 4 ? '有括號要<b>先算括號裡的</b>。' : '只有加和減，由左往右一步一步算。';
+      return { q: '<b class="num">' + e + '</b> ＝ ？', fields: [{ pre: '', unit: '' }], ans: [ans], ex: msg + '答案是 <b>' + ans + '</b>。',
+        dg: function (v) { if (lr >= 0 && v[0] === lr) return t >= 3 ? '括號裡的要先算，不能由左往右直接算。' : '沒有括號時要由左往右算，不能先算右邊。'; if (Math.abs(v[0] - ans) === 10 || Math.abs(v[0] - ans) === 100) return '直式加減時，進位或借位漏了。'; return ''; } };
+    },
+    ordMD: function () {
+      var t = ri(0, 4), a, b, c, e, ans, lr;
+      for (var g = 0; g < 200; g++) {
+        b = pick([ri(2, 9), ri(11, 25)]); c = pick([ri(2, 9), ri(11, 15)]);
+        if (t === 0) { a = ri(3, 40) * c; e = a + ' × ' + b + ' ÷ ' + c; ans = a * b / c; lr = (b % c === 0) ? a * (b / c) : -1; }
+        else if (t === 1) { var q = ri(2, 30); a = q * b; e = a + ' ÷ ' + b + ' × ' + c; ans = q * c; lr = a % (b * c) === 0 ? a / (b * c) : -1; }
+        else if (t === 2) { var q2 = ri(2, 20); a = q2 * b * c; e = a + ' ÷ ' + b + ' ÷ ' + c; ans = q2; lr = b % c === 0 && a % (b / c) === 0 ? a / (b / c) : -1; }
+        else if (t === 3) { var q3 = ri(2, 20); a = q3 * b * c; e = a + ' ÷ (' + b + ' × ' + c + ')'; ans = q3; lr = a / b * c; }
+        else { var k = ri(2, 9); b = c * k; var q4 = ri(2, 40); a = q4 * k; e = a + ' ÷ (' + b + ' ÷ ' + c + ')'; ans = q4; lr = a % b === 0 ? a / b / c : -1; if (lr !== -1 && lr % 1) lr = -1; }
+        if (a <= 999 && ans <= 1000 && ans === Math.round(ans) && b !== c && a !== b && lr !== ans) break;
+      }
+      return { q: '<b class="num">' + e + '</b> ＝ ？', fields: [{ pre: '', unit: '' }], ans: [ans],
+        ex: (t <= 2 ? '只有乘和除，沒有括號，要<b>由左往右</b>算。' : '有括號要<b>先算括號裡的</b>。') + '答案是 <b>' + ans + '</b>。',
+        dg: function (v) { if (lr >= 0 && v[0] === lr) return t <= 2 ? '沒有括號，乘除也要由左往右：先算左邊的那一步。' : '括號裡要先算，再用 ' + a + ' 去除。'; return ''; } };
+    },
+    ordMix: function () {
+      var t = ri(0, 7), a, b, c, e, ans, lr;
+      for (var g = 0; g < 200; g++) {
+        if (t <= 3) { b = pick([ri(12, 99), ri(101, 249)]); c = ri(2, 9); } else { c = ri(2, 9); b = c * ri(4, 60); }
+        a = pick([ri(20, 99), ri(101, 300), 100, 500, 1000]);
+        var p = t <= 3 ? b * c : b / c;
+        if (t === 0) { e = a + ' ＋ ' + b + ' × ' + c; ans = a + p; lr = (a + b) * c; }
+        else if (t === 1) { e = a + ' － ' + b + ' × ' + c; ans = a - p; lr = (a - b) * c; }
+        else if (t === 2) { e = b + ' × ' + c + ' ＋ ' + a; ans = p + a; lr = b * (c + a); }
+        else if (t === 3) { e = b + ' × ' + c + ' － ' + a; ans = p - a; lr = b * (c - a); }
+        else if (t === 4) { e = a + ' ＋ ' + b + ' ÷ ' + c; ans = a + p; lr = (a + b) % c ? -1 : (a + b) / c; }
+        else if (t === 5) { e = a + ' － ' + b + ' ÷ ' + c; ans = a - p; lr = (a - b) % c || a < b ? -1 : (a - b) / c; }
+        else if (t === 6) { e = b + ' ÷ ' + c + ' ＋ ' + a; ans = p + a; lr = -1; }
+        else { e = b + ' ÷ ' + c + ' － ' + a; ans = p - a; lr = -1; }
+        if (ans > 0 && ans <= 2000 && lr !== ans) break;
+      }
+      return { q: '<b class="num">' + e + '</b> ＝ ？', fields: [{ pre: '', unit: '' }], ans: [ans],
+        ex: '加、減和' + (t <= 3 ? '乘' : '除') + '混在一起，要<b>先算' + (t <= 3 ? '乘' : '除') + '的部分</b>（' + (t <= 3 ? b + ' × ' + c + ' ＝ ' + p : b + ' ÷ ' + c + ' ＝ ' + p) + '），再算加、減。答案是 <b>' + ans + '</b>。',
+        dg: function (v) { if (lr >= 0 && v[0] === lr) return '不能由左往右直接算：加減乘除混在一起時，× 和 ÷ 先算！'; return ''; } };
+    },
+    ordMixP: function () {
+      var t = ri(0, 5), a, b, c, e, ans, np, inner;
+      for (var g = 0; g < 300; g++) {
+        a = ri(12, 99); b = ri(3, 60); c = ri(2, 9);
+        if (t === 0) { inner = a + b; e = '(' + a + ' ＋ ' + b + ') × ' + c; ans = inner * c; np = a + b * c; }
+        else if (t === 1) { if (a <= b) continue; inner = a - b; e = '(' + a + ' － ' + b + ') × ' + c; ans = inner * c; np = a - b * c; }
+        else if (t === 2) { inner = a + b; if (inner % c) continue; e = '(' + a + ' ＋ ' + b + ') ÷ ' + c; ans = inner / c; np = b % c ? -1 : a + b / c; }
+        else if (t === 3) { if (a <= b) continue; inner = a - b; if (inner % c) continue; e = '(' + a + ' － ' + b + ') ÷ ' + c; ans = inner / c; np = b % c ? -1 : a - b / c; }
+        else if (t === 4) { var s = ri(5, 40), x = ri(2, s - 2); inner = s; b = x; c = s - x; a = s * ri(2, 20); e = a + ' ÷ (' + b + ' ＋ ' + c + ')'; ans = a / s; np = a % b ? -1 : a / b + c; }
+        else { var d = ri(2, 30), y = ri(3, 40); inner = d; b = y + d; c = y; a = d * ri(2, 25); e = a + ' ÷ (' + b + ' － ' + c + ')'; ans = a / d; np = a % b ? -1 : a / b - c; }
+        if (ans > 0 && ans <= 2000 && np !== ans && (np < 0 || np === Math.round(np))) break;
+      }
+      return { q: '<b class="num">' + e + '</b> ＝ ？', fields: [{ pre: '', unit: '' }], ans: [ans], ex: '有括號就<b>先算括號裡的</b>：括號裡是 ' + inner + '，再算下一步。答案是 <b>' + ans + '</b>。',
+        dg: function (v) { if (np >= 0 && v[0] === np) return '有括號就先算括號裡的，這時候加法（減法）也要先算。'; if (v[0] === inner) return '括號算完還要再' + (t <= 1 ? '乘' : '除') + '喔。'; return ''; } };
+    },
+    ordSteps: function () {
+      var Q = Math.random() < .5 ? GEN.ordMix() : GEN.ordMixP(), e = Q.q.replace(/<[^>]+>/g, '').replace(' ＝ ？', '');
+      var m = e.match(/\(([^)]+)\)/), first, firstV;
+      if (m) { first = m[1]; } else { var mm = e.match(/(\d+) ([×÷]) (\d+)/); first = mm[0]; }
+      firstV = Function('return ' + first.replace(/×/g, '*').replace(/÷/g, '/').replace(/＋/g, '+').replace(/－/g, '-'))();
+      var rest = e.replace(m ? '(' + first + ')' : first, String(firstV));
+      var wrongFirst = -1, mw = e.replace(/[()]/g, '').match(/^(\d+) ([＋－×÷]) (\d+)/);
+      if (mw) { var w = Function('return ' + mw[0].replace(/×/g, '*').replace(/÷/g, '/').replace(/＋/g, '+').replace(/－/g, '-'))(); if (w !== firstV) wrongFirst = w; }
+      return { q: '用遞等式一步一步算：<div class="q2"><b class="num">' + e + '</b></div>先算的那一步是多少？最後答案是多少？', fields: [{ pre: '先算的 ＝', unit: '' }, { pre: '答案 ＝', unit: '' }], ans: [firstV, Q.ans[0]],
+        ex: '<div class="steps">' + e + '<br>＝ ' + rest + '<br>＝ <b>' + Q.ans[0] + '</b></div>' + (m ? '有括號，先算括號裡的 ' + first + '。' : '先算 ' + first + '（先乘除後加減）。'),
+        dg: function (v) { if (v[0] === wrongFirst) return '先算的應該是 ' + first + '，不是最左邊那一段。'; if (v[0] === firstV && v[1] !== Q.ans[0]) return '第一步對了！第二步再算一次：' + rest + '。'; return ''; } };
+    },
+    ordFirst: function () {
+      var Q = pick([GEN.ordMix, GEN.ordMixP, GEN.ordAS, GEN.ordMD])(), e = Q.q.replace(/<[^>]+>/g, '').replace(' ＝ ？', '');
+      var toks = e.replace(/[()]/g, '').split(' '), segs = [];
+      for (var i = 0; i + 2 < toks.length; i += 2) segs.push(toks[i] + ' ' + toks[i + 1] + ' ' + toks[i + 2]);
+      var m = e.match(/\(([^)]+)\)/), right;
+      if (m) right = m[1]; else if (/[×÷]/.test(e) && /[＋－]/.test(e)) right = segs.filter(function (s) { return /[×÷]/.test(s); })[0]; else right = segs[0];
+      var a = segs.indexOf(right); if (a < 0 || segs.length < 2) return GEN.ordFirst();
+      var why = m ? '有括號，先算括號裡的。' : /[×÷]/.test(e) && /[＋－]/.test(e) ? '加減乘除混在一起，先乘除後加減。' : '只有加減（或只有乘除），由左往右算。';
+      return { kind: 'pick', q: '這個算式要<b>先算哪一段</b>？<div class="q2"><b class="num">' + e + '</b></div>', opts: segs, a: a, ex: why + '所以先算 <b>' + right + '</b>。' };
+    },
+    ordSame: function () {
+      var a = ri(20, 90), b = ri(4, 12), c = ri(2, 6), t = ri(0, 11), X, Y, same;
+      var S = [[a + ' ＋ (' + b + ' × ' + c + ')', a + ' ＋ ' + b + ' × ' + c, 1], [(a + b * c) + ' － (' + (b * c) + ' ÷ ' + c + ')', (a + b * c) + ' － ' + (b * c) + ' ÷ ' + c, 1], ['(' + a + ' × ' + b + ') × ' + c, a + ' × ' + b + ' × ' + c, 1], ['(' + (a + b + c) + ' － ' + b + ') － ' + c, (a + b + c) + ' － ' + b + ' － ' + c, 1],
+        ['(' + (a * c) + ' × ' + b + ') ÷ ' + c, (a * c) + ' × ' + b + ' ÷ ' + c, 1], [(a + b + c) + ' － (' + b + ' ＋ ' + c + ')', (a + b + c) + ' － ' + b + ' ＋ ' + c, 0], [(a + b) + ' － (' + b + ' － ' + c + ')', (a + b) + ' － ' + b + ' － ' + c, 0], [(a * b * c) + ' ÷ (' + b + ' × ' + c + ')', (a * b * c) + ' ÷ ' + b + ' × ' + c, 0],
+        ['(' + a + ' ＋ ' + b + ') × ' + c, a + ' ＋ ' + b + ' × ' + c, 0], [a + ' × (' + b + ' ＋ ' + c + ')', a + ' × ' + b + ' ＋ ' + c, 0], [(a * (b + c)) + ' ÷ (' + b + ' ＋ ' + c + ')', (a * (b + c)) + ' ÷ ' + b + ' ＋ ' + c, 0], ['(' + (a + b * c) + ' － ' + b + ') ÷ ' + c, (a + b * c) + ' － ' + b + ' ÷ ' + c, 0]][t];
+      X = S[0]; Y = S[1]; same = S[2];
+      return { kind: 'pick', q: '不用計算，下面兩個算式的答案<b>相同嗎</b>？<div class="q2"><b class="num">' + X + '</b><br><b class="num">' + Y + '</b></div>', opts: ['相同', '不同'], a: same ? 0 : 1,
+        ex: same ? '把括號拿掉以後，括號裡那一段<b>本來就會先算</b>，所以答案一樣。' : '把括號拿掉以後，先算的部分就變了，所以答案<b>不一樣</b>。' };
+    },
+    ordWrite: function () {
+      var T = story8(), opts = [T.right].concat(T.wrong.slice(0, 2));
+      return { kind: 'pick', q: T.q + '<br>把問題用<b>一個算式</b>記下來，下面哪一個是對的？', opts: opts, a: 0, ex: '可以寫成 <b>' + T.right + '</b>' + (T.alt ? '（也可以寫成 ' + T.alt + '）' : '') + '，答案是 ' + T.ans + ' ' + T.unit + '。' + (T.note || '') };
+    },
+    ordWord: function () {
+      var T = story8();
+      return { q: T.q, fields: [{ pre: '', unit: T.unit }], ans: [T.ans], ex: '列成一個算式：<b>' + T.right + '</b> ＝ ' + T.ans + '。' + (T.note || ''),
+        dg: function (v) { if (v[0] === T.mid) return '這是第一步的答案，題目還要再算一步。'; if (T.wv && T.wv.indexOf(v[0]) >= 0) return T.wtip; return ''; } };
+    },
+    ordPuzzle: function () {
+      var a = ri(2, 9), b = ri(1, 8), c = ri(1, 6), OPS = ['＋', '－', '×', '÷'], all = [];
+      var f = function (x, o, y) { if (x === null || y === null) return null; var r = o === '＋' ? x + y : o === '－' ? x - y : o === '×' ? x * y : (y && x % y === 0 ? x / y : null); return r !== null && r >= 0 ? r : null; };
+      OPS.forEach(function (o1) { OPS.forEach(function (o2) {
+        var p1 = (o2 === '×' || o2 === '÷') && (o1 === '＋' || o1 === '－') ? f(a, o1, f(b, o2, c)) : f(f(a, o1, b), o2, c);
+        all.push([a + ' ' + o1 + ' ' + b + ' ' + o2 + ' ' + c, p1]);
+        all.push(['(' + a + ' ' + o1 + ' ' + b + ') ' + o2 + ' ' + c, f(f(a, o1, b), o2, c)]);
+        all.push([a + ' ' + o1 + ' (' + b + ' ' + o2 + ' ' + c + ')', f(a, o1, f(b, o2, c))]);
+      }); });
+      all = all.filter(function (x) { return x[1] !== null && x[1] <= 30; });
+      var vals = {}; all.forEach(function (x) { (vals[x[1]] = vals[x[1]] || []).push(x[0]); });
+      var ks = Object.keys(vals); if (ks.length < 4) return GEN.ordPuzzle();
+      var tg = +pick(ks), right = pick(vals[tg]), others = M8shuffle(all.filter(function (x) { return x[1] !== tg; })).slice(0, 2);
+      return { kind: 'pick', q: '在 <b>' + a + '　' + b + '　' + c + '</b> 中間填入符號（可以加括號），讓答案是 <b>' + tg + '</b>。下面哪一個是對的？', opts: [right].concat(others.map(function (x) { return x[0]; })), a: 0,
+        ex: right + ' ＝ ' + tg + '。答案不只一種：' + vals[tg].slice(0, 4).join('、') + (vals[tg].length > 4 ? '……' : '') + '。其他選項：' + others.map(function (x) { return x[0] + ' ＝ ' + x[1]; }).join('；') + '。' };
+    },
+    spotOrd: function () {
+      var t = ri(0, 2), a, b, c, parts, bad, fix, ans;
+      if (t === 0) { do { a = ri(60, 99); b = ri(12, 40); c = ri(12, 40); } while (a - b - c < 0); ans = a - b + c; parts = ['① ' + a + ' － ' + b + ' ＋ ' + c, '② ＝ ' + a + ' － ' + (b + c), '③ ＝ ' + (a - b - c)]; bad = 1; fix = '② ＝ ' + (a - b) + ' ＋ ' + c + '（沒有括號，由左往右先算 ' + a + ' － ' + b + '）'; }
+      else if (t === 1) { a = ri(30, 99); b = ri(11, 25); c = ri(3, 9); ans = a + b * c; parts = ['① ' + a + ' ＋ ' + b + ' × ' + c, '② ＝ ' + (a + b) + ' × ' + c, '③ ＝ ' + ((a + b) * c)]; bad = 1; fix = '② ＝ ' + a + ' ＋ ' + (b * c) + '（先算 ' + b + ' × ' + c + '）'; }
+      else { do { b = ri(2, 9); c = ri(2, 9); a = (b + c) * ri(2, 12); } while (a % b); ans = a / (b + c); parts = ['① ' + a + ' ÷ (' + b + ' ＋ ' + c + ')', '② ＝ ' + (a / b) + ' ＋ ' + c, '③ ＝ ' + (a / b + c)]; bad = 1; fix = '② ＝ ' + a + ' ÷ ' + (b + c) + '（先算括號）'; }
+      if (Math.random() < .35) { // 第二步對了，最後一步算錯
+        var mid2 = t === 0 ? (a - b) + ' ＋ ' + c : t === 1 ? a + ' ＋ ' + (b * c) : a + ' ÷ ' + (b + c), wv = ans + (ans > 10 ? pick([-10, 10]) : pick([1, 2]));
+        parts = [parts[0], '② ＝ ' + mid2, '③ ＝ ' + wv]; bad = 2; fix = '③ ＝ ' + ans + '（' + mid2 + ' 再算一次）';
+      }
+      return { kind: 'spot', block: true, q: '小明用遞等式算下面的題目，他第一個錯的是哪一步？', parts: parts, bad: bad, fix: fix, ex: '正確答案是 <b>' + ans + '</b>。' };
     }
   };
+  /* ---------------- 第 8 單元：兩步驟應用題的題目（都換過數字，答案都是正整數、除法都整除） ---------------- */
+  function M8shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function story8() {
+    var t = ri(0, 9), P, x, y, n, k, N, r, o, d, m, T;
+    if (t === 0) { P = pick([100, 200, 500]); x = ri(12, 60); y = ri(12, 60); if (x + y >= P) y = P - x - ri(5, 9); return { q: '有 <b>' + P + ' 元</b>，買了一個 <b>' + x + ' 元</b>和一個 <b>' + y + ' 元</b>的東西，還剩多少元？', right: P + ' － (' + x + ' ＋ ' + y + ')', alt: P + ' － ' + x + ' － ' + y, wrong: [P + ' － ' + x + ' ＋ ' + y, P + ' ＋ ' + x + ' － ' + y], ans: P - x - y, mid: x + y, unit: '元', wv: [P - x + y], wtip: '買了兩樣都要扣掉：先算兩樣共花多少，用括號包起來。', note: '' }; }
+    if (t === 1) { o = ri(55, 95); d = ri(8, 25); P = 100; return { q: '一盒壽司原價 <b>' + o + ' 元</b>，特價每盒便宜 <b>' + d + ' 元</b>。買一盒，付 <b>100 元</b>，會找回多少元？', right: '100 － (' + o + ' － ' + d + ')', wrong: ['100 － ' + o + ' － ' + d, '100 － ' + o + ' ＋ ' + d + ' ＋ ' + d], ans: 100 - (o - d), mid: o - d, unit: '元', wv: [100 - o - d, 100 - o], wtip: '先算一盒特價是多少錢。', note: '先算特價：' + o + ' － ' + d + ' ＝ ' + (o - d) + '。' }; }
+    if (t === 2) { m = ri(25, 48); k = ri(5, 15); return { q: '合唱團的女生有 <b>' + m + ' 人</b>，男生比女生少 <b>' + k + ' 人</b>。合唱團一共有幾人？', right: m + ' ＋ (' + m + ' － ' + k + ')', wrong: [m + ' ＋ ' + k, m + ' － ' + k + ' ＋ ' + k], ans: m + m - k, mid: m - k, unit: '人', wv: [m + k, m - k], wtip: '先算男生有幾人：' + m + ' － ' + k + '，再合起來。', note: '' }; }
+    if (t === 3) { n = ri(2, 4); T = n * ri(8, 60) * 5; P = Math.ceil((T / n) / 100) * 100 + pick([100, 200]); return { q: '有 <b>' + P + ' 元</b>，和家人共 <b>' + n + ' 人</b>合買一個 <b>' + T + ' 元</b>的禮物，每人出一樣多。付完後還剩多少元？', right: P + ' － ' + T + ' ÷ ' + n, wrong: ['(' + P + ' － ' + T + ') ÷ ' + n, P + ' － ' + T], ans: P - T / n, mid: T / n, unit: '元', wv: [P - T], wtip: '每人只出一部分：先算一人要出多少元。', note: '先算除法：一人出 ' + T + ' ÷ ' + n + ' ＝ ' + (T / n) + ' 元。' }; }
+    if (t === 4) { k = ri(3, 8); N = k * ri(12, 40); x = ri(15, 40); return { q: '有 <b>' + N + ' 顆</b>草莓，每 <b>' + k + ' 顆</b>串成一串，每串賣 <b>' + x + ' 元</b>。全部賣完可以賣多少元？', right: N + ' ÷ ' + k + ' × ' + x, wrong: [N + ' ÷ (' + k + ' × ' + x + ')', N + ' × ' + k + ' ÷ ' + x], ans: N / k * x, mid: N / k, unit: '元', wv: [], wtip: '', note: '先算可以串成幾串：' + N + ' ÷ ' + k + ' ＝ ' + (N / k) + '。' }; }
+    if (t === 5) { k = ri(4, 9); r = ri(3, 12); N = k * ri(15, 40) + r; return { q: '有 <b>' + N + ' 顆</b>雞蛋，破了 <b>' + r + ' 顆</b>，剩下的每 <b>' + k + ' 顆</b>裝一盒，可以裝幾盒？', right: '(' + N + ' － ' + r + ') ÷ ' + k, wrong: [N + ' － ' + r + ' ÷ ' + k, N + ' ÷ ' + k + ' － ' + r], ans: (N - r) / k, mid: N - r, unit: '盒', wv: [], wtip: '', note: '先算剩下幾顆，要用括號包起來。' }; }
+    if (t === 6) { x = ri(18, 30); y = ri(18, 30); T = (x + y) * ri(4, 12); return { q: '甲班有 <b>' + x + ' 人</b>，乙班有 <b>' + y + ' 人</b>，<b>' + T + ' 張</b>貼紙平分給兩班的每一個人，一人分到幾張？', right: T + ' ÷ (' + x + ' ＋ ' + y + ')', wrong: [T + ' ÷ ' + x + ' ＋ ' + y, T + ' ÷ ' + x + ' ÷ ' + y], ans: T / (x + y), mid: x + y, unit: '張', wv: [], wtip: '', note: '先算兩班一共幾人。' }; }
+    if (t === 7) { n = ri(2, 5); var each = ri(3, 9); T = each * 12 * n; return { q: '一打鉛筆有 12 枝，買了 <b>' + n + ' 打</b>，一共付 <b>' + T + ' 元</b>。一枝鉛筆幾元？', right: T + ' ÷ (12 × ' + n + ')', alt: T + ' ÷ ' + n + ' ÷ 12', wrong: [T + ' ÷ 12 × ' + n, T + ' × ' + n + ' ÷ 12'], ans: each, mid: 12 * n, unit: '元', wv: [T / 12 * n], wtip: '先算一共幾枝（12 × ' + n + '），或先算一打幾元，再除以 12。', note: '' }; }
+    if (t === 8) { x = ri(40, 80); y = ri(15, 35); n = ri(2, 4); return { q: '動物園的成人票 <b>' + x + ' 元</b>，兒童票 <b>' + y + ' 元</b>。買 1 張成人票和 <b>' + n + ' 張</b>兒童票，一共要多少元？', right: x + ' ＋ ' + y + ' × ' + n, wrong: ['(' + x + ' ＋ ' + y + ') × ' + n, x + ' × ' + y + ' ＋ ' + n], ans: x + y * n, mid: y * n, unit: '元', wv: [(x + y) * n], wtip: '成人票只買 1 張：先算兒童票 ' + y + ' × ' + n + '，再加成人票。', note: '先乘後加，可以不加括號。' }; }
+    P = pick([500, 1000]); x = ri(45, 230); n = ri(2, 4); if (x * n >= P) x = Math.floor((P - 20) / n);
+    return { q: '用 <b>' + P + ' 元</b>買 <b>' + n + ' 個</b> <b>' + x + ' 元</b>的便當，會找回多少元？', right: P + ' － ' + x + ' × ' + n, wrong: ['(' + P + ' － ' + x + ') × ' + n, x + ' × ' + n + ' － ' + P], ans: P - x * n, mid: x * n, unit: '元', wv: [(P - x) * n], wtip: '先算 ' + n + ' 個便當一共多少元，再用 ' + P + ' 去減。', note: '先乘後減，可以不加括號。' };
+  }
   /* ---------------- 第 7 單元 小數：用「幾個 0.01」的整數來算，避免小數誤差 ---------------- */
   // h：百分之幾的整數（2.34 → 234）
   function fmtD(h) { var w = Math.floor(h / 100), f = h % 100; if (!f) return String(w); return w + '.' + (f % 10 ? (f < 10 ? '0' : '') + f : String(f / 10)); }
@@ -719,8 +870,10 @@
    ['ma7', 'decGrid', '百格板讀小數'], ['ma7', 'decBuild', '幾個 1、0.1、0.01 合起來'], ['ma7', 'decSplit', '拆成幾個 1、0.1、0.01'], ['ma7', 'decCount', '幾個 0.01'], ['ma7', 'decPlace', '十分位、百分位的數字'],
    ['ma7', 'decRead', '小數的讀法和記法'], ['ma7', 'decCm', '公分換成公尺'], ['ma7', 'decM', '公尺換成公尺公分'], ['ma7', 'decCmp', '小數比大小'], ['ma7', 'decSeq', '小數依序加減'],
    ['ma7', 'decAdd', '小數加法'], ['ma7', 'decSub', '小數減法'], ['ma7', 'decWord', '小數應用題'],
+   ['ma8', 'ordAS', '加減兩步驟的併式'], ['ma8', 'ordMD', '乘除兩步驟的併式'], ['ma8', 'ordMix', '先乘除後加減'], ['ma8', 'ordMixP', '有括號先算括號'], ['ma8', 'ordSteps', '遞等式一步一步算'],
+   ['ma8', 'ordFirst', '先算哪一段'], ['ma8', 'ordSame', '拿掉括號答案相同嗎'], ['ma8', 'ordWrite', '把問題用一個算式記下來'], ['ma8', 'ordWord', '兩步驟應用題'], ['ma8', 'ordPuzzle', '三個數字填符號'],
    // 找錯小偵探：看小明的算法，點出第一個錯的那一步
-   ['ma1', 'spotBig', '找錯：大數寫成數字'], ['ma2', 'spotMul', '找錯：乘法直式'], ['ma3', 'spotAngle', '找錯：平角計算'], ['ma5', 'spotKm', '找錯：公里換公尺'], ['ma7', 'spotDecAdd', '找錯：小數加法'], ['ma7', 'spotDecSub', '找錯：小數減法補 0']
+   ['ma1', 'spotBig', '找錯：大數寫成數字'], ['ma2', 'spotMul', '找錯：乘法直式'], ['ma3', 'spotAngle', '找錯：平角計算'], ['ma5', 'spotKm', '找錯：公里換公尺'], ['ma7', 'spotDecAdd', '找錯：小數加法'], ['ma7', 'spotDecSub', '找錯：小數減法補 0'], ['ma8', 'spotOrd', '找錯：遞等式']
   ].forEach(function (x) { var g = GEN[x[1]]; cards.push({ id: 'ma:' + x[1], s: 'ma', u: x[0], type: g().kind || 'num', gen: x[1], label: x[2] }); });
 
   // 自然：課本重點（先想再選）。n＝卡片 id 的後半；a＝正確答案；w＝其他選項
