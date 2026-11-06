@@ -31,6 +31,7 @@
     // later：學校還沒教的單元，預設關掉，爸媽在「給爸媽」打勾才出題
     { k: 'ma7', s: 'ma', name: '小數', href: 'math/decimals/', later: true },
     { k: 'ma8', s: 'ma', name: '整數四則計算', href: 'math/mixed-ops/', later: true },
+    { k: 'ma9', s: 'ma', name: '分數', href: 'math/fractions/', later: true },
     { k: 'na1', s: 'na', name: '第一單元 閃亮的天空', href: 'nature/moon-detective/#lesson1' },
     { k: 'na2', s: 'na', name: '第二單元 水域環境', href: 'nature/moon-detective/#lesson2' },
     { k: 'so1', s: 'so', name: '閱讀生活中的地圖', href: 'social/reading-maps/' },
@@ -670,8 +671,131 @@
         parts = [parts[0], '② ＝ ' + mid2, '③ ＝ ' + wv]; bad = 2; fix = '③ ＝ ' + ans + '（' + mid2 + ' 再算一次）';
       }
       return { kind: 'spot', block: true, q: '小明用遞等式算下面的題目，他第一個錯的是哪一步？', parts: parts, bad: bad, fix: fix, ex: '正確答案是 <b>' + ans + '</b>。' };
+    },
+    /* ===== 第 9 單元 分數（課本 p.115～130） ===== */
+    fracPic: function () {
+      var d = ri(3, 10), k = ri(1, 3), r = ri(1, d - 1), tot = k * d + r, imp = Math.random() < .5, it = pick([['條紙條', '條'], ['張色紙', '張'], ['盒雞蛋糕', '盒']]);
+      return fracQ('每' + it[1] + '平分成 ' + d + ' 份，塗色的部分是幾' + it[1] + '？用<b>' + (imp ? '假分數' : '帶分數') + '</b>表示。<div class="qimg">' + fracBars(k, r, d, it[1]) + '</div>', tot, d, it[1],
+        '整' + it[1] + '的有 ' + k + ' ' + it[1] + '，最後一' + it[1] + '塗了 ' + r + ' 份：帶分數是 ' + mx(k, r, d) + '；一共 ' + tot + ' 個 ' + fq(1, d) + '，假分數是 ' + fq(tot, d) + '。',
+        function (x, v) { if (v.length === 2 && v[1] === tot) return '整' + it[1] + '的已經變成整數了，分子只數最後那一' + it[1] + '塗了幾份。'; if (imp && x === r) return '整' + it[1] + '的也要算進去：一' + it[1] + '有 ' + d + ' 份，' + k + ' ' + it[1] + '是 ' + (k * d) + ' 份。'; return ''; }, imp);
+    },
+    fracKind: function () {
+      var d = ri(2, 15), t = ri(0, 3), n, show, a;
+      if (t === 0) { n = ri(1, d - 1); show = fq(n, d); a = 0; }
+      else if (t === 1) { n = ri(d + 1, 3 * d); show = fq(n, d); a = 1; }
+      else if (t === 2) { show = fq(d, d); a = 1; }
+      else { show = mx(ri(1, 5), ri(1, d - 1), d); a = 2; }
+      return { kind: 'pick', q: show + ' 是什麼分數？', opts: ['真分數', '假分數', '帶分數'], a: a,
+        ex: ['分子比分母小，是<b>真分數</b>，比 1 小。', '分子比分母大，是<b>假分數</b>，比 1 大。', '分子和分母一樣大，也是<b>假分數</b>，它剛好等於 1。', '用整數和真分數合在一起，是<b>帶分數</b>，比 1 大。'][t] };
+    },
+    mixToImp: function () {
+      var d = ri(2, 16), w = ri(1, 9), n = ri(1, d - 1), N = d * w + n, int = Math.random() < .25;
+      if (int) return { q: '<b>' + w + '</b> ＝ ？', fields: [{ fr: 'n', den: d }], ans: [d * w], ansText: fq(d * w, d), ex: '1 ＝ ' + fq(d, d) + '，' + w + ' 個 1 就是 ' + d + ' × ' + w + ' ＝ ' + (d * w) + ' 個 ' + fq(1, d) + '：' + w + ' ＝ ' + fq(d * w, d) + '。', dg: function (v) { return v[0] === w + d || v[0] === w ? '1 ＝ ' + fq(d, d) + '，' + w + ' 個 1 就是 ' + d + ' × ' + w + ' 個 ' + fq(1, d) + '。' : ''; } };
+      return { q: mx(w, n, d) + ' ＝ ？', fields: [{ fr: 'n', den: d }], ans: [N], ansText: fq(N, d), ex: '分母 × 整數 ＋ 分子：' + d + ' × ' + w + ' ＋ ' + n + ' ＝ ' + N + '，分母不變，' + mx(w, n, d) + ' ＝ ' + fq(N, d) + '。',
+        dg: function (v) { v = v[0]; if (v === w + n) return '1 個整數裡有 ' + d + ' 個 ' + fq(1, d) + '，要先算 ' + d + ' × ' + w + '。'; if (v === d * w) return '整數換好了，別忘了再加上分子 ' + n + '。'; if (v === w * n + d) return '是「分母 × 整數 ＋ 分子」：' + d + ' × ' + w + ' ＋ ' + n + '。'; return ''; } };
+    },
+    impToMix: function () {
+      var d = ri(2, 16), w = ri(1, 8), n = Math.random() < .2 ? 0 : ri(1, d - 1), N = w * d + n;
+      if (N <= d) { w = 2; N = 2 * d + n; }
+      return fracQ(fq(N, d) + ' ＝ ？（用帶分數或整數回答）', N, d, '', N + ' ÷ ' + d + ' ＝ ' + w + (n ? '…' + n : '') + '，商是整數部分，' + (n ? '餘數是分子，分母不變：' + fq(N, d) + ' ＝ ' + mx(w, n, d) : '剛好分完，答案是整數 ' + w) + '。',
+        function (x, v) { if (v.length === 2 && v[0] === n && v[1] === w) return N + ' ÷ ' + d + ' 的商是整數部分，餘數才是分子。'; if (v.length === 2 && v[0] === 1 && v[1] === N - d) return '還可以再合成整個的喔！用除法一次找出有幾個整數。'; return ''; });
+    },
+    fracCmp: function () {
+      var d = ri(3, 15), t = ri(0, 3), A, B, sa, sb;
+      if (t === 0) { var w = ri(1, 6), n = ri(1, d - 1); A = w * d + n; B = A + pick([-2, -1, 0, 1, 2]); if (B <= d) B = A; sa = mx(w, n, d); sb = fq(B, d); }
+      else if (t === 1) { var w1 = ri(1, 5), n1 = ri(Math.ceil(d / 2), d - 1), n2 = ri(1, Math.floor(d / 2)); A = w1 * d + n1; B = (w1 + 1) * d + n2; sa = mx(w1, n1, d); sb = mx(w1 + 1, n2, d); }
+      else if (t === 2) { var k = ri(2, 8); A = k * d + pick([-1, 0, 1]) * ri(1, d - 1); B = k * d; sa = fq(A, d); sb = String(k); }
+      else { A = ri(d + 1, 5 * d); B = A + pick([-3, -1, 1, 3]); if (B <= d) B = A + 2; sa = fq(A, d); sb = fq(B, d); }
+      if (Math.random() < .5) { var tt = A; A = B; B = tt; var ts = sa; sa = sb; sb = ts; }
+      return { kind: 'pick', q: '在 □ 裡填 ＞、＜ 或 ＝：<div class="q2">' + sa + ' □ ' + sb + '</div>', opts: ['＞', '＜', '＝'], a: A > B ? 0 : A < B ? 1 : 2,
+        ex: '換成同一種形式再比：左邊是 ' + fq(A, d) + '（' + mx(Math.floor(A / d), A % d, d) + '），右邊是 ' + fq(B, d) + '（' + mx(Math.floor(B / d), B % d, d) + '）。帶分數可以先比整數。' };
+    },
+    fracAdd: function () {
+      var d = ri(3, 16), a, b; do { a = ri(1, 2 * d); b = ri(1, 2 * d); } while (a + b <= d || a + b > 4 * d);
+      return fracQ(fq(a, d) + ' ＋ ' + fq(b, d) + ' ＝ ？（用帶分數或整數回答）', a + b, d, '', a + ' 個 ' + fq(1, d) + ' 加 ' + b + ' 個 ' + fq(1, d) + '，是 ' + (a + b) + ' 個 ' + fq(1, d) + '：' + fq(a + b, d) + ' ＝ ' + mx(Math.floor((a + b) / d), (a + b) % d, d) + '。<b>分母不變，分子相加</b>。',
+        function (x, v) { if (v.length === 1 && v[0] === a + b) return '題目要用帶分數回答，用除法把整數找出來。'; return ''; });
+    },
+    fracAddMix: function () {
+      var d = ri(3, 16), t = ri(0, 2), w1 = ri(1, 6), n1 = ri(1, d - 1), A = w1 * d + n1, B, sb;
+      if (t === 0) { var w2 = ri(1, 5), n2 = ri(Math.max(1, d - n1), d - 1); B = w2 * d + n2; sb = mx(w2, n2, d); }
+      else if (t === 1) { B = ri(d + 1, 3 * d); sb = fq(B, d); }
+      else { var k = ri(2, 9); B = k * d; sb = String(k); }
+      var tot = A + B;
+      return fracQ(mx(w1, n1, d) + ' ＋ ' + sb + ' ＝ ？（用帶分數或整數回答）', tot, d, '', '整數加整數，分數加分數，分數部分滿 ' + d + ' 份就換成 1 個整數（像 3 又 7/5 要記成 4 又 2/5）。也可以都換成假分數再加。答案是 ' + mx(Math.floor(tot / d), tot % d, d) + '。',
+        function (x, v) { if (v.length === 2 && v[0] * d + v[1] === tot - d) return '分數部分滿 ' + d + ' 份時，合成 1 個，整數要多 1。'; return ''; });
+    },
+    fracSub: function () {
+      var d = ri(3, 15), t = ri(0, 2), n = Math.random() < .5 ? ri(2, 9) : 1, A, B, sb;
+      if (t === 0) { n = 1; B = ri(1, d - 1); sb = fq(B, d); }
+      else if (t === 1) { n = ri(2, 9); B = ri(1, d - 1); sb = fq(B, d); }
+      else { n = ri(3, 9); var w = ri(1, n - 1); B = w * d + ri(1, d - 1); sb = mx(w, B % d, d); }
+      A = n * d; var tot = A - B;
+      return fracQ(n + ' － ' + sb + ' ＝ ？', tot, d, '', '把 ' + (n === 1 ? '1 換成 ' + fq(d, d) : n + ' 換成 ' + mx(n - 1, d, d) + '（從 ' + n + ' 拿 1 換成 ' + fq(d, d) + '）') + '再減，或都換成假分數：' + fq(A, d) + ' － ' + fq(B, d) + ' ＝ ' + fq(tot, d) + ' ＝ ' + mx(Math.floor(tot / d), tot % d, d) + '。',
+        function (x, v) { var bw = Math.floor(B / d), bn = B % d; if (v.length === 2 && v[0] === n - bw && v[1] === bn) return '分數部分不能照抄：要從整數借 1 換成 ' + fq(d, d) + '，再減分數。'; if (x === tot + d) return '借走 1 個整數，整數部分要少 1。'; return ''; });
+    },
+    fracSubB: function () {
+      var d = ri(4, 16), a = ri(3, 9), c = ri(1, a - 1), b = ri(1, d - 2), e = ri(b + 1, d - 1), A = a * d + b, Bv = c * d + e, tot = A - Bv;
+      return fracQ(mx(a, b, d) + ' － ' + mx(c, e, d) + ' ＝ ？', tot, d, '', b + '/' + d + ' 不夠減 ' + e + '/' + d + '：從整數 ' + a + ' 拿 1 換成 ' + fq(d, d) + '，' + mx(a, b, d) + ' 就變成 ' + (a - 1) + ' 又 ' + (b + d) + '/' + d + '，再減。答案是 ' + mx(Math.floor(tot / d), tot % d, d) + '。',
+        function (x, v) { if (v.length === 2 && v[0] === a - c && v[1] === e - b) return '上面的分子比較小不夠減，不能倒過來減，要從整數借 1 換成 ' + fq(d, d) + '。'; if (x === tot + d) return '借走 1 個整數，整數部分要少 1。'; if (d !== 10 && v.length === 2 && v[1] === b + 10 - e) return '1 要換成 ' + fq(d, d) + '，分母是幾就換成幾分之幾，不是 10。'; return ''; });
+    },
+    fracMul: function () {
+      var d = ri(3, 15), b = ri(1, 2 * d), n = ri(2, 9); if (b === d) b++;
+      var tot = b * n;
+      return fracQ(fq(b, d) + ' × ' + n + ' ＝ ？（用帶分數或整數回答）', tot, d, '', fq(b, d) + ' 是 ' + b + ' 個 ' + fq(1, d) + '，它的 ' + n + ' 倍是 ' + b + ' × ' + n + ' ＝ ' + tot + ' 個 ' + fq(1, d) + '。<b>分子 × 整數，分母不變</b>：' + fq(tot, d) + (tot >= d ? ' ＝ ' + mx(Math.floor(tot / d), tot % d, d) : '') + '。',
+        function (x, v) { if (x === b + n) return '是 ' + n + ' 倍，要乘不是加。'; if (v.length === 1 && v[0] === tot && tot > d) return '題目要用帶分數回答，用除法把整數找出來。'; return ''; });
+    },
+    fracMulMix: function () {
+      var d = ri(3, 12), w = ri(1, 4), n0 = ri(1, d - 1), k = ri(2, 6), tot = (w * d + n0) * k;
+      return fracQ(mx(w, n0, d) + ' × ' + k + ' ＝ ？（用帶分數或整數回答）', tot, d, '', '先換成假分數：' + fq(w * d + n0, d) + ' × ' + k + ' ＝ ' + fq(tot, d) + '；或整數和分數分開乘：' + w + ' × ' + k + ' ＋ ' + fq(n0, d) + ' × ' + k + '。答案是 ' + mx(Math.floor(tot / d), tot % d, d) + '。',
+        function (x, v) { if (x === w * k * d + n0) return '分數部分也要乘 ' + k + ' 喔。'; if (x === w * d + n0 * k) return '整數 ' + w + ' 也要乘 ' + k + '。'; return ''; });
+    },
+    fracWord: function () {
+      var t = ri(0, 3), d = ri(4, 12), A, B, tot, q, unit;
+      if (t === 0) { unit = '公升'; A = ri(d + 1, 3 * d); B = ri(d + 1, 3 * d); tot = A + B; q = '一瓶優酪乳喝掉 ' + mx(Math.floor(A / d), A % d, d) + ' 公升，還剩 ' + fq(B, d) + ' 公升，原來有幾公升？'; }
+      else if (t === 1) { unit = '公斤'; var n = ri(3, 8); A = n * d; B = ri(d + 1, (n - 1) * d - 1); tot = A - B; q = '一把樂器連盒子重 ' + n + ' 公斤，盒子重 ' + mx(Math.floor(B / d), B % d, d) + ' 公斤，樂器重幾公斤？'; }
+      else if (t === 2) { unit = '公升'; var each = ri(d + 1, 2 * d), k = ri(2, 6); tot = each * k; q = '一瓶果汁有 ' + mx(Math.floor(each / d), each % d, d) + ' 公升，' + k + ' 瓶一共有幾公升？'; }
+      else { unit = '公斤'; A = ri(2 * d + 1, 5 * d); B = ri(d + 1, A - 1); tot = A - B; q = '上午採了 ' + mx(Math.floor(B / d), B % d, d) + ' 公斤草莓，一天一共採了 ' + mx(Math.floor(A / d), A % d, d) + ' 公斤，下午採了幾公斤？'; }
+      if (tot <= 0) return GEN.fracWord();
+      return fracQ(q, tot, d, unit, ['用掉的加上剩下的，才是原來的。', '全部的重量減掉盒子，才是裡面東西的重量。', '每瓶的量 × 瓶數，分子 × 整數，分母不變。', '一天的減掉上午的，就是下午的。'][t] + '答案是 ' + mx(Math.floor(tot / d), tot % d, d) + ' ' + unit + '。',
+        function (x) { if (t === 0 && x === Math.abs(A - B)) return '用掉的加上剩下的，才是原來的。'; if ((t === 1 || t === 3) && x === A + B) return '要用減法喔。'; return ''; });
+    },
+    spotFrac: function () {
+      var t = ri(0, 3), d = ri(4, 12), parts, bad, fix, ans;
+      if (t === 0) { var w = ri(2, 6), n = ri(1, d - 1), N = d * w + n; ans = fq(N, d); bad = 1; parts = ['① 分母不變，還是 ' + d, '② 分子 ＝ ' + d + ' ＋ ' + w + ' ＋ ' + n + ' ＝ ' + (d + w + n), '③ ' + mxT(w, n, d) + ' ＝ ' + (d + w + n) + '/' + d]; fix = '② 分子 ＝ 分母 × 整數 ＋ 分子 ＝ ' + d + ' × ' + w + ' ＋ ' + n + ' ＝ ' + N;
+        if (Math.random() < .4) { bad = 0; parts = ['① 分母變成 ' + d + ' × ' + w + ' ＝ ' + (d * w), '② 分子 ＝ ' + d + ' × ' + w + ' ＋ ' + n + ' ＝ ' + N, '③ ' + mxT(w, n, d) + ' ＝ ' + N + '/' + (d * w)]; fix = '① 分母不變，還是 ' + d; }
+        return { kind: 'spot', block: true, q: '小明把 ' + mx(w, n, d) + ' 換成假分數，他第一個錯的是哪一步？', parts: parts, bad: bad, fix: fix, ex: '正確答案是 ' + ans + '。' }; }
+      if (t === 1) { var w1 = ri(2, 6), n1 = ri(1, d - 1); if (w1 === n1) n1 = n1 > 1 ? n1 - 1 : n1 + 1; var N1 = w1 * d + n1; parts = ['① ' + N1 + ' ÷ ' + d + ' ＝ ' + w1 + '…' + n1, '② 商 ' + w1 + ' 當分子，餘數 ' + n1 + ' 當整數', '③ ' + N1 + '/' + d + ' ＝ ' + mxT(n1, w1, d)]; var bd1 = 1, fx1 = '② 商 ' + w1 + ' 是整數部分，餘數 ' + n1 + ' 是分子';
+        if (w1 > 1 && Math.random() < .4) { parts = ['① ' + N1 + ' ÷ ' + d + ' ＝ ' + (w1 - 1) + '…' + (n1 + d), '② 商 ' + (w1 - 1) + ' 是整數，餘數 ' + (n1 + d) + ' 是分子', '③ ' + N1 + '/' + d + ' ＝ ' + mxT(w1 - 1, n1 + d, d)]; bd1 = 0; fx1 = '① 餘數 ' + (n1 + d) + ' 比除數 ' + d + ' 大，商還可以再大：' + N1 + ' ÷ ' + d + ' ＝ ' + w1 + '…' + n1; }
+        return { kind: 'spot', block: true, q: '小明把 ' + fq(N1, d) + ' 換成帶分數，他第一個錯的是哪一步？', parts: parts, bad: bd1, fix: fx1, ex: '正確答案是 ' + mx(w1, n1, d) + '。' }; }
+      if (t === 2) { var a = ri(1, 5), b = ri(1, 4), n2 = ri(2, d - 1), e = ri(d - n2 + 1, d - 1), s = n2 + e; parts = ['① 整數 ' + a + ' ＋ ' + b + ' ＝ ' + (a + b), '② 分數 ' + n2 + '/' + d + ' ＋ ' + e + '/' + d + ' ＝ ' + s + '/' + (d * 2), '③ 合起來是 ' + (a + b) + ' 又 ' + s + '/' + (d * 2)]; var bd2 = 1, fx2 = '② 分母不變，分子相加：' + n2 + '/' + d + ' ＋ ' + e + '/' + d + ' ＝ ' + s + '/' + d;
+        if (Math.random() < .45) { parts = ['① 整數 ' + a + ' ＋ ' + b + ' ＝ ' + (a + b), '② 分數 ' + n2 + '/' + d + ' ＋ ' + e + '/' + d + ' ＝ ' + s + '/' + d, '③ 答案是 ' + (a + b) + ' 又 ' + s + '/' + d]; bd2 = 2; fx2 = '③ ' + (a + b) + ' 又 ' + s + '/' + d + ' 的分數部分比分母大，要記成 ' + (a + b + 1) + ' 又 ' + (s - d) + '/' + d; }
+        return { kind: 'spot', block: true, q: '小明算 ' + mx(a, n2, d) + ' ＋ ' + mx(b, e, d) + '，他第一個錯的是哪一步？', parts: parts, bad: bd2, fix: fx2, ex: '正確答案是 ' + mx(a + b + 1, s - d, d) + '。' }; }
+      var A = ri(4, 8), bb = ri(1, d - 3), C = ri(1, A - 2), ee = ri(bb + 1, d - 1), tot = (A * d + bb) - (C * d + ee);
+      parts = ['① ' + bb + '/' + d + ' 不夠減 ' + ee + '/' + d + '，從 ' + A + ' 借 1', '② ' + mxT(A, bb, d) + ' ＝ ' + A + ' 又 ' + (bb + d) + '/' + d, '③ 再減 ' + mxT(C, ee, d)];
+      var bd3 = 1; if (Math.random() < .4) { parts = [parts[0], '② ' + mxT(A, bb, d) + ' ＝ ' + (A - 1) + ' 又 ' + (bb + d) + '/' + d, '③ 再減 ' + mxT(C, ee, d) + '，答案是 ' + mxT(A - 1 - C, ee - bb, d)]; bd3 = 2; }
+      if (bd3 === 2) return { kind: 'spot', block: true, q: '小明算 ' + mx(A, bb, d) + ' － ' + mx(C, ee, d) + '，他第一個錯的是哪一步？', parts: parts, bad: 2, fix: '③ ' + (bb + d) + '/' + d + ' － ' + ee + '/' + d + ' ＝ ' + (bb + d - ee) + '/' + d + '，答案是 ' + mxT(Math.floor(tot / d), tot % d, d), ex: '正確答案是 ' + mx(Math.floor(tot / d), tot % d, d) + '。' };
+      return { kind: 'spot', block: true, q: '小明算 ' + mx(A, bb, d) + ' － ' + mx(C, ee, d) + '，他第一個錯的是哪一步？', parts: parts, bad: 1, fix: '② 借走 1 以後整數要少 1：' + mxT(A, bb, d) + ' ＝ ' + (A - 1) + ' 又 ' + (bb + d) + '/' + d, ex: '正確答案是 ' + mx(Math.floor(tot / d), tot % d, d) + '。' };
     }
   };
+  /* ---------------- 第 9 單元 分數：答案保留原分母（4上 還沒教約分）、只有同分母 ---------------- */
+  function fq(n, d) { return '<span class="fq"><b>' + n + '</b><i></i><b>' + d + '</b></span>'; }
+  function mx(w, n, d) { return !n ? String(w) : w ? '<span class="mx">' + w + fq(n, d) + '</span>' : fq(n, d); }
+  function mxT(w, n, d) { return !n ? String(w) : (w ? w + ' 又 ' : '') + n + '/' + d; } // 文字版（說明裡用）
+  // 依答案的樣子給填答格：整數→一格；真分數→分子；帶分數→整數＋分子（分母直接顯示）
+  function fracQ(q, tot, d, unit, ex, dg, imp) {
+    var w = Math.floor(tot / d), n = tot % d, f, a;
+    if (imp) { f = [{ fr: 'n', den: d, unit: unit || '' }]; a = [tot]; }
+    else if (!n) { f = [{ pre: '', unit: unit || '' }]; a = [w]; }
+    else if (!w) { f = [{ fr: 'n', den: d, unit: unit || '' }]; a = [n]; }
+    else { f = [{ fr: 'w' }, { fr: 'n', den: d, unit: unit || '' }]; a = [w, n]; }
+    return { q: q, fields: f, ans: a, ansText: imp ? fq(tot, d) : mx(w, n, d), ex: ex, dg: function (v) { var x = v.length === 2 ? v[0] * d + v[1] : f[0].fr === 'n' && !imp ? v[0] : imp ? v[0] : v[0] * d; return (dg && dg(x, v)) || (v.length === 2 && v[1] >= d ? '分數部分比分母大（或一樣大），要再換出整數，帶分數的分數部分要是真分數。' : ''); } };
+  }
+  // 分數條：k 個整個（平分成 d 份），最後一個塗 r 份
+  function fracBars(k, r, d, unit) {
+    var W = 260, cw = W / d, h = '', y = 0, n = k + (r ? 1 : 0);
+    for (var i = 0; i < n; i++) { var full = i < k; h += '<g transform="translate(0 ' + y + ')">'; for (var j = 0; j < d; j++) h += '<rect x="' + (j * cw + 1) + '" y="1" width="' + (cw - 2) + '" height="26" rx="3" fill="' + (full || j < r ? '#ff9f1c' : '#fff') + '" stroke="#c9bff2" stroke-width="1.5"/>'; h += '</g>'; y += 34; }
+    return '<svg viewBox="0 0 ' + W + ' ' + y + '" width="' + W + '" height="' + y + '" role="img" aria-label="每' + (unit || '條') + '平分成 ' + d + ' 份">' + h + '</svg>';
+  }
   /* ---------------- 第 8 單元：兩步驟應用題的題目（都換過數字，答案都是正整數、除法都整除） ---------------- */
   function M8shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
   function story8() {
@@ -872,8 +996,11 @@
    ['ma7', 'decAdd', '小數加法'], ['ma7', 'decSub', '小數減法'], ['ma7', 'decWord', '小數應用題'],
    ['ma8', 'ordAS', '加減兩步驟的併式'], ['ma8', 'ordMD', '乘除兩步驟的併式'], ['ma8', 'ordMix', '先乘除後加減'], ['ma8', 'ordMixP', '有括號先算括號'], ['ma8', 'ordSteps', '遞等式一步一步算'],
    ['ma8', 'ordFirst', '先算哪一段'], ['ma8', 'ordSame', '拿掉括號答案相同嗎'], ['ma8', 'ordWrite', '把問題用一個算式記下來'], ['ma8', 'ordWord', '兩步驟應用題'], ['ma8', 'ordPuzzle', '三個數字填符號'],
+   ['ma9', 'fracPic', '看圖寫帶分數、假分數'], ['ma9', 'fracKind', '真分數、假分數、帶分數'], ['ma9', 'mixToImp', '帶分數換成假分數'], ['ma9', 'impToMix', '假分數換成帶分數'], ['ma9', 'fracCmp', '分數比大小'],
+   ['ma9', 'fracAdd', '同分母分數相加'], ['ma9', 'fracAddMix', '帶分數加法'], ['ma9', 'fracSub', '整數減分數'], ['ma9', 'fracSubB', '帶分數減法（借 1）'], ['ma9', 'fracMul', '分數的整數倍'],
+   ['ma9', 'fracMulMix', '帶分數的整數倍'], ['ma9', 'fracWord', '分數應用題'],
    // 找錯小偵探：看小明的算法，點出第一個錯的那一步
-   ['ma1', 'spotBig', '找錯：大數寫成數字'], ['ma2', 'spotMul', '找錯：乘法直式'], ['ma3', 'spotAngle', '找錯：平角計算'], ['ma5', 'spotKm', '找錯：公里換公尺'], ['ma7', 'spotDecAdd', '找錯：小數加法'], ['ma7', 'spotDecSub', '找錯：小數減法補 0'], ['ma8', 'spotOrd', '找錯：遞等式']
+   ['ma1', 'spotBig', '找錯：大數寫成數字'], ['ma2', 'spotMul', '找錯：乘法直式'], ['ma3', 'spotAngle', '找錯：平角計算'], ['ma5', 'spotKm', '找錯：公里換公尺'], ['ma7', 'spotDecAdd', '找錯：小數加法'], ['ma7', 'spotDecSub', '找錯：小數減法補 0'], ['ma8', 'spotOrd', '找錯：遞等式'], ['ma9', 'spotFrac', '找錯：分數']
   ].forEach(function (x) { var g = GEN[x[1]]; cards.push({ id: 'ma:' + x[1], s: 'ma', u: x[0], type: g().kind || 'num', gen: x[1], label: x[2] }); });
 
   // 自然：課本重點（先想再選）。n＝卡片 id 的後半；a＝正確答案；w＝其他選項
@@ -1148,5 +1275,5 @@
   var LATER = {}; UNITS.forEach(function (u) { if (u.later) LATER[u.k] = true; });
   cards.forEach(function (c) { if (LATER[c.u]) c.later = true; });
 
-  root.REVIEW_BANK = { subjects: SUBJECTS, units: UNITS, cards: cards, make: make, readNum: readNum, moonSVG: moonSVG, GEN: GEN, fmtD: fmtD, readD: readD, gridSVG: gridSVG };
+  root.REVIEW_BANK = { subjects: SUBJECTS, units: UNITS, cards: cards, make: make, readNum: readNum, moonSVG: moonSVG, GEN: GEN, fmtD: fmtD, readD: readD, gridSVG: gridSVG, fq: fq, mx: mx, fracBars: fracBars };
 })(typeof window !== 'undefined' ? window : this);

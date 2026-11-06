@@ -120,6 +120,7 @@ main{max-width:760px;margin:0 auto;padding:12px 16px}
 .keys .go.wide{grid-column:1/-1}.keys .dot{font-size:30px}
 .kbox.sm{min-width:2.4em}
 .frin{display:inline-flex;flex-direction:column;align-items:center;gap:4px}.frin i{display:block;width:100%;height:3px;background:var(--ink);border-radius:2px}
+.frin .fden{font-size:26px;font-weight:800;line-height:1.2}
 .fq{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1.05;margin:0 2px;font-variant-numeric:tabular-nums}.fq b{font-weight:800}.fq i{display:block;align-self:stretch;height:2px;background:currentColor;margin:1px 0}
 .mx{display:inline-flex;align-items:center;gap:1px;vertical-align:middle}
 .qimg{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:flex-end;margin:8px 0}.qimg svg{max-width:100%;height:auto}
@@ -778,6 +779,7 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
       var f = Q.fields[j], g = Q.fields[j + 1];
       if (f.pre) h += '<span>' + f.pre + '</span>';
       if (f.fr === 'n' && g && g.fr === 'd') { h += '<span class="frin">' + box(f, j, ' sm') + '<i></i>' + box(g, j + 1, ' sm') + '</span>' + (g.unit ? '<span>' + g.unit + '</span>' : ''); j++; continue; }
+      if (f.fr === 'n' && f.den) { h += '<span class="frin">' + box(f, j, ' sm') + '<i></i><b class="fden">' + f.den + '</b></span>' + (f.unit ? '<span>' + f.unit + '</span>' : ''); continue; }
       h += box(f, j, f.fr ? ' sm' : '') + (f.unit ? '<span>' + f.unit + '</span>' : '');
     }
     return h;
