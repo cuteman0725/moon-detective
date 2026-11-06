@@ -162,6 +162,18 @@ input[type=range]{width:100%;height:36px}
 .calc div{border-radius:14px;padding:10px;text-align:center;font-weight:900;font-size:18px;background:#f6f7ff;border:3px solid var(--c,#ccc)}
 .calc div small{display:block;font-size:14px;color:#666}
 .numin{font-size:22px;width:120px;min-height:48px;text-align:center;border:3px solid #dfe3ff;border-radius:12px;font-family:inherit}
+.bar3{gap:2px}
+.hbars{position:relative;margin:8px 0}
+.hbars.withline{padding-top:24px}
+.hb{position:relative;z-index:1;display:grid;grid-template-columns:86px 1fr;gap:6px;align-items:center;width:100%;border:none;background:none;padding:2px 0;margin:0;font-family:inherit;color:var(--ink);cursor:pointer;text-align:left;touch-action:manipulation;border-radius:10px;min-height:40px}
+.hb .yr{font-size:14px;font-weight:800;white-space:nowrap}
+.hb .tr{display:flex;align-items:center;gap:6px;min-width:0}
+.hb .fill{flex:none;height:26px;border-radius:0 6px 6px 0;transition:width .4s}
+.hb .v{font-size:15px;font-weight:900;white-space:nowrap;background:rgba(255,255,255,.9);border-radius:6px;padding:0 3px}
+.hb.on{background:rgba(255,183,3,.25)}
+.hbline{position:absolute;top:0;bottom:0;border-left:3px dashed #e63946;pointer-events:none}
+.hbline span{position:absolute;top:2px;right:4px;font-size:13px;font-weight:900;color:#c1121f;white-space:nowrap}
+a.linkbtn{display:inline-block;text-decoration:none;margin-top:6px}
 </style>
 </head>
 <body>
@@ -172,90 +184,90 @@ input[type=range]{width:100%;height:36px}
 </header>
 <main>
 
-<!-- ===== 1 人口增減 ===== -->
-<section class="page active" id="p-calc">
+<!-- ===== 1 家庭變化 ===== -->
+<section class="page active" id="p-family">
   <div class="card">
-    <h2>➕➖ 人口為什麼會變？</h2>
-    <div class="calc">
-      <div style="--c:#57cc99">👶 出生<small>人口 ➕</small></div>
-      <div style="--c:#e63946">🕊️ 死亡<small>人口 ➖</small></div>
-      <div style="--c:#4d96ff">🚚➡️🏠 移入<small>搬進來 ➕</small></div>
-      <div style="--c:#ff9f1c">🏠➡️🚚 移出<small>搬出去 ➖</small></div>
+    <div class="tip green">🔁 在找「出生、死亡、移入、移出」、人口計算機，或是竹北、九份、大稻埕的故事嗎？那些是<b>第 1 課「家鄉的人口組成」</b>的內容，已經搬到「人口觀察家」了！<br><a class="btn small teal linkbtn" href="../population/">👨‍👩‍👧 去人口觀察家 ➡</a></div>
+  </div>
+  <div class="card">
+    <h2>👪 家裡的孩子變少了</h2>
+    <p class="lead">點按鈕，比一比以前和現在的家庭！</p>
+    <div class="btns" id="famBtns"></div>
+    <div class="explain" id="famInfo"></div>
+  </div>
+  <div class="card">
+    <h2>📜 從「多子多孫多福氣」到「兩個孩子恰恰好」</h2>
+    <div class="timeline">
+      <div class="ev"><b>🌾 早期</b>：臺灣以務農為主，種田需要很多人力，所以有「<b>多子多孫多福氣</b>」的觀念。</div>
+      <div class="ev"><b>📢 後來</b>：政府推動「<b>家庭計畫</b>」，鼓勵大家少生，提出「<b>兩個孩子恰恰好</b>」，家裡的孩子慢慢變少。</div>
+      <div class="ev"><b>🏠 現在</b>：很多家庭只養育一到兩個孩子。出生的寶寶太少了，政府反而要<b>鼓勵生育</b>（看「👶 少子化」分頁）。</div>
     </div>
-    <div class="tip">🧮 一年後的人口 ＝ 原來的人口 ＋ 出生 － 死亡 ＋ 移入 － 移出</div>
+    <div class="tip">🔎 <span class="tag2 more">延伸</span>課本沒有寫年份。家庭計畫大約在民國 50 年代開始全面推行，後來的口號還加上「男孩女孩一樣好」。</div>
   </div>
   <div class="card">
-    <h2>🧮 人口計算機 <span class="tag2 more">✏️ 自編</span></h2>
-    <div class="explain" id="pcQ"></div>
-    <div class="btns" style="align-items:center"><span style="font-weight:800">答案：</span><input class="numin" id="pcIn" type="number" inputmode="numeric"><button class="btn small teal" id="pcOk">✔ 檢查</button><button class="btn small white" id="pcNew">🔄 換一題</button></div>
-    <div class="feedback" id="pcFb"></div>
-  </div>
-  <div class="card">
-    <h2>🧲 人口成長的四個好條件</h2>
+    <h2>🔍 探究：和阿公阿嬤的年代比一比</h2>
     <div class="grid2">
-      <button class="flip" style="--c:#e63946"><div class="h">🏥 就醫方便 👆</div><div class="b">附近有醫院、診所，生病很快能看醫生。</div></button>
-      <button class="flip" style="--c:#ff9f1c"><div class="h">🏭 工作機會多 👆</div><div class="b">有工廠、公司、商店，年輕人找得到工作。</div></button>
-      <button class="flip" style="--c:#4d96ff"><div class="h">🚆 交通發達 👆</div><div class="b">有鐵路、高鐵、公路，出門方便。</div></button>
-      <button class="flip" style="--c:#2a9d8f"><div class="h">📚 教育文化資源多 👆</div><div class="b">學校、圖書館、博物館多，孩子學習機會多。</div></button>
+      <button class="flip" style="--c:#ff6b9a"><div class="h">🤔 為什麼孩子變少？ 👆</div><div class="b">以前種田需要人手，所以想多生；現在<b>養育孩子的費用提高</b>，加上<b>婦女就業</b>，生孩子的意願降低了。</div></button>
+      <button class="flip" style="--c:#e63946"><div class="h">⚠️ 帶來什麼影響？ 👆</div><div class="b">鄉村人口減少，農地可能沒有人耕種；學生太少，學校可能要<b>併校或廢校</b>。</div></button>
+      <button class="flip" style="--c:#2a9d8f"><div class="h">📝 怎麼找答案？ 👆</div><div class="b">問問爸媽或長輩，或上網查政府的人口政策；也可以訪問爸媽，比一比兩代的家庭生活有什麼改變、為什麼改變。</div></button>
     </div>
   </div>
 </section>
 
-<!-- ===== 2 遷移故事 ===== -->
-<section class="page" id="p-move">
+<!-- ===== 2 少子化 ===== -->
+<section class="page" id="p-kids">
   <div class="card">
-    <h2>🚆 人口遷移故事</h2>
-    <p class="lead">人們會搬到生活、工作比較方便的地方。點卡片看每個地方的故事！</p>
-    <div class="grid2">
-      <button class="flip" style="--c:#2a9d8f"><div class="h">🔬 新竹縣竹北市 ⬆️ 👆</div><div class="b">靠近<b>新竹科學園區</b>，又有<b>高鐵新竹站</b>，工作機會多、交通方便，很多年輕家庭搬來。人口從 102 年約 15.9 萬增加到 113 年約 22.0 萬。年輕人多，小朋友也多，老年人口比例是全國最低（9.17%）。</div></button>
-      <button class="flip" style="--c:#ff9f1c"><div class="h">🌾 臺東縣池上鄉 ⬇️ 👆</div><div class="b">以<b>好米</b>和稻田風景聞名，吸引很多遊客；但工作機會少，不少年輕人到外地工作，人口從 102 年 8,679 人減少到 113 年 7,696 人。</div></button>
-      <button class="flip" style="--c:#ffb703"><div class="h">⛏️ 新北市九份 👆</div><div class="b">清朝末年附近發現<b>金礦</b>，很多人來淘金，變得很熱鬧；金礦變少、停止開採後，人口外移。現在靠老街和觀光吸引遊客。</div></button>
-      <button class="flip" style="--c:#4d96ff"><div class="h">⛵ 臺北市大稻埕 👆</div><div class="b">清朝時靠<b>淡水河的河運</b>，船隻在這裡停靠，茶葉等貨物在這裡買賣，吸引很多人聚集。⚠️ 是「河運」，不是陸運喔！</div></button>
-      <button class="flip" style="--c:#9b5de5"><div class="h">🚉 桃園市中壢區 👆</div><div class="b">有<b>鐵路、公路</b>經過，<b>陸上交通</b>方便，商業發達，人口很多（113 年約 43.5 萬人）。</div></button>
-      <button class="flip" style="--c:#e63946"><div class="h">👴 雲林縣水林鄉 ⬇️ 👆</div><div class="b">沒有大型工廠，<b>青壯年移出</b>到都市工作，留在家鄉的多是長輩，老年人口比例約 <b>28.6%</b>，是雲林縣第二高。</div></button>
-    </div>
-    <div class="tip blue">🧠 規律：<b>青壯年移出 → 老年人口比例變高</b>；<b>青壯年移入 → 幼年人口也跟著變多</b>。</div>
+    <h2>👶 新生兒愈來愈少</h2>
+    <p class="lead">課本的「臺灣新生兒出生人數統計圖」：<b>新生兒人數逐年下降</b>，表示生育率降低。點一點長條看看！</p>
+    <div class="hbars" id="bbChart"></div>
+    <div class="explain" id="bbInfo"></div>
+    <p class="src">數字是從課本的統計圖大約讀出來的（課本註明資料來源：內政部戶政司）。</p>
+    <div class="tip">🔎 <span class="tag2 more">延伸</span>民國 114 年全年只出生大約 10.8 萬人，已經連續 10 年減少。</div>
+    <div class="tip blue">🤔 想一想：觀察學校操場上的學生，人數有什麼變化？</div>
   </div>
   <div class="card">
-    <h2>📊 看數字</h2>
-    <div class="tblwrap"><table class="dt"><caption>四個鄉鎮市區的人口（各年年底，內政部戶政司）</caption>
-<tr><th>地方</th><th>民國 102 年</th><th>民國 113 年</th></tr>
-<tr><td>新竹縣竹北市</td><td>158,849</td><td>219,605</td></tr>
-<tr><td>臺東縣池上鄉</td><td>8,679</td><td>7,696</td></tr>
-<tr><td>新北市瑞芳區（九份）</td><td>41,490</td><td>36,330</td></tr>
-<tr><td>雲林縣水林鄉</td><td>27,285</td><td>22,426</td></tr></table></div>
+    <h2>📉 少子化</h2>
+    <p class="lead">出生的孩子愈來愈少，社會出現「<b>少子化</b>」的現象。</p>
+    <div class="grid2">
+      <button class="flip" style="--c:#ff6b9a"><div class="h">🤔 原因 👆</div><div class="b">經濟發達、大家的<b>教育程度提高</b>，爸媽也更重視孩子的教養品質，所以<b>養育孩子的費用提高</b>；再加上<b>婦女就業</b>的比例增加，生孩子的意願就降低了。</div></button>
+      <button class="flip" style="--c:#e63946"><div class="h">⚠️ 影響 👆</div><div class="b">出生的人變少，家鄉的<b>勞動人口減少</b>；有些學校學生太少，面臨<b>併校或廢校</b>。</div></button>
+      <button class="flip" style="--c:#57cc99"><div class="h">💡 對策 👆</div><div class="b">政府訂定許多<b>生育政策</b>、<b>發放津貼</b>，還有<b>增設公共托育</b>、<b>育嬰假</b>，希望新生兒變多。</div></button>
+    </div>
+    <div class="tip">🔎 <span class="tag2 more">延伸</span>「育嬰假」的正式名稱是「育嬰留職停薪」：爸爸或媽媽可以暫停工作，在家照顧寶寶。</div>
+    <div class="tip blue">🤔 想一想：新生兒人數減少，我們可以怎麼因應少子化？</div>
   </div>
 </section>
 
-<!-- ===== 3 少子化與高齡化 ===== -->
+<!-- ===== 3 高齡社會 ===== -->
 <section class="page" id="p-aging">
   <div class="card">
-    <h2>📜 從「少生」到「鼓勵生」</h2>
-    <div class="timeline">
-      <div class="ev"><b>民國 53 年</b>：人口增加太快，政府全面推行<b>家庭計畫</b>，鼓勵<b>少生</b>。</div>
-      <div class="ev"><b>民國 56 年</b>：「五三口號」──婚後三年再生、間隔三年、最多三個……</div>
-      <div class="ev"><b>民國 60 年代</b>：「<b>兩個孩子恰恰好，男孩女孩一樣好</b>」。</div>
-      <div class="ev"><b>現在</b>：出生太少（114 年只有約 10.8 萬人），政府改成<b>鼓勵生育</b>。</div>
-    </div>
+    <h2>👴 什麼是「高齡社會」？</h2>
+    <div class="tip green">📖 課本：「<b>高齡社會：65 歲以上人口占總人口 14% 以上</b>」。<br>臺灣在<b>民國 107 年</b>達到 <b>14.6%</b>，成為高齡社會。</div>
+    <p class="lead">課本的「臺灣老年人口比例圖」：65 歲以上人口的比例<b>一直上升</b>。點一點長條看看！</p>
+    <div class="hbars withline" id="oldChart"></div>
+    <div class="explain" id="oldInfo"></div>
+    <p class="src">數字是從課本的圖大約讀出來的；紅色虛線是 14%。</p>
   </div>
   <div class="card">
-    <h2>👶 少子化</h2>
-    <div class="grid2">
-      <button class="flip" style="--c:#ff6b9a"><div class="h">🤔 原因 👆</div><div class="b">晚婚、不婚；養育孩子的花費高；工作忙、照顧孩子的時間不夠。</div></button>
-      <button class="flip" style="--c:#e63946"><div class="h">⚠️ 影響 👆</div><div class="b">學生變少，學校<b>併校、廢校</b>；以後工作的人變少。</div></button>
-      <button class="flip" style="--c:#57cc99"><div class="h">💡 對策 👆</div><div class="b">生育補助、育兒津貼、<b>育嬰留職停薪</b>（爸媽可請假照顧寶寶）、<b>公共托嬰</b>、0～6 歲國家一起養。</div></button>
-    </div>
+    <h2>🎂 大家活得更久了</h2>
+    <p class="lead">課本的「歷年國人平均壽命趨勢圖」：平均壽命<b>愈來愈長</b>。</p>
+    <div class="hbars" id="lifeChart"></div>
+    <div class="explain" id="lifeInfo"></div>
   </div>
   <div class="card">
-    <h2>👴 高齡化</h2>
+    <h2>🧓 高齡社會的因應</h2>
     <div class="grid2">
-      <button class="flip" style="--c:#9b5de5"><div class="h">🤔 原因 👆</div><div class="b">醫療進步、生活變好，大家活得更久；加上出生的小孩變少。</div></button>
-      <button class="flip" style="--c:#e63946"><div class="h">⚠️ 影響 👆</div><div class="b">需要照顧的長輩變多，醫療和照顧的需求增加。</div></button>
-      <button class="flip" style="--c:#57cc99"><div class="h">💡 對策 👆</div><div class="b"><b>長期照顧</b>、社區照顧關懷據點、<b>樂齡學習中心</b>（55 歲以上長輩學新東西）、鼓勵中高齡<b>二度就業</b>（再回到工作）。</div></button>
+      <button class="flip" style="--c:#9b5de5"><div class="h">🤔 原因 👆</div><div class="b"><b>醫療技術進步</b>、<b>衛生環境改善</b>，國人的<b>平均壽命延長</b>；再加上少子化，老年人口的比例就提高了。</div></button>
+      <button class="flip" style="--c:#e63946"><div class="h">⚠️ 要重視的事 👆</div><div class="b">長輩的身體和精神需要比較多的照顧，所以<b>照護</b>、<b>醫療</b>和<b>獨居老人養老</b>，都是要重視的議題。</div></button>
+      <button class="flip" style="--c:#57cc99"><div class="h">💡 政府的做法 👆</div><div class="b"><b>長照中心</b>：照顧需要幫忙的長輩。<br><b>樂齡學堂</b>：長輩可以繼續學習。<br><b>二度就業</b>：銀髮人才資源中心幫長輩再找到工作。</div></button>
     </div>
-    <div class="tip green">🤝 我也能幫忙：多陪伴家裡的長輩、教阿公阿嬤用手機、讓座給長輩。</div>
+    <div class="tip pink">📚 很多長輩身體健康、精神很好，選擇再次工作或參加學習，不但能貢獻專業，也能「<b>活到老、學到老</b>」！</div>
+    <div class="tip green">🤝 我也能幫忙：多陪伴家裡的長輩、教阿公阿嬤用手機、讓座給長輩。<br>🤔 想一想：家裡同住的長輩，平常會做哪些活動？</div>
+    <div class="tip">🔎 <span class="tag2 more">延伸</span>課本只教「14% 高齡社會」。有些資料還會這樣分：65 歲以上占 <b>7%</b> 以上叫「高齡化社會」（臺灣在民國 82 年）；占 <b>20%</b> 以上叫「超高齡社會」（臺灣在民國 114 年底）。</div>
   </div>
 </section>
+
+<!-- ===== 4 挑戰 ===== -->
 <section class="page" id="p-game">
   <div class="card">
     <h2>🎮 人口變化挑戰站</h2>
@@ -286,16 +298,16 @@ input[type=range]{width:100%;height:36px}
   </div>
   <div class="card">
     <h3>📚 資料來源</h3>
-    <p class="small">標示 <span class="tag2 more">✏️ 自編</span> 的題目、例子和表格是依課本重點自己編的練習；真實數字都在下面列出出處（政府公開資料、官方網站或新聞報導）。</p>
+    <p class="small">標示 <span class="tag2 more">✏️ 自編</span> 的題目、例子和表格是依課本重點自己編的練習；標示 <span class="tag2 more">🔎 延伸</span> 的是課本沒有的補充。真實數字都在下面列出出處（政府公開資料、官方網站或新聞報導）。</p>
     <div class="src" id="srcList"></div>
   </div>
 </section>
 </main>
 <nav class="tabs" id="tabs">
-  <button class="on" data-p="p-calc"><span>➕</span>人口增減</button><button data-p="p-move"><span>🚆</span>遷移故事</button><button data-p="p-aging"><span>👴</span>少子高齡</button><button data-p="p-game"><span>🎮</span>挑戰</button>
+  <button class="on" data-p="p-family"><span>👪</span>家庭變化</button><button data-p="p-kids"><span>👶</span>少子化</button><button data-p="p-aging"><span>👴</span>高齡社會</button><button data-p="p-game"><span>🎮</span>挑戰</button>
 </nav>
 <script>
-window.PAGE={"key":"popChange","burst":["⭐","📈","🚆","👶"],"badges":[{"need":5,"label":"🔎 人口小偵探"},{"need":15,"label":"🚆 遷移專家"},{"need":30,"label":"👑 人口變化博士"}],"quiz":[{"t":"tf","q":"一個地方的人口會因為出生、死亡、移入、移出而改變。","a":0,"x":"對！出生和移入讓人口變多；死亡和移出讓人口變少。"},{"t":"tf","q":"大稻埕早期繁榮，主要是因為鐵路、公路等陸上交通方便。","a":1,"x":"錯！大稻埕靠的是淡水河的「河運」，船隻在這裡停靠、做買賣。"},{"t":"tf","q":"中壢有鐵路、公路經過，陸上交通方便，吸引人口聚集。","a":0,"x":"對！中壢的發展和陸上交通有關。"},{"t":"tf","q":"九份在發現金礦以後，吸引很多人來挖金，人口變多。","a":0,"x":"對！後來金礦變少、停止開採，人口就慢慢外移。"},{"t":"tf","q":"民國 50 年代政府推行家庭計畫，是為了鼓勵大家多生小孩。","a":1,"x":"錯！當時人口增加太快，家庭計畫是鼓勵「少生」，例如「兩個孩子恰恰好」。現在才改成鼓勵生育。"},{"t":"tf","q":"少子化會讓學校的學生變少，有些學校可能要合併或停辦。","a":0,"x":"對！學生太少時，可能會併校或廢校。"},{"t":"tf","q":"一個鄉鎮的青壯年大量移出，老年人口的比例就會變高。","a":0,"x":"對！年輕人離開，留下的長輩占的比例就變大，例如雲林水林鄉。"},{"t":"tf","q":"一個地方的青壯年人口增加，通常幼年人口也可能跟著增加。","a":0,"x":"對！青壯年在這裡成家、生小孩，例如竹北市的小朋友比例很高。"},{"t":"tf","q":"樂齡學習中心是專門給幼兒園小朋友上課的地方。","a":1,"x":"錯！樂齡學習中心是給 55 歲以上的長輩學習新事物、交朋友的地方。"},{"t":"mc","q":"竹北市人口快速增加，最主要的原因是什麼？","o":["附近有科學園區、高鐵站，工作機會多、交通方便","有很多金礦","靠河運做生意"],"a":0,"x":"竹北靠近新竹科學園區，又有高鐵新竹站，吸引年輕家庭搬入。"},{"t":"mc","q":"下列哪一個不是吸引人口移入的條件？","o":["工作機會很少","就醫方便","教育文化資源多"],"a":0,"x":"工作機會「多」才會吸引人；工作機會少，年輕人反而會搬走。"},{"t":"mc","q":"下列哪一項是政府為了改善「少子化」的做法？","o":["育嬰留職停薪和公共托嬰","設立樂齡學習中心","增加復健設施"],"a":0,"x":"育嬰假、托嬰服務、生育補助，都是幫助爸媽養育孩子。"},{"t":"mc","q":"下列哪一項是照顧長輩、因應「高齡化」的做法？","o":["樂齡學習中心、長期照顧","發放生育補助","增加幼兒園"],"a":0,"x":"樂齡學習、長期照顧、社區照顧關懷據點，都是照顧長輩的服務。"},{"t":"mc","q":"「二度就業」是什麼意思？","o":["離開工作一段時間的人，再回到工作崗位","第一次找工作","同時做兩份工作"],"a":0,"x":"例如照顧孩子的爸媽、退休長輩，再次回到職場工作。"},{"t":"mc","q":"臺灣出生的人數愈來愈少，叫做什麼現象？","o":["少子化","高齡化","都市化"],"a":0,"x":"出生人數變少就是少子化。民國 114 年全年只出生約 10.8 萬人。"},{"t":"mc","q":"民國 60 年代家庭計畫的有名口號是什麼？","o":["兩個孩子恰恰好，男孩女孩一樣好","多子多孫多福氣","生得愈多愈好"],"a":0,"x":"這是鼓勵少生的口號。"},{"t":"code","bank":"p","q":"出生的小孩愈來愈少，叫做（　）。","a":"甲","x":"甲 少子化。"},{"t":"code","bank":"p","q":"老年人口占的比例愈來愈高，叫做（　）。","a":"乙","x":"乙 高齡化。"},{"t":"code","bank":"p","q":"外地的人搬進來住，叫做（　）。","a":"丙","x":"丙 人口移入。"},{"t":"code","bank":"p","q":"年輕人到外地工作、搬離家鄉，叫做（　）。","a":"丁","x":"丁 人口移出。"},{"t":"code","bank":"p","q":"民國 50 年代政府鼓勵「少生」的政策叫做（　）。","a":"戊","x":"戊 家庭計畫。"},{"t":"code","bank":"w","q":"大稻埕早期繁榮靠的是（　）。","a":"A","x":"A 河運（淡水河）。"},{"t":"code","bank":"w","q":"中壢人口多，和（　）方便有關。","a":"B","x":"B 陸上交通（鐵路、公路）。"},{"t":"code","bank":"w","q":"九份早期因為發現（　）而吸引很多人。","a":"C","x":"C 金礦。"},{"t":"code","bank":"w","q":"竹北人口增加，和附近的（　）有關。","a":"D","x":"D 科學園區、高鐵。"},{"t":"code","bank":"w","q":"臺東池上以（　）聞名，吸引遊客來訪。","a":"E","x":"E 好米、觀光（伯朗大道、稻田風景）。"},{"t":"table","tbl":"mv","q":"看表格：從 102 年到 113 年，哪一個地方的人口增加了？","o":["竹北市","池上鄉","水林鄉"],"a":0,"x":"竹北從 158,849 人增加到 219,605 人，多了 6 萬多人。"},{"t":"table","tbl":"mv","q":"看表格：水林鄉 11 年來人口大約減少多少人？","o":["大約 4,900 人","大約 490 人","大約 49,000 人"],"a":0,"x":"27,285 − 22,426 = 4,859，大約 4,900 人。"},{"t":"table","tbl":"mv","q":"看表格判斷：「表格中只有一個地方的人口增加，其他三個都減少」這句話對嗎？","o":["⭕ 對","❌ 錯"],"keep":true,"a":0,"x":"對！只有竹北增加，池上、瑞芳、水林都減少。"},{"t":"table","tbl":"br","q":"✏️ 看「彩虹鄉」表格：出生人數怎麼變？","o":["愈來愈少","愈來愈多","都一樣"],"a":0,"x":"320 → 260 → 190 → 150，愈來愈少，這是少子化。"},{"t":"table","tbl":"br","q":"✏️ 看「彩虹鄉」表格：從哪一年開始，死亡人數比出生人數多？","o":["110 年","100 年","105 年"],"a":0,"x":"110 年出生 190、死亡 250，死亡比出生多了。"},{"t":"table","tbl":"br","q":"✏️ 看「彩虹鄉」表格判斷：「國小新生愈來愈少，學校可能需要併校」這句話合理嗎？","o":["⭕ 對","❌ 錯"],"keep":true,"a":0,"x":"合理！新生從 350 人減少到 180 人，學生太少時可能併校。"}],"banks":{"p":[["甲","少子化"],["乙","高齡化"],["丙","人口移入"],["丁","人口移出"],["戊","家庭計畫"]],"w":[["A","河運"],["B","陸上交通"],["C","金礦"],["D","科學園區、高鐵"],["E","好米、觀光"]]},"tables":{"mv":"<table class=\"dt\"><caption>四個鄉鎮市區的人口（各年年底，內政部戶政司）</caption>\n<tr><th>地方</th><th>民國 102 年</th><th>民國 113 年</th></tr>\n<tr><td>新竹縣竹北市</td><td>158,849</td><td>219,605</td></tr>\n<tr><td>臺東縣池上鄉</td><td>8,679</td><td>7,696</td></tr>\n<tr><td>新北市瑞芳區（九份）</td><td>41,490</td><td>36,330</td></tr>\n<tr><td>雲林縣水林鄉</td><td>27,285</td><td>22,426</td></tr></table>","br":"<table class=\"dt\"><caption>✏️ 自編：「彩虹鄉」每年的出生和死亡人數</caption>\n<tr><th>民國</th><th>出生</th><th>死亡</th><th>國小新生</th></tr>\n<tr><td>100 年</td><td>320</td><td>210</td><td>350</td></tr>\n<tr><td>105 年</td><td>260</td><td>230</td><td>300</td></tr>\n<tr><td>110 年</td><td>190</td><td>250</td><td>240</td></tr>\n<tr><td>115 年</td><td>150</td><td>270</td><td>180</td></tr></table>"},"sort":{"baskets":[["kid","👶 改善少子化","#ff6b9a"],["old","👴 照顧高齡長輩","#9b5de5"]],"items":[["育嬰留職停薪","kid"],["公共托嬰中心","kid"],["生育補助","kid"],["育兒津貼","kid"],["樂齡學習中心","old"],["長期照顧服務","old"],["社區照顧關懷據點","old"],["送餐給獨居長輩","old"]],"hint":{"育嬰留職停薪":"讓爸媽可以暫停工作、在家照顧寶寶。","公共托嬰中心":"幫忙照顧小寶寶，爸媽可以安心工作。","樂齡學習中心":"是 55 歲以上長輩學習的地方。","長期照顧服務":"照顧需要幫忙的長輩。"},"done":"政府和民間一起面對少子化與高齡化！"},"src":[["新北市江翠國小四年級教科書版本：社會為翰林版（金石堂 江翠國小書單）",""],["臺南市陽明國小 115 學年度 四年級社會（翰林）課程計畫：第三單元第2課「人口變化與發展」（第七～八週）：少子化的原因與影響、高齡社會的照顧、政府與民間的因應","https://course.tn.edu.tw/"],["竹北市、池上鄉、瑞芳區、水林鄉 102 年與 113 年人口：內政部戶政司〈各鄉鎮市區人口密度〉（政府資料開放平臺）","https://data.gov.tw/dataset/8410"],["竹北市老年人口比例 9.17% 全國最低（113 年 6 月底）：內政部統計處〈內政統計通報〉113 年 11 月","https://www.moi.gov.tw/"],["水林鄉老年人口比例約 28.58%、人口外移：中央社〈雲林水林鄉推7大政策提升社福 盼翻轉人口結構〉2026/1/7","https://www.cna.com.tw/news/aloc/202601070203.aspx"],["民國 114 年出生 107,812 人、連續第 10 年減少；老年人口 20.06%：內政部戶政司 2025 年 12 月戶籍統計；中央社 2026/1/9","https://www.cna.com.tw/news/ahel/202601090067.aspx"],["家庭計畫（民國 53 年全面推行、五三口號、「兩個孩子恰恰好」）：台灣社會學會〈台灣人口政策的歷史形構〉；國立臺灣歷史博物館典藏","https://collections.nmth.gov.tw/CollectionContent.aspx?a=132&rno=2020.032.0138"],["育嬰留職停薪（子女滿 3 歲前、最長 2 年；115 年起可按日請，每名子女最多 30 日）：勞動部","https://www.mol.gov.tw/1607/1632/1633/83137/"],["樂齡學習中心（55 歲以上、一鄉鎮一樂齡）：教育部","https://www.edu.tw/News_Content.aspx?n=9E7AC85F1954DDA8&s=E82B6BB34F1335F9"],["九份金礦歷史：新北市立黃金博物館","https://www.gep.ntpc.gov.tw/"],["大稻埕河港歷史：臺北市大同區公所","https://datong.gov.taipei/"],["「彩虹鄉」表格、人口計算機、分類遊戲與所有練習題為自編。",""]]};
+window.PAGE={"key":"popChange","burst":["⭐","📈","👴","👶"],"badges":[{"need":5,"label":"🔎 人口小偵探"},{"need":15,"label":"👶 少子化專家"},{"need":30,"label":"👑 人口變化博士"}],"quiz":[{"t":"tf","q":"臺灣在民國 107 年進入「高齡社會」。","a":0,"x":"對！課本的老年人口比例圖：民國 107 年 65 歲以上人口占 14.6%，達到高齡社會（14% 以上）。"},{"t":"tf","q":"民國 50 年代政府推行家庭計畫，是為了鼓勵大家多生小孩。","a":1,"x":"錯！當時人口增加太快，家庭計畫是鼓勵「少生」，例如「兩個孩子恰恰好」。現在才改成鼓勵生育。"},{"t":"tf","q":"少子化會讓學校的學生變少，有些學校可能要合併或停辦。","a":0,"x":"對！學生太少時，可能會併校或廢校。"},{"t":"tf","q":"早期臺灣以務農為主，需要很多人力，所以有「多子多孫多福氣」的觀念。","a":0,"x":"對！後來政府推動家庭計畫，提出「兩個孩子恰恰好」。"},{"t":"tf","q":"醫療技術進步、衛生環境改善，讓國人的平均壽命愈來愈短。","a":1,"x":"錯！醫療和衛生進步，讓平均壽命延長：民國 70 年 72 歲，110 年 80.9 歲。"},{"t":"tf","q":"婦女就業的比例增加，也是生育意願降低的原因之一。","a":0,"x":"對！課本：經濟發達、教育程度提高、養育費用提高、婦女就業比例增加，降低了生育子女的意願。"},{"t":"mc","q":"下列哪一項是政府為了改善「少子化」的做法？","o":["增設公共托育、育嬰假","設立樂齡學堂","增加復健設施"],"a":0,"x":"課本：政府推動各項生育政策、發放津貼，例如增設公共托育、育嬰假。"},{"t":"mc","q":"下列哪一項是因應「高齡社會」、照顧長輩的做法？","o":["長照中心、樂齡學堂","發放生育補助","增加幼兒園"],"a":0,"x":"課本：長照中心、樂齡學堂、二度就業，都是政府幫助老年人口的做法。"},{"t":"mc","q":"「二度就業」是什麼意思？","o":["離開工作一段時間的人，再回到工作崗位","第一次找工作","同時做兩份工作"],"a":0,"x":"例如照顧孩子的爸媽、退休長輩，再次回到職場工作。"},{"t":"mc","q":"臺灣出生的人數愈來愈少，叫做什麼現象？","o":["少子化","高齡化","都市化"],"a":0,"x":"出生人數變少就是少子化。課本：經濟發達、教育程度提高、養育費用提高、婦女就業比例增加等，降低了生育意願。"},{"t":"mc","q":"政府推動「家庭計畫」時，提出的口號是什麼？","o":["兩個孩子恰恰好","多子多孫多福氣","生得愈多愈好"],"a":0,"x":"這是鼓勵少生的口號。「多子多孫多福氣」是更早以前務農時代的觀念。"},{"t":"mc","q":"政府為了幫助老年人口，推動了下列哪一項？","o":["樂齡學堂","公共托育","育嬰假"],"a":0,"x":"課本：高齡社會的應對有長照中心、樂齡學堂、二度就業；公共托育和育嬰假是因應少子化的做法。"},{"t":"mc","q":"早期臺灣以務農為主、需要大量人力，所以有什麼生育觀念？","o":["多子多孫多福氣","兩個孩子恰恰好","不生小孩最好"],"a":0,"x":"課本：早期務農需要投入大量人力，所以有「多子多孫多福氣」的觀念；後來政府推動家庭計畫，提出「兩個孩子恰恰好」。"},{"t":"mc","q":"下列哪一項「不是」課本提到形成少子化的原因？","o":["醫療技術進步","教育程度提高","婦女就業比例增加"],"a":0,"x":"少子化的原因：經濟發達、教育程度提高、養育費用提高、婦女就業比例增加。醫療技術進步是造成高齡社會的原因。"},{"t":"mc","q":"課本說，「高齡社會」是指 65 歲以上人口占總人口多少以上？","o":["14%","7%","50%"],"a":0,"x":"課本：65 歲以上人口占總人口 14% 以上，稱為高齡社會；臺灣在民國 107 年達到（約 14.6%）。"},{"t":"mc","q":"造成國人平均壽命延長、老年人口比例提高的原因是什麼？","o":["醫療技術進步、衛生環境改善","學生人數變少","交通路線變多"],"a":0,"x":"課本：醫療技術進步、衛生環境改善使平均壽命延長，加上少子化，提高了老年人口的比例。"},{"t":"mc","q":"出生人數降低，會讓家鄉的哪一種人口減少？","o":["勞動人口","老年人口","觀光客"],"a":0,"x":"課本：出生人數降低，家鄉的勞動人口會減少，部分學校也會面臨併校或廢校。"},{"t":"mc","q":"長者維持充足的體力和精神，再次就業或參與學習，課本用哪一句話來形容？","o":["活到老、學到老","多子多孫多福氣","兩個孩子恰恰好"],"a":0,"x":"課本：隨著健康促進生活的推展，長者能再次就業或參與學習，不僅貢獻專業，也能「活到老、學到老」。"},{"t":"code","bank":"p","q":"出生的小孩愈來愈少，叫做（　）。","a":"甲","x":"甲 少子化。"},{"t":"code","bank":"p","q":"65 歲以上人口占總人口 14% 以上，叫做（　）。","a":"乙","x":"乙 高齡社會（臺灣在民國 107 年達到，約 14.6%）。"},{"t":"code","bank":"p","q":"政府鼓勵民眾減少生育、提出「兩個孩子恰恰好」的政策，叫做（　）。","a":"丙","x":"丙 家庭計畫。"},{"t":"code","bank":"p","q":"早期臺灣務農需要大量人力，所以有（　）的觀念。","a":"丁","x":"丁 多子多孫多福氣。"},{"t":"code","bank":"p","q":"醫療技術進步、衛生環境改善，使國人的（　）延長。","a":"戊","x":"戊 平均壽命。"},{"t":"code","bank":"p","q":"政府為了照顧需要幫忙的長輩，設立（　）。","a":"己","x":"己 長照中心。"},{"t":"table","tbl":"bb","q":"看表格：臺灣新生兒出生人數怎麼變？","o":["愈來愈少","愈來愈多","都一樣"],"a":0,"x":"課本：新生兒人數逐年下降，顯示生育率降低。"},{"t":"table","tbl":"bb","q":"看表格：民國 113 年的新生兒，大約是民國 50 年的幾分之幾？","o":["大約三分之一","大約一半","差不多一樣"],"a":0,"x":"13 萬 ÷ 42 萬，大約是三分之一。"},{"t":"table","tbl":"old","q":"看表格判斷：「民國 110 年時，臺灣已經是高齡社會」這句話對嗎？","o":["⭕ 對","❌ 錯"],"a":0,"x":"對！110 年老年人口約 17%，超過 14%。","keep":true},{"t":"table","tbl":"old","q":"看表格判斷：「民國 100 年時，臺灣已經是高齡社會」這句話對嗎？","o":["⭕ 對","❌ 錯"],"a":1,"x":"錯！100 年老年人口約 11%，還不到 14%。","keep":true},{"t":"table","tbl":"old","q":"看表格：臺灣在哪一年達到「高齡社會」？","o":["民國 107 年","民國 100 年","民國 80 年"],"a":0,"x":"民國 107 年老年人口占 14.6%，超過 14%。"},{"t":"table","tbl":"life","q":"看表格：國人的平均壽命怎麼變？","o":["愈來愈長","愈來愈短","都一樣"],"a":0,"x":"從民國 70 年 72 歲增加到 110 年 80.9 歲，平均壽命延長。"},{"t":"table","tbl":"life","q":"看表格：從民國 70 年到 110 年，平均壽命大約多了幾歲？","o":["大約 9 歲","大約 1 歲","大約 30 歲"],"a":0,"x":"80.9 − 72 ＝ 8.9，大約 9 歲。"},{"t":"table","tbl":"br","q":"✏️ 看「彩虹鄉」表格：出生人數怎麼變？","o":["愈來愈少","愈來愈多","都一樣"],"a":0,"x":"320 → 260 → 190 → 150，愈來愈少，這是少子化。"},{"t":"table","tbl":"br","q":"✏️ 看「彩虹鄉」表格：從哪一年開始，死亡人數比出生人數多？","o":["110 年","100 年","105 年"],"a":0,"x":"110 年出生 190、死亡 250，死亡比出生多了。"},{"t":"table","tbl":"br","q":"✏️ 看「彩虹鄉」表格判斷：「國小新生愈來愈少，學校可能需要併校」這句話合理嗎？","o":["⭕ 對","❌ 錯"],"a":0,"x":"合理！新生從 350 人減少到 180 人，學生太少時可能併校。","keep":true}],"banks":{"p":[["甲","少子化"],["乙","高齡社會"],["丙","家庭計畫"],["丁","多子多孫多福氣"],["戊","平均壽命"],["己","長照中心"]]},"tables":{"bb":"<table class=\"dt\"><caption>臺灣新生兒出生人數（從課本的統計圖大約讀出）<\/caption>\n<tr><th>民國<\/th><th>新生兒人數<\/th><\/tr>\n<tr><td>50 年<\/td><td>約 42 萬人<\/td><\/tr>\n<tr><td>70 年<\/td><td>約 41 萬人<\/td><\/tr>\n<tr><td>90 年<\/td><td>約 26 萬人<\/td><\/tr>\n<tr><td>110 年<\/td><td>約 15 萬人<\/td><\/tr>\n<tr><td>113 年<\/td><td>約 13 萬人<\/td><\/tr><\/table>","old":"<table class=\"dt\"><caption>臺灣 65 歲以上人口占總人口的比例（從課本的圖大約讀出）<\/caption>\n<tr><th>民國<\/th><th>老年人口比例<\/th><\/tr>\n<tr><td>60 年<\/td><td>約 3%<\/td><\/tr>\n<tr><td>80 年<\/td><td>約 6.5%<\/td><\/tr>\n<tr><td>100 年<\/td><td>約 11%<\/td><\/tr>\n<tr><td>107 年<\/td><td>14.6%<\/td><\/tr>\n<tr><td>110 年<\/td><td>約 17%<\/td><\/tr>\n<tr><td>113 年<\/td><td>約 19%<\/td><\/tr><\/table>","life":"<table class=\"dt\"><caption>歷年國人平均壽命（課本的趨勢圖）<\/caption>\n<tr><th>民國<\/th><th>平均壽命<\/th><\/tr>\n<tr><td>70 年<\/td><td>72 歲<\/td><\/tr>\n<tr><td>80 年<\/td><td>74.3 歲<\/td><\/tr>\n<tr><td>90 年<\/td><td>76.8 歲<\/td><\/tr>\n<tr><td>100 年<\/td><td>79.1 歲<\/td><\/tr>\n<tr><td>105 年<\/td><td>80 歲<\/td><\/tr>\n<tr><td>110 年<\/td><td>80.9 歲<\/td><\/tr><\/table>","br":"<table class=\"dt\"><caption>✏️ 自編：「彩虹鄉」每年的出生和死亡人數<\/caption>\n<tr><th>民國<\/th><th>出生<\/th><th>死亡<\/th><th>國小新生<\/th><\/tr>\n<tr><td>100 年<\/td><td>320<\/td><td>210<\/td><td>350<\/td><\/tr>\n<tr><td>105 年<\/td><td>260<\/td><td>230<\/td><td>300<\/td><\/tr>\n<tr><td>110 年<\/td><td>190<\/td><td>250<\/td><td>240<\/td><\/tr>\n<tr><td>115 年<\/td><td>150<\/td><td>270<\/td><td>180<\/td><\/tr><\/table>"},"sort":{"baskets":[["kid","👶 改善少子化","#ff6b9a"],["old","👴 因應高齡社會","#9b5de5"]],"items":[["增設公共托育","kid"],["育嬰假","kid"],["發放育兒津貼","kid"],["鼓勵生育的政策","kid"],["長照中心","old"],["樂齡學堂","old"],["二度就業","old"],["社區供餐給獨居長輩","old"]],"hint":{"增設公共托育":"幫忙照顧小寶寶，爸媽可以安心工作。","育嬰假":"讓爸媽可以請假在家照顧寶寶。","樂齡學堂":"讓長輩繼續學習，活到老、學到老。","長照中心":"照顧需要幫忙的長輩。","二度就業":"長輩再次工作，貢獻自己的專業。"},"done":"政府和社會一起面對少子化和高齡社會！"},"src":[["新北市江翠國小四年級教科書版本：社會為翰林版（金石堂 江翠國小書單）",""],["臺南市陽明國小 115 學年度 四年級社會（翰林）課程計畫：第三單元第2課「人口變化與發展」（第七～八週）：少子化的原因與影響、高齡社會的照顧、政府與民間的因應","https://course.tn.edu.tw/"],["新生兒出生人數、老年人口比例、國人平均壽命：依翰林社會 4上 第2課的統計圖大約讀出的數字（新生兒人數圖註明資料來源為內政部戶政司）",""],["🔎 延伸：民國 114 年出生 107,812 人、連續第 10 年減少：內政部戶政司 2025 年 12 月戶籍統計；中央社 2026/1/9","https://www.cna.com.tw/news/ahel/202601090067.aspx"],["🔎 延伸：家庭計畫的推行年代與口號：台灣社會學會〈台灣人口政策的歷史形構〉；國立臺灣歷史博物館典藏","https://collections.nmth.gov.tw/CollectionContent.aspx?a=132&rno=2020.032.0138"],["🔎 延伸：育嬰留職停薪：勞動部","https://www.mol.gov.tw/1607/1632/1633/83137/"],["🔎 延伸：7%／14%／20% 的說法、民國 82 年底 7.10%：內政部統計處〈內政統計通報〉107 年第 15 週","https://ws.moi.gov.tw/Download.ashx?n=d2VlazEwNzE1LnBkZg%3D%3D&u=LzAwMS9VcGxvYWQvT2xkRmlsZS9zaXRlX25vZGVfZmlsZS83NjM1L3dlZWsxMDcxNS5wZGY%3D"],["🔎 延伸：民國 114 年 12 月底 65 歲以上人口 20.06%：內政部戶政司 2025 年 12 月戶籍統計分析","https://www.ris.gov.tw/app/en/2121?sn=26245250"],["「彩虹鄉」表格、分類遊戲與所有練習題為自編。",""]],"bb":[[50,42],[70,41],[90,26],[110,15],[113,13]],"old":[[60,3],[80,6.5],[100,11],[107,14.6],[110,17],[113,19]],"life":[[70,72],[80,74.3],[90,76.8],[100,79.1],[105,80],[110,80.9]]};
 </script>
 <script>
 (function(){
@@ -385,19 +397,36 @@ window.__sg={stars:function(){return stars;},qz:function(){return qz;},P:P};
 
 (function(){
 "use strict";
-var $=U.$,cur=null,done=false;
-function rnd(a,b,s){return a+Math.floor(Math.random()*((b-a)/s+1))*s;}
-var TOWNS=["彩虹鄉","星星村","快樂鎮","小熊里","海豚村"];
-function newQ(){var n=rnd(1200,3000,100),b=rnd(10,40,1),d=rnd(10,40,1),i=rnd(0,60,5),o=rnd(0,60,5);
-  cur={n:n,b:b,d:d,i:i,o:o,ans:n+b-d+i-o};done=false;
-  $("pcQ").innerHTML='<div class="t">'+TOWNS[Math.floor(Math.random()*TOWNS.length)]+'（自編）</div>原來有 <b>'+n+'</b> 人。一年中出生 <b>'+b+'</b> 人、死亡 <b>'+d+'</b> 人、移入 <b>'+i+'</b> 人、移出 <b>'+o+'</b> 人。<br>一年後有多少人？';
-  $("pcIn").value="";$("pcFb").className="feedback";$("pcFb").innerHTML="";}
-$("pcOk").addEventListener("click",function(){if(!cur)return;var v=parseInt($("pcIn").value,10),fb=$("pcFb");
-  var how=cur.n+" ＋ "+cur.b+" － "+cur.d+" ＋ "+cur.i+" － "+cur.o+" ＝ "+cur.ans;
-  if(v===cur.ans){fb.className="feedback show good";fb.innerHTML="🎉 答對了！"+how+(cur.ans>cur.n?"（人口增加）":cur.ans<cur.n?"（人口減少）":"（人口不變）");if(!done){done=true;U.addStars(1,this);}U.beep(true);}
-  else{fb.className="feedback show bad";fb.innerHTML="再想想！提示：原來的人口 ＋ 出生 － 死亡 ＋ 移入 － 移出";U.beep(false);}});
-$("pcNew").addEventListener("click",newQ);newQ();
-window.__pc=function(){return cur;};
+var $=U.$,P=window.PAGE;
+
+/* 以前和現在的家庭 */
+var FAM={old:["👴 以前的家庭","👨 👩 👧 👦 👦 👧 👶","以前家裡的孩子很多，兄弟姐妹的年齡可能差到 <b>10 歲以上</b>。大的孩子要照顧弟弟妹妹，還要幫忙煮飯。"],now:["🏠 現在的家庭","👨 👩 👧","現在很多家庭只養育<b>一到兩個</b>孩子。"]},famSeen={};
+function drawFam(k){$("famBtns").innerHTML=["old","now"].map(function(x){return '<button class="btn small'+(x===k?" teal on":" white")+'" data-f="'+x+'">'+FAM[x][0]+'</button>';}).join("");
+  $("famInfo").innerHTML=k?'<div class="t" style="font-size:30px">'+FAM[k][1]+'</div>'+FAM[k][2]:'👆 先點上面的按鈕。';}
+$("famBtns").addEventListener("click",function(ev){var b=U.closest(ev.target,"btn");if(!b)return;var k=b.getAttribute("data-f");drawFam(k);famSeen[k]=1;
+  if(famSeen.old&&famSeen.now&&!window.__famDone){window.__famDone=1;U.addStars(1,$("famBtns").querySelector('[data-f="'+k+'"]'));}});
+drawFam(null);
+
+/* 橫條圖：點一條看說明 */
+function hbars(id,info,rows,o){var box=$(id),h='',S=0.72;
+  if(o.line!=null)h+='<div class="hbline" style="left:calc(92px + (100% - 92px) * '+(o.line/o.max*S).toFixed(4)+')"><span>'+o.lineLbl+'</span></div>';
+  rows.forEach(function(r,i){h+='<button type="button" class="hb" data-i="'+i+'"><span class="yr">民國 '+r[0]+' 年</span><span class="tr"><span class="fill" style="width:'+(r[1]/o.max*S*100).toFixed(1)+'%;background:'+o.col+'"></span><span class="v">'+o.fmt(r)+'</span></span></button>';});
+  box.innerHTML=h;
+  function pick(i){U.each(box.querySelectorAll(".hb"),function(x){x.classList.toggle("on",+x.getAttribute("data-i")===i);});$(info).innerHTML=o.say(rows[i],i);}
+  box.addEventListener("click",function(ev){var b=U.closest(ev.target,"hb");if(!b)return;pick(+b.getAttribute("data-i"));});
+  pick(rows.length-1);}
+
+var BB=P.bb;
+hbars("bbChart","bbInfo",BB,{max:42,col:"#ff6b9a",fmt:function(r){return "約 "+r[1]+" 萬";},
+  say:function(r,i){return '民國 '+r[0]+' 年：新生兒大約 <b>'+r[1]+' 萬</b>人。'+(i>0?'<br>比民國 '+BB[0][0]+' 年少了大約 <b>'+(BB[0][1]-r[1])+' 萬</b>人。':'<br>這是圖上最早的一年。');}});
+
+var OLD=P.old;
+hbars("oldChart","oldInfo",OLD,{max:19,col:"#9b5de5",line:14,lineLbl:"14%",fmt:function(r){return (r[0]===107?"":"約 ")+r[1]+"%";},
+  say:function(r){return '民國 '+r[0]+' 年：65 歲以上人口'+(r[0]===107?'占 <b>14.6%</b>':'大約占 <b>'+r[1]+'%</b>')+'。'+(r[1]>=14?'<br>✅ 超過 14%，是<b>高齡社會</b>'+(r[0]===107?'，臺灣就在這一年達到！':'。'):'<br>還不到 14%。');}});
+
+var LIFE=P.life;
+hbars("lifeChart","lifeInfo",LIFE,{max:80.9,col:"#2a9d8f",fmt:function(r){return r[1]+" 歲";},
+  say:function(r,i){return '民國 '+r[0]+' 年：國人平均壽命 <b>'+r[1]+' 歲</b>。'+(i>0?'<br>比民國 '+LIFE[0][0]+' 年多了大約 <b>'+Math.round((r[1]-LIFE[0][1])*10)/10+' 歲</b>。':'');}});
 })();
 
 </script>

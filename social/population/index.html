@@ -162,6 +162,18 @@ input[type=range]{width:100%;height:36px}
 .calc div{border-radius:14px;padding:10px;text-align:center;font-weight:900;font-size:18px;background:#f6f7ff;border:3px solid var(--c,#ccc)}
 .calc div small{display:block;font-size:14px;color:#666}
 .numin{font-size:22px;width:120px;min-height:48px;text-align:center;border:3px solid #dfe3ff;border-radius:12px;font-family:inherit}
+.bar3{gap:2px}
+.hbars{position:relative;margin:8px 0}
+.hbars.withline{padding-top:24px}
+.hb{position:relative;z-index:1;display:grid;grid-template-columns:86px 1fr;gap:6px;align-items:center;width:100%;border:none;background:none;padding:2px 0;margin:0;font-family:inherit;color:var(--ink);cursor:pointer;text-align:left;touch-action:manipulation;border-radius:10px;min-height:40px}
+.hb .yr{font-size:14px;font-weight:800;white-space:nowrap}
+.hb .tr{display:flex;align-items:center;gap:6px;min-width:0}
+.hb .fill{flex:none;height:26px;border-radius:0 6px 6px 0;transition:width .4s}
+.hb .v{font-size:15px;font-weight:900;white-space:nowrap;background:rgba(255,255,255,.9);border-radius:6px;padding:0 3px}
+.hb.on{background:rgba(255,183,3,.25)}
+.hbline{position:absolute;top:0;bottom:0;border-left:3px dashed #e63946;pointer-events:none}
+.hbline span{position:absolute;top:2px;right:4px;font-size:13px;font-weight:900;color:#c1121f;white-space:nowrap}
+a.linkbtn{display:inline-block;text-decoration:none;margin-top:6px}
 </style>
 </head>
 <body>
@@ -175,59 +187,168 @@ input[type=range]{width:100%;height:36px}
 <!-- ===== 1 人口分布 ===== -->
 <section class="page active" id="p-dist">
   <div class="card">
-    <h2>🗺️ 人口分布不平均</h2>
-    <p class="lead">有的地方人擠人，有的地方很少人。一起比比看南投縣的<b>南投市</b>和<b>仁愛鄉</b>！</p>
-    <div class="tblwrap"><table class="dt"><caption>南投市和仁愛鄉（民國 113 年底，內政部戶政司）</caption>
-<tr><th>地方</th><th>主要地形</th><th>人口</th><th>面積</th><th>人口密度</th></tr>
-<tr><td>南投市</td><td>平地、台地</td><td>97,042 人</td><td>71.6 km²</td><td>每 km² 約 1,355 人</td></tr>
-<tr><td>仁愛鄉</td><td>山地</td><td>15,410 人</td><td>1,273.5 km²</td><td>每 km² 約 12 人</td></tr></table></div>
-    <div class="row">
-      <div style="text-align:center"><b>🏙️ 南投市的 1 平方公里</b><div class="mapbox"><svg id="denA" viewBox="0 0 200 200"></svg></div></div>
-      <div style="text-align:center"><b>🏔️ 仁愛鄉的 1 平方公里</b><div class="mapbox"><svg id="denB" viewBox="0 0 200 200"></svg></div></div>
+    <h2>🧭 人口為什麼這樣分布？</h2>
+    <p class="lead">課本說，家鄉的人口會受到「<b>自然環境、交通建設、經濟發展</b>」等因素影響。</p>
+    <div class="cmp">
+      <div class="cmpbox" style="--c:#57cc99"><b>🏞️ 自然環境</b>地勢平坦、水源充足，適合種田，開發得早，人比較多。<br>地勢高、地形崎嶇，不容易開發，人比較少。</div>
+      <div class="cmpbox" style="--c:#4d96ff"><b>🚆 交通建設</b>陸上或水上交通方便的地方，工商業發達，人口慢慢增加。</div>
+      <div class="cmpbox" style="--c:#ff9f1c"><b>🏭 經濟發展</b>有些山區交通不方便，但是盛產木材或礦產，以前也聚集了很多人。</div>
     </div>
-    <p class="small" style="text-align:center">一個點 ● 代表 10 個人（示意圖）</p>
-    <div class="tip">⛰️ 仁愛鄉面積是南投市的 <b>17 倍多</b>，人口卻只有南投市的<b>六分之一</b>左右，因為大部分是<b>山地</b>。</div>
+    <div class="tip blue">👉 中壢、大稻埕、九份、內灣的例子，在「🚆 遷移故事」分頁！</div>
   </div>
   <div class="card">
-    <h2>🧲 什麼樣的地方會吸引人？</h2>
-    <p class="lead">幫「✏️ 自編小鎮」打開條件，看看人口會怎麼變！</p>
+    <h2>🗺️ 南投市和仁愛鄉比一比</h2>
+    <p class="lead">課本用「南投縣人口分布圖」（每一點代表 500 人）來看：點很密的地方人多，點很少的地方人少。</p>
+    <div class="row">
+      <div style="text-align:center"><b>🏙️ 南投市：人口分布稠密</b><div class="mapbox"><svg id="denA" viewBox="0 0 200 200" role="img" aria-label="南投市示意圖：點很多"></svg></div></div>
+      <div style="text-align:center"><b>🏔️ 仁愛鄉：人口分布稀疏</b><div class="mapbox"><svg id="denB" viewBox="0 0 200 200" role="img" aria-label="仁愛鄉示意圖：點很少"></svg></div></div>
+    </div>
+    <p class="small" style="text-align:center">✏️ 示意圖：一樣大的一塊地，點愈多，住的人愈多。</p>
+    <div class="grid2">
+      <div class="cmpbox" style="--c:#e76f51"><b>🏙️ 南投市</b>地勢平坦、開發早<br>➡️ 人口比較多</div>
+      <div class="cmpbox" style="--c:#4d96ff"><b>🏔️ 仁愛鄉</b>多山地、不容易開發<br>➡️ 人口比較少</div>
+    </div>
+    <div class="tip">🔎 <span class="tag2 more">延伸</span>課本沒有下面這張表，也沒有教「人口密度」（每平方公里住幾個人）。用真實數字看看：
+      <div class="tblwrap"><table class="dt" style="font-size:14px"><caption>南投市和仁愛鄉（民國 113 年底，內政部戶政司）</caption>
+<tr><th>地方</th><th>人口</th><th>面積</th><th>人口密度</th></tr>
+<tr><td>南投市</td><td>97,042 人</td><td>71.6 km²</td><td>約 1,355 人／km²</td></tr>
+<tr><td>仁愛鄉</td><td>15,410 人</td><td>1,273.5 km²</td><td>約 12 人／km²</td></tr></table></div>
+      仁愛鄉面積是南投市的 <b>17 倍多</b>，人口卻只有南投市的<b>六分之一</b>左右。</div>
+  </div>
+  <div class="card">
+    <h2>🏆 臺灣之最</h2>
+    <div class="tip green">🎄 <b>新北市</b>是臺灣人口最多的縣市。<br>🏙️ 新北市的<b>板橋區</b>生活機能好、工作機會多，吸引很多人搬來住，是<b>全臺灣人口最多的鄉鎮市區</b>，人口比某些縣市還多！</div>
+  </div>
+</section>
+
+<!-- ===== 2 人口增減 ===== -->
+<section class="page" id="p-calc">
+  <div class="card">
+    <h2>➕➖ 人口數量為什麼會變？</h2>
+    <p class="lead">課本說，家鄉的人口數量主要受到「<b>出生、死亡、移入和移出</b>」影響。</p>
+    <div class="calc">
+      <div style="--c:#57cc99">👶 出生<small>人口 ➕</small></div>
+      <div style="--c:#e63946">🕊️ 死亡<small>人口 ➖</small></div>
+      <div style="--c:#4d96ff">🚚➡️🏠 移入<small>搬進來 ➕</small></div>
+      <div style="--c:#ff9f1c">🏠➡️🚚 移出<small>搬出去 ➖</small></div>
+    </div>
+    <div class="facts">
+      <div class="fact"><b>👶 新生兒變少</b>大家的生育觀念改變，出生的寶寶變少了。</div>
+      <div class="fact"><b>👴 長輩更長壽</b>醫療照護和保健觀念進步，老年人的死亡年齡慢慢延後。</div>
+    </div>
+    <div class="tip blue">📊 課本的「民國 90～110 年全國人口年齡分布比例變遷圖」：<b>65 歲以上人口逐年增加，14 歲以下人口逐年減少</b>。到「🎂 年齡組成」分頁拉拉看！</div>
+  </div>
+  <div class="card">
+    <h2>🧮 人口計算機 <span class="tag2 more">✏️ 自編</span><span class="tag2 more">🔎 延伸</span></h2>
+    <p class="small">課本沒有教計算，這是延伸練習。<br>一年後的人口 ＝ 原來的人口 ＋ 出生 － 死亡 ＋ 移入 － 移出</p>
+    <div class="explain" id="pcQ"></div>
+    <div class="btns" style="align-items:center"><span style="font-weight:800">答案：</span><input class="numin" id="pcIn" type="number" inputmode="numeric" aria-label="一年後的人口"><button class="btn small teal" id="pcOk">✔ 檢查</button><button class="btn small white" id="pcNew">🔄 換一題</button></div>
+    <div class="feedback" id="pcFb"></div>
+  </div>
+  <div class="card">
+    <h2>🧲 什麼樣的地方，人口會增加？</h2>
+    <p class="lead">交通發達、工作機會多、就醫方便，或是「<b>行政與教育文化資源多</b>」的地方，人口可能不斷增加，變成更大的城鎮。</p>
+    <div class="grid2">
+      <button class="flip" style="--c:#4d96ff"><div class="h">🚆 交通發達 👆</div><div class="b">有鐵路、高鐵、公路，出門很方便。</div></button>
+      <button class="flip" style="--c:#ff9f1c"><div class="h">🏭 工作機會多 👆</div><div class="b">有工廠、公司、商店，年輕人找得到工作。</div></button>
+      <button class="flip" style="--c:#e63946"><div class="h">🏥 就醫方便 👆</div><div class="b">附近有醫院、診所，生病很快能看醫生。</div></button>
+      <button class="flip" style="--c:#2a9d8f"><div class="h">🏛️ 行政與教育文化資源多 👆</div><div class="b">有公所等機關，辦事方便；學校、圖書館、博物館多，孩子學習的機會多。</div></button>
+    </div>
+    <div class="tip pink">⚠️ 缺少這些發展條件的地方，人口可能停止成長，甚至慢慢減少。</div>
+    <div class="tip blue">👉 員林、頭份、池上的例子，在「🚆 遷移故事」分頁！</div>
+  </div>
+  <div class="card">
+    <h2>🏘️ 幫小鎮加條件 <span class="tag2 more">✏️ 自編</span></h2>
+    <p class="lead">幫「自編小鎮」打開條件，看看人口會怎麼變！</p>
     <div class="btns" id="facBtns"></div>
     <div class="bar3"><div id="facBar" style="width:10%;background:linear-gradient(90deg,#57cc99,#2a9d8f)"></div></div>
     <div class="explain" id="facInfo"></div>
   </div>
 </section>
 
-<!-- ===== 2 年齡組成 ===== -->
+<!-- ===== 3 遷移故事 ===== -->
+<section class="page" id="p-move">
+  <div class="card">
+    <h2>🚆 人口遷移故事</h2>
+    <p class="lead">人們會搬到生活、工作比較方便的地方。點卡片看課本裡每個地方的故事！</p>
+    <h3>🚢 交通方便、資源豐富，聚集人口</h3>
+    <div class="grid2">
+      <button class="flip" style="--c:#9b5de5"><div class="h">🚉 桃園市中壢區 👆</div><div class="b">早期<b>陸上交通</b>方便，聚集了許多人口。</div></button>
+      <button class="flip" style="--c:#4d96ff"><div class="h">⛵ 臺北市大稻埕 👆</div><div class="b">早期因為<b>河運</b>方便、商業發達，聚集了許多人口。⚠️ 是「河運」，不是陸運喔！<br><span class="tag2 more">🔎 延伸</span>船隻沿著淡水河在這裡停靠，茶葉等貨物在這裡買賣。</div></button>
+      <button class="flip" style="--c:#ffb703"><div class="h">⛏️ 新北市九份 👆</div><div class="b">曾經因為開採<b>金礦</b>，成為繁華的小鎮。<br><span class="tag2 more">🔎 延伸</span>後來金礦變少、停止開採，人口外移；現在靠老街和觀光吸引遊客。</div></button>
+      <button class="flip" style="--c:#57cc99"><div class="h">🌲 新竹縣內灣 👆</div><div class="b">在山區，交通不方便，但曾經因為盛產<b>林木和礦產</b>而繁榮。</div></button>
+    </div>
+    <h3>⬆️ 人口增加</h3>
+    <div class="grid2">
+      <button class="flip" style="--c:#ff6b9a"><div class="h">🏗️ 彰化縣員林市 ⬆️ 👆</div><div class="b"><b>產業發展</b>帶來工作機會，加上新社區和公共建設規畫得很好，近年人口增加。</div></button>
+      <button class="flip" style="--c:#4d96ff"><div class="h">🛍️ 苗栗縣頭份市 ⬆️ 👆</div><div class="b"><b>交通發達</b>，工作、逛街購物和生活都很方便，人口慢慢增加。</div></button>
+      <button class="flip" style="--c:#2a9d8f"><div class="h">🔬 新竹縣竹北市 ⬆️ 👆</div><div class="b">鄰近<b>新竹科學園區</b>和<b>高鐵站</b>，工作機會多，很多年輕人在這裡工作、成家，所以小孩的比例很高；生活條件好，一直吸引人口移入。<br><span class="tag2 more">🔎 延伸</span>人口從 102 年約 15.9 萬人，增加到 113 年約 22.0 萬人。</div></button>
+    </div>
+    <h3>⬇️ 人口減少、長輩比較多</h3>
+    <div class="grid2">
+      <button class="flip" style="--c:#ff9f1c"><div class="h">🌾 臺東縣池上鄉 ⬇️ 👆</div><div class="b"><b>交通不便</b>，雖然近年努力發展觀光，人口還是不斷減少。<br><span class="tag2 more">🔎 延伸</span>池上以好米和稻田風景聞名；人口從 102 年 8,679 人減少到 113 年 7,696 人。</div></button>
+      <button class="flip" style="--c:#e63946"><div class="h">👴 雲林縣水林鄉 ⬇️ 👆</div><div class="b">以<b>農業</b>為主，工作機會不多，很多青壯年到外地工作，<b>老年人口比例很高</b>。種田的人大多是長輩，缺少人手；社區會準備餐點，讓獨居的長輩一起吃飯。</div></button>
+    </div>
+    <div class="tip blue">🧠 規律：工作機會多 → <b>青壯年增加，幼年人口也跟著增加</b>；青壯年外出工作很普遍 → <b>老年人口比例變高</b>。</div>
+  </div>
+  <div class="card">
+    <h2>📊 看數字 <span class="tag2 more">🔎 延伸</span></h2>
+    <p class="small">課本沒有這張表。這是內政部的真實資料，可以用來檢查課本說的事。</p>
+    <div class="tblwrap"><table class="dt"><caption>四個鄉鎮市區的人口（各年年底，內政部戶政司）</caption>
+<tr><th>地方</th><th>民國 102 年</th><th>民國 113 年</th></tr>
+<tr><td>新竹縣竹北市</td><td>158,849</td><td>219,605</td></tr>
+<tr><td>臺東縣池上鄉</td><td>8,679</td><td>7,696</td></tr>
+<tr><td>新北市瑞芳區（九份）</td><td>41,490</td><td>36,330</td></tr>
+<tr><td>雲林縣水林鄉</td><td>27,285</td><td>22,426</td></tr></table></div>
+  </div>
+</section>
+
+<!-- ===== 4 年齡組成 ===== -->
 <section class="page" id="p-age">
   <div class="card">
     <h2>👶🧑👴 人口的年齡組成</h2>
     <div class="cmp">
-      <div class="cmpbox" style="--c:#ff6b9a"><b>👶 幼年人口</b>0～14 歲<br>需要被照顧</div>
-      <div class="cmpbox" style="--c:#2a9d8f"><b>🧑‍💼 青壯年人口</b>15～64 歲<br>主要的工作人口</div>
-      <div class="cmpbox" style="--c:#9b5de5"><b>👴 老年人口</b>65 歲以上<br>需要被照顧</div>
+      <div class="cmpbox" style="--c:#ff6b9a"><b>👶 幼年人口</b>0～14 歲<br>比較需要照顧</div>
+      <div class="cmpbox" style="--c:#2a9d8f"><b>🧑‍💼 青壯年人口</b>15～64 歲<br>主要從事生產的人口，代表當地的<b>生產力和競爭力</b></div>
+      <div class="cmpbox" style="--c:#9b5de5"><b>👴 老年人口</b>65 歲以上<br>比較需要照顧</div>
     </div>
     <div class="tip">💡 分界要記清楚：<b>14 歲</b>還是幼年，<b>15 歲</b>就是青壯年；<b>64 歲</b>還是青壯年，<b>65 歲</b>就是老年。</div>
   </div>
   <div class="card">
-    <h2>📊 臺灣的人口變老了</h2>
-    <p class="lead">拉動年份，看三種人口的比例怎麼變（內政部資料）。</p>
+    <h2>📊 竹北市和水林鄉比一比</h2>
+    <p class="lead">課本的長條圖：民國 113 年底，兩個地方的三種人口各占多少？點按鈕比比看！</p>
+    <div class="qhead"><span>🔬 新竹縣竹北市</span></div>
+    <div class="bar3" id="ab1"></div>
+    <div class="qhead"><span>🌾 雲林縣水林鄉</span></div>
+    <div class="bar3" id="ab2"></div>
+    <div class="legend"><span><i style="background:#ff6b9a"></i>幼年 0～14 歲</span><span><i style="background:#2a9d8f"></i>青壯年 15～64 歲</span><span><i style="background:#9b5de5"></i>老年 65 歲以上</span></div>
+    <div class="btns" id="abBtns"></div>
+    <div class="explain" id="abInfo"></div>
+    <div class="grid2" style="margin-top:10px">
+      <button class="flip" style="--c:#2a9d8f"><div class="h">🔬 竹北市為什麼小孩多？ 👆</div><div class="b">工作機會多，很多年輕人在這裡工作、成家、生小孩，所以<b>幼年人口比例高</b>、老年人口比例低。</div></button>
+      <button class="flip" style="--c:#9b5de5"><div class="h">🌾 水林鄉為什麼長輩多？ 👆</div><div class="b">以農業為主，工作機會不多，青壯年常到外地工作，所以<b>老年人口比例高</b>、幼年人口比例低。</div></button>
+      <button class="flip" style="--c:#ffb703"><div class="h">🤔 想一想 👆</div><div class="b">水林鄉工作機會不多，為什麼青壯年比例（65%）和竹北市（70%）差不多？<br>提示：三種人口加起來是 100%。水林鄉的小孩只有 7%，所以青壯年占的比例看起來不低。三種一起看，才看得出兩地的差別！</div></button>
+    </div>
+    <div class="tip blue">🧠 課本的規律：工作機會多 → 青壯年人口增加，幼年人口也跟著增加；青壯年外出工作很普遍 → 老年人口比例偏高。</div>
+  </div>
+  <div class="card">
+    <h2>📈 臺灣人口的年齡變化</h2>
+    <p class="lead">課本的圖告訴我們：<b>65 歲以上人口逐年增加，14 歲以下人口逐年減少</b>。拉動年份看看（內政部資料）！</p>
     <div class="qhead"><span>📅 民國 <b id="yrTxt" style="font-size:24px;color:#14574f"></b> 年</span><span id="yrTag"></span></div>
     <input type="range" id="yr" min="0" max="5" step="1" value="0" aria-label="年份">
     <div class="bar3" id="yrBar"></div>
     <div class="legend"><span><i style="background:#ff6b9a"></i>0～14 歲</span><span><i style="background:#2a9d8f"></i>15～64 歲</span><span><i style="background:#9b5de5"></i>65 歲以上</span></div>
     <div class="explain" id="yrInfo"></div>
+    <div class="tip blue">📖 讀圖小撇步：① 先看標題和單位（%）② 一種顏色一種顏色看「變多還是變少」③ 比一比哪一種最多、哪一種最少。</div>
   </div>
   <div class="card">
-    <h2>🎂 高齡化的三個門檻</h2>
-    <div class="timeline">
-      <div class="ev"><b>民國 82 年</b>：老年人口 7.10% → <b>高齡化社會</b>（超過 7%）</div>
-      <div class="ev"><b>民國 107 年</b>（3 月）：14.05% → <b>高齡社會</b>（超過 14%）</div>
-      <div class="ev"><b>民國 114 年</b>（年底）：20.06% → <b>超高齡社會</b>（超過 20%，大約每 5 人就有 1 位長輩）</div>
-    </div>
-    <div class="tip pink">🧠 口訣：<b>7 化、14 高、20 超</b>！（7% 高齡<b>化</b>社會、14% <b>高</b>齡社會、20% <b>超</b>高齡社會）</div>
-    <div class="tip blue">📖 讀表格小撇步：① 先看標題和單位（%）② 一欄一欄往下看「變多還是變少」③ 拿數字和 7、14、20 比一比。</div>
+    <h2>👴 長輩愈來愈多以後呢？</h2>
+    <p class="lead">「高齡社會」、少子化，還有政府的做法，是<b>第 2 課「人口變化與發展」</b>的內容。</p>
+    <a class="btn teal linkbtn" href="../population-change/">📈 到「人口變化偵探」➡</a>
   </div>
 </section>
+
+<!-- ===== 5 挑戰 ===== -->
 <section class="page" id="p-game">
   <div class="card">
     <h2>🎮 人口挑戰站</h2>
@@ -258,16 +379,16 @@ input[type=range]{width:100%;height:36px}
   </div>
   <div class="card">
     <h3>📚 資料來源</h3>
-    <p class="small">標示 <span class="tag2 more">✏️ 自編</span> 的題目、例子和表格是依課本重點自己編的練習；真實數字都在下面列出出處（政府公開資料、官方網站或新聞報導）。</p>
+    <p class="small">標示 <span class="tag2 more">✏️ 自編</span> 的題目、例子和表格是依課本重點自己編的練習；標示 <span class="tag2 more">🔎 延伸</span> 的是課本沒有的補充。真實數字都在下面列出出處（政府公開資料、官方網站或新聞報導）。</p>
     <div class="src" id="srcList"></div>
   </div>
 </section>
 </main>
 <nav class="tabs" id="tabs">
-  <button class="on" data-p="p-dist"><span>🗺️</span>人口分布</button><button data-p="p-age"><span>🎂</span>年齡組成</button><button data-p="p-game"><span>🎮</span>挑戰</button>
+  <button class="on" data-p="p-dist"><span>🗺️</span>人口分布</button><button data-p="p-calc"><span>➕</span>人口增減</button><button data-p="p-move"><span>🚆</span>遷移故事</button><button data-p="p-age"><span>🎂</span>年齡組成</button><button data-p="p-game"><span>🎮</span>挑戰</button>
 </nav>
 <script>
-window.PAGE={"key":"popComp","burst":["⭐","👶","🧑","👴"],"badges":[{"need":5,"label":"🔎 人口小偵探"},{"need":15,"label":"📊 人口觀察家"},{"need":30,"label":"👑 人口博士"}],"quiz":[{"t":"tf","q":"人口分布很平均，每個地方住的人都差不多多。","a":1,"x":"錯！人口分布不平均：平地、交通方便的地方人多；高山、交通不便的地方人少。"},{"t":"tf","q":"地形平坦、水源充足、交通方便的地方，通常人口比較多。","a":0,"x":"對！這些條件讓生活和工作都比較方便。"},{"t":"tf","q":"仁愛鄉的面積比南投市大很多，所以住的人也比南投市多。","a":1,"x":"錯！仁愛鄉大多是山地，面積雖大，人口卻比南投市少很多。"},{"t":"tf","q":"15～64 歲的青壯年人口，是主要的工作人口。","a":0,"x":"對！青壯年工作賺錢，也照顧家裡的小孩和長輩。"},{"t":"tf","q":"65 歲以上的老年人口占總人口 14% 時，稱為「超高齡社會」。","a":1,"x":"錯！14% 是「高齡社會」；20% 才是「超高齡社會」。"},{"t":"tf","q":"臺灣在民國 107 年進入「高齡社會」。","a":0,"x":"對！民國 107 年 3 月底，65 歲以上人口占 14.05%（內政部）。"},{"t":"tf","q":"臺灣的幼年人口比例愈來愈高。","a":1,"x":"錯！0～14 歲的比例從民國 70 年約 31.6% 降到 114 年約 11.5%，這就是少子化。"},{"t":"tf","q":"就醫方便、工作機會多、交通發達、教育文化資源多，都會吸引人口移入。","a":0,"x":"對！這些都是人口成長的好條件。"},{"t":"mc","q":"依年齡來分，「幼年人口」是指幾歲的人？","o":["0～14 歲","0～12 歲","0～18 歲"],"a":0,"x":"幼年 0～14 歲；青壯年 15～64 歲；老年 65 歲以上。"},{"t":"mc","q":"爸爸今年 42 歲，他屬於哪一種年齡人口？","o":["青壯年人口","幼年人口","老年人口"],"a":0,"x":"15～64 歲是青壯年人口。"},{"t":"mc","q":"阿公剛滿 65 歲，他屬於哪一種年齡人口？","o":["老年人口","青壯年人口","幼年人口"],"a":0,"x":"65 歲以上就是老年人口。"},{"t":"mc","q":"為什麼平地的人口通常比高山多？","o":["地勢平坦，方便蓋房子、種田和修路","高山比較熱","平地沒有河流"],"a":0,"x":"平地方便居住、耕種和交通，所以人比較多。"},{"t":"mc","q":"臺灣大約在民國幾年成為「高齡化社會」（老年人口超過 7%）？","o":["民國 82 年","民國 107 年","民國 114 年"],"a":0,"x":"民國 82 年老年人口占 7.10%，成為高齡化社會（內政部）。"},{"t":"mc","q":"民國 114 年底，臺灣老年人口占 20.06%，這表示臺灣成為什麼社會？","o":["超高齡社會","高齡化社會","年輕社會"],"a":0,"x":"超過 20% 就是超高齡社會，大約每 5 個人就有 1 位長輩。"},{"t":"mc","q":"哪一群人通常需要被照顧（被扶養）？","o":["幼年人口和老年人口","只有青壯年人口","只有老年人口"],"a":0,"x":"小孩和長輩需要照顧，主要由青壯年工作賺錢來照顧他們。"},{"t":"code","bank":"a","q":"0～14 歲的人口叫做（　）。","a":"甲","x":"甲 幼年人口。"},{"t":"code","bank":"a","q":"主要從事工作、照顧家人的 15～64 歲人口叫做（　）。","a":"乙","x":"乙 青壯年人口。"},{"t":"code","bank":"a","q":"65 歲以上的人口叫做（　）。","a":"丙","x":"丙 老年人口。"},{"t":"code","bank":"a","q":"老年人口占總人口 7% 以上，叫做（　）。","a":"丁","x":"丁 高齡化社會（臺灣在民國 82 年）。"},{"t":"code","bank":"a","q":"老年人口占總人口 14% 以上，叫做（　）。","a":"戊","x":"戊 高齡社會（臺灣在民國 107 年）。"},{"t":"code","bank":"a","q":"老年人口占總人口 20% 以上，叫做（　）。","a":"己","x":"己 超高齡社會（臺灣在民國 114 年）。"},{"t":"table","tbl":"tw","q":"看表格：民國 70 年到 114 年，哪一個年齡層的比例一直變少？","o":["0～14 歲幼年人口","65 歲以上老年人口","都沒有變"],"a":0,"x":"幼年從 31.6% 一路降到 11.5%，表示出生的小孩變少（少子化）。"},{"t":"table","tbl":"tw","q":"看表格：65 歲以上的比例怎麼變化？","o":["愈來愈高（高齡化）","愈來愈低","忽高忽低"],"a":0,"x":"從 4.4% 升到 20.1%，人口愈來愈老（高齡化）。"},{"t":"table","tbl":"tw","q":"看表格判斷：「民國 110 年時，臺灣已經是高齡社會（老年人口超過 14%）」這句話對嗎？","o":["⭕ 對","❌ 錯"],"keep":true,"a":0,"x":"對！110 年老年人口 16.9%，超過 14%。"},{"t":"table","tbl":"tw","q":"看表格判斷：「民國 90 年時，老年人口比幼年人口多」這句話對嗎？","o":["⭕ 對","❌ 錯"],"keep":true,"a":1,"x":"錯！90 年幼年 20.8%，老年只有 8.8%，幼年比較多。"},{"t":"table","tbl":"town","q":"✏️ 看「快樂鎮」表格：快樂鎮在哪一年剛好成為「高齡社會」？","o":["105 年","95 年","115 年"],"a":0,"x":"105 年老年人口 14%，達到高齡社會的標準。"},{"t":"table","tbl":"town","q":"✏️ 看「快樂鎮」表格：哪一年老年人口第一次比幼年人口多？","o":["110 年","100 年","95 年"],"a":0,"x":"110 年老年 18% 比幼年 13% 多；105 年兩個差不多（15 和 14），老年還少一點。"},{"t":"table","tbl":"town","q":"✏️ 看「快樂鎮」表格判斷：「115 年的快樂鎮已經是超高齡社會」這句話對嗎？","o":["⭕ 對","❌ 錯"],"keep":true,"a":0,"x":"對！老年人口 22%，超過 20%。"},{"t":"table","tbl":"den","q":"看表格：為什麼仁愛鄉面積大，人口卻比較少？","o":["大多是山地，交通和生活比較不方便","因為仁愛鄉沒有學校","因為仁愛鄉在海邊"],"a":0,"x":"山地坡度大、交通不便、工作機會少，人口就少。"},{"t":"table","tbl":"den","q":"看表格：南投市每平方公里住的人，大約是仁愛鄉的幾倍？","o":["大約 100 倍","大約 2 倍","差不多"],"a":0,"x":"1,355 ÷ 12 ≈ 113，大約 100 多倍！"}],"banks":{"a":[["甲","幼年人口"],["乙","青壯年人口"],["丙","老年人口"],["丁","高齡化社會"],["戊","高齡社會"],["己","超高齡社會"]]},"tables":{"tw":"<table class=\"dt\"><caption>臺灣三段年齡人口比例（%，各年年底，內政部戶政司）</caption><tr><th>民國</th><th>0～14 歲<br>幼年</th><th>15～64 歲<br>青壯年</th><th>65 歲以上<br>老年</th></tr><tr><td>70 年</td><td>31.6%</td><td>64.0%</td><td>4.4%</td></tr><tr><td>80 年</td><td>26.3%</td><td>67.1%</td><td>6.5%</td></tr><tr><td>90 年</td><td>20.8%</td><td>70.4%</td><td>8.8%</td></tr><tr><td>100 年</td><td>15.1%</td><td>74.0%</td><td>10.9%</td></tr><tr><td>110 年</td><td>12.4%</td><td>70.8%</td><td>16.9%</td></tr><tr><td>114 年</td><td>11.5%</td><td>68.4%</td><td>20.1%</td></tr></table>","town":"<table class=\"dt\"><caption>✏️ 自編：「快樂鎮」三段年齡人口比例（%）</caption>\n<tr><th>民國</th><th>0～14 歲</th><th>15～64 歲</th><th>65 歲以上</th></tr>\n<tr><td>95 年</td><td>22</td><td>70</td><td>8</td></tr>\n<tr><td>100 年</td><td>18</td><td>71</td><td>11</td></tr>\n<tr><td>105 年</td><td>15</td><td>71</td><td>14</td></tr>\n<tr><td>110 年</td><td>13</td><td>69</td><td>18</td></tr>\n<tr><td>115 年</td><td>11</td><td>67</td><td>22</td></tr></table>","den":"<table class=\"dt\"><caption>南投市和仁愛鄉（民國 113 年底，內政部戶政司）</caption>\n<tr><th>地方</th><th>主要地形</th><th>人口</th><th>面積</th><th>人口密度</th></tr>\n<tr><td>南投市</td><td>平地、台地</td><td>97,042 人</td><td>71.6 km²</td><td>每 km² 約 1,355 人</td></tr>\n<tr><td>仁愛鄉</td><td>山地</td><td>15,410 人</td><td>1,273.5 km²</td><td>每 km² 約 12 人</td></tr></table>"},"sort":{"baskets":[["kid","👶 幼年 0～14 歲","#ff6b9a"],["adult","🧑‍💼 青壯年 15～64 歲","#2a9d8f"],["old","👴 老年 65 歲以上","#9b5de5"]],"items":[["剛出生的小寶寶","kid"],["10 歲的我","kid"],["14 歲的國中姊姊","kid"],["15 歲的國中哥哥","adult"],["38 歲的媽媽","adult"],["64 歲的姑婆","adult"],["65 歲的阿公","old"],["90 歲的阿祖","old"]],"hint":{"14 歲的國中姊姊":"14 歲還是幼年人口（0～14 歲）。","15 歲的國中哥哥":"15 歲就算青壯年了（15～64 歲）。","64 歲的姑婆":"64 歲還在 15～64 歲裡面。","65 歲的阿公":"滿 65 歲就是老年人口。"},"done":"記住分界：14｜15、64｜65！"},"src":[["新北市江翠國小四年級教科書版本：社會為翰林版（金石堂 江翠國小書單）",""],["臺南市陽明國小 115 學年度 四年級社會（翰林）課程計畫：第三單元「家鄉的人口與生活」第1課「家鄉的人口組成」（第六～七週），學習重點 Bb-II-1、Ca-II-2","https://course.tn.edu.tw/"],["翰林 4上 第1課分成「人口的分布」「人口年齡的組成」兩部分（三貝德 114 學年 四年級社會翰林版 教學影片目錄）","https://gte5.yicc.net/BCX/BCX1255.htm"],["南投市、仁愛鄉人口、面積、人口密度：內政部戶政司〈各鄉鎮市區人口密度〉113 年（政府資料開放平臺）","https://data.gov.tw/dataset/8410"],["民國 70～110 年三段年齡人口比例：內政部戶政司〈三階段人口及扶養比〉（歷年年底）","https://ws.moi.gov.tw/Download.ashx?icon=.pdf&n=MS0xLnBkZg%3D%3D&u=LzAwMS9VcGxvYWQvNDAwL3JlbGZpbGUvMC8xODkzOC8zMWIxYzhjNi04MjEzLTQ4OTAtYThkNC1mZjMwMTY2Yjk3NzUucGRm"],["民國 114 年 12 月底：0～14 歲 11.51%、15～64 歲 68.43%、65 歲以上 20.06%，臺灣正式成為超高齡社會（內政部戶政司 2025 年 12 月戶籍統計分析；中央社 2026/1/9）","https://www.ris.gov.tw/app/en/2121?sn=26245250"],["民國 82 年底 7.10%（高齡化社會）、107 年 3 月底 14.05%（高齡社會）；7%／14%／20% 的定義：內政部統計處〈內政統計通報〉107 年第 15 週","https://ws.moi.gov.tw/Download.ashx?n=d2VlazEwNzE1LnBkZg%3D%3D&u=LzAwMS9VcGxvYWQvT2xkRmlsZS9zaXRlX25vZGVfZmlsZS83NjM1L3dlZWsxMDcxNS5wZGY%3D"],["「快樂鎮」表格、題目、年齡分類遊戲為自編練習。",""]],"tw":[[70,31.63,63.96,4.41],[80,26.34,67.13,6.53],[90,20.81,70.39,8.81],[100,15.08,74.04,10.89],[110,12.36,70.79,16.85],[114,11.51,68.43,20.06]]};
+window.PAGE={"key":"popComp","burst":["⭐","👶","🧑","👴"],"badges":[{"need":5,"label":"🔎 人口小偵探"},{"need":15,"label":"📊 人口觀察家"},{"need":30,"label":"👑 人口博士"}],"quiz":[{"t":"tf","q":"人口分布很平均，每個地方住的人都差不多多。","a":1,"x":"錯！人口分布不平均：平地、交通方便的地方人多；高山、交通不便的地方人少。"},{"t":"tf","q":"地形平坦、水源充足、交通方便的地方，通常人口比較多。","a":0,"x":"對！這些條件讓生活和工作都比較方便。"},{"t":"tf","q":"仁愛鄉的面積比南投市大很多，所以住的人也比南投市多。","a":1,"x":"錯！仁愛鄉大多是山地，面積雖大，人口卻比南投市少很多。"},{"t":"tf","q":"15～64 歲的青壯年人口，是主要的工作人口。","a":0,"x":"對！青壯年是主要從事生產的人口，代表當地的生產力和競爭力。"},{"t":"tf","q":"臺灣的幼年人口比例愈來愈高。","a":1,"x":"錯！課本「民國90～110年全國人口年齡分布比例變遷圖」：65 歲以上逐年增加，14 歲以下逐年減少。"},{"t":"tf","q":"就醫方便、工作機會多、交通發達、行政與教育文化資源多，人口可能不斷增加。","a":0,"x":"對！這些都是人口成長的好條件。"},{"t":"tf","q":"一個地方的人口會因為出生、死亡、移入、移出而改變。","a":0,"x":"對！出生和移入讓人口變多；死亡和移出讓人口變少。"},{"t":"tf","q":"大稻埕早期繁榮，主要是因為鐵路、公路等陸上交通方便。","a":1,"x":"錯！大稻埕靠的是淡水河的「河運」，船隻在這裡停靠、做買賣。"},{"t":"tf","q":"中壢有鐵路、公路經過，陸上交通方便，吸引人口聚集。","a":0,"x":"對！中壢的發展和陸上交通有關。"},{"t":"tf","q":"九份在發現金礦以後，吸引很多人來挖金，人口變多。","a":0,"x":"對！課本：新北市九份曾經因開採金礦，成為繁華的小鎮。"},{"t":"tf","q":"一個鄉鎮的青壯年大量移出，老年人口的比例就會變高。","a":0,"x":"對！年輕人離開，留下的長輩占的比例就變大，例如雲林水林鄉。"},{"t":"tf","q":"一個地方的青壯年人口增加，通常幼年人口也可能跟著增加。","a":0,"x":"對！青壯年在這裡成家、生小孩，例如竹北市的小朋友比例很高。"},{"t":"mc","q":"依年齡來分，「幼年人口」是指幾歲的人？","o":["0～14 歲","0～12 歲","0～18 歲"],"a":0,"x":"幼年 0～14 歲；青壯年 15～64 歲；老年 65 歲以上。"},{"t":"mc","q":"爸爸今年 42 歲，他屬於哪一種年齡人口？","o":["青壯年人口","幼年人口","老年人口"],"a":0,"x":"15～64 歲是青壯年人口。"},{"t":"mc","q":"阿公剛滿 65 歲，他屬於哪一種年齡人口？","o":["老年人口","青壯年人口","幼年人口"],"a":0,"x":"65 歲以上就是老年人口。"},{"t":"mc","q":"為什麼平地的人口通常比高山多？","o":["地勢平坦，方便蓋房子、種田和修路","高山比較熱","平地沒有河流"],"a":0,"x":"平地方便居住、耕種和交通，所以人比較多。"},{"t":"mc","q":"哪一群人通常需要被照顧？","o":["幼年人口和老年人口","只有青壯年人口","只有老年人口"],"a":0,"x":"小孩和長輩比較需要照顧；青壯年是主要從事生產的人口。"},{"t":"mc","q":"臺灣人口最多的縣市是哪一個？","o":["新北市","臺北市","臺東縣"],"a":0,"x":"課本：新北市是臺灣人口最多的縣市；新北市板橋區是全臺灣人口最多的鄉鎮市區。"},{"t":"mc","q":"新竹縣內灣以前為什麼曾經很繁榮？","o":["盛產林木和礦產","有國際機場","是平原上的大城市"],"a":0,"x":"課本：有些山區交通不便，但自然資源豐富，盛產木材或礦產，曾經聚集不少人口，例如新竹縣內灣、新北市九份。"},{"t":"mc","q":"臺東縣池上鄉近年人口不斷減少，課本提到的原因是什麼？","o":["交通不便","工廠太多","人口太擁擠"],"a":0,"x":"課本：池上鄉交通不便，雖然近年努力發展觀光，人口仍不斷減少；頭份市交通發達，人口逐漸增加。"},{"t":"mc","q":"竹北市人口快速增加，最主要的原因是什麼？","o":["附近有科學園區、高鐵站，工作機會多、交通方便","有很多金礦","靠河運做生意"],"a":0,"x":"竹北靠近新竹科學園區，又有高鐵新竹站，吸引年輕家庭搬入。"},{"t":"mc","q":"下列哪一個不是吸引人口移入的條件？","o":["工作機會很少","就醫方便","教育文化資源多"],"a":0,"x":"工作機會「多」才會吸引人；工作機會少，年輕人反而會搬走。"},{"t":"mc","q":"課本說，家鄉的人口會受到哪些因素影響？","o":["自然環境、交通建設、經濟發展","只看天氣好不好","只看學校多不多"],"a":0,"x":"課本：家鄉的人口會受到自然環境、交通建設、經濟發展等因素影響。"},{"t":"mc","q":"課本民國 113 年底的人口年齡組成圖中，竹北市和水林鄉比較，哪一句正確？","o":["竹北市幼年人口比例較高，水林鄉老年人口比例較高","竹北市老年人口比例比較高","兩地的老年人口比例一樣"],"a":0,"x":"竹北市：幼年 21%、青壯年 70%、老年 9%；水林鄉：幼年 7%、青壯年 65%、老年 28%。"},{"t":"mc","q":"一般來說，青壯年人口代表一個地方的什麼？","o":["生產力和競爭力","雨量和氣溫","地形和高度"],"a":0,"x":"課本：青壯年（15～64 歲）是主要從事生產的人口，代表當地的生產力和競爭力。"},{"t":"mc","q":"南投縣人口分布圖上，為什麼南投市的人口比仁愛鄉多？","o":["南投市地勢平坦、開發早","南投市都是高山","仁愛鄉交通比較方便"],"a":0,"x":"課本：南投市地勢平坦、開發早，人口比較多；仁愛鄉多山地、不易開發，人口比較少。"},{"t":"mc","q":"彰化縣員林市近年人口增加，課本提到的原因是什麼？","o":["產業發展帶來工作機會，社區和公共建設規畫完善","發現了金礦","河運很方便"],"a":0,"x":"課本：員林市因產業發展帶來工作機會，加上新建社區及公共建設規畫完善，近年人口有增加的趨勢。"},{"t":"code","bank":"a","q":"0～14 歲的人口叫做（　）。","a":"甲","x":"甲 幼年人口。"},{"t":"code","bank":"a","q":"主要從事生產、代表當地生產力和競爭力的 15～64 歲人口叫做（　）。","a":"乙","x":"乙 青壯年人口。"},{"t":"code","bank":"a","q":"65 歲以上的人口叫做（　）。","a":"丙","x":"丙 老年人口。"},{"t":"code","bank":"a","q":"外地的人搬進來住，叫做（　）。","a":"丁","x":"丁 人口移入，會讓人口增加。"},{"t":"code","bank":"a","q":"年輕人到外地工作、搬離家鄉，叫做（　）。","a":"戊","x":"戊 人口移出，會讓人口減少。"},{"t":"code","bank":"w","q":"大稻埕早期繁榮靠的是（　）。","a":"A","x":"A 河運（淡水河）。"},{"t":"code","bank":"w","q":"中壢早期聚集許多人口，和（　）方便有關。","a":"B","x":"B 陸上交通（鐵路、公路）。"},{"t":"code","bank":"w","q":"九份曾經因為開採（　），成為繁華的小鎮。","a":"C","x":"C 金礦。"},{"t":"code","bank":"w","q":"竹北人口增加，和鄰近的（　）有關。","a":"D","x":"D 新竹科學園區和高鐵站，工作機會多。"},{"t":"code","bank":"w","q":"臺東縣池上鄉雖然努力發展觀光，卻因為（　），人口仍不斷減少。","a":"E","x":"E 交通不便。"},{"t":"code","bank":"w","q":"新竹縣內灣曾經因為盛產（　）而繁榮。","a":"F","x":"F 林木和礦產。"},{"t":"table","tbl":"tw","q":"看表格：民國 70 年到 114 年，哪一個年齡層的比例一直變少？","o":["0～14 歲幼年人口","65 歲以上老年人口","都沒有變"],"a":0,"x":"幼年從 31.6% 一路降到 11.5%，表示出生的小孩變少。"},{"t":"table","tbl":"tw","q":"看表格：65 歲以上的比例怎麼變化？","o":["愈來愈高","愈來愈低","忽高忽低"],"a":0,"x":"從 4.4% 升到 20.1%，老年人口的比例愈來愈高。"},{"t":"table","tbl":"tw","q":"看表格判斷：「民國 90 年時，老年人口比幼年人口多」這句話對嗎？","o":["⭕ 對","❌ 錯"],"a":1,"x":"錯！90 年幼年 20.8%，老年只有 8.8%，幼年比較多。","keep":true},{"t":"table","tbl":"tw","q":"看表格判斷：「民國 110 年時，老年人口比幼年人口多」這句話對嗎？","o":["⭕ 對","❌ 錯"],"a":0,"x":"對！110 年老年 16.9%，幼年只有 12.4%，長輩比小孩多了。","keep":true},{"t":"table","tbl":"age","q":"看表格：哪一個地方的老年人口比例比較高？","o":["水林鄉","竹北市","兩個一樣高"],"a":0,"x":"水林鄉老年 28%，竹北市只有 9%。"},{"t":"table","tbl":"age","q":"看表格判斷：「竹北市的幼年人口比例，是水林鄉的 3 倍」這句話對嗎？","o":["⭕ 對","❌ 錯"],"a":0,"x":"對！竹北市 21%，水林鄉 7%，21 ÷ 7 ＝ 3。","keep":true},{"t":"table","tbl":"age","q":"看表格：兩個地方的哪一種人口比例最接近？","o":["青壯年人口","幼年人口","老年人口"],"a":0,"x":"青壯年：竹北市 70%、水林鄉 65%，只差 5%；幼年差 14%，老年差 19%。"},{"t":"table","tbl":"town","q":"✏️ 看「快樂鎮」表格：哪一年老年人口第一次比幼年人口多？","o":["110 年","100 年","95 年"],"a":0,"x":"110 年老年 18% 比幼年 13% 多；105 年兩個差不多（15 和 14），老年還少一點。"},{"t":"table","tbl":"town","q":"✏️ 看「快樂鎮」表格：哪一個年齡層的比例一直變多？","o":["65 歲以上","0～14 歲","15～64 歲"],"a":0,"x":"65 歲以上從 8% 一路升到 22%；0～14 歲一直變少。"},{"t":"table","tbl":"den","q":"看表格：為什麼仁愛鄉面積大，人口卻比較少？","o":["多山地，不容易開發","因為仁愛鄉沒有學校","因為仁愛鄉在海邊"],"a":0,"x":"課本：仁愛鄉多山地、不易開發，人口比較少；南投市地勢平坦、開發早，人口比較多。"},{"t":"table","tbl":"den","q":"看表格：南投市和仁愛鄉，哪一個的人口分布比較稠密？","o":["南投市","仁愛鄉","兩個一樣"],"a":0,"x":"南投市面積小、人口多，人口分布稠密；仁愛鄉面積大、人口少，人口分布稀疏。"},{"t":"table","tbl":"mv","q":"看表格：從 102 年到 113 年，哪一個地方的人口增加了？","o":["竹北市","池上鄉","水林鄉"],"a":0,"x":"竹北從 158,849 人增加到 219,605 人，多了 6 萬多人。"},{"t":"table","tbl":"mv","q":"看表格：水林鄉 11 年來人口大約減少多少人？","o":["大約 4,900 人","大約 490 人","大約 49,000 人"],"a":0,"x":"27,285 − 22,426 = 4,859，大約 4,900 人。"},{"t":"table","tbl":"mv","q":"看表格判斷：「表格中只有一個地方的人口增加，其他三個都減少」這句話對嗎？","o":["⭕ 對","❌ 錯"],"a":0,"x":"對！只有竹北增加，池上、瑞芳、水林都減少。","keep":true}],"banks":{"a":[["甲","幼年人口"],["乙","青壯年人口"],["丙","老年人口"],["丁","人口移入"],["戊","人口移出"]],"w":[["A","河運"],["B","陸上交通"],["C","金礦"],["D","科學園區、高鐵站"],["E","交通不便"],["F","林木和礦產"]]},"tables":{"tw":"<table class=\"dt\"><caption>臺灣三段年齡人口比例（%，各年年底，內政部戶政司）<\/caption>\n<tr><th>民國<\/th><th>0～14 歲<br>幼年<\/th><th>15～64 歲<br>青壯年<\/th><th>65 歲以上<br>老年<\/th><\/tr>\n<tr><td>70 年<\/td><td>31.6%<\/td><td>64.0%<\/td><td>4.4%<\/td><\/tr>\n<tr><td>80 年<\/td><td>26.3%<\/td><td>67.1%<\/td><td>6.5%<\/td><\/tr>\n<tr><td>90 年<\/td><td>20.8%<\/td><td>70.4%<\/td><td>8.8%<\/td><\/tr>\n<tr><td>100 年<\/td><td>15.1%<\/td><td>74.0%<\/td><td>10.9%<\/td><\/tr>\n<tr><td>110 年<\/td><td>12.4%<\/td><td>70.8%<\/td><td>16.9%<\/td><\/tr>\n<tr><td>114 年<\/td><td>11.5%<\/td><td>68.4%<\/td><td>20.1%<\/td><\/tr><\/table>","age":"<table class=\"dt\"><caption>竹北市和水林鄉的人口年齡組成（民國 113 年底，課本的長條圖）<\/caption>\n<tr><th>地方<\/th><th>幼年<br>0～14 歲<\/th><th>青壯年<br>15～64 歲<\/th><th>老年<br>65 歲以上<\/th><\/tr>\n<tr><td>新竹縣竹北市<\/td><td>21%<\/td><td>70%<\/td><td>9%<\/td><\/tr>\n<tr><td>雲林縣水林鄉<\/td><td>7%<\/td><td>65%<\/td><td>28%<\/td><\/tr><\/table>","town":"<table class=\"dt\"><caption>✏️ 自編：「快樂鎮」三段年齡人口比例（%）<\/caption>\n<tr><th>民國<\/th><th>0～14 歲<\/th><th>15～64 歲<\/th><th>65 歲以上<\/th><\/tr>\n<tr><td>95 年<\/td><td>22<\/td><td>70<\/td><td>8<\/td><\/tr>\n<tr><td>100 年<\/td><td>18<\/td><td>71<\/td><td>11<\/td><\/tr>\n<tr><td>105 年<\/td><td>15<\/td><td>71<\/td><td>14<\/td><\/tr>\n<tr><td>110 年<\/td><td>13<\/td><td>69<\/td><td>18<\/td><\/tr>\n<tr><td>115 年<\/td><td>11<\/td><td>67<\/td><td>22<\/td><\/tr><\/table>","den":"<table class=\"dt\"><caption><span class=\"tag2 more\">🔎 延伸<\/span>南投市和仁愛鄉（民國 113 年底，內政部戶政司）<\/caption>\n<tr><th>地方<\/th><th>主要地形<\/th><th>人口<\/th><th>面積<\/th><\/tr>\n<tr><td>南投市<\/td><td>平地、台地<\/td><td>97,042 人<\/td><td>71.6 km²<\/td><\/tr>\n<tr><td>仁愛鄉<\/td><td>山地<\/td><td>15,410 人<\/td><td>1,273.5 km²<\/td><\/tr><\/table>","mv":"<table class=\"dt\"><caption><span class=\"tag2 more\">🔎 延伸<\/span>四個鄉鎮市區的人口（各年年底，內政部戶政司）<\/caption>\n<tr><th>地方<\/th><th>民國 102 年<\/th><th>民國 113 年<\/th><\/tr>\n<tr><td>新竹縣竹北市<\/td><td>158,849<\/td><td>219,605<\/td><\/tr>\n<tr><td>臺東縣池上鄉<\/td><td>8,679<\/td><td>7,696<\/td><\/tr>\n<tr><td>新北市瑞芳區（九份）<\/td><td>41,490<\/td><td>36,330<\/td><\/tr>\n<tr><td>雲林縣水林鄉<\/td><td>27,285<\/td><td>22,426<\/td><\/tr><\/table>"},"sort":{"baskets":[["kid","👶 幼年 0～14 歲","#ff6b9a"],["adult","🧑‍💼 青壯年 15～64 歲","#2a9d8f"],["old","👴 老年 65 歲以上","#9b5de5"]],"items":[["剛出生的小寶寶","kid"],["10 歲的我","kid"],["14 歲的國中姊姊","kid"],["15 歲的國中哥哥","adult"],["38 歲的媽媽","adult"],["64 歲的姑婆","adult"],["65 歲的阿公","old"],["90 歲的阿祖","old"]],"hint":{"14 歲的國中姊姊":"14 歲還是幼年人口（0～14 歲）。","15 歲的國中哥哥":"15 歲就算青壯年了（15～64 歲）。","64 歲的姑婆":"64 歲還在 15～64 歲裡面。","65 歲的阿公":"滿 65 歲就是老年人口。"},"done":"記住分界：14｜15、64｜65！"},"src":[["新北市江翠國小四年級教科書版本：社會為翰林版（金石堂 江翠國小書單）",""],["臺南市陽明國小 115 學年度 四年級社會（翰林）課程計畫：第三單元「家鄉的人口與生活」第1課「家鄉的人口組成」（第六～七週），學習重點 Bb-II-1、Ca-II-2","https://course.tn.edu.tw/"],["翰林 4上 第1課分成「人口的分布」「人口年齡的組成」兩部分（三貝德 114 學年 四年級社會翰林版 教學影片目錄）","https://gte5.yicc.net/BCX/BCX1255.htm"],["竹北市、水林鄉的人口年齡組成（民國 113 年底）：翰林社會 4上 第1課的長條圖",""],["🔎 延伸：南投市、仁愛鄉人口、面積、人口密度；竹北市、池上鄉、瑞芳區、水林鄉 102 年與 113 年人口：內政部戶政司〈各鄉鎮市區人口密度〉（政府資料開放平臺）","https://data.gov.tw/dataset/8410"],["民國 70～110 年三段年齡人口比例：內政部戶政司〈三階段人口及扶養比〉（歷年年底）","https://ws.moi.gov.tw/Download.ashx?icon=.pdf&n=MS0xLnBkZg%3D%3D&u=LzAwMS9VcGxvYWQvNDAwL3JlbGZpbGUvMC8xODkzOC8zMWIxYzhjNi04MjEzLTQ4OTAtYThkNC1mZjMwMTY2Yjk3NzUucGRm"],["民國 114 年 12 月底：0～14 歲 11.51%、15～64 歲 68.43%、65 歲以上 20.06%（內政部戶政司 2025 年 12 月戶籍統計分析；中央社 2026/1/9）","https://www.ris.gov.tw/app/en/2121?sn=26245250"],["🔎 延伸：九份金礦歷史：新北市立黃金博物館","https://www.gep.ntpc.gov.tw/"],["🔎 延伸：大稻埕河港歷史：臺北市大同區公所","https://datong.gov.taipei/"],["「快樂鎮」表格、人口計算機、自編小鎮、題目、年齡分類遊戲為自編練習。",""]],"tw":[[70,31.63,63.96,4.41],[80,26.34,67.13,6.53],[90,20.81,70.39,8.81],[100,15.08,74.04,10.89],[110,12.36,70.79,16.85],[114,11.51,68.43,20.06]],"ab":[["竹北市",21,70,9],["水林鄉",7,65,28]]};
 </script>
 <script>
 (function(){
@@ -358,29 +479,62 @@ window.__sg={stars:function(){return stars;},qz:function(){return qz;},P:P};
 (function(){
 "use strict";
 var $=U.$,P=window.PAGE;
+/* 南投市、仁愛鄉示意點圖 */
 function dots(id,n,col){var h='<rect width="200" height="200" fill="#f6fff0"/>',seed=7;function rnd(){seed=(seed*9301+49297)%233280;return seed/233280;}
   for(var i=0;i<n;i++)h+='<circle cx="'+(6+rnd()*188).toFixed(1)+'" cy="'+(6+rnd()*188).toFixed(1)+'" r="4" fill="'+col+'"/>';
   if(id==="denB")h+='<text x="100" y="190" text-anchor="middle" font-size="14">🌲⛰️🌲</text>';
   $(id).innerHTML=h;}
 dots("denA",136,"#e76f51");dots("denB",1,"#e76f51");
 
-var FAC=[["flat","🏞️ 地形平坦"],["water","💧 水源充足"],["traffic","🚆 交通發達"],["job","🏭 工作機會多"],["doctor","🏥 就醫方便"],["school","📚 教育文化資源多"]],on={};
+/* 自編小鎮：打開條件 */
+var FAC=[["flat","🏞️ 地形平坦"],["water","💧 水源充足"],["traffic","🚆 交通發達"],["job","🏭 工作機會多"],["doctor","🏥 就醫方便"],["school","🏛️ 行政與教育文化資源多"]],on={};
 function drawFac(){$("facBtns").innerHTML=FAC.map(function(f){return '<button class="btn small'+(on[f[0]]?" teal on":" white")+'" data-f="'+f[0]+'">'+(on[f[0]]?"✅ ":"")+f[1]+'</button>';}).join("");
   var n=0;FAC.forEach(function(f){if(on[f[0]])n++;});$("facBar").style.width=(10+n*15)+"%";
-  var t=["🏚️ 條件很少，年輕人搬出去找工作，人口<b>減少</b>。","🙂 開始有一點吸引力了。","🙂 人口慢慢穩定。","😀 人口開始<b>增加</b>！","😀 很多人想搬來住！","🤩 好熱鬧，人口<b>快速增加</b>！","🏙️ 六個條件都有，變成大城市！但也要注意塞車、房子變貴的問題喔。"][n];
+  var t=["🏚️ 條件很少，年輕人搬出去找工作，人口<b>減少</b>。","🙂 開始有一點吸引力了。","🙂 人口慢慢穩定。","😀 人口開始<b>增加</b>！","😀 很多人想搬來住！","🤩 好熱鬧，人口<b>快速增加</b>！","🏙️ 六個條件都有，變成大城鎮！但也要注意塞車、房子變貴的問題喔。"][n];
   $("facInfo").innerHTML='<div class="t">已開啟 '+n+' / 6 個條件</div>'+t;}
 $("facBtns").addEventListener("click",function(ev){var b=U.closest(ev.target,"btn");if(!b)return;var k=b.getAttribute("data-f");on[k]=!on[k];drawFac();
-  var all=FAC.every(function(f){return on[f[0]];});if(all&&!window.__facDone){window.__facDone=1;U.addStars(1,b);}});
+  var all=FAC.every(function(f){return on[f[0]];});if(all&&!window.__facDone){window.__facDone=1;U.addStars(1,$("facBtns").querySelector('[data-f="'+k+'"]'));}});
 drawFac();
 
+/* 竹北市、水林鄉年齡組成比較 */
+var AB=P.ab,COL=["#ff6b9a","#2a9d8f","#9b5de5"],NM=["👶 比幼年","🧑 比青壯年","👴 比老年"],abSeen={};
+var SAY=["👶 幼年人口：竹北市 <b>21%</b>，水林鄉只有 <b>7%</b>。竹北市是水林鄉的 3 倍！","🧑 青壯年人口：竹北市 <b>70%</b>，水林鄉 <b>65%</b>，兩個地方差不多。","👴 老年人口：竹北市只有 <b>9%</b>，水林鄉有 <b>28%</b>。水林鄉的長輩比例高很多！"];
+function drawAB(k){["ab1","ab2"].forEach(function(id,n){var r=AB[n];$(id).innerHTML=[1,2,3].map(function(j){return '<div style="width:'+r[j]+'%;background:'+COL[j-1]+';opacity:'+(k===null||k===j-1?1:0.3)+'">'+r[j]+'%</div>';}).join("");});
+  $("abBtns").innerHTML=NM.map(function(t,j){return '<button class="btn small'+(k===j?" teal on":" white")+'" data-k="'+j+'">'+t+'</button>';}).join("");
+  $("abInfo").innerHTML=k===null?'👆 點上面的按鈕，一次比一種人口。':SAY[k];}
+$("abBtns").addEventListener("click",function(ev){var b=U.closest(ev.target,"btn");if(!b)return;var k=+b.getAttribute("data-k");drawAB(k);abSeen[k]=1;
+  if(abSeen[0]&&abSeen[1]&&abSeen[2]&&!window.__abDone){window.__abDone=1;U.addStars(1,$("abBtns").querySelector('[data-k="'+k+'"]'));}});
+drawAB(null);
+
+/* 臺灣三段年齡人口比例（滑桿） */
 var TW=P.tw;
 function drawYr(){var r=TW[+$("yr").value];$("yrTxt").textContent=r[0];
   $("yrBar").innerHTML='<div style="width:'+r[1]+'%;background:#ff6b9a">'+r[1].toFixed(1)+'%</div><div style="width:'+r[2]+'%;background:#2a9d8f">'+r[2].toFixed(1)+'%</div><div style="width:'+r[3]+'%;background:#9b5de5">'+r[3].toFixed(1)+'%</div>';
-  var lv=r[3]>=20?"超高齡社會":r[3]>=14?"高齡社會":r[3]>=7?"高齡化社會":"還沒到高齡化社會";
-  $("yrTag").innerHTML='<span class="tag2 book">'+lv+'</span>';
+  var inBook=r[0]>=90&&r[0]<=110;
+  $("yrTag").innerHTML=inBook?'<span class="tag2 book">📖 課本圖的年份範圍</span>':'<span class="tag2 more">🔎 延伸</span>';
   var kids=Math.round(r[1]),old=Math.round(r[3]);
-  $("yrInfo").innerHTML='每 100 個人裡面，大約有 <b>'+kids+'</b> 個小孩、<b>'+old+'</b> 位長輩。'+(r[3]>r[1]?'<br>👴 長輩已經比小孩多了！':'')+(r[0]===114?'<br>🎉 老年人口超過 20%，臺灣正式成為<b>超高齡社會</b>。':'');}
+  $("yrInfo").innerHTML='每 100 個人裡面，大約有 <b>'+kids+'</b> 個小孩（0～14 歲）、<b>'+old+'</b> 位長輩（65 歲以上）。'+(r[3]>r[1]?'<br>👴 長輩已經比小孩多了！':'');}
 $("yr").addEventListener("input",drawYr);$("yr").addEventListener("change",drawYr);drawYr();
+})();
+
+</script>
+<script>
+
+(function(){
+"use strict";
+var $=U.$,cur=null,done=false;
+function rnd(a,b,s){return a+Math.floor(Math.random()*((b-a)/s+1))*s;}
+var TOWNS=["彩虹鄉","星星村","快樂鎮","小熊里","海豚村"];
+function newQ(){var n=rnd(1200,3000,100),b=rnd(10,40,1),d=rnd(10,40,1),i=rnd(0,60,5),o=rnd(0,60,5);
+  cur={n:n,b:b,d:d,i:i,o:o,ans:n+b-d+i-o};done=false;
+  $("pcQ").innerHTML='<div class="t">'+TOWNS[Math.floor(Math.random()*TOWNS.length)]+'（自編）</div>原來有 <b>'+n+'</b> 人。一年中出生 <b>'+b+'</b> 人、死亡 <b>'+d+'</b> 人、移入 <b>'+i+'</b> 人、移出 <b>'+o+'</b> 人。<br>一年後有多少人？';
+  $("pcIn").value="";$("pcFb").className="feedback";$("pcFb").innerHTML="";}
+$("pcOk").addEventListener("click",function(){if(!cur)return;var v=parseInt($("pcIn").value,10),fb=$("pcFb");
+  var how=cur.n+" ＋ "+cur.b+" － "+cur.d+" ＋ "+cur.i+" － "+cur.o+" ＝ "+cur.ans;
+  if(v===cur.ans){fb.className="feedback show good";fb.innerHTML="🎉 答對了！"+how+(cur.ans>cur.n?"（人口增加）":cur.ans<cur.n?"（人口減少）":"（人口不變）");if(!done){done=true;U.addStars(1,this);}U.beep(true);}
+  else{fb.className="feedback show bad";fb.innerHTML="再想想！提示：原來的人口 ＋ 出生 － 死亡 ＋ 移入 － 移出";U.beep(false);}});
+$("pcNew").addEventListener("click",newQ);newQ();
+window.__pc=function(){return cur;};
 })();
 
 </script>
