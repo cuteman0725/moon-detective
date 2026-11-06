@@ -828,7 +828,7 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
       result(it, ok ? 'ok' : 'fail', $('keys'));
       var why = !ok && Q.dg ? Q.dg(nums) : '';
       $('numFb').innerHTML = (Q.viz ? vizHTML(Q, nums) : '') + (it.msg || '') + '<div class="fb ' + (ok ? 'ok' : 'no') + '">' + (ok ? '✅ 答對了！' + comboTxt() + '<br>'
-        : '❌ 正確答案是 <b>' + (Q.ansText || Q.ans.map(function (a, j) { return (Q.fields[j].pre ? Q.fields[j].pre + ' ' : '') + a + (Q.fields[j].unit || ''); }).join('，')) + '</b>。' + (it.again ? '' : '等一下會換數字再考一次。') + '<br>'
+        : '❌ 正確答案是 <b>' + (Q.ansText || Q.ans.map(function (a, j) { return (Q.fields[j].pre ? Q.fields[j].pre + ' ' : '') + a + (Q.fields[j].unit ? ' ' + Q.fields[j].unit : ''); }).join('，')) + '</b>。' + (it.again ? '' : '等一下會換數字再考一次。') + '<br>'
           + (why ? '🔎 <b>可能錯在這裡：</b>' + why + '<br>' : '')) + Q.ex + '</div>' + nextBtn('', ok ? 0 : 3);
       if (Q.viz) playViz(Q, nums, ok);
       bindNext();

@@ -110,6 +110,12 @@ nav.tabs button span{font-size:26px;line-height:1}nav.tabs button.on{background:
 .q .num{font-variant-numeric:tabular-nums}
 .choices .btn{font-weight:800}
 .spk{appearance:none;border:none;background:#fff3dc;border-radius:999px;padding:4px 10px;font-size:18px;cursor:pointer;min-height:40px}
+.frin .fden{font-size:28px;font-weight:900;line-height:1.2}
+.chart{max-width:100%;height:auto;background:#fff;border-radius:10px}
+.picto{display:inline-block;text-align:left;background:#fff;border:2px solid #e3dcff;border-radius:12px;padding:8px 10px;font-size:15px;max-width:100%}
+.picto .pkey{font-size:13px;background:#f7f5ff;border-radius:8px;padding:3px 8px;margin-bottom:6px}
+.picto .prow{display:flex;gap:8px;align-items:center;padding:3px 0;border-bottom:1px dashed #eee}.picto .prow b{min-width:3em;font-size:14px}.picto .prow span{font-size:22px;letter-spacing:1px}.picto .prow small{font-size:15px}
+.picto .ptitle{text-align:center;font-size:13px;font-weight:800;margin-top:6px}
 
 /* ---- 第 7 單元 小數 ---- */
 #gSvg rect{cursor:pointer}
@@ -348,6 +354,7 @@ var M = (function () {
       var f = Q.fields[j], g = Q.fields[j + 1];
       if (f.pre) h += '<span>' + f.pre + '</span>';
       if (f.fr === 'n' && g && g.fr === 'd') { h += '<span class="frin">' + box(f, j, ' sm') + '<i></i>' + box(g, j + 1, ' sm') + '</span>' + (g.unit ? '<span>' + g.unit + '</span>' : ''); j++; continue; }
+      if (f.fr === 'n' && f.den) { h += '<span class="frin">' + box(f, j, ' sm') + '<i></i><b class="fden">' + f.den + '</b></span>' + (f.unit ? '<span>' + f.unit + '</span>' : ''); continue; }
       h += box(f, j, f.fr ? ' sm' : '') + (f.unit ? '<span>' + f.unit + '</span>' : '');
     }
     return h;
