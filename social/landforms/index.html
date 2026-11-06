@@ -146,30 +146,41 @@ nav.tabs button span{font-size:26px;line-height:1}nav.tabs button.on{background:
   <div class="card">
     <h2>🏔️ 高低起伏的地形</h2>
     <p class="small">翰林版 社會 4上・第二單元「家鄉的地形與氣候」・第 1 課「高低起伏的地形」</p>
-    <p class="lead">地面有的地方高、有的地方低，有的平平的、有的凹下去。課本把臺灣的地形分成<b>五大地形</b>：<b>山地、丘陵、台地、盆地、平原</b>。</p>
+    <p class="lead"><span class="tag2 book">📖 課本</span>「<b>地形</b>指地表的高低起伏與形狀特徵」。我們可以看地圖、空拍照片，認識地形的樣子。</p>
+    <p class="lead">課本介紹臺灣常見的<b>五大地形</b>：<b>山地、丘陵、台地、盆地、平原</b>。</p>
     <p class="lead">👇 點一點下面的圖，看看每一種地形長什麼樣子！</p>
     <div class="mapbox xsec"><svg id="xsSvg" viewBox="0 0 640 300" aria-label="五大地形剖面示意圖"></svg></div>
-    <p class="small">※ 這是<b>示意圖</b>（把地面從旁邊切開來看），不是真實比例。虛線是 <b>1,000 公尺</b>的高度。</p>
-    <div class="explain" id="xsInfo"><div class="t">👆 點圖上的地形</div>會告訴你它的特色和課本裡的例子。</div>
+    <p class="small">※ 這是<b>示意圖</b>（把地面從旁邊切開來看），只是讓你看形狀，不是真實的高度。虛線是 <b>1,000 公尺</b>的高度。</p>
+    <div class="explain" id="xsInfo"><div class="t">👆 點圖上的地形</div>會告訴你它的特色、課本的例子和其他例子。</div>
     <div class="checks" id="xsChecks"></div>
   </div>
   <div class="card">
-    <h3>🧩 排一排：由高到低</h3>
-    <p class="lead">課本請大家「排出五種地形」。這裡換個方式：照著上面的圖，<b>從左到右</b>依序點出地形的名字！</p>
+    <h3>🧩 排一排：從山走到海</h3>
+    <p class="lead">這是本網站的小練習：照著上面的剖面圖，<b>從左邊的山走到右邊的海</b>，依序點出地形的名字！</p>
+    <p class="small">※ 這是示意圖上的順序，<b>不是高低排名</b>喔！</p>
     <div class="stops" id="ordGot"></div>
     <div class="opts" id="ordOpts"></div>
     <div class="feedback" id="ordFb"></div>
     <div class="btns"><button class="btn small white" id="ordAgain" style="display:none">🔄 再排一次</button></div>
   </div>
   <div class="card">
-    <h3>📏 1,000 公尺有多高？</h3>
+    <h3>📏 課本裡的 1,000 公尺</h3>
     <div class="facts">
-      <div class="fact"><b>山地</b>超過 1,000 公尺</div>
-      <div class="fact"><b>丘陵、台地</b>不超過 1,000 公尺</div>
-      <div class="fact"><b>玉山（臺灣最高）</b>3,952 公尺，差不多是 4 個 1,000 公尺！</div>
+      <div class="fact"><b>📖 山地</b>高度<b>超過</b> 1,000 公尺，而且地勢起伏大</div>
+      <div class="fact"><b>📖 丘陵</b>在山地邊緣，高度<b>不超過</b> 1,000 公尺</div>
+      <div class="fact"><b>📖 台地</b>課本<b>沒有寫高度</b>，只說是「地勢平坦的高地」</div>
     </div>
-    <div class="tip">🔎 <span class="tag2 more">延伸</span>還記得上一課的<b>石碇區</b>嗎？石碇區公所介紹，那裡以<b>丘陵和山</b>為主，海拔大約 <b>100～600 公尺</b>。</div>
+    <div class="tip"><span class="tag2 book">📖 課本</span>課本的丘陵例子是<b>新北市石碇的丘陵</b>：有人家住在半山腰種茶。</div>
+    <div class="tip blue">🔎 <span class="tag2 more">延伸</span>石碇區公所介紹，石碇以<b>丘陵和山</b>為主，海拔大約 <b>100～600 公尺</b>。臺灣最高的<b>玉山</b>是 3,952 公尺，差不多是 4 個 1,000 公尺！</div>
     <p class="src">玉山高度：內政部國土測繪中心〈玉山高度測量〉（公告 3,952 公尺；111 年測得 3,952.433 公尺）。石碇：新北市石碇區公所。</p>
+  </div>
+  <div class="card">
+    <h3>🏆 臺灣之最</h3>
+    <div class="facts">
+      <div class="fact"><b>📖 山地最多</b>山地<b>占臺灣大多數的面積</b>，像中央山脈的合歡山，有很多登山客。</div>
+      <div class="fact"><b>📖 最大的平原</b><b>嘉南平原</b>是臺灣面積最大的平原，土壤肥沃，適合種<b>稻米、甘蔗</b>，是臺灣重要的<b>穀倉</b>。</div>
+    </div>
+    <p class="small">🤔 想一想：你的家鄉是哪一種地形？有什麼特徵？</p>
   </div>
 </section>
 
@@ -200,20 +211,21 @@ nav.tabs button span{font-size:26px;line-height:1}nav.tabs button.on{background:
     <div class="scene" id="useScene"></div>
   </div>
   <div class="card">
-    <h3>⚖️ 山地和丘陵，哪裡一樣？哪裡不一樣？</h3>
+    <h3>⚖️ 山地和丘陵比一比</h3>
     <div class="cmp">
-      <div class="cmpbox" style="--c:#7f5539"><b>🏔️ 山地</b>比較高、坡比較陡<br>交通比較不方便</div>
-      <div class="cmpbox same"><b>🤝 一樣的地方</b>都<b>高低起伏</b><br>都會種<b>適合的作物</b><br>都有<b>休閒設施</b></div>
-      <div class="cmpbox" style="--c:#6a994e"><b>⛰️ 丘陵</b>坡度<b>比較和緩</b><br>交通<b>比較方便</b></div>
+      <div class="cmpbox" style="--c:#7f5539"><b>🏔️ 山地</b>高度超過 1,000 公尺<br>地勢<b>起伏大</b><br><span class="tag2 book">📖 課本</span></div>
+      <div class="cmpbox" style="--c:#6a994e"><b>⛰️ 丘陵</b>坡度<b>比較和緩</b><br>對外交通<b>比山地便利</b><br><span class="tag2 book">📖 課本</span></div>
+      <div class="cmpbox same"><b>🤝 一樣的地方</b>都<b>高低起伏</b><br>都會種<b>適合的作物</b><br><span class="tag2 more">🔎 延伸</span></div>
     </div>
   </div>
   <div class="card">
     <h3>🤔 想一想</h3>
     <div class="qa">為什麼<b>平原、台地、盆地</b>上，常常有很多房子和大城市？
       <div class="btns"><button class="btn small sun" id="whyBtn">看答案</button></div>
-      <div class="reveal" id="whyAns">因為那裡<b>地勢平坦、交通便利</b>，適合<b>居住和耕種</b>，人越來越多，就容易形成<b>城鎮和都市</b>。像<b>臺北盆地</b>就有臺北市。</div>
+      <div class="reveal" id="whyAns">📖 因為那裡<b>地勢平坦、交通便利</b>，適合<b>居住、農耕和工商發展</b>，吸引人口聚集，就形成<b>聚落或都市</b>。<br><span class="small">🔎 例如臺北盆地裡有臺北市。</span></div>
     </div>
-    <div class="tip green">🌱 地形會影響人們怎麼用土地；反過來，人們開發土地，也會<b>改變自然環境</b>。所以使用土地時，也要好好愛護環境喔！</div>
+    <div class="tip green">🌱 📖 家鄉的地形會影響居民怎麼使用土地、怎麼生活；反過來，居民的活動也會<b>改變土地上的景觀和樣貌</b>。所以使用土地時，也要好好愛護環境喔！</div>
+    <p class="small">🤔 想一想：你的家鄉可以看到哪些景觀？和地形有什麼關聯？</p>
   </div>
   <div class="card">
     <h3>📚 資料來源</h3>
@@ -234,7 +246,7 @@ nav.tabs button span{font-size:26px;line-height:1}nav.tabs button.on{background:
   </div>
   <div class="card gcard" id="g-memo">
     <div class="qhead"><span>🃏 地形翻牌配對</span><span>步數 <b id="mmMoves">0</b>　🏆 最少 <b id="mmBest">—</b></span></div>
-    <p class="small">翻兩張牌：<b>地形名字</b>配上<b>它的特色</b>就成功！（課本的「地形配對」遊戲）</p>
+    <p class="small">翻兩張牌：<b>地形名字</b>配上<b>它的特色</b>就成功！（本網站的配對練習，可以搭配習作附件三「五大地形」）</p>
     <div class="memo" id="mmGrid"></div>
     <div class="feedback" id="mmFb"></div>
     <div class="btns"><button class="btn small" id="mmRestart">🔄 重新洗牌</button></div>
@@ -267,26 +279,36 @@ nav.tabs button span{font-size:26px;line-height:1}nav.tabs button.on{background:
 <script id="core">
 var Core=(function(){
 "use strict";
-/* ---- 五大地形（翰林 4上 第二單元 第1課「高低起伏的地形」，課本 26～31 頁；定義與例子依各校 115 學年度課程計畫的課本整理） ---- */
+/* ---- 五大地形（翰林 4上 第二單元 第1課「高低起伏的地形」，課本 26～33 頁）
+   def = 課本的說法；bk = 課本的例子（每種地形只有一個），bkn = 地圖和遊戲用的短名字；ex = 其他例子（🔎 延伸，不是課本的例子）
+   use 裡標「🔎」的是延伸，其他是課本 32～33 頁的「地形與生活」 ---- */
 var LANDS=[
- {k:"mount",n:"山地",e:"🏔️",col:"#7f5539",def:"高度超過 1,000 公尺，而且地勢起伏大的高山。",short:"超過 1,000 公尺、起伏大的高山",ex:["玉山","雪山","阿里山"],
-  use:["🌲 茂密的樹林","🏘️ 一些小村落","🥬 種高山蔬菜、水果","🏕️ 休閒設施（森林遊樂區）","🦌 保留完整的自然生態"],live:"人比較少，交通比較不方便"},
- {k:"hill",n:"丘陵",e:"⛰️",col:"#6a994e",def:"在山地的邊緣，高度不超過 1,000 公尺，坡度變化比較和緩。",short:"山地邊緣、不超過 1,000 公尺、坡度和緩",ex:["新竹丘陵","苗栗丘陵","嘉義丘陵","豐原丘陵","恆春丘陵"],
-  use:["🍵 茶園","🍊 果園","🍓 休閒農業","🚗 交通比山地方便"],live:"氣溫比平地低一些，交通比山地方便"},
- {k:"tab",n:"台地",e:"🟫",col:"#dda15e",def:"高度不超過 1,000 公尺，地勢比較平坦的高地。",short:"不超過 1,000 公尺、上面平平的高地",ex:["林口台地","桃園台地","大肚台地","八卦台地","舞鶴台地"],
-  use:["🏠 適合居住","🌾 適合耕種","🛣️ 交通便利","🏙️ 容易形成城鎮"],live:"上面平坦，可以蓋房子、種田"},
- {k:"basin",n:"盆地",e:"🥣",col:"#e76f51",def:"四周的地勢比較高，中間比較平坦，好像一個盆子。",short:"四周高、中間平，像一個盆子",ex:["臺北盆地","埔里盆地","臺中盆地"],
-  use:["🏙️ 容易形成都市","🏠 適合居住","🛣️ 交通便利","🌾 適合耕種"],live:"中間平坦，人多、房子多"},
- {k:"plain",n:"平原",e:"🌾",col:"#e9c46a",def:"在河流出口或是沿海地區，寬闊又平坦。",short:"河流出口或沿海、寬闊平坦",ex:["宜蘭平原","彰化平原","嘉南平原","屏東平原","花東縱谷平原"],
-  use:["🌾 稻田、農田","🏠 適合居住","🛣️ 交通便利","🏙️ 容易形成城鎮和都市"],live:"又寬又平，適合居住和耕種"}
+ {k:"mount",n:"山地",e:"🏔️",col:"#7f5539",def:"高度超過 1,000 公尺且地勢起伏大，占臺灣大多數的面積。",short:"超過 1,000 公尺、地勢起伏大",
+  bk:"中央山脈的合歡山",bkn:"合歡山",ex:["玉山","雪山","阿里山"],
+  use:["🦌 保留比較完整的自然生態","🏕️ 可以發展觀光旅遊","🥬 有些居民種高山蔬菜","🌲 森林遊樂區（🔎 延伸）"],live:"地勢起伏大，對外交通沒有丘陵便利"},
+ {k:"hill",n:"丘陵",e:"⛰️",col:"#6a994e",def:"在山地邊緣，高度不超過 1,000 公尺、坡度變化比較和緩。",short:"山地邊緣、不超過 1,000 公尺、坡度和緩",
+  bk:"新北市石碇的丘陵",bkn:"石碇的丘陵",ex:["新竹丘陵","苗栗丘陵","嘉義丘陵","豐原丘陵","恆春丘陵"],
+  use:["🍵 開墾成田地，種茶樹","🍊 種果樹","🏡 人們居住得比較分散","🚗 對外交通比山地便利"],live:"排水良好、氣候溼潤，適合種茶，常看到一層一層的茶園"},
+ {k:"tab",n:"台地",e:"🟫",col:"#dda15e",def:"地勢平坦的高地。（課本沒有寫台地的高度）",short:"地勢平坦的高地",
+  bk:"臺中市的大肚台地",bkn:"大肚台地",ex:["林口台地","桃園台地","八卦台地","舞鶴台地"],
+  use:["🏠 適合居住","🌾 適合農耕","🏭 適合工商發展","🛣️ 地勢平坦、交通便利","🏘️ 人口聚集，形成聚落或都市"],live:"台地上面平坦，開發建設以後，住的人愈來愈多"},
+ {k:"basin",n:"盆地",e:"🥣",col:"#e76f51",def:"四周地勢較高，中間平坦，像一個盆子。",short:"四周高、中間平坦，像盆子",
+  bk:"南投縣的埔里盆地",bkn:"埔里盆地",ex:["臺北盆地","臺中盆地"],
+  use:["🏠 適合居住","🌾 適合農耕","🏭 適合工商發展","🛣️ 地勢平坦、交通便利","🏙️ 人口聚集，形成聚落或都市"],live:"四周群山環繞、底部平坦，人口密集"},
+ {k:"plain",n:"平原",e:"🌾",col:"#e9c46a",def:"通常位在河流出海口或沿海地區，屬於寬闊平坦的地形。",short:"河流出海口或沿海、寬闊平坦",
+  bk:"臺灣南部的嘉南平原",bkn:"嘉南平原",ex:["宜蘭平原","彰化平原","屏東平原","花東縱谷平原"],
+  use:["🌾 農業生產（稻田、農田）","🏠 適合居住","🏭 適合工商發展","🛣️ 地勢平坦、交通便利","🏙️ 人口聚集，形成聚落或都市"],live:"地勢低平，是農業生產、人口聚居的地方。嘉南平原是臺灣面積最大的平原，土壤肥沃，適合種稻米、甘蔗，是重要的穀倉"}
 ];
 var ORDER=["mount","hill","tab","basin","plain"];
 function land(k){for(var i=0;i<LANDS.length;i++)if(LANDS[i].k===k||LANDS[i].n===k)return LANDS[i];return null;}
-/* 例子 → 地形 */
-var PLACES=[];LANDS.forEach(function(l){l.ex.forEach(function(x){PLACES.push({n:x,k:l.k});});});
+/* 例子 → 地形（book = 課本的例子） */
+var PLACES=[];LANDS.forEach(function(l){PLACES.push({n:l.bkn,k:l.k,book:true});l.ex.forEach(function(x){PLACES.push({n:x,k:l.k});});});
+function isBook(n){for(var i=0;i<LANDS.length;i++)if(LANDS[i].bkn===n)return true;return false;}
 function placeKind(n){for(var i=0;i<PLACES.length;i++)if(PLACES[i].n===n)return PLACES[i].k;return null;}
 /* 地圖上的大約位置（經緯度大約值，示意用；放在名字所在的縣市裡）。county = 該點所在的縣市 */
 var SPOTS=[
+ {n:"合歡山",k:"mount",lon:121.27,lat:24.14,county:"南投縣"},
+ {n:"石碇的丘陵",k:"hill",lon:121.66,lat:24.99,county:"新北市"},
  {n:"玉山",k:"mount",lon:120.957,lat:23.470,src:"維基百科「玉山」座標"},
  {n:"雪山",k:"mount",lon:121.232,lat:24.383,src:"維基百科「雪山 (台灣)」座標"},
  {n:"阿里山",k:"mount",lon:120.80,lat:23.51,county:"嘉義縣"},
@@ -333,21 +355,28 @@ function bestTime(prev,t){if(!(t>0))return prev||0;if(!(prev>0))return t;return 
 
 /* ---- 小博士測驗 t: book 課本 / more 延伸 ---- */
 var QUIZ=[
- {t:"book",q:"高度<b>超過 1,000 公尺</b>、地勢起伏大的高山，是哪一種地形？",o:["山地","丘陵","台地"],a:0,x:"山地：高度超過 1,000 公尺且地勢起伏大，例如玉山、雪山、阿里山。"},
- {t:"book",q:"在<b>山地的邊緣</b>、不超過 1,000 公尺、坡度比較和緩的是？",o:["平原","丘陵","盆地"],a:1,x:"丘陵在山地邊緣，坡度比較和緩，例如新竹丘陵、苗栗丘陵。"},
- {t:"book",q:"<b>四周高、中間平</b>，好像一個盆子，是哪一種地形？",o:["盆地","台地","平原"],a:0,x:"盆地四周地勢較高、中間較平坦，例如臺北盆地。"},
- {t:"book",q:"高度不超過 1,000 公尺、<b>上面比較平坦的高地</b>是？",o:["丘陵","山地","台地"],a:2,x:"台地是比較平坦的高地，例如林口台地、桃園台地。"},
- {t:"book",q:"在<b>河流出口或沿海地區</b>，寬闊又平坦的是？",o:["平原","盆地","丘陵"],a:0,x:"平原寬闊平坦，例如嘉南平原、屏東平原。"},
- {t:"book",q:"<b>臺北盆地、埔里盆地、臺中盆地</b>都屬於哪一種地形？",o:["台地","盆地","平原"],a:1,x:"課本裡的盆地例子：臺北、埔里、臺中盆地。"},
- {t:"book",q:"下面哪一個是<b>台地</b>？",o:["八卦台地","嘉南平原","苗栗丘陵"],a:0,x:"八卦台地是台地；嘉南是平原、苗栗是丘陵。"},
- {t:"book",q:"<b>茶園、果園、休閒農業</b>最常出現在哪一種地形？",o:["平原","丘陵","盆地"],a:1,x:"丘陵坡度比較和緩、交通比山地方便，常有茶園、果園和休閒農業。"},
- {t:"book",q:"平原、台地、盆地地勢平坦、交通便利，所以容易形成什麼？",o:["森林遊樂區","城鎮和都市","高山蔬菜園"],a:1,x:"平坦的地方適合居住和耕種，容易形成城鎮和都市。"},
- {t:"book",q:"山地和丘陵<b>不一樣</b>的地方是？",o:["丘陵坡度比較和緩、交通比較方便","丘陵比山地高","山地比較適合蓋都市"],a:0,x:"相同：都高低起伏、會種適合的作物、有休閒設施；不同：丘陵坡度比較和緩、交通比較方便。"},
+ /* 前 11 題和 review/bank.js 的 so3 題目一一對應（依課本核對修正），接著 6 題是新增的課本題，最後 2 題是延伸 */
+ {t:"book",q:"高度<b>超過 1,000 公尺</b>、地勢起伏大的高山，是哪一種地形？",o:["山地","丘陵","台地"],a:0,x:"山地：高度超過 1,000 公尺且地勢起伏大，占臺灣大多數的面積，例如中央山脈的合歡山。"},
+ {t:"book",q:"在<b>山地的邊緣</b>、不超過 1,000 公尺、坡度比較和緩的是？",o:["平原","丘陵","盆地"],a:1,x:"丘陵在山地邊緣，高度不超過 1,000 公尺、坡度變化比較和緩，例如新北市石碇的丘陵。"},
+ {t:"book",q:"<b>四周高、中間平</b>，好像一個盆子，是哪一種地形？",o:["盆地","台地","平原"],a:0,x:"盆地四周地勢較高、中間平坦，像盆子，例如南投縣的埔里盆地。"},
+ {t:"book",q:"<b>地勢平坦的高地</b>是哪一種地形？",o:["丘陵","山地","台地"],a:2,x:"課本：地勢平坦的高地稱為台地，例如臺中市的大肚台地。"},
+ {t:"book",q:"通常位在<b>河流出海口或沿海地區</b>、寬闊平坦的是？",o:["平原","盆地","丘陵"],a:0,x:"平原通常位在河流出海口或沿海地區，例如臺灣南部的嘉南平原，它是臺灣面積最大的平原。"},
+ {t:"book",q:"課本中「南投縣的埔里盆地」屬於哪一種地形？",o:["盆地","台地","平原"],a:0,x:"四周地勢較高、中間平坦，像盆子的地形稱為盆地。"},
+ {t:"book",q:"下面哪一個是課本舉的<b>台地</b>例子？",o:["臺中市的大肚台地","嘉南平原","新北市石碇的丘陵"],a:0,x:"大肚台地是台地；嘉南平原是平原；石碇是丘陵。"},
+ {t:"book",q:"<b>一層一層的茶園</b>最常出現在哪一種地形？",o:["平原","丘陵","盆地"],a:1,x:"課本：丘陵排水良好、氣候溼潤，適合種茶，常被開墾成一層一層的田地，種植茶樹、果樹。"},
+ {t:"book",q:"平原、台地、盆地地勢平坦、交通便利，所以容易形成什麼？",o:["森林遊樂區","城鎮和都市","高山蔬菜園"],a:1,x:"台地、平原和盆地地勢平坦、交通便利，適合居住、農耕和工商發展，吸引人口聚集，形成聚落或都市。"},
+ {t:"book",q:"山地和丘陵<b>不一樣</b>的地方是？",o:["丘陵坡度比較和緩、交通比較方便","丘陵比山地高","山地比較適合蓋都市"],a:0,x:"丘陵坡度較和緩，對外交通比山地便利；山地比較高、起伏大。"},
  {t:"book",q:"家鄉的景觀和土地利用，常常受到什麼影響？",o:["地形","星座","生日"],a:0,x:"地形會影響居民怎麼使用土地，例如平地蓋城市、山坡種茶。"},
+ {t:"book",q:"臺灣大多數的面積是哪一種地形？",o:["山地","平原","盆地"],a:0,x:"課本：高度超過 1,000 公尺且地勢起伏大的山地，占臺灣大多數的面積。"},
+ {t:"book",q:"課本說，臺灣面積最大的平原是哪一個？",o:["嘉南平原","埔里盆地","大肚台地"],a:0,x:"臺灣之最：嘉南平原是臺灣面積最大的平原，土壤肥沃，適合種稻米、甘蔗，是臺灣重要的穀倉。"},
+ {t:"book",q:"課本的例子配對，哪一組正確？",o:["新北市石碇—丘陵","臺中市大肚—盆地","南投縣埔里—平原"],a:0,x:"課本例子：合歡山（山地）、石碇（丘陵）、大肚台地（台地）、埔里盆地（盆地）、嘉南平原（平原）。"},
+ {t:"book",q:"為什麼丘陵適合種茶？",o:["排水良好、氣候溼潤","地勢最低、常常淹水","全年都下雪"],a:0,x:"課本：丘陵排水良好、氣候溼潤，適合種茶。"},
+ {t:"book",q:"和平坦的地方比起來，住在丘陵的人家通常怎麼分布？",o:["居住得比較分散","全部擠在一起","丘陵上完全沒有人住"],a:0,x:"課本：丘陵對外交通比山地便利，人們居住得比較分散，並開墾田地種茶樹、果樹。"},
+ {t:"book",q:"山地保留了較完整的自然生態，課本說可以發展什麼？",o:["觀光旅遊","大型工業區","大片稻田"],a:0,x:"課本：山地可以發展觀光旅遊，有些居民會種植高山蔬菜。"},
  {t:"more",q:"臺灣最高的<b>玉山</b>大約有多高？",o:["約 1,000 公尺","約 3,952 公尺","約 600 公尺"],a:1,x:"內政部國土測繪中心的公告高度是 3,952 公尺（111 年測量 3,952.433 公尺），遠遠超過 1,000 公尺，所以是山地。"},
- {t:"more",q:"上一課的<b>石碇區</b>，海拔大約 100～600 公尺、有丘陵和山，它比較像哪一種地形？",o:["平原","丘陵","盆地"],a:1,x:"石碇區公所介紹：地形以丘陵和山為主，海拔約 100～600 公尺，沒有超過 1,000 公尺。"}
+ {t:"more",q:"石碇區公所介紹，石碇海拔大約 100～600 公尺。這樣有沒有超過山地的 1,000 公尺？",o:["沒有超過，所以不是山地","超過了，所以是山地","剛好 1,000 公尺"],a:0,x:"沒有超過 1,000 公尺。課本也把「新北市石碇的丘陵」當作丘陵的例子（石碇區公所：以丘陵和山為主，海拔約 100～600 公尺）。"}
 ];
-return {LANDS:LANDS,ORDER:ORDER,land:land,PLACES:PLACES,placeKind:placeKind,SPOTS:SPOTS,spot:spot,spotsOf:spotsOf,proj:proj,SHAPES:SHAPES,SHAPE_SRC:SHAPE_SRC,
+return {LANDS:LANDS,ORDER:ORDER,land:land,PLACES:PLACES,placeKind:placeKind,isBook:isBook,SPOTS:SPOTS,spot:spot,spotsOf:spotsOf,proj:proj,SHAPES:SHAPES,SHAPE_SRC:SHAPE_SRC,
  huntCheck:huntCheck,memoDeck:memoDeck,memoMatch:memoMatch,memoBest:memoBest,memoStars:memoStars,sortRound:sortRound,fmtTime:fmtTime,bestTime:bestTime,QUIZ:QUIZ,
  YUSHAN_M:3952,SHIDING_M:[100,600]};
 })();
@@ -383,6 +412,8 @@ each(tabBtns,function(b){b.addEventListener("click",function(){each(tabBtns,func
 var XS={mount:[0,160],hill:[160,280],tab:[280,380],basin:[380,510],plain:[510,588]};
 var GROUND="M0,300 L0,200 L25,120 L45,150 L75,45 L100,95 L120,70 L145,160 L160,176 L175,166 Q195,138 215,165 Q235,186 250,158 Q266,146 280,192 L292,192 L305,172 L365,172 L378,206 L392,162 L410,150 L432,232 L472,232 L490,155 L508,222 L520,246 L588,252 L600,262 L640,266 L640,300 Z";
 var xsSel=null,xsSeen={};
+function exHtml(l){return '<div class="small" style="margin-top:6px">📖 課本例子：</div><div class="exs"><span class="ex" style="--c:'+l.col+'">'+l.bk+'</span></div>'+
+  '<div class="small" style="margin-top:6px">🔎 其他例子（延伸）：</div><div class="exs">'+l.ex.map(function(x){return '<span class="ex" style="--c:#ccc">'+x+'</span>';}).join("")+'</div>';}
 function drawXS(){
   var h='<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bde0fe"/><stop offset="1" stop-color="#eaf6ff"/></linearGradient>'+
     '<linearGradient id="gr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8ab17d"/><stop offset=".55" stop-color="#b5a27a"/><stop offset="1" stop-color="#8d6e4f"/></linearGradient></defs>'+
@@ -406,7 +437,7 @@ function drawXS(){
 }
 function showLand(k){var l=C.land(k);xsSel=k;
   $("xsInfo").style.background="#fff";$("xsInfo").style.border="4px solid "+l.col;
-  $("xsInfo").innerHTML='<div class="t">'+l.e+" "+l.n+'</div>'+l.def+'<div class="small" style="margin-top:6px">📖 課本例子：</div><div class="exs">'+l.ex.map(function(x){return '<span class="ex" style="--c:'+l.col+'">'+x+'</span>';}).join("")+'</div>';
+  $("xsInfo").innerHTML='<div class="t">'+l.e+" "+l.n+'</div><span class="tag2 book">📖 課本</span>'+l.def+exHtml(l);
   var isNew=!xsSeen[k];xsSeen[k]=1;drawXS();
   if(isNew&&Object.keys(xsSeen).length===5)addStars(2,$("xsInfo"));}
 $("xsSvg").addEventListener("click",function(ev){var g=ev.target;while(g&&g!==this&&!(g.getAttribute&&g.getAttribute("data-k")))g=g.parentNode;if(g&&g!==this)showLand(g.getAttribute("data-k"));});
@@ -417,14 +448,14 @@ var ordIdx=0,ordDone=0;
 function drawOrd(){var names=shuffle(C.LANDS);$("ordOpts").innerHTML=names.map(function(l){return '<button class="opt" data-k="'+l.k+'">'+l.e+" "+l.n+'</button>';}).join("");$("ordGot").innerHTML='<span class="small">左 ➜</span>';ordIdx=0;$("ordFb").className="feedback";$("ordAgain").style.display="none";}
 $("ordOpts").addEventListener("click",function(ev){var b=closest(ev.target,"opt");if(!b||b.disabled)return;var k=b.getAttribute("data-k"),fb=$("ordFb");
   if(k===C.ORDER[ordIdx]){b.disabled=true;b.classList.add("right");var l=C.land(k);$("ordGot").innerHTML+='<span class="stop">'+l.e+" "+l.n+'</span>';ordIdx++;fb.className="feedback";
-    if(ordIdx===5){fb.className="feedback show good";fb.innerHTML="🎉 排好了！<b>山地 → 丘陵 → 台地 → 盆地 → 平原</b>，最後就到海邊了。";addStars(ordDone?1:3,b);ordDone++;$("ordAgain").style.display="";}
-  }else{b.classList.add("no");setTimeout(function(){b.classList.remove("no");},500);beep(false);fb.className="feedback show bad";fb.innerHTML="再看看上面的圖，第 "+(ordIdx+1)+" 個是哪一種？";}});
+    if(ordIdx===5){fb.className="feedback show good";fb.innerHTML="🎉 排好了！照剖面圖從山走到海：<b>山地 → 丘陵 → 台地 → 盆地 → 平原</b>，最後就到海邊了。<br><span class=\"small\">⚠️ 這只是示意圖上的位置，不是高低排名。真實的盆地不一定比台地低，像埔里盆地就在山區裡。</span>";addStars(ordDone?1:3,b);ordDone++;$("ordAgain").style.display="";}
+  }else{b.classList.add("no");setTimeout(function(){b.classList.remove("no");},500);beep(false);fb.className="feedback show bad";fb.innerHTML="再看看上面的剖面圖，從左邊數過來第 "+(ordIdx+1)+" 個是哪一種？";}});
 $("ordAgain").addEventListener("click",drawOrd);
 drawOrd();
 
 /* ---------------- 2. map ---------------- */
-var WHERE={"玉山":"南投縣、嘉義縣、高雄市交界","雪山":"臺中市、苗栗縣交界","嘉南平原":"嘉義縣、臺南市一帶","花東縱谷平原":"花蓮縣、臺東縣之間的縱谷"};
-var OFF={"阿里山":[0,-11,"middle"],"八卦台地":[0,21,"middle"],"豐原丘陵":[11,10,"start"],"臺中盆地":[11,9,"start"]};
+var WHERE={"合歡山":"南投縣、花蓮縣交界的中央山脈","石碇的丘陵":"新北市石碇區","玉山":"南投縣、嘉義縣、高雄市交界","雪山":"臺中市、苗栗縣交界","嘉南平原":"嘉義縣、臺南市一帶","花東縱谷平原":"花蓮縣到臺東縣，中央山脈和海岸山脈中間的縱谷"};
+var OFF={"阿里山":[0,-11,"middle"],"八卦台地":[0,21,"middle"],"豐原丘陵":[11,10,"start"],"臺中盆地":[11,9,"start"],"合歡山":[0,-11,"middle"],"石碇的丘陵":[11,12,"start"]};
 var LEFT={"林口台地":1,"大肚台地":1,"八卦台地":1,"彰化平原":1,"嘉南平原":1,"嘉義丘陵":1,"桃園台地":1,"苗栗丘陵":1,"阿里山":1,"屏東平原":1};
 function baseMap(){var h='<rect width="400" height="545" fill="#e6f4ff"/><text x="70" y="200" font-size="12" fill="#1c7ed6" font-weight="700" text-anchor="middle">臺灣海峽</text><text x="352" y="300" font-size="12" fill="#1c7ed6" font-weight="700" transform="rotate(90 352 300)">太平洋</text>'+
   '<g transform="translate(375,30)"><circle r="16" fill="#fff" stroke="#4d96ff" stroke-width="2"/><polygon points="0,-12 5,4 0,1 -5,4" fill="#e63946"/><text x="0" y="13" font-size="8" font-weight="900" text-anchor="middle" fill="#e63946">北</text></g>';
@@ -449,7 +480,7 @@ $("lyBtns").addEventListener("click",function(ev){var b=closest(ev.target,"btn")
 $("lfSvg").addEventListener("click",function(ev){var g=ev.target;while(g&&g!==this&&!(g.getAttribute&&g.getAttribute("data-n")))g=g.parentNode;if(!g||g===this)return;
   var s=C.spot(g.getAttribute("data-n")),l=C.land(s.k);lfSel=s.n;drawLF();
   $("lfInfo").style.background="#fff";$("lfInfo").style.border="4px solid "+l.col;
-  $("lfInfo").innerHTML='<div class="t">'+l.e+" "+s.n+'</div>是<b style="color:'+l.col+'">'+l.n+'</b>：'+l.short+'。<br>📍 大約在：<b>'+(WHERE[s.n]||s.county)+'</b>';});
+  $("lfInfo").innerHTML='<div class="t">'+l.e+" "+s.n+'</div>'+(C.isBook(s.n)?'<span class="tag2 book">📖 課本例子</span>':'<span class="tag2 more">🔎 其他例子</span>')+'是<b style="color:'+l.col+'">'+l.n+'</b>：'+l.short+'。<br>📍 大約在：<b>'+(WHERE[s.n]||s.county)+'</b>';});
 drawLF();
 
 /* hunt: 這個點是什麼地形？ */
@@ -470,13 +501,14 @@ $("huQ").addEventListener("click",function(ev){var b=closest(ev.target,"opt");if
 var useSel="mount";
 function drawUse(){$("useBtns").innerHTML=C.LANDS.map(function(l){return '<button class="btn small lbtn'+(useSel===l.k?" teal on":" white")+'" data-k="'+l.k+'">'+l.e+" "+l.n+'</button>';}).join("");
   var l=C.land(useSel);$("useScene").style.setProperty("--c",l.col);
-  $("useScene").innerHTML='<span class="big">'+l.e+'</span><b style="font-size:22px;color:'+l.col+'">'+l.n+'</b>　<span class="small">'+l.short+'</span><ul>'+l.use.map(function(u){return '<li>'+u+'</li>';}).join("")+'</ul><div class="small">💡 '+l.live+'。例子：'+l.ex.join("、")+'</div>';}
+  $("useScene").innerHTML='<span class="big">'+l.e+'</span><b style="font-size:22px;color:'+l.col+'">'+l.n+'</b>　<span class="small">'+l.short+'</span><ul>'+l.use.map(function(u){return '<li>'+u+'</li>';}).join("")+'</ul><div class="small">💡 📖 '+l.live+'。<br>📖 課本例子：'+l.bk+'<br>🔎 其他例子：'+l.ex.join("、")+'</div>';}
 $("useBtns").addEventListener("click",function(ev){var b=closest(ev.target,"btn");if(!b)return;useSel=b.getAttribute("data-k");drawUse();});
 drawUse();
 $("whyBtn").addEventListener("click",function(){var r=$("whyAns");if(!r.classList.contains("show")){r.classList.add("show");addStars(1,this);}});
 
 var SRC=[
- ["新北市屈尺國小 115 學年度 四年級社會（翰林）課程計畫：第二單元第1課「高低起伏的地形」、課本 26～33 頁內容、地形配對遊戲、土地利用","https://www.ccyes.ntpc.edu.tw/p/406-1000-8855,r157.php"],
+ ["📖 翰林版 國小社會 4上（第三冊）第二單元第1課「高低起伏的地形」課本 24～33 頁：地形的定義、五大地形和課本例子（合歡山、石碇的丘陵、大肚台地、埔里盆地、嘉南平原）、地形與生活。本頁標「📖 課本」的內容以這本課本為準（只摘短句，其他用自己的話說）。",""],
+ ["新北市屈尺國小 115 學年度 四年級社會（翰林）課程計畫：第二單元第1課「高低起伏的地形」、土地利用","https://www.ccyes.ntpc.edu.tw/p/406-1000-8855,r157.php"],
  ["臺南市陽明國小 115 學年度 四年級社會（翰林）課程計畫：第四週「高低起伏的地形」","https://course.tn.edu.tw/course/115E%E9%99%BD%E6%98%8E%E5%9C%8B%E5%B0%8FC5-1%E9%A0%98%E5%9F%9F%E5%AD%B8%E7%BF%92%E8%AA%B2%E7%A8%8B(%E8%AA%BF%E6%95%B4)%E8%A8%88%E7%95%AB%E6%99%AE%E9%80%9A%E7%8F%AD%E5%9B%9B%E5%B9%B4%E7%B4%9A%E7%A4%BE%E6%9C%83070917088.pdf"],
  ["高雄市七賢國小 115 學年度 四年級社會課程計畫：第四週「高低起伏的地形」","https://w2.chihps.kh.edu.tw/chihps-plan/115/064A_115-1%E7%A4%BE%E6%9C%83-%E5%9B%9B%E5%B9%B4%E7%B4%9A%E9%9D%96%E6%96%870521.pdf"],
  ["嘉義縣 114 學年度 四年級社會（翰林）課程計畫","https://course.cyc.edu.tw/upfile/course114/sub1/15953804239158350.pdf"],
@@ -485,7 +517,7 @@ var SRC=[
  ["地圖圓點：玉山、雪山、大肚山用維基百科的座標；其他依地名所在的縣市標大約位置（示意）","https://zh.wikipedia.org/wiki/玉山"],
  ["縣市界線："+C.SHAPE_SRC,"https://data.gov.tw/dataset/7442"]
 ];
-$("srcList").innerHTML="<ul>"+SRC.map(function(s){return '<li>'+s[0]+'<br><a href="'+s[1]+'" target="_blank" rel="noopener">'+s[1]+'</a></li>';}).join("")+"</ul>";
+$("srcList").innerHTML="<ul>"+SRC.map(function(s){return '<li>'+s[0]+(s[1]?'<br><a href="'+s[1]+'" target="_blank" rel="noopener">'+s[1]+'</a>':'')+'</li>';}).join("")+"</ul>";
 
 /* ---------------- 4. games ---------------- */
 each(document.querySelectorAll("[data-gm]"),function(b){b.addEventListener("click",function(){var g=b.getAttribute("data-gm");
@@ -520,7 +552,7 @@ function soDrop(i,k){var p=so.items[i];if(!p||so.placed[p.n]||so.done)return;soS
   if(p.k===k){so.placed[p.n]=k;so.sel=null;soDraw();beep(true);var bk=document.querySelector('.bk[data-k="'+k+'"]');if(bk)bk.classList.add("ok");fb.className="feedback";
     if(Object.keys(so.placed).length===so.items.length){so.done=true;clearInterval(so.timer);var t=Math.max(1,Math.round((Date.now()-so.t0)/1000)),prev=getNum(SORT_KEY),best=C.bestTime(prev,t);setNum(SORT_KEY,best);soBestTxt();
       var st=3+(so.miss?0:1);fb.className="feedback show good";fb.innerHTML="🎉 全部分類完成！用了 <b>"+C.fmtTime(t)+"</b>"+(best===t&&prev!==t?"，<b>新紀錄！</b>":"")+(so.miss?"（錯 "+so.miss+" 次）":"，<b>全對！</b>")+"　得到 "+st+" ⭐";addStars(st,$("soBaskets"));}}
-  else{so.miss++;beep(false);var l=C.land(k);fb.className="feedback show bad";fb.innerHTML="🤔 <b>"+p.n+"</b> 不是"+l.n+"喔！"+l.n+"是「"+l.short+"」。小提示：看看名字最後兩個字～";
+  else{so.miss++;beep(false);var l=C.land(k);fb.className="feedback show bad";fb.innerHTML="🤔 <b>"+p.n+"</b> 不是"+l.n+"喔！"+l.n+"是「"+l.short+"」。小提示：看看名字裡的字～";
     var el=document.querySelector('.pc[data-i="'+i+'"]');if(el){el.classList.add("shake");setTimeout(function(){el.classList.remove("shake");},450);}}}
 /* drag + tap */
 var drag=null;
