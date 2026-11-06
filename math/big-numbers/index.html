@@ -134,7 +134,7 @@ nav.tabs button span{font-size:26px;line-height:1}nav.tabs button.on{background:
   <div class="card">
     <h2>🧱 定位板：認識一億以內的數</h2>
     <div class="small">康軒版 數學 4上・第一單元「一億以內的數」（1-1 十萬以內的數・1-2 一億以內的數）</div>
-    <div class="lead">我們的數是 <b>四位一節</b>：右邊是「<span style="color:var(--ge);font-weight:900">個</span>」那一節（千、百、十、個），左邊是「<span style="color:var(--wan);font-weight:900">萬</span>」那一節（千萬、百萬、十萬、萬）。按 ▲▼ 加減，滿 10 個就會<b>換到左邊一位</b>喔！</div>
+    <div class="lead">我們的數是 <b>每四位一組</b>（從個位開始，由右而左）：右邊是「<span style="color:var(--ge);font-weight:900">個</span>」那一組（千、百、十、個），左邊是「<span style="color:var(--wan);font-weight:900">萬</span>」那一組（千萬、百萬、十萬、萬）。按 ▲▼ 加減，滿 10 個就會<b>換到左邊一位</b>喔！</div>
   </div>
   <div class="card">
     <div class="boardwrap">
@@ -163,8 +163,8 @@ nav.tabs button span{font-size:26px;line-height:1}nav.tabs button.on{background:
     <h3>📌 重點整理</h3>
     <div class="tip">
       • 10 個一萬是 <b>十萬</b>（100000）；10 個十萬是 <b>一百萬</b>（1000000）；10 個一百萬是 <b>一千萬</b>（10000000）；10 個一千萬是 <b>一億</b>（100000000）。<br>
-      • 讀大數：先找「萬」在哪裡，<b>先讀萬那一節，加個「萬」字，再讀後面那一節</b>。<br>
-      • 中間有 0：連著幾個 0 只讀<b>一個「零」</b>；最後面的 0 不讀。例：30050200 讀作「三千零五萬零二百」。<br>
+      • 讀大數：先找「萬」在哪裡，<b>先讀萬那一組，加個「萬」字，再讀後面那一組</b>。<br>
+      • 每一組<b>中間</b>不管連續幾個 0，都只讀<b>一個「零」</b>；每一組<b>後面</b>的 0 都不用讀；萬後面那一組的開頭有 0，也要讀一個「零」。例：30050200 讀作「三千零五萬零二百」。<br>
       • 也可以寫成「3005萬200」這種一半數字、一半國字的樣子。
     </div>
   </div>
@@ -325,13 +325,14 @@ function read(n){if(n===0)return "零";var hi=Math.floor(n/1e4),lo=n%1e4,s="";
 function mixed(n){var hi=Math.floor(n/1e4),lo=n%1e4;return hi>0?hi+"萬"+(lo>0?lo:""):String(n);}
 function placeName(i){return PLACE[i]+"位";}
 function grouped(n){var s=String(n);if(s.length<=4)return s;return s.slice(0,s.length-4)+" "+s.slice(-4);}
-function expand(n){var a=[],b=[],s=String(n);for(var i=s.length-1;i>=0;i--){var d=digitAt(n,i);if(d){a.push(d+"個"+(i===0?"一":UNITNAME[i]));b.push(String(d*p10(i)));}}
-  return {units:a.join("＋")||"0",nums:b.join("＋")||"0"};}
+function expand(n){var a=[],b=[],s=String(n);for(var i=s.length-1;i>=0;i--){var d=digitAt(n,i);if(d){a.push(d+" 個"+(i===0?"一":PLACE[i]));b.push(String(d*p10(i)));}}
+  var u=a.length>1?a.slice(0,-1).join("、")+"和 "+a[a.length-1]:(a[0]||"0");
+  return {units:u,nums:b.join("＋")||"0"};}
 function ri(a,b){return a+Math.floor(Math.random()*(b-a+1));}
 function pick(arr){return arr[Math.floor(Math.random()*arr.length)];}
 function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
-/* level 1: 十萬以內 (5~6 位數)；level 2: 一億以內 (7~8 位數)；zeros appear often on purpose */
-function genNum(level,zp){zp=zp===undefined?0.35:zp;var len=level===1?ri(5,6):ri(7,8),s=String(ri(1,9));
+/* level 1: 十萬以內 (五位數，課本活動 1)；level 2: 一億以內 (6~8 位數)；zeros appear often on purpose */
+function genNum(level,zp){zp=zp===undefined?0.35:zp;var len=level===1?5:ri(6,8),s=String(ri(1,9));
   for(var i=1;i<len;i++)s+=Math.random()<zp?"0":String(ri(1,9));return +s;}
 function wrongReadings(n){var s=read(n),c=[];
   if(s.indexOf("零")>=0)c.push(s.replace(/零/g,""));
@@ -385,8 +386,8 @@ var store={stars:0,ok:{},bad:{},recent:[],rounds:0,perfect:0,board:0,addsub:0};
 try{var raw=localStorage.getItem(KEY);if(raw){var o=JSON.parse(raw);for(var k in o)store[k]=o[k];}}catch(e){}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
 var TN={read:"📖 讀數",write:"✍️ 寫數／聽寫",place:"🔍 位名和位值",regroup:"🔄 化聚",compare:"⚖️ 比大小",order:"🏁 排隊",addsub:"➕➖ 加減直式",board:"🧱 定位板"};
-var TIPS={read:"先找出「萬」：從右邊數 4 位畫一條線，左邊那節讀完加「萬」。中間連續的 0 只讀一個「零」。",
-  write:"先寫萬那一節，再寫後面那一節；後面那節一定要寫滿 4 位，沒有的位要補 0！",
+var TIPS={read:"先找出「萬」：從右邊數 4 位畫一條線，左邊那一組讀完加「萬」。中間連續的 0 只讀一個「零」。",
+  write:"先寫萬那一組，再寫後面那一組；後面那一組一定要寫滿 4 位，沒有的位要補 0！",
   place:"從個位往左數：個、十、百、千、萬、十萬、百萬、千萬。位值＝數字 × 那一位的單位。",
   regroup:"10 個一萬＝十萬、10 個十萬＝一百萬、10 個一百萬＝一千萬。「幾個萬」就是把後面 4 位遮起來看。",
   compare:"先比位數，位數一樣再從最高位比起。",order:"一次只比兩個數，先挑出最小的。",
@@ -413,7 +414,7 @@ document.querySelectorAll("#tabs button").forEach(function(b){b.addEventListener
 
 /* ---------- 定位板 ---------- */
 var bVal=0,bTarget=null;
-(function(){var h='<div class="sec" style="grid-column:1/5;background:var(--wan)">萬 那一節</div><div></div><div class="sec" style="grid-column:6/10;background:var(--ge)">個 那一節</div>';
+(function(){var h='<div class="sec" style="grid-column:1/5;background:var(--wan)">萬 那一組</div><div></div><div class="sec" style="grid-column:6/10;background:var(--ge)">個 那一組</div>';
   for(var i=7;i>=0;i--){if(i===3)h+='<div class="divider"></div>';
     h+='<div class="col '+(i>=4?"w":"g")+'" id="col'+i+'"><div class="nm">'+C.PLACE[i]+'位</div><button class="ud" data-i="'+i+'" data-s="1" aria-label="'+C.PLACE[i]+'位加一">▲</button><div class="dg" id="dg'+i+'">0</div><div class="dots" id="dots'+i+'"></div><button class="ud" data-i="'+i+'" data-s="-1" aria-label="'+C.PLACE[i]+'位減一">▼</button></div>';}
   $("board").innerHTML=h;})();
@@ -711,7 +712,7 @@ function genUnk(){var r=Math.random();
     return {type:"choice",q:"□ 裡的數字看不見（可以是 0～9），比比看：<div class='big' style='text-align:center;margin:6px 0'>"+show(pa)+"　◯　"+show(pb)+"</div>",
       choices:["左邊比較大 ＞","右邊比較大 ＜","不一定（無法確定）"],ans:ans,why:why,
       hints:["先數位數："+pa.length+" 位 和 "+pb.length+" 位。","位數一樣的話，從最高位開始一位一位比，遇到 □ 就要想：□ 填 0 和填 9 會不會改變結果？","試試看把左邊的 □ 都填 9、右邊都填 0；再反過來把左邊填 0、右邊填 9。兩次結果一樣才算確定。"]};}
-  return {type:"choice",q:"比比看："+show("1073??4")+" ◯ "+show("1072??9"),choices:["左邊比較大 ＞","右邊比較大 ＜","不一定（無法確定）"],ans:0,why:"萬位 3＞2",hints:["從最高位比"]};}
+  return {type:"choice",q:"比比看："+show("1073??4")+" ◯ "+show("1072??9"),choices:["左邊比較大 ＞","右邊比較大 ＜","不一定（無法確定）"],ans:0,why:"千位 3＞2",hints:["從最高位比"]};}
 kit.quiz("gSeq",genSeq,{tag:"自編題"});
 kit.quiz("gUnk",genUnk,{tag:"自編題"});
 window.__gap={kit:kit,genSeq:genSeq,genUnk:genUnk,range:range};
