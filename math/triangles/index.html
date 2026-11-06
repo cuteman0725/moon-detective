@@ -79,6 +79,7 @@ svg.lsvg.geo{max-width:440px;background:#fff8ec}
 #dragSvg{touch-action:none}
 svg text.lb{font-family:inherit;font-weight:900;paint-order:stroke;stroke:#fff;stroke-width:5px;stroke-linejoin:round;pointer-events:none}
 svg text.vn{font-size:19px;fill:#2b2d42}
+.ol{text-decoration:overline;text-decoration-thickness:2px}
 svg text.sl{font-size:15px;fill:#1d6fd6}
 svg text.al{font-size:15px;fill:#7b2cbf}
 svg text.al.big{font-size:19px}
@@ -206,7 +207,7 @@ svg g.slidein{animation:slidein .45s ease-out}
   <div id="l63" class="hidden">
     <div class="card">
       <h3>🖐️ 拉拉看頂點</h3>
-      <p class="small">用手指拖動橘色的頂點<b>甲</b>（或拉下面的滑桿），看看三個角怎麼變，三角形是哪一種？</p>
+      <p class="small">用手指拖動橘色的頂點<b>A</b>（或拉下面的滑桿），看看三個角怎麼變，三角形是哪一種？</p>
       <svg class="lsvg" id="dragSvg" viewBox="0 0 400 280"></svg>
       <div class="sliders"><label>左右 <input type="range" id="apx" min="0" max="40" value="18"></label><label>高低 <input type="range" id="apy" min="2" max="22" value="14"></label></div>
       <div class="kindbar" id="dragKind"></div>
@@ -246,7 +247,7 @@ svg g.slidein{animation:slidein .45s ease-out}
     </div>
     <div class="card">
       <h3>🔗 對應頂點、對應邊、對應角</h3>
-      <p class="small">三角形甲乙丙和三角形丁戊己全等。點左邊三角形的<b>頂點、邊或角</b>，看看右邊哪裡是它的「對應」！</p>
+      <p class="small">甲三角形 ABC 和乙三角形 DEF 全等。點左邊三角形的<b>頂點、邊或角</b>，看看右邊哪裡是它的「對應」！</p>
       <svg class="lsvg" id="crSvg" viewBox="0 0 400 230"></svg>
       <div class="bubble" id="crSay">疊在一起的頂點叫<b>對應頂點</b>，疊在一起的邊叫<b>對應邊</b>，疊在一起的角叫<b>對應角</b>。</div>
       <div class="tip">💡 全等三角形：<b>對應邊一樣長、對應角一樣大</b>。</div>
@@ -348,7 +349,9 @@ svg g.slidein{animation:slidein .45s ease-out}
 <script id="core">
 var Core=(function(){
 "use strict";
-var V1=["甲","乙","丙"],V2=["丁","戊","己"];
+var V1=["A","B","C"],V2=["D","E","F"];
+/* 邊用上劃線（課本寫成 A̅B̅），角用 ∠A */
+function ol(t){return '<span class=ol>'+t+'</span>';}
 var SK={equi:"正三角形",iso:"等腰三角形",scal:"三邊都不一樣長"};
 var AK={acute:"銳角三角形",right:"直角三角形",obtuse:"鈍角三角形"};
 function rnd(a,b){return a+Math.floor(Math.random()*(b-a+1));}
@@ -368,7 +371,7 @@ function classify(P){
 function sideKind(a,b,c){if(a===b&&b===c)return "equi";if(a===b||b===c||a===c)return "iso";return "scal";}
 function angleKind(A,B,C){var m=Math.max(A,B,C);return m===90?"right":(m>90?"obtuse":"acute");}
 function triOK(a,b,c){return a+b>c&&a+c>b&&b+c>a;}
-function fromSides(a,b,c){/* a=乙丙 (opp 甲), b=甲丙, c=甲乙 ; 乙=(0,0) 丙=(a,0) */
+function fromSides(a,b,c){/* a=BC (opp A), b=AC, c=AB ; B=(0,0) C=(a,0) */
   var x=(a*a+c*c-b*b)/(2*a),y=Math.sqrt(Math.max(0,c*c-x*x));return [[x,y],[0,0],[a,0]];}
 function fromAngles(A,B,C){var r=Math.PI/180,c=Math.sin(C*r)/Math.sin(A*r);return [[c*Math.cos(B*r),c*Math.sin(B*r)],[0,0],[1,0]];}
 function degs(P){var o=[];for(var i=0;i<3;i++){var a=P[i],b=P[(i+1)%3],c=P[(i+2)%3],v1=[b[0]-a[0],b[1]-a[1]],v2=[c[0]-a[0],c[1]-a[1]];
@@ -403,13 +406,13 @@ var SHAPES=[
  {tri:true,why:"3 條直直的邊、3 個角，是三角形。",d:"M30 170 L170 170 L30 40Z"}];
 /* ---------- practice levels ---------- */
 var LV=[null,{name:"認識三角形",sub:"頂點・邊・角"},{name:"以邊分類",sub:"正三角形・等腰"},{name:"以角分類",sub:"銳角・直角・鈍角"},{name:"特殊三角形的性質",sub:"腰・底角・周長"},{name:"全等三角形",sub:"對應頂點・邊・角"}];
-function partTxt(t){var i=+t.charAt(1),j=+t.charAt(2);if(t.charAt(0)==="v")return "頂點"+V1[i];if(t.charAt(0)==="a")return "角"+V1[i];return "邊"+V1[i]+V1[j];}
+function partTxt(t){var i=+t.charAt(1),j=+t.charAt(2);if(t.charAt(0)==="v")return "頂點 "+V1[i];if(t.charAt(0)==="a")return "∠"+V1[i];return "邊 "+ol(V1[i]+V1[j]);}
 function gen(lv,sub){var q,k,t,i;
   if(lv===1){t=sub||pick(["is","is","is","tap","tap","tap","tap","cnt"]);
     if(t==="is"){var sh=pick(SHAPES);return {lv:1,type:"is",mode:"choice",text:"這個圖形是不是三角形？",shape:sh,opts:["是三角形","不是三角形"],ans:sh.tri?0:1,exp:sh.why,diag:"notTri"};}
     if(t==="tap"){k=pick(["v","e","a"]);i=rnd(0,2);var tg=k==="e"?"e"+Math.min(i,(i+1)%3)+Math.max(i,(i+1)%3):k+i;
       return {lv:1,type:"tap",mode:"tap",text:"點一點：<b>"+partTxt(tg)+"</b> 在哪裡？",fig:{P:fromSides.apply(null,genSides(pick(["scal","iso"]))),N:V1},ans:tg,
-        exp:k==="v"?"頂點是兩條邊相接的那個點。":(k==="e"?"邊"+V1[tg.charAt(1)]+V1[tg.charAt(2)]+"是連接頂點"+V1[tg.charAt(1)]+"和頂點"+V1[tg.charAt(2)]+"的那條線。":"角"+V1[i]+"是在頂點"+V1[i]+"、兩條邊夾住的地方。"),diag:"parts"};}
+        exp:k==="v"?"頂點是兩條邊相接的那個點。":(k==="e"?"邊 "+ol(V1[tg.charAt(1)]+V1[tg.charAt(2)])+" 是連接頂點 "+V1[tg.charAt(1)]+" 和頂點 "+V1[tg.charAt(2)]+" 的那條線。":"∠"+V1[i]+" 是在頂點 "+V1[i]+"、兩條邊夾住的地方。"),diag:"parts"};}
     k=pick([["一個三角形有幾個頂點？",3,"個"],["一個三角形有幾條邊？",3,"條"],["一個三角形有幾個角？",3,"個"],["兩個三角形的邊，一共有幾條？",6,"條"],["三個三角形的頂點，一共有幾個？",9,"個"]]);
     return {lv:1,type:"cnt",mode:"num",text:k[0],unit:k[2],ans:k[1],exp:"每個三角形都有 3 個頂點、3 條邊、3 個角。",diag:"parts"};}
   if(lv===2){k=sub||pick(["equi","iso","iso","scal","scal"]);var s=genSides(k);
@@ -424,26 +427,26 @@ function gen(lv,sub){var q,k,t,i;
     var mx=pick([["直角",1],["鈍角",1],["銳角",3]]);
     return {lv:3,type:"max",mode:"num",text:"一個三角形<b>最多</b>可以有幾個"+mx[0]+"？",unit:"個",ans:mx[1],exp:mx[0]==="銳角"?"銳角三角形的 3 個角都是銳角。":"兩個"+mx[0]+"的邊會分開、圍不起來，所以最多只有 1 個"+mx[0]+"。",diag:"angle"};}
   if(lv===4){t=sub||pick(["leg","bang","eang","eper","eside","iper"]);var L,B,x;
-    if(t==="leg"){L=rnd(4,12);B=rnd(3,9);if(B===L)B++;return {lv:4,type:t,mode:"num",unit:"公分",text:"等腰三角形甲乙丙，甲是頂點，邊甲乙 ＝ "+L+" 公分，底邊乙丙 ＝ "+B+" 公分。邊甲丙是幾公分？",fig:{P:fromSides(B,L,L),N:V1,sl:[B+" 公分","？",L+" 公分"],tk:[0,1,1]},ans:L,wrong:[B],exp:"等腰三角形的兩個<b>腰</b>一樣長：甲丙 ＝ 甲乙 ＝ "+L+" 公分。",diag:"isoProp"};}
-    if(t==="bang"){do{x=5*rnd(6,16);}while(x===60);var ap=180-2*x;return {lv:4,type:t,mode:"num",unit:"度",text:"等腰三角形甲乙丙，甲乙 ＝ 甲丙，底角乙是 "+x+"°。底角丙是幾度？",fig:{P:fromAngles(ap,x,x),N:V1,al:["",x,"？"],tk:[0,1,1]},ans:x,wrong:[ap],exp:"等腰三角形的兩個<b>底角</b>一樣大：角丙 ＝ 角乙 ＝ "+x+"°。",diag:"isoProp"};}
+    if(t==="leg"){L=rnd(4,12);B=rnd(3,Math.min(9,2*L-2));if(B===L)B=B>3?B-1:B+1;return {lv:4,type:t,mode:"num",unit:"公分",text:"等腰三角形 ABC，A 是頂點，<span class=ol>AB</span> ＝ "+L+" 公分，底邊 <span class=ol>BC</span> ＝ "+B+" 公分。<span class=ol>AC</span> 是幾公分？",fig:{P:fromSides(B,L,L),N:V1,sl:[B+" 公分","？",L+" 公分"],tk:[0,1,1]},ans:L,wrong:[B],exp:"等腰三角形的兩個<b>腰</b>一樣長：<span class=ol>AC</span> ＝ <span class=ol>AB</span> ＝ "+L+" 公分。",diag:"isoProp"};}
+    if(t==="bang"){do{x=5*rnd(6,16);}while(x===60);var ap=180-2*x;return {lv:4,type:t,mode:"num",unit:"度",text:"等腰三角形 ABC，<span class=ol>AB</span> ＝ <span class=ol>AC</span>，底角 ∠B 是 "+x+"°。底角 ∠C 是幾度？",fig:{P:fromAngles(ap,x,x),N:V1,al:["",x,"？"],tk:[0,1,1]},ans:x,wrong:[ap],exp:"等腰三角形的兩個<b>底角</b>一樣大：∠C ＝ ∠B ＝ "+x+"°。",diag:"isoProp"};}
     if(t==="eang")return {lv:4,type:t,mode:"num",unit:"度",text:"正三角形的每一個角是幾度？",fig:{P:fromSides(1,1,1),N:V1,al:["？","？","？"],tk:[1,1,1]},ans:60,exp:"用量角器量正三角形的 3 個角，每個角都是 <b>60°</b>。",diag:"equiProp"};
     if(t==="eper"){x=rnd(3,15);return {lv:4,type:t,mode:"num",unit:"公分",text:"正三角形的一邊是 "+x+" 公分，周長是幾公分？",fig:{P:fromSides(1,1,1),N:V1,sl:[x+" 公分","",""],tk:[1,1,1]},ans:3*x,wrong:[x,2*x],exp:"正三角形 3 條邊一樣長：周長 ＝ "+x+" × 3 ＝ "+(3*x)+" 公分。",diag:"perim"};}
     if(t==="eside"){x=rnd(3,15);return {lv:4,type:t,mode:"num",unit:"公分",text:"用一條 "+(3*x)+" 公分長的鐵絲，剛好圍成一個正三角形。一邊是幾公分？",fig:{P:fromSides(1,1,1),N:V1,sl:["？","",""],tk:[1,1,1]},ans:x,wrong:[3*x],exp:"3 條邊一樣長：一邊 ＝ "+(3*x)+" ÷ 3 ＝ "+x+" 公分。",diag:"perim"};}
-    L=rnd(4,12);B=rnd(3,10);if(B===L)B++;return {lv:4,type:"iper",mode:"num",unit:"公分",text:"等腰三角形的兩個腰都是 "+L+" 公分，底是 "+B+" 公分，周長是幾公分？",fig:{P:fromSides(B,L,L),N:V1,sl:[B+" 公分",L+" 公分",""],tk:[0,1,1]},ans:2*L+B,wrong:[L+B],exp:"周長是 3 條邊加起來："+L+" ＋ "+L+" ＋ "+B+" ＝ "+(2*L+B)+" 公分（腰有兩條！）。",diag:"perim"};}
+    L=rnd(4,12);B=rnd(3,Math.min(10,2*L-2));if(B===L)B=B>3?B-1:B+1;return {lv:4,type:"iper",mode:"num",unit:"公分",text:"等腰三角形的兩個腰都是 "+L+" 公分，底邊是 "+B+" 公分，周長是幾公分？",fig:{P:fromSides(B,L,L),N:V1,sl:[B+" 公分",L+" 公分",""],tk:[0,1,1]},ans:2*L+B,wrong:[L+B],exp:"周長是 3 條邊加起來："+L+" ＋ "+L+" ＋ "+B+" ＝ "+(2*L+B)+" 公分（腰有兩條！）。",diag:"perim"};}
   /* lv5 全等 */
   t=sub||pick(["side","side","ang","ang","vtx"]);var pm=shuffle([0,1,2]),rot=rnd(1,5)*60+rnd(-15,15),fl=Math.random()<.5,P,lab;
-  var map="（"+V1[0]+"對應"+V2[pm[0]]+"、"+V1[1]+"對應"+V2[pm[1]]+"、"+V1[2]+"對應"+V2[pm[2]]+"）";
+  var map="（"+V1[0]+" 對應 "+V2[pm[0]]+"、"+V1[1]+" 對應 "+V2[pm[1]]+"、"+V1[2]+" 對應 "+V2[pm[2]]+"）";
   var N2=[V2[pm[0]],V2[pm[1]],V2[pm[2]]];
   if(t==="side"||t==="vtx"){var ss=genSides("scal");P=fromSides(ss[0],ss[1],ss[2]);i=rnd(0,2);
     var e1=(i+1)%3,e2=(i+2)%3,nm=N2[Math.min(e1,e2)]+N2[Math.max(e1,e2)];
     if(t==="vtx"){var vi=rnd(0,2);return {lv:5,type:"vtx",mode:"choice",text:"兩個三角形全等（可以完全疊合）。頂點<b>"+V1[vi]+"</b>的對應頂點是哪一個？",fig:{P:P,N:V1,sl:[ss[0]+"",ss[1]+"",ss[2]+""]},fig2:{P:P,N:N2,sl:[ss[0]+"",ss[1]+"",ss[2]+""],rot:rot,fl:fl},opts:V2.slice(),ans:pm[vi],
       exp:"疊起來看：頂點"+V1[vi]+"對面的邊是 "+ss[vi]+"，所以對應頂點是對面也是 "+ss[vi]+" 的<b>"+V2[pm[vi]]+"</b>。",diag:"cong"};}
-    return {lv:5,type:"side",mode:"num",unit:"公分",text:"三角形甲乙丙和三角形"+N2.join("")+"全等"+map+"。邊<b>"+nm+"</b>是幾公分？",fig:{P:P,N:V1,sl:[ss[0]+" 公分",ss[1]+" 公分",ss[2]+" 公分"]},fig2:{P:P,N:N2,sl:i===0?["？","",""]:(i===1?["","？",""]:["","","？"]),rot:rot,fl:fl},ans:ss[i],wrong:[ss[(i+1)%3],ss[(i+2)%3]],
-      exp:"邊"+nm+"的對應邊是邊"+V1[Math.min(e1,e2)]+V1[Math.max(e1,e2)]+"，對應邊一樣長：<b>"+ss[i]+" 公分</b>。",diag:"cong"};}
+    return {lv:5,type:"side",mode:"num",unit:"公分",text:"甲三角形 ABC 和乙三角形 "+N2.join("")+" 全等"+map+"。<b>"+ol(nm)+"</b> 是幾公分？",fig:{P:P,N:V1,sl:[ss[0]+" 公分",ss[1]+" 公分",ss[2]+" 公分"]},fig2:{P:P,N:N2,sl:i===0?["？","",""]:(i===1?["","？",""]:["","","？"]),rot:rot,fl:fl},ans:ss[i],wrong:[ss[(i+1)%3],ss[(i+2)%3]],
+      exp:ol(nm)+" 的對應邊是 "+ol(V1[Math.min(e1,e2)]+V1[Math.max(e1,e2)])+"，對應邊一樣長：<b>"+ss[i]+" 公分</b>。",diag:"cong"};}
   var aa=genAngles(pick(["acute","obtuse","right"]));while(aa[0]===aa[1]||aa[1]===aa[2]||aa[0]===aa[2])aa=genAngles(pick(["acute","obtuse"]));P=fromAngles(aa[0],aa[1],aa[2]);i=rnd(0,2);
   lab=["","",""];lab[i]="？";
-  return {lv:5,type:"ang",mode:"num",unit:"度",text:"三角形甲乙丙和三角形"+N2.join("")+"全等"+map+"。角<b>"+N2[i]+"</b>是幾度？",fig:{P:P,N:V1,al:aa},fig2:{P:P,N:N2,al:lab,rot:rot,fl:fl},ans:aa[i],wrong:[aa[(i+1)%3],aa[(i+2)%3]],
-    exp:"角"+N2[i]+"的對應角是角"+V1[i]+"，對應角一樣大：<b>"+aa[i]+"°</b>。",diag:"cong"};}
+  return {lv:5,type:"ang",mode:"num",unit:"度",text:"甲三角形 ABC 和乙三角形 "+N2.join("")+" 全等"+map+"。<b>∠"+N2[i]+"</b> 是幾度？",fig:{P:P,N:V1,al:aa},fig2:{P:P,N:N2,al:lab,rot:rot,fl:fl},ans:aa[i],wrong:[aa[(i+1)%3],aa[(i+2)%3]],
+    exp:"∠"+N2[i]+" 的對應角是 ∠"+V1[i]+"，對應角一樣大：<b>"+aa[i]+"°</b>。",diag:"cong"};}
 function ansText(q){if(q.mode==="choice")return q.ansT||q.opts[q.ans];if(q.mode==="tap")return partTxt(q.ans);return q.ans+" "+q.unit;}
 function choiceIdx(q){return q.ansT?q.opts.indexOf(q.ansT):q.ans;}
 function diag(q,v){/* v = picked index / number / tap id */
@@ -455,7 +458,7 @@ function diag(q,v){/* v = picked index / number / tap id */
 /* ---------- geoboard missions (pegs 0..6) ---------- */
 var MIS=[
  {t:"任意圍一個三角形",c:{}},{t:"直角三角形",c:{angle:"right"}},{t:"鈍角三角形",c:{angle:"obtuse"}},{t:"銳角三角形",c:{angle:"acute"}},
- {t:"等腰三角形",c:{side:"iso"}},{t:"等腰直角三角形",c:{angle:"right",side:"iso"}},{t:"兩條直角邊是 3 格和 4 格的直角三角形",c:{angle:"right",legs:[9,16]}},
+ {t:"等腰三角形",c:{side:"iso"}},{t:"等腰直角三角形",c:{angle:"right",side:"iso"}},{t:"直角旁邊的兩條邊是 3 格和 4 格的直角三角形",c:{angle:"right",legs:[9,16]}},
  {t:"鈍角的等腰三角形",c:{angle:"obtuse",side:"iso"}},{t:"銳角的等腰三角形",c:{angle:"acute",side:"iso"}},{t:"三邊都不一樣長的鈍角三角形",c:{angle:"obtuse",side:"scal"}}];
 function mission(m,P){var r=classify(P);if(!r.tri)return {ok:false,why:"notTri",r:r};var c=m.c;
   if(c.angle&&r.angle!==c.angle)return {ok:false,why:"angle",r:r};
@@ -475,7 +478,7 @@ function sameOri(r,f){return r===0&&f===0;}
 function flipState(r,f){return {r:(4-r)%4,f:f?0:1};}
 function genPuzzle(n){var o=[],ps=shuffle(PIECES);for(var i=0;i<n;i++){var r,f;do{r=rnd(0,3);f=rnd(0,1);}while(r===0&&f===0);o.push({P:ps[i%ps.length],r:r,f:f,fake:i>0&&Math.random()<.25});}return o;}
 function fmtTime(ms){return (ms/1000).toFixed(1)+" 秒";}
-var api={V1:V1,V2:V2,SK:SK,AK:AK,LV:LV,SHAPES:SHAPES,MIS:MIS,COMBOS:COMBOS,PIECES:PIECES,rnd:rnd,pick:pick,shuffle:shuffle,d2:d2,classify:classify,sideKind:sideKind,angleKind:angleKind,triOK:triOK,
+var api={V1:V1,ol:ol,V2:V2,SK:SK,AK:AK,LV:LV,SHAPES:SHAPES,MIS:MIS,COMBOS:COMBOS,PIECES:PIECES,rnd:rnd,pick:pick,shuffle:shuffle,d2:d2,classify:classify,sideKind:sideKind,angleKind:angleKind,triOK:triOK,
  fromSides:fromSides,fromAngles:fromAngles,degs:degs,genSides:genSides,genAngles:genAngles,comboAngles:comboAngles,gen:gen,ansText:ansText,choiceIdx:choiceIdx,diag:diag,partTxt:partTxt,
  mission:mission,genRiddle:genRiddle,genFactory:genFactory,xf:xf,sameOri:sameOri,flipState:flipState,genPuzzle:genPuzzle,fmtTime:fmtTime};
 if(typeof module!=="undefined"&&module.exports)module.exports=api;
@@ -486,7 +489,7 @@ return api;})();
 "use strict";
 if(typeof document==="undefined")return;
 var $=function(id){return document.getElementById(id);};
-var C=Core,KEY="mathTriV1",V1=C.V1,V2=C.V2;
+var C=Core,KEY="mathTriV1",V1=C.V1,V2=C.V2,ol=C.ol;
 function fresh(){return {stars:0,pr:{},geo:{},facBest:0,facPerfect:0,puzWins:0,puzPlays:0,ridBest:0,ridPlays:0,bad:{},recent:[],seen:{}};}
 var store=fresh();
 try{var raw=localStorage.getItem(KEY);if(raw){var o=JSON.parse(raw);for(var k in o)store[k]=o[k];}}catch(e){}
@@ -562,7 +565,7 @@ function t61Draw(hl){$("t61Svg").innerHTML=triSVG(T61,{bx:{x:0,y:0,w:400,h:250},
 t61Draw({});
 $("t61Btns").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;var k=b.dataset.k,ids=k==="e"?["01","12","02"]:[0,1,2],n=0,nm={v:"頂點",e:"邊",a:"角"}[k],u=k==="e"?"條":"個";
   clearTimeout(t61T);(function step(){n++;var hl={};hl[k]=ids.slice(0,n);t61Draw(hl);
-    var names=ids.slice(0,n).map(function(x){return k==="e"?"邊"+V1[+String(x).charAt(0)]+V1[+String(x).charAt(1)]:nm+V1[x];});
+    var names=ids.slice(0,n).map(function(x){return k==="e"?"邊 "+ol(V1[+String(x).charAt(0)]+V1[+String(x).charAt(1)]):(k==="a"?"∠"+V1[x]:nm+" "+V1[x]);});
     $("t61Say").innerHTML=names.join("、")+(n<3?"……":" → 一共 <b>3 "+u+nm+"</b>！");
     if(n<3)t61T=setTimeout(step,650);else{say("三角形有3"+u+nm);store.seen["t61"+k]=1;save();if(store.seen.t61v&&store.seen.t61e&&store.seen.t61a&&!store.seen.t61all){store.seen.t61all=1;save();addStars(1,b);}}})();});
 var isList=C.shuffle(C.SHAPES),isI=0,isLock=false;
@@ -582,7 +585,7 @@ function msDraw(){var s=MS[msK],P=C.fromSides(s[0],s[1],s[2]),d=roundDegs(P),tk=
   var t;if(!msSide&&!msAngle)t="先量量看三條邊有多長，再量量看三個角。";
   else if(msSide&&!msAngle)t="三條邊是 "+s.join("、")+" 公分。"+(msK==="equi"?"三條邊<b>都一樣長</b>！":(msK==="iso"?"有<b>兩條邊一樣長</b>！":"三條邊<b>都不一樣長</b>。"))+"再量量角看看。";
   else if(!msSide)t="三個角是 "+d.join("°、")+"°。再量量邊看看。";
-  else if(msK==="equi")t="三條邊都一樣長的三角形，叫做<b>正三角形</b>。正三角形的三個角也一樣大，<b>都是 60°</b>。<br>（三條邊都一樣長，當然也有兩條邊一樣長，所以正三角形也是一種特別的等腰三角形。）";
+  else if(msK==="equi")t="三條邊都一樣長的三角形，叫做<b>等邊三角形</b>，也叫做<b>正三角形</b>。正三角形的三個角也一樣大，<b>都是 60°</b>。<br>（三條邊都一樣長，當然也有兩條邊一樣長，所以正三角形也是一種特別的等腰三角形。）";
   else if(msK==="iso")t="有兩條邊一樣長的三角形，叫做<b>等腰三角形</b>。一樣長的兩條邊，對面的兩個角也<b>一樣大</b>（"+d[1]+"° 和 "+d[2]+"°）！";
   else t="三條邊都不一樣長，三個角也都不一樣大。它不是正三角形，也不是等腰三角形。";
   $("msSay").innerHTML=t;
@@ -591,13 +594,13 @@ segs("msSeg","data-m",function(m){msK=m;msSide=false;msAngle=false;msDraw();});
 $("msSide").addEventListener("click",function(){msSide=true;msDraw();});
 $("msAng").addEventListener("click",function(){msAngle=true;msDraw();});
 msDraw();
-var ISO=["一樣長的兩條邊（邊甲乙、邊甲丙）叫做<b>腰</b>。","另外一條邊（邊乙丙）叫做<b>底</b>。","兩個腰夾住的角（角甲）叫做<b>頂角</b>。","底的兩端的角（角乙、角丙）叫做<b>底角</b>，兩個底角<b>一樣大</b>。","沿著虛線對摺，兩個腰、兩個底角剛好疊在一起！"],isoN=0;
+var ISO=["一樣長的兩條邊（<span class=ol>AB</span>、<span class=ol>AC</span>）叫做<b>腰</b>。","另外一條邊（<span class=ol>BC</span>）叫做<b>底邊</b>。","兩個腰夾住的角（∠A）叫做<b>頂角</b>。","底邊兩端的角（∠B、∠C）叫做<b>底角</b>，兩個底角<b>一樣大</b>。","沿著虛線對摺，兩個腰、兩個底角剛好疊在一起！"],isoN=0;
 function isoDraw(){var P=C.fromSides(6,8,8),hl={},al=null,ex="",S;
   if(isoN===1)hl={e:["01","02"]};if(isoN===2)hl={e:["12"]};if(isoN===3)hl={a:[0]};if(isoN>=4){hl={a:[1,2]};al=["",70,70];}
   var h=triSVG({P:P,N:V1,tk:isoN>=1?[0,1,1]:null,al:al},{bx:{x:0,y:0,w:400,h:260},hl:hl});
   S=place(P,0,false,{x:0,y:0,w:400,h:260},38);
   if(isoN>=1)ex+=txt((S[0][0]+S[1][0])/2-40,(S[0][1]+S[1][1])/2,"腰","nm2","#1d6fd6")+txt((S[0][0]+S[2][0])/2+40,(S[0][1]+S[2][1])/2,"腰","nm2","#1d6fd6");
-  if(isoN>=2)ex+=txt((S[1][0]+S[2][0])/2,S[1][1]+26,"底","nm2","#1d6fd6");
+  if(isoN>=2)ex+=txt((S[1][0]+S[2][0])/2,S[1][1]+26,"底邊","nm2","#1d6fd6");
   if(isoN>=3)ex+=txt(S[0][0]+46,S[0][1]+6,"頂角","nm2","#2a9d8f");
   if(isoN>=4)ex+=txt(S[1][0]-30,S[1][1]+22,"底角","nm2","#2a9d8f")+txt(S[2][0]+30,S[2][1]+22,"底角","nm2","#2a9d8f");
   if(isoN>=5)ex+='<line x1="'+R1(S[0][0])+'" y1="'+R1(S[0][1]-10)+'" x2="'+R1(S[0][0])+'" y2="'+R1(S[1][1]+10)+'" stroke="#ff9f1c" stroke-width="4" stroke-dasharray="8 6"/>';
@@ -613,7 +616,7 @@ function tbDraw(t){var c=TB[tbI],L=c.L,k=Math.cos(Math.PI*t);function pl(P,f){re
   if(t===0){h+=txt(L[0][0]+28,L[0][1]-14,c.ang[0],"al")+txt(L[2][0]-14,L[2][1]+(tbI?34:46),c.ang[2],"al");h+='<path d="M188 '+L[1][1]+' v-12 h12" fill="none" stroke="#e63946" stroke-width="3"/>';}
   if(t===1){var R=[400-L[0][0],L[0][1]];h+=txt(L[0][0]+(tbI?30:26),L[0][1]-14,c.ang[0],"al")+txt(R[0]-(tbI?30:26),R[1]-14,c.ang[0],"al")+txt(200,L[2][1]+(tbI?30:44),tbI?"90°":"60°","al big");
     h+='<polygon points="'+L[0].join(",")+' '+R.join(",")+' '+L[2].join(",")+'" fill="none" stroke="#e63946" stroke-width="5" stroke-linejoin="round"/>';}
-  $("tbSvg").innerHTML=h;$("tbSay").innerHTML=t===1?c.res:"拿兩塊一樣的三角板，把一塊<b>翻過來</b>，靠著直角邊拼在一起，會變成什麼三角形？";}
+  $("tbSvg").innerHTML=h;$("tbSay").innerHTML=t===1?c.res:"拿兩塊一樣的三角板，把一塊<b>翻過來</b>，靠著直角旁邊的一條邊拼在一起，會變成什麼三角形？";}
 segs("tbSeg","data-t",function(v){tbI=+v;tbDraw(0);});
 $("tbGo").addEventListener("click",function(){if(tbAnim)return;tbAnim=true;var t0=null;function st(ts){if(t0===null)t0=ts;var t=Math.min(1,(ts-t0)/900);tbDraw(t===1?1:t);if(t<1)requestAnimationFrame(st);else{tbAnim=false;say(TB[tbI].res);if(!store.seen["tb"+tbI]){store.seen["tb"+tbI]=1;save();addStars(1,$("tbGo"));}}}requestAnimationFrame(st);});
 tbDraw(0);
@@ -627,7 +630,7 @@ function dragDraw(){var A=apXY(),P=[A,[BX,BY],[CX,BY]],d=roundDegs(P),k=C.angleK
     '<circle cx="'+A[0]+'" cy="'+A[1]+'" r="16" fill="#ff9f1c" fill-opacity=".55" stroke="#ff9f1c" stroke-width="3" class="grab"/>';
   var big=Math.max.apply(null,d),bi=d.indexOf(big);
   $("dragKind").className="kindbar "+k;
-  $("dragKind").innerHTML='角甲 '+d[0]+'°・角乙 '+d[1]+'°・角丙 '+d[2]+'°<br>'+(k==="acute"?"三個角都是銳角 → <b>銳角三角形</b>":(k==="right"?"角"+V1[bi]+"是直角 → <b>直角三角形</b>":"角"+V1[bi]+"是鈍角 → <b>鈍角三角形</b>"));
+  $("dragKind").innerHTML='∠A '+d[0]+'°・∠B '+d[1]+'°・∠C '+d[2]+'°<br>'+(k==="acute"?"三個角都是銳角 → <b>銳角三角形</b>":(k==="right"?"∠"+V1[bi]+" 是直角 → <b>直角三角形</b>":"∠"+V1[bi]+" 是鈍角 → <b>鈍角三角形</b>"));
   if(!store.seen["drag"+k]){store.seen["drag"+k]=1;save();if(store.seen.dragacute&&store.seen.dragright&&store.seen.dragobtuse&&!store.seen.dragall){store.seen.dragall=1;save();addStars(2,$("dragKind"));say("三種三角形都找到了");}}}
 ["apx","apy"].forEach(function(id){$(id).addEventListener("input",dragDraw);});
 document.querySelectorAll("#l63 [data-p]").forEach(function(b){b.addEventListener("click",function(){var v=b.dataset.p.split(",");$("apx").value=v[0];$("apy").value=v[1];dragDraw();});});
@@ -654,29 +657,27 @@ function prot(a,flip){var r=62,h='<path d="M'+(a[0]-r)+' '+a[1]+' A'+r+' '+r+' 0
   for(var d=0;d<=180;d+=10){var t=d*Math.PI/180,x1=a[0]+Math.cos(t)*r,y1=a[1]-Math.sin(t)*r,x2=a[0]+Math.cos(t)*(r-(d%30?6:12)),y2=a[1]-Math.sin(t)*(r-(d%30?6:12));h+=ln([R1(x1),R1(y1)],[R1(x2),R1(y2)],"#7b2cbf",1.5);}
   var t6=(flip?120:60)*Math.PI/180;h+=dot([a[0]+Math.cos(t6)*(r-2),a[1]-Math.sin(t6)*(r-2)],"#ff9f1c")+'<text x="'+R1(a[0]+Math.cos(t6)*(r+14))+'" y="'+R1(a[1]-Math.sin(t6)*(r+14))+'" font-size="15" font-weight="900" text-anchor="middle" fill="#7b2cbf">60°</text>';return h;}
 function lab(p,s,dx,dy){return txt(p[0]+dx,p[1]+dy,s,"vn");}
-var DW=(function(){var B=[90,240],Cc=[210,240],A=[90,150],B2=[60,240],C2=[240,240],M=[150,240],A2=[150,120],B3=[125,250],C3=[275,250],A3=[200,R1(250-150*Math.sqrt(3)/2)],B4=[120,240],C4=[240,240],A4=[120,120];
+var DW=(function(){var B=[90,240],Cc=[210,240],A=[90,150],A2=[110,240],B2=[260,240],C2=[R1(110+150*Math.cos(50*Math.PI/180)),R1(240-150*Math.sin(50*Math.PI/180))],B3=[125,250],C3=[275,250],A3=[200,R1(250-150*Math.sqrt(3)/2)],B4=[120,240],C4=[240,240],A4=[120,120];
   return [
-  {q:"畫一個直角三角形，兩條直角邊是 4 公分和 3 公分。",s:[
-   ["用直尺畫一條 4 公分的線段，兩端是乙、丙。",function(){return ruler(B,Cc)+ln(B,Cc)+dot(B)+dot(Cc)+lab(B,"乙",-14,-14)+lab(Cc,"丙",14,-14);}],
-   ["把三角板的直角對準乙點，沿著三角板畫一條 3 公分的線，端點是甲。",function(){return setsq(B)+ln(B,A)+dot(A)+lab(A,"甲",-16,-6);}],
-   ["用直尺把甲和丙連起來。",function(){return ln(A,Cc,"#ff9f1c");}],
-   ["完成！角乙是直角，這是<b>直角三角形</b>。",function(){return '<polygon points="'+A+' '+B+' '+Cc+'" fill="#ffe8c2" opacity=".7"/>'+sq(B,1,1);}]]},
-  {q:"在方格紙上畫一個等腰三角形，底是 6 公分。",s:[
-   ["畫一條 6 公分的線段當作底，兩端是乙、丙。",function(){return ln(B2,C2)+dot(B2)+dot(C2)+lab(B2,"乙",-14,-14)+lab(C2,"丙",14,-14);}],
-   ["找出底的<b>中點</b>（3 公分的地方）。",function(){return dot(M,"#1d6fd6")+'<text x="'+M[0]+'" y="'+(M[1]+26)+'" font-size="15" font-weight="900" text-anchor="middle" fill="#1d6fd6">3 公分｜3 公分</text>';}],
-   ["從中點沿著方格線，往上畫一條和底垂直的虛線。",function(){return ln(M,[M[0],60],"#1d6fd6",3,true)+sq(M,1,1);}],
-   ["在虛線上點一個點，當作頂點甲。",function(){return dot(A2)+lab(A2,"甲",18,-8);}],
-   ["把甲和乙、甲和丙連起來。兩個腰一樣長，這是<b>等腰三角形</b>！",function(){return '<polygon points="'+A2+' '+B2+' '+C2+'" fill="#ffe8c2" opacity=".7"/>'+ln(A2,B2,"#ff9f1c")+ln(A2,C2,"#ff9f1c");}]]},
+  {q:"畫一個直角三角形，直角旁邊的兩條邊是 4 公分和 3 公分。",s:[
+   ["用直尺畫出一條 4 公分的邊，兩端是 B、C。",function(){return ruler(B,Cc)+ln(B,Cc)+dot(B)+dot(Cc)+lab(B,"B",-14,-14)+lab(Cc,"C",14,-14);}],
+   ["用三角板的直角對準 B 點，沿著直角的另一邊畫出 3 公分的邊，端點是 A。",function(){return setsq(B)+ln(B,A)+dot(A)+lab(A,"A",-16,-6);}],
+   ["用直尺把 A 和 C 連起來，再做上<b>直角記號</b>。",function(){return ln(A,Cc,"#ff9f1c")+sq(B,1,1);}],
+   ["完成！∠B 是直角，這是<b>直角三角形</b>。",function(){return '<polygon points="'+A+' '+B+' '+Cc+'" fill="#ffe8c2" opacity=".7"/>'+sq(B,1,1);}]]},
+  {q:"畫一個腰是 5 公分的等腰三角形。",s:[
+   ["用直尺畫出一條 5 公分的邊，兩端是 A、B。",function(){return ruler(A2,B2)+ln(A2,B2)+dot(A2)+dot(B2)+lab(A2,"A",-16,-6)+lab(B2,"B",14,-14);}],
+   ["從頂點 A 再畫出一條 5 公分的邊，端點是 C（兩條邊夾的角可以自己決定）。",function(){return ln(A2,C2,"#1d6fd6")+dot(C2)+lab(C2,"C",-4,-18)+txt((A2[0]+C2[0])/2-34,(A2[1]+C2[1])/2,"5 公分","sl");}],
+   ["用直尺把 B 和 C 連起來。",function(){return ln(B2,C2,"#ff9f1c");}],
+   ["完成！<span class=ol>AB</span> 和 <span class=ol>AC</span> 一樣長，都是 5 公分，這兩條邊是<b>腰</b>，這是<b>等腰三角形</b>！",function(){return '<polygon points="'+A2+' '+B2+' '+C2+'" fill="#ffe8c2" opacity=".7"/>'+txt((A2[0]+B2[0])/2+16,A2[1]-14,"5 公分","sl");}]]},
   {q:"用直尺和量角器，畫一個邊長 5 公分的正三角形。",s:[
-   ["畫一條 5 公分的線段，兩端是乙、丙。",function(){return ruler(B3,C3)+ln(B3,C3)+dot(B3)+dot(C3)+lab(B3,"乙",-14,-14)+lab(C3,"丙",14,-14);}],
-   ["量角器的中心對準乙，在 60° 的地方點一個點，畫一條線。",function(){return prot(B3)+ln(B3,[B3[0]+Math.cos(Math.PI/3)*175,R1(B3[1]-Math.sin(Math.PI/3)*175)],"#7b2cbf",2);}],
-   ["量角器的中心對準丙，也量 60°，畫一條線。",function(){return prot(C3,true)+ln(C3,[C3[0]-Math.cos(Math.PI/3)*175,R1(C3[1]-Math.sin(Math.PI/3)*175)],"#7b2cbf",2);}],
-   ["兩條線交叉的點就是頂點甲。描出甲乙、甲丙。",function(){return dot(A3)+lab(A3,"甲",0,-20)+ln(A3,B3,"#ff9f1c")+ln(A3,C3,"#ff9f1c");}],
-   ["量量看：甲乙、甲丙也是 5 公分，三個角都是 60°，是<b>正三角形</b>！",function(){return '<polygon points="'+A3+' '+B3+' '+C3+'" fill="#ffe8c2" opacity=".7"/>'+txt((A3[0]+B3[0])/2-28,(A3[1]+B3[1])/2,"5 公分","sl")+txt((A3[0]+C3[0])/2+28,(A3[1]+C3[1])/2,"5 公分","sl");}]]},
-  {q:"畫一個等腰直角三角形，兩條直角邊都是 4 公分。",s:[
-   ["畫一條 4 公分的線段，兩端是乙、丙。",function(){return ruler(B4,C4)+ln(B4,C4)+dot(B4)+dot(C4)+lab(B4,"乙",-14,-14)+lab(C4,"丙",14,-14);}],
-   ["在乙點用三角板畫一條垂直的線，也是 4 公分，端點是甲。",function(){return setsq(B4)+ln(B4,A4)+dot(A4)+lab(A4,"甲",-16,-6);}],
-   ["把甲和丙連起來。",function(){return ln(A4,C4,"#ff9f1c");}],
+   ["正三角形的三條邊一樣長，3 個角都是 60°。先用直尺畫出一條 5 公分的邊，兩端是 B、C。",function(){return ruler(B3,C3)+ln(B3,C3)+dot(B3)+dot(C3)+lab(B3,"B",-14,-14)+lab(C3,"C",14,-14);}],
+   ["量角器的中心對準 B，0 度線對準這條邊，量出 <b>60°</b> 的角，畫一條線。",function(){return prot(B3)+ln(B3,[B3[0]+Math.cos(Math.PI/3)*175,R1(B3[1]-Math.sin(Math.PI/3)*175)],"#7b2cbf",2);}],
+   ["用直尺在這條線上量出 <b>5 公分</b>，點出頂點 A。",function(){return ln(B3,A3,"#1d6fd6")+dot(A3)+lab(A3,"A",0,-20)+txt((A3[0]+B3[0])/2-28,(A3[1]+B3[1])/2,"5 公分","sl");}],
+   ["用直尺把 A 和 C 連起來。量量看：<span class=ol>AC</span> 也是 5 公分，三個角都是 60°，是<b>正三角形</b>！",function(){return '<polygon points="'+A3+' '+B3+' '+C3+'" fill="#ffe8c2" opacity=".7"/>'+ln(A3,C3,"#ff9f1c")+txt((A3[0]+C3[0])/2+28,(A3[1]+C3[1])/2,"5 公分","sl");}]]},
+  {q:"畫一個等腰直角三角形，直角旁邊的兩條邊都是 4 公分。",s:[
+   ["用直尺畫出一條 4 公分的邊，兩端是 B、C。",function(){return ruler(B4,C4)+ln(B4,C4)+dot(B4)+dot(C4)+lab(B4,"B",-14,-14)+lab(C4,"C",14,-14);}],
+   ["用三角板的直角對準 B 點，沿著直角的另一邊畫出 4 公分的邊，端點是 A。",function(){return setsq(B4)+ln(B4,A4)+dot(A4)+lab(A4,"A",-16,-6);}],
+   ["用直尺把 A 和 C 連起來，再做上直角記號。",function(){return ln(A4,C4,"#ff9f1c")+sq(B4,1,1);}],
    ["完成！有一個直角，兩條邊一樣長（4 公分），是<b>等腰直角三角形</b>，兩個底角都是 45°。",function(){return '<polygon points="'+A4+' '+B4+' '+C4+'" fill="#ffe8c2" opacity=".7"/>'+sq(B4,1,1)+txt(A4[0]+26,A4[1]+40,"45°","al")+txt(C4[0]-40,C4[1]-14,"45°","al");}]]}];})();
 var dwI=0,dwN=0;
 function dwRender(){var d=DW[dwI],g="";for(var x=0;x<=400;x+=U)g+='<line x1="'+x+'" y1="0" x2="'+x+'" y2="300" stroke="#dbe9ff"/>';for(var y=0;y<=300;y+=U)g+='<line x1="0" y1="'+y+'" x2="400" y2="'+y+'" stroke="#dbe9ff"/>';
@@ -819,7 +820,7 @@ function fEnd(){F.on=false;clearInterval(F.tm);var ms=Date.now()-F.t0,ok=F.res.f
   $("fAgain").addEventListener("click",fStart);$("fBins").innerHTML="";say("完成了，放對"+ok+"個");}
 $("fBy").innerHTML="按「開始」，三角形就會開始送過來！";
 /* 全等拼拼看 */
-var PZ={list:[],i:0,heart:3,r:0,f:0,r0:0,f0:0,lock:false,ok:0},PL=["甲","乙","丙"],PB=["丁","戊","己"];
+var PZ={list:[],i:0,heart:3,r:0,f:0,r0:0,f0:0,lock:false,ok:0},PL=["A","B","C"],PB=["D","E","F"];
 function pzPts(P,cx,cy,u){var xs=P.map(function(p){return p[0];}),ys=P.map(function(p){return p[1];}),mx=(Math.min.apply(null,xs)+Math.max.apply(null,xs))/2,my=(Math.min.apply(null,ys)+Math.max.apply(null,ys))/2;
   return P.map(function(p){return [cx+(p[0]-mx)*u,cy-(p[1]-my)*u];});}
 function pzTri(S,fill,stroke,names,dash,op){var G=[(S[0][0]+S[1][0]+S[2][0])/3,(S[0][1]+S[1][1]+S[2][1])/3];

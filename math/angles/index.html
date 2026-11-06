@@ -144,6 +144,7 @@ svg.locked .prot{cursor:crosshair}
   <div id="l31">
     <div class="card">
       <h3>📐 量角器長什麼樣子？</h3>
+      <p class="lead"><b>角</b>是由共同<b>頂點</b>的兩條<b>邊</b>所組成的。角的符號是 <b>∠</b>，可以用代號叫它，例如 <b>∠1</b>、<b>∠A</b>、<b>∠ㄅ</b>。</p>
       <p class="lead">量角器是用來量<b>角有多大</b>的工具。把半圓平分成 <b>180</b> 小格，每一小格就是 <b>1 度</b>，寫成 <b>1°</b>。</p>
       <div class="btns" id="partBtns">
         <button class="btn white small" data-part="center">🎯 中心點</button>
@@ -160,7 +161,7 @@ svg.locked .prot{cursor:crosshair}
       <p class="lead">量角器上有<b>兩圈數字</b>。在半圓裡<b>拖拉橘色的邊</b>，看看兩圈各讀到幾度：</p>
       <div class="svgwrap"><svg id="rSvg" class="lsvg" viewBox="0 0 400 240" aria-label="報讀量角器"></svg></div>
       <div class="readout" id="rOut"></div>
-      <div class="tip">💡 口訣：<b>另一條邊從哪一邊的 0 開始，就讀那一圈。</b>0 在右邊 → 讀<span class="o">外圈</span>；0 在左邊 → 讀<span class="i">內圈</span>。兩圈的數字加起來一定是 180。</div>
+      <div class="tip">💡 口訣：<b>一條邊對齊哪一邊的 0，就從那一圈的 0 開始數。</b>一條邊對齊<b>右邊的 0</b> → 讀<span class="i">內圈</span>（紅色）；對齊<b>左邊的 0</b> → 讀<span class="o">外圈</span>。兩圈的數字加起來一定是 180。</div>
     </div>
   </div>
 
@@ -185,7 +186,7 @@ svg.locked .prot{cursor:crosshair}
         <button class="btn white small" data-k="130">鈍角</button><button class="btn white small" data-k="180">平角</button>
       </div>
       <div class="bubble" id="kOut"></div>
-      <table class="rec kinds"><tr><td><b class="c1">銳角</b></td><td>比直角小（小於 90°）</td></tr><tr><td><b class="c2">直角</b></td><td>剛好 90°</td></tr><tr><td><b class="c3">鈍角</b></td><td>比直角大、比平角小（90° ～ 180° 之間）</td></tr><tr><td><b class="c4">平角</b></td><td>180°，兩條邊排成一直線</td></tr></table>
+      <table class="rec kinds"><tr><td><b class="c1">銳角</b></td><td>比直角小（0°＜銳角＜90°）</td></tr><tr><td><b class="c2">直角</b></td><td>剛好 90°</td></tr><tr><td><b class="c3">鈍角</b></td><td>比直角大、比平角小（90°＜鈍角＜180°）</td></tr><tr><td><b class="c4">平角</b></td><td>180°，兩條邊排成一直線</td></tr></table>
     </div>
     <div class="card">
       <h3>📐 三角板上的角</h3>
@@ -199,7 +200,7 @@ svg.locked .prot{cursor:crosshair}
         <li>先畫一條邊，標出<b>頂點</b>。</li>
         <li>量角器的<b>中心點對準頂點</b>，<b>0 度線對準這條邊</b>。</li>
         <li>從這條邊的 0 開始數，在要畫的度數上<b>點一個點</b>。</li>
-        <li>拿開量角器，把頂點和點<b>連起來</b>，標上度數。</li>
+        <li>拿開量角器，把頂點和點<b>連起來</b>，標上<b>弧線和度數</b>。</li>
       </ol>
       <div class="btns"><button class="btn pink" data-go="p-draw">✏️ 去畫角練習</button></div>
     </div>
@@ -217,7 +218,7 @@ svg.locked .prot{cursor:crosshair}
       <div class="btns" id="cPresets">
         <button class="btn teal small" data-d="30">1 大格</button><button class="btn teal small" data-d="90">直角</button><button class="btn teal small" data-d="180">平角</button>
         <button class="btn teal small" data-d="270">3 個直角</button><button class="btn purple small" data-d="360">周角（一圈）</button><button class="btn gray small" data-d="0">歸零</button></div>
-      <div class="tip">🕐 鐘面一圈有 12 大格，<b>360° ÷ 12 ＝ 30°</b>，所以指針轉<b>1 大格就是 30°</b>。轉半圈是<b>平角 180°</b>，轉一整圈回到原來位置是<b>周角 360°</b>。</div>
+      <div class="tip">🕐 用量角器量量看：鐘面上指針轉<b>1 大格就是 30°</b>，轉 3 大格是 <b>30° × 3 ＝ 90°</b>。轉半圈是<b>平角 180°</b>，轉一整圈回到原來位置是<b>周角 360°</b>。</div>
     </div>
   </div>
 
@@ -227,10 +228,10 @@ svg.locked .prot{cursor:crosshair}
       <p class="lead">兩個角拼起來，度數<b>相加</b>；一個角拆開，用<b>減法</b>算另一部分。</p>
       <div class="seg" id="xMode">
         <button class="btn white small on" data-m="add">➕ 拼起來</button><button class="btn white small" data-m="flat">➖ 平角拆開</button>
-        <button class="btn white small" data-m="full">⭕ 周角拆開</button><button class="btn white small" data-m="big">🌗 大於 180° 的角</button></div>
+        <button class="btn white small" data-m="full">⭕ 周角拆開（挑戰）</button><button class="btn white small" data-m="big">🌗 大於 180° 的角（挑戰）</button></div>
       <div class="svgwrap"><svg id="xSvg" class="lsvg" viewBox="0 0 400 300" aria-label="角的合成"></svg></div>
-      <div class="sl"><label>藍色角 <b id="xAv"></b></label><input type="range" id="xA" min="10" max="150" value="50" class="rng"></div>
-      <div class="sl" id="xBrow"><label>綠色角 <b id="xBv"></b></label><input type="range" id="xB" min="10" max="150" value="70" class="rng"></div>
+      <div class="sl"><label>藍色角 ∠A <b id="xAv"></b></label><input type="range" id="xA" min="10" max="150" value="50" class="rng"></div>
+      <div class="sl" id="xBrow"><label>綠色角 ∠B <b id="xBv"></b></label><input type="range" id="xB" min="10" max="150" value="70" class="rng"></div>
       <div class="eqbig" id="xEq"></div>
       <div class="tip" id="xTip"></div>
     </div>
@@ -320,7 +321,7 @@ svg.locked .prot{cursor:crosshair}
   </div>
   <div class="card">
     <h3>🥤 量角器上的吸管（轉兩次）</h3>
-    <div class="small">從右邊 0° 出發看<b style="color:#1d4ed8">內圈</b>，從左邊 0° 出發看<b style="color:#c2410c">外圈</b>。內圈＋外圈＝180°。按 🔄 轉轉看可以看吸管怎麼轉。</div>
+    <div class="small">從右邊 0° 出發看<b style="color:#c1121f">內圈</b>，從左邊 0° 出發看<b style="color:#1d3557">外圈</b>。內圈＋外圈＝180°。按 🔄 轉轉看可以看吸管怎麼轉。</div>
     <div id="gStraw"></div>
     <div class="gk-src">📌 這裡的題目和情境都是<b>自編</b>的，依照康軒 4上 單元範圍設計，題型參考小朋友的考卷（沒有照抄考卷題目）。</div>
   </div>
@@ -401,8 +402,9 @@ function dirOf(cx,cy,x,y){return norm(Math.atan2(cy-y,x-cx)*180/Math.PI);}
 /* smallest difference between two directions, 0..180 */
 function dd(a,b){var d=Math.abs(norm(a)-norm(b));return d>180?360-d:d;}
 /* protractor with rotation rot (direction of its right-hand 0, math degrees).
-   Reading of direction th: outer ring counts from the right 0, inner ring from the left 0. null if outside the half circle */
-function readAt(rot,th){var o=norm(th-rot);if(o>180+1e-6){if(o>359.999)o=0;else return null;}return {outer:Math.round(o*1e6)/1e6,inner:Math.round((180-o)*1e6)/1e6};}
+   Reading of direction th (課本 p.32：外圈從左到右 0→180，內圈從右到左 0→180):
+   inner ring counts from the right 0, outer ring from the left 0. null if outside the half circle */
+function readAt(rot,th){var o=norm(th-rot);if(o>180+1e-6){if(o>359.999)o=0;else return null;}return {inner:Math.round(o*1e6)/1e6,outer:Math.round((180-o)*1e6)/1e6};}
 function kind(d){if(d<=0)return "零";if(d<90)return "銳角";if(d===90)return "直角";if(d<180)return "鈍角";if(d===180)return "平角";if(d<360)return "大於平角";if(d===360)return "周角";return "超過周角";}
 var KINDS=["銳角","直角","鈍角","平角","周角"];
 function kindOk(k){return KINDS.indexOf(k)>=0;}
@@ -415,7 +417,7 @@ function snapRots(ang){var s=ang.D<=180?ang.D:360-ang.D,a=ang.D<=180?ang.a:ang.b
 function poseInfo(ang,cx,cy,rot){var dc=Math.sqrt((cx-ang.vx)*(cx-ang.vx)+(cy-ang.vy)*(cy-ang.vy)),t=snapRots(ang),al=-1,i;
   for(i=0;i<2;i++)if(dd(rot,t[i])<0.5)al=i;
   var small=ang.D<=180?ang.D:360-ang.D;
-  return {centered:dc<0.5,aligned:al>=0,ring:al===0?"outer":(al===1?"inner":null),value:small,which:al};}
+  return {centered:dc<0.5,aligned:al>=0,ring:al===0?"inner":(al===1?"outer":null),value:small,which:al};}
 /* snap a pose toward the angle */
 function snap(ang,cx,cy,rot,tolC,tolR){var o={cx:cx,cy:cy,rot:norm(rot)},dc=Math.sqrt((cx-ang.vx)*(cx-ang.vx)+(cy-ang.vy)*(cy-ang.vy)),t=snapRots(ang),i;
   if(dc<(tolC||12)){o.cx=ang.vx;o.cy=ang.vy;}
@@ -431,7 +433,7 @@ var MLEVELS=[
  {id:2,name:"鈍角",note:"大於 90°、小於 180°"},
  {id:3,name:"轉個方向",note:"角朝向不一樣，任意度數"},
  {id:4,name:"邊太短",note:"先把邊畫長再量"},
- {id:5,name:"大於 180°",note:"量小的角，再用 360 減"}];
+ {id:5,name:"大於 180°（挑戰）",note:"課本 4上沒有教，量小的角，再用 360 減"}];
 var VX=200,VY=215,LONG=178;
 function genMeasure(lv,rnd){var D,a,l1=LONG,l2=LONG,left=(rnd||Math.random)()<0.5;
   if(lv===1){D=ri(2,17,rnd)*5;a=left?180-D:0;}
@@ -442,7 +444,7 @@ function genMeasure(lv,rnd){var D,a,l1=LONG,l2=LONG,left=(rnd||Math.random)()<0.
   /* keep both edges + protractor area roughly on screen: vertex fixed, lengths fit 400x400 box */
   return makeAngle(VX,VY,a,D,l1,l2);}
 /* ---- 畫角 levels ---- */
-var DLEVELS=[{id:1,name:"邊朝右",note:"0 在右邊：看外圈"},{id:2,name:"邊朝左",note:"0 在左邊：看內圈"},{id:3,name:"任意方向",note:"自己判斷看哪一圈"}];
+var DLEVELS=[{id:1,name:"邊朝右",note:"對齊右邊的 0：看內圈"},{id:2,name:"邊朝左",note:"對齊左邊的 0：看外圈"},{id:3,name:"任意方向",note:"自己判斷看哪一圈"}];
 function genDraw(lv,rnd){var T=ri(2,34,rnd)*5;if(lv===3)T=ri(12,168,rnd);var base=lv===1?0:(lv===2?180:ri(0,359,rnd));return {T:T,base:base,vx:VX,vy:VY};}
 /* drawn ray at direction th: the angle with the base edge (0..180) */
 function drawnAngle(base,th){return Math.round(dd(base,th)*1e6)/1e6;}
@@ -456,11 +458,11 @@ function turnTo(from,deg,cw){var k=deg/30,n=cw?from+k:from-k;n=((n%12)+12)%12;re
 function genRot(rnd){var t=ri(0,3,rnd),cw=(rnd||Math.random)()<0.65,from=pick([12,12,3,6,9,1,2,4,5,7,8,10,11],rnd),q;
   if(t===0){var steps=pick([1,2,3,4,5,6,8,9,12],rnd);var to=turnTo(from,steps*30,cw);q={t:0,from:from,to:to,cw:cw,ans:steps===12?360:turnDeg(from,to,cw),full:steps===12};}
   else if(t===1){var deg=pick([30,60,90,120,150,180,210,270],rnd);q={t:1,from:from,deg:deg,cw:cw,ans:turnTo(from,deg,cw)};}
-  else if(t===2){var d2=pick([90,180,360,90,180,360,270],rnd);q={t:2,from:from,deg:d2,cw:cw,ans:d2===90?"直角":(d2===180?"平角":(d2===360?"周角":"3 個直角"))};}
+  else if(t===2){var d2=pick([90,180,360],rnd);q={t:2,from:from,deg:d2,cw:cw,ans:d2===90?"直角":(d2===180?"平角":"周角")};}
   else {var big=pick([1,2,3,4,5,6],rnd);q={t:3,big:big,ans:big*30};}
   return q;}
 /* ---- 角的合成與分解 ---- */
-var CTYPES=["add","sub","flat","right","full","flat3","tri","big"];
+var CTYPES=["add","sub","flat","right","flat3","tri","trisub","right3"];
 function genComp(type,rnd){var a,b,c,q;type=type||pick(CTYPES,rnd);
   if(type==="add"){a=ri(15,100,rnd);b=ri(15,175-a,rnd);q={type:type,rays:[0,a,a+b],known:[[0,a,a],[a,a+b,b]],ask:[0,a+b],ans:a+b,eq:a+"° ＋ "+b+"° ＝ ？"};}
   else if(type==="sub"){c=ri(60,170,rnd);a=ri(15,c-15,rnd);q={type:type,rays:[0,a,c],known:[[0,c,c,"whole"],[0,a,a]],ask:[a,c],ans:c-a,eq:c+"° － "+a+"° ＝ ？"};}
@@ -469,6 +471,8 @@ function genComp(type,rnd){var a,b,c,q;type=type||pick(CTYPES,rnd);
   else if(type==="full"){a=ri(30,330,rnd);q={type:type,rays:[0,a],known:[[0,a,a]],ask:[a,360],ans:360-a,eq:"360° － "+a+"° ＝ ？",full:true};}
   else if(type==="flat3"){a=ri(20,80,rnd);b=ri(20,150-a,rnd);q={type:type,rays:[0,a,a+b,180],known:[[0,a,a],[a+b,180,180-a-b]],ask:[a,a+b],ans:b,eq:"180° － "+a+"° － "+(180-a-b)+"° ＝ ？",flat:true};}
   else if(type==="tri"){var P=pick([[30,45],[45,60],[30,90],[45,90],[60,90],[45,45],[30,60]],rnd);a=P[0];b=P[1];q={type:type,rays:[0,a,a+b],known:[[0,a,a],[a,a+b,b]],ask:[0,a+b],ans:a+b,eq:a+"° ＋ "+b+"° ＝ ？",tri:true};}
+  else if(type==="trisub"){var T=pick([[45,30],[60,30],[60,45],[90,30],[90,45],[90,60]],rnd);c=T[0];a=T[1];q={type:type,rays:[0,a,c],known:[[0,c,c,"whole"],[0,a,a]],ask:[a,c],ans:c-a,eq:c+"° － "+a+"° ＝ ？",tri:true};}
+  else if(type==="right3"){a=ri(15,40,rnd);b=ri(15,75-a,rnd);q={type:type,rays:[0,a,a+b,90],known:[[0,a,a],[a+b,90,90-a-b]],ask:[a,a+b],ans:b,eq:"90° － "+a+"° － "+(90-a-b)+"° ＝ ？",right:true};}
   else {a=ri(20,160,rnd);q={type:"big",rays:[0,180,180+a],known:[[0,180,180,"flat"],[180,180+a,a]],ask:[0,180+a],ans:180+a,eq:"180° ＋ "+a+"° ＝ ？",flat:true};}
   return q;}
 /* ---- 神射手 (estimate game) ---- */
@@ -503,9 +507,9 @@ var store=fresh();
 try{var raw=localStorage.getItem(KEY);if(raw){var o=JSON.parse(raw);for(var k in o)store[k]=o[k];}}catch(e){}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
 var TN={ring:"🔄 看錯圈（內圈／外圈）",read:"👀 刻度讀錯",big:"🌗 大於 180° 的角",draw:"✏️ 畫角不準",rot:"🕐 旋轉角",comp:"🧩 合成與分解",sort:"🏷️ 角的名字"};
-var TIPS={ring:"另一條邊從哪一邊的 0 開始，就讀那一圈；兩圈數字加起來是 180。",read:"先找到前面的整十（例如 40），再一小格一小格往後數。用 🔍 放大鏡看清楚！",
+var TIPS={ring:"一條邊對齊右邊的 0 就讀內圈，對齊左邊的 0 就讀外圈；兩圈數字加起來是 180。",read:"先找到前面的整十（例如 40），再一小格一小格往後數。用 🔍 放大鏡看清楚！",
   big:"大於 180° 的角：先量小的那個角，再用 360° 減掉（或 180° 加上多出來的部分）。",draw:"中心點對準頂點、0 度線對準邊，從邊上的 0 開始數到要畫的度數。",
-  rot:"鐘面 1 大格 ＝ 30°；順時針和時鐘走的方向一樣。",comp:"拼起來用加法，拆開用減法；平角 180°、直角 90°、周角 360°。",sort:"小於 90° 是銳角，90° 是直角，90°～180° 是鈍角，180° 是平角，360° 是周角。"};
+  rot:"鐘面 1 大格 ＝ 30°；順時針和時鐘走的方向一樣。",comp:"拼起來用加法，拆開用減法；平角 180°、直角 90°、周角 360°。",sort:"比 90° 小是銳角，90° 是直角，比 90° 大、比 180° 小是鈍角，180° 是平角，360° 是周角。"};
 function miss(t,p){store.bad[t]=(store.bad[t]||0)+1;store.recent.unshift({p:p,k:t});store.recent=store.recent.slice(0,10);save();}
 function renderScore(){$("score").textContent="⭐ "+store.stars;}
 function addStars(n,el){store.stars+=n;save();renderScore();var sc=$("score");sc.classList.remove("pop");void sc.offsetWidth;sc.classList.add("pop");
@@ -532,7 +536,7 @@ var PROT=(function(){var s='<path class="pbody" d="M-'+C.R+' 0A'+C.R+' '+C.R+' 0
   s+='<path d="M-86 0A86 86 0 0 1 86 0" fill="none" stroke="#3a7bd5" stroke-width="1" opacity=".6"/>';
   C.ticks().forEach(function(t){s+=ln(t.x1,t.y1,t.x2,t.y2,"tk"+(t.big?" big":""));});
   for(var d=0;d<=180;d+=10){var po=P(0,0,d,C.RO),pi=P(0,0,d,C.RI),rot=' transform="rotate('+(90-d)+' ';
-    s+=txt(po.x,po.y,d,"no",rot+po.x+' '+po.y+')"');s+=txt(pi.x,pi.y,180-d,"ni",rot+pi.x+' '+pi.y+')"');}
+    s+=txt(po.x,po.y,180-d,"no",rot+po.x+' '+po.y+')"');s+=txt(pi.x,pi.y,d,"ni",rot+pi.x+' '+pi.y+')"');}
   s+=ln(-C.R,0,C.R,0,"bl")+'<circle class="ctr" r="3.5"/>'+ln(0,-8,0,8,"bl");
   return s;})();
 function protG(cx,cy,rot,knob,extra){return '<g class="prot" transform="translate('+cx+' '+cy+') rotate('+(-rot)+')">'+PROT+(extra||"")+
@@ -560,7 +564,7 @@ function pRender(){var ex="";
   if(part==="one")ex='<path class="hl" d="'+C.sectorPath(0,0,C.R,40,41)+'" fill="#ff9f1c" stroke="#ff6b00" stroke-width="1.5"/>';
   $("pSvg").innerHTML=protG(PX,PY,0,false).replace("</g>",ex+"</g>");}
 var PARTS={center:"🎯 <b>中心點</b>：量角時要對準角的<b>頂點</b>。",base:"➖ <b>0 度線</b>：通過中心點、連著兩邊 0 的直線，要對準角的<b>一條邊</b>。",
-  outer:"🔵 <b>外圈刻度</b>：0 在<b>右邊</b>，往左數到 180。",inner:"🔴 <b>內圈刻度</b>：0 在<b>左邊</b>，往右數到 180。",
+  outer:"🔵 <b>外圈刻度</b>：0 在<b>左邊</b>，從左到右數到 180。",inner:"🔴 <b>內圈刻度</b>（紅色）：0 在<b>右邊</b>，從右到左數到 180。",
   one:"🔍 半圓平分成 180 小格，閃爍的這<b>一小格就是 1°</b>。每 10 小格有一條長刻度和數字，中間的半長刻度是 5。"};
 document.querySelectorAll("#partBtns button").forEach(function(b){b.addEventListener("click",function(){part=b.dataset.part;document.querySelectorAll("#partBtns button").forEach(function(x){x.classList.toggle("on",x===b);});pRender();$("pBubble").innerHTML=PARTS[part];say($("pBubble").textContent);});});
 function rRender(){var d=Math.round(rDir),r=C.readAt(0,d),s=protG(PX,PY,0,false);
@@ -741,7 +745,7 @@ function animCum(from,to,ms,set,done){var t0=null;function st(t){if(t0===null)t0
 var cS=12,cCum=0,cCw=true;
 function cDesc(c){var ab=Math.round(Math.abs(c)),s;if(ab===0)return "指針在<b>始邊</b>上，還沒有轉。拖拉橘色指針轉轉看！";
   s="指針<b>"+(c>0?"順時針 ↻":"逆時針 ↺")+"</b>轉了 <b>"+ab+"°</b>";
-  if(ab%30===0){var k=ab/30;s+="（"+k+" 大格 × 30° ＝ "+ab+"°），從 "+cS+" 轉到 "+C.turnTo(cS,ab,c>0);}
+  if(ab%30===0){var k=ab/30;s+="（轉了 "+k+" 大格，30° × "+k+" ＝ "+ab+"°），從 "+cS+" 轉到 "+C.turnTo(cS,ab,c>0);}
   var nm={90:"，是一個<b>直角</b>",180:"，轉了半圈，是<b>平角</b>",270:"，是 3 個直角",360:"，轉了一整圈回到原處，是<b>周角</b>！"}[ab];return s+(nm||"")+"。";}
 function cRender(){var c=Math.round(cCum);$("cSvg").innerHTML=clockSVG({start:cS,cum:cCum,label:Math.abs(c)+"°"});$("cOut").innerHTML=cDesc(cCum);}
 clockDrag($("cSvg"),function(){return cCum;},function(v){cCum=v;cRender();},function(){var r=Math.round(cCum/30)*30;if(Math.abs(r-cCum)<5)cCum=r;else cCum=Math.round(cCum);cRender();store.seen.rot=1;save();});
@@ -764,7 +768,7 @@ function oShow(){var q=oList[oI];oVal="";oTries=0;oPlayed=false;oLock=false;if(q
   var ch=$("oChoices");ch.className="choices"+(q.t===1?" numgrid":"");
   if(q.t===1){var opts=[q.ans,C.turnTo(q.from,q.deg,!q.cw),C.turnTo(q.from,q.deg+30,q.cw),C.turnTo(q.from,q.deg-30,q.cw)],u=[];opts.forEach(function(x){if(u.indexOf(x)<0)u.push(x);});
     while(u.length<4){var r=C.ri(1,12);if(u.indexOf(r)<0)u.push(r);}ch.innerHTML=C.shuffle(u).map(function(x){return '<button class="btn" data-a="'+x+'">'+x+'</button>';}).join("");}
-  else if(q.t===2)ch.innerHTML=["直角","平角","周角","3 個直角"].map(function(x){return '<button class="btn" data-a="'+x+'">'+x+'</button>';}).join("");
+  else if(q.t===2)ch.innerHTML=["銳角","直角","平角","周角"].map(function(x){return '<button class="btn" data-a="'+x+'">'+x+'</button>';}).join("");
   else ch.innerHTML="";
   oDraw();oProg();}
 function oDraw(){var q=oList[oI];$("oSvg").innerHTML=clockSVG({start:q.from,cum:oCum,label:"?"});}
@@ -773,7 +777,7 @@ $("oPlay").addEventListener("click",function(){var q=oList[oI],to=oTarget(q);oPl
 $("oSay").addEventListener("click",function(){say($("oQ").textContent);});
 function oAnswer(v,el){if(oLock)return;var q=oList[oI],ok=String(v)===String(q.ans),p=$("oQ").textContent.slice(0,24);
   if(ok){oLock=true;beep(true);var first=oTries===0&&!oPlayed;if(oRes.length===oI)oRes.push(first);if(first){addStars(1,el);store.rotOk++;save();}if(el&&el.classList)el.classList.add("ok");
-    fb("oFb","good","✅ 答對了！"+(q.t===0||q.t===3?q.ans/30+" 大格 × 30° ＝ "+q.ans+"°":"")+(q.t===1?"轉 "+q.deg+"° ＝ "+q.deg/30+" 大格，指到 "+q.ans+"。":"")+(q.t===2?q.deg+"° 是"+q.ans+"。":""));
+    fb("oFb","good","✅ 答對了！"+(q.t===0||q.t===3?"轉了 "+q.ans/30+" 大格，30° × "+q.ans/30+" ＝ "+q.ans+"°":"")+(q.t===1?"轉 "+q.deg+"° ＝ "+q.deg/30+" 大格，指到 "+q.ans+"。":"")+(q.t===2?q.deg+"° 是"+q.ans+"。":""));
     if(q.t===1)animCum(0,oTarget(q),700,function(x){oCum=x;oDraw();});
     setTimeout(function(){oI++;if(oI>=oList.length){var n=oRes.filter(Boolean).length;store.rotRounds++;save();$("oDone").className="done show";$("oDone").innerHTML="🎉 完成！答對 "+n+" / "+oList.length+" 題（第一次就對）。"+'<div class="btns"><button class="btn org" id="oAgain">再玩一回 ➜</button></div>';$("oAgain").addEventListener("click",oNewRound);oProg();}else oShow();},1400);}
   else{oTries++;beep(false);miss("rot",p);if(el&&el.classList)el.classList.add("no");oVal="";$("oAns").textContent="？"+(q.t===0||q.t===3?"°":"");
@@ -791,10 +795,10 @@ function mid(a1,a2,r){var s=C.norm(a2-a1)||360;return P(XV.x,XV.y,a1+s/2,r);}
 function xRender(){var a=+$("xA").value,b=+$("xB").value,s="",e="",tip="",x=XV.x,y=XV.y,L=130,m1,m2;
   if(xM==="add"){s+=sect(0,a,70,"#4d96ff")+sect(a,a+b,70,"#2a9d8f")+'<path class="arc" d="'+C.arcPath(x,y,96,0,a+b)+'" stroke-dasharray="6 4"/>';[0,a,a+b].forEach(function(d){s+=rayM(x,y,d,L,"ray");});
     m1=mid(0,a,48);m2=mid(a,a+b,48);s+=txt(m1.x,m1.y,a+"°","lbl",' style="fill:#1a5fd0"')+txt(m2.x,m2.y,b+"°","lbl",' style="fill:#1b7a6e"');var m3=mid(0,a+b,118);s+=txt(m3.x,m3.y,(a+b)+"°","lbl");
-    e='<span class="a">'+a+'°</span> ＋ <span class="b">'+b+'°</span> ＝ <span class="c">'+(a+b)+'°</span>';tip="兩個角拼在一起（共用頂點和一條邊），合起來的角就是兩個角的度數<b>相加</b>。"+(a+b>180?"<br>🌗 超過 180° 了，是比平角大的角！":"");}
+    e='∠A ＋ ∠B ＝ <span class="a">'+a+'°</span> ＋ <span class="b">'+b+'°</span> ＝ <span class="c">'+(a+b)+'°</span>';tip="兩個角拼在一起（共用頂點和一條邊），合起來的角就是兩個角的度數<b>相加</b>。"+(a+b>180?"<br>🌗 超過 180° 了，是比平角大的角！":"");}
   else if(xM==="flat"){s+=sect(0,a,70,"#4d96ff")+sect(a,180,70,"#2a9d8f");s+=rayM(x,y,0,L,"ray")+rayM(x,y,180,L,"ray")+rayM(x,y,a,L,"ray");
     m1=mid(0,a,48);m2=mid(a,180,48);s+=txt(m1.x,m1.y,a+"°","lbl",' style="fill:#1a5fd0"')+txt(m2.x,m2.y,(180-a)+"°","lbl",' style="fill:#1b7a6e"')+txt(x,y+26,"平角 180°","lbl");
-    e='<span class="c">180°</span> － <span class="a">'+a+'°</span> ＝ <span class="b">'+(180-a)+'°</span>';tip="一條直線上的角是<b>平角 180°</b>。知道其中一個角，另一個就是 180° 減掉它。";}
+    e='∠B ＝ <span class="c">180°</span> － <span class="a">'+a+'°</span> ＝ <span class="b">'+(180-a)+'°</span>';tip="一條直線上的角是<b>平角 180°</b>。知道其中一個角，另一個就是 180° 減掉它。";}
   else if(xM==="full"){s+=sect(0,a,62,"#4d96ff")+sect(a,360,62,"#2a9d8f",.25);s+=rayM(x,y,0,L,"ray")+rayM(x,y,a,L,"ray");
     m1=mid(0,a,40);m2=mid(a,360,84);s+=txt(m1.x,m1.y,a+"°","lbl",' style="fill:#1a5fd0"')+txt(m2.x,m2.y,(360-a)+"°","lbl",' style="fill:#1b7a6e"');
     e='<span class="a">'+a+'°</span> ＋ <span class="b">'+(360-a)+'°</span> ＝ <span class="c">360°</span>';tip="繞一整圈是<b>周角 360°</b>。兩條邊把周角分成兩個角，它們加起來是 360°。";}
@@ -855,13 +859,13 @@ $("tChoices").addEventListener("click",function(e){var b=e.target.closest("butto
 /* 🧩 合成分解題 */
 var qList=[],qI=0,qRes=[],qVal="",qTries=0,qLock=false;
 function qNew(){qList=C.shuffle(C.CTYPES).map(function(t){return C.genComp(t);});qI=0;qRes=[];$("xqDone").className="done";qShow();}
-var CAP={add:"兩個角拼起來",sub:"從大角裡拿掉一部分",flat:"直線上的角（平角 180°）",right:"直角 90° 拆成兩個角",full:"一整圈（周角 360°）",flat3:"直線上有三個角（平角 180°）",tri:"兩塊三角板拼起來",big:"比平角大的角"};
+var CAP={add:"兩個角拼起來",sub:"從大角裡拿掉一部分",flat:"直線上的角（平角 180°）",right:"直角 90° 拆成兩個角",full:"一整圈（周角 360°）",flat3:"直線上有三個角（平角 180°）",tri:"兩塊三角板拼起來",trisub:"兩塊三角板的角相差多少",right3:"直角裡有三個角（直角 90°）",big:"比平角大的角"};
 function qShow(){var q=qList[qI],x=200,y=165,s="",L=125,cols=["#4d96ff","#2a9d8f"];qVal="";qTries=0;qLock=false;fbHide("xqFb");
   q.known.forEach(function(k,i){var r=k[3]?100:52+i*0;var m=mid2(x,y,k[0],k[1],r+(k[3]?16:22)),col=k[3]?"#8d99ae":cols[i%2];
     s+=k[3]?'<path d="'+C.arcPath(x,y,r,k[0],k[1])+'" fill="none" stroke="'+col+'" stroke-width="3" stroke-dasharray="6 4"/>':'<path d="'+C.sectorPath(x,y,r,k[0],k[1])+'" fill="'+col+'" opacity=".3" stroke="'+col+'" stroke-width="2"/>';
     s+=txt(m.x,m.y,k[2]+"°","lbl",' style="fill:'+(k[3]?"#555":(i%2?"#1b7a6e":"#1a5fd0"))+'"');});
   if(q.right){var p1=P(x,y,0,16),p2=P(x,y,45,22.6),p3=P(x,y,90,16);s+='<path d="M'+p1.x+' '+p1.y+'L'+p2.x+' '+p2.y+'L'+p3.x+' '+p3.y+'" fill="none" stroke="#555" stroke-width="3"/>';}
-  var ra=q.type==="full"?40:(q.type==="sub"?66:76);
+  var ra=q.type==="full"?40:(q.type==="sub"||q.type==="trisub"?66:76);
   s+='<path d="'+C.sectorPath(x,y,ra,q.ask[0],q.ask[1])+'" fill="#ff6b9a" opacity=".22"/>'+'<path class="arc" d="'+C.arcPath(x,y,ra,q.ask[0],q.ask[1])+'"/>';
   var am=mid2(x,y,q.ask[0],q.ask[1],ra+(q.type==="full"?-14:20));s+=txt(am.x,am.y,"？","lbl");
   q.rays.forEach(function(d){s+=rayM(x,y,d,L,"ray");});if(q.flat||q.type==="full")s+=rayM(x,y,180,0,"ray");
@@ -999,22 +1003,22 @@ function protractor(marks,straw,ghost,arcs){var cx=210,cy=205,R=185,h='<svg clas
   h+='<path d="M'+(cx-R)+' '+cy+' A'+R+' '+R+' 0 0 1 '+(cx+R)+' '+cy+' Z" fill="#fff7e0" stroke="#e3a33b" stroke-width="2"/>';
   for(var a=0;a<=180;a+=5){var r1=a%10===0?R-16:R-8,p1=P(cx,cy,R,a),p2=P(cx,cy,r1,a);h+='<line x1="'+p1[0].toFixed(1)+'" y1="'+p1[1].toFixed(1)+'" x2="'+p2[0].toFixed(1)+'" y2="'+p2[1].toFixed(1)+'" stroke="#a0752b" stroke-width="'+(a%10?1:2)+'"/>';
     if(a%30===0||marks.indexOf(a)>=0){var po=P(cx,cy,R-30,a),pi=P(cx,cy,R-54,a);
-      h+='<text x="'+po[0].toFixed(1)+'" y="'+(po[1]+5).toFixed(1)+'" font-size="'+(a%30?11:13)+'" text-anchor="middle" fill="#c2410c" font-weight="800">'+(180-a)+'</text>';
-      h+='<text x="'+pi[0].toFixed(1)+'" y="'+(pi[1]+5).toFixed(1)+'" font-size="'+(a%30?11:13)+'" text-anchor="middle" fill="#1d4ed8" font-weight="800">'+a+'</text>';}}
+      h+='<text x="'+po[0].toFixed(1)+'" y="'+(po[1]+5).toFixed(1)+'" font-size="'+(a%30?11:13)+'" text-anchor="middle" fill="#1d3557" font-weight="800">'+(180-a)+'</text>';
+      h+='<text x="'+pi[0].toFixed(1)+'" y="'+(pi[1]+5).toFixed(1)+'" font-size="'+(a%30?11:13)+'" text-anchor="middle" fill="#c1121f" font-weight="800">'+a+'</text>';}}
   h+='<line x1="'+(cx-R)+'" y1="'+cy+'" x2="'+(cx+R)+'" y2="'+cy+'" stroke="#a0752b" stroke-width="2"/>';
   (ghost||[]).forEach(function(g){var p=P(cx,cy,R-4,g);h+='<line x1="'+cx+'" y1="'+cy+'" x2="'+p[0].toFixed(1)+'" y2="'+p[1].toFixed(1)+'" stroke="#2a9d8f" stroke-width="7" stroke-linecap="round" stroke-dasharray="3 9" opacity=".7"/>';});
   var ps=P(cx,cy,R+2,straw);h+='<line class="gk-straw" x1="'+cx+'" y1="'+cy+'" x2="'+ps[0].toFixed(1)+'" y2="'+ps[1].toFixed(1)+'" stroke="#ff6b9a" stroke-width="9" stroke-linecap="round"/>';
-  h+='<circle cx="'+cx+'" cy="'+cy+'" r="6" fill="#333"/><text x="8" y="230" font-size="13" fill="#c2410c" font-weight="800">外圈（橘）</text><text x="330" y="230" font-size="13" fill="#1d4ed8" font-weight="800">內圈（藍）</text></svg>';return h;}
+  h+='<circle cx="'+cx+'" cy="'+cy+'" r="6" fill="#333"/><text x="8" y="230" font-size="13" fill="#1d3557" font-weight="800">外圈（藍）</text><text x="330" y="230" font-size="13" fill="#c1121f" font-weight="800">內圈（紅）</text></svg>';return h;}
 function genStraw(){var k=ri(0,3),a=ri(2,8)*5,b=ri(2,9)*5;if(Math.random()<.5){a*=2;}if(a+b>170){b=170-a;}
   var tot=a+b,it;
   /* 內圈 0 在右邊、逆時針增加；外圈 0 在左邊、順時針增加。 */
   if(k===0){/* 從右邊（內圈 0）出發，逆時針 */
-    it={q:"吸管放在量角器上，從<b>內圈 0°</b>（右邊）開始，先往上轉 <b>"+a+"°</b>，再往同一個方向轉 <b>"+b+"°</b>。<br>現在吸管指在<b>內圈</b>幾度？<b>外圈</b>幾度？",
+    it={q:"吸管放在量角器上，從<b>內圈 0°</b>（右邊）開始，先<b>逆時針</b>轉 <b>"+a+"°</b>，再往同一個方向轉 <b>"+b+"°</b>。<br>現在吸管指在<b>內圈</b>幾度？<b>外圈</b>幾度？",
       blanks:[{label:"內圈",ans:tot,unit:"°"},{label:"外圈",ans:180-tot,unit:"°"}],svgAt:0,marks:[a],
       why:"共轉了 "+a+" ＋ "+b+" ＝ "+tot+"°，從內圈 0° 開始，所以指在內圈 <b>"+tot+"°</b>；同一個位置的外圈是 180 － "+tot+" ＝ <b>"+(180-tot)+"°</b>。",
       hints:["從內圈 0° 出發，就看內圈：轉了幾度就指在內圈幾度。","兩次加起來："+a+" ＋ "+b+" ＝ "+tot+"。","內圈和外圈同一個位置加起來是 180°。"],final:tot};}
   else if(k===1){/* 從左邊（外圈 0）出發 */
-    it={q:"吸管從<b>外圈 0°</b>（左邊）開始，先往上轉 <b>"+a+"°</b>，再往同一個方向轉 <b>"+b+"°</b>。<br>現在吸管指在<b>外圈</b>幾度？<b>內圈</b>幾度？",
+    it={q:"吸管從<b>外圈 0°</b>（左邊）開始，先<b>順時針</b>轉 <b>"+a+"°</b>，再往同一個方向轉 <b>"+b+"°</b>。<br>現在吸管指在<b>外圈</b>幾度？<b>內圈</b>幾度？",
       blanks:[{label:"外圈",ans:tot,unit:"°"},{label:"內圈",ans:180-tot,unit:"°"}],svgAt:180,marks:[180-a],
       why:"從外圈 0° 開始，就看外圈：共轉 "+tot+"°，指在外圈 <b>"+tot+"°</b>；內圈是 180 － "+tot+" ＝ <b>"+(180-tot)+"°</b>。",
       hints:["從左邊出發，0° 在外圈，所以要看<b>外圈</b>的數字。","兩次加起來："+a+" ＋ "+b+" ＝ "+tot+"。","內圈和外圈同一個位置加起來是 180°。"],final:180-tot};}

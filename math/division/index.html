@@ -102,14 +102,14 @@ nav.tabs button span{font-size:26px;line-height:1}nav.tabs button.on{background:
     <h2>📖 一步一步看直式除法</h2>
     <div class="small">康軒版 數學 4上・第四單元「整數的除法」（四位數÷三位數是 4下 第一單元「多位數的乘與除」）</div>
     <div class="lead">直式除法每一輪都做這 5 件事，做到最後一位為止：</div>
-    <div class="steps5"><span style="background:#ff9f1c">① 估（試商）</span><span style="background:#4d96ff">② 乘</span><span style="background:#ff6b9a">③ 減</span><span style="background:#2a9d8f">④ 比（餘數＜除數）</span><span style="background:#9b5de5">⑤ 移（下一位）</span></div>
+    <div class="steps5"><span style="background:#ff9f1c">① 估商</span><span style="background:#4d96ff">② 乘</span><span style="background:#ff6b9a">③ 減</span><span style="background:#2a9d8f">④ 比（餘數＜除數）</span><span style="background:#9b5de5">⑤ 移（下一位）</span></div>
   </div>
   <div class="card">
     <h3>選一題</h3>
     <div class="btns" id="demoPresets"></div>
     <div class="btns">
       <button class="btn small white" data-rl="1">🎲 二位÷二位</button><button class="btn small white" data-rl="2">🎲 三位÷二位</button>
-      <button class="btn small white" data-rl="3">🎲 四位÷二位</button><button class="btn small white" data-rl="4">🎲 四位÷三位</button><button class="btn small white" data-rl="5">🎲 四位÷一位</button>
+      <button class="btn small white" data-rl="3">🎲 四位÷二位</button><button class="btn small white" data-rl="4">🎲 四位÷三位（4下預習）</button><button class="btn small white" data-rl="5">🎲 四位÷一位</button>
     </div>
     <div class="btns">
       <input class="inp" id="dN" inputmode="numeric" placeholder="被除數" aria-label="被除數"> <b style="font-size:22px">÷</b>
@@ -145,7 +145,7 @@ nav.tabs button span{font-size:26px;line-height:1}nav.tabs button.on{background:
       <button class="btn small white" data-l="1">① 二位÷二位</button>
       <button class="btn small white" data-l="2">② 三位÷二位</button>
       <button class="btn small white" data-l="3">③ 四位÷二位</button>
-      <button class="btn small white" data-l="4">④ 四位÷三位</button>
+      <button class="btn small white" data-l="4">④ 四位÷三位（4下預習）</button>
       <button class="btn small white" data-l="5">⑤ 四位÷一位</button>
       <button class="btn small white" data-l="0">🎲 混合</button>
     </div>
@@ -176,7 +176,7 @@ nav.tabs button span{font-size:26px;line-height:1}nav.tabs button.on{background:
       <button class="btn small white" data-l="1">二位×二位（暖身）</button>
       <button class="btn small white" data-l="2">三位×二位</button>
       <button class="btn small white" data-l="3">四位×二位</button>
-      <button class="btn small white" data-l="4">三位×三位</button>
+      <button class="btn small white" data-l="4">三位×三位（4下預習）</button>
     </div>
   </div>
   <div class="card">
@@ -209,7 +209,7 @@ nav.tabs button span{font-size:26px;line-height:1}nav.tabs button.on{background:
   </div>
   <div class="card">
     <h3>🚌 生活應用題</h3>
-    <div class="small">有餘數的時候要想一想：剩下的要不要多算 1 個（無條件進位）？還是不夠就不算（無條件捨去）？</div>
+    <div class="small">有餘數的時候要想一想：剩下的也要算進去，所以要再多 1 個？還是剩下的不夠，就不能加 1？</div>
     <div id="gWord"></div>
   </div>
   <div class="card">
@@ -266,8 +266,8 @@ function estimate(cur,d){
     out.push("① 估商：把 "+d+" 想成 <b>"+r+"</b>，"+cur+" 裡面大約有 "+x+" 個 "+r+(x>9?"（但商最多是 9）":x<1?"（不到 1 個，可是 "+cur+" 比 "+d+" 大，至少有 1 個）":"")+"，先試 <b>"+e+"</b>。");}
   var guard=0;
   while(e!==q&&guard++<20){var p=e*d;
-    if(p>cur){out.push("試商："+d+" × "+e+" ＝ "+p+"，比 "+cur+" <b>大</b>，太大了！商改小一點，試 <b>"+(e-1)+"</b>。");e--;}
-    else{out.push("試商："+d+" × "+e+" ＝ "+p+"，"+cur+" − "+p+" ＝ "+(cur-p)+"，還比 "+d+" 大（還能再分），商改大一點，試 <b>"+(e+1)+"</b>。");e++;}}
+    if(p>cur){out.push("估商："+d+" × "+e+" ＝ "+p+"，比 "+cur+" <b>大</b>，太大了！商改小一點，試 <b>"+(e-1)+"</b>。");e--;}
+    else{out.push("估商："+d+" × "+e+" ＝ "+p+"，"+cur+" − "+p+" ＝ "+(cur-p)+"，"+(cur-p===d?"剩下的和 "+d+" <b>一樣多</b>":"還比 "+d+" 大")+"（還可以再分），商改大一點，試 <b>"+(e+1)+"</b>。");e++;}}
   out.push("確認："+d+" × "+q+" ＝ "+(q*d)+"，沒有超過 "+cur+"；而且 "+cur+" − "+(q*d)+" ＝ "+(cur-q*d)+"，比 "+d+" 小 ✓ 所以商是 <b>"+q+"</b>。");
   return out;
 }
@@ -316,7 +316,7 @@ function buildDiv(N,d){
   }
   sh.nrows=row;sh.Q=Math.floor(N/d);sh.R=N%d;
   sh.finalLine={r:lineRow,text:lineText||"0"};
-  D.push({fi:F.length,t:0,hl:[],final:true,text:"完成！<b>"+N+" ÷ "+d+" ＝ "+sh.Q+" … "+sh.R+"</b>"+(sh.R===0?"（整除）":"")+"<br>商是 "+String(sh.Q).length+" 位數，餘數 "+sh.R+" 比除數 "+d+" 小 ✓<br>最後別忘了<b>驗算</b>：除數 × 商 ＋ 餘數 ＝ 被除數。"});
+  D.push({fi:F.length,t:0,hl:[],final:true,text:"完成！<b>"+N+" ÷ "+d+" ＝ "+sh.Q+" … "+sh.R+"</b>"+(sh.R===0?"（剛好分完，餘數是 0）":"")+"<br>商是 "+String(sh.Q).length+" 位數，餘數 "+sh.R+" 比除數 "+d+" 小 ✓<br>最後別忘了<b>驗算</b>：除數 × 商 ＋ 餘數 ＝ 被除數。"});
   return sh;
 }
 /* multiplication a × b (+ addend), Taiwanese 直式 with 部分積 */
@@ -381,7 +381,8 @@ function noZero(x){return String(x).indexOf("0")<0;}
 var DIVLV={1:{nd:2,dd:2},2:{nd:3,dd:2},3:{nd:4,dd:2},4:{nd:4,dd:3},5:{nd:4,dd:1}};
 function genDiv(level,opt){opt=opt||{};var lv=DIVLV[level];
   for(var tries=0;tries<2000;tries++){
-    var dlo=Math.pow(10,lv.dd-1)+1,dhi=Math.pow(10,lv.dd)-1,d=ri(dlo,dhi);if(!noZero(d))continue;
+    var dlo=Math.pow(10,lv.dd-1)+1,dhi=Math.pow(10,lv.dd)-1,d;
+    if(lv.dd===2&&opt.ten!==false&&Math.random()<.3)d=ri(2,9)*10;else{d=ri(dlo,dhi);if(!noZero(d))continue;}
     var lo=Math.pow(10,lv.nd-1),hi=Math.pow(10,lv.nd)-1,qlo=Math.max(1,Math.ceil(lo/d)),qhi=Math.floor(hi/d);if(qlo>qhi)continue;
     var wantZero=opt.zero!==undefined?opt.zero:(level>=2&&Math.random()<(level===2?.25:.35)),exact=opt.exact!==undefined?opt.exact:Math.random()<.3;
     var Q=ri(qlo,qhi);if(level===1&&Q<2&&Math.random()<.7)continue;
@@ -409,8 +410,8 @@ var KEY="mathDivisionV1";
 var store={stars:0,streak:0,best:0,done:{},mist:{},recent:[]};
 try{var raw=localStorage.getItem(KEY);if(raw){var o=JSON.parse(raw);for(var k in o)store[k]=o[k];}}catch(e){}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
-var MT={pos:"商的位置（從哪一位開始寫）",q:"試商（估商）",q0:"不夠除要寫 0",prod:"除法裡的乘",rem:"除法裡的減",down:"移下一位",pp:"乘法直式（部分積・進位）",sum:"部分積相加",final:"驗算：加上餘數"};
-var TIPS={pos:"先看被除數前幾位夠不夠除，夠除的那一位上面才開始寫商。",q:"把除數四捨五入想成整十（整百）來估，再用「乘、比」檢查：太大就改小，餘數比除數大就改大。",q0:"移下來以後還比除數小，商就寫 0，再移下一位。",prod:"商 × 除數，從個位乘起，別忘了進位；可以打開 🧮 試商小幫手對照。",rem:"由個位開始減，不夠減要向前一位借 1 當 10。",down:"每次只移下一位數，移的是被除數的下一個數字，對齊同一直行。",pp:"乘十位時從十位開始寫；每一位乘完記得加上進位。",sum:"部分積相加要對齊位數，由個位加起。",final:"除數 × 商算完後，再加上餘數，要等於被除數。"};
+var MT={pos:"商的位置（從哪一位開始寫）",q:"估商",q0:"不夠除要寫 0",prod:"除法裡的乘",rem:"除法裡的減",down:"移下一位",pp:"乘法直式（部分積・進位）",sum:"部分積相加",final:"驗算：加上餘數"};
+var TIPS={pos:"先看被除數前幾位夠不夠除，夠除的那一位上面才開始寫商。",q:"把除數想成接近的整十來估商（例如 21 想成 20、28 想成 30），再用「乘、比」檢查：太大就改小；剩下的比除數大或一樣多，就改大。",q0:"移下來以後還比除數小，商就寫 0，再移下一位。",prod:"商 × 除數，從個位乘起，別忘了進位；可以打開 🧮 估商小幫手對照。",rem:"由個位開始減，不夠減要向前一位借 1 當 10。",down:"每次只移下一位數，移的是被除數的下一個數字，對齊同一直行。",pp:"乘十位時從十位開始寫；每一位乘完記得加上進位。",sum:"部分積相加要對齊位數，由個位加起。",final:"除數 × 商算完後，再加上餘數，要等於被除數。"};
 function mistake(kind,prob){store.mist[kind]=(store.mist[kind]||0)+1;store.recent.unshift({p:prob,k:kind});store.recent=store.recent.slice(0,10);save();}
 var BADGES=[{n:5,t:"🐣 除法新手"},{n:20,t:"🧗 直式勇士"},{n:50,t:"🦸 驗算高手"},{n:100,t:"👑 除法大師"}];
 function renderScore(){$("score").textContent="⭐ "+store.stars;}
@@ -477,7 +478,7 @@ Runner.prototype.hintFor=function(digit){var f=this.field(),sh=this.sh;
   switch(f.kind){
     case"pos":return "從最前面開始看：前 "+f.L+" 位是 "+f.prefix+"，比 "+sh.d+" 大才夠除。";
     case"q":case"q0":var r=Core.roundDiv(f.d);if(f.cur<f.d)return f.cur+" 比 "+f.d+" 小，一個都分不到，商寫 0。";
-      return "把 "+f.d+" 想成 "+r+"，"+f.cur+" 裡面大約有 "+Math.floor(f.cur/r)+" 個 "+r+"。也可以打開 🧮 試商小幫手看看！";
+      return "把 "+f.d+" 想成 "+r+"，"+f.cur+" 裡面大約有 "+Math.floor(f.cur/r)+" 個 "+r+"。也可以打開 🧮 估商小幫手看看！";
     case"prod":return f.q+" × "+f.d+" ＝ ？（小幫手裡第 "+f.q+" 行）";
     case"rem":return "從個位減起，不夠減就向前一位借 1。"+f.cur+" − "+f.prod+" ＝ ？";
     case"down":return "被除數的"+f.place+"是 "+f.cells[0].ch+"，把它照直線移下來。";
@@ -510,7 +511,7 @@ Runner.prototype.press=function(dg){var f=this.field();if(!f)return;
   var cell=[ex.r,ex.c],m;
   switch(f.kind){
     case"q":var x=+dg,p=x*f.d;
-      m=x>f.q?f.d+" × "+x+" ＝ "+p+"，比 "+f.cur+" <b>大</b>，太大了，改小一點！":f.d+" × "+x+" ＝ "+p+"，"+f.cur+" − "+p+" ＝ "+(f.cur-p)+"，<b>還比 "+f.d+" 大</b>，商可以再大一點！";break;
+      m=x>f.q?f.d+" × "+x+" ＝ "+p+"，比 "+f.cur+" <b>大</b>，太大了，改小一點！":f.d+" × "+x+" ＝ "+p+"，"+f.cur+" − "+p+" ＝ "+(f.cur-p)+"，<b>"+(f.cur-p===f.d?"剩下的和 "+f.d+" 一樣多":"還比 "+f.d+" 大")+"</b>，還可以再分，商可以再大一點！";break;
     case"q0":m=f.cur+" 比 "+f.d+" 小，一個都分不到喔！";break;
     case"prod":m="再算一次 "+f.q+" × "+f.d+"。";break;
     case"rem":m="再減一次看看，記得借位！";break;
@@ -518,8 +519,8 @@ Runner.prototype.press=function(dg){var f=this.field();if(!f)return;
     default:m="這一格再想一想！";}
   this.bad(cell,m);};
 
-/* ---------- 試商小幫手 ---------- */
-function helperHTML(f,d){var cur=f&&(f.kind==="q"||f.kind==="q0"||f.kind==="prod")?f.cur:null,h="<b>🧮 試商小幫手："+d+" 的倍數</b>"+(cur!==null?"（和 "+cur+" 比一比）":"")+"<table>";
+/* ---------- 估商小幫手 ---------- */
+function helperHTML(f,d){var cur=f&&(f.kind==="q"||f.kind==="q0"||f.kind==="prod")?f.cur:null,h="<b>🧮 估商小幫手："+d+" 的倍數</b>"+(cur!==null?"（和 "+cur+" 比一比）":"")+"<table>";
   var best=cur!==null?Math.floor(cur/d):-1;
   for(var i=1;i<=9;i++){var v=d*i,cls=cur===null?"":(i===best?"best":v<=cur?"ok":"over");h+='<tr class="'+cls+'"><td>'+d+" × "+i+"</td><td>＝ <b>"+v+"</b></td><td>"+(cur===null?"":i===best?"👈 最接近":v<=cur?"≤ "+cur:"太大")+"</td></tr>";}
   return h+"</table>";}
@@ -529,7 +530,7 @@ var tabs=document.querySelectorAll("#tabs button");
 tabs.forEach(function(b){b.addEventListener("click",function(){tabs.forEach(function(x){x.classList.toggle("on",x===b);});document.querySelectorAll("section.page").forEach(function(p){p.classList.toggle("active",p.id===b.dataset.p);});if(b.dataset.p==="p-rec")renderRec();window.scrollTo(0,0);});});
 
 /* ---------- 示範 ---------- */
-var PRESETS=[[4567,7],[50,16],[384,12],[1236,12],[4567,23],[8765,43],[2468,123],[9876,234]];
+var PRESETS=[[4567,7],[50,16],[350,40],[384,12],[1236,12],[4567,23],[8765,43],[2468,123],[9876,234]];
 $("demoPresets").innerHTML=PRESETS.map(function(p){return '<button class="btn small white" data-n="'+p[0]+'" data-d="'+p[1]+'">'+p[0]+" ÷ "+p[1]+"</button>";}).join("");
 var demo=new Demo({sheet:"demoSheet",text:"demoText",no:"demoNo",prev:"dPrev",next:"dNext",title:"demoTitle",onStep:function(dm,s){
   $("dCheck").style.display=dm.sh.type==="div"&&s.final?"inline-block":"none";$("dBackDiv").style.display=dm.sh.type==="mul"?"inline-block":"none";}});
@@ -559,14 +560,14 @@ var runner=new Runner({sheet:"pSheet",prompt:"pPrompt",fb:"pFb",title:"pTitle",d
   onDraw:function(r){if($("pHelper").classList.contains("show"))$("pHelper").innerHTML=helperHTML(r.field(),pProb.d);},
   onDone:function(r){var dn=$("pDone");
     if(pPhase==="div"){pMiss+=r.miss;var sh=r.sh;dn.className="done show";
-      dn.innerHTML="🎉 <b>"+sh.N+" ÷ "+sh.d+" ＝ "+sh.Q+" … "+sh.R+"</b>"+(sh.R===0?"（整除）":"")+"<br>商是 "+String(sh.Q).length+" 位數。接下來<b>驗算</b>，確定答案是對的！<div class='btns'><button class='btn teal' id='pGoCheck'>✓ 開始驗算</button></div>";
+      dn.innerHTML="🎉 <b>"+sh.N+" ÷ "+sh.d+" ＝ "+sh.Q+" … "+sh.R+"</b>"+(sh.R===0?"（剛好分完，餘數是 0）":"")+"<br>商是 "+String(sh.Q).length+" 位數。接下來<b>驗算</b>，確定答案是對的！<div class='btns'><button class='btn teal' id='pGoCheck'>✓ 開始驗算</button></div>";
       $("pGoCheck").onclick=function(){pPhase="check";$("pHelper").className="helper";runner.load(Core.checkSheet(pProb.N,pProb.d),"驗算："+pProb.d+" × "+sh.Q+(sh.R?" ＋ "+sh.R:"")+" ＝ "+pProb.N+" ？",pProb.N+"÷"+pProb.d+"（驗算）");window.scrollTo(0,$("pTitle").getBoundingClientRect().top+scrollY-70);};}
     else{pMiss+=r.miss;var perfect=pMiss===0,gain=perfect?2:1;
       store.done["L"+pLevel]=(store.done["L"+pLevel]||0)+1;store.streak=perfect?store.streak+1:0;store.best=Math.max(store.best,store.streak);save();addStars(gain,dn);
       dn.className="done show";dn.innerHTML="✅ 驗算正確："+r.sh.a+" × "+r.sh.b+(r.sh.addend?" ＋ "+r.sh.addend:"")+" ＝ <b>"+r.sh.Fin+"</b> ＝ 被除數！<br>"+(perfect?"💯 全部一次就對，+2 ⭐！連續全對 "+store.streak+" 題 🔥":"完成 +1 ⭐！錯的地方記下來了，多練幾次就會更熟 💪")+"<div class='btns'><button class='btn org' id='pNext'>下一題 ➡</button></div>";
       $("pNext").onclick=function(){newPractice();};}}});
 pad("pPad",function(d,x){if(d!==null)runner.press(d);else if(x==="hint"){if(runner.field())runner.fb("info","💡 "+runner.hintFor());}else if(x==="help"){var hp=$("pHelper");hp.classList.toggle("show");hp.innerHTML=helperHTML(runner.field(),pProb.d);}},true);
-function newPractice(){var lv=pLevel===0?1+Math.floor(Math.random()*5):pLevel;pProb=Core.genDiv(lv);pPhase="div";pMiss=0;
+function newPractice(){var lv=pLevel===0?[1,2,3,5][Math.floor(Math.random()*4)]:pLevel;pProb=Core.genDiv(lv);pPhase="div";pMiss=0;
   runner.load(Core.buildDiv(pProb.N,pProb.d),pProb.N+" ÷ "+pProb.d+" ＝ ？",pProb.N+"÷"+pProb.d);
   if($("pHelper").classList.contains("show"))$("pHelper").innerHTML=helperHTML(runner.field(),pProb.d);}
 document.querySelectorAll("#pLevels [data-l]").forEach(function(b){b.addEventListener("click",function(){pLevel=+b.dataset.l;document.querySelectorAll("#pLevels [data-l]").forEach(function(x){x.classList.toggle("on",x===b);});newPractice();});});
@@ -698,17 +699,17 @@ function steps(N,d){var S=String(N),n=S.length,out=[],cur=0,started=false,Q=Math
   return out;}
 function goodND(){for(var t=0;t<200;t++){var d=ri(3,9),N=ri(1000,9999),R=N%d;if(R===0)continue;return {N:N,d:d,Q:Math.floor(N/d),R:R};}return {N:1234,d:5,Q:246,R:4};}
 
-/* ---------- 1. 生活應用題（無條件進位／捨去／平分） ---------- */
-var CEIL=[["學校有 {N} 位同學要去校外教學，每輛遊覽車最多坐 {d} 人。<br>至少要租幾輛遊覽車？","輛","剩下的 {R} 位同學也要有車坐，所以要再多 1 輛。"],
-  ["有 {N} 顆雞蛋，每盒裝 {d} 顆。<br>全部裝完，至少要幾個盒子？","個","剩下的 {R} 顆也要裝，所以要再多 1 個盒子。"],
-  ["圖書室有 {N} 本書要搬，每次最多搬 {d} 本。<br>全部搬完，至少要搬幾次？","次","最後的 {R} 本也要搬，所以要再多搬 1 次。"]];
+/* ---------- 1. 生活應用題（最少要幾個要加 1／最多可以幾個／平分） ---------- */
+var CEIL=[["學校有 {N} 位同學要去校外教學，每輛遊覽車最多坐 {d} 人。<br>最少要租幾輛遊覽車？","輛","剩下的 {R} 位同學也要有車坐，所以要再多 1 輛。"],
+  ["有 {N} 顆雞蛋，每盒裝 {d} 顆。<br>全部裝完，最少要幾個盒子？","個","剩下的 {R} 顆也要裝，所以要再多 1 個盒子。"],
+  ["圖書室有 {N} 本書要搬，每次最多搬 {d} 本。<br>全部搬完，最少要搬幾次？","次","最後的 {R} 本也要搬，所以要再多搬 1 次。"]];
 var FLOOR=[["有 {N} 公分的緞帶，每 {d} 公分做一個蝴蝶結。<br>最多可以做幾個蝴蝶結？","個","剩下的 {R} 公分不夠做一個，所以不能加 1。"],
   ["媽媽有 {N} 元，一包衛生紙 {d} 元。<br>最多可以買幾包？","包","剩下的 {R} 元不夠再買一包，所以不能加 1。"]];
 function fill(s,o){return s.replace(/\{(\w)\}/g,function(m,k){return o[k];});}
 function genWord(){var o=goodND(),r=Math.random(),it;
-  if(r<.45){var t=pick(CEIL);it={type:"num",q:fill(t[0],o),ans:o.Q+1,unit:t[1],label:"答：",why:"<b>"+o.N+" ÷ "+o.d+" ＝ "+o.Q+" … "+o.R+"</b>，"+fill(t[2],o)+"答案是 "+o.Q+" ＋ 1 ＝ <b>"+(o.Q+1)+"</b>（這叫做<b>無條件進位</b>）。",
+  if(r<.45){var t=pick(CEIL);it={type:"num",q:fill(t[0],o),ans:o.Q+1,unit:t[1],label:"答：",why:"<b>"+o.N+" ÷ "+o.d+" ＝ "+o.Q+" … "+o.R+"</b>，"+fill(t[2],o)+"答案是 "+o.Q+" ＋ 1 ＝ <b>"+(o.Q+1)+"</b>。",
       miss:"想一想：有餘數的時候，剩下的要不要也算進去？",hints:["先列式：<b>"+o.N+" ÷ "+o.d+"</b>。"].concat(steps(o.N,o.d)).concat(["有剩下 "+o.R+"，"+fill(t[2],o)])};}
-  else if(r<.7){var f=pick(FLOOR);it={type:"num",q:fill(f[0],o),ans:o.Q,unit:f[1],label:"答：",why:"<b>"+o.N+" ÷ "+o.d+" ＝ "+o.Q+" … "+o.R+"</b>，"+fill(f[2],o)+"答案是 <b>"+o.Q+"</b>（<b>無條件捨去</b>）。",
+  else if(r<.7){var f=pick(FLOOR);it={type:"num",q:fill(f[0],o),ans:o.Q,unit:f[1],label:"答：",why:"<b>"+o.N+" ÷ "+o.d+" ＝ "+o.Q+" … "+o.R+"</b>，"+fill(f[2],o)+"答案是 <b>"+o.Q+"</b>。",
       miss:"剩下的不夠做（買）一個，還能算嗎？",hints:["先列式：<b>"+o.N+" ÷ "+o.d+"</b>。"].concat(steps(o.N,o.d)).concat([fill(f[2],o)])};}
   else{var thing=pick([["張貼紙","張"],["顆彈珠","顆"],["公克麵粉","公克"]]);
     it={type:"multi",q:"有 "+o.N+" "+thing[0]+"，平分給 "+o.d+" 個人。<br>每人分到多少？還剩多少？",blanks:[{label:"每人分到",ans:o.Q,unit:thing[1]},{label:"還剩",ans:o.R,unit:thing[1]}],

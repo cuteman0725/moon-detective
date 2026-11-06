@@ -176,49 +176,95 @@ input[type=range]{width:100%;height:36px}
 <section class="page active" id="p-what">
   <div class="card">
     <h2>🌡️ 什麼是氣候？</h2>
-    <p class="lead">一個地方<b>很多年</b>的氣溫、雨量、風平均起來的樣子，就是<b>氣候</b>。今天會不會下雨、冷不冷，是<b>天氣</b>。</p>
-    <div class="big4">
-      <div style="background:#e76f51">🌡️ 氣溫<br><small>冷或熱</small></div>
-      <div style="background:#4d96ff">🌧️ 雨量<br><small>下多少雨（毫米 mm）</small></div>
-      <div style="background:#9b5de5">🧭 風向<br><small>風從哪裡吹來</small></div>
-      <div style="background:#2a9d8f">💨 風力<br><small>風有多強</small></div>
-    </div>
-    <div class="tip blue">☀️ <b>天氣</b>：短時間（今天、這幾天）的變化。<br>📅 <b>氣候</b>：長時間（很多年）的平均狀況。中央氣象署用 <b>30 年</b>的資料來算平均。</div>
+    <p class="small">翰林版 社會 4上・第二單元「家鄉的地形與氣候」・第 2 課「千變萬化的氣候」</p>
+    <p class="lead"><span class="tag2 book">📖 課本</span>「<b>氣候</b>是指長時間的天氣狀況」。也就是一個地方<b>很多年</b>的氣溫、雨量和風，平常大概是什麼樣子。</p>
+    <div class="tip blue"><span class="tag2 more">🔎 延伸</span>今天會不會下雨、冷不冷，是短時間的<b>天氣</b>。中央氣象署用 <b>30 年</b>的資料算出各地的平均，來說明氣候。</div>
   </div>
   <div class="card">
-    <h2>📈 氣候觀測站</h2>
-    <p class="small">點兩個測站來比一比！<span style="color:#4d96ff">■</span> 長條是每月雨量，<span style="color:#e63946">●</span> 折線是每月平均氣溫。（中央氣象署 1991～2020 年平均）</p>
-    <div class="btns" id="stBtns"></div>
-    <div class="legend" id="stLegend"></div>
-    <div class="mapbox" style="border-color:#dbe7ff"><svg id="stChart" viewBox="0 0 640 330"></svg></div>
-    <div class="tip" id="stSum"></div>
-  </div>
-  <div class="card">
-    <h2>🔍 三個氣候規律</h2>
+    <h2>📜 描述氣候的說法</h2>
+    <p class="lead">很久以前，人們就會觀察氣候，記下來給大家參考。點卡片看看！</p>
     <div class="grid2">
-      <button class="flip" style="--c:#e76f51"><div class="h">① 夏天熱、冬天冷 👆</div><div class="b">同一個地方，7 月比 1 月熱。臺北 1 月平均 16.4℃，7 月 29.9℃。</div></button>
-      <button class="flip" style="--c:#ffb703"><div class="h">② 冬天南部比北部暖 👆</div><div class="b">1 月時，恆春平均 21.1℃，臺北只有 16.4℃。夏天各地都差不多熱。</div></button>
-      <button class="flip" style="--c:#2a9d8f"><div class="h">③ 山上比平地涼、雨多 👆</div><div class="b">阿里山比嘉義高約 2,200 公尺，年平均氣溫低了約 12℃，一年的雨量卻多了一倍以上。</div></button>
+      <button class="flip" style="--c:#e76f51"><div class="h">📕 農民曆 👆</div><div class="b"><span class="tag2 book">📖 課本</span>先民把<b>氣候特徵、農耕經驗、魚群出現的時期</b>等資訊記在農民曆裡，給大家日常生活參考。例如：<b>冬至</b>可以種蘿蔔、捕烏魚。</div></button>
+      <button class="flip" style="--c:#4d96ff"><div class="h">🌧️ 梅雨 👆</div><div class="b"><span class="tag2 book">📖 課本</span>每年<b>五、六月</b>，臺灣常會有<b>長達數週的陰雨綿綿</b>，這就是梅雨。</div></button>
+      <button class="flip" style="--c:#ff9f1c"><div class="h">🐯 「秋老虎」「梅雨」 👆</div><div class="b"><span class="tag2 book">📖 課本</span>「秋老虎」「梅雨」這些說法，都是在<b>描述氣候的特色</b>。<br><span class="tag2 more">🔎 延伸</span>「秋老虎」是說：已經秋天了，天氣還是熱得像老虎一樣兇。</div></button>
     </div>
+  </div>
+  <div class="card">
+    <h2>📡 氣象觀測站</h2>
+    <p class="lead"><span class="tag2 book">📖 課本</span>科技進步以後，各地的<b>氣象觀測站</b>會提供天氣數據，讓我們知道每天的天氣變化。觀測站有測量<b>氣溫、雨量、風向和風速</b>的儀器：</p>
+    <div class="big4">
+      <div style="background:#e76f51">🌡️ 氣溫<br><small>最高溫度計、最低溫度計</small></div>
+      <div style="background:#4d96ff">🌧️ 雨量<br><small>各式雨量計</small></div>
+      <div style="background:#9b5de5">🧭 風向<br><small>風向風速儀</small></div>
+      <div style="background:#2a9d8f">💨 風速<br><small>風向風速儀</small></div>
+    </div>
+    <div class="tip green"><span class="tag2 book">📖 課本</span><b>交通部中央氣象署</b>把各地的天氣資料<b>長時間統計分析</b>，讓我們對家鄉的氣候有更進一步的認識。</div>
+    <h3>📋 看看觀測站的資料：花蓮站</h3>
+    <p class="small">課本用「花蓮氣象觀測站資料」的表格，說明從觀測站資料可以知道<b>全年的氣溫和降雨情形</b>（課本的表格還有最高氣溫、最低氣溫）。下面是中央氣象署公布的花蓮站每月平均（1991～2020 年）：</p>
+    <div class="tblwrap"><table class="dt" id="hlTbl"></table></div>
+    <div class="tip" id="hlSum"></div>
+    <p class="small">🔍 學習攻略：和同學一起上網，查查<b>離家鄉最近的氣象觀測站</b>，看看可以得到哪些資訊。</p>
   </div>
 </section>
 
-<!-- ===== 2 季風與雨季 ===== -->
-<section class="page" id="p-wind">
+<!-- ===== 2 家鄉的氣候 ===== -->
+<section class="page" id="p-home">
   <div class="card">
-    <h2>🌬️ 季風月曆</h2>
+    <h2>📊 怎麼看雨量氣溫圖？</h2>
+    <p class="lead"><span class="tag2 book">📖 課本</span>課本用「<b>全年月平均雨量氣溫圖</b>」來比較各地的氣候。看圖有 3 個步驟：</p>
+    <div class="timeline">
+      <div class="ev"><b>① 長條＝雨量</b>：看<b>左邊</b>的數字，單位是毫米（mm）。長條愈高，雨愈多。</div>
+      <div class="ev"><b>② 折線＝溫度</b>：看<b>右邊</b>的數字，單位是 ℃。點愈高，愈熱。</div>
+      <div class="ev"><b>③ 橫軸＝12 個月</b>：從 1 月排到 12 月。</div>
+    </div>
+    <div class="tip">👀 以<b>基隆</b>為例：1 月的雨量平均<b>約 330 毫米</b>，溫度平均<b>約 16 度</b>。（中央氣象署資料：327.8 mm、16.1℃）</div>
+  </div>
+  <div class="card">
+    <h2>🏙️ 北部和南部：基隆和恆春</h2>
+    <div class="legend" id="kgLegend"></div>
+    <div class="mapbox" style="border-color:#dbe7ff"><svg id="kgChart" viewBox="0 0 640 360" aria-label="基隆和恆春全年月平均雨量氣溫圖"></svg></div>
+    <p class="small">🟨 黃色那一格是<b>基隆的 1 月</b>：框起來的藍色長條，對左邊的數字大約到 <b>330</b>；圈起來的紅點，對右邊的數字大約在 <b>16</b> 度。</p>
+    <p class="small">基隆在臺灣北部，恆春在臺灣南部。資料：中央氣象署，1991～2020 年（民國 80～109 年）平均。</p>
+    <div class="grid2">
+      <button class="flip" style="--c:#4d96ff"><div class="h">❄️ 冬季比一比 👆</div><div class="b">1 月：基隆雨量 327.8 mm、16.1℃；恆春雨量只有 21.8 mm、21.1℃。<br><span class="tag2 book">📖 課本</span><b>冬季時，臺灣北部比南部多雨，而且氣溫較低。</b></div></button>
+      <button class="flip" style="--c:#e76f51"><div class="h">☀️ 夏季比一比 👆</div><div class="b">7 月：基隆 29.5℃、恆春 28.7℃，兩個地方都很熱。<br><span class="tag2 book">📖 課本</span><b>夏季時，全臺普遍溼熱。</b></div></button>
+    </div>
+  </div>
+  <div class="card">
+    <h2>⛰️ 平地和山地：嘉義和阿里山</h2>
+    <div class="legend" id="jaLegend"></div>
+    <div class="mapbox" style="border-color:#dbe7ff"><svg id="jaChart" viewBox="0 0 640 360" aria-label="嘉義和阿里山全年月平均雨量氣溫圖"></svg></div>
+    <p class="small">嘉義在平地，阿里山在山地（約 2,215 公尺）。資料：中央氣象署，1991～2020 年（民國 80～109 年）平均。</p>
+    <div class="grid2">
+      <button class="flip" style="--c:#4d96ff"><div class="h">🌧️ 雨量比一比 👆</div><div class="b">一整年的雨量：嘉義 1,821.8 mm，阿里山 3,940.7 mm，多了一倍以上。<br><span class="tag2 book">📖 課本</span><b>山地雨量較多。</b></div></button>
+      <button class="flip" style="--c:#e76f51"><div class="h">🌡️ 氣溫比一比 👆</div><div class="b">7 月：嘉義 28.9℃，阿里山只有 14.7℃。<br><span class="tag2 book">📖 課本</span><b>山地氣溫較低；夏季時，平地的氣溫高於山地。</b></div></button>
+      <button class="flip" style="--c:#2a9d8f"><div class="h">🏖️ 夏天去哪裡消暑？ 👆</div><div class="b"><span class="tag2 book">📖 課本</span>夏天很熱，大家除了到<b>海邊玩水</b>消暑，也會到<b>山上避暑</b>，因為山上比較涼。</div></button>
+    </div>
+    <div class="tip green"><span class="tag2 book">📖 課本</span>家鄉的氣候會因為<b>地理位置</b>（例如北部、南部）而不同，也會受<b>地形</b>（例如山地、平地）影響。</div>
+  </div>
+  <div class="card">
+    <h2>🔍 自己比一比</h2>
+    <p class="small">點兩個測站來比一比！<span style="color:#4d96ff">■</span> 長條是每月雨量，<span style="color:#e63946">●</span> 折線是每月平均氣溫。（中央氣象署 1991～2020 年平均）</p>
+    <div class="btns" id="stBtns"></div>
+    <div class="legend" id="stLegend"></div>
+    <div class="mapbox" style="border-color:#dbe7ff"><svg id="stChart" viewBox="0 0 640 360" aria-label="兩個測站的月平均雨量氣溫圖"></svg></div>
+    <div class="tip" id="stSum"></div>
+  </div>
+  <div class="card">
+    <h2>🗺️ 每個月的雨下在哪裡？</h2>
     <p class="lead">拉動月份，看看臺灣各地這個月下多少雨！<b>圓圈愈大＝雨愈多</b>。</p>
     <div class="qhead"><span>📅 <b id="monTxt" style="font-size:24px;color:#14574f">1 月</b></span><span id="monTag"></span></div>
     <input type="range" id="mon" min="1" max="12" step="1" value="1" aria-label="月份">
     <div class="row">
-      <div class="mapbox" style="max-width:420px;margin:0 auto"><svg id="rainMap" viewBox="0 0 400 545"></svg></div>
+      <div class="mapbox" style="max-width:420px;margin:0 auto"><svg id="rainMap" viewBox="0 0 400 545" aria-label="各測站每月平均雨量地圖"></svg></div>
       <div class="explain" id="monInfo"></div>
     </div>
   </div>
   <div class="card">
-    <h2>🗓️ 一年的雨從哪裡來？</h2>
+    <h2>🌬️ 季風和颱風 <span class="tag2 more">🔎 延伸</span></h2>
+    <p class="small">這本課本<b>沒有教</b>季風和颱風。下面只是讓你多知道一點，考試以課本為準。</p>
     <div class="tblwrap"><table class="dt" id="calTbl"></table></div>
-    <div class="tip green">💧 臺灣的雨主要來自<b>梅雨</b>（5～6 月）和<b>颱風</b>（多在 7～9 月），加上夏天的<b>午後雷陣雨</b>。冬天只有北部、東北部常下雨。</div>
+    <div class="tip">🔎 冬天常吹從東北方來的<b>東北季風</b>，北部、東北部比較容易下雨；夏天常吹<b>西南季風</b>；<b>颱風</b>多在 7～9 月來，帶來強風豪雨。新竹秋冬的強風，民間也叫「<b>九降風</b>」。</div>
   </div>
 </section>
 
@@ -226,18 +272,38 @@ input[type=range]{width:100%;height:36px}
 <section class="page" id="p-life">
   <div class="card">
     <h2>🏠 氣候和生活</h2>
-    <p class="lead">居民會依照氣候，想出適合的生活方式。點卡片看看！</p>
+    <p class="lead"><span class="tag2 book">📖 課本</span>家鄉有時候會受到<b>氣候</b>等因素影響，發展出不同的特色。點卡片看看課本的 3 個例子！</p>
     <div class="grid2">
-      <button class="flip" style="--c:#ff9f1c"><div class="h">🧅 屏東車城種洋蔥 👆</div><div class="b">利用<b>秋冬乾燥、陽光充足</b>的氣候種洋蔥。<span class="tag2 book">📖 課本例子</span></div></button>
-      <button class="flip" style="--c:#e76f51"><div class="h">🟠 新竹新埔曬柿餅 👆</div><div class="b">利用秋冬<b>強勁的九降風和陽光</b>，把柿子曬成柿餅；新竹的米粉也靠這陣風吹乾。<span class="tag2 book">📖 課本例子</span></div></button>
-      <button class="flip" style="--c:#ff6b9a"><div class="h">🌸 依季節安排活動 👆</div><div class="b">春天賞花，冬天泡溫泉，夏天玩水。<span class="tag2 book">📖 課本例子</span></div></button>
-      <button class="flip" style="--c:#4d96ff"><div class="h">☔ 多雨地區：騎樓 👆</div><div class="b">雨多的地方重視<b>避雨、防潮</b>，騎樓讓人下雨天也能走路、逛街。<span class="tag2 book">📖 課本重點</span></div></button>
-      <button class="flip" style="--c:#9b5de5"><div class="h">🪨 澎湖菜宅 👆</div><div class="b">澎湖冬天風強、雨少，居民用咾咕石（珊瑚礁石）圍成菜宅，<b>擋風</b>保護菜園。<span class="tag2 more">🔎 社會放大鏡</span></div></button>
+      <button class="flip" style="--c:#ff9f1c"><div class="h">🥭 臺南：盛產芒果 👆</div><div class="b"><span class="tag2 book">📖 課本例子</span><b>臺南</b>的氣候<b>溫暖</b>，盛產<b>芒果</b>。<br><span class="small">📊 臺南站最冷的 1 月平均也有 17.9℃，7 月有 29.3℃。</span></div></button>
+      <button class="flip" style="--c:#9b5de5"><div class="h">🍜 新竹：晒米粉 👆</div><div class="b"><span class="tag2 book">📖 課本例子</span><b>新竹</b>每年<b>十月到隔年二月</b>，有<b>來自北方乾冷的風</b>，非常適合晒米粉，所以新竹盛產米粉。<br><span class="small">📊 新竹站 10～12 月，每個月的雨量只有 50 多毫米，很乾燥。</span></div></button>
+      <button class="flip" style="--c:#2a9d8f"><div class="h">🏖️ 墾丁：度假勝地 👆</div><div class="b"><span class="tag2 book">📖 課本例子</span>位在南部的<b>墾丁</b>，<b>四季陽光普照</b>，成了<b>度假勝地</b>。<br><span class="small">📊 附近的恆春站，1 月平均也有 21.1℃。</span></div></button>
+    </div>
+    <p class="small">🤔 想一想：地理環境或氣候，怎麼影響你家鄉的特產？</p>
+  </div>
+  <div class="card">
+    <h2>🔬 探究社會有絕招：芒果</h2>
+    <p class="lead"><span class="tag2 book">📖 課本</span>跟著課本的步驟，一起研究芒果！先想一想，再點卡片看答案。</p>
+    <div class="grid2">
+      <button class="flip" style="--c:#ff9f1c"><div class="h">① 臺灣的芒果多種在南部，和什麼有關？ 👆</div><div class="b">和<b>氣溫</b>、<b>雨量</b>有關。</div></button>
+      <button class="flip" style="--c:#e76f51"><div class="h">② 哪個季節最常看到芒果在賣？ 👆</div><div class="b"><b>夏季</b>！夏天市場有很多芒果，也常吃到芒果冰。</div></button>
+      <button class="flip" style="--c:#57cc99"><div class="h">③ 上網查一查、問一問 👆</div><div class="b">🔍 上網查：芒果的品種多是從<b>國外引進</b>的，適合種在<b>氣候炎熱</b>的地區。<br>🗣️ 問水果攤老闆：<b>臺南玉井</b>的芒果最有名，推測和<b>丘陵地形</b>及<b>土壤</b>有關。</div></button>
+      <button class="flip" style="--c:#4d96ff"><div class="h">④ 換你試試看 👆</div><div class="b">寫下你家鄉的一種<b>農作物</b>：它種在哪一種<b>地形</b>？哪個<b>季節</b>盛產？</div></button>
+    </div>
+  </div>
+  <div class="card">
+    <h2>🧭 其他地方的例子 <span class="tag2 more">🔎 延伸</span></h2>
+    <p class="small">這些<b>不是這本課本的例子</b>，可以多知道一點，不用背。</p>
+    <div class="grid2">
+      <button class="flip" style="--c:#ff9f1c"><div class="h">🧅 屏東車城種洋蔥 👆</div><div class="b">利用<b>秋冬乾燥、陽光充足</b>的氣候種洋蔥。<span class="tag2 more">🔎 延伸</span></div></button>
+      <button class="flip" style="--c:#e76f51"><div class="h">🟠 新竹新埔曬柿餅 👆</div><div class="b">利用秋冬<b>強勁的風和陽光</b>，把柿子曬成柿餅。<span class="tag2 more">🔎 延伸</span></div></button>
+      <button class="flip" style="--c:#4d96ff"><div class="h">☔ 多雨地區：騎樓 👆</div><div class="b">雨多的地方重視<b>避雨</b>，騎樓讓人下雨天也能走路、逛街。<span class="tag2 more">🔎 延伸</span></div></button>
+      <button class="flip" style="--c:#9b5de5"><div class="h">🪨 澎湖菜宅 👆</div><div class="b">澎湖冬天風強，居民用咾咕石（珊瑚礁石）圍成菜宅，<b>擋風</b>保護菜園。<span class="tag2 more">🔎 延伸</span></div></button>
       <button class="flip" style="--c:#2a9d8f"><div class="h">🏚️ 蘭嶼地下屋 👆</div><div class="b">蘭嶼颱風多、風很強，傳統房屋往<b>地下挖</b>，可以躲避強風。<span class="tag2 more">🔎 延伸</span></div></button>
     </div>
   </div>
   <div class="card">
-    <h2>⚠️ 關心天氣變化</h2>
+    <h2>⚠️ 關心天氣變化 <span class="tag2 more">🔎 延伸</span></h2>
+    <p class="small">課本沒有這一段，是生活小提醒。</p>
     <div class="grid2">
       <button class="flip" style="--c:#e63946"><div class="h">🥵 太熱 👆</div><div class="b">多喝水、避免中暑，中午少在大太陽下活動。</div></button>
       <button class="flip" style="--c:#4d96ff"><div class="h">🥶 寒流 👆</div><div class="b">穿暖衣服、照顧長輩保暖；農漁業也要防寒，避免損失。</div></button>
@@ -282,7 +348,7 @@ input[type=range]{width:100%;height:36px}
 </section>
 </main>
 <nav class="tabs" id="tabs">
-  <button class="on" data-p="p-what"><span>🌡️</span>氣候是什麼</button><button data-p="p-wind"><span>🌬️</span>季風與雨季</button><button data-p="p-life"><span>🏠</span>氣候與生活</button><button data-p="p-game"><span>🎮</span>挑戰</button>
+  <button class="on" data-p="p-what"><span>🌡️</span>氣候是什麼</button><button data-p="p-home"><span>📊</span>家鄉的氣候</button><button data-p="p-life"><span>🏠</span>氣候與生活</button><button data-p="p-game"><span>🎮</span>挑戰</button>
 </nav>
 <script id="core">
 var Core=(function(){
@@ -295,7 +361,7 @@ return {proj:proj,SHAPES:SHAPES,SHAPE_SRC:SHAPE_SRC};
 })();
 </script>
 <script>
-window.PAGE={"key":"climate","burst":["⭐","🌦️","✨","🌬️"],"badges":[{"need":5,"label":"🌤️ 氣象小學徒"},{"need":15,"label":"🌦️ 氣候觀測員"},{"need":30,"label":"👑 氣候博士"}],"quiz":[{"t":"tf","q":"臺灣冬天吹東北季風，北部和東北部（像基隆、宜蘭）常常又濕又冷。","a":0,"x":"對！東北季風經過海洋帶來水氣，吹到北部、東北部就容易下雨。"},{"t":"tf","q":"山上的氣溫通常比平地高。","a":1,"x":"錯！地勢愈高，氣溫愈低。阿里山的年平均氣溫只有約 11℃，比平地的嘉義低了 12 度左右。"},{"t":"tf","q":"颱風大多在每年 12 月到 2 月侵襲臺灣。","a":1,"x":"錯！颱風大多在夏天到秋天（約 7～9 月）來，12～2 月是冬天，吹東北季風。"},{"t":"tf","q":"梅雨季大約在每年的 5～6 月。","a":0,"x":"對！春夏交替的 5～6 月常常連續下雨，就是梅雨季。"},{"t":"tf","q":"「天氣」是說一個地方很多年的平均狀況，「氣候」是說今天下不下雨。","a":1,"x":"說反了！天氣是短時間（今天、這幾天）的變化；氣候是很多年平均起來的狀況。"},{"t":"tf","q":"冬天時，中南部的雨通常比北部少。","a":0,"x":"對！冬天東北季風被中央山脈擋住，中南部比較乾燥少雨。"},{"t":"tf","q":"多雨的地方，房子常常會加上方便避雨、防潮的設計。","a":0,"x":"對！例如騎樓可以讓人下雨天也能走路、逛街。"},{"t":"tf","q":"颱風只會帶來災害，對臺灣一點好處也沒有。","a":1,"x":"錯！颱風會帶來大量雨水，是水庫的重要水源之一；但也要做好防颱準備。"},{"t":"mc","q":"想了解家鄉的氣候，最適合觀察下列哪些資料？","o":["氣溫、雨量、風向和風力","人口數和學校數","道路的長度"],"a":0,"x":"氣候要看氣溫、雨量（降雨量）、風向和風力。"},{"t":"mc","q":"新竹新埔一帶在秋冬曬柿餅，主要是利用哪種氣候特色？","o":["又強又乾的「九降風」加上陽光","5～6 月的梅雨","夏天的午後雷陣雨"],"a":0,"x":"秋冬強勁乾燥的九降風和陽光，能把柿子和米粉吹乾、曬乾。"},{"t":"mc","q":"冬天寒流來時，下列哪一個做法最適當？","o":["穿暖衣服，注意家中長輩保暖","到海邊游泳","把窗戶全打開吹風"],"a":0,"x":"寒流時氣溫很低，要保暖；農漁民也要做好防寒，減少損失。"},{"t":"mc","q":"夏天到秋天常帶來強風豪雨，可能造成淹水和土石流的是什麼？","o":["颱風","東北季風","寒流"],"a":0,"x":"颱風帶來強風豪雨，要提前做好防颱準備。"},{"t":"mc","q":"澎湖冬天風很強，居民用咾咕石堆成「菜宅」，主要用途是什麼？","o":["擋住強風，保護菜園","讓房子比較涼快","收集雨水"],"a":0,"x":"菜宅是圍住菜園的石牆，可以擋強風，讓蔬菜長得起來。"},{"t":"mc","q":"臺灣夏天主要吹什麼季風？","o":["西南季風","東北季風","西北季風"],"a":0,"x":"夏天吹西南季風，帶來溫暖潮濕的空氣；冬天吹東北季風。"},{"t":"mc","q":"下列哪一個活動，最適合安排在冬天？","o":["泡溫泉","到溪邊玩水","戶外游泳"],"a":0,"x":"冬天天氣冷，泡溫泉正舒服！居民會依季節安排活動。"},{"t":"mc","q":"長時間沒有下雨，最可能發生什麼問題？","o":["缺水","淹水","土石流"],"a":0,"x":"降雨不足，水庫的水變少，就可能缺水，要節約用水。"},{"t":"code","bank":"c","q":"每年 5～6 月，常常連續下好幾天的雨。（　）","a":"丙","x":"丙 梅雨。"},{"t":"code","bank":"c","q":"冬天從東北方吹來，讓基隆、宜蘭常下雨。（　）","a":"甲","x":"甲 東北季風。"},{"t":"code","bank":"c","q":"夏天從西南方吹來，帶來溫暖潮濕的空氣。（　）","a":"乙","x":"乙 西南季風。"},{"t":"code","bank":"c","q":"夏秋季節出現，帶來強風和豪雨，要做好防範。（　）","a":"丁","x":"丁 颱風。"},{"t":"code","bank":"c","q":"新竹秋冬又強又乾的風，有助於曬米粉和柿餅。（　）","a":"戊","x":"戊 九降風。"},{"t":"code","bank":"l","q":"雨很多的地方，在店門前留一段有屋頂的走廊，下雨也能走路。（　）","a":"A","x":"A 騎樓。"},{"t":"code","bank":"l","q":"蘭嶼的傳統房屋往地下挖，可以躲避颱風的強風。（　）","a":"C","x":"C 地下屋。"},{"t":"code","bank":"l","q":"屏東車城利用秋冬乾燥、陽光足的天氣種植的作物。（　）","a":"E","x":"E 種洋蔥。"},{"t":"code","bank":"l","q":"澎湖用石頭圍成的牆，保護菜園不被強風吹壞。（　）","a":"B","x":"B 菜宅。"},{"t":"table","tbl":"cw","q":"看表格：1 月時，哪個測站的雨量最多？","o":["基隆","臺北","高雄"],"a":0,"x":"基隆 1 月有 327.8 mm，因為冬天東北季風帶來雨。"},{"t":"table","tbl":"cw","q":"看表格：高雄 1 月和 7 月的雨量比起來怎麼樣？","o":["7 月多很多（南部夏天多雨、冬天乾燥）","1 月比較多","差不多"],"a":0,"x":"高雄 1 月只有 19.1 mm，7 月有 377.2 mm，南部夏雨冬乾。"},{"t":"table","tbl":"cw","q":"看表格：7 月時，阿里山比臺北大約涼快幾度？","o":["約 15 度","約 5 度","約 25 度"],"a":0,"x":"29.9 − 14.7 = 15.2，大約 15 度。山上比平地涼快。"},{"t":"table","tbl":"cw","q":"看表格判斷：「1 月時，高雄比臺北溫暖」這句話對嗎？","o":["⭕ 對","❌ 錯"],"keep":true,"a":0,"x":"對！高雄 19.7℃ 比臺北 16.4℃ 高，冬天南部比北部暖。"},{"t":"table","tbl":"yr","q":"看表格：地勢愈高，年平均氣溫會怎樣？","o":["愈低","愈高","不會變"],"a":0,"x":"嘉義 23.6℃ → 阿里山 11.4℃ → 玉山 4.4℃，愈高愈冷。"},{"t":"table","tbl":"yr","q":"看表格判斷：「山地阿里山一年的雨量比平地嘉義多」這句話對嗎？","o":["⭕ 對","❌ 錯"],"keep":true,"a":0,"x":"對！阿里山 3,940.7 mm，比嘉義 1,821.8 mm 多一倍以上；山地通常比平地多雨。"}],"banks":{"c":[["甲","東北季風"],["乙","西南季風"],["丙","梅雨"],["丁","颱風"],["戊","九降風"]],"l":[["A","騎樓"],["B","菜宅（咾咕石牆）"],["C","地下屋"],["D","曬柿餅"],["E","種洋蔥"]]},"tables":{"cw":"<table class=\"dt\"><caption>四個測站 1 月和 7 月的平均氣溫與雨量（中央氣象署 1991～2020 年平均）</caption>\n<tr><th>測站</th><th>1月氣溫</th><th>7月氣溫</th><th>1月雨量</th><th>7月雨量</th></tr>\n<tr><td>基隆</td><td>16.1℃</td><td>29.5℃</td><td>327.8 mm</td><td>119.5 mm</td></tr>\n<tr><td>臺北</td><td>16.4℃</td><td>29.9℃</td><td>90.5 mm</td><td>226.1 mm</td></tr>\n<tr><td>高雄</td><td>19.7℃</td><td>29.4℃</td><td>19.1 mm</td><td>377.2 mm</td></tr>\n<tr><td>阿里山</td><td>6.5℃</td><td>14.7℃</td><td>86.8 mm</td><td>694.7 mm</td></tr></table>","yr":"<table class=\"dt\"><caption>全年平均（中央氣象署 1991～2020 年平均）</caption>\n<tr><th>測站</th><th>大約高度</th><th>年平均氣溫</th><th>年雨量</th></tr>\n<tr><td>嘉義（平地）</td><td>約 27 公尺</td><td>23.6℃</td><td>1,821.8 mm</td></tr>\n<tr><td>阿里山（山地）</td><td>約 2,215 公尺</td><td>11.4℃</td><td>3,940.7 mm</td></tr>\n<tr><td>玉山（高山）</td><td>約 3,845 公尺</td><td>4.4℃</td><td>2,902.5 mm</td></tr></table>"},"sort":{"baskets":[["rain","🌧️ 因為多雨","#4d96ff"],["wind","🌬️ 因為風強","#9b5de5"],["dry","☀️ 利用乾燥、陽光","#ff9f1c"],["cold","🥶 因為寒冷","#2a9d8f"]],"items":[["騎樓","rain"],["雨衣雨傘","rain"],["除濕機","rain"],["菜宅石牆","wind"],["地下屋","wind"],["防風林","wind"],["車城種洋蔥","dry"],["寒流時穿羽絨衣","cold"],["冬天泡溫泉","cold"],["新竹曬米粉","wind"]],"hint":{"騎樓":"是為了下雨天也能走路。","雨衣雨傘":"是下雨時用的。","除濕機":"是因為空氣很潮濕。","菜宅石牆":"是澎湖用來擋強風的。","地下屋":"是蘭嶼用來躲強風的。","防風林":"是種在海邊擋風的樹。","車城種洋蔥":"利用秋冬乾燥、陽光充足。","新埔曬柿餅":"利用九降風和陽光把柿子曬乾（風乾），放在「乾燥、陽光」也可以喔！","寒流時穿羽絨衣":"是為了保暖。","冬天泡溫泉":"天冷的時候最舒服。","新竹曬米粉":"利用秋冬的九降風把米粉吹乾。"},"done":"氣候會影響我們的生活方式！"},"src":[["新北市江翠國小四年級教科書版本：社會為翰林版（金石堂 江翠國小書單）",""],["臺南市陽明國小 115 學年度 四年級社會（翰林）課程計畫：第五週「第2課 千變萬化的氣候」，學習重點 Ab-II-1、Ab-II-2","https://course.tn.edu.tw/"],["課本例子（車城洋蔥、新埔柿餅、賞花與泡溫泉、避雨防潮與防風建築、關心天氣變化）參考：奶瓶老師〈四上社(二)-2 家鄉的氣候與生活〉（翰林版教學筆記）","https://change1220.pixnet.net/blog/posts/12222239040"],["桃園市永順國小 李桂萍〈社會2-2千變萬化的氣候〉（教育雲，翰林版教學設計）","https://market.cloud.edu.tw/resources/web/1857213"],["各測站月平均氣溫、雨量：交通部中央氣象署〈氣候月平均〉1991～2020 年平均值（新竹站為 1992～2020）","https://www.cwa.gov.tw/V8/C/C/Statistics/monthlymean.html"],["縣市界線：內政部國土測繪中心〈直轄市、縣市界線(TWD97經緯度)〉（政府資料開放平臺，政府資料開放授權條款第1版），經 taiwan-atlas（MIT）轉檔簡化","https://data.gov.tw/dataset/7442"],["測站位置是大約位置（示意）；季風箭頭是示意圖，不是真實風場。",""]],"st":{"基隆":[121.74,25.13,[16.1,16.4,18.1,21.6,24.8,27.6,29.5,29.1,27.2,24.2,21.5,18.0],[327.8,349.8,274.4,211.1,284.1,290.4,119.5,211.4,390.1,377.6,396.9,356.6]],"臺北":[121.51,25.04,[16.4,16.9,18.8,22.3,25.6,28.2,29.9,29.5,27.7,24.6,21.9,18.2],[90.5,143.2,157.2,152.5,239.9,345.0,226.1,337.8,315.2,150.2,83.2,88.7]],"宜蘭":[121.75,24.76,[16.6,17.1,19.0,21.9,24.7,27.3,28.9,28.6,26.8,23.8,21.1,17.9],[155.2,147.0,115.3,125.5,222.5,189.6,140.3,243.4,409.6,428.1,335.8,232.2]],"新竹":[121.01,24.83,[15.7,16.0,18.0,21.9,25.2,27.9,29.3,28.9,27.3,24.4,21.5,17.7],[76.5,121.0,157.8,162.6,245.4,253.6,120.2,197.1,174.5,53.6,51.1,57.7]],"臺中":[120.68,24.15,[17.0,17.7,20.1,23.5,26.4,28.1,28.9,28.4,27.8,25.5,22.6,18.7],[36.6,63.0,86.9,126.8,249.6,329.0,303.3,340.8,147.5,25.0,23.8,30.5]],"花蓮":[121.61,23.98,[18.3,18.7,20.3,22.8,25.3,27.5,28.7,28.4,27.0,24.9,22.5,19.7],[57.6,74.7,76.7,76.6,186.9,165.5,198.5,258.8,329.9,350.6,175.1,83.6]],"嘉義":[120.43,23.5,[16.8,17.7,20.2,23.5,26.3,28.3,28.9,28.4,27.4,24.8,22.0,18.4],[27.5,44.9,53.0,86.6,170.0,318.7,387.4,443.9,212.3,30.2,21.5,25.8]],"阿里山":[120.81,23.51,[6.5,7.3,9.5,11.5,13.1,14.4,14.7,14.6,14.0,12.4,10.7,8.0],[86.8,109.9,146.6,223.9,510.5,674.7,694.7,813.1,402.7,141.2,66.9,69.7]],"玉山":[120.96,23.47,[-0.5,-0.2,1.4,3.6,6.0,7.4,8.0,7.8,7.4,6.6,4.1,1.2],[83.7,67.2,94.8,201.2,423.6,459.6,434.2,516.0,297.2,145.1,98.3,81.6]],"澎湖":[119.56,23.57,[17.1,17.4,19.9,23.2,25.9,27.9,28.9,28.6,28.0,25.5,22.7,19.1],[20.9,38.1,50.7,77.9,117.8,148.0,163.2,229.4,100.3,30.1,26.0,28.1]],"臺南":[120.2,22.99,[17.9,18.9,21.6,24.9,27.4,28.8,29.3,28.9,28.5,26.3,23.4,19.6],[20.7,21.6,30.4,69.8,165.6,370.5,374.6,466.1,170.5,30.8,23.8,16.2]],"高雄":[120.32,22.57,[19.7,20.7,23.0,25.7,27.8,28.9,29.4,28.9,28.5,26.9,24.5,21.2],[19.1,17.7,32.3,68.4,202.2,416.2,377.2,512.4,224.5,53.4,25.6,19.2]],"恆春":[120.74,22.0,[21.1,21.7,23.3,25.4,27.3,28.4,28.7,28.3,27.8,26.5,24.7,22.2],[21.8,23.2,16.0,35.2,146.6,350.7,391.3,533.4,320.3,125.3,58.3,29.0]]}};
+window.PAGE={"key":"climate","burst":["⭐","🌦️","✨","🌬️"],"badges":[{"need":5,"label":"🌤️ 氣象小學徒"},{"need":15,"label":"🌦️ 氣候觀測員"},{"need":30,"label":"👑 氣候博士"}],"quiz":[{"t":"tf","q":"冬季時，臺灣北部比南部多雨，氣溫也比較低。","a":0,"x":"對！課本比較基隆和恆春：冬季時北部雨量比南部多、氣溫也較低；夏季時全臺普遍溼熱。"},{"t":"tf","q":"山上的氣溫通常比平地高。","a":1,"x":"錯！地勢愈高，氣溫愈低。阿里山的年平均氣溫只有約 11℃，比平地的嘉義低了 12 度左右。"},{"t":"tf","q":"農民曆記載了先民觀察到的氣候特徵、農耕經驗和魚群出現時期等資訊。","a":0,"x":"對！農民曆累積許多先民的經歷和體驗，是過去農業社會日常生活的參考。"},{"t":"tf","q":"梅雨季大約在每年的 5～6 月。","a":0,"x":"對！每年五、六月，臺灣常有長達數週的陰雨綿綿，稱為「梅雨」。"},{"t":"tf","q":"「天氣」是說一個地方很多年的平均狀況，「氣候」是說今天下不下雨。","a":1,"x":"課本：氣候是指長時間的天氣狀況。說反了！天氣是短時間（今天、這幾天）的變化；氣候是很多年平均起來的狀況。"},{"t":"tf","q":"冬天時，中南部的雨通常比北部少。","a":0,"x":"對！冬季時臺灣北部比南部多雨且氣溫較低（課本用基隆和恆春的雨量氣溫圖比較）。"},{"t":"mc","q":"課本中，南部的墾丁成為度假勝地，和什麼氣候特色有關？","o":["四季陽光普照","每年都會下雪","全年乾冷"],"a":0,"x":"課本：位在南部的墾丁四季陽光普照，成了度假勝地。"},{"t":"mc","q":"課本說臺南盛產芒果，是因為臺南的氣候怎麼樣？","o":["溫暖","寒冷","乾冷多風"],"a":0,"x":"課本：臺南的氣候溫暖，盛產芒果；探究也提到芒果適合種在氣候炎熱的地區。"},{"t":"mc","q":"想了解家鄉的氣候，最適合觀察下列哪些資料？","o":["氣溫、雨量、風向和風速","人口數和學校數","道路的長度"],"a":0,"x":"氣象觀測站設有測量氣溫、雨量、風向和風速的儀器。"},{"t":"mc","q":"新竹盛產米粉，課本說是利用什麼氣候特色？","o":["十月到隔年二月，來自北方乾冷的風","五、六月的梅雨","夏季全臺溼熱"],"a":0,"x":"課本：新竹每年十月到隔年二月有來自北方乾冷的風，非常適合晒米粉。"},{"t":"mc","q":"課本「基隆、恆春全年月平均雨量氣溫圖」中，長條圖的縱軸代表什麼？","o":["雨量（毫米）","溫度（℃）","月分"],"a":0,"x":"讀圖：長條圖的縱軸代表雨量（mm），折線圖的縱軸代表溫度（℃），橫軸代表 12 個月。"},{"t":"mc","q":"夏季時，除了到海邊玩水消暑，課本說民眾也會選擇到哪裡避暑？","o":["山上","沙漠","地下室"],"a":0,"x":"課本：山地雨量較多、氣溫較低，夏季民眾會到山上避暑。"},{"t":"mc","q":"課本說，哪個單位經過長時間統計分析各地的天氣資料，讓我們更了解家鄉的氣候？","o":["交通部中央氣象署","內政部戶政司","國家公園管理處"],"a":0,"x":"課本：各地氣象觀測站提供天氣數據，交通部中央氣象署經過長時間統計分析，讓我們對家鄉氣候有更進一步的認識。"},{"t":"mc","q":"讀課本的雨量氣溫圖：基隆一月的平均雨量大約是多少？","o":["約 330 毫米","約 33 毫米","約 3,300 毫米"],"a":0,"x":"讀圖123：以基隆為例，一月雨量平均約 330 毫米，溫度平均約 16 度。"},{"t":"mc","q":"「秋老虎」「梅雨」這些說法，是在描述什麼？","o":["氣候的特色","地形的種類","人口的變化"],"a":0,"x":"課本：「秋老虎」「梅雨」的說法，都是在描述氣候的特色。"},{"t":"mc","q":"課本說，家鄉的氣候會因為什麼而有所不同？","o":["地理位置和地形","人口多少","交通路線"],"a":0,"x":"課本：家鄉的氣候會因為地理位置而不同（例如北部和南部），也會受地形影響（例如山地和平地）。"},{"t":"tf","q":"夏季時，全臺灣普遍溼熱。","a":0,"x":"對！課本：夏季時全臺普遍溼熱；冬季時北部比南部多雨且氣溫較低。"},{"t":"mc","q":"課本「嘉義、阿里山全年月平均雨量氣溫圖」告訴我們什麼？","o":["夏季時，平地的氣溫高於山地","山地的雨量比平地少","阿里山比嘉義熱"],"a":0,"x":"課本：家鄉的氣候也會受地形影響，山地雨量較多、氣溫較低。"},{"t":"mc","q":"探究社會有絕招：通常在哪個季節最容易在市場買到芒果？","o":["夏季","冬季","一整年都買不到"],"a":0,"x":"課本探究：夏季時市場可以買到芒果，也常吃芒果冰。"},{"t":"mc","q":"臺南玉井的芒果很有名，課本探究推測和什麼有關？","o":["丘陵地形和土壤","下雪","人口很多"],"a":0,"x":"探究社會有絕招：詢問水果攤老闆後，推測和丘陵地形及土壤有關；芒果適合種在氣候炎熱的地區。"},{"t":"code","bank":"w","q":"長時間的天氣狀況。（　）","a":"甲","x":"甲 氣候。課本：氣候是指長時間的天氣狀況。"},{"t":"code","bank":"w","q":"每年五、六月，臺灣常有長達數週的陰雨綿綿。（　）","a":"乙","x":"乙 梅雨。"},{"t":"code","bank":"w","q":"先民把氣候特徵、農耕經驗、魚群出現的時期記下來，給大家生活參考。（　）","a":"丙","x":"丙 農民曆。"},{"t":"code","bank":"w","q":"設有溫度計、雨量計、風向風速儀，提供各地的天氣數據。（　）","a":"丁","x":"丁 氣象觀測站。"},{"t":"code","bank":"w","q":"把各地的天氣資料長時間統計分析，讓我們更認識家鄉氣候的政府單位。（　）","a":"戊","x":"戊 交通部中央氣象署。"},{"t":"code","bank":"l","q":"氣候溫暖，盛產芒果。（　）","a":"A","x":"A 臺南。"},{"t":"code","bank":"l","q":"十月到隔年二月有來自北方乾冷的風，適合晒米粉。（　）","a":"B","x":"B 新竹。"},{"t":"code","bank":"l","q":"位在南部，四季陽光普照，成了度假勝地。（　）","a":"C","x":"C 墾丁。"},{"t":"code","bank":"l","q":"在山地，雨量較多、氣溫較低，夏天可以到這裡避暑。（　）","a":"D","x":"D 阿里山。課本用嘉義和阿里山比較平地和山地。"},{"t":"code","bank":"l","q":"在北部，冬季時比恆春多雨，氣溫也比較低。（　）","a":"E","x":"E 基隆。課本用基隆和恆春比較北部和南部。"},{"t":"table","tbl":"cw","q":"看表格：1 月時，哪個測站的雨量最多？","o":["基隆","臺北","高雄"],"a":0,"x":"基隆 1 月有 327.8 mm（課本說約 330 毫米）。冬季時北部比南部多雨。"},{"t":"table","tbl":"cw","q":"看表格：1 月時，基隆和恆春比起來怎麼樣？","o":["基隆比較冷、雨比較多","基隆比較暖、雨比較少","兩個地方差不多"],"a":0,"x":"基隆 16.1℃、327.8 mm；恆春 21.1℃、21.8 mm。課本：冬季時北部比南部多雨，而且氣溫較低。"},{"t":"table","tbl":"cw","q":"看表格判斷：「7 月時，基隆和恆春都超過 28℃，夏季全臺都很熱」這句話對嗎？","o":["⭕ 對","❌ 錯"],"keep":true,"a":0,"x":"對！基隆 29.5℃、恆春 28.7℃。課本：夏季時全臺普遍溼熱。"},{"t":"table","tbl":"cw","q":"看表格：高雄 1 月和 7 月的雨量比起來怎麼樣？","o":["7 月多很多（南部夏天多雨、冬天乾燥）","1 月比較多","差不多"],"a":0,"x":"高雄 1 月只有 19.1 mm，7 月有 377.2 mm，南部夏雨冬乾。"},{"t":"table","tbl":"cw","q":"看表格：7 月時，阿里山比臺北大約涼快幾度？","o":["約 15 度","約 5 度","約 25 度"],"a":0,"x":"29.9 − 14.7 = 15.2，大約 15 度。山上比平地涼快。"},{"t":"table","tbl":"cw","q":"看表格判斷：「1 月時，高雄比臺北溫暖」這句話對嗎？","o":["⭕ 對","❌ 錯"],"keep":true,"a":0,"x":"對！高雄 19.7℃ 比臺北 16.4℃ 高，冬天南部比北部暖。"},{"t":"table","tbl":"yr","q":"看表格：地勢愈高，年平均氣溫會怎樣？","o":["愈低","愈高","不會變"],"a":0,"x":"嘉義 23.6℃ → 阿里山 11.4℃ → 玉山 4.4℃，愈高愈冷。"},{"t":"table","tbl":"yr","q":"看表格判斷：「山地阿里山一年的雨量比平地嘉義多」這句話對嗎？","o":["⭕ 對","❌ 錯"],"keep":true,"a":0,"x":"對！阿里山 3,940.7 mm，比嘉義 1,821.8 mm 多一倍以上；課本：山地雨量較多。"}],"banks":{"w":[["甲","氣候"],["乙","梅雨"],["丙","農民曆"],["丁","氣象觀測站"],["戊","交通部中央氣象署"]],"l":[["A","臺南"],["B","新竹"],["C","墾丁"],["D","阿里山"],["E","基隆"]]},"tables":{"cw":"<table class=\"dt\"><caption>五個測站 1 月和 7 月的平均氣溫與雨量（中央氣象署 1991～2020 年平均）</caption>\n<tr><th>測站</th><th>1月氣溫</th><th>7月氣溫</th><th>1月雨量</th><th>7月雨量</th></tr>\n<tr><td>基隆</td><td>16.1℃</td><td>29.5℃</td><td>327.8 mm</td><td>119.5 mm</td></tr>\n<tr><td>臺北</td><td>16.4℃</td><td>29.9℃</td><td>90.5 mm</td><td>226.1 mm</td></tr>\n<tr><td>高雄</td><td>19.7℃</td><td>29.4℃</td><td>19.1 mm</td><td>377.2 mm</td></tr>\n<tr><td>恆春</td><td>21.1℃</td><td>28.7℃</td><td>21.8 mm</td><td>391.3 mm</td></tr>\n<tr><td>阿里山</td><td>6.5℃</td><td>14.7℃</td><td>86.8 mm</td><td>694.7 mm</td></tr></table>","yr":"<table class=\"dt\"><caption>全年平均（中央氣象署 1991～2020 年平均）</caption>\n<tr><th>測站</th><th>大約高度</th><th>年平均氣溫</th><th>年雨量</th></tr>\n<tr><td>嘉義（平地）</td><td>約 27 公尺</td><td>23.6℃</td><td>1,821.8 mm</td></tr>\n<tr><td>阿里山（山地）</td><td>約 2,215 公尺</td><td>11.4℃</td><td>3,940.7 mm</td></tr>\n<tr><td>玉山（高山）</td><td>約 3,845 公尺</td><td>4.4℃</td><td>2,902.5 mm</td></tr></table>"},"sort":{"baskets":[["warm","☀️ 溫暖、陽光多","#ff9f1c"],["wind","🌬️ 風大、乾燥","#9b5de5"],["rain","🌧️ 雨多、潮濕","#4d96ff"],["cool","🥶 涼爽、寒冷","#2a9d8f"]],"items":[["臺南盛產芒果","warm"],["墾丁成為度假勝地","warm"],["夏天到海邊玩水消暑","warm"],["新竹晒米粉","wind cool"],["夏天到山上避暑","cool"],["冬天去阿里山穿厚外套","cool"],["梅雨季出門帶雨傘","rain"],["冬天去基隆常要帶傘","rain"],["除濕機","rain"],["海邊種防風林","wind"]],"hint":{"臺南盛產芒果":"課本：臺南的氣候溫暖，盛產芒果。","墾丁成為度假勝地":"課本：墾丁四季陽光普照，成了度假勝地。","夏天到海邊玩水消暑":"是因為夏季很熱，全臺普遍溼熱。","新竹晒米粉":"課本：新竹十月到隔年二月有「來自北方乾冷的風」，最適合晒米粉。（放「風大、乾燥」或「涼爽、寒冷」都可以）","夏天到山上避暑":"課本：山地氣溫較低，夏天可以到山上避暑。","冬天去阿里山穿厚外套":"山地氣溫較低，阿里山 1 月平均只有 6.5℃。","梅雨季出門帶雨傘":"課本：五、六月的梅雨，常常陰雨綿綿好幾週。","冬天去基隆常要帶傘":"課本：冬季時北部比南部多雨。","除濕機":"是因為空氣很潮濕。","海邊種防風林":"（延伸）是種在海邊擋風的樹。"},"done":"📖 課本：家鄉會受到氣候等因素影響，發展出不同的特色！"},"src":[["📖 翰林版 國小社會 4上（第三冊）第二單元第2課「千變萬化的氣候」課本 34～39 頁：氣候的定義、農民曆、梅雨、氣象觀測站、基隆和恆春、嘉義和阿里山的雨量氣溫圖、臺南芒果、新竹米粉、墾丁、探究社會有絕招（芒果）。本頁標「📖 課本」的內容以這本課本為準（只摘短句，其他用自己的話說）。",""],["臺南市陽明國小 115 學年度 四年級社會（翰林）課程計畫：第五週「第2課 千變萬化的氣候」，學習重點 Ab-II-1、Ab-II-2","https://course.tn.edu.tw/"],["🔎 延伸例子（車城洋蔥、新埔柿餅、騎樓、關心天氣變化）參考：奶瓶老師〈四上社(二)-2 家鄉的氣候與生活〉教學筆記。這些不是這本課本的例子，本頁只當作延伸。","https://change1220.pixnet.net/blog/posts/12222239040"],["桃園市永順國小 李桂萍〈社會2-2千變萬化的氣候〉（教育雲，翰林版教學設計）","https://market.cloud.edu.tw/resources/web/1857213"],["各測站月平均氣溫、雨量：交通部中央氣象署〈氣候月平均〉1991～2020 年平均值（新竹站為 1992～2020）","https://www.cwa.gov.tw/V8/C/C/Statistics/monthlymean.html"],["縣市界線：內政部國土測繪中心〈直轄市、縣市界線(TWD97經緯度)〉（政府資料開放平臺，政府資料開放授權條款第1版），經 taiwan-atlas（MIT）轉檔簡化","https://data.gov.tw/dataset/7442"],["地圖上的測站位置是大約位置（示意）。",""]],"st":{"基隆":[121.74,25.13,[16.1,16.4,18.1,21.6,24.8,27.6,29.5,29.1,27.2,24.2,21.5,18],[327.8,349.8,274.4,211.1,284.1,290.4,119.5,211.4,390.1,377.6,396.9,356.6]],"臺北":[121.51,25.04,[16.4,16.9,18.8,22.3,25.6,28.2,29.9,29.5,27.7,24.6,21.9,18.2],[90.5,143.2,157.2,152.5,239.9,345,226.1,337.8,315.2,150.2,83.2,88.7]],"宜蘭":[121.75,24.76,[16.6,17.1,19,21.9,24.7,27.3,28.9,28.6,26.8,23.8,21.1,17.9],[155.2,147,115.3,125.5,222.5,189.6,140.3,243.4,409.6,428.1,335.8,232.2]],"新竹":[121.01,24.83,[15.7,16,18,21.9,25.2,27.9,29.3,28.9,27.3,24.4,21.5,17.7],[76.5,121,157.8,162.6,245.4,253.6,120.2,197.1,174.5,53.6,51.1,57.7]],"臺中":[120.68,24.15,[17,17.7,20.1,23.5,26.4,28.1,28.9,28.4,27.8,25.5,22.6,18.7],[36.6,63,86.9,126.8,249.6,329,303.3,340.8,147.5,25,23.8,30.5]],"花蓮":[121.61,23.98,[18.3,18.7,20.3,22.8,25.3,27.5,28.7,28.4,27,24.9,22.5,19.7],[57.6,74.7,76.7,76.6,186.9,165.5,198.5,258.8,329.9,350.6,175.1,83.6]],"嘉義":[120.43,23.5,[16.8,17.7,20.2,23.5,26.3,28.3,28.9,28.4,27.4,24.8,22,18.4],[27.5,44.9,53,86.6,170,318.7,387.4,443.9,212.3,30.2,21.5,25.8]],"阿里山":[120.81,23.51,[6.5,7.3,9.5,11.5,13.1,14.4,14.7,14.6,14,12.4,10.7,8],[86.8,109.9,146.6,223.9,510.5,674.7,694.7,813.1,402.7,141.2,66.9,69.7]],"玉山":[120.96,23.47,[-0.5,-0.2,1.4,3.6,6,7.4,8,7.8,7.4,6.6,4.1,1.2],[83.7,67.2,94.8,201.2,423.6,459.6,434.2,516,297.2,145.1,98.3,81.6]],"澎湖":[119.56,23.57,[17.1,17.4,19.9,23.2,25.9,27.9,28.9,28.6,28,25.5,22.7,19.1],[20.9,38.1,50.7,77.9,117.8,148,163.2,229.4,100.3,30.1,26,28.1]],"臺南":[120.2,22.99,[17.9,18.9,21.6,24.9,27.4,28.8,29.3,28.9,28.5,26.3,23.4,19.6],[20.7,21.6,30.4,69.8,165.6,370.5,374.6,466.1,170.5,30.8,23.8,16.2]],"高雄":[120.32,22.57,[19.7,20.7,23,25.7,27.8,28.9,29.4,28.9,28.5,26.9,24.5,21.2],[19.1,17.7,32.3,68.4,202.2,416.2,377.2,512.4,224.5,53.4,25.6,19.2]],"恆春":[120.74,22,[21.1,21.7,23.3,25.4,27.3,28.4,28.7,28.3,27.8,26.5,24.7,22.2],[21.8,23.2,16,35.2,146.6,350.7,391.3,533.4,320.3,125.3,58.3,29]]}};
 </script>
 <script>
 (function(){
@@ -371,7 +437,7 @@ function soNew(){if(!P.sort||!$("soTray"))return;var items=shuffle(P.sort.items)
 if($("soTray")){
 $("soTray").addEventListener("click",function(ev){var c=closest(ev.target,"pc");if(!c)return;each(document.querySelectorAll("#soTray .pc"),function(x){x.classList.toggle("sel",x===c&&!x.classList.contains("sel"));});so.sel=c.classList.contains("sel")?c:null;});
 $("soBaskets").addEventListener("click",function(ev){var bk=closest(ev.target,"bk");if(!bk||!so.sel)return;var c=so.sel,fb=$("soFb");
-  if(c.getAttribute("data-b")===bk.getAttribute("data-b")){var s=document.createElement("span");s.textContent=c.textContent;bk.querySelector(".in").appendChild(s);c.parentNode.removeChild(c);so.sel=null;so.left--;bk.classList.remove("ok");void bk.offsetWidth;bk.classList.add("ok");beep(true);
+  if((" "+c.getAttribute("data-b")+" ").indexOf(" "+bk.getAttribute("data-b")+" ")>=0){var s=document.createElement("span");s.textContent=c.textContent;bk.querySelector(".in").appendChild(s);c.parentNode.removeChild(c);so.sel=null;so.left--;bk.classList.remove("ok");void bk.offsetWidth;bk.classList.add("ok");beep(true);
     if(so.left===0){fb.className="feedback show good";fb.innerHTML="🎉 全部分對了！"+(so.err?"（錯 "+so.err+" 次）":"零失誤！")+" "+P.sort.done;addStars(so.err?2:3,bk);}
   }else{so.err++;c.classList.remove("shake");void c.offsetWidth;c.classList.add("shake");beep(false);fb.className="feedback show bad";fb.innerHTML="💡 再想想：「"+c.textContent+"」"+(P.sort.hint[c.textContent]||"不是放這裡喔！");}});
 $("soRestart").addEventListener("click",soNew);soNew();}
@@ -386,58 +452,79 @@ window.__sg={stars:function(){return stars;},qz:function(){return qz;},P:P};
 (function(){
 "use strict";
 var $=U.$,P=window.PAGE,ST=P.st,NAMES=Object.keys(ST),sel=["基隆","高雄"],COL=["#4d96ff","#ff9f1c"],LCOL=["#e63946","#9b5de5"];
+function legend(names){return names.map(function(n,i){return '<span><i style="background:'+COL[i]+'"></i>'+n+' 雨量　<i style="background:'+LCOL[i]+';border-radius:50%"></i>'+n+' 氣溫</span>';}).join("");}
+/* 全年月平均雨量氣溫圖：長條＝雨量（左邊數字 mm），折線＝氣溫（右邊數字 ℃），橫軸＝12 個月
+   ann = [{n:測站, m:月(0起算)}]：把那個月塗成黃色，長條加框、氣溫點加圈，幫忙讀圖 */
+function chartSvg(names,ann){var W=640,H=360,L=54,R=54,T=46,B=38,pw=W-L-R,ph=H-T-B,minT=-5,maxT=35,h="",mx=0,cw=pw/12;
+  names.forEach(function(n){ST[n][3].forEach(function(v){if(v>mx)mx=v;});});
+  var maxR=Math.max(400,Math.ceil(mx/200)*200);
+  (ann||[]).forEach(function(a){h+='<rect x="'+(L+cw*a.m)+'" y="'+(T-6)+'" width="'+cw+'" height="'+(ph+6)+'" rx="6" fill="#ffd166" opacity=".45"/>';});
+  for(var g=0;g<=4;g++){var y=T+ph*g/4;h+='<line x1="'+L+'" y1="'+y+'" x2="'+(W-R)+'" y2="'+y+'" stroke="#e3e8f7"/>';
+    h+='<text x="'+(L-6)+'" y="'+(y+6)+'" font-size="17" font-weight="700" text-anchor="end" fill="#1c7ed6">'+Math.round(maxR*(1-g/4))+'</text>';
+    h+='<text x="'+(W-R+6)+'" y="'+(y+6)+'" font-size="17" font-weight="700" fill="#e63946">'+Math.round(maxT-(maxT-minT)*g/4)+'</text>';}
+  h+='<text x="16" y="26" font-size="17" font-weight="800" fill="#1c7ed6">雨量（mm）</text><text x="'+(W-16)+'" y="26" font-size="17" font-weight="800" text-anchor="end" fill="#e63946">溫度（℃）</text>';
+  for(var m=0;m<12;m++){var x0=L+cw*m;h+='<text x="'+(x0+cw/2)+'" y="'+(H-12)+'" font-size="16" text-anchor="middle" font-weight="700">'+(m+1)+'月</text>';
+    names.forEach(function(n,i){var v=ST[n][3][m],bh=Math.min(ph,ph*v/maxR),bw=(cw-8)/names.length;h+='<rect x="'+(x0+4+bw*i)+'" y="'+(T+ph-bh)+'" width="'+(bw-1)+'" height="'+bh+'" rx="3" fill="'+COL[i]+'" opacity=".8"><title>'+n+' '+(m+1)+'月 '+v+' mm</title></rect>';});}
+  names.forEach(function(n,i){var pts=ST[n][2].map(function(t,m){return [L+cw*m+cw/2,T+ph*(maxT-t)/(maxT-minT)];});
+    h+='<polyline points="'+pts.map(function(p){return p.join(",");}).join(" ")+'" fill="none" stroke="'+LCOL[i]+'" stroke-width="3"/>';
+    pts.forEach(function(p,m){h+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="4" fill="'+LCOL[i]+'"><title>'+n+' '+(m+1)+'月 '+ST[n][2][m]+'℃</title></circle>';});});
+  (ann||[]).forEach(function(a){var i=names.indexOf(a.n);if(i<0)return;var v=ST[a.n][3][a.m],t=ST[a.n][2][a.m],x0=L+cw*a.m,bw=(cw-8)/names.length,bh=Math.min(ph,ph*v/maxR),px=x0+cw/2,py=T+ph*(maxT-t)/(maxT-minT);
+    h+='<rect x="'+(x0+4+bw*i)+'" y="'+(T+ph-bh)+'" width="'+(bw-1)+'" height="'+bh+'" rx="3" fill="none" stroke="#14213d" stroke-width="2.5"/>';
+    h+='<circle cx="'+px+'" cy="'+py+'" r="9" fill="none" stroke="#14213d" stroke-width="2.5"/>';});
+  return h;}
+/* 課本的兩張比較圖 */
+$("kgLegend").innerHTML=legend(["基隆","恆春"]);$("kgChart").innerHTML=chartSvg(["基隆","恆春"],[{n:"基隆",m:0}]);
+$("jaLegend").innerHTML=legend(["嘉義","阿里山"]);$("jaChart").innerHTML=chartSvg(["嘉義","阿里山"]);
+/* 自己比一比 */
 function drawBtns(){$("stBtns").innerHTML=NAMES.map(function(n){var i=sel.indexOf(n);return '<button class="btn small'+(i===0?" on":i===1?" sun on":" white")+'" data-st="'+n+'">'+n+'</button>';}).join("");
-  $("stLegend").innerHTML=sel.map(function(n,i){return '<span><i style="background:'+COL[i]+'"></i>'+n+' 雨量　<i style="background:'+LCOL[i]+';border-radius:50%"></i>'+n+' 氣溫</span>';}).join("");}
-function chart(){var W=640,H=330,L=44,R=44,T=16,B=36,pw=W-L-R,ph=H-T-B,maxR=850,minT=-5,maxT=35,h="";
-  for(var g=0;g<=4;g++){var y=T+ph*g/4;h+='<line x1="'+L+'" y1="'+y+'" x2="'+(W-R)+'" y2="'+y+'" stroke="#eef"/>';
-    h+='<text x="'+(L-4)+'" y="'+(y+4)+'" font-size="12" text-anchor="end" fill="#4d96ff">'+Math.round(maxR*(1-g/4))+'</text>';
-    h+='<text x="'+(W-R+4)+'" y="'+(y+4)+'" font-size="12" fill="#e63946">'+Math.round(maxT-(maxT-minT)*g/4)+'℃</text>';}
-  h+='<text x="'+(L-4)+'" y="12" font-size="11" text-anchor="end" fill="#4d96ff">mm</text>';
-  var cw=pw/12;
-  for(var m=0;m<12;m++){var x0=L+cw*m;h+='<text x="'+(x0+cw/2)+'" y="'+(H-14)+'" font-size="13" text-anchor="middle" font-weight="700">'+(m+1)+'月</text>';
-    sel.forEach(function(n,i){var v=ST[n][3][m],bh=ph*v/maxR,bw=(cw-8)/sel.length;h+='<rect x="'+(x0+4+bw*i)+'" y="'+(T+ph-bh)+'" width="'+(bw-1)+'" height="'+bh+'" rx="3" fill="'+COL[i]+'" opacity=".8"><title>'+n+' '+(m+1)+'月 '+v+' mm</title></rect>';});}
-  sel.forEach(function(n,i){var pts=ST[n][2].map(function(t,m){return (L+cw*m+cw/2)+","+(T+ph*(maxT-t)/(maxT-minT));});
-    h+='<polyline points="'+pts.join(" ")+'" fill="none" stroke="'+LCOL[i]+'" stroke-width="3"/>';
-    pts.forEach(function(p){var a=p.split(",");h+='<circle cx="'+a[0]+'" cy="'+a[1]+'" r="4" fill="'+LCOL[i]+'"/>';});});
-  $("stChart").innerHTML=h;
+  $("stLegend").innerHTML=legend(sel);}
+function chart(){$("stChart").innerHTML=chartSvg(sel);
   var a=ST[sel[0]],b=ST[sel[1]]||null,s="";
   function line(n,d){return "<b>"+n+"</b>：1 月 "+d[2][0]+"℃、雨 "+d[3][0]+" mm；7 月 "+d[2][6]+"℃、雨 "+d[3][6]+" mm";}
   s=line(sel[0],a);if(b){s+="<br>"+line(sel[1],b);
-    var wet=a[3][0]>b[3][0]?sel[0]:sel[1];s+="<br>👉 1 月（冬天）<b>"+wet+"</b> 雨比較多；";
+    var wet=a[3][0]>b[3][0]?sel[0]:sel[1];s+="<br>👉 1 月（冬季）<b>"+wet+"</b> 雨比較多；";
     var warm=a[2][0]>b[2][0]?sel[0]:sel[1];s+="1 月 <b>"+warm+"</b> 比較暖。";}
   $("stSum").innerHTML=s;}
 $("stBtns").addEventListener("click",function(ev){var bt=U.closest(ev.target,"btn");if(!bt)return;var n=bt.getAttribute("data-st"),i=sel.indexOf(n);
   if(i>=0){if(sel.length>1)sel.splice(i,1);}else{sel.push(n);if(sel.length>2)sel.shift();}drawBtns();chart();});
 drawBtns();chart();
 
-/* rain map */
+/* 花蓮氣象觀測站資料（課本用花蓮站的表格；數字是中央氣象署的月平均） */
+(function(){var d=ST["花蓮"],h="<caption>花蓮站每月平均（中央氣象署 1991～2020 年）</caption><tr><th>月分</th><th>氣溫（℃）</th><th>雨量（mm）</th></tr>";
+  for(var m=0;m<12;m++)h+="<tr><td>"+(m+1)+" 月</td><td>"+d[2][m].toFixed(1)+"</td><td>"+d[3][m].toFixed(1)+"</td></tr>";
+  $("hlTbl").innerHTML=h;
+  function at(arr,best){var k=0;for(var i=1;i<12;i++)if(best(arr[i],arr[k]))k=i;return k;}
+  var hot=at(d[2],function(a,b){return a>b;}),cold=at(d[2],function(a,b){return a<b;}),wet=at(d[3],function(a,b){return a>b;}),dry=at(d[3],function(a,b){return a<b;});
+  $("hlSum").innerHTML="👀 讀表格：花蓮最熱是 <b>"+(hot+1)+" 月</b>（"+d[2][hot]+"℃），最冷是 <b>"+(cold+1)+" 月</b>（"+d[2][cold]+"℃）；雨最多是 <b>"+(wet+1)+" 月</b>（"+d[3][wet]+" mm），最少是 <b>"+(dry+1)+" 月</b>（"+d[3][dry]+" mm）。";})();
+
+/* rain map：每個月各測站的平均雨量（圓圈愈大雨愈多） */
 var C=Core,base='<rect width="400" height="545" fill="#e6f4ff"/>';
 Object.keys(C.SHAPES).forEach(function(n){if(n==="金門縣"||n==="連江縣")return;base+='<path d="'+C.SHAPES[n].d+'" fill="#fdf6e3" fill-rule="evenodd" stroke="#a9b8c6" stroke-width=".8" stroke-linejoin="round"/>';});
 base+='<text x="70" y="200" font-size="12" fill="#1c7ed6" font-weight="700" text-anchor="middle">臺灣海峽</text><text x="352" y="330" font-size="12" fill="#1c7ed6" font-weight="700" transform="rotate(90 352 330)">太平洋</text>';
-base+='<defs><marker id="ah" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker><marker id="ahb" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1c7ed6"/></marker><marker id="aho" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#f77f00"/></marker></defs>';
-var INFO={1:["❄️ 冬天・東北季風","東北季風帶來海上的水氣，<b>北部、東北部</b>（基隆、宜蘭）常下雨又濕冷；中南部被山擋住，<b>乾燥少雨</b>。","ne"],
- 4:["🌱 春天・季風轉換","天氣慢慢變暖，北部常有春雨。","none"],
- 5:["🌧️ 梅雨季（5～6 月）","鋒面帶來連續好幾天的雨，是重要的水源。","sw"],
- 7:["🌀 颱風季・西南季風","夏天吹<b>西南季風</b>，常有<b>午後雷陣雨</b>；颱風多在 7～9 月來，帶來強風豪雨。<b>中南部和山區</b>雨特別多。","sw"],
- 10:["🍂 秋天・東北季風又來了","東北季風開始吹，東北部（宜蘭、基隆）雨變多；新竹的「九降風」又強又乾，適合曬柿餅、米粉。","ne"]};
-function infoOf(m){if(m<=3||m>=12)return INFO[1];if(m===4)return INFO[4];if(m<=6)return INFO[5];if(m<=9)return INFO[7];return INFO[10];}
-function drawMon(){var m=+$("mon").value,inf=infoOf(m),h=base;$("monTxt").textContent=m+" 月";$("monTag").innerHTML='<span class="tag2 book">'+inf[0]+'</span>';
-  if(inf[2]==="ne"){[[390,20,320,90],[390,90,330,150],[330,10,270,60]].forEach(function(a){h+='<line x1="'+a[0]+'" y1="'+a[1]+'" x2="'+a[2]+'" y2="'+a[3]+'" stroke="#1c7ed6" stroke-width="7" marker-end="url(#ahb)" opacity=".8"/>';});h+='<text x="330" y="125" font-size="14" font-weight="900" fill="#1c7ed6">東北季風</text>';}
-  if(inf[2]==="sw"){[[10,520,80,450],[60,540,130,470],[10,440,70,385]].forEach(function(a){h+='<line x1="'+a[0]+'" y1="'+a[1]+'" x2="'+a[2]+'" y2="'+a[3]+'" stroke="#f77f00" stroke-width="7" marker-end="url(#aho)" opacity=".8"/>';});h+='<text x="20" y="500" font-size="14" font-weight="900" fill="#f77f00">西南季風</text>';}
+var RICE="📖 新竹每年十月到隔年二月，有來自北方乾冷的風，適合晒米粉。";
+var INFO=[
+ {m:[12,1,2],t:"❄️ 冬季（12～2 月）",b:"冬季時，北部（基隆、宜蘭）比南部<b>多雨</b>，而且<b>氣溫較低</b>；南部（高雄、恆春）很少下雨。",book:true,x:RICE},
+ {m:[3,4],t:"🌱 春天（3～4 月）",b:"天氣慢慢變暖，各地的雨也慢慢變多。",book:false},
+ {m:[5,6],t:"🌧️ 梅雨（5～6 月）",b:"每年五、六月，臺灣常會有<b>長達數週的陰雨綿綿</b>，叫做梅雨。",book:true},
+ {m:[7,8],t:"☀️ 夏季（7～8 月）",b:"夏季時，<b>全臺普遍溼熱</b>。山地（阿里山、玉山）的雨特別多。",book:true},
+ {m:[9,10,11],t:"🍂 秋天（9～11 月）",b:"秋天有時候還是很熱。東北部（宜蘭、基隆）的雨變多，中南部慢慢變乾。",book:false,x:RICE}
+];
+function infoOf(m){for(var i=0;i<INFO.length;i++)if(INFO[i].m.indexOf(m)>=0)return INFO[i];return INFO[0];}
+function drawMon(){var m=+$("mon").value,inf=infoOf(m),h=base;$("monTxt").textContent=m+" 月";$("monTag").innerHTML=inf.book?'<span class="tag2 book">📖 課本</span>':'<span class="tag2 more">📊 看資料</span>';
   NAMES.forEach(function(n){var d=ST[n],p=C.proj(d[0],d[1]),v=d[3][m-1],r=Math.max(3,Math.sqrt(v)*1.25);
     h+='<circle cx="'+p.x+'" cy="'+p.y+'" r="'+r+'" fill="#4d96ff" opacity=".45" stroke="#1c7ed6" stroke-width="1.5"><title>'+n+' '+v+' mm</title></circle><circle cx="'+p.x+'" cy="'+p.y+'" r="2.5" fill="#14213d"/>';
     var lf=(n==="阿里山"||n==="嘉義");h+='<text class="lbl" x="'+(lf?p.x-5:p.x+5)+'" y="'+(n==="阿里山"?p.y-14:p.y-4)+'" text-anchor="'+(lf?"end":"start")+'" style="font-size:12px;font-weight:800;fill:#333;paint-order:stroke;stroke:#fff;stroke-width:3px">'+n+' '+Math.round(v)+'</text>';});
   $("rainMap").innerHTML=h;
   var top=NAMES.slice().sort(function(a,b){return ST[b][3][m-1]-ST[a][3][m-1];}),flat=top.filter(function(n){return n!=="阿里山"&&n!=="玉山";});
-  $("monInfo").innerHTML='<div class="t">'+inf[0]+'</div>'+inf[1]+'<br><br>🌧️ 這個月雨最多的平地測站：<b>'+flat[0]+'</b>（'+ST[flat[0]][3][m-1]+' mm）<br>🏜️ 雨最少：<b>'+flat[flat.length-1]+'</b>（'+ST[flat[flat.length-1]][3][m-1]+' mm）<br><span class="small">數字是平均雨量（mm），圓圈愈大雨愈多。</span>';}
+  $("monInfo").innerHTML='<div class="t">'+inf.t+'</div>'+(inf.book?"📖 ":"")+inf.b+(inf.x&&(m>=10||m<=2)?'<br>'+inf.x:'')+'<br><br>🌧️ 這個月雨最多的平地測站：<b>'+flat[0]+'</b>（'+ST[flat[0]][3][m-1]+' mm）<br>🏜️ 雨最少：<b>'+flat[flat.length-1]+'</b>（'+ST[flat[flat.length-1]][3][m-1]+' mm）<br><span class="small">數字是平均雨量（mm），圓圈愈大雨愈多。</span>';}
 $("mon").addEventListener("input",drawMon);$("mon").addEventListener("change",drawMon);drawMon();
 
-/* calendar */
-var rows=[["❄️ 東北季風",[1,2,3,10,11,12],"#4d96ff"],["🌧️ 梅雨",[5,6],"#2a9d8f"],["☀️ 西南季風",[5,6,7,8,9],"#ff9f1c"],["🌀 颱風（較多）",[7,8,9],"#e63946"]];
-var ch="<tr><th></th>";for(var m=1;m<=12;m++)ch+="<th>"+m+"</th>";ch+="</tr>";
-rows.forEach(function(r){ch+='<tr><th style="white-space:nowrap">'+r[0]+'</th>';for(var m=1;m<=12;m++)ch+='<td style="'+(r[1].indexOf(m)>=0?"background:"+r[2]:"")+'"></td>';ch+="</tr>";});
+/* 🔎 延伸：季風、颱風月曆（課本沒有教，只有梅雨是課本的） */
+var rows=[["❄️ 東北季風",[1,2,3,10,11,12],"#4d96ff"],["🌧️ 梅雨 📖",[5,6],"#2a9d8f"],["☀️ 西南季風",[5,6,7,8,9],"#ff9f1c"],["🌀 颱風（較多）",[7,8,9],"#e63946"]];
+var ch="<tr><th></th>";for(var mm=1;mm<=12;mm++)ch+="<th>"+mm+"</th>";ch+="</tr>";
+rows.forEach(function(r){ch+='<tr><th style="white-space:nowrap">'+r[0]+'</th>';for(var k=1;k<=12;k++)ch+='<td style="'+(r[1].indexOf(k)>=0?"background:"+r[2]:"")+'"></td>';ch+="</tr>";});
 $("calTbl").innerHTML=ch;
-window.__cl={sel:sel,drawMon:drawMon};
+window.__cl={sel:sel,drawMon:drawMon,chartSvg:chartSvg};
 })();
 
 </script>

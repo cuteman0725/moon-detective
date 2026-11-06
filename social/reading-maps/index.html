@@ -74,6 +74,11 @@ nav.tabs button span{font-size:26px;line-height:1}nav.tabs button.on{background:
 @keyframes fly{to{transform:translate(var(--dx),var(--dy)) rotate(360deg);opacity:0}}
 .big4{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:8px}
 .big4 div{border-radius:16px;padding:10px;text-align:center;font-weight:900;font-size:18px;color:#fff}
+.tag2{display:inline-block;border-radius:999px;padding:2px 10px;font-size:13px;font-weight:800;margin:2px 4px 2px 0;vertical-align:middle}
+.tag2.book{background:#d8f3dc;color:#1b5e20}.tag2.more{background:#fff1c1;color:#7a5200}
+.lgchips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.lgchips span{background:#f6f7ff;border:2px solid #e3e6ff;border-radius:999px;padding:4px 10px;font-size:15px;font-weight:700}
+.exline{font-size:14px;color:#555;margin-top:8px;line-height:1.55;text-align:left}
 </style>
 </head>
 <body>
@@ -99,8 +104,9 @@ nav.tabs button span{font-size:26px;line-height:1}nav.tabs button.on{background:
     <div class="tip" id="whatTip"></div>
   </div>
   <div class="card">
-    <h3>🤔 為什麼要用「圖」，不用「文字」？</h3>
-    <p class="lead">圖畫比較<b>一目了然</b>，看一眼就懂，就算是外國人也看得懂符號喔！</p>
+    <h3>🤔 為什麼要用地圖？</h3>
+    <p class="lead"><span class="tag2 book">📖 課本</span>地圖是生活中重要的工具。各種主題地圖，把<b>複雜的世界</b>用<b>簡單的資訊和圖像</b>呈現出來。選對地圖，就能探索家鄉、規畫交通路線和旅遊活動。</p>
+    <div class="tip blue">🚂 <b>臺灣之最：最早的鐵道路線圖</b><br>以前搭火車，要看<b>紙本的鐵道路線圖</b>，再配合<b>火車時刻表</b>來規畫；現在可以用<b>電子地圖</b>查詢。</div>
     <div class="tip green">📌 這一課要學會三件事：<br>① 地圖有很多種，要<b>依需求選擇</b>合適的地圖。<br>② 看懂<b>地圖四要素</b>：圖名、方向標、比例尺、圖例。<br>③ 會用<b>電子地圖</b>：放大縮小、搜尋、規畫路線。</div>
   </div>
 </section>
@@ -126,7 +132,16 @@ nav.tabs button span{font-size:26px;line-height:1}nav.tabs button.on{background:
   </div>
 
   <div class="card">
-    <h3>🧭 方向標實驗室：箭頭轉一轉</h3>
+    <h3><span class="tag2 book">📖 課本</span>課本例子：新竹市地圖</h3>
+    <p class="lead">地圖上通常可以看到<b>圖名、方向標、比例尺和圖例</b>。有了這些工具，就能找到<b>家鄉的位置</b>，了解<b>景點、道路和河流</b>在哪裡。</p>
+    <div class="small">課本新竹市地圖的圖例有：</div>
+    <div class="lgchips"><span>縣市界</span><span>鄉鎮市區界</span><span>高速公路</span><span>快速公路</span><span>科學園區</span><span>河川</span><span>高鐵</span><span>臺鐵</span><span>火車站</span><span>漁港</span><span>卍 寺廟</span><span>大專院校</span></div>
+    <div class="tip">🧭 課本的方向標畫成<b>十字</b>，標出<b>北、東、南、西</b>；比例尺畫的是 <b>0～3 公里</b>的線段。<br>📷 地圖旁邊還有照片：新竹漁港、頭前溪、新竹都城隍廟、臺鐵新竹站、國立清華大學、中山高速公路。</div>
+  </div>
+
+  <div class="card">
+    <h3>🧭 方向標實驗室：箭頭轉一轉 <span class="tag2 more">🔍 延伸</span></h3>
+    <p class="small">課本只說方向標「用來辨識方位」，課本上的地圖都是北方朝上。下面是延伸練習。</p>
     <p class="lead">方向標的箭頭指的是<b>北方</b>。箭頭<b>不一定朝上</b>喔！轉轉看，答案會變嗎？</p>
     <div class="btns" id="rotBtns">
       <button class="btn small white on" data-r="0">⬆ 北在上</button>
@@ -138,11 +153,12 @@ nav.tabs button span{font-size:26px;line-height:1}nav.tabs button.on{background:
       <div class="mapbox"><svg id="rotSvg" viewBox="0 0 420 504"></svg></div>
       <div class="explain" id="rotExplain"></div>
     </div>
-    <div class="tip">📌 一般地圖大多是<b>上北、下南、左西、右東</b>；但一定要先看方向標確認！</div>
+    <div class="tip"><span class="tag2 more">🔍 延伸</span>📌 一般地圖大多是<b>上北、下南、左西、右東</b>；但一定要先看方向標確認！</div>
   </div>
 
   <div class="card">
-    <h3>📏 比例尺測量站</h3>
+    <h3>📏 比例尺測量站 <span class="tag2 more">🔍 延伸</span></h3>
+    <p class="small">課本說比例尺可以「計算實際距離」，但沒有教怎麼算。下面是延伸練習。</p>
     <p class="lead">地圖是<b>縮小</b>畫的。比例尺告訴我們：地圖上的一段長度，<b>實際上有多遠</b>。</p>
     <div class="small">① 選起點　② 選終點（沿著道路走）</div>
     <div class="btns" id="scaleFrom"></div>
@@ -164,7 +180,7 @@ nav.tabs button span{font-size:26px;line-height:1}nav.tabs button.on{background:
 <section class="page" id="p-types">
   <div class="card">
     <h2>🗂️ 生活中的地圖</h2>
-    <p class="lead">地圖有很多種，<b>用途不一樣</b>。要<b>依照需求</b>選擇合適的地圖！</p>
+    <p class="lead">地圖有很多種，<b>用途不一樣</b>。要<b>依照需求</b>選擇合適的地圖！課本用<b>彰化</b>的四張地圖當例子👇</p>
     <div class="types" id="typeCards"></div>
   </div>
   <div class="card">
@@ -174,24 +190,30 @@ nav.tabs button span{font-size:26px;line-height:1}nav.tabs button.on{background:
     <div class="feedback" id="tFb"></div>
     <div class="btns"><button class="btn" id="tNext" style="display:none">下一題 ➡</button></div>
   </div>
+  <div class="card">
+    <h3><span class="tag2 book">📖 課本</span>探究：怎麼介紹我們學校在哪裡？</h3>
+    <p class="lead">要和外縣市的學校交流，怎麼用地圖介紹學校的位置和家鄉特色？</p>
+    <div class="tip">① <b>找出事實</b>：說出學校附近<b>有名的地標</b>，寫下學校<b>完整的地址</b>。<br>② <b>說明感受</b>：地標不夠有名，別人可能找不到；<b>電子地圖</b>比較清楚，但是要有<b>網路和設備</b>。<br>③ <b>提出發現</b>：<b>交通觀光導覽圖</b>可以介紹有名的景點和美食；<b>交通路線圖</b>可以告訴別人怎麼到學校。<br>④ <b>未來行動</b>：用不同種類的地圖，讓親友一看就懂！</div>
+  </div>
 </section>
 
 <!-- ===== 4 電子地圖 ===== -->
 <section class="page" id="p-emap">
   <div class="card">
     <h2>📱 電子地圖體驗</h2>
-    <p class="lead">爸爸媽媽開車用的導航，就是<b>電子地圖</b>！可以<b>搜尋</b>、<b>放大縮小</b>、<b>切換模式</b>、<b>定位和導航</b>。來玩玩看👇</p>
+    <p class="lead">爸爸媽媽開車用的導航，就是<b>電子地圖</b>！可以<b>搜尋</b>、<b>放大縮小</b>、<b>定位和導航</b>，規畫路線時還會<b>預估時間</b>，也能<b>觀看街景</b>。來玩玩看👇</p>
     <div class="phone"><div class="screen">
       <div class="ebar"><span style="font-size:22px">🔍</span><input id="eSearch" placeholder="搜尋：例如 圖書館" aria-label="搜尋地點"><button class="btn small teal" id="eGo">搜尋</button></div>
       <div class="chips" id="eChips"></div>
       <div style="position:relative"><svg id="eSvg" viewBox="0 0 400 320" style="width:100%;background:#eee"></svg></div>
       <div class="etools">
         <div class="btns" style="margin:0"><button class="btn small white" id="eOut" aria-label="縮小">➖</button><button class="btn small white" id="eIn" aria-label="放大">➕</button></div>
-        <div class="btns" style="margin:0"><button class="btn small purple" id="eMode">🛰️ 衛星模式</button><button class="btn small sun" id="eNav">🧭 導航</button></div>
+        <div class="btns" style="margin:0"><button class="btn small purple" id="eMode">🛰️ 衛星模式</button><button class="btn small sun" id="eNav">🧭 導航</button><button class="btn small pink" id="eStreet">🧍 街景</button></div>
       </div>
       <div class="einfo" id="eInfo"></div>
     </div></div>
-    <div class="tip blue">✨ 發現了嗎？<br>• <b>放大</b>可以看到更多細節（路名出現了！），<b>縮小</b>可以看到整個地區。<br>• <b>地圖模式</b>像畫出來的圖，有符號和名字；<b>衛星模式</b>像從天空拍的照片，看得到真實的房子和樹林。</div>
+    <div class="tip blue"><span class="tag2 book">📖 課本</span>✨ 發現了嗎？<br>• <b>放大</b>可以看到更多細節（路名出現了！），<b>縮小</b>可以看到整個地區。<br>• <b>規畫路線</b>：輸入地點、確認出發地點，電子地圖會<b>預估路線及時間</b>，還會算出走路、騎車、開車各要多久。<br>• <b>觀看街景</b>：把右下方的<b>黃色人形</b>拖到地圖上，就會出現那裡的<b>街景圖</b>，拉動箭頭還可以移動。</div>
+    <div class="tip"><span class="tag2 more">🔍 延伸</span><b>地圖模式</b>像畫出來的圖，有符號和名字；<b>衛星模式</b>像從天空拍的照片，看得到真實的房子和樹林。</div>
   </div>
 </section>
 
@@ -209,6 +231,7 @@ nav.tabs button span{font-size:26px;line-height:1}nav.tabs button.on{background:
   </div>
   <div class="card gcard" id="g-legend">
     <div class="qhead"><span>🧩 圖例配對</span><span id="lgScore"></span></div>
+    <div id="lgTag"></div>
     <div class="qtext">這個圖例代表什麼地方？</div>
     <div style="display:flex;justify-content:center"><svg id="lgIcon" viewBox="0 0 120 120" width="120" height="120"></svg></div>
     <div class="opts" id="lgOpts"></div>
@@ -224,7 +247,7 @@ nav.tabs button span{font-size:26px;line-height:1}nav.tabs button.on{background:
     <div class="btns"><button class="btn" id="drNext" style="display:none">下一題 ➡</button></div>
   </div>
   <div class="card gcard" id="g-dist" style="display:none">
-    <div class="qhead"><span>📏 距離計算</span><span id="dsScore"></span></div>
+    <div class="qhead"><span>📏 距離計算 <span class="tag2 more">🔍 延伸</span></span><span id="dsScore"></span></div>
     <div class="qtext" id="dsQ"></div>
     <div class="mapbox"><svg id="dsSvg" viewBox="0 0 420 504"></svg></div>
     <div class="opts" id="dsOpts"></div>
@@ -394,8 +417,8 @@ drawWhat("sat");
 /* ---------------- 2a. four elements ---------------- */
 var FOUR={
  title:{t:"📛 圖名",c:"#ff6b9a",x:"地圖的<b>名稱或主題</b>，告訴我們這張圖在畫<b>什麼地方、什麼主題</b>。<br>這張是「快樂鎮地圖」。"},
- north:{t:"🧭 方向標",c:"#4d96ff",x:"用來<b>辨識方位</b>。箭頭（寫著「北」）指的方向就是<b>北方</b>。<br>沒有方向標，就分不清東西南北了！"},
- scale:{t:"📏 比例尺",c:"#9b5de5",x:"表示地圖<b>縮小的程度</b>，可以用來<b>計算實際距離</b>。<br>這張圖：黑色一格＝實際 100 公尺。"},
+ north:{t:"🧭 方向標",c:"#4d96ff",x:"用來<b>辨識方位</b>。箭頭（寫著「北」）指的方向就是<b>北方</b>。<br>沒有方向標，就分不清東西南北了！<br><span class='small'>課本的方向標畫成十字，標出北、東、南、西。</span>"},
+ scale:{t:"📏 比例尺",c:"#9b5de5",x:"代表地圖<b>縮小的比例</b>，可以用來<b>計算實際距離</b>。<br>這張圖：黑色一格＝實際 100 公尺。"},
  legend:{t:"🧩 圖例",c:"#2a9d8f",x:"用<b>簡單的符號</b>表示地面上<b>真實的景物</b>。<br>沒有圖例，就看不懂符號代表什麼！"}
 };
 var found={},fourHot="";
@@ -443,12 +466,12 @@ drawScale();
 
 /* ---------------- 3. map types ---------------- */
 var TYPES=[
- {id:"admin",name:"行政區域圖",use:"看出地方<b>區域的劃分</b>，例如臺灣有哪些縣市。",svg:'<rect width="120" height="90" fill="#e6f0ff"/><path d="M60,6 C80,10 86,30 82,50 C78,70 66,84 56,86 C46,80 40,62 40,44 C40,24 46,8 60,6Z" fill="#ffd6a5" stroke="#555"/><path d="M42,30 L82,34 M40,50 L82,52 M44,68 L74,70" stroke="#555" stroke-dasharray="3 2" fill="none"/><path d="M60,6 C80,10 86,30 82,34 L42,30 C44,18 50,8 60,6Z" fill="#caffbf" stroke="#555"/><path d="M40,50 L82,52 C80,62 76,68 74,70 L44,68 C42,62 40,56 40,50Z" fill="#bdb2ff" stroke="#555"/>'},
- {id:"tour",name:"交通觀光導覽圖",use:"標示<b>觀光景點</b>和<b>交通路線</b>，出去玩時最好用。",svg:'<rect width="120" height="90" fill="#fff7d6"/><path d="M10,70 C40,40 70,80 110,20" stroke="#e63946" stroke-width="4" fill="none" stroke-dasharray="7 4"/><text x="14" y="62" font-size="16">🎡</text><text x="52" y="58" font-size="16">⛲</text><text x="92" y="40" font-size="16">🏯</text><text x="70" y="84" font-size="14">🚌</text>'},
- {id:"emap",name:"電子地圖",use:"在手機、電腦上用，可以<b>搜尋、放大縮小、規畫路線、導航</b>。",svg:'<rect x="34" y="4" width="52" height="82" rx="8" fill="#222"/><rect x="38" y="12" width="44" height="66" fill="#f4f1de"/><path d="M38,40 H82 M60,12 V78" stroke="#ccc" stroke-width="4"/><path d="M46,70 L60,70 L60,26" stroke="#1a73e8" stroke-width="3" fill="none"/><path d="M60,26 c-5,-6 -5,-12 0,-12 c5,0 5,6 0,12z" fill="#ea4335"/>'},
- {id:"sat",name:"衛星影像圖",use:"像從天空拍的照片，看得到<b>建築物的真實樣子</b>和<b>土地怎麼利用</b>。",svg:'<rect width="120" height="90" fill="#6f8f4e"/><rect x="10" y="10" width="30" height="22" fill="#9a9a8a"/><rect x="48" y="8" width="26" height="30" fill="#b5543c"/><rect x="80" y="12" width="30" height="20" fill="#7d7d7d"/><path d="M0,55 C30,45 60,65 120,50" stroke="#2b4f6e" stroke-width="8" fill="none"/><circle cx="25" cy="75" r="7" fill="#2d5a1f"/><circle cx="40" cy="78" r="6" fill="#2d5a1f"/><rect x="70" y="66" width="34" height="18" fill="#c9b79c"/>'}
+ {id:"admin",name:"行政區域圖",use:"可以觀察有哪些<b>地方區域</b>，例如臺灣有哪些縣市。",ex:"彰化縣行政區域圖：看出彰化縣有哪些鄉鎮市。",svg:'<rect width="120" height="90" fill="#e6f0ff"/><path d="M60,6 C80,10 86,30 82,50 C78,70 66,84 56,86 C46,80 40,62 40,44 C40,24 46,8 60,6Z" fill="#ffd6a5" stroke="#555"/><path d="M42,30 L82,34 M40,50 L82,52 M44,68 L74,70" stroke="#555" stroke-dasharray="3 2" fill="none"/><path d="M60,6 C80,10 86,30 82,34 L42,30 C44,18 50,8 60,6Z" fill="#caffbf" stroke="#555"/><path d="M40,50 L82,52 C80,62 76,68 74,70 L44,68 C42,62 40,56 40,50Z" fill="#bdb2ff" stroke="#555"/>'},
+ {id:"tour",name:"交通觀光導覽圖",use:"主要標示<b>觀光景點</b>和<b>交通路線</b>，出去玩時最好用。",ex:"彰化市交通觀光導覽圖：扇形車庫、彰化孔廟、八卦山大佛、彰化車站。",svg:'<rect width="120" height="90" fill="#fff7d6"/><path d="M10,70 C40,40 70,80 110,20" stroke="#e63946" stroke-width="4" fill="none" stroke-dasharray="7 4"/><text x="14" y="62" font-size="16">🎡</text><text x="52" y="58" font-size="16">⛲</text><text x="92" y="40" font-size="16">🏯</text><text x="70" y="84" font-size="14">🚌</text>'},
+ {id:"emap",name:"電子地圖",use:"會顯示<b>道路、商家、學校</b>等資訊，在手機、電腦上可以<b>搜尋、放大縮小、規畫路線、導航</b>。",ex:"家人從臺中開車去彰化的扇形車庫，用電子地圖導航。",svg:'<rect x="34" y="4" width="52" height="82" rx="8" fill="#222"/><rect x="38" y="12" width="44" height="66" fill="#f4f1de"/><path d="M38,40 H82 M60,12 V78" stroke="#ccc" stroke-width="4"/><path d="M46,70 L60,70 L60,26" stroke="#1a73e8" stroke-width="3" fill="none"/><path d="M60,26 c-5,-6 -5,-12 0,-12 c5,0 5,6 0,12z" fill="#ea4335"/>'},
+ {id:"sat",name:"衛星影像圖",use:"<b>從高空往地面拍照</b>，能顯示<b>建築物</b>與<b>土地利用</b>情形。",ex:"彰化市衛星影像圖：對照電子地圖，找出彰化孔廟在哪裡。",svg:'<rect width="120" height="90" fill="#6f8f4e"/><rect x="10" y="10" width="30" height="22" fill="#9a9a8a"/><rect x="48" y="8" width="26" height="30" fill="#b5543c"/><rect x="80" y="12" width="30" height="20" fill="#7d7d7d"/><path d="M0,55 C30,45 60,65 120,50" stroke="#2b4f6e" stroke-width="8" fill="none"/><circle cx="25" cy="75" r="7" fill="#2d5a1f"/><circle cx="40" cy="78" r="6" fill="#2d5a1f"/><rect x="70" y="66" width="34" height="18" fill="#c9b79c"/>'}
 ];
-$("typeCards").innerHTML=TYPES.map(function(t){return '<div class="type"><svg viewBox="0 0 120 90">'+t.svg+'</svg><b>'+t.name+'</b>'+t.use+'</div>';}).join("");
+$("typeCards").innerHTML=TYPES.map(function(t){return '<div class="type"><svg viewBox="0 0 120 90">'+t.svg+'</svg><b>'+t.name+'</b>'+t.use+'<div class="exline"><span class="tag2 book">📖 課本例子</span>'+t.ex+'</div></div>';}).join("");
 var TQ=[
  {q:"老師要我們認識「臺灣有哪些縣市」，要看哪一種地圖？",a:"admin"},
  {q:"全家要去日月潭玩，想知道有哪些景點、怎麼搭車，用哪一種地圖？",a:"tour"},
@@ -471,23 +494,52 @@ $("tNext").addEventListener("click",function(){ti++;tShow();});
 tOrder=shuffle(TQ);tShow();
 
 /* ---------------- 4. e-map ---------------- */
-var eZoom=1,eCenter={x:200,y:160},eSat=false,ePin=null,eRoute=null,eNavMode=false;
+var eZoom=1,eCenter={x:200,y:160},eSat=false,ePin=null,eRoute=null,eNavMode=false,eStreet=null,eStreetWait=false;
+function streetSvg(p){ // 街景（示意）
+  var h='<rect width="400" height="320" fill="#cfe8ff"/><rect y="160" width="400" height="160" fill="#b8c0c6"/>';
+  h+='<polygon points="0,50 170,138 170,166 0,262" fill="#e9c46a"/><polygon points="0,50 56,79 56,233 0,262" fill="#d4a84f"/>';
+  for(var i=0;i<3;i++)h+='<rect x="'+(78+i*30)+'" y="'+(112+i*8)+'" width="16" height="'+(22-i*4)+'" fill="#8ecae6"/>';
+  h+='<polygon points="400,36 232,134 232,166 400,268" fill="#fff" stroke="'+p.color+'" stroke-width="4"/>';
+  h+='<rect x="262" y="78" width="124" height="26" rx="8" fill="'+p.color+'"/><text x="324" y="97" font-size="15" font-weight="900" fill="#fff" text-anchor="middle">'+p.name+'</text>';
+  h+='<text x="324" y="172" font-size="56" text-anchor="middle">'+p.icon+'</text>';
+  h+='<polygon points="185,160 215,160 330,320 70,320" fill="#5c5c5c"/>';
+  h+='<polygon points="199,170 201,170 202,185 198,185" fill="#fff"/><polygon points="197,200 203,200 205,228 195,228" fill="#fff"/><polygon points="194,245 206,245 209,282 191,282" fill="#fff"/>';
+  h+='<polygon points="200,286 222,312 178,312" fill="#fff" stroke="#333" stroke-width="1.5" opacity=".9"/>';
+  h+='<g transform="translate(46,290)"><circle cy="-34" r="9" fill="#fbbc04"/><rect x="-9" y="-24" width="18" height="30" rx="8" fill="#fbbc04"/></g>';
+  h+='<rect x="6" y="6" width="232" height="26" rx="8" fill="#fff" opacity=".92"/><text x="14" y="24" font-size="14" font-weight="800" fill="#333">🧍 街景（示意）：'+p.name+'</text>';
+  return h;
+}
 function eDraw(){
+  if(eStreet){$("eSvg").setAttribute("viewBox","0 0 400 320");$("eSvg").innerHTML=streetSvg(P(eStreet));}
+  else{
   var w=400/eZoom,h=320/eZoom,x=Math.max(0,Math.min(400-w,eCenter.x-w/2)),y=Math.max(0,Math.min(320-h,eCenter.y-h/2));
   $("eSvg").setAttribute("viewBox",x.toFixed(1)+" "+y.toFixed(1)+" "+w.toFixed(1)+" "+h.toFixed(1));
-  $("eSvg").innerHTML=town({mode:eSat?"sat":"map",labels:eZoom>=1.5,roadNames:eZoom>=2,pin:ePin,route:eRoute,hl:ePin&&eSat?[ePin]:null});
+  var k=1/eZoom,peg='<g id="ePeg" class="hot" transform="translate('+(x+w-20*k).toFixed(1)+','+(y+h-12*k).toFixed(1)+') scale('+k.toFixed(3)+')"><circle cy="-22" r="7" fill="#fbbc04" stroke="#fff" stroke-width="2"/><rect x="-7" y="-14" width="14" height="22" rx="6" fill="#fbbc04" stroke="#fff" stroke-width="2"/></g>';
+  $("eSvg").innerHTML=town({mode:eSat?"sat":"map",labels:eZoom>=1.5,roadNames:eZoom>=2,pin:ePin,route:eRoute,hl:ePin&&eSat?[ePin]:null})+peg;
+  }
   $("eMode").textContent=eSat?"🗺️ 地圖模式":"🛰️ 衛星模式";
+  $("eStreet").textContent=eStreet||eStreetWait?"🗺️ 回地圖":"🧍 街景";
   $("eIn").disabled=eZoom>=3;$("eOut").disabled=eZoom<=1;
+}
+function eLeaveStreet(){eStreet=null;eStreetWait=false;}
+function eShowStreet(id){var p=P(id);eStreet=id;eStreetWait=false;ePin=id;eNavMode=false;
+  eInfo("🧍 <b>街景</b>：黃色小人站到了 "+p.icon+"<b>"+p.name+"</b> 前面！<br>課本：把電子地圖右下方的<b>黃色人形</b>拖到地圖上，就會出現那裡的<b>街景圖</b>，拉動箭頭可以往前移動。");eDraw();}
+function eStreetToggle(){
+  if(eStreet||eStreetWait){eLeaveStreet();eInfo("🗺️ 回到地圖了。");eDraw();return;}
+  if(ePin){eShowStreet(ePin);return;}
+  eStreetWait=true;eNavMode=false;eInfo("🧍 要把<b>黃色小人</b>放到哪裡？請點上面的一個地點！");eDraw();
 }
 function eInfo(html){$("eInfo").innerHTML=html;}
 function eChips(){$("eChips").innerHTML=PLACES.map(function(p){return '<button class="chip" data-id="'+p.id+'">'+p.icon+' '+p.name+'</button>';}).join("");}
 eChips();
 $("eChips").addEventListener("click",function(ev){var b=ev.target.closest(".chip");if(!b)return;eSelect(b.dataset.id);});
+function eTimes(m){return {walk:Math.max(1,Math.round(m/70)),bike:Math.max(1,Math.round(m/200)),car:Math.max(1,Math.round(m/350))};}
 function eSelect(id){
   var p=P(id);
+  if(eStreetWait||eStreet){eShowStreet(id);return;}
   if(eNavMode){eNavMode=false;if(id==="home"){eInfo("📍 你已經在家了！選別的目的地吧。");return;}
-    eRoute=routePath("home",id);ePin=id;eZoom=1;eCenter={x:200,y:160};var n=blocks("home",id);
-    eInfo("🧭 從 🏠我家 到 "+p.icon+p.name+"：沿著藍色路線走 <b>"+n+" 段路</b>，大約 <b>"+(n*100)+" 公尺</b>。<br><span class='small'>（比例尺：1 段＝100 公尺）</span>");eDraw();return;}
+    eRoute=routePath("home",id);ePin=id;eZoom=1;eCenter={x:200,y:160};var n=blocks("home",id),m=n*100,t=eTimes(m);
+    eInfo("🧭 從 🏠我家 到 "+p.icon+p.name+"：畫出藍色路線（"+n+" 段路，約 "+m+" 公尺），還會<b>預估時間</b>：<br>🚶 走路 約 <b>"+t.walk+"</b> 分鐘　🚲 騎腳踏車 約 <b>"+t.bike+"</b> 分鐘　🚗 開車 約 <b>"+t.car+"</b> 分鐘<br><span class='small'>（時間是示意；比例尺：1 段＝100 公尺）</span>");eDraw();return;}
   ePin=id;eRoute=null;eCenter={x:X(p.c),y:Y(p.r)};if(eZoom<2)eZoom=2;
   eInfo("📍 找到了！<b>"+p.icon+" "+p.name+"</b>。地圖自動<b>放大</b>到它的位置，旁邊的路名也看得到了。");eDraw();
 }
@@ -495,11 +547,13 @@ $("eGo").addEventListener("click",function(){var q=$("eSearch").value.trim();if(
   var m=PLACES.filter(function(p){return p.name.indexOf(q)>=0||q.indexOf(p.name)>=0;})[0];
   if(m)eSelect(m.id);else eInfo("😅 找不到「"+q+"」。快樂鎮有："+PLACES.map(function(p){return p.name;}).join("、"));});
 $("eSearch").addEventListener("keydown",function(e){if(e.key==="Enter")$("eGo").click();});
-$("eIn").addEventListener("click",function(){eZoom=Math.min(3,eZoom+0.5);eInfo("➕ 放大：範圍變小，<b>細節變多</b>"+(eZoom>=2?"（路名出現了！）":"")+"。");eDraw();});
-$("eOut").addEventListener("click",function(){eZoom=Math.max(1,eZoom-0.5);eInfo("➖ 縮小：細節變少，但可以看到<b>整個地區的全貌</b>。");eDraw();});
-$("eMode").addEventListener("click",function(){eSat=!eSat;eInfo(eSat?"🛰️ <b>衛星模式</b>：看到真實的屋頂、樹林和河流，但沒有名字和符號。":"🗺️ <b>地圖模式</b>：有道路、符號和名字，找地方比較方便。");eDraw();});
-$("eNav").addEventListener("click",function(){eNavMode=true;eInfo("🧭 <b>導航</b>：從 🏠我家 出發，請在上面<b>點選目的地</b>！");});
-eInfo("👋 試試看：點上面的地點、按 ➕➖、切換衛星模式，或按「導航」！");
+$("eIn").addEventListener("click",function(){eLeaveStreet();eZoom=Math.min(3,eZoom+0.5);eInfo("➕ 放大：範圍變小，<b>細節變多</b>"+(eZoom>=2?"（路名出現了！）":"")+"。");eDraw();});
+$("eOut").addEventListener("click",function(){eLeaveStreet();eZoom=Math.max(1,eZoom-0.5);eInfo("➖ 縮小：細節變少，但可以看到<b>整個地區的全貌</b>。");eDraw();});
+$("eMode").addEventListener("click",function(){eLeaveStreet();eSat=!eSat;eInfo(eSat?"🛰️ <b>衛星模式</b>：看到真實的屋頂、樹林和河流，但沒有名字和符號。":"🗺️ <b>地圖模式</b>：有道路、符號和名字，找地方比較方便。");eDraw();});
+$("eNav").addEventListener("click",function(){var back=!!(eStreet||eStreetWait);eLeaveStreet();if(back)eDraw();eNavMode=true;eInfo("🧭 <b>導航</b>：從 🏠我家 出發，請在上面<b>點選目的地</b>！電子地圖會畫出路線，並<b>預估時間</b>。");});
+$("eStreet").addEventListener("click",eStreetToggle);
+$("eSvg").addEventListener("click",function(ev){if(ev.target.closest&&ev.target.closest("#ePeg"))eStreetToggle();});
+eInfo("👋 試試看：點上面的地點、按 ➕➖、按「導航」看預估時間，或按「🧍 街景」！");
 eDraw();
 
 /* ---------------- 5. games ---------------- */
@@ -518,15 +572,27 @@ function mcq(o){ // generic multiple-choice helper
 }
 // legend game
 var lgR=0,lgN=0;
-function lgNew(){var p=pick(PLACES);$("lgIcon").innerHTML='<circle cx="60" cy="60" r="50" fill="#fff" stroke="'+p.color+'" stroke-width="6"/><text x="60" y="78" font-size="50" text-anchor="middle">'+p.icon+'</text>';
-  var ch=shuffle([p].concat(shuffle(PLACES.filter(function(x){return x!==p;})).slice(0,3)));
+// 課本新竹市地圖的圖例（卍＝寺廟是課本的符號；其他符號是示意）
+var BOOKLG=[
+ {name:"寺廟",icon:"卍",color:"#e63946",x:"課本的新竹市地圖用「卍」代表寺廟。"},
+ {name:"漁港",icon:"⚓",color:"#1c7ed6"},
+ {name:"大專院校",icon:"🎓",color:"#9b5de5"},
+ {name:"火車站",icon:"🚉",color:"#6c757d"},
+ {name:"高鐵",icon:"🚄",color:"#f77f00"},
+ {name:"科學園區",icon:"🔬",color:"#2a9d8f"}
+];
+function lgNew(){var book=Math.random()<.4,pool=book?BOOKLG:PLACES,p=pick(pool);
+  $("lgTag").innerHTML=book?'<span class="tag2 book">📖 課本新竹市地圖的圖例</span>':'<span class="small">快樂鎮地圖的圖例</span>';
+  $("lgIcon").innerHTML='<circle cx="60" cy="60" r="50" fill="#fff" stroke="'+p.color+'" stroke-width="6"/><text x="60" y="78" font-size="50" font-weight="900" fill="'+p.color+'" text-anchor="middle">'+p.icon+'</text>';
+  var ch=shuffle([p].concat(shuffle(pool.filter(function(x){return x!==p;})).slice(0,3)));
   $("lgScore").textContent="答對 "+lgR+" / "+lgN;
-  mcq({opts:"lgOpts",fb:"lgFb",next:"lgNext",choices:ch.map(function(x){return x.name;}),answer:ch.indexOf(p),explain:"圖例用簡單的符號表示真實的景物："+p.icon+" ＝ "+p.name+"。",onAnswer:function(ok){lgN++;if(ok)lgR++;$("lgScore").textContent="答對 "+lgR+" / "+lgN;}});}
+  var ex=book?(p.x||"課本新竹市地圖的圖例裡有「"+p.name+"」。<br><span class='small'>（這裡的符號是示意；每張地圖的圖例不一定一樣，要先看圖例！）</span>"):"圖例用簡單的符號表示真實的景物："+p.icon+" ＝ "+p.name+"。";
+  mcq({opts:"lgOpts",fb:"lgFb",next:"lgNext",choices:ch.map(function(x){return x.name;}),answer:ch.indexOf(p),explain:ex,onAnswer:function(ok){lgN++;if(ok)lgR++;$("lgScore").textContent="答對 "+lgR+" / "+lgN;}});}
 $("lgNext").addEventListener("click",lgNew);lgNew();
 // direction game
 var PAIRS=alignedPairs(),drR=0,drN=0;
 function drNew(){var pr=pick(PAIRS),r=drN<3?0:pick([0,0,90,180,270]),A=P(pr[0]),B=P(pr[1]),ans=dirOf(pr[0],pr[1],r);
-  $("drQ").innerHTML=B.icon+" <b>"+B.name+"</b> 在 "+A.icon+" <b>"+A.name+"</b> 的哪一邊？"+(r?'<br><span class="small">⚠️ 注意看方向標！</span>':"");
+  $("drQ").innerHTML=B.icon+" <b>"+B.name+"</b> 在 "+A.icon+" <b>"+A.name+"</b> 的哪一邊？"+(r?'<br><span class="tag2 more">🔍 延伸</span><span class="small">⚠️ 方向標轉了方向，注意看！</span>':"");
   $("drSvg").innerHTML=figure({rot:r,hlPlaces:pr});var ch=["東","南","西","北"];
   $("drScore").textContent="答對 "+drR+" / "+drN;
   mcq({opts:"drOpts",fb:"drFb",next:"drNext",choices:ch.map(function(c){return c+"邊";}),answer:ch.indexOf(ans),
@@ -549,28 +615,33 @@ var QUIZ=[
  {q:"地圖是根據什麼畫出來的？",o:["自己的想像","真實的景物和各種資料","隨便畫畫"],a:1,x:"地圖是依據實際景物與各種資料繪製而成的。"},
  {q:"下列哪一個「不是」地圖四要素？",o:["圖名","比例尺","圖例","門牌號碼"],a:3,x:"地圖四要素是：圖名、方向標、比例尺、圖例。"},
  {q:"「圖名」告訴我們什麼？",o:["地圖的名稱或主題","實際距離","哪邊是北方"],a:0,x:"圖名是地圖的名稱或主題。"},
- {q:"「方向標」有什麼用？",o:["計算距離","辨識方位","表示景物"],a:1,x:"方向標用來辨識方位，箭頭指的是北方。"},
- {q:"「比例尺」有什麼用？",o:["表示地圖縮小的程度，計算實際距離","告訴我們地圖的名字","畫出景物的顏色"],a:0,x:"比例尺代表地圖縮小的比例，可以計算實際距離。"},
+ {q:"「方向標」有什麼用？",o:["計算距離","辨識方位","表示景物"],a:1,x:"方向標用來辨識方位（課本的方向標標出北、東、南、西）。"},
+ {q:"「比例尺」有什麼用？",o:["代表地圖縮小的比例，可以計算實際距離","告訴我們地圖的名字","畫出景物的顏色"],a:0,x:"比例尺代表地圖縮小的比例，可以計算實際距離。"},
  {q:"「圖例」是什麼？",o:["地圖的作者","用簡單的符號表示真實的景物","地圖的價錢"],a:1,x:"圖例是用簡單符號來表示地面的實際景物。"},
  {q:"如果地圖上沒有「圖例」，可能會發生什麼事？",o:["看不懂符號代表什麼","找不到北方","不知道地圖的名字"],a:0,x:"沒有圖例，就無法了解符號代表的景物。"},
  {q:"想知道臺灣分成哪些縣市，最適合看哪一種地圖？",o:["衛星影像圖","行政區域圖","交通觀光導覽圖"],a:1,x:"行政區域圖可以看出區域的劃分。"},
  {q:"去旅行時想知道景點和交通路線，最適合看？",o:["交通觀光導覽圖","行政區域圖","衛星影像圖"],a:0,x:"交通觀光導覽圖主要標示觀光景點與交通路線。"},
- {q:"想看到建築物真實的樣子、土地怎麼利用，最適合看？",o:["行政區域圖","衛星影像圖","交通觀光導覽圖"],a:1,x:"衛星影像圖能顯示地表建築的特徵，也能觀測土地利用。"},
+ {q:"想看到建築物真實的樣子、土地怎麼利用，最適合看？",o:["行政區域圖","衛星影像圖","交通觀光導覽圖"],a:1,x:"衛星影像圖從高空往地面拍照，能顯示建築物與土地利用情形。"},
  {q:"我們要怎麼選擇合適的地圖？",o:["選最漂亮的","依照使用的需求","選最大張的"],a:1,x:"依據需求選擇：旅遊用觀光導覽圖、規畫路線用電子地圖……"},
  {q:"為什麼地圖會有不同的呈現方式？",o:["因為使用需求不同","因為畫的人不同心情","因為紙張大小不同"],a:0,x:"使用需求不同，所以地圖有不同的呈現方式。"},
- {q:"下列哪一件事，電子地圖「做不到」？",o:["放大、縮小地圖","搜尋地點","規畫路線、導航","幫你把東西送到家"],a:3,x:"電子地圖可以搜尋、放大縮小、切換模式、定位與導航。"},
- {q:"比例尺 1 段＝100 公尺，地圖上走了 4 段，實際大約多遠？",o:["4 公尺","40 公尺","400 公尺","104 公尺"],a:2,x:"4 × 100 ＝ 400 公尺。"},
- {q:"是非題：方向標的箭頭一定朝向紙張的上方。",o:["⭕ 對","❌ 錯"],a:1,x:"不一定！要看箭頭指向哪裡，那裡才是北方。"},
- {q:"是非題：一般的地圖，大多是上北、下南、左西、右東。",o:["⭕ 對","❌ 錯"],a:0,x:"對！但還是要先看方向標確認。"},
+ {q:"下列哪一件事，電子地圖「做不到」？",o:["放大、縮小地圖","搜尋地點","規畫路線、導航","幫你把東西送到家"],a:3,x:"電子地圖可以搜尋地點、局部放大縮小、定位和導航，規畫路線時還會預估路線和時間。"},
+ {q:"在電子地圖按下「規畫路線」並確認出發地點後，電子地圖會幫我們做什麼？",o:["預估路線和行進時間","幫我們買車票","告訴我們明天的天氣"],a:0,x:"課本：電子地圖會預估路線及時間，還會顯示不同交通工具的行進時間。"},
+ {q:"在電子地圖上把右下方的「黃色人形」拖到地圖上，可以做什麼？",o:["觀看那個地方的街景","把地圖縮小","查詢公車時刻"],a:0,x:"課本：拖動黃色人形到地圖上，會出現該區域的街景圖，還可以拉動箭頭移動觀看。"},
+ {q:"是非題：一般的地圖，大多是上北、下南、左西、右東。",o:["⭕ 對","❌ 錯"],a:0,x:"（延伸）對！但還是要先看方向標確認。"},
  {q:"是非題：電子地圖放大後，可以看到更多細節。",o:["⭕ 對","❌ 錯"],a:0,x:"放大看細節，縮小看全貌。"},
  {q:"同一個地方的電子地圖和衛星影像圖，下列何者正確？",o:["標示同樣的地點，但用途不同","兩張完全一樣","衛星影像圖上一定有路名"],a:0,x:"兩張圖標示同樣的地點，卻有不同的用途。"},
- {q:"圖畫比起文字，有什麼好處？",o:["比較直覺，一目了然","比較難懂","一定比較小"],a:0,x:"圖畫表現直覺、一目了然，外國人也能看懂符號。"},
- {q:"面對北方站好，你的右手邊是哪個方位？",o:["東方","西方","南方"],a:0,x:"面向北方：右手邊是東、左手邊是西、背後是南。"}
+ {q:"以前搭火車，人們會用紙本鐵道路線圖，再搭配什麼來規畫路線？",o:["火車時刻表","農民曆","衛星影像圖"],a:0,x:"課本單元開場：以前搭火車會用紙本鐵道路線圖，搭配火車時刻表規畫路線；現在可以用電子地圖查詢。"},
+ {q:"要向外縣市的同學說明我們學校的位置，課本探究提到哪一個好方法？",o:["說明附近知名的地標，或寫下學校完整的地址","只說「在我家旁邊」","畫一張沒有名字的圖"],a:0,x:"探究社會有絕招：可以說明附近知名的地標、寫下學校完整的地址，也可以善用不同類型的地圖。"},
+ {q:"下列哪一個是「圖例」的例子？",o:["用 卍 代表寺廟","地圖上方寫著「新竹市地圖」","畫著北、東、南、西的十字"],a:0,x:"圖例用簡單符號表示地面的實際景物；「新竹市地圖」是圖名；畫著東西南北的是方向標。"},
+ {q:"課本說，透過圖名、方向標、比例尺和圖例，可以從地圖上做什麼？",o:["找到家鄉的位置，了解景點、道路和河流的分布","知道明天會不會下雨","算出家鄉有多少人口"],a:0,x:"課本：透過這些工具，可以從地圖上尋找家鄉的位置，了解家鄉景點、道路與河流的分布。"},
+ {q:"用電子地圖介紹學校位置給外縣市的同學，課本提到可能會遇到什麼問題？",o:["需要有網路和設備","電子地圖上沒有道路","電子地圖不能放大"],a:0,x:"探究社會有絕招：電子地圖比較明確，但需要有網路與設備。"},
+ {q:"課本中，家人從臺中開車去彰化的扇形車庫，用什麼幫忙導航？",o:["電子地圖","行政區域圖","農民曆"],a:0,x:"課本：電子地圖會顯示道路、商家、學校等資訊，適合用來規畫路線，也有導航功能。"}
 ];
 var qList=[],qi=0,qRight=0,QN=10,quizOver=false;
 function quizStart(){qList=shuffle(QUIZ).slice(0,QN);qi=0;qRight=0;quizOver=false;quizShow();}
 function quizShow(){var q=qList[qi];$("qCount").textContent="第 "+(qi+1)+" / "+QN+" 題";$("qScore").textContent="答對 "+qRight;$("qText").textContent=q.q;
-  mcq({opts:"qOpts",fb:"qFb",next:"qNext",choices:q.o,answer:q.a,explain:q.x,onAnswer:function(ok){if(ok)qRight++;$("qScore").textContent="答對 "+qRight;$("qNext").textContent=qi<QN-1?"下一題 ➡":"看成績 🏆";}});}
+  var ord=q.o.map(function(_,i){return i;});if(q.o[0].indexOf("⭕")<0)ord=shuffle(ord); // 選項順序打亂（是非題不打亂）
+  mcq({opts:"qOpts",fb:"qFb",next:"qNext",choices:ord.map(function(i){return q.o[i];}),answer:ord.indexOf(q.a),explain:q.x,onAnswer:function(ok){if(ok)qRight++;$("qScore").textContent="答對 "+qRight;$("qNext").textContent=qi<QN-1?"下一題 ➡":"看成績 🏆";}});}
 $("qNext").addEventListener("click",function(){
   if(quizOver){quizStart();return;}
   if(qi<QN-1){qi++;quizShow();return;}
@@ -581,7 +652,7 @@ $("qNext").addEventListener("click",function(){
 quizStart();
 
 renderScore();
-window.__map={dirOf:dirOf,blocks:blocks,alignedPairs:alignedPairs};
+window.__map={dirOf:dirOf,blocks:blocks,alignedPairs:alignedPairs,QUIZ:QUIZ,eTimes:eTimes};
 })();
 </script>
 </body>

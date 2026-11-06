@@ -169,8 +169,8 @@ table.xp tr.tot td{background:#d8f3dc}
       <h3>🏗️ 三、四位數 × 二位數：三個重點</h3>
       <div class="tip">① <b>第①行</b>：用乘數的<b>個位</b>去乘，從個位開始寫。<br>
       ② <b>第②行</b>：用乘數的<b>十位</b>去乘，它其實是「幾個十」，所以要<b>從十位開始寫</b>（個位空著，或寫一個灰色的 0）。<br>
-      ③ 把兩行<b>部分積</b>加起來，同一直行對齊相加。</div>
-      <div class="tip">🕳️ <b>缺位</b>（像 3<b>0</b>62 中間的 0）也要乘！0 乘任何數都是 0，但是<b>別忘了加上進位</b>。</div>
+      ③ 把兩行<b>加起來</b>，同一直行對齊相加。</div>
+      <div class="tip">🕳️ 被乘數<b>中間有 0</b>（像 3<b>0</b>62）也要乘！0 乘任何數都是 0，但是<b>別忘了加上進位</b>。</div>
     </div>
   </div>
 
@@ -305,17 +305,17 @@ function tzOf(b){var t=0;if(b<10)return 0;while(b>=10&&b%10===0){b/=10;t++;}retu
 function build(a,b){
   a=+a;b=+b;
   var tz=tzOf(b),core=b/p10(tz),cs=digits(core),m=cs.length,ad=digits(a),la=ad.length,P=a*b,S=a*core;
-  var W=Math.max(String(P).length,la+tz,String(b).length)+1,aEnd=W-1-tz,i,j,t;
-  var sh={a:a,b:b,tz:tz,core:core,m:m,W:W,P:P,S:S,aEnd:aEnd,static:[],steps:[],ul:[3],ph:[],labels:[],rows:{}};
+  var W=Math.max(String(P).length,la,String(b).length)+1,aEnd=W-1,pEnd=W-1-tz,i,j,t;
+  var sh={a:a,b:b,tz:tz,core:core,m:m,W:W,P:P,S:S,aEnd:aEnd,pEnd:pEnd,static:[],steps:[],ul:[3],ph:[],labels:[],rows:{}};
   for(i=0;i<la;i++)sh.static.push({r:2,c:aEnd-i,ch:String(ad[i])});
   sh.static.push({r:3,c:0,ch:"×",sign:true});
   var bd=digits(b);for(i=0;i<bd.length;i++)sh.static.push({r:3,c:W-1-i,ch:String(bd[i]),bz:i<tz});
   var steps=sh.steps;
   function zeroSteps(row){for(var z=0;z<tz;z++)steps.push({r:row,c:W-1-z,ch:"0",kind:"tz",row:row,
     text:z===0?"乘數 "+b+" 是 <b>"+core+" 個"+UNIT[tz]+"</b>，所以答案最右邊先<b>補 "+tz+" 個 0</b>，再算 "+a+" × "+core+"。"+(tz>1?"先補第 1 個 0。":""):"再補第 "+(z+1)+" 個 0。"});}
-  function ppSteps(row,j,bj,intro){var carry=0,end=aEnd-j,bcol=aEnd-j;
+  function ppSteps(row,j,bj,intro){var carry=0,end=pEnd-j,bcol=pEnd-j;
     for(t=0;t<la;t++){var ak=ad[t],x=ak*bj+carry,cin=carry,last=t===la-1;carry=Math.floor(x/10);
-      var txt=(t===0?intro:"")+(ak===0?"這一位是 <b>0</b>（缺位）也要乘！":"")+"<b>"+bj+" × "+ak+" ＝ "+(ak*bj)+"</b>"+(cin?"，再加上進位 "+cin+" ＝ "+x:"")+"，在"+PLACE[t+j+tz]+"位寫 <b>"+(x%10)+"</b>"+(!last&&carry?"，把 <b>"+carry+"</b> 進到"+PLACE[t+j+tz+1]+"位（寫在上面小小的）":"")+"。";
+      var txt=(t===0?intro:"")+(ak===0?"這一位是 <b>0</b>，也要乘！":"")+"<b>"+bj+" × "+ak+" ＝ "+(ak*bj)+"</b>"+(cin?"，再加上進位 "+cin+" ＝ "+x:"")+"，在"+PLACE[t+j+tz]+"位寫 <b>"+(x%10)+"</b>"+(!last&&carry?"，把 <b>"+carry+"</b> 進到"+PLACE[t+j+tz+1]+"位（寫在上面小小的）":"")+"。";
       steps.push({r:row,c:end-t,ch:String(x%10),kind:"pp",row:row,j:j,t:t,ak:ak,bj:bj,cin:cin,x:x,first:t===0,
         hl:[[2,aEnd-t],[3,bcol]],carryOut:(!last&&carry)?{c:aEnd-t-1,v:carry}:null,text:txt});}
     if(carry)steps.push({r:row,c:end-la,ch:String(carry),kind:"pp",row:row,j:j,t:la,fc:true,bj:bj,cin:carry,x:carry,hl:[[3,bcol]],carryOut:null,
@@ -326,8 +326,8 @@ function build(a,b){
     sh.labels.push({r:4,text:a+"×"+b});}
   else{
     for(j=0;j<m;j++){var row=4+j,bj=cs[j],pv=a*bj*p10(j);
-      for(i=0;i<j;i++)sh.ph.push({r:row,c:aEnd-i,ch:"0"});
-      var intro=j===0?"第①行（部分積）：先用乘數<b>個位的 "+bj+"</b> 去乘 "+a+"，"+a+" × "+bj+" ＝ "+(a*bj)+"。從個位開始：":
+      for(i=0;i<j;i++)sh.ph.push({r:row,c:pEnd-i,ch:"0"});
+      var intro=j===0?"第①行（幾個一）：先用乘數<b>個位的 "+bj+"</b> 去乘 "+a+"，"+a+" × "+bj+" ＝ "+(a*bj)+"（個一）。從個位開始：":
         "第"+"①②③④"[j]+"行：用乘數<b>"+PLACE[j]+"位的 "+bj+"</b> 去乘。"+PLACE[j]+"位的 "+bj+" 其實是 <b>"+bj*p10(j)+"</b>，"+a+" × "+bj*p10(j)+" ＝ "+pv+"，所以最右邊的 "+j+" 位是 0（灰色的 0 可以不寫），從<b>"+PLACE[j]+"位</b>開始寫：";
       ppSteps(row,j,bj,intro);
       sh.labels.push({r:row,text:"①②③④"[j]+" "+a+"×"+bj*p10(j)});}
@@ -338,11 +338,11 @@ function build(a,b){
       for(j=0;j<m;j++){var ps=digits(a*cs[j]);if(i>=j&&i-j<ps.length)list.push(ps[i-j]);}
       var x=carry,cin=carry;list.forEach(function(v){x+=v;});carry=Math.floor(x/10);
       if(x%10!==sd[i])throw new Error("sum mismatch");
-      var head=i===0?"最後把每一行部分積<b>加起來</b>，同一直行的數字相加，個位對個位："+(tz?"":""):"";
+      var head=i===0?"最後把兩行<b>加起來</b>，同一直行的數字相加，個位對個位："+(tz?"":""):"";
       var body=(list.length===1&&!cin)?PLACE[i+tz]+"位只有 "+list[0]+"，直接寫 <b>"+list[0]+"</b>。":list.length?PLACE[i+tz]+"位："+list.join(" ＋ ")+(cin?" ＋ 進位 "+cin:"")+" ＝ "+x+"，寫 <b>"+(x%10)+"</b>"+(carry&&i<sd.length-1?"，進 <b>"+carry+"</b> 到"+PLACE[i+tz+1]+"位":"")+"。":
         "只剩進位 <b>"+cin+"</b>，直接寫在"+PLACE[i+tz]+"位。";
-      steps.push({r:sr,c:aEnd-i,ch:String(x%10),kind:"sum",row:sr,i:i,list:list,cin:cin,x:x,first:i===0,
-        carryOut:(carry&&i<sd.length-1)?{c:aEnd-i-1,v:carry}:null,text:head+body});}
+      steps.push({r:sr,c:pEnd-i,ch:String(x%10),kind:"sum",row:sr,i:i,list:list,cin:cin,x:x,first:i===0,
+        carryOut:(carry&&i<sd.length-1)?{c:pEnd-i-1,v:carry}:null,text:head+body});}
     sh.labels.push({r:sr,text:"①＋②"+(m>2?"＋…":"")});
   }
   sh.finalText="完成！<b>"+a+" × "+b+" ＝ "+P+"</b>";
@@ -366,13 +366,13 @@ function hasMidZero(a){var s=String(a);return s.slice(1,-1).indexOf("0")>=0;}
 function withMidZero(len,rnd){var s=String(ri(1,9,rnd));for(var i=1;i<len;i++)s+=String(ri(0,9,rnd));
   var arr=s.split(""),k=ri(1,len-2,rnd);arr[k]="0";if(arr[len-1]==="0")arr[len-1]=String(ri(1,9,rnd));return +arr.join("");}
 function b2(rnd){var b;do{b=ri(12,99,rnd);}while(b%10===0||b%11===0&&rnd()<.5);return b;}
-var LEVELS={1:"四位×一位",2:"二位×二位",3:"三位×二位",4:"四位×二位",5:"缺位挑戰",6:"綜合"};
+var LEVELS={1:"四位×一位",2:"一、二位×二位",3:"三位×二位",4:"四位×二位",5:"中間有 0",6:"綜合"};
 function gen(level,rnd){rnd=rnd||Math.random;var a,b;level=+level;
   if(level===6)level=ri(1,5,rnd);
   if(level===1){a=rnd()<.45?withMidZero(4,rnd):ri(1001,9999,rnd);b=ri(2,9,rnd);}
-  else if(level===2){a=ri(12,99,rnd);b=rnd()<.2?ri(2,9,rnd)*10:b2(rnd);}
-  else if(level===3){a=ri(101,999,rnd);b=b2(rnd);}
-  else if(level===4){a=ri(1001,9999,rnd);b=b2(rnd);}
+  else if(level===2){a=rnd()<.3?ri(3,9,rnd):ri(12,99,rnd);b=rnd()<.2?ri(2,9,rnd)*10:b2(rnd);}
+  else if(level===3){a=ri(101,999,rnd);if(rnd()<.2)a=ri(11,99,rnd)*10;b=rnd()<.2?ri(2,9,rnd)*10:b2(rnd);}
+  else if(level===4){a=ri(1001,9999,rnd);b=rnd()<.15?ri(2,9,rnd)*10:b2(rnd);}
   else {a=rnd()<.5?withMidZero(3,rnd):withMidZero(4,rnd);b=b2(rnd);}
   return {a:a,b:b,level:level};}
 /* 補0快算 questions */
@@ -418,9 +418,9 @@ function fresh(){return {stars:0,lv:{},bad:{},recent:[],quickRounds:0,quickPerfe
 var store=fresh();
 try{var raw=localStorage.getItem(KEY);if(raw){var o=JSON.parse(raw);for(var k in o)store[k]=o[k];}}catch(e){}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
-var TN={carry:"🔺 忘了加進位",zero:"🕳️ 缺位的 0",times:"✖️ 乘法算錯",sum:"➕ 部分積相加",tz:"0️⃣ 忘了補 0",place:"📏 寫錯位置",quick:"⚡ 補 0 快算",word:"📝 應用題列式"};
+var TN={carry:"🔺 忘了加進位",zero:"🕳️ 中間有 0",times:"✖️ 乘法算錯",sum:"➕ 兩行相加",tz:"0️⃣ 忘了補 0",place:"📏 寫錯位置",quick:"⚡ 補 0 快算",word:"📝 應用題列式"};
 var TIPS={carry:"先乘，再加上寫在上面的小小進位，最後才寫個位數字。",zero:"0 × 任何數 ＝ 0，但前面進上來的數字還是要加！",times:"背熟九九乘法，不確定時用 🔊 聽一次步驟。",
-  sum:"部分積相加時，同一直行對齊；滿 10 要進位。",tz:"乘數是整十時，答案最右邊先補 0。",place:"第②行用十位乘，要從十位開始寫！",quick:"先算不是 0 的數字相乘，再數一數兩邊一共有幾個 0。",word:"「每一份有多少」×「有幾份」＝ 全部。"};
+  sum:"兩行相加時，同一直行對齊；滿 10 要進位。",tz:"乘數是整十時，答案最右邊先補 0。",place:"第②行用十位乘，要從十位開始寫！",quick:"先算不是 0 的數字相乘，再數一數兩邊一共有幾個 0。",word:"「每一份有多少」×「有幾份」＝ 全部。"};
 function miss(t,p){store.bad[t]=(store.bad[t]||0)+1;store.recent.unshift({p:p,k:t});store.recent=store.recent.slice(0,10);save();}
 function renderScore(){$("score").textContent="⭐ "+store.stars;}
 function addStars(n,el){store.stars+=n;save();renderScore();var sc=$("score");sc.classList.remove("pop");void sc.offsetWidth;sc.classList.add("pop");
@@ -478,7 +478,7 @@ function renderSheet(el,sh,k,o){o=o||{};var W=sh.W,R=sh.nrows,cells={},cls={},to
 /* ---------- 學習：一步一步 demo ---------- */
 var DP={"21":[[2347,3],[3058,4],[1609,6],[2000,3]],"22":[[6,30],[24,30],[23,14],[47,36]],"23":[[235,42],[408,27],[2346,35],[3062,45]]};
 var dSh=null,dK=0,sec="21";
-function dIntro(sh){return "<b>"+sh.a+" × "+sh.b+"</b>：位數多的寫上面，<b>個位對齊個位</b>"+(sh.tz?"（乘數最右邊的 0 可以先寫在外面）":"")+"。"+(sh.m>1?"乘數有兩位，所以會有<b>兩行部分積</b>。":"")+"按「下一步」開始！";}
+function dIntro(sh){return "<b>"+sh.a+" × "+sh.b+"</b>：照算式的順序寫，<b>"+sh.a+" 在上、"+sh.b+" 在下</b>，<b>個位對齊個位</b>"+(sh.tz?"（"+sh.b+" 最右邊的 0 也對齊個位）":"")+"。"+(sh.m>1?"乘數有兩位，所以會有<b>兩行</b>：先算幾個一，再算幾個十。":"")+"按「下一步」開始！";}
 function dLoad(a,b){dSh=C.build(a,b);dK=0;$("dA").value=a;$("dB").value=b;$("dMsg").textContent="";dDraw();}
 function dDraw(){renderSheet($("dSheet"),dSh,dK);
   var t=dK===0?dIntro(dSh):dSh.steps[dK-1].text;if(dK===dSh.steps.length)t+="<br>🎉 "+dSh.finalText;
@@ -493,8 +493,7 @@ $("dAll").addEventListener("click",function(){dK=dSh.steps.length;dDraw();});
 $("dRe").addEventListener("click",function(){dK=0;dDraw();});
 $("dSay").addEventListener("click",function(){say($("dBubble").innerHTML);});
 $("dGo").addEventListener("click",function(){$("dMsg").textContent="";var a=parseInt($("dA").value,10),b=parseInt($("dB").value,10);
-  if(!(a>=1&&a<=99999&&b>=1&&b<=999)){$("dMsg").textContent="請輸入：被乘數 1～99999，乘數 1～999";return;}
-  if(String(b).length>String(a).length){var t=a;a=b;b=t;$("dMsg").textContent="位數多的放上面，幫你交換成 "+a+" × "+b;}
+  if(!(a>=1&&a<=9999&&b>=1&&b<=99)){$("dMsg").textContent="請輸入：被乘數 1～9999，乘數 1～99（4上 乘數最多二位數）";return;}
   $("dPresets").querySelectorAll("button").forEach(function(x){x.classList.remove("on");});var m=$("dMsg").textContent;dLoad(a,b);$("dMsg").textContent=m;});
 
 /* 節次切換 */
@@ -571,7 +570,7 @@ function Runner(o){var R={sh:null,k:0,miss:0,tries:0,hl:true,done:true};
   R.press=function(v){if(R.done||!R.sh)return;var s=R.sh.steps[R.k];
     if(String(v)===s.ch){R.k++;R.tries=0;fbHide(o.fb);
       if(R.k===R.sh.steps.length){R.done=true;draw();$(o.bubble).innerHTML="🎉 "+R.sh.finalText;beep(true);o.onDone(R.miss);return;}
-      var n=R.sh.steps[R.k];$(o.bubble).innerHTML=n.row!==s.row?(n.kind==="sum"?"兩行都寫好了！現在把<b>部分積加起來</b>，從個位開始。":n.kind==="pp"&&n.j>0?"第①行完成！換乘數<b>"+C.PLACE[n.j]+"位的 "+n.bj+"</b>，從<b>"+C.PLACE[n.j]+"位</b>開始寫。":"很好，繼續！"):"✓ 對！下一格。";
+      var n=R.sh.steps[R.k];$(o.bubble).innerHTML=n.row!==s.row?(n.kind==="sum"?"兩行都寫好了！現在把<b>兩行加起來</b>，從個位開始。":n.kind==="pp"&&n.j>0?"第①行完成！換乘數<b>"+C.PLACE[n.j]+"位的 "+n.bj+"</b>，從<b>"+C.PLACE[n.j]+"位</b>開始寫。":"很好，繼續！"):"✓ 對！下一格。";
       draw();}
     else{R.miss++;R.tries++;beep(false);var c=classify(R.sh,s,+v);miss(c.k,R.sh.a+" × "+R.sh.b);draw(s.r+"_"+s.c);
       fb(o.fb,"bad",R.tries>=2?"💡 "+s.text:"再想想："+c.h);}};
@@ -643,7 +642,7 @@ document.addEventListener("keydown",function(e){if(e.target&&e.target.tagName===
 function renderRec(){var tot=0;for(var l in store.lv)tot+=store.lv[l];
   $("stats").innerHTML='<div class="stat"><b>'+store.stars+'</b>星星</div><div class="stat"><b>'+tot+'</b>直式完成</div><div class="stat"><b>'+store.quickRounds+'</b>快算回合</div><div class="stat"><b>'+store.words+'</b>應用題</div>'+
     [1,2,3,4,5].map(function(i){return '<div class="stat"><b>'+(store.lv[i]||0)+"</b>"+C.LEVELS[i]+"</div>";}).join("");
-  var B=[["🎯 第一題",tot>=1],["🔁 直式 10 題",tot>=10],["🏗️ 四位×二位 ×3",(store.lv[4]||0)>=3],["🕳️ 缺位勇者",(store.lv[5]||0)>=5],["⚡ 補0快手",store.quickPerfect>=1],["📝 應用題達人",store.words>=5],["🐢 看完示範",store.demos>=1],["🌟 百星",store.stars>=100]];
+  var B=[["🎯 第一題",tot>=1],["🔁 直式 10 題",tot>=10],["🏗️ 四位×二位 ×3",(store.lv[4]||0)>=3],["🕳️ 中間有 0 勇者",(store.lv[5]||0)>=5],["⚡ 補0快手",store.quickPerfect>=1],["📝 應用題達人",store.words>=5],["🐢 看完示範",store.demos>=1],["🌟 百星",store.stars>=100]];
   $("badges").innerHTML=B.map(function(b){return '<span class="bdg'+(b[1]?" got":"")+'">'+b[0]+"</span>";}).join("");
   var ks=Object.keys(store.bad).sort(function(a,b){return store.bad[b]-store.bad[a];});
   $("mist").innerHTML=ks.length?'<table class="rec"><tr><th>類型</th><th>次數</th><th>小提醒</th></tr>'+ks.map(function(k){return "<tr><td>"+(TN[k]||k)+"</td><td>"+store.bad[k]+"</td><td>"+(TIPS[k]||"")+"</td></tr>";}).join("")+"</table>":'<p class="small">還沒有錯誤紀錄，太棒了！</p>';
