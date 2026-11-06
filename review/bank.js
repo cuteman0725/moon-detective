@@ -32,6 +32,7 @@
     { k: 'ma7', s: 'ma', name: '小數', href: 'math/decimals/', later: true },
     { k: 'ma8', s: 'ma', name: '整數四則計算', href: 'math/mixed-ops/', later: true },
     { k: 'ma9', s: 'ma', name: '分數', href: 'math/fractions/', later: true },
+    { k: 'ma10', s: 'ma', name: '統計圖', href: 'math/charts/', later: true },
     { k: 'na1', s: 'na', name: '第一單元 閃亮的天空', href: 'nature/moon-detective/#lesson1' },
     { k: 'na2', s: 'na', name: '第二單元 水域環境', href: 'nature/moon-detective/#lesson2' },
     { k: 'so1', s: 'so', name: '閱讀生活中的地圖', href: 'social/reading-maps/' },
@@ -775,8 +776,190 @@
       var bd3 = 1; if (Math.random() < .4) { parts = [parts[0], '② ' + mxT(A, bb, d) + ' ＝ ' + (A - 1) + ' 又 ' + (bb + d) + '/' + d, '③ 再減 ' + mxT(C, ee, d) + '，答案是 ' + mxT(A - 1 - C, ee - bb, d)]; bd3 = 2; }
       if (bd3 === 2) return { kind: 'spot', block: true, q: '小明算 ' + mx(A, bb, d) + ' － ' + mx(C, ee, d) + '，他第一個錯的是哪一步？', parts: parts, bad: 2, fix: '③ ' + (bb + d) + '/' + d + ' － ' + ee + '/' + d + ' ＝ ' + (bb + d - ee) + '/' + d + '，答案是 ' + mxT(Math.floor(tot / d), tot % d, d), ex: '正確答案是 ' + mx(Math.floor(tot / d), tot % d, d) + '。' };
       return { kind: 'spot', block: true, q: '小明算 ' + mx(A, bb, d) + ' － ' + mx(C, ee, d) + '，他第一個錯的是哪一步？', parts: parts, bad: 1, fix: '② 借走 1 以後整數要少 1：' + mxT(A, bb, d) + ' ＝ ' + (A - 1) + ' 又 ' + (bb + d) + '/' + d, ex: '正確答案是 ' + mx(Math.floor(tot / d), tot % d, d) + '。' };
+    },
+    /* ===== 第 10 單元 統計圖（課本 p.131～145）：4上 只「讀」折線圖，會畫的只有長條圖 ===== */
+    picRead: function () {
+      var big = pick([10, 100, 1000]), half = Math.random() < .6, small = half ? big / 2 : big / 10, it = pick([['🚗', '🚙', '汽車', '輛'], ['🥛', '🧃', '牛奶', '瓶'], ['✏️', '🖊️', '原子筆', '枝'], ['🍎', '🍏', '蘋果', '顆']]);
+      var names = M8shuffle(['紅色', '藍色', '黃色', '綠色', '白色']).slice(0, 4), rows = names.map(function (nm) { return [nm, ri(1, 5), half ? ri(0, 1) : ri(0, 6)]; });
+      var k = ri(0, 3), r = rows[k], ans = r[1] * big + r[2] * small;
+      return { q: '看圖示統計圖，<b>' + r[0] + '</b>的' + it[2] + '有多少' + it[3] + '？<div class="qimg">' + pictoHTML(rows, big + ' ' + it[3], small + ' ' + it[3], it[0], it[1], '上週' + it[2] + '銷售數量統計圖') + '</div>', fields: [{ pre: '', unit: it[3] }], ans: [ans],
+        ex: '先看說明：大圖案 ' + it[0] + ' 表示 ' + big + '，小圖案 ' + it[1] + ' 表示 ' + small + '。' + r[1] + ' 個大的是 ' + (r[1] * big) + (r[2] ? '，' + r[2] + ' 個小的是 ' + (r[2] * small) : '') + '，合起來是 <b>' + ans + ' ' + it[3] + '</b>。',
+        dg: function (v) { v = v[0]; if (v === r[1] + r[2]) return '每個大圖案代表 ' + big + '，不是 1 喔！'; if (v === (r[1] + r[2]) * big) return '小圖案只代表 ' + small + '，不是 ' + big + '。'; if (!half && v === r[1] * big + r[2] * big / 2) return '看說明框：這次小圖案代表 ' + small + '，不是一半。'; return ''; } };
+    },
+    picMake: function () {
+      var big = pick([10, 100]), small = big / 2, nb = ri(1, 5), ns = 1, val = nb * big + small;
+      var right = nb + ' 個大圖案、1 個小圖案', w = [nb + ' 個大圖案、5 個小圖案', (nb + 1) + ' 個大圖案', nb + ' 個大圖案'];
+      return { kind: 'pick', q: '大圖案表示 <b>' + big + '</b>，小圖案表示 <b>' + small + '</b>。要表示 <b>' + val + '</b>，該怎麼畫？', opts: [right].concat(M8shuffle(w).slice(0, 2)), a: 0,
+        ex: val + ' ＝ ' + (nb * big) + ' ＋ ' + small + '：' + nb + ' 個大圖案再加 1 個小圖案。1 個小圖案就代表 ' + small + '，不是 5 個。' };
+    },
+    barRead: function () {
+      var half = Math.random() < .35, step = half ? pick([2, 10]) : pick([1, 2, 5, 10]), B = barChart({ step: step, half: half }), k = ri(0, B.vals.length - 1), v = B.vals[k], isHalf = v % step !== 0;
+      return { q: '看長條圖，<b>' + B.C.cats[k] + '</b>有多少' + B.C.info[3] + '？<div class="qimg">' + B.svg + '</div>', fields: [{ pre: '', unit: B.C.info[3] }], ans: [v],
+        ex: '縱軸每一小格表示 ' + step + ' ' + B.C.info[3] + '。' + B.C.cats[k] + '的長條' + (isHalf ? '停在 ' + (v - step / 2) + ' 和 ' + (v + step / 2) + ' 的正中間，所以是 ' : '到 ') + '<b>' + v + '</b>。',
+        dg: function (x) { x = x[0]; if (step > 1 && x === Math.round(v / step)) return '先看每一格代表多少（' + step + '），再數。'; if (isHalf && (x === v - step / 2 || x === v + step / 2)) return '停在兩條線中間，是兩個數的正中間。'; if (Math.abs(x - v) === step) return '從長條頂端畫一條橫線到縱軸，看它碰到哪一條。'; return ''; } };
+    },
+    scaleUnit: function () {
+      var lab = pick([5, 10, 20, 50, 100]), sm = pick([2, 5, 10].filter(function (s) { return lab % s === 0 && lab / s >= 1; })), each = lab / sm;
+      if (each < 1 || each % 1) return GEN.scaleUnit();
+      var B = barSVG({ cats: ['甲', '乙', '丙'], vals: [lab, lab * 2, lab * 1.5].map(function (x) { return Math.round(x / each) * each; }), step: each, per: sm, grids: sm * 3, yName: '人數(人)', xName: '組別', title: '各組人數長條圖' });
+      return { q: '這張長條圖的縱軸，<b>每一小格</b>表示幾人？<div class="qimg">' + B + '</div>', fields: [{ pre: '', unit: '人' }], ans: [each],
+        ex: '數字每 ' + lab + ' 標一次，兩個數字之間分成 ' + sm + ' 小格：' + lab + ' ÷ ' + sm + ' ＝ <b>' + each + '</b>，每一小格表示 ' + each + ' 人。',
+        dg: function (v) { if (v[0] === lab) return '題目問的是「小格」：數數兩個數字之間被分成幾格。'; if (v[0] === sm) return '要用大格的數除以格數：' + lab + ' ÷ ' + sm + '。'; return ''; } };
+    },
+    barMaxMin: function () {
+      var t = ri(0, 2), B = barChart({ step: pick([1, 2, 5]), pair: t === 2 }), mxv = Math.max.apply(null, B.vals), mnv = Math.min.apply(null, B.vals);
+      if (t === 2) { var pr = null; for (var i = 0; i < B.vals.length && !pr; i++) for (var j = i + 1; j < B.vals.length; j++) if (B.vals[i] === B.vals[j]) { pr = [i, j]; break; } if (!pr) return GEN.barMaxMin();
+        var right = B.C.cats[pr[0]] + '和' + B.C.cats[pr[1]], ws = []; for (var a = 0; a < B.vals.length && ws.length < 2; a++) for (var b = a + 1; b < B.vals.length && ws.length < 2; b++) if (B.vals[a] !== B.vals[b]) ws.push(B.C.cats[a] + '和' + B.C.cats[b]);
+        return { kind: 'pick', q: '哪兩種一樣多？<div class="qimg">' + B.svg + '</div>', opts: [right].concat(ws), a: 0, ex: right + '的長條一樣高，都是 ' + B.vals[pr[0]] + ' ' + B.C.info[3] + '。' }; }
+      var tg = t === 0 ? mxv : mnv, k = B.vals.indexOf(tg), opts = B.C.cats.slice(), a = k;
+      return { kind: 'pick', q: '哪一種<b>' + (t === 0 ? '最多' : '最少') + '</b>？<div class="qimg">' + B.svg + '</div>', opts: opts, a: a, ex: '找' + (t === 0 ? '最高' : '最矮') + '的那一條：<b>' + B.C.cats[k] + '</b>，' + tg + ' ' + B.C.info[3] + '。' };
+    },
+    barCalc: function () {
+      var B = barChart({ step: pick([1, 2, 5]), n: 4 }), t = ri(0, 1), u = B.C.info[3];
+      if (t === 0) { var i = B.vals.indexOf(Math.max.apply(null, B.vals)), j = B.vals.indexOf(Math.min.apply(null, B.vals)); var d = B.vals[i] - B.vals[j];
+        return { q: '<b>' + B.C.cats[i] + '</b>比<b>' + B.C.cats[j] + '</b>多幾' + u + '？<div class="qimg">' + B.svg + '</div>', fields: [{ pre: '', unit: u }], ans: [d], ex: B.C.cats[i] + ' ' + B.vals[i] + '，' + B.C.cats[j] + ' ' + B.vals[j] + '：「比……多幾」用大的減小的，' + B.vals[i] + ' － ' + B.vals[j] + ' ＝ <b>' + d + '</b>。', dg: function (v) { return v[0] === B.vals[i] + B.vals[j] ? '「比……多幾」要用大的減小的。' : ''; } }; }
+      var s = B.vals.reduce(function (a, b) { return a + b; }, 0);
+      return { q: '每人只投 1 票，這' + (u === '人' ? '班一共有幾人' : '些一共有幾' + u) + '？<div class="qimg">' + B.svg + '</div>', fields: [{ pre: '', unit: u }], ans: [s], ex: '把每一條都加起來：' + B.vals.join(' ＋ ') + ' ＝ <b>' + s + '</b>。', dg: function (v) { return B.vals.some(function (x) { return v[0] === s - x; }) ? '每一條都要加進去喔，一共有 ' + B.vals.length + ' 種。' : ''; } };
+    },
+    barHoriz: function () {
+      var B = barChart({ step: 2, per: 5, horiz: true, half: true, n: 4 });
+      if (Math.random() < .4) return { kind: 'pick', q: '這是橫式長條圖，<b>縱軸</b>表示什麼？<div class="qimg">' + B.svg + '</div>', opts: [B.C.info[1], B.C.info[2], '標題'], a: 0, ex: '長條橫著畫的時候，數量在<b>橫軸</b>，縱軸寫的是' + B.C.info[1] + '。' };
+      var k = ri(0, 3), v = B.vals[k];
+      return { q: '看橫式長條圖，<b>' + B.C.cats[k] + '</b>有多少' + B.C.info[3] + '？<div class="qimg">' + B.svg + '</div>', fields: [{ pre: '', unit: B.C.info[3] }], ans: [v], ex: '橫軸每一小格表示 2 ' + B.C.info[3] + '，' + B.C.cats[k] + '的長條到 <b>' + v + '</b>' + (v % 2 ? '（在 ' + (v - 1) + ' 和 ' + (v + 1) + ' 的正中間）' : '') + '。',
+        dg: function (x) { x = x[0]; if (x === Math.round(v / 2)) return '橫軸每一小格代表 2，先看清楚再數。'; if (v % 2 && Math.abs(x - v) === 1) return '停在兩條線中間，是兩個數的正中間。'; return ''; } };
+    },
+    barDraw: function () {
+      var step = pick([2, 5, 10]), cells = ri(3, 10) + (step !== 5 && Math.random() < .3 ? .5 : 0), v = Math.round(cells * step), it = pick([['兔子', '隻'], ['金魚', '隻'], ['西瓜', '顆'], ['跳繩的人', '人']]);
+      return { q: '統計表寫<b>' + it[0] + ' ' + v + ' ' + it[1] + '</b>，長條圖的縱軸每一格表示 <b>' + step + ' ' + it[1] + '</b>，' + it[0] + '的長條要畫幾格？', fields: [{ pre: '', unit: '格' }], ans: [v / step], dec: v % step !== 0,
+        ex: v + ' ÷ ' + step + ' ＝ ' + (v / step) + '，要畫 <b>' + (v / step) + ' 格</b>' + (v % step ? '（' + Math.floor(v / step) + ' 格半）' : '') + '。',
+        dg: function (x) { if (x[0] === v) return '每格代表 ' + step + '，要算 ' + v + ' 裡有幾個 ' + step + '。'; if (x[0] === v * step) return '要用除的：' + v + ' ÷ ' + step + '。'; return ''; } };
+    },
+    scalePick: function () {
+      var mxv = ri(8, 95), g = ri(8, 12), opts = [1, 2, 5, 10], ok = opts.filter(function (s) { return s * g >= mxv; });
+      if (!ok.length || ok[0] === 1 && Math.random() < .7) return GEN.scalePick();
+      var a = opts.indexOf(ok[0]);
+      return { kind: 'pick', q: '統計表裡最大的數是 <b>' + mxv + '</b>，縱軸只有 <b>' + g + ' 格</b>。每格表示多少，才畫得下而且長條最高？', opts: opts.map(function (s) { return '每格 ' + s; }), a: a,
+        ex: '每格 ' + ok[0] + ' 時，' + g + ' 格最多到 ' + (ok[0] * g) + '，畫得下 ' + mxv + '；' + (a > 0 ? '每格 ' + opts[a - 1] + ' 只到 ' + (opts[a - 1] * g) + '，畫不下。' : '') + '比 ' + ok[0] + ' 大也畫得下，但長條會太矮。' };
+    },
+    lineRead: function () {
+      var t = ri(0, 1), n = ri(5, 7), cats, vals = [], base = 0, step, per, yN, xN, ti, u;
+      if (t === 0) { var h0 = ri(6, 8); cats = []; for (var i = 0; i < n; i++) cats.push((h0 + i * 2) + ''); var v0 = ri(12, 20); for (var j = 0; j < n; j++) { v0 += j ? pick([-3, -2, -1, 0, 1, 2, 3, 4]) : 0; vals.push(Math.max(5, Math.min(34, v0))); } step = 1; per = 5; yN = '氣溫(°C)'; xN = '時刻(時)'; ti = '某日氣溫紀錄折線圖'; u = '°C'; }
+      else { cats = []; for (var a = 0; a < n; a++) cats.push((5 + a) + ''); var hh = ri(108, 118); for (var b = 0; b < n; b++) { hh += b ? ri(3, 7) : 0; vals.push(hh); } base = Math.floor((vals[0] - 3) / 5) * 5; step = 1; per = 5; yN = '身高(公分)'; xN = '年齡(歲)'; ti = '某同學每年身高紀錄折線圖'; u = '公分'; }
+      var mxv = Math.max.apply(null, vals), g = Math.ceil((mxv - base) / 5) * 5 + 5;
+      var svg = lineSVG({ cats: cats, vals: vals, step: step, per: per, grids: g, base: base, yName: yN, xName: xN, title: ti }), k = ri(0, n - 1);
+      return { q: '看折線圖，<b>' + cats[k] + (t ? ' 歲' : ' 時') + '</b>是多少' + u + '？<div class="qimg">' + svg + '</div>', fields: [{ pre: '', unit: u }], ans: [vals[k]],
+        ex: '在橫軸找到 ' + cats[k] + (t ? ' 歲' : ' 時') + '，往上直直對到點，再往左看縱軸：<b>' + vals[k] + ' ' + u + '</b>。' + (base ? '縱軸的 ≈ 表示 0 到 ' + base + ' 省略了，要從標好的刻度開始讀。' : ''),
+        dg: function (x) { x = x[0]; if (base && x === vals[k] - base) return '≈ 表示中間省略了，要從標好的刻度 ' + base + ' 開始讀，不能從 0 開始數格子。'; if (vals.indexOf(x) >= 0 && x !== vals[k]) return '先在橫軸找到 ' + cats[k] + '，往上直直對到點。'; return ''; } };
+    },
+    lineTrend: function () {
+      var n = 6, cats = [], vals = [], v = ri(14, 20);
+      for (var i = 0; i < n; i++) { cats.push((7 + i * 2) + ''); if (i) v += pick([-3, -2, 0, 2, 3, 4, 5]); vals.push(Math.max(8, v)); }
+      var diffs = vals.slice(1).map(function (x, i) { return x - vals[i]; }), t = ri(0, 1);
+      var svg = lineSVG({ cats: cats, vals: vals, step: 1, per: 5, grids: Math.ceil(Math.max.apply(null, vals) / 5) * 5 + 5, yName: '氣溫(°C)', xName: '時刻(時)', title: '某日氣溫紀錄折線圖' });
+      if (t === 0) { var k = ri(0, n - 2), d = diffs[k], a = d > 0 ? 0 : d < 0 ? 1 : 2;
+        return { kind: 'pick', q: '從 <b>' + cats[k] + ' 時</b>到 <b>' + cats[k + 1] + ' 時</b>，氣溫是上升、下降還是不變？<div class="qimg">' + svg + '</div>', opts: ['上升', '下降', '不變'], a: a, ex: vals[k] + '°C → ' + vals[k + 1] + '°C：連線' + ['往上，氣溫上升', '往下，氣溫下降', '是平的，氣溫不變'][a] + '。' }; }
+      var big = Math.max.apply(null, diffs); if (big <= 0 || diffs.filter(function (x) { return x === big; }).length > 1) return GEN.lineTrend();
+      var kk = diffs.indexOf(big), opts = diffs.map(function (_, i) { return cats[i] + ' 時到 ' + cats[i + 1] + ' 時'; }), a2 = kk, pickIdx = M8shuffle(opts.map(function (_, i) { return i; }).filter(function (i) { return i !== kk; })).slice(0, 2).concat([kk]).sort(function (x, y) { return x - y; });
+      return { kind: 'pick', q: '哪兩個時刻之間，氣溫<b>上升最多</b>？<div class="qimg">' + svg + '</div>', opts: pickIdx.map(function (i) { return opts[i]; }), a: pickIdx.indexOf(kk), ex: '看哪一段線往上最陡：' + opts[kk] + '，上升 ' + big + '°C。上升最多是指兩個點之間差最多，不是最高的點。' };
+    },
+    unitRead: function () {
+      var n = 5, cats = [], vals = [], v = ri(150, 210);
+      for (var i = 0; i < n; i++) { cats.push((108 + i) + ''); if (i) v += pick([-9, -6, -4, 3, 5, 8]); vals.push(v); }
+      var base = Math.floor((Math.min.apply(null, vals) - 6) / 10) * 10, g = Math.ceil((Math.max.apply(null, vals) - base) / 10) * 10 + 5, k = ri(0, n - 1);
+      var svg = lineSVG({ cats: cats, vals: vals, step: 1, per: 10, grids: g, base: base, yName: '人數(千人)', xName: '年度(年)', title: '某市新生兒人數折線圖' });
+      return { q: '看折線圖，民國 <b>' + cats[k] + ' 年</b>的新生兒有幾人？<div class="qimg">' + svg + '</div>', fields: [{ pre: '', unit: '人' }], ans: [vals[k] * 1000],
+        ex: '縱軸的單位是「千人」：讀到 ' + vals[k] + ' 千人，' + vals[k] + ' × 1000 ＝ <b>' + (vals[k] * 1000) + ' 人</b>。',
+        dg: function (x) { x = x[0]; if (x === vals[k]) return '單位是「千人」，' + vals[k] + ' 千人是 ' + (vals[k] * 1000) + ' 人。'; if (x === vals[k] * 100 || x === vals[k] * 10000) return '1 千 ＝ 1000，後面有 3 個 0。'; return ''; } };
+    },
+    twoSeries: function () {
+      var C = pickCats(4), a = C.cats.map(function () { return ri(3, 12); }), b = C.cats.map(function () { return ri(3, 12); }), t = ri(0, 2);
+      var svg = barSVG({ cats: C.cats, vals: a, vals2: b, step: 1, per: 2, grids: 14, yName: '人數(人)', xName: C.info[1], title: '甲、乙兩班' + C.info[0] + '人數長條圖', legend: ['甲班', '乙班'], labels: true });
+      if (t === 0) { var k = ri(0, 3); return { q: '兩班合起來，喜歡<b>' + C.cats[k] + '</b>的有幾人？<div class="qimg">' + svg + '</div>', fields: [{ pre: '', unit: '人' }], ans: [a[k] + b[k]], ex: '先看色塊說明：藍色是甲班、黃色是乙班。' + a[k] + ' ＋ ' + b[k] + ' ＝ <b>' + (a[k] + b[k]) + ' 人</b>。', dg: function (v) { return v[0] === a[k] || v[0] === b[k] ? '兩班都要算：兩條加起來。' : ''; } }; }
+      if (t === 1) { var d = a.map(function (x, i) { return Math.abs(x - b[i]); }), m = Math.max.apply(null, d); if (d.filter(function (x) { return x === m; }).length > 1 || !m) return GEN.twoSeries(); var kk = d.indexOf(m);
+        return { kind: 'pick', q: '哪一種兩班<b>差最多</b>？<div class="qimg">' + svg + '</div>', opts: C.cats.slice(), a: kk, ex: C.cats[kk] + '：' + a[kk] + ' 和 ' + b[kk] + '，差 ' + m + ' 人，是差最多的。' }; }
+      var sa = a.reduce(function (x, y) { return x + y; }), sb = b.reduce(function (x, y) { return x + y; }); if (sa === sb) return GEN.twoSeries();
+      return { q: '把每一種加起來，甲班和乙班的人數<b>相差</b>幾人？<div class="qimg">' + svg + '</div>', fields: [{ pre: '相差', unit: '人' }], ans: [Math.abs(sa - sb)], ex: '甲班 ' + a.join(' ＋ ') + ' ＝ ' + sa + ' 人，乙班 ' + b.join(' ＋ ') + ' ＝ ' + sb + ' 人，' + (sa > sb ? '甲' : '乙') + '班多 <b>' + Math.abs(sa - sb) + ' 人</b>。' };
+    },
+    spotChart: function () {
+      var t = ri(0, 2);
+      if (t === 2) { var g2 = ri(9, 16); return { kind: 'spot', block: true, q: '縱軸數字每 10 標一次，中間分成 5 小格。小明讀「香蕉有幾人」，他第一個錯的是哪一步？', parts: ['① 縱軸每一小格表示 10 人', '② 香蕉的長條到第 ' + g2 + ' 小格', '③ 所以香蕉有 ' + (g2 * 10) + ' 人'], bad: 0, fix: '① 數字每 10 標一次，中間分成 5 小格，每小格是 10 ÷ 5 ＝ 2 人', ex: '香蕉有 <b>' + (g2 * 2) + ' 人</b>。' }; }
+      if (t === 0) { var g = ri(9, 16), v = g * 2; return { kind: 'spot', block: true, q: '縱軸數字每 10 標一次，中間分成 5 小格。小明讀「香蕉有幾人」，他第一個錯的是哪一步？', parts: ['① 縱軸每一小格表示 2 人', '② 香蕉的長條到第 ' + g + ' 小格', '③ 所以香蕉有 ' + g + ' 人'], bad: 2, fix: '③ ' + g + ' 小格 × 2 人 ＝ ' + v + ' 人', ex: '香蕉有 <b>' + v + ' 人</b>。' }; }
+      var a = ri(115, 125), b = a + ri(10, 20);
+      return { kind: 'spot', block: true, q: '身高折線圖的縱軸在 0 和 110 之間有 ≈。小明算「6 歲到 9 歲長高多少」，他第一個錯的是哪一步？', parts: ['① 縱軸每小格表示 1 公分', '② 6 歲是 ' + a + ' 公分，9 歲是 ' + b + ' 公分', '③ 長高 ' + b + ' － ' + a + ' ＝ ' + (b - a + 10) + ' 公分'], bad: 2, fix: '③ ' + b + ' － ' + a + ' ＝ ' + (b - a) + ' 公分', ex: '長高了 <b>' + (b - a) + ' 公分</b>。' };
     }
   };
+  /* ---------------- 第 10 單元 統計圖：照課本的畫法（標題在圖下方、縱軸名稱在上端、橫軸名稱在右端、只有大格標數字） ---------------- */
+  var CATS10 = { fruit: ['蘋果', '葡萄', '西瓜', '香蕉', '芒果', '鳳梨'], sport: ['躲避球', '跳繩', '籃球', '游泳', '桌球', '羽球'], breakfast: ['蛋餅', '飯糰', '三明治', '蘿蔔糕', '饅頭'], pet: ['金魚', '烏龜', '兔子', '倉鼠', '小狗', '小貓'], go: ['走路', '騎腳踏車', '家人接送', '大眾運輸'], flavor: ['巧克力', '香草', '草莓', '芒果', '抹茶'] };
+  var CATN10 = { fruit: ['最喜歡的水果', '種類', '人數', '人'], sport: ['最喜歡的運動', '種類', '人數', '人'], breakfast: ['最受歡迎的早餐', '種類', '人數', '人'], pet: ['養的寵物', '種類', '數量', '隻'], go: ['上學方式', '上學方式', '人數', '人'], flavor: ['喜歡的冰淇淋口味', '口味', '人數', '人'] };
+  function pickCats(n) { var k = pick(Object.keys(CATS10)), c = M8shuffle(CATS10[k]).slice(0, Math.min(n, CATS10[k].length)); return { key: k, cats: c, info: CATN10[k] }; }
+  // 長條圖：o = { cats, vals, step:每小格多少, per:每幾小格標一個數字, grids:小格數, yName, xName, title, horiz, vals2, legend, base }
+  function barSVG(o) {
+    var W = 340, H = 268, L = o.horiz ? 70 : 46, R = 326, T = 28, Bm = 206, n = o.cats.length, h = '', c1 = '#4d96ff', c2 = '#ffb703';
+    var g = o.grids, step = o.step, per = o.per || 1, two = !!o.vals2;
+    var pos = function (v) { return o.horiz ? L + (R - L) * v / (g * step) : Bm - (Bm - T) * v / (g * step); };
+    for (var i = 0; i <= g; i++) { var major = i % per === 0, v = i * step;
+      if (o.horiz) { var x = pos(v); h += '<line x1="' + x.toFixed(1) + '" y1="' + T + '" x2="' + x.toFixed(1) + '" y2="' + Bm + '" stroke="' + (major ? '#b9b4cc' : '#e6e3f0') + '" stroke-width="1"/>' + (major ? '<text x="' + x.toFixed(1) + '" y="' + (Bm + 16) + '" font-size="11" text-anchor="middle" fill="#555">' + v + '</text>' : ''); }
+      else { var y = pos(v); h += '<line x1="' + L + '" y1="' + y.toFixed(1) + '" x2="' + R + '" y2="' + y.toFixed(1) + '" stroke="' + (major ? '#b9b4cc' : '#e6e3f0') + '" stroke-width="1"/>' + (major ? '<text x="' + (L - 5) + '" y="' + (y + 4).toFixed(1) + '" font-size="11" text-anchor="end" fill="#555">' + v + '</text>' : ''); } }
+    var slot = ((o.horiz ? Bm - T : R - L)) / n;
+    for (var j = 0; j < n; j++) {
+      var cpos = (o.horiz ? T : L) + slot * (j + .5), bw = slot * (two ? .32 : .55);
+      [[o.vals[j], c1, two ? -bw / 2 - 1 : 0], two ? [o.vals2[j], c2, bw / 2 + 1] : null].forEach(function (s) {
+        if (!s) return; var p = pos(s[0]), mid = cpos + s[2];
+        if (o.horiz) h += '<rect x="' + L + '" y="' + (mid - bw / 2).toFixed(1) + '" width="' + (p - L).toFixed(1) + '" height="' + bw.toFixed(1) + '" fill="' + s[1] + '" rx="2"/>';
+        else h += '<rect x="' + (mid - bw / 2).toFixed(1) + '" y="' + p.toFixed(1) + '" width="' + bw.toFixed(1) + '" height="' + (Bm - p).toFixed(1) + '" fill="' + s[1] + '" rx="2"/>';
+        if (o.labels) h += o.horiz ? '<text x="' + (p + 3).toFixed(1) + '" y="' + (mid + 4).toFixed(1) + '" font-size="10" fill="#333">' + s[0] + '</text>' : '<text x="' + mid.toFixed(1) + '" y="' + (p - 3).toFixed(1) + '" font-size="10" text-anchor="middle" fill="#333">' + s[0] + '</text>';
+      });
+      h += o.horiz ? '<text x="' + (L - 5) + '" y="' + (cpos + 4).toFixed(1) + '" font-size="12" text-anchor="end" fill="#2b2d42" font-weight="700">' + o.cats[j] + '</text>' : '<text x="' + cpos.toFixed(1) + '" y="' + (Bm + 16) + '" font-size="12" text-anchor="middle" fill="#2b2d42" font-weight="700">' + o.cats[j] + '</text>';
+    }
+    h += '<line x1="' + L + '" y1="' + T + '" x2="' + L + '" y2="' + Bm + '" stroke="#2b2d42" stroke-width="2"/><line x1="' + L + '" y1="' + Bm + '" x2="' + R + '" y2="' + Bm + '" stroke="#2b2d42" stroke-width="2"/>';
+    h += '<text x="4" y="16" font-size="12" fill="#2b2d42" font-weight="800">' + o.yName + '</text><text x="' + (W - 4) + '" y="' + (Bm + 32) + '" font-size="12" text-anchor="end" fill="#2b2d42" font-weight="800">' + o.xName + '</text>';
+    if (two && o.legend) h += '<rect x="' + (W - 150) + '" y="6" width="10" height="10" fill="' + c1 + '"/><text x="' + (W - 136) + '" y="15" font-size="11">' + o.legend[0] + '</text><rect x="' + (W - 75) + '" y="6" width="10" height="10" fill="' + c2 + '"/><text x="' + (W - 61) + '" y="15" font-size="11">' + o.legend[1] + '</text>';
+    h += '<text x="' + (W / 2) + '" y="' + (H - 6) + '" font-size="13" text-anchor="middle" fill="#2b2d42" font-weight="800">' + o.title + '</text>';
+    return '<svg viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" class="chart" role="img" aria-label="' + o.title + '">' + h + '</svg>';
+  }
+  // 折線圖：o = { cats, vals, step, per, grids, base:≈ 以上從幾開始, yName, xName, title, vals2, legend }
+  function lineSVG(o) {
+    var W = 340, H = 268, L = 46, R = 326, T = 28, Bm = 206, n = o.cats.length, h = '', base = o.base || 0, gap = base ? 16 : 0, g = o.grids, step = o.step, per = o.per || 1;
+    var Y = function (v) { return Bm - gap - (Bm - gap - T) * (v - base) / (g * step); };
+    for (var i = 0; i <= g; i++) { var v = base + i * step, y = Y(v), major = i % per === 0; h += '<line x1="' + L + '" y1="' + y.toFixed(1) + '" x2="' + R + '" y2="' + y.toFixed(1) + '" stroke="' + (major ? '#b9b4cc' : '#e6e3f0') + '"/>' + (major ? '<text x="' + (L - 5) + '" y="' + (y + 4).toFixed(1) + '" font-size="11" text-anchor="end" fill="#555">' + v + '</text>' : ''); }
+    if (base) h += '<text x="' + (L - 5) + '" y="' + (Bm + 4) + '" font-size="11" text-anchor="end" fill="#555">0</text><path d="M' + (L - 7) + ' ' + (Bm - 5) + ' l4 -3 l6 6 l4 -3 M' + (L - 7) + ' ' + (Bm - 11) + ' l4 -3 l6 6 l4 -3" stroke="#2b2d42" stroke-width="1.6" fill="none"/>';
+    var X = function (j) { return L + (R - L) * (j + .5) / n; };
+    [[o.vals, '#e63946', 'c'], o.vals2 ? [o.vals2, '#2a9d8f', 't'] : null].forEach(function (s) {
+      if (!s) return; var pts = s[0].map(function (v, j) { return X(j).toFixed(1) + ',' + Y(v).toFixed(1); });
+      h += '<polyline points="' + pts.join(' ') + '" fill="none" stroke="' + s[1] + '" stroke-width="2.5"/>';
+      s[0].forEach(function (v, j) { var x = X(j), y = Y(v); h += s[2] === 'c' ? '<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="4" fill="' + s[1] + '"/>' : '<polygon points="' + x.toFixed(1) + ',' + (y - 5).toFixed(1) + ' ' + (x - 5).toFixed(1) + ',' + (y + 4).toFixed(1) + ' ' + (x + 5).toFixed(1) + ',' + (y + 4).toFixed(1) + '" fill="' + s[1] + '"/>'; });
+    });
+    for (var j = 0; j < n; j++) h += '<text x="' + X(j).toFixed(1) + '" y="' + (Bm + 16) + '" font-size="11.5" text-anchor="middle" fill="#2b2d42" font-weight="700">' + o.cats[j] + '</text>';
+    h += '<line x1="' + L + '" y1="' + T + '" x2="' + L + '" y2="' + Bm + '" stroke="#2b2d42" stroke-width="2"/><line x1="' + L + '" y1="' + Bm + '" x2="' + R + '" y2="' + Bm + '" stroke="#2b2d42" stroke-width="2"/>';
+    h += '<text x="4" y="16" font-size="12" fill="#2b2d42" font-weight="800">' + o.yName + '</text><text x="' + (W - 4) + '" y="' + (Bm + 32) + '" font-size="12" text-anchor="end" fill="#2b2d42" font-weight="800">' + o.xName + '</text>';
+    if (o.vals2 && o.legend) h += '<circle cx="' + (W - 145) + '" cy="11" r="4" fill="#e63946"/><text x="' + (W - 136) + '" y="15" font-size="11">' + o.legend[0] + '</text><polygon points="' + (W - 70) + ',6 ' + (W - 75) + ',15 ' + (W - 65) + ',15" fill="#2a9d8f"/><text x="' + (W - 61) + '" y="15" font-size="11">' + o.legend[1] + '</text>';
+    h += '<text x="' + (W / 2) + '" y="' + (H - 6) + '" font-size="13" text-anchor="middle" fill="#2b2d42" font-weight="800">' + o.title + '</text>';
+    return '<svg viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" class="chart" role="img" aria-label="' + o.title + '">' + h + '</svg>';
+  }
+  // 圖示統計圖：大圖案、小圖案各代表多少
+  function pictoHTML(rows, big, small, ib, is, title) {
+    return '<div class="picto"><div class="pkey">' + ib + ' 表示 ' + big + '　' + is + ' 表示 ' + small + '</div>' + rows.map(function (r) { var s = ''; for (var i = 0; i < r[1]; i++) s += ib; for (var k = 0; k < r[2]; k++) s += '<small>' + is + '</small>'; return '<div class="prow"><b>' + r[0] + '</b><span>' + s + '</span></div>'; }).join('') + '<div class="ptitle">' + title + '</div></div>';
+  }
+  // 隨機一張長條圖的資料：數值落在格線或半格上，最大值、最小值只有一個
+  function barData(n, step, opt) {
+    opt = opt || {};
+    for (var t = 0; t < 200; t++) {
+      var vals = []; for (var i = 0; i < n; i++) vals.push(step * (ri(2, 9) + (opt.half && Math.random() < .3 ? .5 : 0)));
+      if (opt.half) vals = vals.map(function (v) { return Math.round(v); });
+      var mx_ = Math.max.apply(null, vals), mn = Math.min.apply(null, vals);
+      if (vals.filter(function (v) { return v === mx_; }).length === 1 && vals.filter(function (v) { return v === mn; }).length === 1 && (!opt.pair || hasPair(vals))) return vals;
+    }
+    return vals;
+  }
+  function hasPair(v) { for (var i = 0; i < v.length; i++) for (var j = i + 1; j < v.length; j++) if (v[i] === v[j]) return true; return false; }
+  function barChart(opt) {
+    opt = opt || {};
+    var C = pickCats(opt.n || ri(4, 5)), step = opt.step || pick([1, 2, 5, 10]), per = step === 1 ? 2 : step === 2 ? 5 : step === 5 ? 2 : 2;
+    if (opt.per) per = opt.per;
+    var vals = opt.vals || barData(C.cats.length, step, opt), g = Math.ceil(Math.max.apply(null, vals) / step / per) * per + per;
+    var cls = opt.cls || '某國小四年甲班';
+    return { C: C, vals: vals, step: step, per: per, svg: barSVG({ cats: C.cats, vals: vals, step: step, per: per, grids: g, yName: (opt.horiz ? C.info[1] : C.info[2] + '(' + C.info[3] + ')'), xName: opt.horiz ? C.info[2] + '(' + C.info[3] + ')' : C.info[1], title: cls + C.info[0] + C.info[2] + '長條圖', horiz: opt.horiz, labels: opt.labels }) };
+  }
   /* ---------------- 第 9 單元 分數：答案保留原分母（4上 還沒教約分）、只有同分母 ---------------- */
   function fq(n, d) { return '<span class="fq"><b>' + n + '</b><i></i><b>' + d + '</b></span>'; }
   function mx(w, n, d) { return !n ? String(w) : w ? '<span class="mx">' + w + fq(n, d) + '</span>' : fq(n, d); }
@@ -999,8 +1182,11 @@
    ['ma9', 'fracPic', '看圖寫帶分數、假分數'], ['ma9', 'fracKind', '真分數、假分數、帶分數'], ['ma9', 'mixToImp', '帶分數換成假分數'], ['ma9', 'impToMix', '假分數換成帶分數'], ['ma9', 'fracCmp', '分數比大小'],
    ['ma9', 'fracAdd', '同分母分數相加'], ['ma9', 'fracAddMix', '帶分數加法'], ['ma9', 'fracSub', '整數減分數'], ['ma9', 'fracSubB', '帶分數減法（借 1）'], ['ma9', 'fracMul', '分數的整數倍'],
    ['ma9', 'fracMulMix', '帶分數的整數倍'], ['ma9', 'fracWord', '分數應用題'],
+   ['ma10', 'picRead', '讀圖示統計圖'], ['ma10', 'picMake', '圖示要怎麼畫'], ['ma10', 'barRead', '讀長條圖'], ['ma10', 'scaleUnit', '每一小格表示多少'], ['ma10', 'barMaxMin', '長條圖最多、最少、一樣多'],
+   ['ma10', 'barCalc', '從長條圖算多幾、一共'], ['ma10', 'barHoriz', '橫式長條圖'], ['ma10', 'barDraw', '長條要畫幾格'], ['ma10', 'scalePick', '刻度要怎麼定'], ['ma10', 'lineRead', '讀折線圖'],
+   ['ma10', 'lineTrend', '折線上升、下降、不變'], ['ma10', 'unitRead', '單位是千人的統計圖'], ['ma10', 'twoSeries', '兩組資料的長條圖'],
    // 找錯小偵探：看小明的算法，點出第一個錯的那一步
-   ['ma1', 'spotBig', '找錯：大數寫成數字'], ['ma2', 'spotMul', '找錯：乘法直式'], ['ma3', 'spotAngle', '找錯：平角計算'], ['ma5', 'spotKm', '找錯：公里換公尺'], ['ma7', 'spotDecAdd', '找錯：小數加法'], ['ma7', 'spotDecSub', '找錯：小數減法補 0'], ['ma8', 'spotOrd', '找錯：遞等式'], ['ma9', 'spotFrac', '找錯：分數']
+   ['ma1', 'spotBig', '找錯：大數寫成數字'], ['ma2', 'spotMul', '找錯：乘法直式'], ['ma3', 'spotAngle', '找錯：平角計算'], ['ma5', 'spotKm', '找錯：公里換公尺'], ['ma7', 'spotDecAdd', '找錯：小數加法'], ['ma7', 'spotDecSub', '找錯：小數減法補 0'], ['ma8', 'spotOrd', '找錯：遞等式'], ['ma9', 'spotFrac', '找錯：分數'], ['ma10', 'spotChart', '找錯：讀統計圖']
   ].forEach(function (x) { var g = GEN[x[1]]; cards.push({ id: 'ma:' + x[1], s: 'ma', u: x[0], type: g().kind || 'num', gen: x[1], label: x[2] }); });
 
   // 自然：課本重點（先想再選）。n＝卡片 id 的後半；a＝正確答案；w＝其他選項
@@ -1275,5 +1461,5 @@
   var LATER = {}; UNITS.forEach(function (u) { if (u.later) LATER[u.k] = true; });
   cards.forEach(function (c) { if (LATER[c.u]) c.later = true; });
 
-  root.REVIEW_BANK = { subjects: SUBJECTS, units: UNITS, cards: cards, make: make, readNum: readNum, moonSVG: moonSVG, GEN: GEN, fmtD: fmtD, readD: readD, gridSVG: gridSVG, fq: fq, mx: mx, fracBars: fracBars };
+  root.REVIEW_BANK = { subjects: SUBJECTS, units: UNITS, cards: cards, make: make, readNum: readNum, moonSVG: moonSVG, GEN: GEN, fmtD: fmtD, readD: readD, gridSVG: gridSVG, fq: fq, mx: mx, fracBars: fracBars, barSVG: barSVG, lineSVG: lineSVG, pictoHTML: pictoHTML, barChart: barChart };
 })(typeof window !== 'undefined' ? window : this);
