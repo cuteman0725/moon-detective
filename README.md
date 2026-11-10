@@ -29,6 +29,7 @@
   charts/                 統計圖小記者（第 10 單元 統計圖）
 /phases/                  舊網址，自動轉到 /nature/moon-phases/
 /review/                  今天的複習（國語、數學、自然、社會、英語的間隔＋交錯複習；題庫在 bank.js、排程在 srs.js）
+                          最新更新 (2026-11-10)：新增氣/棄形近字、英語 half past、數學角度題型（量角器、分類、拖曳籃子）
 /review-1031/ /mistakes/  考卷錯題複習
 /docs/learning-design.md  學習設計說明（給爸媽和 Grok，改網站前先看）
 ```
