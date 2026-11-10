@@ -1224,7 +1224,7 @@
   ];
   LOOK.forEach(function (x) {
     var k = x[3].indexOf(x[1]), wrong = x[3].slice(0, k) + x[2] + x[3].slice(k + 1);
-    cards.push({ id: 'cnx:' + x[1], s: 'cn', u: 'cn' + x[0], type: 'spot', label: '改錯字：' + x[1], q: '這句話有一個<b>錯字</b>，把它點出來。', parts: wrong.split(''), bad: k,
+    cards.push({ id: 'cnx' + x[0] + ':' + x[1] + ':' + x[2], s: 'cn', u: 'cn' + x[0], type: 'spot', label: '改錯字：' + x[1], q: '這句話有一個<b>錯字</b>，把它點出來。', parts: wrong.split(''), bad: k,
       fix: '「' + x[2] + '」要改成「<b>' + x[1] + '</b>」：' + x[3], ex: '「' + x[1] + '」和「' + x[2] + '」長得很像，要看清楚。' });
   });
 
