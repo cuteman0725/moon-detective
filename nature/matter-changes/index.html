@@ -273,7 +273,7 @@ sortItems.forEach(function(ch){
   it.addEventListener("click",function(){if(it.classList.contains("placed"))return;each(document.querySelectorAll(".item.sel"),function(x){x.classList.remove("sel");});it.classList.add("sel");});
   $("sort-items").appendChild(it);
 });
-var bins=[$("bin-phy"),$("bin-chem")];
+var bins=[$("bin-rev"),$("bin-irr")];
 bins.forEach(function(bin){
   bin.addEventListener("dragover",function(e){e.preventDefault();bin.classList.add("over");});
   bin.addEventListener("dragleave",function(){bin.classList.remove("over");});
@@ -304,6 +304,7 @@ function updateTemp(){
   $("state-icon").innerHTML=icon+"<div>"+state+"</div>";$("temp-tip").textContent=tip;
 }
 $("temp-slider").addEventListener("input",updateTemp);updateTemp();
+window.setTemp=function(t){$("temp-slider").value=t;updateTemp();};
 
 /* 酸鹼測試（對照課本 p.90-95） */
 var TESTS=[
@@ -315,25 +316,29 @@ var TESTS=[
   {n:"肥皂水",ph:"鹼",color:"#38b6a5",exp:"📖 p.90 肥皂水是鹼性，摸起來滑滑的。紫高麗菜汁遇鹼變綠色／藍綠色系。",src:"📖"},
   {n:"小蘇打水",ph:"鹼",color:"#2a9d8f",exp:"📖 p.90 小蘇打水是鹼性。紫高麗菜汁遇鹼變綠色／藍綠色系。",src:"📖"}
 ];
-TESTS.forEach(function(t){
-  var btn=document.createElement("button");btn.className="test-item";btn.textContent=t.n;
-  btn.addEventListener("click",function(){
-    $("beaker").style.setProperty("--juice",t.color);
-    var ph=t.ph==="酸"?"🔴 酸性":t.ph==="鹼"?"🟢 鹼性":"🟣 中性";
-    $("ph-result").innerHTML='<b>'+t.n+'</b><p class="lead">'+ph+'</p><p class="small">'+t.exp+'</p>';
-    beep(true);if(store.phDone<TESTS.length){store.phDone++;addStars(1);save();renderScore();}
+var testContainer=$("test-items");
+if(testContainer){
+  TESTS.forEach(function(t){
+    var btn=document.createElement("button");btn.className="test-item";btn.textContent=t.n;
+    btn.addEventListener("click",function(){
+      $("beaker").style.setProperty("--juice",t.color);
+      var ph=t.ph==="酸"?"🔴 酸性":t.ph==="鹼"?"🟢 鹼性":"🟣 中性";
+      $("ph-result").innerHTML='<b>'+t.n+'</b><p class="lead">'+ph+'</p><p class="small">'+t.exp+'</p>';
+      beep(true);if(store.phDone<TESTS.length){store.phDone++;addStars(1);save();renderScore();}
+    });
+    testContainer.appendChild(btn);
   });
-  $("test-items").appendChild(btn);
-});
+}
 
 /* 紀錄 */
 function renderRec(){
   var h='<div class="lead">你已經完成：</div><ul>';
-  h+='<li>🔄 可回復/不可回復分類：'+( store.sortDone||0)+' 次'+(store.sortPerfect?' 🏆 '+store.sortPerfect+' 次全對':'')+'</li>';
+  h+='<li>🔄 可回復/不可回復分類：'+(store.sortDone||0)+' 次'+(store.sortPerfect?' 🏆 '+store.sortPerfect+' 次全對':'')+'</li>';
   h+='<li>🌡️ 溫度實驗：觀察水的三態變化</li>';
-  h+='<li>🧪 酸鹼測試：測試了 '+(store.phDone||0)+' / '+TESTS.length+' 種物質</li>';
+  h+='<li>🧪 酸鹼測試：測試了 '+(store.phDone||0)+' / '+(TESTS?TESTS.length:7)+' 種物質</li>';
   h+='</ul>';
-  $("stats").innerHTML=h;
+  var statsEl=$("stats");
+  if(statsEl)statsEl.innerHTML=h;
 }
 $("resetBtn").addEventListener("click",function(){if(!confirm("確定要清除所有紀錄嗎？"))return;store=fresh();save();renderScore();renderRec();});
 renderScore();
