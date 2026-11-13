@@ -12,6 +12,7 @@
 /nature/                  自然（在 LESSONS 陣列新增課程）
   moon-detective/         月亮小偵探（第一單元 閃亮的天空・月相）
   moon-phases/            月亮探險隊（第一單元 閃亮的天空・月相）
+  matter-changes/         物質變化實驗室（第三單元 物質變變變；小測驗讀 review/bank.js 的 na3 卡片）
 /social/                  社會（翰林版，在 LESSONS 陣列新增課程）
   reading-maps/           地圖探險王（第一單元 第1課 閱讀生活中的地圖）
   map-life/               地圖生活家（第一單元 第2課 善用地圖好生活）
