@@ -27,6 +27,9 @@
     if ([10, 15, 20, 30].indexOf(st.set.cap) < 0) st.set.cap = DEFAULTS.cap;
     if (!st.set.off || typeof st.set.off !== 'object') st.set.off = {};
     if (!st.set.on || typeof st.set.on !== 'object') st.set.on = {};
+    // 題庫換過 id 的卡（bank.js 的 renamed：舊 id → 新 id）：把舊紀錄接到新 id；新 id 已經有紀錄就留新的。
+    var ren = root.REVIEW_BANK && root.REVIEW_BANK.renamed, k;
+    if (ren) for (k in ren) if (st.cards[k] && ren[k] !== k) { if (!st.cards[ren[k]]) st.cards[ren[k]] = st.cards[k]; delete st.cards[k]; }
     return st;
   }
   function save(st) { try { localStorage.setItem(KEY, JSON.stringify(st)); return true; } catch (e) { return false; } }
