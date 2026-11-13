@@ -76,25 +76,25 @@ nav.tabs button span{font-size:24px;line-height:1}nav.tabs button.on{background:
 <section class="page active" id="p-intro">
   <div class="card">
     <h2>🔬 第三單元 物質變變變</h2>
-    <p class="lead">翰林版自然四上第三單元，探索物質的變化！</p>
-    <div class="tip">物質的變化有很多種，有些可以恢復原狀，有些不行。溫度和酸鹼也會讓物質產生驚人的變化！</div>
+    <p class="lead">📖 翰林版自然四上第三單元（課本 pp.80-99）</p>
+    <div class="tip">物質會因為水、溫度、空氣、酸鹼性、時間等因素而產生變化。有些變化可以回復原來的形態，有些不行！</div>
     <h3>📚 本單元包含</h3>
     <div class="grid2">
       <div style="background:#e3f8ff;border-radius:14px;padding:10px;text-align:center">
-        <div style="font-size:40px">⚗️</div>
-        <b style="font-size:18px">物理 vs 化學變化</b>
-        <p class="small">把物質變化拖到正確分類</p>
+        <div style="font-size:40px">🔄</div>
+        <b style="font-size:18px">可回復 vs 不可回復</b>
+        <p class="small">判斷物質變化能不能回復原形態</p>
       </div>
       <div style="background:#ffe6ef;border-radius:14px;padding:10px;text-align:center">
         <div style="font-size:40px">🌡️</div>
-        <b style="font-size:18px">溫度實驗室</b>
-        <p class="small">調整溫度看水的三態變化</p>
+        <b style="font-size:18px">溫度對物質的影響</b>
+        <p class="small">觀察冰塊、奶油、雞蛋受熱的變化</p>
       </div>
     </div>
     <div class="grid2">
       <div style="background:#d8f3dc;border-radius:14px;padding:10px;text-align:center">
         <div style="font-size:40px">🧪</div>
-        <b style="font-size:18px">酸鹼測試</b>
+        <b style="font-size:18px">酸與鹼對物質的影響</b>
         <p class="small">用紫高麗菜汁測試酸鹼</p>
       </div>
       <div style="background:#fff7d6;border-radius:14px;padding:10px;text-align:center">
@@ -106,27 +106,33 @@ nav.tabs button span{font-size:24px;line-height:1}nav.tabs button.on{background:
   </div>
 </section>
 
-<!-- ===== 物理化學變化分類 ===== -->
+<!-- ===== 3-1 影響物質變化的因素 & 3-2 可回復/不可回復 ===== -->
 <section class="page" id="p-sort">
   <div class="card">
-    <h2>⚗️ 物理變化 vs 化學變化</h2>
-    <p class="lead"><b>物理變化</b>：外形改變，但本質沒變，可以恢復原狀<br><b>化學變化</b>：產生新物質，無法恢復原狀</p>
-    <div class="tip">💡 判斷方法：看看能不能變回來！冰融化成水可以再結冰（物理變化），但木頭燒成灰無法變回木頭（化學變化）。</div>
+    <h2>🔄 3-1 & 3-2：可回復原形態 vs 不可回復原形態</h2>
+    <p class="lead">📖 課本 pp.80-89</p>
+    <div class="tip">💡 影響物質變化的因素：水、溫度、空氣、酸鹼性、時間。<br>課本例子：流水沖刷沙石、風吹塵土、鐵生鏽、麵團發酵、鹹豆漿加醋變塊狀。</div>
+  </div>
+
+  <div class="card">
+    <h3>📖 3-2 溫度對物質的影響（課本 p.85）</h3>
+    <p class="lead"><b>可回復原形態</b>：冰塊、奶油、巧克力受熱融化成液態，降溫冷卻後可以恢復固態。<br><b>不可回復原形態</b>：雞蛋受熱變硬、線香燃燒後，無法回復原來的形態。</p>
+    <div class="tip">💡 改變溫度的方法<br>• 升溫：瓦斯爐火、摩擦手、晒太陽／陽光照射、燃燒<br>• 降溫：加冰塊、放冰箱</div>
   </div>
 
   <div class="card">
     <h3>🎯 分類大挑戰</h3>
     <p class="small">把下面的變化拖到正確的籃子裡！</p>
     <div class="bins">
-      <div class="bin" data-type="physical" id="bin-phy">
-        <b>🔄 物理變化</b>
-        <div class="small">可以恢復原狀</div>
-        <div id="phy-list"></div>
+      <div class="bin" data-type="reversible" id="bin-rev">
+        <b>✅ 可回復原形態</b>
+        <div class="small">降溫或升溫可以變回來</div>
+        <div id="rev-list"></div>
       </div>
-      <div class="bin" data-type="chemical" id="bin-chem">
-        <b>⚛️ 化學變化</b>
-        <div class="small">產生新物質</div>
-        <div id="chem-list"></div>
+      <div class="bin" data-type="irreversible" id="bin-irr">
+        <b>❌ 不可回復原形態</b>
+        <div class="small">無法變回原來的樣子</div>
+        <div id="irr-list"></div>
       </div>
     </div>
     <div class="items" id="sort-items"></div>
@@ -135,15 +141,17 @@ nav.tabs button span{font-size:24px;line-height:1}nav.tabs button.on{background:
   </div>
 </section>
 
-<!-- ===== 溫度實驗室 ===== -->
+<!-- ===== 3-2 溫度實驗室 ===== -->
 <section class="page" id="p-temp">
   <div class="card">
-    <h2>🌡️ 溫度實驗室：水的三態變化</h2>
-    <p class="lead">溫度會影響物質的狀態！拖動溫度計，看看水怎麼變化。</p>
+    <h2>🌡️ 3-2 溫度對物質的影響</h2>
+    <p class="lead">📖 課本 p.85-89</p>
+    <div class="tip">💡 溫度計使用：紅色液柱上升表示溫度上升，下降表示溫度下降。<br>（課本使用酒精溫度計，紅色液體是染色的酒精）</div>
   </div>
 
   <div class="card">
-    <h3>🧊 實驗：觀察水的三態</h3>
+    <h3>🧊 實驗：觀察水的三態變化</h3>
+    <p class="small">拖動溫度計，看看水怎麼變化。</p>
     <div class="temp-lab">
       <div class="temp-display" id="temp-num">25°C</div>
       <div class="state-display" id="state-icon">💧<div>液態水</div></div>
@@ -157,26 +165,37 @@ nav.tabs button span{font-size:24px;line-height:1}nav.tabs button.on{background:
       <button class="btn white small" onclick="setTemp(25)">💧 25°C</button>
       <button class="btn white small" onclick="setTemp(110)">♨️ 110°C</button>
     </div>
-    <div class="tip" id="temp-tip">水在 0°C 以下會結冰（固態），0°C~100°C 是液態，100°C 以上會變成水蒸氣（氣態）。</div>
+    <div class="tip" id="temp-tip">📖 水在 0°C 以下結冰（固態），0°C~100°C 是液態，100°C 以上變成水蒸氣（氣態）。這些變化都可以回復原形態。</div>
   </div>
 
   <div class="card">
-    <h3>❓ 溫度小測驗</h3>
-    <div id="temp-quiz"></div>
+    <h3>📖 課本的例子（p.85-88）</h3>
+    <div class="lead">
+      <b>可回復原形態：</b><br>
+      • 冰塊：受熱融化成液態水，降溫冷卻後恢復固態冰<br>
+      • 奶油：受熱融化成液態，降溫冷卻後恢復固態<br>
+      • 巧克力：受熱融化成液態，降溫冷卻後恢復固態<br>
+      • 高湯冰磚、檸檬汁冰磚、咖啡冰磚：可以凍成冰、也可以融化<br><br>
+      <b>不可回復原形態：</b><br>
+      • 雞蛋：受熱變硬，無法回復原來液態的樣子<br>
+      • 線香：燃燒後變成灰燼，無法回復原來的樣子
+    </div>
   </div>
 </section>
 
-<!-- ===== 酸鹼測試 ===== -->
+<!-- ===== 3-3 酸與鹼對物質的影響 ===== -->
 <section class="page" id="p-ph">
   <div class="card">
-    <h2>🧪 酸鹼測試：紫高麗菜汁實驗</h2>
-    <p class="lead">紫高麗菜汁是天然的酸鹼指示劑，遇到酸會變紅色，遇到鹼會變綠色或黃色！</p>
-    <div class="tip">📖 課本教的：用紫高麗菜汁、石蕊試紙等指示劑可以測試物質是酸性還是鹼性。</div>
+    <h2>🧪 3-3 酸與鹼對物質的影響</h2>
+    <p class="lead">📖 課本 p.90-99</p>
+    <div class="tip">💡 生活中的酸與鹼<br>
+    <b>酸性：</b>檸檬酸、食醋、乳酸飲料、運動飲料（聞起來酸酸的）<br>
+    <b>鹼性：</b>鹼粽（鹼水）、肥皂水、小蘇打水（摸起來滑滑的）</div>
   </div>
 
   <div class="card">
-    <h3>🥬 實驗：測試酸鹼性</h3>
-    <p class="small">點一個物質，看看紫高麗菜汁會變什麼顏色！</p>
+    <h3>🥬 實驗：紫高麗菜汁測試酸鹼（課本 p.92-95）</h3>
+    <p class="small">📖 課本步驟：撕碎紫高麗菜葉，浸泡在水中，就能製作紫高麗菜汁。<br>點一個物質，看看紫高麗菜汁會變什麼顏色！</p>
     <div class="ph-lab">
       <div class="beaker" id="beaker"></div>
       <div style="max-width:400px">
@@ -188,6 +207,7 @@ nav.tabs button span{font-size:24px;line-height:1}nav.tabs button.on{background:
       <b>測試結果</b>
       <p class="small">點選上面的物質開始測試！</p>
     </div>
+    <div class="tip">📖 課本 p.98：科學家波以耳（Robert Boyle）發現紫羅蘭花瓣遇到酸鹼會變色，後來發明了石蕊試紙。</div>
   </div>
 </section>
 
@@ -207,9 +227,9 @@ nav.tabs button span{font-size:24px;line-height:1}nav.tabs button.on{background:
 
 <nav class="tabs" id="tabs">
   <button class="on" data-p="p-intro"><span>📚</span>介紹</button>
-  <button data-p="p-sort"><span>⚗️</span>分類</button>
+  <button data-p="p-sort"><span>🔄</span>3-1&3-2</button>
   <button data-p="p-temp"><span>🌡️</span>溫度</button>
-  <button data-p="p-ph"><span>🧪</span>酸鹼</button>
+  <button data-p="p-ph"><span>🧪</span>3-3酸鹼</button>
   <button data-p="p-rec"><span>🏆</span>紀錄</button>
 </nav>
 
@@ -231,18 +251,18 @@ function goTab(p){each(document.querySelectorAll("#tabs button"),function(x){x.c
   if(p==="p-rec")renderRec();window.scrollTo(0,0);}
 each(document.querySelectorAll("#tabs button"),function(b){b.addEventListener("click",function(){goTab(b.getAttribute("data-p"));});});
 
-/* 物理化學變化分類 */
+/* 可回復/不可回復變化分類（對照課本 p.85-88） */
 var CHANGES=[
-  {t:"冰塊融化成水",type:"physical"},
-  {t:"水變成水蒸氣",type:"physical"},
-  {t:"鐵釘生鏽",type:"chemical"},
-  {t:"木頭燃燒",type:"chemical"},
-  {t:"食物腐敗發霉",type:"chemical"},
-  {t:"紙張撕破",type:"physical"},
-  {t:"玻璃杯打破",type:"physical"},
-  {t:"鉛筆削尖",type:"physical"},
-  {t:"蛋煮熟",type:"chemical"},
-  {t:"牛奶變酸",type:"chemical"}
+  {t:"冰塊受熱融化",type:"reversible",src:"📖 p.85-86"},
+  {t:"奶油受熱融化",type:"reversible",src:"📖 p.86"},
+  {t:"巧克力受熱融化",type:"reversible",src:"📖 p.86"},
+  {t:"高湯冷凍成冰磚",type:"reversible",src:"📖 p.88"},
+  {t:"檸檬汁冷凍成冰磚",type:"reversible",src:"📖 p.88"},
+  {t:"雞蛋受熱變硬",type:"irreversible",src:"📖 p.87"},
+  {t:"線香燃燒",type:"irreversible",src:"📖 p.87"},
+  {t:"鐵生鏽",type:"irreversible",src:"🔎 延伸（課本 p.80 提到但未明確分類）"},
+  {t:"麵團發酵",type:"irreversible",src:"🔎 延伸（課本 p.80 提到但未明確分類）"},
+  {t:"鹹豆漿加醋變塊狀",type:"irreversible",src:"🔎 延伸（課本 p.80 提到但未明確分類）"}
 ];
 function shuffle(a){var b=a.slice();for(var i=b.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=b[i];b[i]=b[j];b[j]=t;}return b;}
 var sortItems=shuffle(CHANGES),sortDone=0,sortErrs=0;
@@ -265,12 +285,12 @@ bins.forEach(function(bin){
 });
 function checkSort(it,binType){
   var f=$("sort-fb"),ok=it.getAttribute("data-type")===binType;
-  if(ok){beep(true);it.classList.add("placed");it.classList.remove("sel");var list=binType==="physical"?$("phy-list"):$("chem-list");
+  if(ok){beep(true);it.classList.add("placed");it.classList.remove("sel");var list=binType==="reversible"?$("rev-list"):$("irr-list");
     list.appendChild(it);sortDone++;addStars(1);f.className="fb show good";f.textContent="✅ 答對了！";
     if(sortDone>=sortItems.length){store.sortDone=(store.sortDone||0)+1;var st=sortErrs===0?4:sortErrs<=2?2:1;addStars(st);if(sortErrs===0){store.sortPerfect=(store.sortPerfect||0)+1;}save();
       $("sort-done").innerHTML='<div class="done">🎉 分類完成！錯 '+sortErrs+' 次，再加 '+st+' 顆星。'+(sortErrs===0?"全對，你是物質變化小專家！":"")+'</div>';}}
   else{beep(false);sortErrs++;it.classList.remove("sel");it.classList.add("shake");setTimeout(function(){it.classList.remove("shake");},500);f.className="fb show bad";
-    f.textContent="❌ 再想想：「"+it.textContent+"」是"+( binType==="physical"?"物理":"化學")+"變化嗎？";}
+    f.textContent="❌ 再想想：「"+it.textContent+"」"+( binType==="reversible"?"可以":"不可以")+"回復原形態嗎？";}
 }
 
 /* 溫度實驗室 */
@@ -278,43 +298,22 @@ window.setTemp=function(t){$("temp-slider").value=t;updateTemp();};
 function updateTemp(){
   var t=+$("temp-slider").value,icon="💧",state="液態水",tip="",h=Math.max(10,Math.min(180,(t+20)*1.28));
   $("temp-num").textContent=t+"°C";$("mercury").style.height=h+"px";
-  if(t<0){icon="🧊";state="固態冰";tip="溫度低於 0°C，水結成冰（固態）。冰可以融化成水（可回復的物理變化）。";}
-  else if(t>=100){icon="♨️";state="氣態水蒸氣";tip="溫度高於 100°C，水變成水蒸氣（氣態）。水蒸氣可以冷凝成水（可回復的物理變化）。";}
-  else{tip="溫度在 0°C~100°C，水是液態。";}
+  if(t<0){icon="🧊";state="固態冰";tip="📖 溫度低於 0°C，水結成冰（固態）。冰可以融化成水，是可回復原形態的變化。";}
+  else if(t>=100){icon="♨️";state="氣態水蒸氣";tip="📖 溫度高於 100°C，水變成水蒸氣（氣態）。水蒸氣可以冷凝成水，是可回復原形態的變化。";}
+  else{tip="📖 溫度在 0°C~100°C，水是液態。";}
   $("state-icon").innerHTML=icon+"<div>"+state+"</div>";$("temp-tip").textContent=tip;
 }
 $("temp-slider").addEventListener("input",updateTemp);updateTemp();
 
-var TEMP_Q=[
-  {q:"冰塊放在室溫下會融化成水，這是什麼變化？",a:"物理變化",o:["物理變化","化學變化"],exp:"冰融化成水是物理變化，因為可以再結冰回來。"},
-  {q:"水加熱到 100°C 以上會變成什麼？",a:"水蒸氣",o:["水蒸氣","冰","雲"],exp:"水加熱到 100°C 以上會沸騰，變成氣態的水蒸氣。"},
-  {q:"鐵釘生鏽是物理變化還是化學變化？",a:"化學變化",o:["物理變化","化學變化"],exp:"鐵釘生鏽產生新物質（氧化鐵），無法變回鐵釘，是化學變化。"}
-];
-var tq=0,tqRight=0;
-function drawTQ(){
-  if(tq>=TEMP_Q.length){var st=tqRight===TEMP_Q.length?3:tqRight>=2?2:1;addStars(st);store.tempQ=(store.tempQ||0)+1;save();
-    $("temp-quiz").innerHTML='<div class="done">🎉 答對 '+tqRight+' / '+TEMP_Q.length+' 題，得到 '+st+' 顆星！</div><div class="btns cen"><button class="btn pink" onclick="restartTQ()">🔄 再玩一次</button></div>';return;}
-  var it=TEMP_Q[tq],h='<p style="font-size:18px;font-weight:800;line-height:1.6">'+it.q+'</p><div class="btns cen">';
-  shuffle(it.o).forEach(function(op){h+='<button class="btn white" onclick="answerTQ(\''+op+'\')">'+op+'</button>';});
-  h+='</div><div class="fb" id="tq-fb"></div>';
-  $("temp-quiz").innerHTML=h;
-}
-window.answerTQ=function(ans){
-  var it=TEMP_Q[tq],ok=ans===it.a,f=$("tq-fb");
-  if(ok){beep(true);tqRight++;addStars(1);f.className="fb show good";f.textContent="✅ 答對了！"+it.exp;}
-  else{beep(false);f.className="fb show bad";f.textContent="❌ 答案是「"+it.a+"」。"+it.exp;}
-  setTimeout(function(){tq++;drawTQ();},2400);
-};
-window.restartTQ=function(){tq=0;tqRight=0;drawTQ();};
-drawTQ();
-
-/* 酸鹼測試 */
+/* 酸鹼測試（對照課本 p.90-95） */
 var TESTS=[
-  {n:"檸檬汁",ph:"酸",color:"#ff9fb8",exp:"檸檬汁含檸檬酸，是酸性（pH < 7）。"},
-  {n:"醋",ph:"酸",color:"#ff6b9a",exp:"醋含醋酸，是酸性（pH < 7）。"},
-  {n:"小蘇打水",ph:"鹼",color:"#57cc99",exp:"小蘇打（碳酸氫鈉）溶於水是鹼性（pH > 7）。"},
-  {n:"肥皂水",ph:"鹼",color:"#2a9d8f",exp:"肥皂水是鹼性（pH > 7），所以洗手時會滑滑的。"},
-  {n:"清水",ph:"中",color:"#dda0ff",exp:"純水是中性（pH = 7），紫高麗菜汁保持紫色。"}
+  {n:"檸檬汁",ph:"酸",color:"#ff6b9a",exp:"📖 p.90 檸檬汁含檸檬酸，是酸性。紫高麗菜汁遇酸變紅色系。",src:"📖"},
+  {n:"食醋",ph:"酸",color:"#ff9fb8",exp:"📖 p.90 食醋是酸性，聞起來酸酸的。紫高麗菜汁遇酸變紅色系。",src:"📖"},
+  {n:"乳酸飲料",ph:"酸",color:"#ffb3c1",exp:"📖 p.90 乳酸飲料是酸性。紫高麗菜汁遇酸變紅色系。",src:"📖"},
+  {n:"運動飲料",ph:"酸",color:"#ffc2d1",exp:"📖 p.90 運動飲料是酸性。紫高麗菜汁遇酸變紅色系。",src:"📖"},
+  {n:"鹼粽（鹼水）",ph:"鹼",color:"#57cc99",exp:"📖 p.90 鹼粽使用鹼水，是鹼性。紫高麗菜汁遇鹼變綠色／藍綠色系。",src:"📖"},
+  {n:"肥皂水",ph:"鹼",color:"#38b6a5",exp:"📖 p.90 肥皂水是鹼性，摸起來滑滑的。紫高麗菜汁遇鹼變綠色／藍綠色系。",src:"📖"},
+  {n:"小蘇打水",ph:"鹼",color:"#2a9d8f",exp:"📖 p.90 小蘇打水是鹼性。紫高麗菜汁遇鹼變綠色／藍綠色系。",src:"📖"}
 ];
 TESTS.forEach(function(t){
   var btn=document.createElement("button");btn.className="test-item";btn.textContent=t.n;
@@ -330,8 +329,8 @@ TESTS.forEach(function(t){
 /* 紀錄 */
 function renderRec(){
   var h='<div class="lead">你已經完成：</div><ul>';
-  h+='<li>⚗️ 物理化學分類：'+( store.sortDone||0)+' 次'+(store.sortPerfect?' 🏆 '+store.sortPerfect+' 次全對':'')+'</li>';
-  h+='<li>🌡️ 溫度小測驗：'+(store.tempQ||0)+' 次</li>';
+  h+='<li>🔄 可回復/不可回復分類：'+( store.sortDone||0)+' 次'+(store.sortPerfect?' 🏆 '+store.sortPerfect+' 次全對':'')+'</li>';
+  h+='<li>🌡️ 溫度實驗：觀察水的三態變化</li>';
   h+='<li>🧪 酸鹼測試：測試了 '+(store.phDone||0)+' / '+TESTS.length+' 種物質</li>';
   h+='</ul>';
   $("stats").innerHTML=h;
