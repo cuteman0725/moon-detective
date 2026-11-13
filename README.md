@@ -7,7 +7,7 @@
 
 ```
 /                         首頁：科目選單（在 index.html 的 SUBJECTS 陣列新增科目）
-/chinese/                 國語（第 1～6 課、1～6 課總複習）
+/chinese/                 國語（南一版，第 1～7 課、1～6 課總複習）
 /english/                 英語（Lesson 1～4、Review 1）
 /nature/                  自然（在 LESSONS 陣列新增課程）
   moon-detective/         月亮小偵探（第一單元 閃亮的天空・月相）
