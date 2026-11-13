@@ -1,6 +1,5 @@
-/* 國語第七課 到此「藝」遊 app.js - 主要互動邏輯
-   資料來源：南一四上課本、likethinking.com、北新國小教案
-   生字、詞語依課本，題目為練習自編 */
+/* 國語第七課 到此「藝」遊：互動程式
+   題目資料在 index.html 的 Core（依南一版課本第 62～71、88～91 頁整理）。 */
 (function(){
 "use strict";
 if(typeof document==="undefined")return;
@@ -11,7 +10,7 @@ function fresh(){return {stars:0,readBest:0,seen:{},wrote:{},matchDone:0,pat:{},
 var store=fresh();
 try{var raw=localStorage.getItem(KEY);if(raw){var o=JSON.parse(raw);for(var k in o)store[k]=o[k];}}catch(e){}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
-var TN={read:"🔍 閱讀理解",part:"🧱 文章結構",bs:"🧩 部首",tot:"✏️ 筆畫",zy:"🔤 注音",look:"👀 形近字／多音字",word:"📚 語詞意思",fill:"📝 選詞填空",sense:"🪄 看到的＋感受",simile:"🔁 首尾呼應",rhet:"🎭 修辭判斷",location:"🏛️ 地點分類",step:"🚶 參觀順序"};
+var TN={read:"🔍 閱讀理解",part:"🧱 遊記的三個部分",bs:"🧩 部首",tot:"✏️ 筆畫",zy:"🔤 注音",look:"👀 形近字",poly:"🔤 多音字「禁」",word:"📚 語詞意思",fill:"📝 選詞填空",sense:"👀 用感官寫",feel:"💗 加上感受",color:"🎨 用顏色寫",mood:"😊 感受的語詞",loc:"🏛️ 地點分類",step:"🚶 參觀順序"};
 function miss(t){store.bad[t]=(store.bad[t]||0)+1;save();}
 function renderScore(){$("score").textContent="⭐ "+store.stars;}
 function addStars(n,el){if(n<=0)return;store.stars+=n;save();renderScore();var sc=$("score");sc.classList.remove("pop");void sc.offsetWidth;sc.classList.add("pop");
@@ -25,7 +24,7 @@ function goTab(p){each(document.querySelectorAll("#tabs button"),function(x){x.c
   if(p==="p-rec")renderRec();window.scrollTo(0,0);}
 each(document.querySelectorAll("#tabs button"),function(b){b.addEventListener("click",function(){goTab(b.getAttribute("data-p"));});});
 
-/* ---------- 通用測驗 ---------- */
+/* ---------- 通用測驗：每一題是 {q, a, o:[選項], tip, type} ---------- */
 function runQuiz(boxId,make,opt){
   var box=$(boxId),items=[],i=0,right=0,answered=false;
   function start(){items=make();i=0;right=0;draw();}
@@ -57,37 +56,38 @@ function runQuiz(boxId,make,opt){
 }
 
 /* ---------- 課文 ---------- */
-var SAY=["終於到了戶外教育日！天空有點灰，但我的心情很晴朗，因為老師帶我們參觀宜蘭傳藝園區。",
- "進入園區，我的眼睛為之一亮。街道旁是古色古香的磚紅色建築，一個個紅燈籠，看起來喜氣洋洋。",
- "走進魯班街，傳習所介紹陶器、玉石、藍染等藝術品，令人目不轉睛。琉璃閃著七彩光芒，讓我流連忘返。",
- "接著，我們到劇場觀賞「噶瑪蘭公主」。演員又唱又跳、翻跟斗，還有人走在細細的鋼索上，大家不禁為他捏了一把冷汗。精采的表演讓全場尖叫！",
- "看完表演後，我們到渡船頭坐木船遊河。船穿過爬滿綠色植物的石拱橋。微風吹過岸邊金黃的落羽松，頑皮的魚在船邊出沒，白色的水鳥也飛來打招呼。",
- "最後一站是文昌街。大家各自挑著喜歡的紀念品，有人買了金魚造型香包，有人買了捏麵人。我決定只帶滿心的喜悅回家和爸媽分享。",
- "回程時，原本灰色的天空出現了一片雲彩，溫暖的顏色就像我內心的喜悅和滿足。這次的活動讓我看到許多傳統文化，值得一來再來！"];
+var SAY=["第一段，旅遊背景。戶外教育日終於到了！天空有點灰，作者的心情卻很晴朗，因為老師要帶大家去宜蘭傳藝園區。",
+ "第二段，園區。一進園區，作者的眼睛為之一亮。街道旁有古色古香的磚紅色建築，還有一個個紅燈籠，看起來喜氣洋洋。",
+ "第三段，魯班街。傳習所介紹陶器、玉石、藍染這些藝術品，讓人目不轉睛。燈光下，琉璃亮出七彩光芒，作者看得流連忘返。",
+ "第四段，劇場。大家看噶瑪蘭公主。演員又唱又跳，還翻跟斗、走鋼索。作者最難忘的，是那面赤紅色的大旗，揮起來像熊熊烈火，全場都尖叫。",
+ "第五段，月河。大家到渡船頭坐木船，穿過爬滿綠色植物的石拱橋。岸邊有金黃的落羽松，頑皮的魚在船邊出沒，白色的水鳥也飛來打招呼。",
+ "第六段，文昌街。這是最後一站。同學各自挑紀念品，有人買金魚造型的香包，有人買捏麵人。作者決定只帶滿心喜悅回家。",
+ "第七段，旅遊感想。回程時，灰色的天空出現一片雲彩，就像作者心裡的喜悅和滿足。作者看到許多傳統文化，覺得這裡值得一來再來。"];
 each(document.querySelectorAll("[data-say]"),function(b){b.addEventListener("click",function(){say(SAY[+b.getAttribute("data-say")]);});});
 
-/* 參觀順序 */
-function startStep(){
-  var done=0,errs=0,box=$("stepBox"),items=C.shuffle(C.STEPS);
+/* 參觀順序：依序點 */
+function startSteps(){
+  var box=$("stepBox"),done=0,errs=0,items=C.shuffle(C.STEPS),N=C.STEPS.length;
   function draw(){
-    var h='<div class="steps">';
-    items.forEach(function(st,i){h+='<button class="btn white'+(i<done?" ok":"")+'" data-n="'+st.k+'">'+st.n+'<br><span style="font-size:14px">'+st.d+'</span></button>';});
-    h+='</div>';
-    if(done>=items.length){var st=errs===0?4:errs<=2?2:1;addStars(st,box);if(errs===0){store.stepPerfect=(store.stepPerfect||0)+1;save();}
-      h+='<div class="done">🎉 排好了！錯 '+errs+' 次，得到 '+st+' 顆星。'+(errs===0?"全對，你是遊記小達人！":"")+'</div><div class="btns cen"><button class="btn pink" id="stepAgain">🔄 再玩一次</button></div>';}
-    h+='<div class="fb" id="stepFb"></div>';
+    var h='<ol class="stepdone">';for(var k=0;k<done;k++)h+='<li><b>'+C.STEPS[k].w+'</b>'+C.STEPS[k].t+'</li>';h+='</ol>';
+    if(done<N){h+='<div class="q">第 '+(done+1)+' 個寫的是什麼？</div><div class="steps">';
+      items.forEach(function(s){h+='<button class="btn white'+(s.n<=done?" ok":"")+'" data-n="'+s.n+'"'+(s.n<=done?" disabled":"")+'>'+s.w+'<small>'+s.t+'</small></button>';});h+='</div><div class="fb" id="stFb"></div>';}
+    else{var st=errs===0?3:errs<=2?2:1;addStars(st,box);store.stepDone=(store.stepDone||0)+1;if(errs===0)store.stepPerfect=(store.stepPerfect||0)+1;save();
+      h+='<div class="done">🚶 順序排好了！錯 '+errs+' 次，得到 '+st+' 顆星。'+(errs===0?"一次就排對，你是傳藝小導覽員！":"")+'</div>'+
+       '<div class="route"><span>園區</span>➜<span>魯班街</span>➜<span>臨水劇場</span>➜<span>月河</span>➜<span>文昌街</span></div>'+
+       '<p class="small">作者用「進入園區」「走進魯班街」「接著」「看完表演」「最後一站」「回程時」帶我們換地方。</p>'+
+       '<div class="btns cen"><button class="btn pink" id="stAgain">🔄 再排一次</button></div>';}
     box.innerHTML=h;
-    if(done>=items.length){$("stepAgain").addEventListener("click",startStep);return;}
-    each(box.querySelectorAll(".steps .btn:not(.ok)"),function(b){b.addEventListener("click",function(){
-      var k=b.getAttribute("data-n"),f=$("stepFb");
-      if(items[done].k===k){beep(true);done++;draw();if(done>=items.length){store.stepDone=(store.stepDone||0)+1;save();}}
-      else{beep(false);errs++;miss("step");f.className="fb show bad";f.textContent="順序不太對，再看看課文！";}});});
+    if(done>=N){$("stAgain").addEventListener("click",startSteps);return;}
+    each(box.querySelectorAll(".steps .btn"),function(b){b.addEventListener("click",function(){var n=+b.getAttribute("data-n");if(n<=done)return;
+      if(C.stepCheck(done,n)){beep(true);done++;say(C.STEPS[n-1].w+"，"+C.STEPS[n-1].t);draw();}
+      else{beep(false);errs++;miss("step");var f=$("stFb");f.className="fb show bad";f.textContent="還不是這一個喔！想想作者走的路線，下一個到哪裡？";}});});
   }
   draw();
 }
-startStep();
-runQuiz("partQ",function(){return C.shuffle(C.PARTS).map(function(p){return {q:"「"+p.d+"」",a:p.n,o:["開頭","中間","結尾"]};});},{type:"part"});
-runQuiz("readQ",function(){return C.READ.map(function(r){return {q:r.q,a:r.a,o:C.shuffle(r.o)};});},{type:"read",best:"read",onDone:function(r){store.readBest=Math.max(store.readBest||0,r);save();}});
+startSteps();
+runQuiz("partQ",function(){return C.shuffle(C.PARTS).map(function(p){return C.partQ(p);});},{type:"part"});
+runQuiz("readQ",function(){return C.READ.map(function(r){return {q:r.q,a:r.a,o:C.shuffle(r.o),tip:r.tip};});},{type:"read",best:"read",onDone:function(r){store.readBest=Math.max(store.readBest||0,r);save();}});
 
 /* ---------- 生字 ---------- */
 var cur=C.CHARS[0];
@@ -96,16 +96,18 @@ function renderGrid(){var h="";C.CHARS.forEach(function(ch){h+='<button data-c="
   each($("charGrid").querySelectorAll("button"),function(b){b.addEventListener("click",function(){showChar(C.charBy(b.getAttribute("data-c")),true);});});}
 function showChar(ch,tap){cur=ch;
   if(tap&&!store.seen[ch.c]){store.seen[ch.c]=1;save();if(Object.keys(store.seen).length===C.CHARS.length)addStars(3,$("charGrid"));}
-  var bsf=C.BSFORM[ch.bs]&&C.BSFORM[ch.bs]!==ch.bs?"（寫成「"+C.BSFORM[ch.bs]+"」）":"";
+  var bsf=ch.bf&&ch.bf!==ch.bs?"（在這個字裡寫成「"+ch.bf+"」）":"";
   var h='<div class="bigc">'+ch.c+'</div><div class="zy">'+ch.zy+'</div><div class="cinfo">'+
    '<div>🧩 部首：<b>'+ch.bs+'</b>'+bsf+'</div><div>✏️ 筆畫：部首外 <b>'+ch.ex+'</b> 畫／總共 <b>'+ch.tot+'</b> 畫</div>'+
    '<div>📝 造詞：'+ch.words.map(function(w){return '<span class="chip">'+w+'</span>';}).join("")+'</div>'+
    '<div>📖 課文裡：<span class="quote">'+ch.tx+'</span></div>'+
-   (ch.idiom?'<div>💡 成語：<span class="chip id">'+ch.idiom+'</span><span class="small">'+C.IDIOMS[ch.idiom]+'</span></div>':"")+
-   (ch.look?'<div>👀 小心：「'+ch.c+'」和「'+ch.look+'」'+(ch.look===ch.c?"有兩個讀音":"長得很像")+'</div>':"")+
+   (ch.poly?'<div>🔤 多音字：「不禁、禁不住」念 ㄐㄧㄣ；「禁止、嚴禁」念 ㄐㄧㄣˋ（課本第 71 頁）</div>':"")+
+   (ch.look?'<div>👀 小心形近字：「'+ch.c+'」和「'+ch.look+'」長得很像</div>':"")+
+   (ch.idiom?'<div>💡 延伸成語：<span class="chip id">'+ch.idiom+'</span><span class="small">'+C.IDIOMS[ch.idiom]+'</span></div>':"")+
    '<div class="btns"><button class="btn white small" id="sayC">🔊 念一念</button><a class="btn teal small ext" style="color:#fff;text-decoration:none;display:inline-flex;align-items:center" href="'+moeLink(ch.c)+'" target="_blank" rel="noopener">🎬 看筆順動畫</a></div></div>';
   $("charDet").innerHTML=h;$("sayC").addEventListener("click",function(){say(ch.c+"，"+ch.words.join("，"));});
   $("ghost").textContent=ch.c;clearPad();renderGrid();}
+/* 描寫板 */
 var pad=$("pad"),ctx=pad.getContext("2d"),drawing=false,ink=0,last=null;
 function clearPad(){ctx.clearRect(0,0,pad.width,pad.height);ink=0;$("padFb").className="fb";}
 function pos(e){var r=pad.getBoundingClientRect();return {x:(e.clientX-r.left)*pad.width/r.width,y:(e.clientY-r.top)*pad.height/r.height};}
@@ -116,16 +118,18 @@ $("padClear").addEventListener("click",clearPad);
 $("padDone").addEventListener("click",function(){var f=$("padFb");
   if(ink<120){f.className="fb show bad";f.innerHTML="先用手指照著淡淡的「"+cur.c+"」描一描喔！";return;}
   var first=!store.wrote[cur.c];store.wrote[cur.c]=1;save();if(first)addStars(1,$("padDone"));beep(true);
-  f.className="fb show good";f.innerHTML="👍 寫好了「"+cur.c+"」！"+(first?"得到 1 顆星。":"")+" 已練習 "+Object.keys(store.wrote).length+" / 15 個字。";});
+  f.className="fb show good";f.innerHTML="👍 寫好了「"+cur.c+"」！"+(first?"得到 1 顆星。":"")+" 已練習 "+Object.keys(store.wrote).length+" / "+C.CHARS.length+" 個字。";});
 showChar(cur,false);
 var cqType="bs",cq;
 function makeCQ(){return C.pick(C.CHARS,8).map(function(ch){return C.charQ(cqType,ch);});}
 cq=runQuiz("charQ",makeCQ,{type:"bs"});
 each(document.querySelectorAll("#cqSeg button"),function(b){b.addEventListener("click",function(){cqType=b.getAttribute("data-t");each(document.querySelectorAll("#cqSeg button"),function(x){x.classList.toggle("on",x===b);});cq.restart();});});
-runQuiz("lookQ",function(){return C.shuffle(C.LOOK).slice(0,6).map(function(l){return {q:l.s.replace("＿",'<span class="blank">（　）</span>'),a:l.a,o:C.shuffle([l.a,l.b]),tip:l.tip};});},{type:"look"});
+runQuiz("polyQ",function(){return C.shuffle(C.POLY).map(function(p){return C.polyQ(p);});},{type:"poly"});
+runQuiz("lookQ",function(){return C.pick(C.LOOK,8).map(function(l){return C.lookQ(l);});},{type:"look"});
 
 /* ---------- 語詞 ---------- */
 var wh="";C.WORDS.forEach(function(w){wh+='<div class="wcard"><b>'+w.w+'</b>'+w.m+'</div>';});$("wordList").innerHTML=wh;
+var nh="";C.NOTES.forEach(function(w){nh+='<div class="wcard"><b>'+w.w+'</b>'+w.m+' <small>（課本第 '+w.p+' 頁）</small></div>';});$("noteList").innerHTML=nh;
 var ih="";for(var idm in C.IDIOMS)ih+='<div class="wcard"><b>'+idm+'</b>'+C.IDIOMS[idm]+'</div>';$("idiomList").innerHTML=ih;
 function startMatch(){
   var set=C.pick(C.WORDS,6),selW=null,left=0,errs=0,box=$("matchBox");
@@ -143,18 +147,21 @@ function startMatch(){
     $("mM").appendChild(b);});
 }
 startMatch();
-runQuiz("fillQ",function(){return C.shuffle(C.FILL).map(function(f){return {q:f.s.replace("＿＿",'<span class="blank">（　　）</span>'),a:f.a,o:C.shuffle(f.opts)};});},{type:"fill"});
+runQuiz("fillQ",function(){return C.pick(C.FILL,8).map(function(f){return C.fillQ(f);});},{type:"fill"});
 
-/* ---------- 句型 ---------- */
+/* ---------- 句型：遊記怎麼寫 ---------- */
+var moodList=C.MOODS.map(function(m){return '<div class="wcard"><b>'+m.w+'</b>'+m.m+'</div>';}).join("");
 var INTRO={
- sense:'<h3>🪄 看到的＋感受</h3><p class="lead">遊記不要寫成流水帳！每一站寫「看到什麼」和「心裡怎麼了」，就生動了。<br>例如：琉璃閃著七彩光芒（看到的），讓我流連忘返（感受）。</p>',
- simile:'<h3>🔁 首尾呼應</h3><p class="lead">開頭和結尾寫同一樣東西（天空），但有一點變化，心情的轉折就寫出來了。<br>開頭：天空有點灰，心情卻晴朗　→　結尾：天空出現溫暖的雲彩，像內心的喜悅</p>',
- rhet:'<h3>🎭 修辭判斷</h3><p class="lead"><b>譬喻</b>：用「像、有如、彷彿、是」把 A 比作 B。<br><b>擬人</b>：把東西當成人來寫。<br><b>摹寫</b>：把看到、聽到、聞到、摸到的感覺寫出來。</p>'};
+ sense:'<h3>👀 用感官收集材料</h3><div class="formula"><span class="f1">視覺：眼睛看</span><span class="f2">聽覺：耳朵聽</span><span class="f3">觸覺：皮膚感覺</span></div><p class="lead">課本第 89 頁：寫遊記時，先用<b>感官</b>收集材料。<br>課本的例子：<span class="quote">金黃的落羽松</span>是視覺，<span class="quote">清涼的風</span>是觸覺，<span class="quote">同學的驚呼聲</span>是聽覺。</p><p class="small">前四題是課本第 89 頁的例子，第五到七題從課文找的，最後一題自編。</p>',
+ feel:'<h3>💗 加入想法或感受</h3><div class="formula"><span class="f1">看到的：琉璃閃著七彩光芒</span><span class="f3">感受：讓我流連忘返</span></div><p class="lead">課本第 89 頁：用感官收集材料以後，還要<b>加入想法或感受</b>。<br>先寫看到、聽到什麼，再寫心裡覺得怎麼樣。</p><p class="small">「看到的」和「感受」都出自課文，錯的選項是自編的。</p>',
+ color:'<h3>🎨 用顏色描寫</h3><div class="formula"><span class="f3">深綠色的河水</span><span class="f1">金黃的落羽松</span><span class="f2">白色的水鳥</span></div><p class="lead">課本第 71 頁「跟著文字去旅行」：描寫事物外觀時，可以運用<b>顏色</b>，讓事物更鮮明。</p><p class="small">前四題是課本第 71 頁的例子，後四題從課文找的。</p>',
+ mood:'<h3>😊 表達感受的語詞</h3><p class="lead">課本第 71 頁「認識表達感受的語詞」列了這七個。其中<b>眼睛為之一亮、流連忘返、滿心喜悅</b>在課文裡出現過。</p><div class="wlist">'+moodList+'</div><p class="small">語詞出自課本，意思和練習的句子是自編的。</p>'};
 var patK="sense",pq;
 function makePat(){
-  if(patK==="sense")return C.shuffle(C.SENSE).map(function(s){return {q:"看到「"+s.see+"」，心裡怎麼了？",a:s.feel,o:C.shuffle(s.o),type:"sense"};});
-  if(patK==="simile")return C.shuffle(C.ECHO).map(function(e){return {q:e.q,a:e.a,o:C.shuffle(e.o),type:"simile"};});
-  return C.shuffle(C.RHET).map(function(r){return {q:"「"+r.s+"」<br>這是什麼修辭？",a:r.a,o:["譬喻","擬人","摹寫"],tip:r.why,type:"rhet"};});
+  if(patK==="sense")return C.shuffle(C.SENSES).map(function(s){return C.senseQ(s);});
+  if(patK==="feel")return C.shuffle(C.FEEL).map(function(f){return C.feelQ(f);});
+  if(patK==="color")return C.shuffle(C.COLOR).map(function(c){return C.colorQ(c);});
+  return C.shuffle(C.MOOD).map(function(m){return C.moodQ(m);});
 }
 function patIntro(){$("patIntro").innerHTML=INTRO[patK]+(store.pat[patK]?'<p class="small">✅ 這個練習已完成過</p>':"");}
 pq=runQuiz("patQ",makePat,{type:"sense",onDone:function(){store.pat[patK]=1;save();patIntro();}});
@@ -163,34 +170,38 @@ each(document.querySelectorAll("#patSeg button"),function(b){b.addEventListener(
 
 /* ---------- 挑戰：地點分類 ---------- */
 function startSort(){
-  var items=C.shuffle(C.SORT),i=0,errs=0,box=$("sortBox"),placed={};
-  C.LOCS.forEach(function(loc){placed[loc.k]=[];});
+  /* 每一站各抽 2 句，共 10 題，五站都會出現 */
+  var items=[],i=0,errs=0,box=$("sortBox"),placed={};
+  C.LOCS.forEach(function(l){placed[l.k]=[];C.pick(C.SORT.filter(function(x){return x.s===l.k;}),2).forEach(function(x){items.push({t:x.t,s:x.s});});});
+  items=C.shuffle(items);
   function draw(){
     var h='<div class="prog">';for(var k=0;k<items.length;k++)h+='<i class="'+(k<i?(items[k].ok?"ok":"no"):k===i?"cur":"")+'"></i>';
     h+='</div>';
-    if(i<items.length){h+='<div class="q">「'+items[i].t+'」</div><div class="btns cen">';C.LOCS.forEach(function(loc){h+='<button class="btn white" data-loc="'+loc.k+'">'+loc.n+'</button>';});h+='</div><div class="fb" id="locFb"></div>';}
-    h+='<div class="bins">';C.LOCS.forEach(function(loc){h+='<div class="bin"><b>'+loc.n+'</b>'+placed[loc.k].join("<br>")+'</div>';});h+='</div>';
+    if(i<items.length){h+='<div class="q">「'+items[i].t+'」</div><div class="locbtns">';C.LOCS.forEach(function(l){h+='<button class="btn white" data-s="'+l.k+'">'+l.e+'<br>'+l.n+'</button>';});h+='</div><div class="fb" id="sFb"></div>';}
+    h+='<div class="bins">';C.LOCS.forEach(function(l){h+='<div class="bin"><b>'+l.e+" "+l.n+'</b>'+placed[l.k].join("<br>")+'</div>';});h+='</div>';
     if(i>=items.length){var st=errs===0?4:errs<=2?2:1;addStars(st,box);if(errs===0){store.locPerfect=(store.locPerfect||0)+1;save();}
-      h+='<div class="done">🎉 分類完成！錯 '+errs+' 次，得到 '+st+' 顆星。'+(errs===0?"全對，你是遊記小達人！":"")+'</div><div class="btns cen"><button class="btn pink" id="locAgain">🔄 再玩一次</button></div>';}
+      h+='<div class="done">🎉 分類完成！錯 '+errs+' 次，得到 '+st+' 顆星。'+(errs===0?"全對，你是地點分類王！":"")+'</div><div class="btns cen"><button class="btn pink" id="sAgain">🔄 再玩一次</button></div>';}
     box.innerHTML=h;
-    if(i>=items.length){$("locAgain").addEventListener("click",startSort);return;}
-    each(box.querySelectorAll(".btns .btn"),function(b){b.addEventListener("click",function(){var lk=b.getAttribute("data-loc"),it=items[i];
-      if(C.sortCheck(it.t,lk)){beep(true);if(it.ok!==false)it.ok=true;placed[lk].push(it.t);i++;draw();}
-      else{beep(false);errs++;it.ok=false;miss("location");var f=$("locFb");f.className="fb show bad";f.textContent="不是這個地點喔！回去看看課文在哪裡寫到的。";}});});
+    if(i>=items.length){$("sAgain").addEventListener("click",startSort);return;}
+    each(box.querySelectorAll(".locbtns .btn"),function(b){b.addEventListener("click",function(){var sk=b.getAttribute("data-s"),it=items[i];
+      if(C.sortCheck(it.t,sk)){beep(true);if(it.ok!==false)it.ok=true;placed[sk].push(it.t);i++;draw();}
+      else{beep(false);errs++;it.ok=false;miss("loc");var f=$("sFb");f.className="fb show bad";f.textContent="不是這一站喔！想一想：作者是在哪裡看到的？";}});});
   }
   draw();
 }
 startSort();
-runQuiz("chBox",function(){return C.challenges();},{type:"read",onDone:function(r){store.chBest=Math.max(store.chBest||0,r);save();}});
+/* ---------- 挑戰：綜合 ---------- */
+runQuiz("chBox",function(){return C.makeChallenge();},{type:"read",onDone:function(r){store.chBest=Math.max(store.chBest||0,r);save();}});
 
 /* ---------- 紀錄 ---------- */
 function renderRec(){
-  var s=store,g=C.badges(s);
-  $("stats").innerHTML='<div class="stat"><b>'+s.stars+'</b>⭐ 星星</div><div class="stat"><b>'+(s.readBest||0)+'/'+C.READ.length+'</b>閱讀理解最佳</div><div class="stat"><b>'+Object.keys(s.seen).length+'/15</b>看過的生字</div><div class="stat"><b>'+Object.keys(s.wrote).length+'/15</b>描寫過的字</div><div class="stat"><b>'+(s.chBest||0)+'/10</b>挑戰最佳</div><div class="stat"><b>'+Object.keys(s.pat).length+'/3</b>句型完成</div>';
+  var s=store,g=C.badges(s),n=C.CHARS.length;
+  var pd=C.PATS.filter(function(k){return s.pat&&s.pat[k];}).length;
+  $("stats").innerHTML='<div class="stat"><b>'+s.stars+'</b>⭐ 星星</div><div class="stat"><b>'+(s.readBest||0)+'/'+C.READ.length+'</b>閱讀理解最佳</div><div class="stat"><b>'+Object.keys(s.seen).length+'/'+n+'</b>看過的生字</div><div class="stat"><b>'+Object.keys(s.wrote).length+'/'+n+'</b>描寫過的字</div><div class="stat"><b>'+(s.chBest||0)+'/10</b>挑戰最佳</div><div class="stat"><b>'+pd+'/'+C.PATS.length+'</b>寫作練習完成</div><div class="stat"><b>'+(s.stepDone||0)+'</b>排參觀順序次數</div>';
   $("badges").innerHTML=C.BADGES.map(function(b){return '<div class="bdg'+(g[b.id]?" got":"")+'">'+b.n+'<small>'+b.d+'</small></div>';}).join("");
   var ks=Object.keys(s.bad).sort(function(a,b){return s.bad[b]-s.bad[a];});
   $("mist").innerHTML=ks.length?'<table class="rec">'+ks.map(function(k){return "<tr><td>"+(TN[k]||k)+"</td><td>錯 "+s.bad[k]+" 次</td></tr>";}).join("")+"</table>":'<p class="small">還沒有錯題，繼續加油！</p>';
 }
-$("resetBtn").addEventListener("click",function(){if(!confirm("確定要清除這一課的所有紀錄嗎？"))return;store=fresh();save();renderScore();renderGrid();renderRec();});
+$("resetBtn").addEventListener("click",function(){if(!confirm("確定要清除這一課的所有紀錄嗎？"))return;store=fresh();save();renderScore();renderGrid();patIntro();renderRec();});
 renderScore();
 })();

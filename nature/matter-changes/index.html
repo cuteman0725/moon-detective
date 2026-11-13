@@ -5,63 +5,173 @@
 <link rel="icon" href="data:,">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#9b5de5">
-<title>🧪 物質變變變｜自然 4上 第三單元</title>
+<title>🧪 物質變化實驗室｜翰林自然 4上 第三單元 物質變變變</title>
 <style>
-:root{--ink:#2b2d42;--purple:#9b5de5;--pink:#ff6b9a;--sun:#ffb703;--blue:#4d96ff;--teal:#2a9d8f;--green:#52b788}
+:root{--ink:#2b2d42;--purple:#9b5de5;--deep:#6a1fb8;--pink:#ff6b9a;--sun:#ffb703;--blue:#4d96ff;--teal:#2a9d8f;--green:#52b788}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{background:#f3e8ff;overflow-x:hidden}
-body{margin:0;padding:0;font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",system-ui,sans-serif;color:var(--ink);min-height:100vh;background:linear-gradient(180deg,#e3d8ff,#f3e8ff 320px);padding-bottom:calc(60px + env(safe-area-inset-bottom))}
+html,body{margin:0;padding:0}
+body{font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",system-ui,sans-serif;color:var(--ink);min-height:100vh;background:linear-gradient(180deg,#e3d8ff,#f3e8ff 320px);padding-bottom:calc(92px + env(safe-area-inset-bottom))}
 header{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:8px;padding:10px 12px;padding-top:calc(10px + env(safe-area-inset-top));background:rgba(155,93,229,.97);color:#fff}
 header h1{font-size:clamp(17px,4.6vw,26px);margin:0;flex:1;letter-spacing:1px;min-width:0}
 .back{color:#fff;text-decoration:none;font-weight:800;background:rgba(255,255,255,.25);border-radius:999px;padding:10px 12px;font-size:15px;white-space:nowrap}
-.score{background:#fff;color:#7209b7;font-weight:900;border-radius:999px;padding:6px 12px;font-size:17px;box-shadow:0 3px 0 #9b5de5}
+.score{background:#fff;color:#7209b7;font-weight:900;border-radius:999px;padding:6px 12px;font-size:17px;white-space:nowrap;box-shadow:0 3px 0 #7d3fd0}
 .score.pop{animation:pop .5s}@keyframes pop{40%{transform:scale(1.3)}}
-main{max-width:1000px;margin:0 auto;padding:10px}
+main{max-width:860px;margin:0 auto;padding:10px}
 section.page{display:none}section.page.active{display:block;animation:fadein .3s}
 @keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
 .card{background:#fff;border-radius:22px;padding:14px;margin:10px 0;box-shadow:0 6px 0 rgba(0,0,0,.1)}
 .card h2{margin:0 0 6px;font-size:clamp(20px,5vw,25px)}
-.card h3{margin:8px 0 6px;font-size:19px}
+.card h3{margin:4px 0 6px;font-size:19px}
 .lead{font-size:17px;line-height:1.7;margin:6px 0}
-.small{font-size:14px;color:#666;line-height:1.5}
-.btn{appearance:none;border:none;border-radius:16px;padding:10px 14px;min-height:50px;font-size:17px;font-weight:800;cursor:pointer;background:var(--purple);color:#fff;box-shadow:0 4px 0 rgba(0,0,0,.22);font-family:inherit}
+.small{font-size:14px;color:#666;line-height:1.55;margin:4px 0}
+.pg{display:inline-block;background:#efe4ff;color:var(--deep);border-radius:999px;padding:2px 10px;font-size:13px;font-weight:800}
+.extra{display:inline-block;background:#fff3cd;color:#8a5a00;border-radius:999px;padding:2px 10px;font-size:13px;font-weight:800}
+.btn{appearance:none;border:none;border-radius:16px;padding:10px 14px;min-height:50px;font-size:17px;font-weight:800;cursor:pointer;background:var(--purple);color:#fff;box-shadow:0 4px 0 rgba(0,0,0,.22);font-family:inherit;touch-action:manipulation}
 .btn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.22)}
-.btn.sun{background:var(--sun);color:#5a3b00}.btn.pink{background:var(--pink)}.btn.teal{background:var(--teal)}.btn.white{background:#fff;color:var(--ink);border:3px solid #ddd}.btn.small{min-height:44px;font-size:15px;padding:6px 10px}
+.btn.sun{background:var(--sun);color:#5a3b00}.btn.pink{background:var(--pink)}.btn.teal{background:var(--teal)}.btn.blue{background:var(--blue)}
+.btn.white{background:#fff;color:var(--ink);border:3px solid #e2d4f7}.btn.small{min-height:44px;font-size:15px;padding:6px 10px}
+[hidden]{display:none!important}
+.btn:disabled{opacity:.4;cursor:default}
 .btns{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0;align-items:center}.cen{justify-content:center}
 .tip{background:#fff7d6;border:3px dashed var(--sun);border-radius:16px;padding:8px 12px;font-size:16px;line-height:1.6;margin:8px 0}
-.done{background:linear-gradient(135deg,#d8f3dc,#fff1a8);border-radius:18px;padding:12px;font-size:18px;line-height:1.6;margin-top:10px}
+.key{background:#efe4ff;border-left:8px solid var(--purple);border-radius:14px;padding:8px 12px;font-size:17px;line-height:1.65;margin:8px 0}
+.key b,.lead b{color:var(--deep)}
+.warn{background:#ffe3e3;border-radius:14px;padding:8px 12px;font-size:16px;line-height:1.6;margin:8px 0}
+.bubble{background:#eef4ff;border-radius:18px;padding:10px 14px;font-size:18px;line-height:1.65;border:3px solid #d6e4ff;margin:8px 0}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:10px 0}
+.box{border-radius:16px;padding:10px 12px;font-size:16px;line-height:1.6}
+.box b{display:block;font-size:17px;margin-bottom:2px}
+.box ul,.list{margin:4px 0;padding-left:1.3em;font-size:16px;line-height:1.7}
+.fb{margin-top:8px;border-radius:14px;padding:8px 12px;font-size:17px;line-height:1.6;min-height:24px}
+.fb:empty{display:none}
+.fb.good{background:#d8f3dc}.fb.bad{background:#fff3cd}.fb.info{background:#eef4ff}
 nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;justify-content:space-around;background:#fff;padding:6px 4px;padding-bottom:calc(6px + env(safe-area-inset-bottom));box-shadow:0 -4px 16px rgba(0,0,0,.15)}
-nav.tabs button{flex:1;min-width:0;border:none;background:none;font-family:inherit;font-size:13px;font-weight:800;color:#666;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 1px;border-radius:14px;cursor:pointer;min-height:60px}
+nav.tabs button{flex:1;min-width:0;border:none;background:none;font-family:inherit;font-size:13px;font-weight:800;color:#666;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 1px;border-radius:14px;cursor:pointer;min-height:60px;touch-action:manipulation;white-space:nowrap}
 nav.tabs button span{font-size:24px;line-height:1}nav.tabs button.on{background:#f3e8ff;color:#7209b7}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
-.bins{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin-top:10px}
-.bin{border-radius:14px;padding:8px;font-size:14px;line-height:1.5;min-height:70px;border:3px solid #eee;position:relative}
-.bin b{display:block;font-size:15px;margin-bottom:4px}
-.bin.over{background:#fff7d6;border-color:var(--sun)}
-.items{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-.item{appearance:none;font-family:inherit;background:#f0f7ff;border:3px solid #cfe2ff;border-radius:12px;padding:6px 10px;font-weight:800;font-size:15px;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}
-.item.placed{cursor:default;opacity:.4}
-.item.shake{animation:shake .4s}
+.burst{position:fixed;z-index:99;pointer-events:none;font-size:28px;animation:fly 1.1s ease-out forwards}
+@keyframes fly{to{transform:translate(var(--dx),var(--dy)) rotate(360deg);opacity:0}}
 @keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
-.fb{margin-top:8px;border-radius:14px;padding:8px 12px;font-size:17px;line-height:1.55;display:none}
-.fb.show{display:block}.fb.good{background:#d8f3dc}.fb.bad{background:#fff3cd}
-.temp-lab{position:relative;background:linear-gradient(180deg,#e3f8ff,#fff);border:4px solid #9bd0ff;border-radius:20px;padding:20px;min-height:260px;margin:10px 0}
-.thermometer{position:absolute;right:20px;top:50%;transform:translateY(-50%);width:50px;height:200px;background:#fff;border:4px solid #666;border-radius:25px;padding:8px 12px}
-.mercury{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:20px;background:linear-gradient(180deg,#ff4444,#cc0000);border-radius:10px;transition:height .5s}
-.temp-display{position:absolute;top:10px;left:10px;background:rgba(255,255,255,.95);border-radius:12px;padding:8px 12px;font-weight:900;font-size:28px;color:#c1121f;box-shadow:0 3px 0 rgba(0,0,0,.1)}
-.state-display{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:80px;text-align:center}
-.state-display div{font-size:20px;font-weight:800;margin-top:8px}
-.slider{width:100%;margin-top:12px;-webkit-appearance:none;appearance:none;height:12px;border-radius:6px;background:#e0e0e0;outline:none}
-.slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:30px;height:30px;border-radius:50%;background:var(--purple);cursor:pointer;box-shadow:0 3px 0 rgba(0,0,0,.2)}
-.slider::-moz-range-thumb{width:30px;height:30px;border-radius:50%;background:var(--purple);cursor:pointer;box-shadow:0 3px 0 rgba(0,0,0,.2)}
-.ph-lab{position:relative;background:linear-gradient(135deg,#f3e8ff,#ffe6ef);border:4px solid var(--purple);border-radius:20px;padding:16px;min-height:240px}
-.beaker{position:absolute;right:20px;top:50%;transform:translateY(-50%);width:100px;height:140px;border:4px solid #666;border-bottom-left-radius:50px;border-bottom-right-radius:50px;background:var(--juice,#dda0ff);transition:background .5s}
-.beaker:after{content:"";position:absolute;top:-4px;left:-4px;right:-4px;height:8px;background:#666;border-radius:4px}
-.test-items{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px;margin-top:8px;max-width:400px}
-.test-item{appearance:none;font-family:inherit;background:#fff;border:3px solid #ddd;border-radius:12px;padding:8px;font-weight:800;font-size:15px;cursor:pointer;min-height:60px;display:flex;align-items:center;justify-content:center;text-align:center}
-.test-item:active{transform:scale(.95)}
-.result-box{margin-top:10px;background:#fff;border-radius:12px;padding:10px;min-height:80px;border:3px solid #eee}
-.result-box b{display:block;font-size:18px;margin-bottom:4px}
+
+/* 卡片和籃子 */
+.chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:8px 0;min-height:50px}
+.chip{appearance:none;border:3px solid #e2d4f7;background:#fff;border-radius:14px;padding:6px 12px;min-height:46px;font-size:17px;font-weight:800;font-family:inherit;color:var(--ink);cursor:pointer;touch-action:manipulation;line-height:1.3}
+.chip.on{border-color:var(--purple);background:#f3e8ff;box-shadow:0 0 0 3px #e2d4f7}
+.chip.ok{border-color:#2ec4b6;background:#d8f3dc}.chip.no{border-color:var(--pink);background:#ffd6dc;animation:shake .4s}
+.chip:disabled{cursor:default}
+.baskets{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin:8px 0}
+.basket{appearance:none;border:3px dashed var(--purple);border-radius:16px;background:#faf6ff;min-height:92px;padding:8px;cursor:pointer;font-family:inherit;color:var(--ink);display:flex;flex-direction:column;gap:6px;align-items:center;touch-action:manipulation}
+.basket b{font-size:17px}.basket.no{border-color:var(--pink);background:#ffe3e9;animation:shake .4s}
+.basket .in{display:flex;flex-wrap:wrap;gap:4px;justify-content:center}
+.got{background:#d8f3dc;border-radius:10px;padding:3px 8px;font-size:14px;font-weight:800}
+.ordline{display:flex;flex-direction:column;gap:6px;margin:6px 0}
+.ordstep{display:flex;align-items:center;gap:8px;background:#efe4ff;border-radius:12px;padding:6px 10px;font-weight:800;font-size:16px}
+.ordstep b{display:inline-flex;flex:none;width:28px;height:28px;border-radius:50%;background:var(--purple);color:#fff;align-items:center;justify-content:center}
+.ordstep small{font-weight:400;color:#555;margin-left:auto;font-size:13px;text-align:right}
+
+/* 小測驗 */
+.qhead{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.tagc{font-size:13px;font-weight:800;background:#efe4ff;color:var(--deep);border-radius:999px;padding:3px 10px}
+.prog{display:flex;gap:4px;justify-content:center;margin:6px 0}
+.prog i{width:20px;height:10px;border-radius:6px;background:#eee;display:block}.prog i.ok{background:#2ec4b6}.prog i.no{background:var(--pink)}.prog i.cur{background:var(--sun)}
+.q{font-size:20px;line-height:1.6;font-weight:800;text-align:center;margin:8px 0}
+.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin-top:8px}
+.choices .btn{background:#fff;color:var(--ink);border:3px solid #e2d4f7;font-size:18px;min-height:56px;line-height:1.35}
+.choices .btn.ok{background:#d8f3dc;border-color:#2ec4b6}.choices .btn.no{background:#ffd6dc;border-color:var(--pink);animation:shake .4s}
+.choices .btn:disabled{opacity:1}
+.ex{background:#f3e8ff;border-radius:14px;padding:8px 12px;font-size:16px;line-height:1.6;margin-top:8px}
+.hint{background:#fff3cd;border-radius:14px;padding:8px 12px;font-size:17px;line-height:1.6;margin-top:8px}
+.good{background:#d8f3dc;border-radius:14px;padding:8px 12px;font-size:17px;line-height:1.6;margin-top:8px}
+.title{font-size:22px;font-weight:900;text-align:center;margin:4px 0 8px}
+.spotline{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;justify-content:center}
+.part{appearance:none;border:3px solid #e2d4f7;background:#fff;border-radius:14px;padding:8px 10px;min-height:48px;font-size:18px;font-weight:800;font-family:inherit;color:var(--ink);cursor:pointer;line-height:1.4;text-align:left;touch-action:manipulation}
+.part.ok{border-color:#2ec4b6;background:#d8f3dc}.part.no{border-color:#ddd;background:#f4f4f4;color:#888}.part.hl{border-color:var(--pink);background:#ffd6dc}
+.statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px}
+.stat{background:#f3e8ff;border-radius:16px;padding:10px;text-align:center;font-size:14px}.stat b{display:block;font-size:22px;color:var(--deep)}
+
+/* 探究步驟 */
+.inq{display:grid;grid-template-columns:auto 1fr;gap:8px 10px;margin:8px 0;font-size:16px;line-height:1.65;align-items:start}
+.inq>b{background:var(--ink);color:#fff;border-radius:10px;padding:2px 8px;font-size:14px;white-space:nowrap;margin-top:2px}
+.inq>div{min-width:0}
+.inq ol{margin:0;padding-left:1.3em}
+
+/* 3-1 河邊觀察站 */
+.scene{display:block;width:100%;max-width:480px;height:auto;margin:6px auto;border-radius:16px;border:3px solid #9bd0ff;background:#e3f4ff}
+#rvWater,#rvWave{transition:fill 1.6s}
+#rvWave{opacity:0;transition:opacity .6s,fill 1.6s}
+#rvWave.on{opacity:1;animation:wv 1.2s linear infinite}
+@keyframes wv{to{transform:translateX(40px)}}
+#rvWind{opacity:0;transition:opacity .5s}#rvWind.on{opacity:1}
+.grain{transition:transform 2.4s ease-in}
+.muddy .grain{transition:transform .9s ease-out}
+.mcards{display:grid;gap:8px;margin:8px 0}
+.mcard{appearance:none;text-align:left;border:3px solid #e2d4f7;background:#faf6ff;border-radius:16px;padding:10px 12px;font-family:inherit;color:var(--ink);font-size:16px;line-height:1.65;cursor:pointer;touch-action:manipulation}
+.mcard b{display:block;font-size:17px;color:var(--deep)}
+.mcard .ma{display:none;margin-top:4px;background:#fff;border-radius:10px;padding:6px 8px}
+.mcard .mt{display:block;color:#888;font-size:14px}
+.mcard.open .ma{display:block}.mcard.open .mt{display:none}
+.mcard.open{border-color:#2ec4b6;background:#f1fbf5}
+mark{background:#fff1a8;border-radius:4px;padding:0 2px;font-weight:800}
+
+/* 3-2 巧克力實驗 */
+.lab{position:relative;height:196px;max-width:480px;margin:8px auto;background:linear-gradient(#fff7ec,#ffeccf);border-radius:18px;border:3px solid #f0d2a0;overflow:hidden}
+.thermo{position:absolute;left:18px;top:14px;width:20px;height:118px;border:3px solid #666;border-radius:10px;background:#fff}
+.thermo i{position:absolute;left:2px;right:2px;bottom:2px;height:0;background:#e63946;border-radius:6px;transition:height 1.2s}
+.tread{position:absolute;left:6px;top:140px;font-weight:900;font-size:13px;color:#c1121f;background:#fff;border-radius:8px;padding:2px 6px}
+.tread:empty{display:none}
+.bowl{position:absolute;left:50%;bottom:8px;width:190px;height:92px;margin-left:-72px;border:4px solid #c9925a;border-top:none;border-radius:0 0 95px 95px;background:#fff;opacity:0;transition:opacity .7s;overflow:hidden}
+.bowl i{position:absolute;left:0;right:0;bottom:0;height:74%;background:#ffd0a3}
+.steam{position:absolute;left:50%;margin-left:70px;top:18px;font-size:30px;opacity:0;transition:opacity .7s}
+.bag{position:absolute;left:50%;bottom:34px;width:136px;height:92px;margin-left:-45px;border:3px solid transparent;border-top-width:7px;border-radius:6px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:10px;transition:border-color .6s,background .6s}
+.choco{width:64px;height:42px;background:#5c3a21;border-radius:6px;transition:all 1.4s;box-shadow:inset -6px -6px 0 rgba(0,0,0,.2)}
+.lab[data-st="1"] .thermo i,.lab[data-st="3"] .thermo i{height:34%}
+.lab[data-st="2"] .thermo i{height:66%}
+.lab[data-st="2"] .bowl,.lab[data-st="2"] .steam{opacity:1}
+.lab[data-st="2"] .bag,.lab[data-st="3"] .bag{border-color:rgba(90,140,200,.75);border-top-color:#5a8cc8;background:rgba(220,235,255,.4)}
+.lab[data-st="2"] .choco{width:108px;height:15px;border-radius:40% 60% 50% 50%/70% 70% 30% 30%;box-shadow:none}
+.lab[data-st="3"] .choco{width:86px;height:28px;border-radius:14px 22px 10px 16px}
+
+/* 3-2 升溫降溫機 */
+.stage{background:linear-gradient(#f7fbff,#eaf3ff);border:3px solid #cfe2ff;border-radius:18px;padding:8px;text-align:center;margin:8px auto;max-width:480px}
+.art{display:block;width:200px;max-width:70%;height:auto;margin:0 auto}
+.stlabel{font-size:17px;font-weight:800;line-height:1.5;min-height:52px;margin:4px 0}
+.verdict{display:inline-block;border-radius:999px;padding:4px 12px;font-weight:900;font-size:16px}
+.verdict.y{background:#d8f3dc;color:#1b5e52}.verdict.n{background:#ffd6dc;color:#9b1c3a}
+.brick{display:flex;align-items:center;gap:10px;justify-content:center;font-size:17px;font-weight:800;margin:8px 0;flex-wrap:wrap}
+.brick span{font-size:46px;line-height:1}
+
+/* 3-3 紫色高麗菜實驗 */
+.beakers{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin:8px 0}
+.bk{appearance:none;font-family:inherit;color:var(--ink);padding:6px 2px;border:3px solid #e2d4f7;border-radius:14px;background:#fff;display:flex;flex-direction:column;align-items:center;gap:2px;min-height:150px;cursor:pointer;touch-action:manipulation;min-width:0}
+.bk.on{border-color:var(--purple);background:#f3e8ff}
+.bk.done{border-color:#2ec4b6;cursor:default}
+.bk b{font-size:13px;line-height:1.25;margin-top:4px}.bk small{font-size:12px;color:#666}
+.leaf{width:26px;height:22px;background:#7b2d8e;border-radius:60% 40% 55% 45%/50% 60% 40% 50%;transition:transform 1s,background 1.8s,opacity .5s;opacity:0;position:relative;z-index:2}
+.torn .leaf{opacity:1}
+.bk.in .leaf{transform:translateY(46px)}
+.glass{width:44px;height:58px;border:3px solid #777;border-top:none;border-radius:0 0 9px 9px;position:relative;overflow:hidden;background:#fff}
+.glass i{position:absolute;left:0;right:0;bottom:0;height:58%}
+table.rec3{border-collapse:collapse;width:100%;table-layout:fixed;font-size:13px;margin:8px 0;line-height:1.35}
+table.rec3 th,table.rec3 td{border:2px solid #d9c8f5;padding:5px 2px;text-align:center;vertical-align:middle;word-break:break-all}
+table.rec3 th{background:#f3e8ff;width:25%}
+.sw{display:inline-block;width:16px;height:16px;border-radius:50%;vertical-align:-3px;margin-right:2px}
+
+/* 圖解筆記 */
+.cloze{font-size:17px;line-height:2.2;margin:6px 0}
+.cloze h4{margin:10px 0 0;font-size:17px;color:var(--deep);line-height:1.5}
+.blank{appearance:none;border:none;border-bottom:3px solid var(--purple);background:#f3e8ff;border-radius:8px 8px 0 0;min-width:3em;min-height:36px;padding:0 8px;font-family:inherit;font-size:17px;font-weight:900;color:#aaa;cursor:pointer;touch-action:manipulation;vertical-align:baseline}
+.blank.open{background:#d8f3dc;border-color:#2ec4b6;color:var(--ink);cursor:default}
+
+/* 集章卡 */
+.stamps{display:grid;gap:8px}
+.stamp{appearance:none;text-align:left;border:3px solid #e2d4f7;background:#faf6ff;border-radius:16px;padding:10px 12px;font-family:inherit;color:var(--ink);cursor:pointer;touch-action:manipulation}
+.stamp.all{border-color:#2ec4b6;background:#f1fbf5}
+.stamp b{font-size:17px;display:flex;justify-content:space-between;gap:8px;align-items:center}
+.stamp b span{font-size:14px;background:#fff;border-radius:999px;padding:2px 10px;white-space:nowrap}
+.stamp i{display:inline-block;font-style:normal;font-size:13px;margin:4px 6px 0 0;color:#888}
+.stamp i.y{color:#1b7a6e;font-weight:800}
+details summary{cursor:pointer;font-weight:800;font-size:16px;padding:8px 0}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
@@ -72,276 +182,832 @@ nav.tabs button span{font-size:24px;line-height:1}nav.tabs button.on{background:
 </header>
 <main>
 
-<!-- ===== 介紹 ===== -->
+<!-- ============ 開始 ============ -->
 <section class="page active" id="p-intro">
   <div class="card">
-    <h2>🔬 第三單元 物質變變變</h2>
-    <p class="lead">📖 翰林版自然四上第三單元（課本 pp.80-99）</p>
-    <div class="tip">物質會因為水、溫度、空氣、酸鹼性、時間等因素而產生變化。有些變化可以回復原來的形態，有些不行！</div>
-    <h3>📚 本單元包含</h3>
+    <h2>🧪 第三單元 物質變變變</h2>
+    <p class="small"><span class="pg">📖 翰林版自然 4上・課本 p.78～97</span></p>
+    <div class="bubble">🦦 生活中有許多物質。這些物質會因為哪些因素發生變化呢？</div>
     <div class="grid2">
-      <div style="background:#e3f8ff;border-radius:14px;padding:10px;text-align:center">
-        <div style="font-size:40px">🔄</div>
-        <b style="font-size:18px">可回復 vs 不可回復</b>
-        <p class="small">判斷物質變化能不能回復原形態</p>
-      </div>
-      <div style="background:#ffe6ef;border-radius:14px;padding:10px;text-align:center">
-        <div style="font-size:40px">🌡️</div>
-        <b style="font-size:18px">溫度對物質的影響</b>
-        <p class="small">觀察冰塊、奶油、雞蛋受熱的變化</p>
-      </div>
+      <div class="box" style="background:#e3f8ff"><b>✅ 我學過了</b><ul><li>水有固體、液體、氣體三種狀態。</li><li>溫度計可以測量溫度的變化。</li></ul></div>
+      <div class="box" style="background:#fff7d6"><b>🎯 現在要學</b><ul><li>物質會因為不同因素而產生變化。</li><li>溫度與酸鹼對物質的影響。</li></ul></div>
     </div>
-    <div class="grid2">
-      <div style="background:#d8f3dc;border-radius:14px;padding:10px;text-align:center">
-        <div style="font-size:40px">🧪</div>
-        <b style="font-size:18px">酸與鹼對物質的影響</b>
-        <p class="small">用紫高麗菜汁測試酸鹼</p>
-      </div>
-      <div style="background:#fff7d6;border-radius:14px;padding:10px;text-align:center">
-        <div style="font-size:40px">🏆</div>
-        <b style="font-size:18px">學習紀錄</b>
-        <p class="small">查看你的實驗成果</p>
-      </div>
-    </div>
+  </div>
+
+  <div class="card">
+    <h3>🤔 先猜再學</h3>
+    <p class="lead">巧克力泡在熱水裡會融化。把融化的巧克力放在室溫下一段時間，會怎樣？</p>
+    <div class="chips" id="guess"></div>
+    <div class="fb" id="guessFb"></div>
+  </div>
+
+  <div class="card">
+    <h3>🗺️ 實驗室集章卡</h3>
+    <p class="small">每完成一個活動，就蓋一個章。點一下就能到那一節。</p>
+    <div class="stamps" id="stamps"></div>
+  </div>
+
+  <div class="card">
+    <details>
+      <summary>👪 給爸媽</summary>
+      <p class="small">內容已對照孩子的翰林版國小自然 4 上課本第三單元「物質變變變」（p.78～97）：3-1 影響物質變化的因素、3-2 溫度對物質的影響、3-3 酸與鹼對物質的影響，加上科學閱讀「廚房裡的魔法」和圖解筆記。說明是用自己的話改寫的，題目是自編的練習。</p>
+      <p class="small">紫色高麗菜實驗：課本的紀錄表只印出「檸檬汁、酸性、變為紅色系」。鹼性那兩杯的顏色，這一頁照課本 p.97 圖解筆記的圖畫成藍綠色系；孩子自己做實驗看到的顏色，請以習作的紀錄為準。</p>
+      <p class="small">課本這個單元沒有提到「中性」、石蕊試紙，也沒有水幾度結冰、幾度沸騰，所以這一頁不出這些題目。小測驗的題目和「今天的複習」用同一套（review/bank.js）。</p>
+      <p class="small">紀錄只存在這台平板的瀏覽器裡。</p>
+    </details>
   </div>
 </section>
 
-<!-- ===== 3-1 影響物質變化的因素 & 3-2 可回復/不可回復 ===== -->
-<section class="page" id="p-sort">
+<!-- ============ 3-1 影響物質變化的因素 ============ -->
+<section class="page" id="p-31">
   <div class="card">
-    <h2>🔄 3-1 & 3-2：可回復原形態 vs 不可回復原形態</h2>
-    <p class="lead">📖 課本 pp.80-89</p>
-    <div class="tip">💡 影響物質變化的因素：水、溫度、空氣、酸鹼性、時間。<br>課本例子：流水沖刷沙石、風吹塵土、鐵生鏽、麵團發酵、鹹豆漿加醋變塊狀。</div>
+    <h2>3-1 影響物質變化的因素</h2>
+    <p class="small"><span class="pg">📖 課本 p.80～84</span>　活動 1 哪些因素會影響物質變化？</p>
+    <p class="lead">我們身邊充滿了物質，像是<b>空氣、水、沙、土</b>。這些物質會互相影響，產生變化嗎？</p>
   </div>
 
   <div class="card">
-    <h3>📖 3-2 溫度對物質的影響（課本 p.85）</h3>
-    <p class="lead"><b>可回復原形態</b>：冰塊、奶油、巧克力受熱融化成液態，降溫冷卻後可以恢復固態。<br><b>不可回復原形態</b>：雞蛋受熱變硬、線香燃燒後，無法回復原來的形態。</p>
-    <div class="tip">💡 改變溫度的方法<br>• 升溫：瓦斯爐火、摩擦手、晒太陽／陽光照射、燃燒<br>• 降溫：加冰塊、放冰箱</div>
-  </div>
-
-  <div class="card">
-    <h3>🎯 分類大挑戰</h3>
-    <p class="small">把下面的變化拖到正確的籃子裡！</p>
-    <div class="bins">
-      <div class="bin" data-type="reversible" id="bin-rev">
-        <b>✅ 可回復原形態</b>
-        <div class="small">降溫或升溫可以變回來</div>
-        <div id="rev-list"></div>
-      </div>
-      <div class="bin" data-type="irreversible" id="bin-irr">
-        <b>❌ 不可回復原形態</b>
-        <div class="small">無法變回原來的樣子</div>
-        <div id="irr-list"></div>
-      </div>
-    </div>
-    <div class="items" id="sort-items"></div>
-    <div class="fb" id="sort-fb"></div>
-    <div id="sort-done"></div>
-  </div>
-</section>
-
-<!-- ===== 3-2 溫度實驗室 ===== -->
-<section class="page" id="p-temp">
-  <div class="card">
-    <h2>🌡️ 3-2 溫度對物質的影響</h2>
-    <p class="lead">📖 課本 p.85-89</p>
-    <div class="tip">💡 溫度計使用：紅色液柱上升表示溫度上升，下降表示溫度下降。<br>（課本使用酒精溫度計，紅色液體是染色的酒精）</div>
-  </div>
-
-  <div class="card">
-    <h3>🧊 實驗：觀察水的三態變化</h3>
-    <p class="small">拖動溫度計，看看水怎麼變化。</p>
-    <div class="temp-lab">
-      <div class="temp-display" id="temp-num">25°C</div>
-      <div class="state-display" id="state-icon">💧<div>液態水</div></div>
-      <div class="thermometer">
-        <div class="mercury" id="mercury" style="height:60px"></div>
-      </div>
-    </div>
-    <input type="range" min="-20" max="120" value="25" class="slider" id="temp-slider">
+    <h3>🏞️ 河邊觀察站</h3>
+    <p class="small">河流中的沙、石頭會被流水沖刷而移動；塵土會被風吹起，散布在空氣中。三個按鈕都按按看。</p>
+    <svg id="rv" class="scene" viewBox="0 0 320 170" role="img" aria-label="河水的剖面：上面是水面，下面是河底的沙和石頭">
+      <rect width="320" height="48" fill="#e3f4ff"/>
+      <text id="rvWind" x="6" y="36" font-size="28">🌬️</text>
+      <rect id="rvWater" x="0" y="48" width="320" height="102" fill="#8fd3f4"/>
+      <path id="rvWave" fill="#8fd3f4" d="M-40 48q10 -9 20 0t20 0t20 0t20 0t20 0t20 0t20 0t20 0t20 0t20 0t20 0t20 0t20 0t20 0t20 0t20 0t20 0t20 0t20 0t20 0V60H-40Z"/>
+      <rect x="0" y="148" width="320" height="22" fill="#b98b52"/>
+      <g id="rvGrains"></g>
+    </svg>
     <div class="btns cen">
-      <button class="btn white small" onclick="setTemp(-10)">❄️ -10°C</button>
-      <button class="btn white small" onclick="setTemp(25)">💧 25°C</button>
-      <button class="btn white small" onclick="setTemp(110)">♨️ 110°C</button>
+      <button type="button" class="btn blue" id="rvFlood">🌊 大水沖來沙、石頭</button>
+      <button type="button" class="btn teal" id="rvWait">⏳ 等一段時間</button>
+      <button type="button" class="btn white" id="rvBlow">🌬️ 風吹過水面</button>
     </div>
-    <div class="tip" id="temp-tip">📖 水在 0°C 以下結冰（固態），0°C~100°C 是液態，100°C 以上變成水蒸氣（氣態）。這些變化都可以回復原形態。</div>
+    <div class="fb info" id="rvFb">現在的水很清澈，水面很平靜。</div>
+    <div class="key">大自然中的物質會<b>互相影響</b>。這些影響有時會讓物質的<b>外觀</b>改變。</div>
   </div>
 
   <div class="card">
-    <h3>📖 課本的例子（p.85-88）</h3>
-    <div class="lead">
-      <b>可回復原形態：</b><br>
-      • 冰塊：受熱融化成液態水，降溫冷卻後恢復固態冰<br>
-      • 奶油：受熱融化成液態，降溫冷卻後恢復固態<br>
-      • 巧克力：受熱融化成液態，降溫冷卻後恢復固態<br>
-      • 高湯冰磚、檸檬汁冰磚、咖啡冰磚：可以凍成冰、也可以融化<br><br>
-      <b>不可回復原形態：</b><br>
-      • 雞蛋：受熱變硬，無法回復原來液態的樣子<br>
-      • 線香：燃燒後變成灰燼，無法回復原來的樣子
-    </div>
+    <h3>🧺 是誰讓它變了？</h3>
+    <p class="lead">物質也會受到<b>環境因素</b>的變化而改變。課本舉的例子有：<b>水、溫度、空氣</b>等。</p>
+    <p class="small">下面是課本 p.80～82 的照片。想一想，是什麼讓它改變的？</p>
+    <div id="sWho"></div>
+  </div>
+
+  <div class="card">
+    <h3>🔎 三種找答案的方法</h3>
+    <p class="lead">還有哪些因素會讓物質變化？課本的同學用了三種方法找答案。點開卡片看看。</p>
+    <div class="mcards" id="mth"></div>
+    <div class="fb" id="mthFb"></div>
+  </div>
+
+  <div class="card">
+    <h3>🧩 它為什麼變了？</h3>
+    <p class="small">把看到的現象，放到課本找到的原因裡。</p>
+    <div id="sWhy"></div>
+  </div>
+
+  <div class="card">
+    <h3>🔩 鐵鏽偵探</h3>
+    <p class="lead">圖書館的書上說：鐵會生鏽，是受到<b>四種因素長時間的影響</b>。把這四種找出來。</p>
+    <div class="chips" id="rust"></div>
+    <div class="fb" id="rustFb"></div>
+  </div>
+
+  <div class="card">
+    <h3>📌 3-1 的結論</h3>
+    <div class="key">我們可以用「<b>觀察</b>」和「<b>查詢資料</b>」，知道物質會和環境中的某些因素相互影響，產生變化。<br>變化需要的<b>時間</b>或<b>條件</b>，會因為這些因素影響的程度而不同。</div>
+  </div>
+
+  <div class="card">
+    <h3>✏️ 3-1 小測驗（5 題）</h3>
+    <p class="small">先在心裡想好答案，再看選項。</p>
+    <div id="q31"></div>
   </div>
 </section>
 
-<!-- ===== 3-3 酸與鹼對物質的影響 ===== -->
-<section class="page" id="p-ph">
+<!-- ============ 3-2 溫度對物質的影響 ============ -->
+<section class="page" id="p-32">
   <div class="card">
-    <h2>🧪 3-3 酸與鹼對物質的影響</h2>
-    <p class="lead">📖 課本 p.90-99</p>
-    <div class="tip">💡 生活中的酸與鹼<br>
-    <b>酸性：</b>檸檬酸、食醋、乳酸飲料、運動飲料（聞起來酸酸的）<br>
-    <b>鹼性：</b>鹼粽（鹼水）、肥皂水、小蘇打水（摸起來滑滑的）</div>
+    <h2>3-2 溫度對物質的影響</h2>
+    <p class="small"><span class="pg">📖 課本 p.85～89</span>　活動 1 改變溫度的方法・活動 2 物質形態在不同溫度下產生的變化</p>
+    <p class="lead">物質受到溫度變化的影響，可能會有不同的變化。</p>
   </div>
 
   <div class="card">
-    <h3>🥬 實驗：紫高麗菜汁測試酸鹼（課本 p.92-95）</h3>
-    <p class="small">📖 課本步驟：撕碎紫高麗菜葉，浸泡在水中，就能製作紫高麗菜汁。<br>點一個物質，看看紫高麗菜汁會變什麼顏色！</p>
-    <div class="ph-lab">
-      <div class="beaker" id="beaker"></div>
-      <div style="max-width:400px">
-        <p style="font-weight:800;font-size:18px;margin:0 0 8px">🥤 紫高麗菜汁</p>
-        <div class="test-items" id="test-items"></div>
-      </div>
+    <h3>🌡️ 活動 1：改變溫度的方法</h3>
+    <p class="small"><span class="pg">📖 課本 p.85</span></p>
+    <ul class="list">
+      <li>瓦斯爐的爐火，讓鍋裡的油溫升高。</li>
+      <li>在水中加入冰塊，水溫會降低。</li>
+      <li>在陽光下量到的溫度比較高。</li>
+      <li>摩擦過後的手，溫度會升高。</li>
+    </ul>
+    <p class="small">用<b>溫度計</b>可以測量溫度的變化；量手的溫度用體溫計。</p>
+    <div id="sWay"></div>
+    <div class="key">把物品<b>放入冰箱</b>、<b>水加入冰塊</b>，可以使溫度<b>降低</b>。<br><b>太陽照射</b>、<b>物質燃燒</b>和<b>摩擦</b>，可以使溫度<b>升高</b>。</div>
+  </div>
+
+  <div class="card">
+    <h3>🍫 活動 2：巧克力形態與溫度變化的關係</h3>
+    <p class="small"><span class="pg">📖 課本 p.86～87</span>　跟著探究的步驟做一次。</p>
+    <div class="inq">
+      <b>👀 觀察現象</b><div>放在口袋裡一段時間的巧克力，拿出來後<b>形狀改變</b>了。</div>
+      <b>❓ 提出問題</b><div>為什麼巧克力的形狀會改變呢？是因為受到體溫影響嗎？</div>
+      <b>🔍 蒐集資料</b><div><ol><li>沒吃完的滷肉放進冰箱，浮在上面的油會<b>凝固</b>；再加熱，又會<b>融化</b>。</li><li>巧克力的包裝上常寫：放在陰涼處，避免高溫或陽光直射。</li><li>人的體溫大約是 <b>37°C</b>。</li></ol></div>
+      <b>✏️ 提出假設</b><div>固態巧克力受溫度<b>上升</b>影響，會變為<b>液態</b>；液態巧克力受溫度<b>下降</b>影響，會變為<b>固態</b>。</div>
+      <b>🧪 設計實作</b><div>先討論讓巧克力溫度上升或下降的方法，例如泡熱水、泡冰水，再動手做、量溫度。這裡用泡熱水，照下面三個步驟做。<br><span class="small">課本提醒：盡量選成分單純的巧克力；熱水大約 40～50°C。</span></div>
     </div>
-    <div class="result-box" id="ph-result">
-      <b>測試結果</b>
-      <p class="small">點選上面的物質開始測試！</p>
+    <div class="lab" id="chLab" data-st="0" role="img" aria-label="巧克力實驗：溫度計、熱水和裝在夾鏈袋裡的巧克力">
+      <div class="thermo"><i></i></div><div class="tread" id="chT"></div>
+      <div class="bowl"><i></i></div><div class="steam">♨️</div>
+      <div class="bag"><div class="choco"></div></div>
     </div>
-    <div class="tip">📖 課本 p.98：科學家波以耳（Robert Boyle）發現紫羅蘭花瓣遇到酸鹼會變色，後來發明了石蕊試紙。</div>
+    <div class="btns cen" id="chBtns">
+      <button type="button" class="btn sun" id="ch1">① 準備巧克力，量室溫</button>
+      <button type="button" class="btn pink" id="ch2" disabled>② 放進夾鏈袋，浸入熱水</button>
+      <button type="button" class="btn blue" id="ch3" disabled>③ 靜置在室溫下</button>
+    </div>
+    <div class="fb info" id="chFb">先按 ①。</div>
+    <div id="chAsk"></div>
+    <div class="inq" id="chEnd" hidden>
+      <b>💡 分析驗證</b><div>固態巧克力遇熱後，變為<b>液態</b>。液態巧克力冷卻後，變為<b>固態</b>。結果和假設一樣。<br><span class="small">課本提醒：如果結果和假設不一樣，要重新提出假設。</span></div>
+      <b>✅ 結論</b><div>物質可能會受到<b>溫度變化</b>而改變<b>形態</b>。</div>
+    </div>
+    <p class="small"><span class="extra">🔎 課外補充</span> 真的做實驗時，熱水要請大人幫忙。</p>
+  </div>
+
+  <div class="card">
+    <h3>🪜 探究步驟排排看</h3>
+    <p class="small">課本的實驗都照這七個步驟。從第一步開始，依序點。</p>
+    <div id="oSteps"></div>
+  </div>
+
+  <div class="card">
+    <h3>🔥❄️ 升溫降溫機</h3>
+    <p class="small"><span class="pg">📖 課本 p.88～89</span></p>
+    <p class="lead">除了形態，物質其他的性質，在溫度變化後會怎樣？選一種物質，先讓溫度上升，再讓溫度下降。</p>
+    <div class="chips" id="mcPick"></div>
+    <div class="stage">
+      <div id="mcArt"></div>
+      <div class="stlabel" id="mcState"></div>
+      <div id="mcVerdict"></div>
+    </div>
+    <div class="btns cen">
+      <button type="button" class="btn pink" id="mcUp">🔥 溫度上升</button>
+      <button type="button" class="btn blue" id="mcDown" disabled>❄️ 溫度下降</button>
+      <button type="button" class="btn white small" id="mcAgain">重來</button>
+    </div>
+    <p class="small" id="mcTried" style="text-align:center"></p>
+    <div class="key"><b>溫度</b>的變化，可能會造成物質的形狀、顏色、體積、形態等<b>性質改變</b>。<br>有些變化<b>可以回復</b>，有些<b>不能回復</b>。</div>
+  </div>
+
+  <div class="card">
+    <h3>🧺 可回復原形態？不可回復原形態？</h3>
+    <p class="small">課本的圖解筆記（p.97）把冰塊、奶油、巧克力、蛋、線香分成兩類。溫度升高再降低後，能不能回到原先的形態？（滷肉上的油是 p.86 的資料，也一起想想看。）</p>
+    <div id="sRev"></div>
+  </div>
+
+  <div class="card">
+    <h3>📚 科學閱讀：廚房裡的魔法</h3>
+    <p class="small"><span class="pg">📖 課本 p.94～95</span>　這一篇由老師彈性教學。</p>
+    <p class="lead">有餐廳把高湯做成特別造型的<b>高湯冰磚</b>：先熬煮高湯，再把液體的高湯冷凍，結成固體的冰磚。把冰磚放進火鍋，溫度慢慢上升，冰磚又融化成高湯。</p>
+    <div class="brick"><span id="bkIcon">🥣</span><b id="bkTxt">液體的高湯</b><button type="button" class="btn blue small" id="bkBtn">❄️ 冷凍</button></div>
+    <p class="lead">檸檬汁和咖啡也可以冷凍成冰磚。優點是可以分次使用，也能延長保存的時間。</p>
+    <div class="key">這些都是利用物質受到<b>溫度</b>的影響，產生<b>形態變化</b>，並且<b>可以回復</b>的應用。</div>
+    <p class="small">💭 想一想：生活中，還有哪些食物受溫度影響會產生形態變化，而且可以回復？和家人討論看看。</p>
+  </div>
+
+  <div class="card">
+    <h3>✏️ 3-2 小測驗（5 題）</h3>
+    <p class="small">先在心裡想好答案，再看選項。</p>
+    <div id="q32"></div>
   </div>
 </section>
 
-<!-- ===== 紀錄 ===== -->
-<section class="page" id="p-rec">
+<!-- ============ 3-3 酸與鹼對物質的影響 ============ -->
+<section class="page" id="p-33">
   <div class="card">
-    <h2>🏆 我的實驗紀錄</h2>
-    <div id="stats"></div>
+    <h2>3-3 酸與鹼對物質的影響</h2>
+    <p class="small"><span class="pg">📖 課本 p.90～93</span>　活動 1 生活中的酸鹼・活動 2 物質遇到酸性與鹼性會產生變化嗎？</p>
   </div>
+
   <div class="card">
-    <button class="btn white" id="resetBtn">清除紀錄</button>
+    <h3>🍋 活動 1：生活中的酸鹼</h3>
+    <p class="small"><span class="pg">📖 課本 p.90～91</span></p>
+    <p class="lead">生活中有許多用「酸」「鹼」命名的物質。它們的名字和性質有關嗎？</p>
+    <ul class="list">
+      <li><b>檸檬酸</b>：上網查到，它是<b>酸性</b>物質。</li>
+      <li><b>鹼粽</b>：用泡過<b>鹼水</b>的糯米製成。鹼水是一種<b>鹼性</b>物質。</li>
+      <li><b>食醋</b>是酸性。<b>肥皂水</b>是鹼性，摸起來滑滑的。</li>
+      <li><b>檸檬汁</b>和醋都是酸性，嘗起來酸酸的。</li>
+      <li><b>乳酸飲料</b>和<b>運動飲料</b>都是酸性。</li>
+      <li>有些食物在製作過程中，會添加鹼性物質。</li>
+    </ul>
+    <div class="key"><b>酸鹼性</b>是物質的一種<b>性質</b>。</div>
+    <div class="warn">⚠️ 觀察前要先確認物質的<b>安全性</b>，不可以隨意食用。</div>
+    <div class="key">常見的物質，有時可以用<b>氣味、觸感、味道</b>簡單區分。<br>酸性物質通常<b>聞起來有酸味</b>；鹼性物質通常<b>摸起來滑滑的</b>。</div>
+    <h3 style="margin-top:12px">🧺 酸性還是鹼性？</h3>
+    <div id="sAb"></div>
+  </div>
+
+  <div class="card">
+    <h3>🥗 活動 2：紫色高麗菜遇酸鹼的顏色變化</h3>
+    <p class="small"><span class="pg">📖 課本 p.92～93</span>　物質遇到酸性與鹼性會產生變化嗎？</p>
+    <div class="inq">
+      <b>👀 觀察現象</b><div>沙拉中的紫色高麗菜碰到<b>食醋</b>，會變成<b>紅色</b>。</div>
+      <b>❓ 提出問題</b><div>為什麼紫色高麗菜加入食醋攪拌後會變色？</div>
+      <b>🔍 蒐集資料</b><div><ol><li>科學家<b>波以耳</b>曾經不小心把酸、鹼性物質濺到<b>紫羅蘭</b>的紫色花瓣，發現花瓣有不同的變色情況。</li><li>上網查到：檸檬汁、食醋是<b>酸性</b>；小蘇打水、肥皂水是<b>鹼性</b>。</li></ol></div>
+      <b>✏️ 提出假設</b><div>紫色高麗菜遇到酸性與鹼性物質時，會呈現<b>不同的顏色變化</b>。</div>
+      <b>🧪 設計實作</b><div><ol><li>把紫色高麗菜撕成大約<b>手指頭大小</b>的碎片，準備不同酸鹼性的溶液<b>各 20 毫升</b>。</li><li>把紫色高麗菜分別泡進這些溶液，觀察並記錄菜葉的顏色變化。</li></ol></div>
+    </div>
+    <div id="cab">
+      <div class="btns cen"><button type="button" class="btn" id="cabTear">① 把紫色高麗菜撕成碎片</button></div>
+      <div class="beakers" id="cabBk"></div>
+      <div class="fb info" id="cabFb">先按 ①，再點一個杯子。</div>
+      <div id="cabAsk"></div>
+      <p class="small">照課本的方法用表格記錄：第一列寫物質名稱，第二列寫酸鹼性，第三列記錄顏色變化。</p>
+      <table class="rec3" id="cabTb"></table>
+      <p class="small">課本的表格只印出檸檬汁的結果。鹼性的顏色，這裡照課本 p.97 圖解筆記的圖畫成藍綠色系；你做實驗看到的顏色，照實際看到的寫在習作。</p>
+      <div id="cabRule"></div>
+    </div>
+    <div class="inq" id="cabEnd" hidden>
+      <b>✅ 結論</b><div>物質遇到<b>酸</b>、<b>鹼</b>會產生<b>不同的變化</b>。菜葉會因為接觸到不同的酸鹼而改變顏色。</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>✏️ 3-3 小測驗（5 題）</h3>
+    <p class="small">先在心裡想好答案，再看選項。</p>
+    <div id="q33"></div>
+  </div>
+</section>
+
+<!-- ============ 挑戰 ============ -->
+<section class="page" id="p-game">
+  <div class="card">
+    <h2>🏆 挑戰</h2>
+    <p class="small">三節都看過了嗎？來這裡把整個單元再想一次。</p>
+  </div>
+
+  <div class="card">
+    <h3>📝 圖解筆記：先想，再點開</h3>
+    <p class="small"><span class="pg">📖 課本 p.96～97</span>　先在心裡說出答案，再點格子對答案。</p>
+    <div class="cloze" id="cz">
+      <h4>影響物質變化的要素</h4>
+      高溫讓冰塊變成<button type="button" class="blank" data-a="水">？</button>。
+      加入<button type="button" class="blank" data-a="酸">？</button>，豆漿會出現塊狀物。
+      <button type="button" class="blank" data-a="風">？</button>會吹動水面。
+      <h4>改變溫度的方法</h4>
+      晒太陽、搓手、放在爐火上，溫度會<button type="button" class="blank" data-a="升高">？</button>。
+      把冰塊放進水裡，水的溫度會<button type="button" class="blank" data-a="降低">？</button>。
+      <h4>溫度對物質變化的影響</h4>
+      可回復原形態：冰塊、奶油、<button type="button" class="blank" data-a="巧克力">？</button>。<br>
+      不可回復原形態：蛋、<button type="button" class="blank" data-a="線香">？</button>。
+      <h4>酸與鹼對物質的影響</h4>
+      食醋是<button type="button" class="blank" data-a="酸性">？</button>，肥皂是<button type="button" class="blank" data-a="鹼性">？</button>。
+      酸鹼性是一種物質<button type="button" class="blank" data-a="性質">？</button>。<br>
+      帶有酸鹼性的物質，能讓某些<button type="button" class="blank" data-a="菜葉">？</button>變色。
+    </div>
+    <div class="fb" id="czFb"></div>
+  </div>
+
+  <div class="card">
+    <h3>🕵️ 找錯小偵探（5 句）</h3>
+    <p class="small">每句話有一個地方跟課本不一樣。把它點出來。</p>
+    <div id="spot"></div>
+  </div>
+
+  <div class="card">
+    <h3>🎮 大考驗：三節混合（10 題）</h3>
+    <p class="small">全部第一次就答對，多送 3 顆星！</p>
+    <div id="qmix"></div>
+  </div>
+
+  <div class="card">
+    <h3>🏅 我的紀錄</h3>
+    <div class="statgrid" id="stats"></div>
+    <h3 style="margin-top:12px">🔎 常錯的地方</h3>
+    <div id="mist"></div>
+    <h3 style="margin-top:12px">🕘 最近錯的題目</h3>
+    <div id="recent"></div>
+    <div class="btns"><button type="button" class="btn white small" id="resetBtn">清除紀錄</button></div>
     <p class="small">紀錄只存在這台平板的瀏覽器裡。</p>
-    <p class="small">資料來源：翰林版自然 4上 第三單元「物質變變變」課本。題目為練習自己編寫的。</p>
   </div>
 </section>
 </main>
 
 <nav class="tabs" id="tabs">
-  <button class="on" data-p="p-intro"><span>📚</span>介紹</button>
-  <button data-p="p-sort"><span>🔄</span>3-1&3-2</button>
-  <button data-p="p-temp"><span>🌡️</span>溫度</button>
-  <button data-p="p-ph"><span>🧪</span>3-3酸鹼</button>
-  <button data-p="p-rec"><span>🏆</span>紀錄</button>
+  <button type="button" class="on" data-p="p-intro"><span>🏠</span>開始</button>
+  <button type="button" data-p="p-31"><span>🏞️</span>3-1 因素</button>
+  <button type="button" data-p="p-32"><span>🌡️</span>3-2 溫度</button>
+  <button type="button" data-p="p-33"><span>🧪</span>3-3 酸鹼</button>
+  <button type="button" data-p="p-game"><span>🏆</span>挑戰</button>
 </nav>
 
+<script src="../../review/bank.js"></script>
 <script>
-(function(){
-"use strict";
-var $=function(id){return document.getElementById(id);};
-var KEY="natureMatterV1";
-function each(list,fn){Array.prototype.forEach.call(list,fn);}
-function fresh(){return {stars:0,sortDone:0,tempQ:0,phDone:0,sortPerfect:0};}
-var store=fresh();
-try{var raw=localStorage.getItem(KEY);if(raw){var o=JSON.parse(raw);for(var k in o)store[k]=o[k];}}catch(e){}
-function save(){try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
-function renderScore(){$("score").textContent="⭐ "+store.stars;}
-function addStars(n){if(n<=0)return;store.stars+=n;save();renderScore();var sc=$("score");sc.classList.remove("pop");void sc.offsetWidth;sc.classList.add("pop");}
-var actx=null;function beep(good){try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();(good?[660,880]:[260]).forEach(function(f,i){var o=actx.createOscillator(),g=actx.createGain();o.frequency.value=f;o.type="triangle";g.gain.setValueAtTime(.08,actx.currentTime+i*.08);g.gain.exponentialRampToValueAtTime(.001,actx.currentTime+i*.08+.2);o.connect(g);g.connect(actx.destination);o.start(actx.currentTime+i*.08);o.stop(actx.currentTime+i*.08+.22);});}catch(e){}}
-function goTab(p){each(document.querySelectorAll("#tabs button"),function(x){x.classList.toggle("on",x.getAttribute("data-p")===p);});
-  each(document.querySelectorAll("section.page"),function(s){s.classList.toggle("active",s.id===p);});
-  if(p==="p-rec")renderRec();window.scrollTo(0,0);}
-each(document.querySelectorAll("#tabs button"),function(b){b.addEventListener("click",function(){goTab(b.getAttribute("data-p"));});});
+/* 自然 4上 第三單元 物質變變變（翰林，課本 p.78～97）
+   - 小測驗和找錯的題目來自 review/bank.js 的 na3 卡片（id 開頭 m1＝3-1、m2＝3-2、m3＝3-3）
+   - 紀錄存在這台裝置：localStorage「natureMatterV1」 */
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function ri(a, b) { return a + Math.floor(Math.random() * (b - a + 1)); }
+  function each(sel, fn, root) { Array.prototype.forEach.call((root || document).querySelectorAll(sel), fn); }
 
-/* 可回復/不可回復變化分類（對照課本 p.85-88） */
-var CHANGES=[
-  {t:"冰塊受熱融化",type:"reversible",src:"📖 p.85-86"},
-  {t:"奶油受熱融化",type:"reversible",src:"📖 p.86"},
-  {t:"巧克力受熱融化",type:"reversible",src:"📖 p.86"},
-  {t:"高湯冷凍成冰磚",type:"reversible",src:"📖 p.88"},
-  {t:"檸檬汁冷凍成冰磚",type:"reversible",src:"📖 p.88"},
-  {t:"雞蛋受熱變硬",type:"irreversible",src:"📖 p.87"},
-  {t:"線香燃燒",type:"irreversible",src:"📖 p.87"},
-  {t:"鐵生鏽",type:"irreversible",src:"🔎 延伸（課本 p.80 提到但未明確分類）"},
-  {t:"麵團發酵",type:"irreversible",src:"🔎 延伸（課本 p.80 提到但未明確分類）"},
-  {t:"鹹豆漿加醋變塊狀",type:"irreversible",src:"🔎 延伸（課本 p.80 提到但未明確分類）"}
-];
-function shuffle(a){var b=a.slice();for(var i=b.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=b[i];b[i]=b[j];b[j]=t;}return b;}
-var sortItems=shuffle(CHANGES),sortDone=0,sortErrs=0;
-sortItems.forEach(function(ch){
-  var it=document.createElement("div");it.className="item";it.textContent=ch.t;it.setAttribute("data-type",ch.type);it.setAttribute("draggable","true");
-  it.addEventListener("dragstart",function(e){e.dataTransfer.effectAllowed="move";e.dataTransfer.setData("text/plain",ch.t);it.classList.add("drag");});
-  it.addEventListener("dragend",function(){it.classList.remove("drag");});
-  it.addEventListener("click",function(){if(it.classList.contains("placed"))return;each(document.querySelectorAll(".item.sel"),function(x){x.classList.remove("sel");});it.classList.add("sel");});
-  $("sort-items").appendChild(it);
-});
-var bins=[$("bin-rev"),$("bin-irr")];
-bins.forEach(function(bin){
-  bin.addEventListener("dragover",function(e){e.preventDefault();bin.classList.add("over");});
-  bin.addEventListener("dragleave",function(){bin.classList.remove("over");});
-  bin.addEventListener("drop",function(e){e.preventDefault();bin.classList.remove("over");
-    var txt=e.dataTransfer.getData("text/plain"),it=document.querySelector('.item:not(.placed)[data-type]');
-    each(document.querySelectorAll(".item"),function(x){if(x.textContent===txt&&!x.classList.contains("placed"))it=x;});
-    if(!it)return;checkSort(it,bin.getAttribute("data-type"));});
-  bin.addEventListener("click",function(){var sel=document.querySelector(".item.sel");if(!sel||sel.classList.contains("placed"))return;checkSort(sel,bin.getAttribute("data-type"));});
-});
-function checkSort(it,binType){
-  var f=$("sort-fb"),ok=it.getAttribute("data-type")===binType;
-  if(ok){beep(true);it.classList.add("placed");it.classList.remove("sel");var list=binType==="reversible"?$("rev-list"):$("irr-list");
-    list.appendChild(it);sortDone++;addStars(1);f.className="fb show good";f.textContent="✅ 答對了！";
-    if(sortDone>=sortItems.length){store.sortDone=(store.sortDone||0)+1;var st=sortErrs===0?4:sortErrs<=2?2:1;addStars(st);if(sortErrs===0){store.sortPerfect=(store.sortPerfect||0)+1;}save();
-      $("sort-done").innerHTML='<div class="done">🎉 分類完成！錯 '+sortErrs+' 次，再加 '+st+' 顆星。'+(sortErrs===0?"全對，你是物質變化小專家！":"")+'</div>';}}
-  else{beep(false);sortErrs++;it.classList.remove("sel");it.classList.add("shake");setTimeout(function(){it.classList.remove("shake");},500);f.className="fb show bad";
-    f.textContent="❌ 再想想：「"+it.textContent+"」"+( binType==="reversible"?"可以":"不可以")+"回復原形態嗎？";}
-}
+  /* ---------- 紀錄 ---------- */
+  var KEY = 'natureMatterV1';
+  function fresh() { return { stars: 0, n: 0, ok: 0, best: {}, bad: {}, recent: [], done: {}, guess: -1 }; }
+  function load() {
+    try {
+      var s = JSON.parse(localStorage.getItem(KEY) || 'null');
+      if (s && typeof s === 'object') { var f = fresh(); for (var k in f) if (!(k in s) || typeof s[k] !== typeof f[k]) s[k] = f[k]; return s; }
+    } catch (e) {}
+    return fresh();
+  }
+  var store = load();
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(store)); } catch (e) {} if ($('p-game').classList.contains('active')) renderRec(); }
+  function renderScore(pop) { var s = $('score'); s.textContent = '⭐ ' + store.stars; if (pop) { s.classList.remove('pop'); void s.offsetWidth; s.classList.add('pop'); } }
+  function burst(el) {
+    if (!el || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+    var r = el.getBoundingClientRect();
+    for (var i = 0; i < 6; i++) {
+      var b = document.createElement('div'); b.className = 'burst'; b.textContent = ['⭐', '✨', '🌟'][i % 3];
+      b.style.left = Math.min(window.innerWidth - 40, Math.max(4, r.left + r.width / 2)) + 'px'; b.style.top = (r.top + r.height / 2) + 'px';
+      b.style.setProperty('--dx', ri(-90, 90) + 'px'); b.style.setProperty('--dy', ri(-140, -30) + 'px');
+      document.body.appendChild(b); setTimeout(function (x) { x.remove(); }.bind(null, b), 1200);
+    }
+  }
+  function star(n, el) { store.stars += n; save(); renderScore(true); burst(el); }
+  /* 完成一個活動：蓋章，加 2 顆星 */
+  function finish(k, el) { store.done[k] = (store.done[k] || 0) + 1; star(2, el); renderStamps(); }
 
-/* 溫度實驗室 */
-window.setTemp=function(t){$("temp-slider").value=t;updateTemp();};
-function updateTemp(){
-  var t=+$("temp-slider").value,icon="💧",state="液態水",tip="",h=Math.max(10,Math.min(180,(t+20)*1.28));
-  $("temp-num").textContent=t+"°C";$("mercury").style.height=h+"px";
-  if(t<0){icon="🧊";state="固態冰";tip="📖 溫度低於 0°C，水結成冰（固態）。冰可以融化成水，是可回復原形態的變化。";}
-  else if(t>=100){icon="♨️";state="氣態水蒸氣";tip="📖 溫度高於 100°C，水變成水蒸氣（氣態）。水蒸氣可以冷凝成水，是可回復原形態的變化。";}
-  else{tip="📖 溫度在 0°C~100°C，水是液態。";}
-  $("state-icon").innerHTML=icon+"<div>"+state+"</div>";$("temp-tip").textContent=tip;
-}
-$("temp-slider").addEventListener("input",updateTemp);updateTemp();
-window.setTemp=function(t){$("temp-slider").value=t;updateTemp();};
+  /* ---------- 分頁 ---------- */
+  function goTab(p) {
+    each('#tabs button', function (x) { x.classList.toggle('on', x.getAttribute('data-p') === p); });
+    each('section.page', function (s) { s.classList.toggle('active', s.id === p); });
+    if (p === 'p-game') renderRec();
+    if (p === 'p-intro') renderStamps();
+    window.scrollTo(0, 0);
+  }
+  each('#tabs button', function (b) { b.addEventListener('click', function () { goTab(b.getAttribute('data-p')); }); });
 
-/* 酸鹼測試（對照課本 p.90-95） */
-var TESTS=[
-  {n:"檸檬汁",ph:"酸",color:"#ff6b9a",exp:"📖 p.90 檸檬汁含檸檬酸，是酸性。紫高麗菜汁遇酸變紅色系。",src:"📖"},
-  {n:"食醋",ph:"酸",color:"#ff9fb8",exp:"📖 p.90 食醋是酸性，聞起來酸酸的。紫高麗菜汁遇酸變紅色系。",src:"📖"},
-  {n:"乳酸飲料",ph:"酸",color:"#ffb3c1",exp:"📖 p.90 乳酸飲料是酸性。紫高麗菜汁遇酸變紅色系。",src:"📖"},
-  {n:"運動飲料",ph:"酸",color:"#ffc2d1",exp:"📖 p.90 運動飲料是酸性。紫高麗菜汁遇酸變紅色系。",src:"📖"},
-  {n:"鹼粽（鹼水）",ph:"鹼",color:"#57cc99",exp:"📖 p.90 鹼粽使用鹼水，是鹼性。紫高麗菜汁遇鹼變綠色／藍綠色系。",src:"📖"},
-  {n:"肥皂水",ph:"鹼",color:"#38b6a5",exp:"📖 p.90 肥皂水是鹼性，摸起來滑滑的。紫高麗菜汁遇鹼變綠色／藍綠色系。",src:"📖"},
-  {n:"小蘇打水",ph:"鹼",color:"#2a9d8f",exp:"📖 p.90 小蘇打水是鹼性。紫高麗菜汁遇鹼變綠色／藍綠色系。",src:"📖"}
-];
-var testContainer=$("test-items");
-if(testContainer){
-  TESTS.forEach(function(t){
-    var btn=document.createElement("button");btn.className="test-item";btn.textContent=t.n;
-    btn.addEventListener("click",function(){
-      $("beaker").style.setProperty("--juice",t.color);
-      var ph=t.ph==="酸"?"🔴 酸性":t.ph==="鹼"?"🟢 鹼性":"🟣 中性";
-      $("ph-result").innerHTML='<b>'+t.n+'</b><p class="lead">'+ph+'</p><p class="small">'+t.exp+'</p>';
-      beep(true);if(store.phDone<TESTS.length){store.phDone++;addStars(1);save();renderScore();}
+  /* ---------- 集章卡 ---------- */
+  var ACTS = [
+    ['p-31', '🏞️ 3-1 影響物質變化的因素', [['river', '河邊觀察站'], ['who', '是誰讓它變了'], ['method', '三種方法'], ['why', '它為什麼變了'], ['rust', '鐵鏽偵探'], ['q31', '小測驗']]],
+    ['p-32', '🌡️ 3-2 溫度對物質的影響', [['way', '改變溫度的方法'], ['choco', '巧克力實驗'], ['steps', '探究步驟'], ['machine', '升溫降溫機'], ['rev', '可回復嗎'], ['q32', '小測驗']]],
+    ['p-33', '🧪 3-3 酸與鹼對物質的影響', [['ab', '酸性還是鹼性'], ['cab', '紫色高麗菜實驗'], ['q33', '小測驗']]],
+    ['p-game', '🏆 挑戰', [['cloze', '圖解筆記'], ['spot', '找錯小偵探'], ['mix', '大考驗']]]
+  ];
+  function renderStamps() {
+    $('stamps').innerHTML = ACTS.map(function (a) {
+      var got = a[2].filter(function (x) { return store.done[x[0]]; }).length;
+      return '<button type="button" class="stamp' + (got === a[2].length ? ' all' : '') + '" data-p="' + a[0] + '"><b>' + a[1] + '<span>' + (got === a[2].length ? '🎉 ' : '') + got + ' / ' + a[2].length + '</span></b>'
+        + a[2].map(function (x) { return '<i class="' + (store.done[x[0]] ? 'y' : '') + '">' + (store.done[x[0]] ? '✅' : '⬜') + ' ' + x[1] + '</i>'; }).join('') + '</button>';
+    }).join('');
+    each('#stamps .stamp', function (b) { b.addEventListener('click', function () { goTab(b.getAttribute('data-p')); }); });
+  }
+
+  /* ---------- 先猜再學 ---------- */
+  var GUESS = ['又變回固態', '一直是液態', '開始燃燒'];
+  function renderGuess() {
+    $('guess').innerHTML = GUESS.map(function (g, i) { return '<button type="button" class="chip' + (store.guess === i ? ' on' : '') + '" data-i="' + i + '">' + g + '</button>'; }).join('');
+    each('#guess .chip', function (b) {
+      b.addEventListener('click', function () {
+        store.guess = +b.getAttribute('data-i'); save(); renderGuess();
+      });
     });
-    testContainer.appendChild(btn);
-  });
-}
+    var f = $('guessFb');
+    if (store.guess < 0) { f.className = 'fb'; f.innerHTML = ''; return; }
+    f.className = 'fb info';
+    f.innerHTML = '你猜：「' + GUESS[store.guess] + '」。猜錯也沒關係！到「3-2 溫度」做巧克力實驗，就知道答案。 <button type="button" class="btn sun small" id="goChoco">去做實驗 ➜</button>';
+    $('goChoco').addEventListener('click', function () { goTab('p-32'); });
+  }
 
-/* 紀錄 */
-function renderRec(){
-  var h='<div class="lead">你已經完成：</div><ul>';
-  h+='<li>🔄 可回復/不可回復分類：'+(store.sortDone||0)+' 次'+(store.sortPerfect?' 🏆 '+store.sortPerfect+' 次全對':'')+'</li>';
-  h+='<li>🌡️ 溫度實驗：觀察水的三態變化</li>';
-  h+='<li>🧪 酸鹼測試：測試了 '+(store.phDone||0)+' / '+(TESTS?TESTS.length:7)+' 種物質</li>';
-  h+='</ul>';
-  var statsEl=$("stats");
-  if(statsEl)statsEl.innerHTML=h;
-}
-$("resetBtn").addEventListener("click",function(){if(!confirm("確定要清除所有紀錄嗎？"))return;store=fresh();save();renderScore();renderRec();});
-renderScore();
+  /* ---------- 分類籃子：先點卡片，再點籃子 ----------
+     sorter(id, key, { baskets: [...], items: [[文字, 第幾個籃子, 放對後的說明]], done }) */
+  function sorter(id, key, o) {
+    var root = $(id), sel = null, left;
+    function start() {
+      left = o.items.length; sel = null;
+      var items = shuffle(o.items.map(function (x, i) { return [x, i]; }));
+      root.innerHTML = '<div class="chips">' + items.map(function (p) { return '<button type="button" class="chip" data-i="' + p[1] + '">' + esc(p[0][0]) + '</button>'; }).join('') + '</div>'
+        + '<div class="baskets">' + o.baskets.map(function (b, k) { return '<button type="button" class="basket" data-k="' + k + '"><b>' + esc(b) + '</b><span class="in"></span></button>'; }).join('') + '</div>'
+        + '<div class="fb info">先點一張卡片，再點它要放的籃子。</div>';
+      var fb = root.querySelector('.fb');
+      each('.chip', function (c) { c.addEventListener('click', function () { each('.chip', function (x) { x.classList.toggle('on', x === c); }, root); sel = +c.getAttribute('data-i'); }); }, root);
+      each('.basket', function (b) {
+        b.addEventListener('click', function () {
+          if (sel === null) { fb.className = 'fb info'; fb.textContent = '先點一張卡片喔。'; return; }
+          var it = o.items[sel], k = +b.getAttribute('data-k'), chip = root.querySelector('.chip[data-i="' + sel + '"]');
+          if (it[1] === k) {
+            chip.remove(); var t = document.createElement('span'); t.className = 'got'; t.textContent = it[0]; b.querySelector('.in').appendChild(t);
+            sel = null; left--;
+            fb.className = 'fb good'; fb.innerHTML = '✅ ' + esc(it[0]) + (it[2] ? '：' + esc(it[2]) : '，放對了！');
+            if (!left) {
+              fb.innerHTML = '🎉 全部放對了！' + esc(o.done || '') + ' <button type="button" class="btn white small again">再玩一次</button>';
+              fb.querySelector('.again').addEventListener('click', start); finish(key, b);
+            }
+          } else {
+            chip.classList.add('no'); b.classList.add('no'); setTimeout(function () { chip.classList.remove('no'); b.classList.remove('no'); }, 500);
+            fb.className = 'fb bad'; fb.innerHTML = '🤔 「' + esc(it[0]) + '」不是放在「' + esc(o.baskets[k]) + '」。再想想。';
+          }
+        });
+      }, root);
+    }
+    start();
+  }
+  /* 排順序：照順序一個一個點 */
+  function orderer(id, key, o) {
+    var root = $(id), nxt;
+    function start() {
+      nxt = 0; var items = shuffle(o.items.map(function (x, i) { return [x, i]; }));
+      root.innerHTML = '<div class="ordline"></div><div class="chips">' + items.map(function (p) { return '<button type="button" class="chip" data-i="' + p[1] + '">' + esc(p[0]) + '</button>'; }).join('') + '</div><div class="fb info">第 1 步是哪一個？</div>';
+      var fb = root.querySelector('.fb');
+      each('.chip', function (c) {
+        c.addEventListener('click', function () {
+          var i = +c.getAttribute('data-i');
+          if (i === nxt) {
+            c.remove(); var t = document.createElement('div'); t.className = 'ordstep'; t.innerHTML = '<b>' + (nxt + 1) + '</b>' + esc(o.items[i]) + '<small>' + esc(o.labels[i]) + '</small>'; root.querySelector('.ordline').appendChild(t); nxt++;
+            if (nxt === o.items.length) { fb.className = 'fb good'; fb.innerHTML = '🎉 順序全對！ <button type="button" class="btn white small again">再玩一次</button>'; fb.querySelector('.again').addEventListener('click', start); finish(key, root); }
+            else { fb.className = 'fb good'; fb.textContent = '對了！第 ' + (nxt + 1) + ' 步呢？'; }
+          } else { c.classList.add('no'); setTimeout(function () { c.classList.remove('no'); }, 500); fb.className = 'fb bad'; fb.textContent = '🤔 「' + o.items[i] + '」還沒輪到喔。'; }
+        });
+      }, root);
+    }
+    start();
+  }
+
+  /* ---------- 題庫 ---------- */
+  var BANK = (window.REVIEW_BANK && window.REVIEW_BANK.cards) || [];
+  var SEC = { m1: ['🏞️ 3-1 影響物質變化的因素', '水、溫度、空氣等環境因素會讓物質改變。鐵在同時有水和空氣的地方很容易生鏽；醋是酸性物質，會讓豆漿出現塊狀物。'],
+    m2: ['🌡️ 3-2 溫度對物質的影響', '放入冰箱、加冰塊會降溫；太陽照射、燃燒、摩擦會升溫。冰塊、奶油、巧克力可回復原形態；蛋、線香不可回復原形態。'],
+    m3: ['🧪 3-3 酸與鹼對物質的影響', '檸檬汁、食醋是酸性；小蘇打水、肥皂水是鹼性。酸性通常聞起來有酸味，鹼性通常摸起來滑滑的。紫色高麗菜遇到酸會變紅色系。'] };
+  function secOf(c) { var m = /^na[x]?:(m\d)/.exec(c.id); return m ? m[1] : ''; }
+  function pool(type, sec) { return BANK.filter(function (c) { return c.u === 'na3' && c.type === type && (!sec || secOf(c) === sec); }); }
+  function miss(sec, txt) {
+    if (sec) store.bad[sec] = (store.bad[sec] || 0) + 1;
+    store.recent.unshift({ p: txt, k: sec }); store.recent = store.recent.slice(0, 8);
+  }
+
+  /* quiz({ el, key, n, sec })：一回合 n 題選擇題。先想好，再看選項；第一次答錯可以再選一次 */
+  function quiz(o) {
+    var root = $(o.el), S;
+    function start() {
+      var cards = shuffle(pool('pick', o.sec)).slice(0, o.n);
+      if (!cards.length) { root.innerHTML = '<p class="small">題目載入不了。請重新整理這一頁再試一次。</p>'; return; }
+      S = { i: 0, ok: 0, res: [], cards: cards }; next();
+    }
+    function next() {
+      if (S.i >= S.cards.length) return end();
+      var c = S.cards[S.i], opts = shuffle([c.a].concat(c.w)), sec = secOf(c), n = S.cards.length, dots = '';
+      S.Q = { q: c.q, opts: opts, a: opts.indexOf(c.a), ex: c.ex, sec: sec }; S.tries = 0; S.lock = false;
+      for (var k = 0; k < n; k++) dots += '<i class="' + (S.res[k] === 1 ? 'ok' : S.res[k] === 0 ? 'no' : k === S.i ? 'cur' : '') + '"></i>';
+      root.innerHTML = '<div class="qhead"><span class="small">第 ' + (S.i + 1) + ' / ' + n + ' 題</span>' + (SEC[sec] ? '<span class="tagc">' + SEC[sec][0] + '</span>' : '') + '</div><div class="prog">' + dots + '</div>'
+        + '<div class="q">' + c.q + '</div><div class="btns cen"><button type="button" class="btn sun think">💭 我想好了，看選項</button></div><div class="choices" hidden>'
+        + opts.map(function (t, j) { return '<button type="button" class="btn" data-j="' + j + '">' + esc(t) + '</button>'; }).join('') + '</div><div class="qfb" aria-live="polite"></div>';
+      root.querySelector('.think').addEventListener('click', function () { this.parentNode.hidden = true; root.querySelector('.choices').hidden = false; });
+      each('.choices button', function (b) { b.addEventListener('click', function () { choose(+b.getAttribute('data-j'), b); }); }, root);
+    }
+    function fb(h) { root.querySelector('.qfb').innerHTML = h; }
+    function choose(j, btn) {
+      if (S.lock) return;
+      var Q = S.Q;
+      if (j === Q.a) {
+        btn.classList.add('ok'); var first = S.tries === 0;
+        store.n++; if (first) { store.ok++; S.ok++; } S.res[S.i] = first ? 1 : 0; save();
+        if (first) star(1, btn);
+        fb('<div class="good">' + (first ? '✅ 答對了！' : '✅ 這次對了！') + '</div>' + (Q.ex ? '<div class="ex">' + Q.ex + '</div>' : '') + nextBtn()); return lock();
+      }
+      S.tries++; btn.classList.add('no'); btn.disabled = true;
+      if (S.tries === 1) miss(Q.sec, Q.q);
+      if (S.tries === 1 && Q.opts.length > 2) { save(); fb('<div class="hint">🤔 再想想看，還可以再選一次。</div>'); return; }
+      store.n++; S.res[S.i] = 0; save();
+      each('.choices button', function (b) { if (+b.getAttribute('data-j') === Q.a) b.classList.add('ok'); }, root);
+      fb('<div class="hint">正確答案是「<b>' + esc(Q.opts[Q.a]) + '</b>」。</div>' + (Q.ex ? '<div class="ex">' + Q.ex + '</div>' : '') + nextBtn()); lock();
+    }
+    function nextBtn() { return '<div class="btns cen"><button type="button" class="btn nextQ">' + (S.i + 1 >= S.cards.length ? '看結果 🏁' : '下一題 ➜') + '</button></div>'; }
+    function lock() {
+      S.lock = true; each('.choices button', function (b) { b.disabled = true; }, root);
+      root.querySelector('.nextQ').addEventListener('click', function () { S.i++; next(); });
+    }
+    function end() {
+      var n = S.cards.length, all = S.ok === n;
+      if (S.ok > (store.best[o.key] || 0)) store.best[o.key] = S.ok; save();
+      root.innerHTML = '<div class="title">' + (all ? '🏆 全對！' : S.ok >= n * .7 ? '🎉 很棒！' : '💪 再練一次會更好') + '</div><p class="lead" style="text-align:center">第一次就答對 <b>' + S.ok + ' / ' + n + '</b> 題' + (all ? '，多送 3 顆星！' : '。') + '</p><div class="btns cen"><button type="button" class="btn again">再玩一次</button></div>';
+      root.querySelector('.again').addEventListener('click', start);
+      if (all) star(3, root);
+      finish(o.key, root);
+    }
+    start();
+  }
+
+  /* 找錯小偵探：點出跟課本不一樣的那一段。點錯一次可以再找一次 */
+  function spotGame(el, key, n) {
+    var root = $(el), S;
+    function start() {
+      var cards = shuffle(pool('spot')).slice(0, n);
+      if (!cards.length) { root.innerHTML = '<p class="small">題目載入不了。請重新整理這一頁再試一次。</p>'; return; }
+      S = { i: 0, ok: 0, cards: cards }; next();
+    }
+    function next() {
+      if (S.i >= S.cards.length) return end();
+      var c = S.cards[S.i]; S.tries = 0; S.lock = false;
+      root.innerHTML = '<div class="qhead"><span class="small">第 ' + (S.i + 1) + ' / ' + S.cards.length + ' 句</span>' + (SEC[secOf(c)] ? '<span class="tagc">' + SEC[secOf(c)][0] + '</span>' : '') + '</div>'
+        + '<div class="spotline">' + c.parts.map(function (x, j) { return '<button type="button" class="part" data-j="' + j + '">' + esc(x) + '</button>'; }).join('') + '</div><div class="qfb" aria-live="polite"></div>';
+      each('.part', function (b) {
+        b.addEventListener('click', function () {
+          if (S.lock) return;
+          var j = +b.getAttribute('data-j'), nb = '<div class="btns cen"><button type="button" class="btn nextQ">' + (S.i + 1 >= S.cards.length ? '看結果 🏁' : '下一句 ➜') + '</button></div>';
+          if (j === c.bad) {
+            b.classList.add('ok'); var first = S.tries === 0; store.n++; if (first) { store.ok++; S.ok++; star(1, b); } save();
+            root.querySelector('.qfb').innerHTML = '<div class="good">✅ 找到了！</div><div class="ex">' + c.fix + '</div>' + nb; done();
+          } else {
+            S.tries++; b.classList.add('no'); b.disabled = true;
+            if (S.tries === 1) miss(secOf(c), c.parts.join(''));
+            if (S.tries === 1 && c.parts.length > 2) { save(); root.querySelector('.qfb').innerHTML = '<div class="hint">🤔 這一段和課本一樣。再找找看。</div>'; return; }
+            store.n++; save(); root.querySelector('.part[data-j="' + c.bad + '"]').classList.add('hl');
+            root.querySelector('.qfb').innerHTML = '<div class="hint">不一樣的是紅色那一段。</div><div class="ex">' + c.fix + '</div>' + nb; done();
+          }
+        });
+      }, root);
+    }
+    function done() { S.lock = true; each('.part', function (b) { b.disabled = true; }, root); root.querySelector('.nextQ').addEventListener('click', function () { S.i++; next(); }); }
+    function end() {
+      var n = S.cards.length;
+      if (S.ok > (store.best[key] || 0)) store.best[key] = S.ok; save();
+      root.innerHTML = '<div class="title">' + (S.ok === n ? '🏆 全部一次就找到！' : '🎉 偵探任務完成！') + '</div><p class="lead" style="text-align:center">第一次就找到 <b>' + S.ok + ' / ' + n + '</b> 句。</p><div class="btns cen"><button type="button" class="btn again">再玩一次</button></div>';
+      root.querySelector('.again').addEventListener('click', start);
+      finish(key, root);
+    }
+    start();
+  }
+
+  /* ---------- 3-1 河邊觀察站 ---------- */
+  (function () {
+    var NS = 'http://www.w3.org/2000/svg', g = $('rvGrains'), used = {}, muddy = false, timer = null, got = false;
+    for (var i = 0; i < 18; i++) {
+      var c = document.createElementNS(NS, 'circle'), bed = 152 + (i % 3) * 5, x = 12 + i * 17 + (i % 2) * 5;
+      c.setAttribute('cx', x); c.setAttribute('cy', bed); c.setAttribute('r', 2.5 + (i % 3)); c.setAttribute('fill', i % 2 ? '#7a5230' : '#6f6f6f'); c.setAttribute('class', 'grain');
+      c.setAttribute('data-up', -(bed - (60 + (i * 47) % 83))); g.appendChild(c);
+    }
+    function paint() {
+      $('rv').classList.toggle('muddy', muddy);
+      $('rvWater').setAttribute('fill', muddy ? '#b9a377' : '#8fd3f4'); $('rvWave').setAttribute('fill', muddy ? '#b9a377' : '#8fd3f4');
+      each('.grain', function (c) { c.style.transform = muddy ? 'translate(0px,' + c.getAttribute('data-up') + 'px)' : 'translate(0px,0px)'; }, g);
+    }
+    function say(t, k) { $('rvFb').textContent = t; if (k) used[k] = 1; if (!got && used.flood && used.wait && used.wind) { got = true; finish('river', $('rv')); } }
+    $('rvFlood').addEventListener('click', function () { muddy = true; paint(); say('大水沖來好多沙、石頭。水中含有大量沙、石頭，水變混濁了。', 'flood'); });
+    $('rvWait').addEventListener('click', function () {
+      if (!muddy) return say('現在的水是清澈的。先按「大水沖來沙、石頭」。');
+      muddy = false; paint(); say('經過一段時間後，沙、石頭沉入水底，水又恢復清澈。', 'wait');
+    });
+    $('rvBlow').addEventListener('click', function () {
+      $('rvWave').classList.add('on'); $('rvWind').classList.add('on'); clearTimeout(timer);
+      timer = setTimeout(function () { $('rvWave').classList.remove('on'); $('rvWind').classList.remove('on'); }, 5000);
+      say('風吹過水面，造成波動。想一想：還有哪些原因會讓水面波動呢？', 'wind');
+    });
+    paint();
+  })();
+
+  sorter('sWho', 'who', { baskets: ['💧 水', '🌡️ 溫度', '🌬️ 風'], items: [
+    ['河流中的沙、石頭移動了', 0, '被流水沖刷而移動。'], ['鐵礦表面呈現紅色', 0, '可能是因為在比較潮溼的環境。'],
+    ['積雪融化了', 1, '因為溫度上升。'], ['溫泉上方出現白色水霧', 1, '水蒸氣遇冷，凝結成小水滴。'],
+    ['塵土散布在空氣中', 2, '被風吹起。'], ['水面出現波動', 2, '風吹過水面。']], done: '水、溫度、空氣等環境因素，都會讓物質改變。' });
+
+  /* 三種找答案的方法 */
+  (function () {
+    var M = [['方法一　網路搜尋', '揉好的麵團，過一段時間後會膨脹變大。為什麼？', '查到了：因為<mark>發酵</mark>。麵團裡加了酵母，<mark>溫度</mark>會影響麵團發酵的快慢（一般控制在 25～30°C）。'],
+      ['方法二　詢問師長', '鹹豆漿裡面有塊狀物。為什麼？', '老師說：<mark>醋是酸性物質</mark>，會讓豆漿迅速產生性質變化。'],
+      ['方法三　到圖書館找資料', '戶外的鐵欄杆、瓦斯爐架容易生鏽。為什麼？', '書上說：鐵受到水、溫度、空氣、酸鹼性長時間的影響，會形成鐵鏽。鐵在<mark>同時有水和空氣</mark>的地方，很容易氧化，形成鐵鏽。<br>推測：鐵欄杆容易接觸<mark>雨水</mark>，瓦斯爐架經常接觸<mark>高溫的爐火</mark>，所以容易生鏽。']];
+    var got = false;
+    $('mth').innerHTML = M.map(function (m) { return '<button type="button" class="mcard"><b>' + m[0] + '</b>' + m[1] + '<span class="mt">👆 點一下，看找到什麼</span><span class="ma">' + m[2] + '</span></button>'; }).join('');
+    each('#mth .mcard', function (b) {
+      b.addEventListener('click', function () {
+        b.classList.add('open');
+        if (!got && document.querySelectorAll('#mth .mcard.open').length === M.length) { got = true; $('mthFb').className = 'fb good'; $('mthFb').textContent = '三種方法都看過了：網路搜尋、詢問師長、到圖書館找資料。'; finish('method', b); }
+      });
+    });
+  })();
+
+  sorter('sWhy', 'why', { baskets: ['發酵', '醋（酸性物質）', '接觸雨水', '接觸高溫的爐火'], items: [
+    ['麵團膨脹變大', 0, '溫度會影響麵團發酵的快慢。'], ['鹹豆漿出現塊狀物', 1, '醋會讓豆漿迅速產生性質變化。'],
+    ['戶外的鐵欄杆生鏽', 2, '鐵欄杆容易接觸雨水。'], ['瓦斯爐架生鏽', 3, '瓦斯爐架經常接觸高溫的爐火。']], done: '不同的因素，會讓物質產生不同的變化。' });
+
+  /* 鐵鏽偵探 */
+  (function () {
+    var RIGHT = ['水', '溫度', '空氣', '酸鹼性'], WRONG = ['聲音', '顏色', '形狀'], root = $('rust'), fb = $('rustFb'), left;
+    function start() {
+      left = RIGHT.length; fb.className = 'fb'; fb.innerHTML = '';
+      root.innerHTML = shuffle(RIGHT.concat(WRONG)).map(function (t) { return '<button type="button" class="chip">' + t + '</button>'; }).join('');
+      each('.chip', function (c) {
+        c.addEventListener('click', function () {
+          var t = c.textContent;
+          if (RIGHT.indexOf(t) >= 0) {
+            c.classList.add('ok'); c.disabled = true; left--;
+            if (left) { fb.className = 'fb good'; fb.textContent = '✅ 對，「' + t + '」是其中一種。還有 ' + left + ' 種。'; }
+            else {
+              each('.chip', function (x) { x.disabled = true; }, root);
+              fb.className = 'fb good'; fb.innerHTML = '🎉 找到了！鐵會生鏽，是受到<b>水、溫度、空氣、酸鹼性</b>長時間的影響。鐵在<b>同時有水和空氣</b>的地方，很容易氧化，形成鐵鏽。 <button type="button" class="btn white small again">再玩一次</button>';
+              fb.querySelector('.again').addEventListener('click', start); finish('rust', root);
+            }
+          } else { c.classList.add('no'); setTimeout(function () { c.classList.remove('no'); }, 500); fb.className = 'fb bad'; fb.textContent = '🤔 書上沒有說「' + t + '」會讓鐵生鏽。再找找。'; }
+        });
+      }, root);
+    }
+    start();
+  })();
+
+  /* ---------- 3-2 ---------- */
+  sorter('sWay', 'way', { baskets: ['🔺 溫度升高', '🔻 溫度降低'], items: [
+    ['太陽照射', 0, '在陽光下量到的溫度比較高。'], ['物質燃燒', 0, '瓦斯爐的爐火讓鍋裡的油溫升高。'], ['摩擦雙手', 0, '摩擦過後的手，溫度升高了。'],
+    ['把物品放入冰箱', 1, '放入冰箱可以使溫度降低。'], ['水加入冰塊', 1, '水溫降低了。']], done: '用溫度計可以量出溫度的變化。' });
+
+  /* 巧克力實驗 */
+  (function () {
+    var lab = $('chLab'), fb = $('chFb'), ask = $('chAsk'), got = false;
+    function set(st, t, msg) { lab.setAttribute('data-st', st); $('chT').textContent = t; fb.innerHTML = msg; }
+    function reset() { set(0, '', '先按 ①。'); ask.innerHTML = ''; $('chEnd').hidden = true; $('ch1').disabled = false; $('ch2').disabled = true; $('ch3').disabled = true; }
+    $('ch1').addEventListener('click', function () { set(1, '室溫', '① 準備一塊巧克力，先量室溫。巧克力是<b>固態</b>。'); $('ch1').disabled = true; $('ch2').disabled = false; });
+    $('ch2').addEventListener('click', function () { set(2, '約 40～50°C', '② 把巧克力放進夾鏈袋，浸入熱水，再量溫度。溫度上升，巧克力慢慢融化，變為<b>液態</b>。'); $('ch2').disabled = true; $('ch3').disabled = false; });
+    $('ch3').addEventListener('click', function () {
+      $('ch3').disabled = true;
+      ask.innerHTML = '<p class="lead" style="text-align:center">③ 把融化的巧克力靜置在室溫下一段時間。你覺得會怎樣？</p><div class="chips">' + ['又變回固態', '一直是液態'].map(function (t, i) { return '<button type="button" class="chip" data-i="' + i + '">' + t + '</button>'; }).join('') + '</div>';
+      each('.chip', function (c) {
+        c.addEventListener('click', function () {
+          var right = c.getAttribute('data-i') === '0', g = store.guess;
+          set(3, '室溫', (right ? '✅ 你猜對了！' : '🔎 來看看結果：') + '溫度下降，液態的巧克力又變為<b>固態</b>。<br><span class="small">🔎 課外補充：形狀可能和原來不一樣，但是它又回到固態了。</span>'
+            + (g >= 0 ? '<br><span class="small">你在「開始」頁猜的是「' + GUESS[g] + '」' + (g === 0 ? '，猜對了！' : '。現在知道答案了。') + '</span>' : ''));
+          ask.innerHTML = '<div class="btns cen"><button type="button" class="btn white small" id="chRe">再做一次</button></div>';
+          $('chRe').addEventListener('click', reset); $('chEnd').hidden = false;
+          if (!got) { got = true; finish('choco', lab); }
+        });
+      }, ask);
+    });
+    reset();
+  })();
+
+  orderer('oSteps', 'steps', { items: ['觀察現象', '提出問題', '蒐集資料', '提出假設', '設計實作', '分析驗證', '結論'],
+    labels: ['巧克力的形狀改變了', '為什麼會改變？', '查一查、找線索', '先說出可能的答案', '動手做、量溫度', '結果和假設一樣嗎？', '把結論記下來'] });
+
+  /* 升溫降溫機 */
+  (function () {
+    var MAT = {
+      ice: { n: '冰塊', rev: true, s: ['固態的冰塊。', '溫度上升：冰塊融化成<b>液態</b>。', '溫度下降：再次放進冰箱冷卻，<b>回復成固態</b>。'] },
+      butter: { n: '奶油', rev: true, s: ['固態的奶油。', '溫度上升：奶油受熱後變為<b>液態</b>。', '溫度下降：再次冷卻後，<b>回復為固態</b>。'] },
+      choco: { n: '巧克力', rev: true, s: ['固態的巧克力。', '溫度上升：固態巧克力變為<b>液態</b>。', '溫度下降：液態巧克力<b>變為固態</b>。'] },
+      egg: { n: '雞蛋', rev: false, s: ['打開的生雞蛋。', '溫度上升：雞蛋受熱後，<b>形態和顏色</b>都改變了。', '溫度下降：還是熟的蛋，<b>不能回復</b>。'] },
+      incense: { n: '線香', rev: false, s: ['還沒點火的線香。', '溫度上升：點火使溫度升高。線香受熱達到一定的溫度，<b>開始燃燒</b>。', '溫度下降：燒過的線香，<b>不能回復</b>。'] }
+    };
+    var ORDER = ['ice', 'butter', 'choco', 'egg', 'incense'], cur = 'ice', st = 0, tried = {}, got = false;
+    function puddle(fill, stroke) { return '<path d="M26 82q-6 -14 16 -14q10 -10 30 -6q22 -8 36 4q26 0 26 14q0 12 -28 12h-58q-18 0 -22 -10z" fill="' + fill + '" stroke="' + stroke + '" stroke-width="3" stroke-linejoin="round"/><ellipse cx="62" cy="76" rx="12" ry="3" fill="#fff" opacity=".45"/>'; }
+    function art(k, s) {
+      var h = '<svg class="art" viewBox="0 0 160 110" role="img" aria-label="' + MAT[k].n + '">';
+      if (k === 'ice') h += s === 1 ? puddle('#9bd4f5', '#5fb0e0') : '<rect x="50" y="28" width="60" height="60" rx="10" fill="#d7f0ff" stroke="#7cc4ee" stroke-width="3"/><path d="M62 42h22M62 53h10" stroke="#fff" stroke-width="5" stroke-linecap="round"/>';
+      if (k === 'butter') h += s === 1 ? puddle('#ffe066', '#d9b23a') : '<path d="M40 54l14 -14h66l-14 14z" fill="#fff3b0" stroke="#d9b23a" stroke-width="3" stroke-linejoin="round"/><rect x="40" y="54" width="66" height="32" fill="#ffe27a" stroke="#d9b23a" stroke-width="3"/><path d="M106 54l14 -14v32l-14 14z" fill="#f2cc50" stroke="#d9b23a" stroke-width="3" stroke-linejoin="round"/>';
+      if (k === 'choco') h += s === 1 ? puddle('#6b3e26', '#4a2a18') : '<rect x="44" y="36" width="72" height="50" rx="6" fill="#6b3e26" stroke="#4a2a18" stroke-width="3"/><path d="M68 36v50M92 36v50M44 61h72" stroke="#4a2a18" stroke-width="3"/>';
+      if (k === 'egg') {
+        if (s === 0) h += '<ellipse cx="80" cy="72" rx="60" ry="24" fill="#fff6c9" opacity=".8" stroke="#e6d590" stroke-width="3"/><circle cx="80" cy="66" r="17" fill="#ff9f1c" stroke="#e07b00" stroke-width="3"/>';
+        else h += (s === 1 ? '<ellipse cx="80" cy="70" rx="70" ry="32" fill="#3a3a3a"/><text x="128" y="106" font-size="20">🔥</text>' : '<ellipse cx="80" cy="72" rx="70" ry="30" fill="#e8f1ff" stroke="#b9cdef" stroke-width="3"/>')
+          + '<path d="M36 70q0 -18 30 -18q18 -8 38 2q24 2 22 18q-2 16 -34 16q-20 6 -36 -2q-20 -2 -20 -16z" fill="#fff" stroke="#e5e5e5" stroke-width="3"/><circle cx="82" cy="68" r="13" fill="#ffc93c" stroke="#e0a800" stroke-width="3"/>';
+      }
+      if (k === 'incense') {
+        if (s === 0) h += '<path d="M36 100L112 36" stroke="#8a5a2b" stroke-width="5" stroke-linecap="round"/>';
+        if (s === 1) h += '<path d="M36 100L112 36" stroke="#8a5a2b" stroke-width="5" stroke-linecap="round"/><circle cx="112" cy="36" r="6" fill="#ff4d2e"/><path d="M112 28q-8 -6 0 -12q8 -5 0 -11" fill="none" stroke="#aaa" stroke-width="3" stroke-linecap="round"/>';
+        if (s === 2) h += '<path d="M36 100L112 36" stroke="#ddd" stroke-width="2" stroke-dasharray="4 5"/><path d="M36 100L88 56" stroke="#8a5a2b" stroke-width="5" stroke-linecap="round"/><circle cx="88" cy="56" r="4" fill="#666"/>';
+      }
+      return h + '</svg>';
+    }
+    function paint() {
+      var m = MAT[cur];
+      $('mcPick').innerHTML = ORDER.map(function (k) { return '<button type="button" class="chip' + (k === cur ? ' on' : '') + '" data-k="' + k + '">' + (tried[k] ? '✅ ' : '') + MAT[k].n + '</button>'; }).join('');
+      each('#mcPick .chip', function (c) { c.addEventListener('click', function () { cur = c.getAttribute('data-k'); st = 0; paint(); }); });
+      $('mcArt').innerHTML = art(cur, st); $('mcState').innerHTML = m.s[st];
+      $('mcVerdict').innerHTML = st < 2 ? '' : m.rev ? '<span class="verdict y">✅ 可以回復 → 可回復原形態</span>' : '<span class="verdict n">❌ 不能回復 → 不可回復原形態</span>';
+      $('mcUp').disabled = st !== 0; $('mcDown').disabled = st !== 1;
+      var n = ORDER.filter(function (k) { return tried[k]; }).length;
+      $('mcTried').textContent = n === ORDER.length ? '五種物質都試過了！' : '已經試過 ' + n + ' / 5 種。五種都試試看。';
+    }
+    $('mcUp').addEventListener('click', function () { st = 1; paint(); });
+    $('mcDown').addEventListener('click', function () {
+      st = 2; tried[cur] = 1; paint();
+      if (!got && ORDER.every(function (k) { return tried[k]; })) { got = true; finish('machine', $('mcArt')); }
+    });
+    $('mcAgain').addEventListener('click', function () { st = 0; paint(); });
+    paint();
+  })();
+
+  sorter('sRev', 'rev', { baskets: ['可回復原形態', '不可回復原形態'], items: [
+    ['冰塊', 0, '融化成液態，再冷卻後回復成固態。'], ['奶油', 0, '受熱變為液態，再冷卻後回復為固態。'], ['巧克力', 0, '升溫變為液態，降溫變為固態。'],
+    ['滷肉上的油', 0, '放進冰箱會凝固，再加熱又會融化。'], ['雞蛋', 1, '受熱後形態和顏色改變，不能回復。'], ['線香', 1, '受熱達到一定的溫度就開始燃燒，不能回復。']],
+    done: '有些物質的溫度升高再降低後，能回到原先的形態，有些不能。' });
+
+  /* 高湯冰磚 */
+  (function () {
+    var frozen = false;
+    $('bkBtn').addEventListener('click', function () {
+      frozen = !frozen;
+      $('bkIcon').textContent = frozen ? '🧊' : '🥣'; $('bkTxt').textContent = frozen ? '固體的高湯冰磚' : '液體的高湯';
+      $('bkBtn').textContent = frozen ? '🔥 放進火鍋' : '❄️ 冷凍'; $('bkBtn').className = 'btn small ' + (frozen ? 'pink' : 'blue');
+    });
+  })();
+
+  /* ---------- 3-3 ---------- */
+  sorter('sAb', 'ab', { baskets: ['🍋 酸性', '🧼 鹼性'], items: [
+    ['檸檬酸', 0, '上網查到，它是酸性物質。'], ['食醋', 0, '食醋是酸性。'], ['檸檬汁', 0, '嘗起來酸酸的。'], ['乳酸飲料', 0, '查資料發現是酸性。'], ['運動飲料', 0, '查資料發現是酸性。'],
+    ['鹼水', 1, '鹼粽是泡過鹼水的糯米製成的。'], ['肥皂水', 1, '摸起來滑滑的。'], ['小蘇打水', 1, '上網查到，它是鹼性。']], done: '酸鹼性是物質的一種性質。' });
+
+  /* 紫色高麗菜實驗 */
+  (function () {
+    var SOL = [{ n: '檸檬汁', k: 0, liq: '#fff3a8' }, { n: '食醋', k: 0, liq: '#f4f1e4' }, { n: '小蘇打溶液', k: 1, liq: '#eaf4fb' }, { n: '肥皂水', k: 1, liq: '#d9e6f0' }];
+    var KIND = ['酸性', '鹼性'], COL = ['#e63946', '#1f9e9a'], CTXT = ['變為紅色系', '變為藍綠色系'];
+    var torn, cur, res, got = false, fb = $('cabFb'), ask = $('cabAsk'), bk = $('cabBk');
+    function table() {
+      var h = '<tr><th>物質名稱</th>' + SOL.map(function (s) { return '<td><b>' + s.n + '</b></td>'; }).join('') + '</tr><tr><th>酸性或鹼性</th>'
+        + SOL.map(function (s, i) { return '<td>' + (res[i] ? KIND[s.k] : '？') + '</td>'; }).join('') + '</tr><tr><th>紫色高麗菜的顏色變化</th>'
+        + SOL.map(function (s, i) { return '<td>' + (res[i] ? '<span class="sw" style="background:' + COL[s.k] + '"></span>' + CTXT[s.k] : '？') + '</td>'; }).join('') + '</tr>';
+      $('cabTb').innerHTML = h;
+    }
+    function start() {
+      torn = false; cur = -1; res = [0, 0, 0, 0]; bk.classList.remove('torn'); $('cabTear').disabled = false; $('cabEnd').hidden = true; $('cabRule').innerHTML = ''; ask.innerHTML = '';
+      fb.className = 'fb info'; fb.textContent = '先按 ①，再點一個杯子。';
+      bk.innerHTML = SOL.map(function (s, i) { return '<button type="button" class="bk" data-i="' + i + '" aria-label="' + s.n + '"><span class="leaf"></span><span class="glass"><i style="background:' + s.liq + '"></i></span><b>' + s.n + '</b><small>20 毫升</small></button>'; }).join('');
+      each('.bk', function (b) {
+        b.addEventListener('click', function () {
+          var i = +b.getAttribute('data-i');
+          if (res[i]) return;
+          if (!torn) { fb.className = 'fb bad'; fb.textContent = '先按 ①，把紫色高麗菜撕成碎片。'; return; }
+          cur = i; each('.bk', function (x) { x.classList.toggle('on', x === b); }, bk);
+          ask.innerHTML = '<p class="lead" style="text-align:center;margin-bottom:0">② 先記錄：「' + SOL[i].n + '」是酸性或鹼性？</p><div class="chips">' + KIND.map(function (t, k) { return '<button type="button" class="chip" data-k="' + k + '">' + t + '</button>'; }).join('') + '</div>';
+          each('.chip', function (c) { c.addEventListener('click', function () { pick(+c.getAttribute('data-k'), c); }); }, ask);
+        });
+      }, bk);
+      table();
+    }
+    function pick(k, chip) {
+      var s = SOL[cur], b = bk.querySelector('.bk[data-i="' + cur + '"]');
+      if (k !== s.k) { chip.classList.add('no'); setTimeout(function () { chip.classList.remove('no'); }, 500); fb.className = 'fb bad'; fb.textContent = '🤔 再想想。課本查到的資料：檸檬汁、食醋是酸性；小蘇打水、肥皂水是鹼性。（小蘇打溶液就是小蘇打水。）'; return; }
+      res[cur] = 1; b.classList.remove('on'); b.classList.add('in', 'done'); b.querySelector('.leaf').style.background = COL[s.k]; ask.innerHTML = ''; table();
+      fb.className = 'fb good'; fb.innerHTML = '✅ ' + s.n + '是<b>' + KIND[s.k] + '</b>。把紫色高麗菜泡進去，菜葉' + CTXT[s.k] + '。';
+      cur = -1;
+      if (res.every(Boolean)) rule();
+    }
+    function rule() {
+      var O = shuffle([['有。酸性的都變紅色系，鹼性的都變藍綠色系', 1], ['沒有。四杯的顏色都不一樣', 0], ['有。四杯都變成紅色系', 0]]);
+      $('cabRule').innerHTML = '<div class="inq"><b>💡 分析驗證</b><div>紫色高麗菜遇到酸性與鹼性物質，顏色變化有規律性嗎？看上面的表格想一想。</div></div><div class="choices">' + O.map(function (o) { return '<button type="button" class="btn" data-ok="' + o[1] + '">' + o[0] + '</button>'; }).join('') + '</div><div class="qfb"></div>';
+      each('#cabRule .choices button', function (b) {
+        b.addEventListener('click', function () {
+          var q = $('cabRule').querySelector('.qfb');
+          if (b.getAttribute('data-ok') === '1') {
+            b.classList.add('ok'); each('#cabRule .choices button', function (x) { x.disabled = true; });
+            q.innerHTML = '<div class="good">✅ 對！酸性的兩杯都變紅色系，鹼性的兩杯都變藍綠色系。酸和鹼的顏色變化不一樣，和假設一樣。</div><div class="btns cen"><button type="button" class="btn white small" id="cabRe">再做一次</button></div>';
+            $('cabRe').addEventListener('click', start); $('cabEnd').hidden = false;
+            if (!got) { got = true; finish('cab', b); }
+          } else { b.classList.add('no'); b.disabled = true; q.innerHTML = '<div class="hint">🤔 再看一次表格：檸檬汁和食醋的顏色一樣嗎？小蘇打溶液和肥皂水呢？</div>'; }
+        });
+      });
+    }
+    $('cabTear').addEventListener('click', function () { torn = true; bk.classList.add('torn'); $('cabTear').disabled = true; fb.className = 'fb info'; fb.textContent = '撕成大約手指頭大小的碎片了。每一杯溶液都是 20 毫升。點一個杯子。'; });
+    start();
+  })();
+
+  /* ---------- 挑戰 ---------- */
+  (function () {
+    var got = false;
+    each('#cz .blank', function (b) {
+      b.addEventListener('click', function () {
+        if (b.classList.contains('open')) return;
+        b.textContent = b.getAttribute('data-a'); b.classList.add('open');
+        var left = document.querySelectorAll('#cz .blank:not(.open)').length;
+        if (!left && !got) { got = true; $('czFb').className = 'fb good'; $('czFb').textContent = '🎉 圖解筆記全部想過一遍了！'; finish('cloze', b); }
+      });
+    });
+  })();
+
+  function renderRec() {
+    var st = [['⭐', store.stars, '星星'], ['📝', store.n, '作答題數'], ['🎯', store.n ? Math.round(store.ok / store.n * 100) + '%' : '—', '第一次就答對'],
+      ['🏞️', (store.best.q31 || 0) + ' / 5', '3-1 最佳'], ['🌡️', (store.best.q32 || 0) + ' / 5', '3-2 最佳'], ['🧪', (store.best.q33 || 0) + ' / 5', '3-3 最佳'], ['🕵️', (store.best.spot || 0) + ' / 5', '找錯最佳'], ['🎮', (store.best.mix || 0) + ' / 10', '大考驗最佳']];
+    $('stats').innerHTML = st.map(function (s) { return '<div class="stat"><b>' + s[0] + ' ' + s[1] + '</b>' + s[2] + '</div>'; }).join('');
+    var ks = Object.keys(store.bad).filter(function (k) { return SEC[k]; }).sort(function (a, b) { return store.bad[b] - store.bad[a]; });
+    $('mist').innerHTML = ks.length ? ks.map(function (k) { return '<div class="tip"><b>' + SEC[k][0] + '</b>（' + store.bad[k] + ' 次）<br>' + SEC[k][1] + '</div>'; }).join('') : '<p class="small">還沒有錯題，好棒！</p>';
+    $('recent').innerHTML = store.recent.length ? '<ul class="list">' + store.recent.map(function (r) { return '<li>' + esc(r.p) + '</li>'; }).join('') + '</ul>' : '<p class="small">沒有最近的錯題。</p>';
+  }
+  $('resetBtn').addEventListener('click', function () {
+    if (!confirm('確定要清除這一頁的紀錄嗎？')) return;
+    store = fresh(); save(); location.reload();
+  });
+
+  quiz({ el: 'q31', key: 'q31', n: 5, sec: 'm1' });
+  quiz({ el: 'q32', key: 'q32', n: 5, sec: 'm2' });
+  quiz({ el: 'q33', key: 'q33', n: 5, sec: 'm3' });
+  quiz({ el: 'qmix', key: 'mix', n: 10 });
+  spotGame('spot', 'spot', 5);
+
+  renderScore(); renderStamps(); renderGuess();
+  var H = { '#31': 'p-31', '#32': 'p-32', '#33': 'p-33', '#game': 'p-game' };
+  if (H[location.hash]) goTab(H[location.hash]);
 })();
 </script>
 </body>
