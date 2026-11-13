@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ff6b9a">
+<title>到此「藝」遊 🎭｜南一國語 4上 第七課</title>
+<style>
+:root{--ink:#2b2d42;--org:#ff9f1c;--sun:#ffd166;--pink:#ff6b9a;--blue:#4d96ff;--teal:#2a9d8f;--purple:#9b5de5;--green:#52b788}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:#fff6f9;overflow-x:hidden}
+html,body{margin:0;padding:0}
+body{font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",system-ui,sans-serif;color:var(--ink);min-height:100vh;background:linear-gradient(180deg,#ffd6e4 0,#fff6f9 260px);padding-bottom:calc(92px + env(safe-area-inset-bottom))}
+header{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:8px;padding:10px 12px;padding-top:calc(10px + env(safe-area-inset-top));background:rgba(255,107,154,.97);color:#fff}
+header h1{font-size:clamp(17px,4.6vw,26px);margin:0;flex:1;letter-spacing:1px;min-width:0}
+.back{color:#fff;text-decoration:none;font-weight:800;background:rgba(255,255,255,.25);border-radius:999px;padding:8px 12px;font-size:15px;white-space:nowrap}
+.score{background:#fff;color:#b0154a;font-weight:900;border-radius:999px;padding:6px 12px;font-size:17px;white-space:nowrap;box-shadow:0 3px 0 #c2185b}
+.score.pop{animation:pop .5s}@keyframes pop{40%{transform:scale(1.3)}}
+main{max-width:1000px;margin:0 auto;padding:10px}
+section.page{display:none}section.page.active{display:block;animation:fadein .3s}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.card{background:#fff;border-radius:22px;padding:14px;margin:10px 0;box-shadow:0 6px 0 rgba(0,0,0,.1)}
+.card h2{margin:0 0 6px;font-size:clamp(20px,5vw,25px)}.card h3{margin:4px 0 6px;font-size:19px}
+.small{font-size:14px;color:#666;line-height:1.5}
+.lead{font-size:17px;line-height:1.75;margin:6px 0}
+.btn{appearance:none;border:none;border-radius:16px;padding:10px 14px;min-height:50px;font-size:17px;font-weight:800;cursor:pointer;background:var(--blue);color:#fff;box-shadow:0 4px 0 rgba(0,0,0,.22);font-family:inherit;touch-action:manipulation}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.22)}
+.btn.org{background:var(--org)}.btn.pink{background:var(--pink)}.btn.teal{background:var(--teal)}.btn.purple{background:var(--purple)}.btn.gray{background:#8d99ae}.btn.green{background:var(--green)}
+.btn.white{background:#fff;color:var(--ink);border:3px solid #ffd0df}.btn.on{outline:4px solid var(--pink);outline-offset:1px;background:#fff0f5}
+.btn.small{min-height:44px;font-size:15px;padding:6px 10px}
+.btn:disabled{opacity:.4}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0;align-items:center}.cen{justify-content:center}
+.seg{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
+.hidden{display:none!important}
+.fb{margin-top:8px;border-radius:14px;padding:8px 12px;font-size:17px;line-height:1.55;display:none}
+.fb.show{display:block}.fb.good{background:#d8f3dc}.fb.bad{background:#fff3cd}.fb.info{background:#f3e8ff}
+.done{background:linear-gradient(135deg,#d8f3dc,#fff1a8);border-radius:18px;padding:12px;font-size:18px;line-height:1.6;margin-top:10px}
+.tip{background:#fffbea;border:3px dashed var(--sun);border-radius:16px;padding:8px 12px;font-size:16px;line-height:1.6;margin-top:8px}
+.tip.more{background:#f3f7ff;border-color:#b9cdf5}
+.q{font-size:21px;line-height:1.6;font-weight:800;text-align:center;margin:6px 0;word-break:break-word}
+.q .hl{color:#c1121f;border-bottom:3px solid var(--pink)}
+.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin-top:8px}
+.choices .btn{background:#fff;color:var(--ink);border:3px solid #d6e4ff;font-size:19px;min-height:58px;line-height:1.4}
+.choices .btn.ok{background:#d8f3dc;border-color:#2ec4b6}.choices .btn.no{background:#ffd6dc;border-color:#ff6b9a;animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.prog{display:flex;gap:4px;justify-content:center;margin:4px 0;flex-wrap:wrap}
+.prog i{width:20px;height:10px;border-radius:6px;background:#eee;display:block}.prog i.ok{background:#2ec4b6}.prog i.no{background:#ff6b9a}.prog i.cur{background:var(--sun)}
+table.rec{border-collapse:collapse;width:100%;font-size:16px}
+table.rec td,table.rec th{padding:8px;border-bottom:1px solid #eee;text-align:left;vertical-align:top}
+.statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.stat{background:#ffe6ef;border-radius:16px;padding:10px;text-align:center}.stat b{display:block;font-size:28px;color:#b0154a}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.bdg{background:#eee;border-radius:14px;padding:6px 10px;font-weight:800;color:#999;font-size:15px}.bdg.got{background:linear-gradient(135deg,#ffd166,#ff9f1c);color:#5a3b00}
+.bdg small{display:block;font-weight:600;font-size:12px}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;justify-content:space-around;background:#fff;padding:6px 4px;padding-bottom:calc(6px + env(safe-area-inset-bottom));box-shadow:0 -4px 16px rgba(0,0,0,.15)}
+nav.tabs button{flex:1;min-width:0;border:none;background:none;font-family:inherit;font-size:13px;font-weight:800;color:#666;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 1px;border-radius:14px;cursor:pointer;min-height:60px;touch-action:manipulation}
+nav.tabs button span{font-size:24px;line-height:1}nav.tabs button.on{background:#ffe0eb;color:#b0154a}
+.burst{position:fixed;z-index:99;pointer-events:none;font-size:30px;animation:fly 1.1s ease-out forwards}
+@keyframes fly{to{transform:translate(var(--dx),var(--dy)) rotate(360deg);opacity:0}}
+.info{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:8px 0}
+.info div{background:#fff0f5;border-radius:14px;padding:8px 10px;font-size:16px}.info b{display:block;font-size:13px;color:#b0154a}
+.part{border:3px solid #ffd0df;border-radius:18px;padding:10px 12px;margin:8px 0;background:#fffafc}
+.part h4{margin:0 0 4px;font-size:18px;line-height:1.7}.part .tag{display:inline-block;background:var(--pink);color:#fff;border-radius:999px;padding:2px 10px;font-size:14px;margin-right:6px;line-height:1.5}
+.part .tag.t2{background:var(--teal)}
+.quote{background:#fff4c2;border-radius:8px;padding:2px 6px;font-weight:700;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:8px 0}
+.steps .btn{color:var(--ink);text-align:left;min-height:56px;font-size:17px;line-height:1.4}
+.steps .btn small{display:block;font-size:14px;font-weight:600;color:#555}
+.steps .btn.ok{opacity:.45}
+.stepdone{list-style:none;margin:8px 0;padding:0}
+.stepdone li{background:#fff4c2;border-radius:12px;padding:8px 12px;margin:6px 0;font-size:17px;font-weight:700}
+.stepdone li b{display:inline-block;background:var(--pink);color:#fff;border-radius:999px;padding:1px 10px;margin-right:8px}
+.chargrid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;max-width:560px;margin:0 auto}
+.chargrid button{font-family:"BiauKai","DFKai-SB","TW-Kai","Kaiti TC",KaiTi,serif;font-size:clamp(30px,8vw,44px);aspect-ratio:1/1;min-height:56px;border-radius:16px;border:3px solid #ffd0df;background:#fff;color:var(--ink);cursor:pointer;position:relative;touch-action:manipulation;padding:0}
+.chargrid button.seen{background:#fff0f5}.chargrid button.seen:after{content:"✓";position:absolute;right:4px;top:0;font-size:14px;color:var(--teal);font-family:sans-serif}
+.chargrid button.on{outline:4px solid var(--pink)}
+.cdet{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start;margin-top:10px}
+.bigc{font-family:"BiauKai","DFKai-SB","TW-Kai","Kaiti TC",KaiTi,serif;font-size:96px;line-height:1;width:130px;height:130px;display:flex;align-items:center;justify-content:center;border:3px solid #ff6b9a;border-radius:12px;position:relative;
+ background-image:linear-gradient(#ffd0df,#ffd0df),linear-gradient(#ffd0df,#ffd0df);background-size:100% 2px,2px 100%;background-position:center;background-repeat:no-repeat;flex:0 0 130px}
+.zy{writing-mode:vertical-rl;font-size:18px;font-weight:800;color:#b0154a;letter-spacing:2px}
+.cinfo{flex:1;min-width:200px;font-size:17px;line-height:1.8}
+.chip{display:inline-block;background:#e6f0ff;border-radius:999px;padding:3px 12px;margin:2px 4px 2px 0;font-weight:700}
+.chip.id{background:#fff1d6}
+.padwrap{position:relative;width:260px;height:260px;margin:8px auto;border:3px solid #ff6b9a;border-radius:12px;background:#fff;touch-action:none}
+.padwrap .ghost{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:"BiauKai","DFKai-SB","TW-Kai","Kaiti TC",KaiTi,serif;font-size:210px;color:#f3d3de;pointer-events:none;line-height:1;
+ background-image:linear-gradient(#ffd0df,#ffd0df),linear-gradient(#ffd0df,#ffd0df);background-size:100% 2px,2px 100%;background-position:center;background-repeat:no-repeat}
+.padwrap canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none}
+.wlist{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px}
+.wcard{background:#fffafc;border:3px solid #ffd0df;border-radius:16px;padding:8px 12px;font-size:16px;line-height:1.5}.wcard b{font-size:20px;display:block}
+.wcard small{color:#888;font-size:13px}
+.match{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,3fr);gap:8px}
+.match .col{display:flex;flex-direction:column;gap:8px}
+.match .btn{background:#fff;color:var(--ink);border:3px solid #d6e4ff;font-size:16px;min-height:56px;line-height:1.35;padding:6px 8px}
+.match .btn.sel{border-color:var(--pink);background:#fff0f5}.match .btn.ok{background:#d8f3dc;border-color:#2ec4b6;opacity:.55}.match .btn.no{animation:shake .4s;border-color:#ff6b9a}
+.formula{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:6px 0}
+.formula span{border-radius:12px;padding:6px 10px;font-weight:800;font-size:17px}
+.f1{background:#ffd6dc}.f2{background:#cfe8ff}.f3{background:#d8f3dc}
+.blank{display:inline-block;min-width:3em;border-bottom:3px solid var(--pink);color:#b0154a}
+.locbtns{display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));gap:8px;margin-top:8px}
+.locbtns .btn{color:var(--ink);font-size:17px;min-height:64px;padding:6px 2px;line-height:1.3}
+.bins{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-top:10px}
+.bin{border-radius:14px;padding:6px 8px;font-size:14px;line-height:1.5;min-height:48px;border:3px solid #ffd0df;background:#fffafc}
+.bin b{display:block;font-size:15px}
+.route{display:flex;flex-wrap:wrap;gap:4px 2px;align-items:center;justify-content:center;font-weight:800;font-size:16px;margin:6px 0}
+.route span{background:#fff0f5;border:2px solid #ffd0df;border-radius:999px;padding:2px 10px}
+a.ext{color:#1d4ed8;font-weight:800}
+@media (max-width:420px){.chargrid{gap:6px}.bigc{width:110px;height:110px;flex-basis:110px;font-size:80px}.match .btn{font-size:15px}}
+</style>
+</head>
+<body>
+<header>
+  <a class="back" href="../">← 國語</a>
+  <h1>🎭 到此「藝」遊</h1>
+  <div class="score" id="score">⭐ 0</div>
+</header>
+<main>
+
+<!-- ============ 課文 ============ -->
+<section class="page active" id="p-read">
+  <div class="card">
+    <h2>📖 第七課 到此「藝」遊</h2>
+    <div class="info">
+      <div><b>版本</b>南一 國語 4上（第七冊）</div>
+      <div><b>單元</b>第參單元 小小觀察家</div>
+      <div><b>文體</b>遊記（照地點的順序寫）</div>
+      <div><b>地點</b>宜蘭傳藝園區</div>
+    </div>
+    <div class="tip">📍 <b>課本第 64 頁的小註解</b>：宜蘭傳藝園區在宜蘭縣，是保存、傳揚臺灣傳統藝術文化的地方。</div>
+    <div class="tip more">🔎 <b>延伸（課本沒有寫）</b>：題目的「藝」加了引號。「到此一遊」的「一」，換成念起來很像的「藝」（藝術的藝）。意思是：到這裡看藝術！</div>
+    <p class="small">這裡是用自己的話整理的「重點導讀」，只引用幾個短句；完整課文請看課本第 64～69 頁，也可以掃課本第 64 頁的 QR code 聽課文朗讀。</p>
+  </div>
+
+  <div class="card">
+    <h3>🗺️ 課文七段導讀</h3>
+    <p class="small">課本第 88 頁：遊記可以分成<b>旅遊背景、旅遊過程、旅遊感想</b>三個部分。</p>
+    <div class="part"><h4><span class="tag">第一段</span><span class="tag t2">旅遊背景</span>戶外教育日到了</h4>
+      <p class="lead"><b>戶外教育</b>日終於到了！天空有點灰，作者的心情卻很<b>晴朗</b>，因為老師要帶大家去<b>宜蘭傳藝園區</b>。</p>
+      <button class="btn white small" data-say="0">🔊 聽導讀</button></div>
+    <div class="part"><h4><span class="tag">第二段</span><span class="tag t2">旅遊過程</span>① 園區</h4>
+      <p class="lead">一進園區，作者的<span class="quote">眼睛為之一亮</span>。街道旁有古色古香的磚紅色建築，還有一個個紅燈籠，看起來<span class="quote">喜氣洋洋</span>。</p>
+      <button class="btn white small" data-say="1">🔊 聽導讀</button></div>
+    <div class="part"><h4><span class="tag">第三段</span><span class="tag t2">旅遊過程</span>② 魯班街</h4>
+      <p class="lead">魯班街的傳習所介紹<b>陶器</b>、玉石、藍染這些藝術品，樣子很特別，讓人<span class="quote">目不轉睛</span>。燈光下，琉璃亮出七彩<b>光芒</b>，作者看得<span class="quote">流連忘返</span>。</p>
+      <button class="btn white small" data-say="2">🔊 聽導讀</button></div>
+    <div class="part"><h4><span class="tag">第四段</span><span class="tag t2">旅遊過程</span>③ 劇場</h4>
+      <p class="lead">大家到<b>劇場</b>看「噶瑪蘭公主」。演員又唱又跳，還<b>翻跟斗</b>、走<b>鋼索</b>，大家<span class="quote">不禁為他捏一把冷汗</span>。作者最難忘的，是那面半個舞臺大的赤紅色大旗，揮起來像熊熊烈火，全場都尖叫。</p>
+      <p class="small">課本第 66 頁的小註解：「噶瑪蘭」是宜蘭的舊稱。課本的地圖把這一站標成「臨水劇場」。</p>
+      <button class="btn white small" data-say="3">🔊 聽導讀</button></div>
+    <div class="part"><h4><span class="tag">第五段</span><span class="tag t2">旅遊過程</span>④ 月河</h4>
+      <p class="lead">看完表演，大家到<b>渡船頭</b>坐木船。木船在月河上慢慢走，穿過爬滿綠色植物的石拱橋。河水是深綠色的，岸邊有青草和金黃的落羽松。作者迎著清涼的風，想像自己在綠波上飛舞。頑皮的魚在船邊出沒，白色的水鳥也飛來打招呼，河上都是笑聲。</p>
+      <button class="btn white small" data-say="4">🔊 聽導讀</button></div>
+    <div class="part"><h4><span class="tag">第六段</span><span class="tag t2">旅遊過程</span>⑤ 文昌街</h4>
+      <p class="lead">最後一站是文昌街，街上有很多特色小店。同學各自挑<b>紀念品</b>：有人買金魚造型的香包，有人買五顏六色的<b>捏麵人</b>。作者看了好一會兒，決定<span class="quote">只帶滿心喜悅回家</span>，和爸媽分享。</p>
+      <button class="btn white small" data-say="5">🔊 聽導讀</button></div>
+    <div class="part"><h4><span class="tag">第七段</span><span class="tag t2">旅遊感想</span>值得一來再來</h4>
+      <p class="lead">回程時，原本灰色的天空出現一片雲彩，溫暖的顏色就像作者心裡的喜悅和滿足。這次活動讓作者看到許多<b>傳統</b>文化，也體會到生活中有藝術。作者覺得傳藝園區<b>值得</b>細細品味，還想再來！</p>
+      <button class="btn white small" data-say="6">🔊 聽導讀</button></div>
+    <div class="tip more">🔎 <b>延伸（課本沒有寫）</b>：開頭的天空「有點灰」，結尾的天空「出現了一片雲彩」。開頭和結尾都寫天空，前後互相呼應。</div>
+  </div>
+
+  <div class="card">
+    <h3>🚶 參觀順序排一排</h3>
+    <p class="small">課本第 89、91 頁：這篇遊記照「空間」順序寫，也就是跟著移動的地點寫。作者先寫什麼，再到哪裡？照順序點一點！</p>
+    <div id="stepBox"></div>
+  </div>
+
+  <div class="card">
+    <h3>🧱 遊記的三個部分</h3>
+    <p class="small">課本第 88 頁「如何寫遊記」：<b>旅遊背景</b>（為什麼有這趟旅程、心情）、<b>旅遊過程</b>（印象深刻的景物或活動）、<b>旅遊感想</b>（收穫和感想）。這是哪個部分？</p>
+    <div id="partQ"></div>
+  </div>
+
+  <div class="card">
+    <h3>🔍 閱讀理解小偵探</h3>
+    <div id="readQ"></div>
+  </div>
+</section>
+
+<!-- ============ 生字 ============ -->
+<section class="page" id="p-char">
+  <div class="card">
+    <h2>✍️ 我會寫的字（15 個）</h2>
+    <p class="small">點一個字，看注音、部首、筆畫和造詞。數字是「部首外筆畫／總筆畫」，依課本第 70 頁。</p>
+    <div class="chargrid" id="charGrid"></div>
+    <div class="cdet" id="charDet"></div>
+  </div>
+  <div class="card">
+    <h3>🖌️ 描寫板</h3>
+    <p class="small">用手指照著淡淡的字描一描。筆順可以按上面的「看筆順動畫」到教育部筆順學習網看。</p>
+    <div class="padwrap" id="padWrap"><div class="ghost" id="ghost">育</div><canvas id="pad" width="520" height="520"></canvas></div>
+    <div class="btns cen"><button class="btn gray small" id="padClear">🧽 擦掉</button><button class="btn green" id="padDone">✅ 寫好了</button></div>
+    <div class="fb" id="padFb"></div>
+  </div>
+  <div class="card">
+    <h3>🧠 生字小測驗</h3>
+    <div class="seg" id="cqSeg">
+      <button class="btn white on" data-t="bs">部首</button>
+      <button class="btn white" data-t="tot">筆畫</button>
+      <button class="btn white" data-t="zy">注音</button>
+    </div>
+    <div id="charQ"></div>
+  </div>
+  <div class="card">
+    <h3>🔤 多音字「禁」</h3>
+    <div class="tip">課本第 71 頁「比一比讀音」：<br><b>ㄐㄧㄣ</b>（一聲）：承擔、忍受。例：禁不住、不禁。<br><b>ㄐㄧㄣˋ</b>（四聲）：制止。例：禁止、嚴禁。<br>課本的句子：農夫發現自己誤闖軍事<b>禁</b>（ㄐㄧㄣˋ）區後，不<b>禁</b>（ㄐㄧㄣ）嚇得冷汗直流。</div>
+    <div id="polyQ"></div>
+  </div>
+  <div class="card">
+    <h3>👀 形近字選一選</h3>
+    <p class="small">晴／睛、渡／度、陶／淘、值／直、念／忘，長得很像。選出句子裡正確的那一個。（字的配對和句子是自編的）</p>
+    <div id="lookQ"></div>
+  </div>
+</section>
+
+<!-- ============ 語詞 ============ -->
+<section class="page" id="p-word">
+  <div class="card">
+    <h2>🧩 語詞配對</h2>
+    <p class="small">先點左邊的語詞，再點右邊正確的意思。</p>
+    <div id="matchBox"></div>
+  </div>
+  <div class="card">
+    <h3>📝 選詞填空</h3>
+    <div id="fillQ"></div>
+  </div>
+  <div class="card">
+    <h3>📚 語詞小卡</h3>
+    <p class="small">這 15 個是課文裡的語詞（課本第 65～69 頁藍色的字）。解釋是用自己的話寫的。</p>
+    <div class="wlist" id="wordList"></div>
+    <h3 style="margin-top:12px">📍 課本的小註解</h3>
+    <div class="wlist" id="noteList"></div>
+    <h3 style="margin-top:12px">💡 生字延伸成語</h3>
+    <p class="small">🔎 延伸：這些成語課本沒有，是多認識的。</p>
+    <div class="wlist" id="idiomList"></div>
+  </div>
+</section>
+
+<!-- ============ 句型 ============ -->
+<section class="page" id="p-pat">
+  <div class="card">
+    <h2>🪄 遊記怎麼寫</h2>
+    <div class="seg" id="patSeg">
+      <button class="btn white on" data-k="sense">用感官寫</button>
+      <button class="btn white" data-k="feel">加上感受</button>
+      <button class="btn white" data-k="color">用顏色寫</button>
+      <button class="btn white" data-k="mood">感受的語詞</button>
+    </div>
+  </div>
+  <div class="card" id="patIntro"></div>
+  <div class="card"><div id="patQ"></div></div>
+</section>
+
+<!-- ============ 挑戰 ============ -->
+<section class="page" id="p-game">
+  <div class="card">
+    <h2>🏛️ 地點分類大挑戰</h2>
+    <p class="small">這是作者在哪一站看到的？（句子是依課文改寫的，每次出 10 題）</p>
+    <div id="sortBox"></div>
+  </div>
+  <div class="card">
+    <h2>🏆 第七課綜合挑戰（10 題）</h2>
+    <p class="small">生字、形近字、多音字、語詞、感官、顏色、感受的語詞、參觀順序通通有！答對 9 題以上拿「挑戰王」徽章。</p>
+    <div id="chBox"></div>
+  </div>
+</section>
+
+<!-- ============ 紀錄 ============ -->
+<section class="page" id="p-rec">
+  <div class="card"><h2>🏆 我的紀錄</h2><div class="statgrid" id="stats"></div><div class="badges" id="badges"></div></div>
+  <div class="card"><h3>🔎 常錯的地方</h3><div id="mist"></div></div>
+  <div class="card"><button class="btn gray" id="resetBtn">清除紀錄</button><p class="small">紀錄只存在這台平板的瀏覽器裡。</p>
+    <p class="small">資料來源：南一版國語 4上 課本——第 62 頁單元頁「小小觀察家」、第 64～69 頁〈到此「藝」遊〉課文和小註解、第 70 頁「我會寫的字」、第 71 頁「比一比讀音」「認識表達感受的語詞」「跟著文字去旅行」、第 88～91 頁語文天地三「如何寫遊記」和「安排段落」。</p>
+    <p class="small">✏️ <b>自編說明：</b>課文導讀是用自己的話整理的，只引用短句；每一段屬於「旅遊背景、旅遊過程、旅遊感想」哪一部分，是依課本第 88 頁的說明自己判斷的。閱讀理解、參觀順序、地點分類、選詞填空、形近字、多音字後四題、感受的語詞和挑戰的題目與例句，都是為了練習自己編寫的，不是課本原文；語詞解釋、造詞（每個字的第一個語詞出自課文，其餘自編）也是用好懂的話寫的。標「🔎 延伸」的內容（題目的諧音、開頭結尾都寫天空、延伸成語）課本沒有，考試以課本為主。</p></div>
+</section>
+</main>
+
+<nav class="tabs" id="tabs">
+  <button class="on" data-p="p-read"><span>📖</span>課文</button>
+  <button data-p="p-char"><span>✍️</span>生字</button>
+  <button data-p="p-word"><span>🧩</span>語詞</button>
+  <button data-p="p-pat"><span>🪄</span>句型</button>
+  <button data-p="p-game"><span>🎮</span>挑戰</button>
+  <button data-p="p-rec"><span>🏆</span>紀錄</button>
+</nav>
+
+<script id="core">
+var Core=(function(){
+"use strict";
+/* 生字：注音、部首、部首外筆畫（ex）、總筆畫（tot）依南一版課本第 70 頁「我會寫的字」；順序依課文出現先後（課本第 65～69 頁頁尾）。
+   words 的第一個是課文裡的語詞，其餘自編；tx 是課文裡含這個字的短句；bf=部首在這個字裡的寫法；
+   idiom 是延伸成語（課本沒有）；look=形近字；poly=多音字（課本第 71 頁） */
+var CHARS=[
+ {c:"育",zy:"ㄩˋ",bs:"肉",bf:"月",ex:3,tot:7,words:["戶外教育","教育","體育"],tx:"終於到了戶外教育日",idiom:"作育英才"},
+ {c:"晴",zy:"ㄑㄧㄥˊ",bs:"日",ex:8,tot:12,words:["晴朗","晴天","放晴"],tx:"但我的心情很晴朗",idiom:"晴空萬里",look:"睛"},
+ {c:"陶",zy:"ㄊㄠˊ",bs:"阜",bf:"阝",ex:8,tot:11,words:["陶器","陶土","陶瓷"],tx:"分別介紹陶器、玉石、藍染等藝術品",idiom:"",look:"淘"},
+ {c:"目",zy:"ㄇㄨˋ",bs:"目",ex:0,tot:5,words:["目不轉睛","題目","目標"],tx:"樣式獨特，令人目不轉睛",idiom:"一目十行"},
+ {c:"芒",zy:"ㄇㄤˊ",bs:"艸",bf:"艹",ex:3,tot:7,words:["光芒","芒果","芒草"],tx:"清透的琉璃閃著七彩光芒",idiom:"光芒萬丈"},
+ {c:"返",zy:"ㄈㄢˇ",bs:"辵",bf:"辶",ex:4,tot:8,words:["流連忘返","返回","往返"],tx:"讓我流連忘返",idiom:"樂而忘返"},
+ {c:"劇",zy:"ㄐㄩˋ",bs:"刀",bf:"刂",ex:13,tot:15,words:["劇場","戲劇","劇本"],tx:"我們到劇場觀賞",idiom:""},
+ {c:"斗",zy:"ㄉㄡˇ",bs:"斗",ex:0,tot:4,words:["翻跟斗","北斗七星","斗笠"],tx:"又唱又跳、翻跟斗",idiom:"才高八斗"},
+ {c:"索",zy:"ㄙㄨㄛˇ",bs:"糸",ex:4,tot:10,words:["鋼索","繩索","探索"],tx:"還有人走在細細的鋼索上",idiom:"不假思索"},
+ {c:"禁",zy:"ㄐㄧㄣ",bs:"示",ex:8,tot:13,words:["不禁","禁不住"],tx:"大家不禁為他捏一把冷汗",idiom:"弱不禁風",poly:1},
+ {c:"渡",zy:"ㄉㄨˋ",bs:"水",bf:"氵",ex:9,tot:12,words:["渡船頭","渡河","橫渡"],tx:"我們到渡船頭坐木船遊河",idiom:"遠渡重洋",look:"度"},
+ {c:"念",zy:"ㄋㄧㄢˋ",bs:"心",ex:4,tot:8,words:["紀念品","想念","念書"],tx:"大家各自挑著喜歡的紀念品",idiom:"念念不忘",look:"忘"},
+ {c:"麵",zy:"ㄇㄧㄢˋ",bs:"麥",ex:9,tot:20,words:["捏麵人","麵包","麵條"],tx:"有人買了五顏六色的捏麵人",idiom:""},
+ {c:"統",zy:"ㄊㄨㄥˇ",bs:"糸",bf:"糹",ex:5,tot:11,words:["傳統","統一","總統"],tx:"讓我看到許多傳統文化",idiom:""},
+ {c:"值",zy:"ㄓˊ",bs:"人",bf:"亻",ex:8,tot:10,words:["值得","價值","值日生"],tx:"宜蘭傳藝園區值得細細品味",idiom:"",look:"直"}
+];
+/* 延伸成語（課本沒有，自己選的常見成語；解釋是用孩子看得懂的話寫的） */
+var IDIOMS={"作育英才":"培養優秀的人才","晴空萬里":"天氣很晴朗，天空一朵雲也沒有","一目十行":"看書看得很快","光芒萬丈":"光照得很遠，非常燦爛","樂而忘返":"玩得太開心，忘了回家","才高八斗":"形容一個人很有才華","不假思索":"不用多想，馬上就說出來或做出來","弱不禁風":"身體很瘦弱，好像風一吹就會倒（這裡的「禁」念 ㄐㄧㄣ）","遠渡重洋":"坐船越過大海，到很遠的地方","念念不忘":"心裡一直想著，忘不了"};
+/* 形近字（配對和句子都是自編的；每一題換成另一個字都不成詞） */
+var LOOK=[
+ {s:"雨停了，天空變得很＿朗。",a:"晴",b:"睛",tip:"「晴」是日部，和太陽、天氣有關：晴朗、晴天。"},
+ {s:"看書看太久，要讓眼＿休息一下。",a:"睛",b:"晴",tip:"「睛」是目部，和眼睛有關：眼睛、目不轉睛。"},
+ {s:"我們在＿船頭等船來。",a:"渡",b:"度",tip:"「渡」是水部（氵），和過河、坐船有關：渡船頭、渡河。"},
+ {s:"今天的溫＿很高，要多喝水。",a:"度",b:"渡",tip:"「度」沒有三點水：溫度、角度。"},
+ {s:"哥哥用黏土做了一個＿器。",a:"陶",b:"淘",tip:"「陶」是阜部（阝）：陶器、陶土。"},
+ {s:"媽媽先＿米，再煮飯。",a:"淘",b:"陶",tip:"「淘」是水部（氵），和用水洗有關：淘米。"},
+ {s:"這本書很好看，＿得再看一次。",a:"值",b:"直",tip:"「值」是人部（亻）：值得、價值。"},
+ {s:"請用尺畫一條＿線。",a:"直",b:"值",tip:"「直」沒有人字旁：直線、一直。"},
+ {s:"我買了一個小吊飾當紀＿品。",a:"念",b:"忘",tip:"「念」上面是「今」：紀念、想念。"},
+ {s:"我＿了帶鉛筆盒，只好跟同學借筆。",a:"忘",b:"念",tip:"「忘」上面是「亡」：忘記、流連忘返。"}
+];
+/* 多音字「禁」（課本第 71 頁「比一比讀音」）；前兩題是課本和課文的句子，其餘自編 */
+var POLY_O=["ㄐㄧㄣ（一聲）","ㄐㄧㄣˋ（四聲）"];
+var POLY=[
+ {s:"農夫誤闖軍事【禁】區。",a:1,why:"禁區是「不准進去的地方」，是制止的意思，念 ㄐㄧㄣˋ（課本第 71 頁）。"},
+ {s:"大家不【禁】為他捏一把冷汗。",a:0,why:"「不禁」是忍不住的意思，念 ㄐㄧㄣ（課文）。"},
+ {s:"聽到好消息，他【禁】不住笑了。",a:0,why:"「禁不住」是忍不住，念 ㄐㄧㄣ。"},
+ {s:"圖書館裡【禁】止大聲說話。",a:1,why:"「禁止」是不准的意思，念 ㄐㄧㄣˋ。"},
+ {s:"河邊的牌子寫著「嚴【禁】游泳」。",a:1,why:"「嚴禁」是嚴格的禁止，念 ㄐㄧㄣˋ。"},
+ {s:"看到小狗被救起來，我不【禁】鬆了一口氣。",a:0,why:"「不禁」是忍不住，念 ㄐㄧㄣ。"}
+];
+/* 語詞：課文裡藍色的 15 個語詞（課本第 65～69 頁）；課本沒有附解釋，這裡的解釋都是自己寫的兒童版說明 */
+var WORDS=[
+ {w:"戶外教育",m:"走出教室，到校外參觀和學習的活動"},
+ {w:"晴朗",m:"天氣很好，天空很亮；也可以形容心情很好"},
+ {w:"陶器",m:"用黏土做好，再用火燒成的器具"},
+ {w:"目不轉睛",m:"眼睛一直盯著看，動也不動"},
+ {w:"光芒",m:"向四面射出來的光"},
+ {w:"流連忘返",m:"太喜歡了，捨不得離開"},
+ {w:"劇場",m:"演戲、表演給觀眾看的地方"},
+ {w:"翻跟斗",m:"頭朝下，把身體翻一圈的動作"},
+ {w:"鋼索",m:"用鋼絲絞成的粗繩子"},
+ {w:"不禁",m:"忍不住"},
+ {w:"渡船頭",m:"讓人上船、下船的地方"},
+ {w:"紀念品",m:"留下來讓人記得一個地方或一件事的東西"},
+ {w:"捏麵人",m:"用有顏色的麵團捏成的小人偶，是傳統手藝"},
+ {w:"傳統",m:"從以前一代一代傳下來的"},
+ {w:"值得",m:"很有意義，做了不會後悔"}
+];
+/* 課本的小註解（課本第 64、65、66、68 頁），用短句整理 */
+var NOTES=[
+ {w:"宜蘭傳藝園區",p:64,m:"在宜蘭縣，是保存、傳揚臺灣傳統藝術文化的地方。"},
+ {w:"魯班街",p:65,m:"園區裡的街道，有許多場館展覽和手作體驗。"},
+ {w:"噶瑪蘭公主",p:66,m:"民國 109～110 年園區的駐園大戲。「噶瑪蘭」是宜蘭的舊稱。"},
+ {w:"文昌街",p:68,m:"園區裡的街道，匯集傳統民俗技藝和生活工藝。"}
+];
+/* 選詞填空（句子自編，語詞是課文的 15 個語詞） */
+var FILL=[
+ {s:"學校舉辦＿＿，帶我們去參觀博物館。",a:"戶外教育",opts:["戶外教育","劇場","光芒"]},
+ {s:"今天天氣＿＿，很適合去郊外走走。",a:"晴朗",opts:["晴朗","傳統","不禁"]},
+ {s:"哥哥用黏土做的杯子，燒過以後變成＿＿。",a:"陶器",opts:["陶器","鋼索","渡船頭"]},
+ {s:"弟弟＿＿的看著卡通，叫他都沒聽見。",a:"目不轉睛",opts:["目不轉睛","捏麵人","值得"]},
+ {s:"太陽從雲裡露出來，發出金色的＿＿。",a:"光芒",opts:["光芒","劇場","紀念品"]},
+ {s:"動物園太好玩了，讓我們＿＿，不想回家。",a:"流連忘返",opts:["流連忘返","戶外教育","翻跟斗"]},
+ {s:"星期六，我們全家到＿＿看兒童劇。",a:"劇場",opts:["劇場","鋼索","陶器"]},
+ {s:"體育課時，老師教我們在墊子上＿＿。",a:"翻跟斗",opts:["翻跟斗","流連忘返","紀念品"]},
+ {s:"表演的人走在高高的＿＿上，觀眾好緊張。",a:"鋼索",opts:["鋼索","光芒","紀念品"]},
+ {s:"聽到這個笑話，大家＿＿笑了出來。",a:"不禁",opts:["不禁","值得","傳統"]},
+ {s:"我們在＿＿排隊，等著上船。",a:"渡船頭",opts:["渡船頭","劇場","陶器"]},
+ {s:"去旅行時，我買了一個鑰匙圈當＿＿。",a:"紀念品",opts:["紀念品","光芒","戶外教育"]},
+ {s:"老師傅用麵團做了一個孫悟空＿＿。",a:"捏麵人",opts:["捏麵人","鋼索","渡船頭"]},
+ {s:"過年貼春聯是我們的＿＿習俗。",a:"傳統",opts:["傳統","晴朗","不禁"]},
+ {s:"這本書很有趣，＿＿一看再看。",a:"值得",opts:["值得","傳統","劇場"]}
+];
+/* 閱讀理解（依課文內容自編題目；最後一題依課本第 89、91 頁） */
+var READ=[
+ {q:"戶外教育日，老師帶大家去哪裡？",a:"宜蘭傳藝園區",o:["宜蘭傳藝園區","西螺大橋","臺北一〇一"]},
+ {q:"出發那天，天空看起來怎麼樣？",a:"有點灰",o:["有點灰","一朵雲也沒有","下著大雨"]},
+ {q:"進入園區，街道旁的建築是什麼顏色？",a:"磚紅色",o:["磚紅色","金黃色","深綠色"]},
+ {q:"魯班街的傳習所介紹哪些藝術品？",a:"陶器、玉石、藍染",o:["陶器、玉石、藍染","香包、捏麵人","木船、石拱橋"]},
+ {q:"在燈光下閃著七彩光芒的是什麼？",a:"琉璃",o:["琉璃","紅燈籠","大旗"]},
+ {q:"大家在劇場看的表演叫什麼？",a:"噶瑪蘭公主",o:["噶瑪蘭公主","白雪公主","月河公主"]},
+ {q:"看表演時，作者最難忘的是什麼？",a:"演員揮舞赤紅色大旗",o:["演員揮舞赤紅色大旗","演員翻跟斗","演員走鋼索"]},
+ {q:"木船沿著月河前進，穿過了什麼？",a:"爬滿綠色植物的石拱橋",o:["爬滿綠色植物的石拱橋","磚紅色的建築","細細的鋼索"]},
+ {q:"坐船時，同學為什麼發出驚呼聲？",a:"有幾隻魚在船邊出沒",o:["有幾隻魚在船邊出沒","木船快要翻了","有人掉進河裡"]},
+ {q:"最後一站是哪裡？",a:"文昌街",o:["文昌街","魯班街","渡船頭"]},
+ {q:"在文昌街，作者最後決定帶什麼回家？",a:"滿心喜悅",o:["滿心喜悅","金魚造型香包","五顏六色的捏麵人"]},
+ {q:"回程時，車窗外的天空出現了什麼？",a:"一片雲彩",o:["一片雲彩","一道彩虹","滿天星星"]},
+ {q:"作者照什麼順序寫這趟旅遊？",a:"空間順序：跟著地點移動",o:["空間順序：跟著地點移動","因果順序：起因、經過、結果","時間順序：春、夏、秋、冬"],tip:"課本第 91 頁：按照空間移動描寫景物，例子就是〈到此「藝」遊〉。"}
+];
+/* 參觀順序（依課文出現的先後；五站的名稱依課本第 89、91 頁的地圖：園區、魯班街、臨水劇場、月河、文昌街） */
+var STEPS=[
+ {n:1,w:"出發",t:"戶外教育日到了，心情很晴朗"},
+ {n:2,w:"園區",t:"磚紅色建築和紅燈籠"},
+ {n:3,w:"魯班街",t:"陶器、玉石、藍染和琉璃"},
+ {n:4,w:"臨水劇場",t:"看「噶瑪蘭公主」表演"},
+ {n:5,w:"月河",t:"坐木船穿過石拱橋"},
+ {n:6,w:"文昌街",t:"特色小店和紀念品"},
+ {n:7,w:"回程",t:"天空出現一片雲彩"}
+];
+/* 課本地圖上的五站（課本第 64、89、91 頁） */
+var LOCS=[
+ {k:"park",n:"園區",e:"🏮"},
+ {k:"luban",n:"魯班街",e:"🏺"},
+ {k:"theater",n:"臨水劇場",e:"🎭"},
+ {k:"river",n:"月河",e:"🚣"},
+ {k:"wenchang",n:"文昌街",e:"🛍️"}
+];
+/* 地點分類（句子依課文改寫） */
+var SORT=[
+ {t:"古色古香的磚紅色建築",s:"park"},
+ {t:"一個個紅燈籠，看起來喜氣洋洋",s:"park"},
+ {t:"傳習所介紹陶器、玉石、藍染",s:"luban"},
+ {t:"清透的琉璃閃著七彩光芒",s:"luban"},
+ {t:"演員又唱又跳、翻跟斗",s:"theater"},
+ {t:"有人走在細細的鋼索上",s:"theater"},
+ {t:"演員揮舞赤紅色的大旗",s:"theater"},
+ {t:"從渡船頭坐木船遊河",s:"river"},
+ {t:"穿過爬滿綠色植物的石拱橋",s:"river"},
+ {t:"岸邊有金黃的落羽松",s:"river"},
+ {t:"白色的水鳥飛來打招呼",s:"river"},
+ {t:"街上有許多特色小店",s:"wenchang"},
+ {t:"有人買了金魚造型香包",s:"wenchang"},
+ {t:"有人買了五顏六色的捏麵人",s:"wenchang"}
+];
+/* 遊記的三個部分（課本第 88 頁「如何寫遊記」）；前三題是課本的說明改寫，後四題依課文內容自己判斷 */
+var PART_O=["旅遊背景","旅遊過程","旅遊感想"];
+var PARTS=[
+ {d:"說明為什麼會有這趟旅程，也可以寫期待和心情",a:0},
+ {d:"分段寫出印象比較深刻的景物或活動",a:1},
+ {d:"寫出這次旅遊的收穫和感想",a:2},
+ {d:"戶外教育日到了，老師帶我們去宜蘭傳藝園區，我的心情很晴朗",a:0},
+ {d:"在魯班街看藝術品，到劇場看「噶瑪蘭公主」",a:1},
+ {d:"坐木船遊月河，再到文昌街逛特色小店",a:1},
+ {d:"看到許多傳統文化，體會到生活中有藝術，值得一來再來",a:2}
+];
+/* 寫作一：用感官收集材料（課本第 89 頁）；前四題是課本的例子，第五～七題取自課文，最後一題自編 */
+var SENSE_O=["視覺（用眼睛看）","聽覺（用耳朵聽）","觸覺（用皮膚感覺）"];
+var SENSES=[
+ {s:"岸邊金黃的落羽松",a:0,why:"看到落羽松是金黃色的，是視覺（課本第 89 頁）。"},
+ {s:"我迎著清涼的風",a:2,why:"皮膚感覺到風涼涼的，是觸覺（課本第 89 頁）。"},
+ {s:"耳邊傳來同學的驚呼聲",a:1,why:"聽到驚呼聲，是聽覺（課本第 89 頁）。"},
+ {s:"幾隻頑皮的魚不時在船邊出沒",a:0,why:"看到魚在船邊，是視覺（課本第 89 頁）。"},
+ {s:"清透的琉璃閃著七彩光芒",a:0,why:"看到七彩的光，是視覺。"},
+ {s:"河上充滿了歡笑聲",a:1,why:"聽到笑聲，是聽覺。"},
+ {s:"磚紅色的建築和一個個紅燈籠",a:0,why:"看到顏色和樣子，是視覺。"},
+ {s:"摸一摸陶杯，表面滑滑的、涼涼的",a:2,why:"用手摸到的感覺，是觸覺。（自編）"}
+];
+/* 寫作二：加入想法或感受（課本第 89 頁）；「看到的」和「感受」都取自課文，錯的選項自編 */
+var FEEL=[
+ {see:"清透的琉璃閃著七彩光芒",a:"讓我流連忘返",o:["讓我流連忘返","讓我想趕快離開","讓我覺得很害怕"]},
+ {see:"有人走在細細的鋼索上",a:"大家不禁為他捏一把冷汗",o:["大家不禁為他捏一把冷汗","大家覺得很無聊","大家都笑他"]},
+ {see:"演員揮舞赤紅色大旗，有如熊熊烈火",a:"全場為他尖叫",o:["全場為他尖叫","全場安安靜靜","觀眾都走光了"]},
+ {see:"古色古香的建築和一個個紅燈籠",a:"看起來喜氣洋洋",o:["看起來喜氣洋洋","看起來冷冷清清","看起來很可怕"]},
+ {see:"魚在船邊出沒，水鳥飛來打招呼",a:"河上充滿了歡笑聲",o:["河上充滿了歡笑聲","河上一點聲音也沒有","大家嚇得不敢動"]},
+ {see:"灰色的天空出現一片雲彩，顏色很溫暖",a:"就像我內心的喜悅和滿足",o:["就像我內心的喜悅和滿足","就像我心裡的害怕","就像我想哭的心情"]}
+];
+/* 寫作三：用顏色描寫（課本第 71 頁「跟著文字去旅行」）；前四題是課本的例子，後四題取自課文 */
+var COLOR=[
+ {s:"爬滿＿＿植物的石拱橋",a:"綠色",o:["綠色","金黃","白色"]},
+ {s:"＿＿的河水連著青草",a:"深綠色",o:["深綠色","赤紅色","磚紅色"]},
+ {s:"岸邊＿＿的落羽松",a:"金黃",o:["金黃","深綠色","白色"]},
+ {s:"＿＿的水鳥也飛來打招呼",a:"白色",o:["白色","金黃","赤紅色"]},
+ {s:"古色古香的＿＿建築",a:"磚紅色",o:["磚紅色","深綠色","白色"]},
+ {s:"半個舞臺大的＿＿大旗",a:"赤紅色",o:["赤紅色","金黃","深綠色"]},
+ {s:"清透的琉璃閃著＿＿光芒",a:"七彩",o:["七彩","灰色","深綠色"]},
+ {s:"原本＿＿的天空出現了一片雲彩",a:"灰色",o:["灰色","金黃","七彩"]}
+];
+/* 寫作四：表達感受的語詞（課本第 71 頁列出這七個語詞；意思和句子是自編的） */
+var MOODS=[
+ {w:"興高采烈",m:"非常高興，很有精神"},
+ {w:"流連忘返",m:"太喜歡了，捨不得離開"},
+ {w:"連聲叫好",m:"一直說「好棒」，不停稱讚"},
+ {w:"滿心喜悅",m:"心裡裝滿了快樂"},
+ {w:"如釋重負",m:"像放下很重的東西，鬆了一口氣"},
+ {w:"心有餘悸",m:"事情過了，想起來還是會害怕"},
+ {w:"眼睛為之一亮",m:"看到很棒的東西，眼睛都亮了起來"}
+];
+var MOOD=[
+ {s:"比賽贏了，全班＿＿的歡呼。",a:"興高采烈",o:["興高采烈","心有餘悸","流連忘返"]},
+ {s:"交出考卷後，我＿＿，終於可以放鬆了。",a:"如釋重負",o:["如釋重負","連聲叫好","流連忘返"]},
+ {s:"差一點被車子撞到，現在想起來還＿＿。",a:"心有餘悸",o:["心有餘悸","興高采烈","流連忘返"]},
+ {s:"魔術師的表演太精采，觀眾都＿＿。",a:"連聲叫好",o:["連聲叫好","心有餘悸","如釋重負"]},
+ {s:"海邊的夕陽好美，讓人＿＿，捨不得回家。",a:"流連忘返",o:["流連忘返","如釋重負","心有餘悸"]},
+ {s:"收到好朋友寫的卡片，我＿＿的把它收進抽屜。",a:"滿心喜悅",o:["滿心喜悅","心有餘悸","連聲叫好"]},
+ {s:"一走進玩具店，弟弟的＿＿，馬上跑到積木區。",a:"眼睛為之一亮",o:["眼睛為之一亮","心有餘悸","如釋重負"]}
+];
+
+function shuffle(a,rnd){rnd=rnd||Math.random;var b=a.slice();for(var i=b.length-1;i>0;i--){var j=Math.floor(rnd()*(i+1));var t=b[i];b[i]=b[j];b[j]=t;}return b;}
+function pick(a,n,rnd){return shuffle(a,rnd).slice(0,n);}
+function charBy(c){for(var i=0;i<CHARS.length;i++)if(CHARS[i].c===c)return CHARS[i];return null;}
+function uniq(a){var o=[];for(var i=0;i<a.length;i++)if(o.indexOf(a[i])<0)o.push(a[i]);return o;}
+function blank(s){return s.replace("＿＿",'<span class="blank">（　　）</span>');}
+/* 生字題：部首、總筆畫、注音 */
+function charQ(type,ch,rnd){
+ var opts,ans,q;
+ if(type==="bs"){ans=ch.bs;var all=uniq(CHARS.map(function(x){return x.bs;}).concat(["口","木","土","手"]));
+  opts=[ans].concat(pick(all.filter(function(b){return b!==ans;}),2,rnd));q="「"+ch.c+"」的部首是什麼？";}
+ else if(type==="tot"){ans=String(ch.tot);var d=[ch.tot-2,ch.tot-1,ch.tot+1,ch.tot+2].filter(function(n){return n>0;});
+  opts=[ans].concat(pick(d,2,rnd).map(String));q="「"+ch.c+"」總共幾畫？";}
+ else {ans=ch.zy;var others=uniq(CHARS.filter(function(x){return x.c!==ch.c;}).map(function(x){return x.zy;})).filter(function(z){return z!==ans;});
+  opts=[ans].concat(pick(others,2,rnd));q="「"+ch.words[0]+"」的「"+ch.c+"」怎麼念？";}
+ return {type:type,c:ch.c,q:q,a:ans,o:shuffle(opts,rnd)};
+}
+function lookQ(l,rnd){return {type:"look",q:l.s.replace("＿",'<span class="blank">（　）</span>'),a:l.a,o:shuffle([l.a,l.b],rnd),tip:l.tip};}
+function polyQ(p){return {type:"poly",q:p.s.replace("【",'<span class="hl">').replace("】","</span>")+"<br>這裡的「禁」怎麼念？",a:POLY_O[p.a],o:POLY_O.slice(),tip:p.why};}
+function wordQ(rnd){var w=pick(WORDS,1,rnd)[0],wo=pick(WORDS.filter(function(x){return x.w!==w.w;}),2,rnd);
+ return {type:"word",q:"「"+w.m+"」是哪個語詞？",a:w.w,o:shuffle([w.w,wo[0].w,wo[1].w],rnd)};}
+function fillQ(f,rnd){return {type:"fill",q:blank(f.s),a:f.a,o:shuffle(f.opts,rnd)};}
+function partQ(p){return {type:"part",q:"「"+p.d+"」<br>這是遊記的哪個部分？",a:PART_O[p.a],o:PART_O.slice()};}
+function senseQ(s){return {type:"sense",q:"「"+s.s+"」<br>這是用哪一種感官？",a:SENSE_O[s.a],o:SENSE_O.slice(),tip:s.why};}
+function feelQ(f,rnd){return {type:"feel",q:"課文寫到「"+f.see+"」，<br>接著寫了什麼感受？",a:f.a,o:shuffle(f.o,rnd),tip:"課文：「"+f.a+"」。"};}
+function colorQ(c,rnd){return {type:"color",q:"課文用了什麼顏色？<br>"+blank(c.s),a:c.a,o:shuffle(c.o,rnd),tip:"課文：「"+c.s.replace("＿＿",c.a)+"」。"};}
+function moodQ(m,rnd){return {type:"mood",q:blank(m.s),a:m.a,o:shuffle(m.o,rnd),tip:"「"+m.a+"」："+moodBy(m.a)+"。"};}
+function moodBy(w){for(var i=0;i<MOODS.length;i++)if(MOODS[i].w===w)return MOODS[i].m;return "";}
+/* 第幾站：依課本地圖的編號（1 園區、2 魯班街、3 臨水劇場、4 月河、5 文昌街） */
+function stopQ(rnd){var k=Math.floor((rnd||Math.random)()*LOCS.length),s=LOCS[k];
+ var o=[s.n].concat(pick(LOCS.filter(function(x){return x.k!==s.k;}),2,rnd).map(function(x){return x.n;}));
+ return {type:"step",q:"作者參觀的第 "+(k+1)+" 站是哪裡？",a:s.n,o:shuffle(o,rnd),tip:"順序是：園區、魯班街、臨水劇場、月河、文昌街。"};}
+/* 綜合挑戰：10 題 */
+function makeChallenge(rnd){
+ rnd=rnd||Math.random;var out=[],chs=pick(CHARS,3,rnd);
+ out.push(charQ("bs",chs[0],rnd));out.push(charQ("tot",chs[1],rnd));out.push(charQ("zy",chs[2],rnd));
+ pick(LOOK,2,rnd).forEach(function(l){out.push(lookQ(l,rnd));});
+ out.push(polyQ(pick(POLY,1,rnd)[0]));
+ out.push(wordQ(rnd));
+ out.push(rnd()<.5?senseQ(pick(SENSES,1,rnd)[0]):feelQ(pick(FEEL,1,rnd)[0],rnd));
+ out.push(rnd()<.5?colorQ(pick(COLOR,1,rnd)[0],rnd):moodQ(pick(MOOD,1,rnd)[0],rnd));
+ out.push(stopQ(rnd));
+ return shuffle(out,rnd);
+}
+function check(q,ans){return q.a===ans;}
+function sortCheck(text,loc){for(var i=0;i<SORT.length;i++)if(SORT[i].t===text)return SORT[i].s===loc;return false;}
+function matchCheck(word,meaning){for(var i=0;i<WORDS.length;i++)if(WORDS[i].w===word)return WORDS[i].m===meaning;return false;}
+/* 參觀順序：依序點，回傳 true 表示這一步點對了 */
+function stepCheck(done,n){return n===done+1;}
+function stars(correct,total){if(!total)return 0;var r=correct/total;return r>=1?3:r>=0.7?2:r>=0.4?1:0;}
+var PATS=["sense","feel","color","mood"];
+var BADGES=[
+ {id:"read",n:"📖 閱讀小達人",d:"閱讀理解全對"},
+ {id:"chars",n:"✍️ 生字小書法家",d:"看完 15 張生字卡"},
+ {id:"write",n:"🖌️ 描紅練習生",d:"在描寫板練習 5 個字"},
+ {id:"words",n:"🧩 語詞配對王",d:"完成一次語詞配對"},
+ {id:"pattern",n:"🪄 遊記小作家",d:"四個寫作練習都完成"},
+ {id:"step",n:"🚶 傳藝小導覽員",d:"參觀順序一次排對"},
+ {id:"loc",n:"🏛️ 地點分類王",d:"地點分類全對"},
+ {id:"champ",n:"🏆 挑戰王",d:"挑戰答對 9 題以上"}
+];
+function badges(st){
+ var g={};st=st||{};
+ if(st.readBest>=READ.length)g.read=1;
+ if(st.seen&&Object.keys(st.seen).length>=CHARS.length)g.chars=1;
+ if(st.wrote&&Object.keys(st.wrote).length>=5)g.write=1;
+ if(st.matchDone>=1)g.words=1;
+ if(st.pat&&PATS.every(function(k){return st.pat[k];}))g.pattern=1;
+ if(st.stepPerfect>=1)g.step=1;
+ if(st.locPerfect>=1)g.loc=1;
+ if(st.chBest>=9)g.champ=1;
+ return g;
+}
+function lcg(seed){var s=seed>>>0;return function(){s=(s*1664525+1013904223)>>>0;return s/4294967296;};}
+return {CHARS:CHARS,IDIOMS:IDIOMS,LOOK:LOOK,POLY:POLY,POLY_O:POLY_O,WORDS:WORDS,NOTES:NOTES,FILL:FILL,READ:READ,STEPS:STEPS,LOCS:LOCS,SORT:SORT,PARTS:PARTS,PART_O:PART_O,
+ SENSES:SENSES,SENSE_O:SENSE_O,FEEL:FEEL,COLOR:COLOR,MOODS:MOODS,MOOD:MOOD,PATS:PATS,BADGES:BADGES,
+ shuffle:shuffle,pick:pick,charBy:charBy,charQ:charQ,lookQ:lookQ,polyQ:polyQ,wordQ:wordQ,fillQ:fillQ,partQ:partQ,senseQ:senseQ,feelQ:feelQ,colorQ:colorQ,moodQ:moodQ,stopQ:stopQ,
+ makeChallenge:makeChallenge,check:check,sortCheck:sortCheck,matchCheck:matchCheck,stepCheck:stepCheck,stars:stars,badges:badges,lcg:lcg};
+})();
+if(typeof module!=="undefined"&&module.exports)module.exports=Core;
+</script>
+<script src="app.js"></script>
+</body>
+</html>
