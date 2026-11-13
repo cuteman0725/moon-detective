@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#9b5de5">
+<title>🧪 物質變變變｜自然 4上 第三單元</title>
+<style>
+:root{--ink:#2b2d42;--purple:#9b5de5;--pink:#ff6b9a;--sun:#ffb703;--blue:#4d96ff;--teal:#2a9d8f;--green:#52b788}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:#f3e8ff;overflow-x:hidden}
+body{margin:0;padding:0;font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",system-ui,sans-serif;color:var(--ink);min-height:100vh;background:linear-gradient(180deg,#e3d8ff,#f3e8ff 320px);padding-bottom:calc(60px + env(safe-area-inset-bottom))}
+header{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:8px;padding:10px 12px;padding-top:calc(10px + env(safe-area-inset-top));background:rgba(155,93,229,.97);color:#fff}
+header h1{font-size:clamp(17px,4.6vw,26px);margin:0;flex:1;letter-spacing:1px;min-width:0}
+.back{color:#fff;text-decoration:none;font-weight:800;background:rgba(255,255,255,.25);border-radius:999px;padding:10px 12px;font-size:15px;white-space:nowrap}
+.score{background:#fff;color:#7209b7;font-weight:900;border-radius:999px;padding:6px 12px;font-size:17px;box-shadow:0 3px 0 #9b5de5}
+.score.pop{animation:pop .5s}@keyframes pop{40%{transform:scale(1.3)}}
+main{max-width:1000px;margin:0 auto;padding:10px}
+section.page{display:none}section.page.active{display:block;animation:fadein .3s}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.card{background:#fff;border-radius:22px;padding:14px;margin:10px 0;box-shadow:0 6px 0 rgba(0,0,0,.1)}
+.card h2{margin:0 0 6px;font-size:clamp(20px,5vw,25px)}
+.card h3{margin:8px 0 6px;font-size:19px}
+.lead{font-size:17px;line-height:1.7;margin:6px 0}
+.small{font-size:14px;color:#666;line-height:1.5}
+.btn{appearance:none;border:none;border-radius:16px;padding:10px 14px;min-height:50px;font-size:17px;font-weight:800;cursor:pointer;background:var(--purple);color:#fff;box-shadow:0 4px 0 rgba(0,0,0,.22);font-family:inherit}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.22)}
+.btn.sun{background:var(--sun);color:#5a3b00}.btn.pink{background:var(--pink)}.btn.teal{background:var(--teal)}.btn.white{background:#fff;color:var(--ink);border:3px solid #ddd}.btn.small{min-height:44px;font-size:15px;padding:6px 10px}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0;align-items:center}.cen{justify-content:center}
+.tip{background:#fff7d6;border:3px dashed var(--sun);border-radius:16px;padding:8px 12px;font-size:16px;line-height:1.6;margin:8px 0}
+.done{background:linear-gradient(135deg,#d8f3dc,#fff1a8);border-radius:18px;padding:12px;font-size:18px;line-height:1.6;margin-top:10px}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;justify-content:space-around;background:#fff;padding:6px 4px;padding-bottom:calc(6px + env(safe-area-inset-bottom));box-shadow:0 -4px 16px rgba(0,0,0,.15)}
+nav.tabs button{flex:1;min-width:0;border:none;background:none;font-family:inherit;font-size:13px;font-weight:800;color:#666;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 1px;border-radius:14px;cursor:pointer;min-height:60px}
+nav.tabs button span{font-size:24px;line-height:1}nav.tabs button.on{background:#f3e8ff;color:#7209b7}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
+.bins{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin-top:10px}
+.bin{border-radius:14px;padding:8px;font-size:14px;line-height:1.5;min-height:70px;border:3px solid #eee;position:relative}
+.bin b{display:block;font-size:15px;margin-bottom:4px}
+.bin.over{background:#fff7d6;border-color:var(--sun)}
+.items{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.item{appearance:none;font-family:inherit;background:#f0f7ff;border:3px solid #cfe2ff;border-radius:12px;padding:6px 10px;font-weight:800;font-size:15px;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}
+.item.placed{cursor:default;opacity:.4}
+.item.shake{animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.fb{margin-top:8px;border-radius:14px;padding:8px 12px;font-size:17px;line-height:1.55;display:none}
+.fb.show{display:block}.fb.good{background:#d8f3dc}.fb.bad{background:#fff3cd}
+.temp-lab{position:relative;background:linear-gradient(180deg,#e3f8ff,#fff);border:4px solid #9bd0ff;border-radius:20px;padding:20px;min-height:260px;margin:10px 0}
+.thermometer{position:absolute;right:20px;top:50%;transform:translateY(-50%);width:50px;height:200px;background:#fff;border:4px solid #666;border-radius:25px;padding:8px 12px}
+.mercury{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:20px;background:linear-gradient(180deg,#ff4444,#cc0000);border-radius:10px;transition:height .5s}
+.temp-display{position:absolute;top:10px;left:10px;background:rgba(255,255,255,.95);border-radius:12px;padding:8px 12px;font-weight:900;font-size:28px;color:#c1121f;box-shadow:0 3px 0 rgba(0,0,0,.1)}
+.state-display{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:80px;text-align:center}
+.state-display div{font-size:20px;font-weight:800;margin-top:8px}
+.slider{width:100%;margin-top:12px;-webkit-appearance:none;appearance:none;height:12px;border-radius:6px;background:#e0e0e0;outline:none}
+.slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:30px;height:30px;border-radius:50%;background:var(--purple);cursor:pointer;box-shadow:0 3px 0 rgba(0,0,0,.2)}
+.slider::-moz-range-thumb{width:30px;height:30px;border-radius:50%;background:var(--purple);cursor:pointer;box-shadow:0 3px 0 rgba(0,0,0,.2)}
+.ph-lab{position:relative;background:linear-gradient(135deg,#f3e8ff,#ffe6ef);border:4px solid var(--purple);border-radius:20px;padding:16px;min-height:240px}
+.beaker{position:absolute;right:20px;top:50%;transform:translateY(-50%);width:100px;height:140px;border:4px solid #666;border-bottom-left-radius:50px;border-bottom-right-radius:50px;background:var(--juice,#dda0ff);transition:background .5s}
+.beaker:after{content:"";position:absolute;top:-4px;left:-4px;right:-4px;height:8px;background:#666;border-radius:4px}
+.test-items{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px;margin-top:8px;max-width:400px}
+.test-item{appearance:none;font-family:inherit;background:#fff;border:3px solid #ddd;border-radius:12px;padding:8px;font-weight:800;font-size:15px;cursor:pointer;min-height:60px;display:flex;align-items:center;justify-content:center;text-align:center}
+.test-item:active{transform:scale(.95)}
+.result-box{margin-top:10px;background:#fff;border-radius:12px;padding:10px;min-height:80px;border:3px solid #eee}
+.result-box b{display:block;font-size:18px;margin-bottom:4px}
+</style>
+</head>
+<body>
+<header>
+  <a class="back" href="../">← 自然</a>
+  <h1>🧪 物質變變變</h1>
+  <div class="score" id="score">⭐ 0</div>
+</header>
+<main>
+
+<!-- ===== 介紹 ===== -->
+<section class="page active" id="p-intro">
+  <div class="card">
+    <h2>🔬 第三單元 物質變變變</h2>
+    <p class="lead">📖 翰林版自然四上第三單元（課本 pp.80-99）</p>
+    <div class="tip">物質會因為水、溫度、空氣、酸鹼性、時間等因素而產生變化。有些變化可以回復原來的形態，有些不行！</div>
+    <h3>📚 本單元包含</h3>
+    <div class="grid2">
+      <div style="background:#e3f8ff;border-radius:14px;padding:10px;text-align:center">
+        <div style="font-size:40px">🔄</div>
+        <b style="font-size:18px">可回復 vs 不可回復</b>
+        <p class="small">判斷物質變化能不能回復原形態</p>
+      </div>
+      <div style="background:#ffe6ef;border-radius:14px;padding:10px;text-align:center">
+        <div style="font-size:40px">🌡️</div>
+        <b style="font-size:18px">溫度對物質的影響</b>
+        <p class="small">觀察冰塊、奶油、雞蛋受熱的變化</p>
+      </div>
+    </div>
+    <div class="grid2">
+      <div style="background:#d8f3dc;border-radius:14px;padding:10px;text-align:center">
+        <div style="font-size:40px">🧪</div>
+        <b style="font-size:18px">酸與鹼對物質的影響</b>
+        <p class="small">用紫高麗菜汁測試酸鹼</p>
+      </div>
+      <div style="background:#fff7d6;border-radius:14px;padding:10px;text-align:center">
+        <div style="font-size:40px">🏆</div>
+        <b style="font-size:18px">學習紀錄</b>
+        <p class="small">查看你的實驗成果</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 3-1 影響物質變化的因素 & 3-2 可回復/不可回復 ===== -->
+<section class="page" id="p-sort">
+  <div class="card">
+    <h2>🔄 3-1 & 3-2：可回復原形態 vs 不可回復原形態</h2>
+    <p class="lead">📖 課本 pp.80-89</p>
+    <div class="tip">💡 影響物質變化的因素：水、溫度、空氣、酸鹼性、時間。<br>課本例子：流水沖刷沙石、風吹塵土、鐵生鏽、麵團發酵、鹹豆漿加醋變塊狀。</div>
+  </div>
+
+  <div class="card">
+    <h3>📖 3-2 溫度對物質的影響（課本 p.85）</h3>
+    <p class="lead"><b>可回復原形態</b>：冰塊、奶油、巧克力受熱融化成液態，降溫冷卻後可以恢復固態。<br><b>不可回復原形態</b>：雞蛋受熱變硬、線香燃燒後，無法回復原來的形態。</p>
+    <div class="tip">💡 改變溫度的方法<br>• 升溫：瓦斯爐火、摩擦手、晒太陽／陽光照射、燃燒<br>• 降溫：加冰塊、放冰箱</div>
+  </div>
+
+  <div class="card">
+    <h3>🎯 分類大挑戰</h3>
+    <p class="small">把下面的變化拖到正確的籃子裡！</p>
+    <div class="bins">
+      <div class="bin" data-type="reversible" id="bin-rev">
+        <b>✅ 可回復原形態</b>
+        <div class="small">降溫或升溫可以變回來</div>
+        <div id="rev-list"></div>
+      </div>
+      <div class="bin" data-type="irreversible" id="bin-irr">
+        <b>❌ 不可回復原形態</b>
+        <div class="small">無法變回原來的樣子</div>
+        <div id="irr-list"></div>
+      </div>
+    </div>
+    <div class="items" id="sort-items"></div>
+    <div class="fb" id="sort-fb"></div>
+    <div id="sort-done"></div>
+  </div>
+</section>
+
+<!-- ===== 3-2 溫度實驗室 ===== -->
+<section class="page" id="p-temp">
+  <div class="card">
+    <h2>🌡️ 3-2 溫度對物質的影響</h2>
+    <p class="lead">📖 課本 p.85-89</p>
+    <div class="tip">💡 溫度計使用：紅色液柱上升表示溫度上升，下降表示溫度下降。<br>（課本使用酒精溫度計，紅色液體是染色的酒精）</div>
+  </div>
+
+  <div class="card">
+    <h3>🧊 實驗：觀察水的三態變化</h3>
+    <p class="small">拖動溫度計，看看水怎麼變化。</p>
+    <div class="temp-lab">
+      <div class="temp-display" id="temp-num">25°C</div>
+      <div class="state-display" id="state-icon">💧<div>液態水</div></div>
+      <div class="thermometer">
+        <div class="mercury" id="mercury" style="height:60px"></div>
+      </div>
+    </div>
+    <input type="range" min="-20" max="120" value="25" class="slider" id="temp-slider">
+    <div class="btns cen">
+      <button class="btn white small" onclick="setTemp(-10)">❄️ -10°C</button>
+      <button class="btn white small" onclick="setTemp(25)">💧 25°C</button>
+      <button class="btn white small" onclick="setTemp(110)">♨️ 110°C</button>
+    </div>
+    <div class="tip" id="temp-tip">📖 水在 0°C 以下結冰（固態），0°C~100°C 是液態，100°C 以上變成水蒸氣（氣態）。這些變化都可以回復原形態。</div>
+  </div>
+
+  <div class="card">
+    <h3>📖 課本的例子（p.85-88）</h3>
+    <div class="lead">
+      <b>可回復原形態：</b><br>
+      • 冰塊：受熱融化成液態水，降溫冷卻後恢復固態冰<br>
+      • 奶油：受熱融化成液態，降溫冷卻後恢復固態<br>
+      • 巧克力：受熱融化成液態，降溫冷卻後恢復固態<br>
+      • 高湯冰磚、檸檬汁冰磚、咖啡冰磚：可以凍成冰、也可以融化<br><br>
+      <b>不可回復原形態：</b><br>
+      • 雞蛋：受熱變硬，無法回復原來液態的樣子<br>
+      • 線香：燃燒後變成灰燼，無法回復原來的樣子
+    </div>
+  </div>
+</section>
+
+<!-- ===== 3-3 酸與鹼對物質的影響 ===== -->
+<section class="page" id="p-ph">
+  <div class="card">
+    <h2>🧪 3-3 酸與鹼對物質的影響</h2>
+    <p class="lead">📖 課本 p.90-99</p>
+    <div class="tip">💡 生活中的酸與鹼<br>
+    <b>酸性：</b>檸檬酸、食醋、乳酸飲料、運動飲料（聞起來酸酸的）<br>
+    <b>鹼性：</b>鹼粽（鹼水）、肥皂水、小蘇打水（摸起來滑滑的）</div>
+  </div>
+
+  <div class="card">
+    <h3>🥬 實驗：紫高麗菜汁測試酸鹼（課本 p.92-95）</h3>
+    <p class="small">📖 課本步驟：撕碎紫高麗菜葉，浸泡在水中，就能製作紫高麗菜汁。<br>點一個物質，看看紫高麗菜汁會變什麼顏色！</p>
+    <div class="ph-lab">
+      <div class="beaker" id="beaker"></div>
+      <div style="max-width:400px">
+        <p style="font-weight:800;font-size:18px;margin:0 0 8px">🥤 紫高麗菜汁</p>
+        <div class="test-items" id="test-items"></div>
+      </div>
+    </div>
+    <div class="result-box" id="ph-result">
+      <b>測試結果</b>
+      <p class="small">點選上面的物質開始測試！</p>
+    </div>
+    <div class="tip">📖 課本 p.98：科學家波以耳（Robert Boyle）發現紫羅蘭花瓣遇到酸鹼會變色，後來發明了石蕊試紙。</div>
+  </div>
+</section>
+
+<!-- ===== 紀錄 ===== -->
+<section class="page" id="p-rec">
+  <div class="card">
+    <h2>🏆 我的實驗紀錄</h2>
+    <div id="stats"></div>
+  </div>
+  <div class="card">
+    <button class="btn white" id="resetBtn">清除紀錄</button>
+    <p class="small">紀錄只存在這台平板的瀏覽器裡。</p>
+    <p class="small">資料來源：翰林版自然 4上 第三單元「物質變變變」課本。題目為練習自己編寫的。</p>
+  </div>
+</section>
+</main>
+
+<nav class="tabs" id="tabs">
+  <button class="on" data-p="p-intro"><span>📚</span>介紹</button>
+  <button data-p="p-sort"><span>🔄</span>3-1&3-2</button>
+  <button data-p="p-temp"><span>🌡️</span>溫度</button>
+  <button data-p="p-ph"><span>🧪</span>3-3酸鹼</button>
+  <button data-p="p-rec"><span>🏆</span>紀錄</button>
+</nav>
+
+<script>
+(function(){
+"use strict";
+var $=function(id){return document.getElementById(id);};
+var KEY="natureMatterV1";
+function each(list,fn){Array.prototype.forEach.call(list,fn);}
+function fresh(){return {stars:0,sortDone:0,tempQ:0,phDone:0,sortPerfect:0};}
+var store=fresh();
+try{var raw=localStorage.getItem(KEY);if(raw){var o=JSON.parse(raw);for(var k in o)store[k]=o[k];}}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
+function renderScore(){$("score").textContent="⭐ "+store.stars;}
+function addStars(n){if(n<=0)return;store.stars+=n;save();renderScore();var sc=$("score");sc.classList.remove("pop");void sc.offsetWidth;sc.classList.add("pop");}
+var actx=null;function beep(good){try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();(good?[660,880]:[260]).forEach(function(f,i){var o=actx.createOscillator(),g=actx.createGain();o.frequency.value=f;o.type="triangle";g.gain.setValueAtTime(.08,actx.currentTime+i*.08);g.gain.exponentialRampToValueAtTime(.001,actx.currentTime+i*.08+.2);o.connect(g);g.connect(actx.destination);o.start(actx.currentTime+i*.08);o.stop(actx.currentTime+i*.08+.22);});}catch(e){}}
+function goTab(p){each(document.querySelectorAll("#tabs button"),function(x){x.classList.toggle("on",x.getAttribute("data-p")===p);});
+  each(document.querySelectorAll("section.page"),function(s){s.classList.toggle("active",s.id===p);});
+  if(p==="p-rec")renderRec();window.scrollTo(0,0);}
+each(document.querySelectorAll("#tabs button"),function(b){b.addEventListener("click",function(){goTab(b.getAttribute("data-p"));});});
+
+/* 可回復/不可回復變化分類（對照課本 p.85-88） */
+var CHANGES=[
+  {t:"冰塊受熱融化",type:"reversible",src:"📖 p.85-86"},
+  {t:"奶油受熱融化",type:"reversible",src:"📖 p.86"},
+  {t:"巧克力受熱融化",type:"reversible",src:"📖 p.86"},
+  {t:"高湯冷凍成冰磚",type:"reversible",src:"📖 p.88"},
+  {t:"檸檬汁冷凍成冰磚",type:"reversible",src:"📖 p.88"},
+  {t:"雞蛋受熱變硬",type:"irreversible",src:"📖 p.87"},
+  {t:"線香燃燒",type:"irreversible",src:"📖 p.87"},
+  {t:"鐵生鏽",type:"irreversible",src:"🔎 延伸（課本 p.80 提到但未明確分類）"},
+  {t:"麵團發酵",type:"irreversible",src:"🔎 延伸（課本 p.80 提到但未明確分類）"},
+  {t:"鹹豆漿加醋變塊狀",type:"irreversible",src:"🔎 延伸（課本 p.80 提到但未明確分類）"}
+];
+function shuffle(a){var b=a.slice();for(var i=b.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=b[i];b[i]=b[j];b[j]=t;}return b;}
+var sortItems=shuffle(CHANGES),sortDone=0,sortErrs=0;
+sortItems.forEach(function(ch){
+  var it=document.createElement("div");it.className="item";it.textContent=ch.t;it.setAttribute("data-type",ch.type);it.setAttribute("draggable","true");
+  it.addEventListener("dragstart",function(e){e.dataTransfer.effectAllowed="move";e.dataTransfer.setData("text/plain",ch.t);it.classList.add("drag");});
+  it.addEventListener("dragend",function(){it.classList.remove("drag");});
+  it.addEventListener("click",function(){if(it.classList.contains("placed"))return;each(document.querySelectorAll(".item.sel"),function(x){x.classList.remove("sel");});it.classList.add("sel");});
+  $("sort-items").appendChild(it);
+});
+var bins=[$("bin-rev"),$("bin-irr")];
+bins.forEach(function(bin){
+  bin.addEventListener("dragover",function(e){e.preventDefault();bin.classList.add("over");});
+  bin.addEventListener("dragleave",function(){bin.classList.remove("over");});
+  bin.addEventListener("drop",function(e){e.preventDefault();bin.classList.remove("over");
+    var txt=e.dataTransfer.getData("text/plain"),it=document.querySelector('.item:not(.placed)[data-type]');
+    each(document.querySelectorAll(".item"),function(x){if(x.textContent===txt&&!x.classList.contains("placed"))it=x;});
+    if(!it)return;checkSort(it,bin.getAttribute("data-type"));});
+  bin.addEventListener("click",function(){var sel=document.querySelector(".item.sel");if(!sel||sel.classList.contains("placed"))return;checkSort(sel,bin.getAttribute("data-type"));});
+});
+function checkSort(it,binType){
+  var f=$("sort-fb"),ok=it.getAttribute("data-type")===binType;
+  if(ok){beep(true);it.classList.add("placed");it.classList.remove("sel");var list=binType==="reversible"?$("rev-list"):$("irr-list");
+    list.appendChild(it);sortDone++;addStars(1);f.className="fb show good";f.textContent="✅ 答對了！";
+    if(sortDone>=sortItems.length){store.sortDone=(store.sortDone||0)+1;var st=sortErrs===0?4:sortErrs<=2?2:1;addStars(st);if(sortErrs===0){store.sortPerfect=(store.sortPerfect||0)+1;}save();
+      $("sort-done").innerHTML='<div class="done">🎉 分類完成！錯 '+sortErrs+' 次，再加 '+st+' 顆星。'+(sortErrs===0?"全對，你是物質變化小專家！":"")+'</div>';}}
+  else{beep(false);sortErrs++;it.classList.remove("sel");it.classList.add("shake");setTimeout(function(){it.classList.remove("shake");},500);f.className="fb show bad";
+    f.textContent="❌ 再想想：「"+it.textContent+"」"+( binType==="reversible"?"可以":"不可以")+"回復原形態嗎？";}
+}
+
+/* 溫度實驗室 */
+window.setTemp=function(t){$("temp-slider").value=t;updateTemp();};
+function updateTemp(){
+  var t=+$("temp-slider").value,icon="💧",state="液態水",tip="",h=Math.max(10,Math.min(180,(t+20)*1.28));
+  $("temp-num").textContent=t+"°C";$("mercury").style.height=h+"px";
+  if(t<0){icon="🧊";state="固態冰";tip="📖 溫度低於 0°C，水結成冰（固態）。冰可以融化成水，是可回復原形態的變化。";}
+  else if(t>=100){icon="♨️";state="氣態水蒸氣";tip="📖 溫度高於 100°C，水變成水蒸氣（氣態）。水蒸氣可以冷凝成水，是可回復原形態的變化。";}
+  else{tip="📖 溫度在 0°C~100°C，水是液態。";}
+  $("state-icon").innerHTML=icon+"<div>"+state+"</div>";$("temp-tip").textContent=tip;
+}
+$("temp-slider").addEventListener("input",updateTemp);updateTemp();
+window.setTemp=function(t){$("temp-slider").value=t;updateTemp();};
+
+/* 酸鹼測試（對照課本 p.90-95） */
+var TESTS=[
+  {n:"檸檬汁",ph:"酸",color:"#ff6b9a",exp:"📖 p.90 檸檬汁含檸檬酸，是酸性。紫高麗菜汁遇酸變紅色系。",src:"📖"},
+  {n:"食醋",ph:"酸",color:"#ff9fb8",exp:"📖 p.90 食醋是酸性，聞起來酸酸的。紫高麗菜汁遇酸變紅色系。",src:"📖"},
+  {n:"乳酸飲料",ph:"酸",color:"#ffb3c1",exp:"📖 p.90 乳酸飲料是酸性。紫高麗菜汁遇酸變紅色系。",src:"📖"},
+  {n:"運動飲料",ph:"酸",color:"#ffc2d1",exp:"📖 p.90 運動飲料是酸性。紫高麗菜汁遇酸變紅色系。",src:"📖"},
+  {n:"鹼粽（鹼水）",ph:"鹼",color:"#57cc99",exp:"📖 p.90 鹼粽使用鹼水，是鹼性。紫高麗菜汁遇鹼變綠色／藍綠色系。",src:"📖"},
+  {n:"肥皂水",ph:"鹼",color:"#38b6a5",exp:"📖 p.90 肥皂水是鹼性，摸起來滑滑的。紫高麗菜汁遇鹼變綠色／藍綠色系。",src:"📖"},
+  {n:"小蘇打水",ph:"鹼",color:"#2a9d8f",exp:"📖 p.90 小蘇打水是鹼性。紫高麗菜汁遇鹼變綠色／藍綠色系。",src:"📖"}
+];
+var testContainer=$("test-items");
+if(testContainer){
+  TESTS.forEach(function(t){
+    var btn=document.createElement("button");btn.className="test-item";btn.textContent=t.n;
+    btn.addEventListener("click",function(){
+      $("beaker").style.setProperty("--juice",t.color);
+      var ph=t.ph==="酸"?"🔴 酸性":t.ph==="鹼"?"🟢 鹼性":"🟣 中性";
+      $("ph-result").innerHTML='<b>'+t.n+'</b><p class="lead">'+ph+'</p><p class="small">'+t.exp+'</p>';
+      beep(true);if(store.phDone<TESTS.length){store.phDone++;addStars(1);save();renderScore();}
+    });
+    testContainer.appendChild(btn);
+  });
+}
+
+/* 紀錄 */
+function renderRec(){
+  var h='<div class="lead">你已經完成：</div><ul>';
+  h+='<li>🔄 可回復/不可回復分類：'+(store.sortDone||0)+' 次'+(store.sortPerfect?' 🏆 '+store.sortPerfect+' 次全對':'')+'</li>';
+  h+='<li>🌡️ 溫度實驗：觀察水的三態變化</li>';
+  h+='<li>🧪 酸鹼測試：測試了 '+(store.phDone||0)+' / '+(TESTS?TESTS.length:7)+' 種物質</li>';
+  h+='</ul>';
+  var statsEl=$("stats");
+  if(statsEl)statsEl.innerHTML=h;
+}
+$("resetBtn").addEventListener("click",function(){if(!confirm("確定要清除所有紀錄嗎？"))return;store=fresh();save();renderScore();renderRec();});
+renderScore();
+})();
+</script>
+</body>
+</html>
