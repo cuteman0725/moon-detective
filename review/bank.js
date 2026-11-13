@@ -195,16 +195,15 @@
         ex: '鐘面上相鄰兩個數字之間是 1 大格，1 大格是 30°。' + dir + '轉了 ' + steps + ' 大格，30° × ' + steps + ' ＝ <b>' + (steps * 30) + '°</b>。',
         dg: function (x) { x = x[0]; if (x === steps) return '轉了 ' + steps + ' 大格，每一大格是 30°，要算 30° × ' + steps + '。'; if (x === (12 - steps) * 30) return '是「' + dir + '」：' + (ccw ? '和時鐘指針轉的方向相反' : '照時鐘指針轉的方向') + '，從 ' + from + ' 轉到 ' + to + '。'; return ''; } };
     },
-    /* 量角器讀數：內外圈 */
+    /* 量角器讀數：看圖判斷要讀內圈還是外圈（課本 p.32～35：外圈從左到右 0～180，內圈從右到左 0～180） */
     protractor: function () {
-      var outer = Math.random() < .5, d = ri(2, 17) * 10;
-      if (outer && d >= 100) d = 180 - d;
-      var realDeg = outer ? d : (180 - d);
-      var wrong1 = outer ? (180 - d) : d, wrong2 = outer ? (d + 10) : (180 - d + 10);
-      return { kind: 'pick', q: '量角器的 0 在<b>' + (outer ? '外圈' : '內圈') + '</b>，指針對準下面的刻度，這個角是幾度？<div style="margin:6px 0;color:#666;font-size:15px">' + (outer ? '（提示：0 在外圈時，看外圈的數字）' : '（提示：0 在內圈時，看內圈的數字）') + '</div>',
-        opts: [realDeg + '°', wrong1 + '°', wrong2 + '°'], a: 0,
-        ex: '0 在' + (outer ? '外圈' : '內圈') + '，要看' + (outer ? '外圈' : '內圈') + '的刻度。這個角是 <b>' + realDeg + '°</b>。',
-        dg: function () { return ''; } };
+      var inner = Math.random() < .5, d = pick([10, 20, 30, 40, 50, 60, 70, 80, 100, 110, 120, 130, 140, 150, 160, 170]);
+      var other = 180 - d, near = d + 10;
+      if (near > 170 || near === other) near = d - 10;
+      var ring = inner ? '內圈' : '外圈', side = inner ? '右邊' : '左邊';
+      return { kind: 'pick', q: '用量角器量這個角，它是幾度？<div class="qimg">' + protSVG(inner, d) + '</div>',
+        opts: [d + '°', other + '°', near + '°'], a: 0,
+        ex: '角的一邊對齊<b>' + side + '的 0</b>，那是<b>' + ring + '刻度</b>的 0，所以順著' + ring + '讀：<b>' + d + '°</b>。' + other + '° 是另一圈的數字，兩圈加起來是 180。' };
     },
     /* 角度分類 */
     angleKind: function () {
@@ -227,7 +226,7 @@
       var dir = ccw ? '逆時針' : '順時針', wrongDir = ccw ? '順時針' : '逆時針';
       var wrongTo = ccw ? ((from % 12) + steps) % 12 || 12 : (((from - steps) % 12) + 12) % 12 || 12;
       return { kind: 'pick', q: '鐘面上，指針從 <b>' + from + '</b> ' + dir + '轉 <b>' + (steps * 30) + '°</b>，會轉到哪裡？',
-        opts: [String(to), String(wrongTo), String(from)], a: 0,
+        opts: [to].concat([wrongTo, from, (to % 12) + 1, ((to + 10) % 12) + 1].filter(function (x, k, arr) { return x !== to && arr.indexOf(x) === k; }).slice(0, 2)).map(String), a: 0,
         ex: dir + (ccw ? '是和時鐘指針相反的方向' : '是照時鐘指針的方向') + '。從 ' + from + ' ' + dir + '轉 ' + steps + ' 格（' + (steps * 30) + '°），到 <b>' + to + '</b>。' };
     },
     /* 拖曳：角度分類籃子 */
@@ -242,7 +241,7 @@
       var kinds = ['銳角', '直角', '鈍角', '平角'].sort(function () { return Math.random() - .5; }).slice(0, 3);
       kinds.push(pick(kinds));
       return { kind: 'drag', mode: 'baskets', q: '看角度，把它們放進正確的籃子。',
-        slots: [{ id: '銳角', label: '銳角（小於 90°）' }, { id: '直角', label: '直角（90°）' }, { id: '鈍角', label: '鈍角（90°～180°）' }, { id: '平角', label: '平角（180°）' }],
+        slots: [{ id: '銳角', label: '銳角（小於 90°）' }, { id: '直角', label: '直角（90°）' }, { id: '鈍角', label: '鈍角（大於 90°、小於 180°）' }, { id: '平角', label: '平角（180°）' }],
         items: kinds.map(function (k, i) { return { id: i + 1, deg: mk(k), slot: k }; }), need: 4,
         ex: '銳角小於 90°、直角是 90°、鈍角大於 90° 又小於 180°、平角是 180°。' };
     },
@@ -1058,6 +1057,30 @@
   var DIG = '零一二三四五六七八九';
   function readD(h) { var s = fmtD(h), p = s.split('.'); return readNum(+p[0]) + (p[1] ? '點' + p[1].split('').map(function (c) { return DIG[+c]; }).join('') : ''); }
   // 百格板：k 格塗色（先一整條一整條塗，再塗零散的）
+  /* 量角器和一個角：inner 為 true 時，角的一邊對齊右邊（內圈）的 0；否則對齊左邊（外圈）的 0。d 是角的度數。
+     外圈（黑）從左到右 0～180，內圈（紅）從右到左 0～180，和課本的量角器一樣。 */
+  function protSVG(inner, d) {
+    var cx = 170, cy = 168, R = 150, o = '', lab = '', k, t, up, phi = inner ? d : 180 - d, b0 = inner ? 0 : 180;
+    function P(r, deg, dy) { var a = deg * Math.PI / 180; return (cx + r * Math.cos(a)).toFixed(1) + ',' + (cy - r * Math.sin(a) - (dy || 0)).toFixed(1); }
+    function xy(r, deg, dy) { var q = P(r, deg, dy).split(','); return 'x="' + q[0] + '" y="' + q[1] + '"'; }
+    var halo = ' text-anchor="middle" dominant-baseline="middle" font-weight="700" paint-order="stroke" stroke="#f4f9ff" stroke-width="3.5" stroke-linejoin="round"';
+    o += '<path d="M' + P(R, 180) + ' A' + R + ' ' + R + ' 0 0 1 ' + P(R, 0) + ' Z" fill="#f4f9ff" stroke="#5b7aa5" stroke-width="2"/>';
+    for (k = 0; k <= 180; k += 5) {
+      t = k % 10 === 0;
+      o += '<path d="M' + P(R, k) + ' L' + P(R - (t ? 11 : 6), k) + '" stroke="#5b7aa5" stroke-width="' + (t ? 1.6 : 1) + '"/>';
+      if (t) {
+        up = (k === 0 || k === 180) ? 9 : 0;   // 最兩邊的數字往上移一點，才不會壓在底線上
+        lab += '<text ' + xy(R - 21, k, up) + ' font-size="10" fill="#1d3557"' + halo + '>' + (180 - k) + '</text>'
+          + '<text ' + xy(R - 41, k, up) + ' font-size="9.5" fill="#e63946"' + halo + '>' + k + '</text>';
+      }
+    }
+    o += '<path d="M' + P(26, 180) + ' A26 26 0 0 1 ' + P(26, 0) + '" fill="none" stroke="#5b7aa5" stroke-width="1"/>';
+    // 角的兩邊（畫到量角器外面一點；先畫線、再蓋上數字，數字才不會被線擋住）、角的弧線、頂點
+    o += '<path d="M' + P(R + 12, b0) + ' L' + cx + ',' + cy + ' L' + P(R + 12, phi) + '" fill="none" stroke="#f77f00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>'
+      + '<path d="M' + P(40, Math.min(b0, phi)) + ' A40 40 0 0 0 ' + P(40, Math.max(b0, phi)) + '" fill="none" stroke="#f77f00" stroke-width="2"/>'
+      + lab + '<circle cx="' + cx + '" cy="' + cy + '" r="4" fill="#f77f00"/>';
+    return '<svg viewBox="0 0 340 184" width="340" role="img" aria-label="量角器量一個角">' + o + '</svg>';
+  }
   function gridSVG(k, size, col) {
     size = size || 150; var c = size / 10, h = '<svg viewBox="0 0 ' + size + ' ' + size + '" width="' + size + '" height="' + size + '" class="grid100" role="img" aria-label="百格板塗了 ' + k + ' 格">';
     for (var i = 0; i < 100; i++) { var col_ = Math.floor(i / 10), row = i % 10; h += '<rect x="' + (col_ * c + .5) + '" y="' + (row * c + .5) + '" width="' + (c - 1) + '" height="' + (c - 1) + '" fill="' + (i < k ? (col || '#ff9f1c') : '#fff') + '" stroke="#c9bff2" stroke-width="1"/>'; }
@@ -1220,8 +1243,12 @@
     [6,"標","飄","西螺最「紅」的地標"],
     [6,"仰","迎","人們仰望的臺灣驕傲"]
   ];
+  // 換過 id 的卡：舊 id → 新 id。排程載入進度時會把舊紀錄接到新 id，孩子的進度才不會重來。
+  // 改錯字卡原本的 id 是 'cnx:正確的字'，2026/11/10 改成 'cnx課次:正確的字:形近字'。
+  var RENAMED = {};
   LOOK.forEach(function (x) {
     var k = x[3].indexOf(x[1]), wrong = x[3].slice(0, k) + x[2] + x[3].slice(k + 1);
+    if (!RENAMED['cnx:' + x[1]]) RENAMED['cnx:' + x[1]] = 'cnx' + x[0] + ':' + x[1] + ':' + x[2];
     cards.push({ id: 'cnx' + x[0] + ':' + x[1] + ':' + x[2], s: 'cn', u: 'cn' + x[0], type: 'spot', label: '改錯字：' + x[1], q: '這句話有一個<b>錯字</b>，把它點出來。', parts: wrong.split(''), bad: k,
       fix: '「' + x[2] + '」要改成「<b>' + x[1] + '</b>」：' + x[3], ex: '「' + x[1] + '」和「' + x[2] + '」長得很像，要看清楚。' });
   });
@@ -1656,5 +1683,5 @@
   var LATER = {}; UNITS.forEach(function (u) { if (u.later) LATER[u.k] = true; });
   cards.forEach(function (c) { if (LATER[c.u]) c.later = true; });
 
-  root.REVIEW_BANK = { subjects: SUBJECTS, units: UNITS, cards: cards, make: make, readNum: readNum, moonSVG: moonSVG, GEN: GEN, fmtD: fmtD, readD: readD, gridSVG: gridSVG, fq: fq, mx: mx, fracBars: fracBars, barSVG: barSVG, lineSVG: lineSVG, pictoHTML: pictoHTML, barChart: barChart };
+  root.REVIEW_BANK = { renamed: RENAMED, subjects: SUBJECTS, units: UNITS, cards: cards, make: make, readNum: readNum, moonSVG: moonSVG, GEN: GEN, fmtD: fmtD, readD: readD, gridSVG: gridSVG, protSVG: protSVG, fq: fq, mx: mx, fracBars: fracBars, barSVG: barSVG, lineSVG: lineSVG, pictoHTML: pictoHTML, barChart: barChart };
 })(typeof window !== 'undefined' ? window : this);
