@@ -224,6 +224,8 @@ main{max-width:760px;margin:0 auto;padding:12px 16px}
 .dtray{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:10px 0;min-height:56px}
 .dchip{appearance:none;touch-action:none;user-select:none;-webkit-user-select:none;min-width:56px;min-height:52px;padding:6px 12px;border:3px solid #ffb703;border-radius:14px;background:#fff7d6;font-size:24px;font-weight:900;cursor:grab;font-family:inherit;color:var(--ink);box-shadow:0 4px 0 #e0a300}
 .dchip.tri{padding:2px 4px;background:#fff}
+.dchip.deg{min-width:88px;min-height:64px;background:#e6f0ff;border-color:#4d96ff;box-shadow:0 4px 0 #3a7bd5}
+.degNum{font-size:30px;font-weight:900;color:#1e3a8a}
 .triBox{display:flex;flex-direction:column;align-items:center;line-height:1.1}
 .triBox small{font-size:12px;font-weight:800;color:#4f3bc4;white-space:nowrap}
 .dchip.sel{outline:4px solid var(--violet);outline-offset:2px}
@@ -1147,7 +1149,7 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
     else if (Q.mode === 'board') h = '<div class="dboard">' + boardArt(Q.board) + Q.slots.map(function (s) { return '<div class="dslot onb' + (s.label ? ' wide' : '') + '" data-s="' + s.id + '" style="left:' + s.x + '%;top:' + s.y + '%' + (s.w ? ';width:' + s.w + '%' : '') + '"><span class="ph">' + (s.label || '？') + '</span></div>'; }).join('') + '</div>';
     else h = '<div class="dbaskets">' + Q.slots.map(function (s) { return '<div class="dslot basket" data-s="' + s.id + '"><b>' + s.label + '</b><div class="bin"></div></div>'; }).join('') + '</div>';
     $('qCard').innerHTML = head(c, it.again) + '<p class="kicker">🧲 放到對的位置</p><div class="q">' + Q.q + '</div>' + h
-      + '<div class="dtray" id="dTray">' + Q.items.map(function (x) { return '<button type="button" class="dchip' + (x.tri ? ' tri' : '') + '" data-i="' + x.id + '">' + (x.tri ? triSVG(x.tri, 88) : esc(x.html)) + '</button>'; }).join('') + '</div>'
+      + '<div class="dtray" id="dTray">' + Q.items.map(function (x) { return '<button type="button" class="dchip' + (x.tri ? ' tri' : '') + (x.deg !== undefined ? ' deg' : '') + '" data-i="' + x.id + '">' + (x.tri ? triSVG(x.tri, 88) : x.deg !== undefined ? '<span class="degNum">' + x.deg + '°</span>' : esc(x.html)) + '</button>'; }).join('') + '</div>'
       + '<p class="game-msg small" id="dMsg" aria-live="polite">' + (Q.mode === 'char' ? '有兩塊是多出來的，只要放對的那兩塊。' : '') + '</p><div id="dFb"></div>';
     var item = function (id) { return Q.items.filter(function (x) { return x.id === +id; })[0]; };
     function tryPlace(chip, slot) {
@@ -1180,7 +1182,7 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
         if (done || chip.disabled) return;
         var sx = e.clientX, sy = e.clientY, moved = false, ghost = null;
         var mv = function (ev) {
-          if (!moved && Math.hypot(ev.clientX - sx, ev.clientY - sy) > 8) { moved = true; ghost = chip.cloneNode(true); ghost.className = 'dchip ghost' + (chip.classList.contains('tri') ? ' tri' : ''); document.body.appendChild(ghost); chip.classList.add('lift'); }
+          if (!moved && Math.hypot(ev.clientX - sx, ev.clientY - sy) > 8) { moved = true; ghost = chip.cloneNode(true); ghost.className = 'dchip ghost' + (chip.classList.contains('tri') ? ' tri' : '') + (chip.classList.contains('deg') ? ' deg' : ''); document.body.appendChild(ghost); chip.classList.add('lift'); }
           if (ghost) { ghost.style.left = (ev.clientX - 30) + 'px'; ghost.style.top = (ev.clientY - 24) + 'px'; ev.preventDefault(); }
         };
         var up = function (ev) {

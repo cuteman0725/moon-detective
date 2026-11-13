@@ -195,6 +195,57 @@
         ex: '鐘面上相鄰兩個數字之間是 1 大格，1 大格是 30°。' + dir + '轉了 ' + steps + ' 大格，30° × ' + steps + ' ＝ <b>' + (steps * 30) + '°</b>。',
         dg: function (x) { x = x[0]; if (x === steps) return '轉了 ' + steps + ' 大格，每一大格是 30°，要算 30° × ' + steps + '。'; if (x === (12 - steps) * 30) return '是「' + dir + '」：' + (ccw ? '和時鐘指針轉的方向相反' : '照時鐘指針轉的方向') + '，從 ' + from + ' 轉到 ' + to + '。'; return ''; } };
     },
+    /* 量角器讀數：內外圈 */
+    protractor: function () {
+      var outer = Math.random() < .5, d = ri(2, 17) * 10;
+      if (outer && d >= 100) d = 180 - d;
+      var realDeg = outer ? d : (180 - d);
+      var wrong1 = outer ? (180 - d) : d, wrong2 = outer ? (d + 10) : (180 - d + 10);
+      return { kind: 'pick', q: '量角器的 0 在<b>' + (outer ? '外圈' : '內圈') + '</b>，指針對準下面的刻度，這個角是幾度？<div style="margin:6px 0;color:#666;font-size:15px">' + (outer ? '（提示：0 在外圈時，看外圈的數字）' : '（提示：0 在內圈時，看內圈的數字）') + '</div>',
+        opts: [realDeg + '°', wrong1 + '°', wrong2 + '°'], a: 0,
+        ex: '0 在' + (outer ? '外圈' : '內圈') + '，要看' + (outer ? '外圈' : '內圈') + '的刻度。這個角是 <b>' + realDeg + '°</b>。',
+        dg: function () { return ''; } };
+    },
+    /* 角度分類 */
+    angleKind: function () {
+      var types = [
+        { name: '銳角', range: [5, 85], def: '小於 90°' },
+        { name: '直角', deg: 90, def: '等於 90°' },
+        { name: '鈍角', range: [95, 175], def: '大於 90°、小於 180°' },
+        { name: '平角', deg: 180, def: '等於 180°（一條直線）' },
+        { name: '周角', deg: 360, def: '等於 360°（轉一整圈）' }
+      ];
+      var t = pick(types), d = t.deg || ri(t.range[0] / 5, t.range[1] / 5) * 5;
+      var opts = ['銳角', '直角', '鈍角', '平角', '周角'];
+      return { kind: 'pick', q: '有一個角是 <b>' + d + '°</b>，它是什麼角？', opts: opts, a: opts.indexOf(t.name),
+        ex: d + '° ' + t.def + '，是<b>' + t.name + '</b>。' };
+    },
+    /* 順時針與逆時針 */
+    clockDir: function () {
+      var ccw = Math.random() < .5, steps = pick([2, 3, 4, 6]), from = ri(1, 12);
+      var to = ccw ? (((from - steps) % 12) + 12) % 12 || 12 : ((from % 12) + steps) % 12 || 12;
+      var dir = ccw ? '逆時針' : '順時針', wrongDir = ccw ? '順時針' : '逆時針';
+      var wrongTo = ccw ? ((from % 12) + steps) % 12 || 12 : (((from - steps) % 12) + 12) % 12 || 12;
+      return { kind: 'pick', q: '鐘面上，指針從 <b>' + from + '</b> ' + dir + '轉 <b>' + (steps * 30) + '°</b>，會轉到哪裡？',
+        opts: [String(to), String(wrongTo), String(from)], a: 0,
+        ex: dir + (ccw ? '是和時鐘指針相反的方向' : '是照時鐘指針的方向') + '。從 ' + from + ' ' + dir + '轉 ' + steps + ' 格（' + (steps * 30) + '°），到 <b>' + to + '</b>。' };
+    },
+    /* 拖曳：角度分類籃子 */
+    angleSort: function () {
+      var mk = function (k) {
+        if (k === '銳角') return ri(2, 17) * 5;
+        if (k === '直角') return 90;
+        if (k === '鈍角') return ri(19, 35) * 5;
+        if (k === '平角') return 180;
+        return 360;
+      };
+      var kinds = ['銳角', '直角', '鈍角', '平角'].sort(function () { return Math.random() - .5; }).slice(0, 3);
+      kinds.push(pick(kinds));
+      return { kind: 'drag', mode: 'baskets', q: '看角度，把它們放進正確的籃子。',
+        slots: [{ id: '銳角', label: '銳角（小於 90°）' }, { id: '直角', label: '直角（90°）' }, { id: '鈍角', label: '鈍角（90°～180°）' }, { id: '平角', label: '平角（180°）' }],
+        items: kinds.map(function (k, i) { return { id: i + 1, deg: mk(k), slot: k }; }), need: 4,
+        ex: '銳角小於 90°、直角是 90°、鈍角大於 90° 又小於 180°、平角是 180°。' };
+    },
     div41: function () {
       var d, Q, R, N;
       for (var t = 0; t < 200; t++) { d = ri(2, 9); Q = ri(Math.ceil(1000 / d), Math.floor(9999 / d)); R = Math.random() < .3 ? 0 : ri(1, d - 1); N = d * Q + R; if (N >= 1000 && N <= 9999) break; }
@@ -1142,6 +1193,7 @@
     [1,"墨","黑","繁華墨綠"],
     [1,"姿","資","最多采多姿的時節"],
     [1,"幅","福","像一幅風景畫"],
+    [1,"氣","棄","家裡充滿了藝術氣息"],
     [2,"汽","氣","被汽車撞倒"],
     [2,"燙","湯","先將新鮮排骨燙過"],
     [2,"換","喚","再換水，煮出精華"],
@@ -1161,6 +1213,7 @@
     [5,"困","因","克服種種困難"],
     [5,"爭","掙","努力為臺灣爭光"],
     [5,"震","雲","心中非常震驚"],
+    [5,"棄","氣","不輕言放棄"],
     [6,"尺","戶","一千九百三十九公尺"],
     [6,"護","獲","接受它的保護"],
     [6,"層","曾","約兩層樓高"],
@@ -1169,14 +1222,14 @@
   ];
   LOOK.forEach(function (x) {
     var k = x[3].indexOf(x[1]), wrong = x[3].slice(0, k) + x[2] + x[3].slice(k + 1);
-    cards.push({ id: 'cnx:' + x[1], s: 'cn', u: 'cn' + x[0], type: 'spot', label: '改錯字：' + x[1], q: '這句話有一個<b>錯字</b>，把它點出來。', parts: wrong.split(''), bad: k,
+    cards.push({ id: 'cnx' + x[0] + ':' + x[1] + ':' + x[2], s: 'cn', u: 'cn' + x[0], type: 'spot', label: '改錯字：' + x[1], q: '這句話有一個<b>錯字</b>，把它點出來。', parts: wrong.split(''), bad: k,
       fix: '「' + x[2] + '」要改成「<b>' + x[1] + '</b>」：' + x[3], ex: '「' + x[1] + '」和「' + x[2] + '」長得很像，要看清楚。' });
   });
 
   // 數學：一型一張卡
   [['ma1', 'place', '數字表示多少'], ['ma1', 'write', '大數寫成數字'], ['ma1', 'addsub', '大數加減'], ['ma1', 'seq', '依序加 1000、10000'], ['ma1', 'compose', '幾個萬、幾個千合起來'], ['ma1', 'wan', '用「萬」當單位'],
    ['ma2', 'mul41', '四位數 × 一位數'], ['ma2', 'mul22', '一、二位數 × 二位數'], ['ma2', 'mul32', '三位數 × 二位數'], ['ma2', 'mul42', '四位數 × 二位數'], ['ma2', 'quick', '補 0 快算'],
-   ['ma3', 'angle', '角度計算'],
+   ['ma3', 'angle', '角度計算'], ['ma3', 'protractor', '量角器內外圈'], ['ma3', 'angleKind', '角度分類'], ['ma3', 'clockDir', '順時針與逆時針'],
    ['ma4', 'div41', '四位數 ÷ 一位數'], ['ma4', 'div22', '二位數 ÷ 二位數'], ['ma4', 'div32', '三位數 ÷ 二位數'], ['ma4', 'div42', '四位數 ÷ 二位數'],
    ['ma5', 'km1', '公里換公尺'], ['ma5', 'km2', '公尺換公里'], ['ma5', 'km3', '公里公尺加減'],
    ['ma6', 'triAngle', '以角分類三角形'], ['ma6', 'triSide', '以邊分類三角形'], ['ma6', 'triIso', '等腰三角形'], ['ma6', 'triEqui', '正三角形'],
@@ -1540,6 +1593,9 @@
     [2,"It's four fifteen."],
     [2,"What time is it in London?"],
     [2,"It's seven forty."],
+    [2,"It's half past four."],
+    [2,"It's a quarter past six."],
+    [2,"It's a quarter to seven."],
     [3,"Is this your pencil?"],
     [3,"Yes, it is."],
     [3,"No, it's not."],
@@ -1574,6 +1630,7 @@
   cards.push({ id: 'nad:fish', s: 'na', u: 'na2', type: 'drag', gen: 'fishParts', label: '魚的身體構造' });
   cards.push({ id: 'nad:pond', s: 'na', u: 'na2', type: 'drag', gen: 'pondPlants', label: '水生植物住哪裡' });
   cards.push({ id: 'mad:tri', s: 'ma', u: 'ma6', type: 'drag', gen: 'triSort', label: '三角形分類籃子' });
+  cards.push({ id: 'mad:angle', s: 'ma', u: 'ma3', type: 'drag', gen: 'angleSort', label: '角度分類籃子' });
 
   /* 出題：把卡片變成這一次要作答的題目 */
   function make(card) {
