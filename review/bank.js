@@ -35,6 +35,7 @@
     { k: 'ma10', s: 'ma', name: '統計圖', href: 'math/charts/', later: true },
     { k: 'na1', s: 'na', name: '第一單元 閃亮的天空', href: 'nature/moon-detective/#lesson1' },
     { k: 'na2', s: 'na', name: '第二單元 水域環境', href: 'nature/moon-detective/#lesson2' },
+    { k: 'na3', s: 'na', name: '第三單元 物質變變變', href: 'nature/matter-changes/' },
     { k: 'so1', s: 'so', name: '閱讀生活中的地圖', href: 'social/reading-maps/' },
     { k: 'so2', s: 'so', name: '善用地圖好生活', href: 'social/map-life/' },
     { k: 'so3', s: 'so', name: '高低起伏的地形', href: 'social/landforms/' },
