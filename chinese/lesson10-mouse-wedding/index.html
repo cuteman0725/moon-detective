@@ -2,248 +2,668 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>第九課 阿白觀察記 - 國語四上</title>
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ff6b9a">
+<title>老鼠嫁女兒 🐭｜南一國語 4上 第十課</title>
 <style>
-body { font-family: "Microsoft JhengHei", sans-serif; max-width: 600px; margin: 20px auto; padding: 0 16px; background: #f5f5f5; }
-h1 { color: #2b7a4f; font-size: 24px; margin: 20px 0 10px; }
-.tabs { display: flex; gap: 4px; flex-wrap: wrap; margin: 20px 0; }
-.tab { flex: 1; min-width: 80px; padding: 10px 8px; border: none; background: #ddd; cursor: pointer; border-radius: 8px 8px 0 0; font-size: 15px; }
-.tab.active { background: white; font-weight: bold; }
-.panel { display: none; background: white; padding: 20px; border-radius: 0 0 12px 12px; min-height: 300px; }
-.panel.active { display: block; }
-.char-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 10px; }
-.char-card { padding: 20px 10px; text-align: center; background: #e3f2fd; border-radius: 8px; cursor: pointer; font-size: 32px; }
-.char-card:hover { background: #bbdefb; }
-button { margin: 10px 5px 10px 0; padding: 10px 20px; font-size: 16px; border-radius: 8px; border: none; background: #2b7a4f; color: white; cursor: pointer; }
-button:hover { background: #1e5a3a; }
-#quiz-area { line-height: 1.8; }
-.quiz-q { margin: 15px 0; padding: 12px; background: #f0f7ff; border-radius: 8px; }
-.quiz-opt { display: block; margin: 5px 0; padding: 8px; cursor: pointer; background: #e8f4f8; border-radius: 4px; }
-.quiz-opt:hover { background: #d0e8f0; }
-.correct { background: #c8e6c9 !important; }
-.wrong { background: #ffcdd2 !important; }
-canvas { border: 2px solid #333; touch-action: none; }
+:root{--ink:#2b2d42;--org:#ff9f1c;--sun:#ffd166;--pink:#ff6b9a;--blue:#4d96ff;--teal:#2a9d8f;--purple:#9b5de5;--green:#52b788}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:#fff6f9;overflow-x:hidden}
+html,body{margin:0;padding:0}
+body{font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",system-ui,sans-serif;color:var(--ink);min-height:100vh;background:linear-gradient(180deg,#ffd6e4 0,#fff6f9 260px);padding-bottom:calc(92px + env(safe-area-inset-bottom))}
+header{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:8px;padding:10px 12px;padding-top:calc(10px + env(safe-area-inset-top));background:rgba(255,107,154,.97);color:#fff}
+header h1{font-size:clamp(17px,4.6vw,26px);margin:0;flex:1;letter-spacing:1px;min-width:0}
+.back{color:#fff;text-decoration:none;font-weight:800;background:rgba(255,255,255,.25);border-radius:999px;padding:8px 12px;font-size:15px;white-space:nowrap}
+.score{background:#fff;color:#b0154a;font-weight:900;border-radius:999px;padding:6px 12px;font-size:17px;white-space:nowrap;box-shadow:0 3px 0 #c2185b}
+.score.pop{animation:pop .5s}@keyframes pop{40%{transform:scale(1.3)}}
+main{max-width:1000px;margin:0 auto;padding:10px}
+section.page{display:none}section.page.active{display:block;animation:fadein .3s}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.card{background:#fff;border-radius:22px;padding:14px;margin:10px 0;box-shadow:0 6px 0 rgba(0,0,0,.1)}
+.card h2{margin:0 0 6px;font-size:clamp(20px,5vw,25px)}.card h3{margin:4px 0 6px;font-size:19px}
+.small{font-size:14px;color:#666;line-height:1.5}
+.lead{font-size:17px;line-height:1.75;margin:6px 0}
+.btn{appearance:none;border:none;border-radius:16px;padding:10px 14px;min-height:50px;font-size:17px;font-weight:800;cursor:pointer;background:var(--blue);color:#fff;box-shadow:0 4px 0 rgba(0,0,0,.22);font-family:inherit;touch-action:manipulation}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.22)}
+.btn.org{background:var(--org)}.btn.pink{background:var(--pink)}.btn.teal{background:var(--teal)}.btn.purple{background:var(--purple)}.btn.gray{background:#8d99ae}.btn.green{background:var(--green)}
+.btn.white{background:#fff;color:var(--ink);border:3px solid #ffd0df}.btn.on{outline:4px solid var(--pink);outline-offset:1px;background:#fff0f5}
+.btn.small{min-height:44px;font-size:15px;padding:6px 10px}
+.btn:disabled{opacity:.4}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0;align-items:center}.cen{justify-content:center}
+.seg{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
+.hidden{display:none!important}
+.fb{margin-top:8px;border-radius:14px;padding:8px 12px;font-size:17px;line-height:1.55;display:none}
+.fb.show{display:block}.fb.good{background:#d8f3dc}.fb.bad{background:#fff3cd}.fb.info{background:#f3e8ff}
+.done{background:linear-gradient(135deg,#d8f3dc,#fff1a8);border-radius:18px;padding:12px;font-size:18px;line-height:1.6;margin-top:10px}
+.tip{background:#fffbea;border:3px dashed var(--sun);border-radius:16px;padding:8px 12px;font-size:16px;line-height:1.6;margin-top:8px}
+.tip.more{background:#f3f7ff;border-color:#b9cdf5}
+.q{font-size:21px;line-height:1.6;font-weight:800;text-align:center;margin:6px 0;word-break:break-word}
+.q .hl{color:#c1121f;border-bottom:3px solid var(--pink)}
+.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin-top:8px}
+.choices .btn{background:#fff;color:var(--ink);border:3px solid #d6e4ff;font-size:19px;min-height:58px;line-height:1.4}
+.choices .btn.ok{background:#d8f3dc;border-color:#2ec4b6}.choices .btn.no{background:#ffd6dc;border-color:#ff6b9a;animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.prog{display:flex;gap:4px;justify-content:center;margin:4px 0;flex-wrap:wrap}
+.prog i{width:20px;height:10px;border-radius:6px;background:#eee;display:block}.prog i.ok{background:#2ec4b6}.prog i.no{background:#ff6b9a}.prog i.cur{background:var(--sun)}
+table.rec{border-collapse:collapse;width:100%;font-size:16px}
+table.rec td,table.rec th{padding:8px;border-bottom:1px solid #eee;text-align:left;vertical-align:top}
+.statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.stat{background:#ffe6ef;border-radius:16px;padding:10px;text-align:center}.stat b{display:block;font-size:28px;color:#b0154a}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.bdg{background:#eee;border-radius:14px;padding:6px 10px;font-weight:800;color:#999;font-size:15px}.bdg.got{background:linear-gradient(135deg,#ffd166,#ff9f1c);color:#5a3b00}
+.bdg small{display:block;font-weight:600;font-size:12px}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;justify-content:space-around;background:#fff;padding:6px 4px;padding-bottom:calc(6px + env(safe-area-inset-bottom));box-shadow:0 -4px 16px rgba(0,0,0,.15)}
+nav.tabs button{flex:1;min-width:0;border:none;background:none;font-family:inherit;font-size:13px;font-weight:800;color:#666;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 1px;border-radius:14px;cursor:pointer;min-height:60px;touch-action:manipulation}
+nav.tabs button span{font-size:24px;line-height:1}nav.tabs button.on{background:#ffe0eb;color:#b0154a}
+.burst{position:fixed;z-index:99;pointer-events:none;font-size:30px;animation:fly 1.1s ease-out forwards}
+@keyframes fly{to{transform:translate(var(--dx),var(--dy)) rotate(360deg);opacity:0}}
+.info{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:8px 0}
+.info div{background:#fff0f5;border-radius:14px;padding:8px 10px;font-size:16px}.info b{display:block;font-size:13px;color:#b0154a}
+.part{border:3px solid #ffd0df;border-radius:18px;padding:10px 12px;margin:8px 0;background:#fffafc}
+.part h4{margin:0 0 4px;font-size:18px;line-height:1.7}.part .tag{display:inline-block;background:var(--pink);color:#fff;border-radius:999px;padding:2px 10px;font-size:14px;margin-right:6px;line-height:1.5}
+.part .tag.t2{background:var(--teal)}
+.quote{background:#fff4c2;border-radius:8px;padding:2px 6px;font-weight:700;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:8px 0}
+.steps .btn{color:var(--ink);text-align:left;min-height:56px;font-size:17px;line-height:1.4}
+.steps .btn small{display:block;font-size:14px;font-weight:600;color:#555}
+.steps .btn.ok{opacity:.45}
+.stepdone{list-style:none;margin:8px 0;padding:0}
+.stepdone li{background:#fff4c2;border-radius:12px;padding:8px 12px;margin:6px 0;font-size:17px;font-weight:700}
+.stepdone li b{display:inline-block;background:var(--pink);color:#fff;border-radius:999px;padding:1px 10px;margin-right:8px}
+.chargrid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;max-width:560px;margin:0 auto}
+.chargrid button{font-family:"BiauKai","DFKai-SB","TW-Kai","Kaiti TC",KaiTi,serif;font-size:clamp(30px,8vw,44px);aspect-ratio:1/1;min-height:56px;border-radius:16px;border:3px solid #ffd0df;background:#fff;color:var(--ink);cursor:pointer;position:relative;touch-action:manipulation;padding:0}
+.chargrid button.seen{background:#fff0f5}.chargrid button.seen:after{content:"✓";position:absolute;right:4px;top:0;font-size:14px;color:var(--teal);font-family:sans-serif}
+.chargrid button.on{outline:4px solid var(--pink)}
+.cdet{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start;margin-top:10px}
+.bigc{font-family:"BiauKai","DFKai-SB","TW-Kai","Kaiti TC",KaiTi,serif;font-size:96px;line-height:1;width:130px;height:130px;display:flex;align-items:center;justify-content:center;border:3px solid #ff6b9a;border-radius:12px;position:relative;
+ background-image:linear-gradient(#ffd0df,#ffd0df),linear-gradient(#ffd0df,#ffd0df);background-size:100% 2px,2px 100%;background-position:center;background-repeat:no-repeat;flex:0 0 130px}
+.zy{writing-mode:vertical-rl;font-size:18px;font-weight:800;color:#b0154a;letter-spacing:2px}
+.cinfo{flex:1;min-width:200px;font-size:17px;line-height:1.8}
+.chip{display:inline-block;background:#e6f0ff;border-radius:999px;padding:3px 12px;margin:2px 4px 2px 0;font-weight:700}
+.chip.id{background:#fff1d6}
+.padwrap{position:relative;width:260px;height:260px;margin:8px auto;border:3px solid #ff6b9a;border-radius:12px;background:#fff;touch-action:none}
+.padwrap .ghost{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:"BiauKai","DFKai-SB","TW-Kai","Kaiti TC",KaiTi,serif;font-size:210px;color:#f3d3de;pointer-events:none;line-height:1;
+ background-image:linear-gradient(#ffd0df,#ffd0df),linear-gradient(#ffd0df,#ffd0df);background-size:100% 2px,2px 100%;background-position:center;background-repeat:no-repeat}
+.padwrap canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none}
+.wlist{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px}
+.wcard{background:#fffafc;border:3px solid #ffd0df;border-radius:16px;padding:8px 12px;font-size:16px;line-height:1.5}.wcard b{font-size:20px;display:block}
+.wcard small{color:#888;font-size:13px}
+.match{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,3fr);gap:8px}
+.match .col{display:flex;flex-direction:column;gap:8px}
+.match .btn{background:#fff;color:var(--ink);border:3px solid #d6e4ff;font-size:16px;min-height:56px;line-height:1.35;padding:6px 8px}
+.match .btn.sel{border-color:var(--pink);background:#fff0f5}.match .btn.ok{background:#d8f3dc;border-color:#2ec4b6;opacity:.55}.match .btn.no{animation:shake .4s;border-color:#ff6b9a}
+.formula{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:6px 0}
+.formula span{border-radius:12px;padding:6px 10px;font-weight:800;font-size:17px}
+.f1{background:#ffd6dc}.f2{background:#cfe8ff}.f3{background:#d8f3dc}
+.blank{display:inline-block;min-width:3em;border-bottom:3px solid var(--pink);color:#b0154a}
+a.ext{color:#1d4ed8;font-weight:800}
+@media (max-width:420px){.chargrid{gap:6px}.bigc{width:110px;height:110px;flex-basis:110px;font-size:80px}.match .btn{font-size:15px}}
 </style>
 </head>
 <body>
-<div style="text-align: center; margin-bottom: 10px;">
-  <a href="../" style="color: #2b7a4f; text-decoration: none; font-size: 14px;">← 回國語課程</a>
-</div>
+<header>
+  <a class="back" href="../">← 國語</a>
+  <h1>🐭 老鼠嫁女兒</h1>
+  <div class="score" id="score">⭐ 0</div>
+</header>
+<main>
 
-<h1>🐦 第九課 阿白觀察記</h1>
-<p style="color: #666; margin: 0 0 10px;">第參單元 小小觀察家 | 南一版四上 p.80-85</p>
-
-<div class="tabs">
-  <button class="tab active" onclick="showTab('poem')">課文</button>
-  <button class="tab" onclick="showTab('chars')">生字</button>
-  <button class="tab" onclick="showTab('words')">語詞</button>
-  <button class="tab" onclick="showTab('pattern')">句型</button>
-  <button class="tab" onclick="showTab('quiz')">挑戰</button>
-  <button class="tab" onclick="showTab('rec')">紀錄</button>
-</div>
-
-<div id="poem" class="panel active">
-  <h2>📖 課文導讀</h2>
-  <p style="line-height: 1.8;">每天清晨,熱情的阿白(白頭翁)總是準時在陽台唱歌,讓作者不得不起床。作者觀察到阿白不只是歌唱家,還是舞林高手!牠會放低身體、展開尾羽、快速振動雙翅,還會碎步走動。</p>
-  <p style="line-height: 1.8;">原來這是白頭翁的求偶季節。兩個月後,阿白身邊多了一個伴,牠們忙著築巢、孵蛋。作者用望遠鏡觀察鳥巢,發現三顆帶著巧克力色斑點的蛋,還有一條塑膠片。</p>
-  <p style="line-height: 1.8;">有了幼鳥後,阿白變得很凶,會在空中繞圈、大聲叫。夏天結束,幼鳥們長出豐滿的羽毛就不見了,阿白也不告而別。雖然少了擾人的「鬧鐘」,作者卻忍不住想念觀察阿白帶來的樂趣。</p>
-</div>
-
-<div id="chars" class="panel">
-  <h2>🔤 生字 (15個)</h2>
-  <div class="char-grid" id="char-grid"></div>
-  <div id="char-detail" style="display:none; margin-top: 20px; padding: 20px; background: #f9f9f9; border-radius: 8px;">
-    <h3 style="font-size: 48px; text-align: center; margin: 10px 0;" id="char-big"></h3>
-    <p id="char-info"></p>
-    <button onclick="document.getElementById('char-detail').style.display='none'">關閉</button>
-    <button onclick="showPad()">描寫板</button>
+<!-- ============ 課文 ============ -->
+<section class="page active" id="p-read">
+  <div class="card">
+    <h2>📖 第十課 老鼠嫁女兒</h2>
+    <div class="info">
+      <div><b>版本</b>南一 國語 4上（第七冊）</div>
+      <div><b>單元</b>第肆單元 民間故事</div>
+      <div><b>文體</b>民間故事（改寫）</div>
+      <div><b>頁碼</b>p.96～104</div>
+    </div>
+    <div class="tip">📍 這是一個臺灣民間故事，講述老鼠父母想把女兒嫁給最強大的對象，最後發現老鼠才是最適合的故事。</div>
+    <p class="small">這裡是用自己的話整理的「重點導讀」；完整課文請看課本第 96～104 頁，也可以掃課本第 96 頁的 QR code 聽課文朗讀。</p>
   </div>
-  <canvas id="pad" width="300" height="300" style="display:none; margin: 20px auto; display: block;"></canvas>
-  <button id="clear-btn" onclick="clearPad()" style="display:none;">清除</button>
-</div>
 
-<div id="words" class="panel">
-  <h2>💬 重點語詞</h2>
-  <div style="line-height: 2;">
-    <p><strong>清晨</strong> ㄑㄧㄥ ㄔㄣˊ - 早上天剛亮的時候</p>
-    <p><strong>熱情</strong> ㄖㄜˋ ㄑㄧㄥˊ - 充滿活力、積極主動</p>
-    <p><strong>準時</strong> ㄓㄨㄣˇ ㄕˊ - 按時、不遲到</p>
-    <p><strong>不得不</strong> ㄅㄨˋ ㄉㄜˊ ㄅㄨˋ - 沒有辦法,只好這樣做</p>
-    <p><strong>振動</strong> ㄓㄣˋ ㄉㄨㄥˋ - 快速地動</p>
-    <p><strong>碎步</strong> ㄙㄨㄟˋ ㄅㄨˋ - 小小步快速走</p>
-    <p><strong>求偶</strong> ㄑㄧㄡˊ ㄡˇ - 找對象、找伴侶</p>
-    <p><strong>觀察</strong> ㄍㄨㄢ ㄔㄚˊ - 仔細看</p>
-    <p><strong>巧克力</strong> ㄑㄧㄠˇ ㄎㄜˋ ㄌㄧˋ - 咖啡色</p>
-    <p><strong>塑膠</strong> ㄙㄨˋ ㄐㄧㄠ - 一種人造材料</p>
-    <p><strong>繞圈</strong> ㄖㄠˋ ㄑㄩㄢ - 轉圈圈</p>
-    <p><strong>豐滿</strong> ㄈㄥ ㄇㄢˇ - 很飽滿、長得好</p>
-    <p><strong>擾人</strong> ㄖㄠˇ ㄖㄣˊ - 打擾人</p>
+  <div class="card">
+    <h3>🐭 課文導讀</h3>
+    <div class="part"><h4><span class="tag">開始</span>老鼠要嫁女兒</h4>
+      <p class="lead">從前有一對老鼠夫妻，他們想把女兒嫁給世界上最強大的對象。他們先去找太陽，因為太陽會發光、很強大。</p>
+    </div>
+    <div class="part"><h4><span class="tag t2">太陽</span>太陽說雲比我強</h4>
+      <p class="lead">太陽卻說：「我不是最強的，烏雲可以<b>遮</b>住我，讓我的光芒變<b>差</b>，雲比我強。」</p>
+    </div>
+    <div class="part"><h4><span class="tag">雲</span>雲說風比我強</h4>
+      <p class="lead">老鼠去找雲，雲說：「我不是最強的，風可以把我吹得<b>丟</b>來<b>丟</b>去，風比我強。」</p>
+    </div>
+    <div class="part"><h4><span class="tag t2">風</span>風說牆比我強</h4>
+      <p class="lead">老鼠去找風，風說：「我不是最強的，<b>既</b>使我多麼用力吹，牆都不會動，牆比我強。」</p>
+    </div>
+    <div class="part"><h4><span class="tag">牆</span>牆說老鼠比我強</h4>
+      <p class="lead">老鼠去找牆，牆說：「我不是最強的，老鼠會在我身上咬洞，老鼠比我強。」老鼠夫妻聽了很<b>欣</b>喜，<b>卯</b>時<b>初</b>刻就請<b>巫</b>師選個好日子，讓女兒<b>嫁</b>給<b>姞</b><b>郎</b>——另一隻老鼠。</p>
+    </div>
+    <div class="part"><h4><span class="tag t2">結局</span>熱鬧的婚禮</h4>
+      <p class="lead">到了婚禮那天，老鼠們敲鑼打鼓，抬著<b>轎</b>子，熱熱鬧鬧的送女兒出<b>嫁</b>。這真是一個<b>罕</b>見的<b>際</b>會！</p>
+    </div>
+    <div class="tip more">🔎 <b>這個故事告訴我們什麼？</b><br>每個人都有自己的長處和短處，不一定要找「最強的」，適合自己的才是最好的。老鼠最後發現，老鼠彼此最了解、最適合。</div>
   </div>
-</div>
 
-<div id="pattern" class="panel">
-  <h2>📝 句型練習:「不得不」</h2>
-  <p style="background: #fff3cd; padding: 12px; border-radius: 8px;">「不得不」表示「沒有辦法,只好這樣做」。</p>
-  <div id="pattern-quiz"></div>
-  <button onclick="runQuiz('pattern')">開始練習</button>
-</div>
+  <div class="card">
+    <h3>🔍 閱讀理解小偵探</h3>
+    <div id="readQ"></div>
+  </div>
+</section>
 
-<div id="quiz" class="panel">
-  <h2>🎯 綜合挑戰</h2>
-  <p>測試你對課文的理解!</p>
-  <div id="quiz-area"></div>
-  <button onclick="runQuiz('main')">開始挑戰</button>
-</div>
+<!-- ============ 生字 ============ -->
+<section class="page" id="p-char">
+  <div class="card">
+    <h2>✍️ 我會寫的字（15 個）</h2>
+    <p class="small">點一個字，看注音、部首、筆畫和造詞。數字是「部首外筆畫／總筆畫」，依課本第 104 頁。</p>
+    <div class="chargrid" id="charGrid"></div>
+    <div class="cdet" id="charDet"></div>
+  </div>
+  <div class="card">
+    <h3>🖌️ 描寫板</h3>
+    <p class="small">用手指照著淡淡的字描一描。筆順可以按上面的「看筆順動畫」到教育部筆順學習網看。</p>
+    <div class="padwrap" id="padWrap"><div class="ghost" id="ghost">丟</div><canvas id="pad" width="520" height="520"></canvas></div>
+    <div class="btns cen"><button class="btn gray small" id="padClear">🧽 擦掉</button><button class="btn green" id="padDone">✅ 寫好了</button></div>
+    <div class="fb" id="padFb"></div>
+  </div>
+  <div class="card">
+    <h3>🧠 生字小測驗</h3>
+    <div class="seg" id="cqSeg">
+      <button class="btn white on" data-t="bs">部首</button>
+      <button class="btn white" data-t="tot">筆畫</button>
+      <button class="btn white" data-t="zy">注音</button>
+    </div>
+    <div id="charQ"></div>
+  </div>
+  <div class="card">
+    <h3>👀 形近字選一選</h3>
+    <p class="small">丟／去、差／美、既／即、嫁／稼、架／駕，長得很像。選出句子裡正確的那一個。（字的配對和句子是自編的）</p>
+    <div id="lookQ"></div>
+  </div>
+</section>
 
-<div id="rec" class="panel">
-  <h2>⭐ 學習紀錄</h2>
-  <div id="rec-area"></div>
-</div>
+<!-- ============ 語詞 ============ -->
+<section class="page" id="p-word">
+  <div class="card">
+    <h2>🧩 語詞配對</h2>
+    <p class="small">先點左邊的語詞，再點右邊正確的意思。</p>
+    <div id="matchBox"></div>
+  </div>
+  <div class="card">
+    <h3>📝 選詞填空</h3>
+    <div id="fillQ"></div>
+  </div>
+  <div class="card">
+    <h3>📚 語詞小卡</h3>
+    <p class="small">這些是課文裡的重要語詞。解釋是用自己的話寫的。</p>
+    <div class="wlist" id="wordList"></div>
+    <h3 style="margin-top:12px">💡 生字延伸語詞</h3>
+    <p class="small">🔎 延伸：這些語詞課本沒有，是多認識的。</p>
+    <div class="wlist" id="idiomList"></div>
+  </div>
+</section>
 
+<!-- ============ 句型 ============ -->
+<section class="page" id="p-pat">
+  <div class="card">
+    <h2>🪄 句型練習</h2>
+    <div class="seg" id="patSeg">
+      <button class="btn white on" data-k="strong">比較強弱</button>
+      <button class="btn white" data-k="folk">民間故事</button>
+      <button class="btn white" data-k="time">時間詞語</button>
+    </div>
+  </div>
+  <div class="card" id="patIntro"></div>
+  <div class="card"><div id="patQ"></div></div>
+</section>
+
+<!-- ============ 挑戰 ============ -->
+<section class="page" id="p-game">
+  <div class="card">
+    <h2>🔄 角色配對大挑戰</h2>
+    <p class="small">這個角色說什麼？（每次出 5 題）</p>
+    <div id="sortBox"></div>
+  </div>
+  <div class="card">
+    <h2>🏆 第十課綜合挑戰（10 題）</h2>
+    <p class="small">生字、形近字、語詞、課文理解通通有！答對 9 題以上拿「挑戰王」徽章。</p>
+    <div id="chBox"></div>
+  </div>
+</section>
+
+<!-- ============ 紀錄 ============ -->
+<section class="page" id="p-rec">
+  <div class="card"><h2>🏆 我的紀錄</h2><div class="statgrid" id="stats"></div><div class="badges" id="badges"></div></div>
+  <div class="card"><h3>🔎 常錯的地方</h3><div id="mist"></div></div>
+  <div class="card"><button class="btn gray" id="resetBtn">清除紀錄</button><p class="small">紀錄只存在這台平板的瀏覽器裡。</p>
+    <p class="small">資料來源：南一版國語 4上 課本——第 96～104 頁〈老鼠嫁女兒〉課文、第 104 頁「我會寫的字」。</p>
+    <p class="small">✏️ <b>自編說明：</b>課文導讀是用自己的話整理的；閱讀理解、角色配對、選詞填空、形近字、句型練習和挑戰的題目與例句，都是為了練習自己編寫的，不是課本原文；語詞解釋、造詞（每個字的第一個語詞出自課文，其餘自編）也是用好懂的話寫的。考試以課本為主。</p></div>
+</section>
+</main>
+
+<nav class="tabs" id="tabs">
+  <button class="on" data-p="p-read"><span>📖</span>課文</button>
+  <button data-p="p-char"><span>✍️</span>生字</button>
+  <button data-p="p-word"><span>🧩</span>語詞</button>
+  <button data-p="p-pat"><span>🪄</span>句型</button>
+  <button data-p="p-game"><span>🎮</span>挑戰</button>
+  <button data-p="p-rec"><span>🏆</span>紀錄</button>
+</nav>
+
+<script id="core">
+var Core=(function(){
+"use strict";
+/* 生字：注音、部首、部首外筆畫（ex）、總筆畫（tot）依南一版課本第 104 頁「我會寫的字」；順序依課本。
+   words 的第一個是課文裡的語詞，其餘自編；tx 是課文裡含這個字的短句；bf=部首在這個字裡的寫法 */
+var CHARS=[
+ {c:"丟",zy:"ㄉㄧㄡ",bs:"丿",ex:5,tot:6,words:["丟來丟去","丟掉","丟臉"],tx:"把我吹得丟來丟去",look:"去"},
+ {c:"差",zy:"ㄔㄚˋ",bs:"工",ex:7,tot:10,words:["變差","差別","出差"],tx:"讓我的光芒變差",look:"美"},
+ {c:"姞",zy:"ㄐㄧˊ",bs:"女",ex:4,tot:7,words:["姞郎","姞字"],tx:"嫁給姞郎"},
+ {c:"既",zy:"ㄐㄧˋ",bs:"无",ex:5,tot:9,words:["既使","既然","既有"],tx:"既使我多麼用力吹",look:"即"},
+ {c:"罕",zy:"ㄏㄢˇ",bs:"网",bf:"罒",ex:3,tot:7,words:["罕見","稀罕","罕有"],tx:"真是罕見的際會"},
+ {c:"郎",zy:"ㄌㄤˊ",bs:"邑",bf:"阝",ex:7,tot:9,words:["姞郎","新郎","郎中"],tx:"嫁給姞郎"},
+ {c:"轎",zy:"ㄐㄧㄠˋ",bs:"車",ex:8,tot:15,words:["轎子","花轎","抬轎"],tx:"抬著轎子"},
+ {c:"嫁",zy:"ㄐㄧㄚˋ",bs:"女",ex:10,tot:13,words:["出嫁","嫁人","嫁妝"],tx:"送女兒出嫁",look:"稼"},
+ {c:"夫",zy:"ㄈㄨ",bs:"大",ex:1,tot:4,words:["夫妻","農夫","姊夫"],tx:"老鼠夫妻"},
+ {c:"際",zy:"ㄐㄧˋ",bs:"阜",bf:"阝",ex:12,tot:14,words:["際會","國際","邊際"],tx:"罕見的際會"},
+ {c:"架",zy:"ㄐㄧㄚˋ",bs:"木",ex:5,tot:9,words:["架子","書架","打架"],tx:"",look:"駕"},
+ {c:"卯",zy:"ㄇㄠˇ",bs:"卩",ex:3,tot:5,words:["卯時","子卯","卯榫"],tx:"卯時初刻"},
+ {c:"巫",zy:"ㄨ",bs:"工",ex:4,tot:7,words:["巫師","巫婆","女巫"],tx:"請巫師選日子"},
+ {c:"初",zy:"ㄔㄨ",bs:"刀",bf:"刂",ex:5,tot:7,words:["初刻","起初","最初"],tx:"卯時初刻"},
+ {c:"欣",zy:"ㄒㄧㄣ",bs:"欠",ex:4,tot:8,words:["欣喜","欣賞","歡欣"],tx:"老鼠夫妻很欣喜"}
+];
+/* 形近字（配對和句子都是自編的；每一題換成另一個字都不成詞） */
+var LOOK=[
+ {s:"不要把垃圾隨便＿在地上。",a:"丟",b:"去",tip:"「丟」是丿部，丟掉、丟失。"},
+ {s:"我要＿學校上課。",a:"去",b:"丟",tip:"「去」也是丿部，但少一筆，去、來去。"},
+ {s:"這次考試我考得很＿。",a:"差",b:"美",tip:"「差」是工部，差、差別、相差。"},
+ {s:"她長得很＿麗。",a:"美",b:"差",tip:"「美」是羊部（下面是羊），美麗、美好。"},
+ {s:"＿使天氣很冷，他還是去跑步。",a:"既",b:"即",tip:"「既」是无部，既然、既使。"},
+ {s:"我＿將上臺表演。",a:"即",b:"既",tip:"「即」是卩部（單人旁右邊變卩），即將、立即。"},
+ {s:"姊姊要＿人了。",a:"嫁",b:"稼",tip:"「嫁」是女部，嫁人、出嫁。"},
+ {s:"農夫在田裡種＿。",a:"稼",b:"嫁",tip:"「稼」是禾部，莊稼、稼穡。"},
+ {s:"書放在書＿上。",a:"架",b:"駕",tip:"「架」是木部，架子、書架。"},
+ {s:"爸爸會開車，他有＿照。",a:"駕",b:"架",tip:"「駕」是馬部，駕駛、駕照。"}
+];
+/* 語詞：課文裡重要的語詞；課本沒有附解釋，這裡的解釋都是自己寫的兒童版說明 */
+var WORDS=[
+ {w:"丟來丟去",m:"被吹來吹去、到處移動"},
+ {w:"變差",m:"變得不好、變弱"},
+ {w:"姞郎",m:"新郎、結婚的男方"},
+ {w:"既使",m:"即使、就算是"},
+ {w:"罕見",m:"很少見到、很稀奇"},
+ {w:"轎子",m:"以前人坐的交通工具，用人抬著走"},
+ {w:"出嫁",m:"女兒結婚、嫁人"},
+ {w:"夫妻",m:"結婚的一對男女"},
+ {w:"際會",m:"機會、時機"},
+ {w:"卯時",m:"早上五點到七點"},
+ {w:"巫師",m:"會做法術的人"},
+ {w:"初刻",m:"一個時辰的開始"},
+ {w:"欣喜",m:"高興、喜悅"}
+];
+/* 延伸語詞（課本沒有，自己選的） */
+var IDIOMS=[
+ {w:"丟臉",m:"不好意思、沒面子"},
+ {w:"差別",m:"不同的地方"},
+ {w:"稀罕",m:"覺得很少見、很珍貴"},
+ {w:"新郎",m:"結婚的男方"},
+ {w:"花轎",m:"結婚時新娘坐的轎子，很漂亮"},
+ {w:"嫁妝",m:"女兒出嫁時帶的東西"},
+ {w:"農夫",m:"種田的人"},
+ {w:"國際",m:"世界各國之間"},
+ {w:"書架",m:"放書的架子"},
+ {w:"女巫",m:"會做法術的女人"},
+ {w:"起初",m:"最開始的時候"},
+ {w:"欣賞",m:"喜歡、讚美"}
+];
+/* 選詞填空（句子自編，語詞是課文的重要語詞） */
+var FILL=[
+ {s:"風把樹葉吹得＿＿。",a:"丟來丟去",opts:["丟來丟去","罕見","欣喜"]},
+ {s:"他生病後，體力＿＿了。",a:"變差",opts:["變差","出嫁","際會"]},
+ {s:"新娘要嫁給＿＿。",a:"姞郎",opts:["姞郎","夫妻","巫師"]},
+ {s:"＿＿很冷，我還是要去上學。",a:"既使",opts:["既使","罕見","初刻"]},
+ {s:"這種花很＿＿，不常見到。",a:"罕見",opts:["罕見","變差","欣喜"]},
+ {s:"古時候的新娘坐＿＿出嫁。",a:"轎子",opts:["轎子","夫妻","巫師"]},
+ {s:"女兒長大了要＿＿。",a:"出嫁",opts:["出嫁","卯時","初刻"]},
+ {s:"爸爸媽媽是一對＿＿。",a:"夫妻",opts:["夫妻","巫師","姞郎"]},
+ {s:"這是難得的＿＿，要把握機會。",a:"際會",opts:["際會","卯時","變差"]},
+ {s:"＿＿是早上五點到七點。",a:"卯時",opts:["卯時","出嫁","轎子"]},
+ {s:"他們請＿＿來選好日子。",a:"巫師",opts:["巫師","夫妻","姞郎"]},
+ {s:"＿＿就是一個時辰的開始。",a:"初刻",opts:["初刻","罕見","變差"]},
+ {s:"聽到好消息，大家都很＿＿。",a:"欣喜",opts:["欣喜","既使","際會"]}
+];
+/* 閱讀理解（依課文內容自編題目） */
+var READ=[
+ {q:"老鼠夫妻想把女兒嫁給誰？",a:"最強大的對象",o:["最強大的對象","最有錢的人","最好看的動物"]},
+ {q:"老鼠夫妻第一個去找誰？",a:"太陽",o:["太陽","雲","風"]},
+ {q:"太陽說誰比他強？",a:"雲",o:["雲","風","牆"]},
+ {q:"雲為什麼說他不是最強的？",a:"風可以把雲吹來吹去",o:["風可以把雲吹來吹去","太陽可以把雲曬乾","雨會把雲打散"]},
+ {q:"風說誰比他強？",a:"牆",o:["牆","太陽","雲"]},
+ {q:"風為什麼說牆比他強？",a:"風吹不動牆",o:["風吹不動牆","牆可以擋住風","牆很高"]},
+ {q:"牆說誰比他強？",a:"老鼠",o:["老鼠","人","貓"]},
+ {q:"為什麼牆說老鼠比他強？",a:"老鼠會在牆上咬洞",o:["老鼠會在牆上咬洞","老鼠會爬牆","老鼠會推倒牆"]},
+ {q:"最後女兒嫁給誰？",a:"另一隻老鼠",o:["另一隻老鼠","太陽","風"]},
+ {q:"這個故事告訴我們什麼道理？",a:"適合自己的才是最好的",o:["適合自己的才是最好的","一定要找最強的","老鼠最強大"],tip:"每個人都有長處和短處，適合自己的才是最好的。"}
+];
+/* 角色配對：誰說的話 */
+var CHARS_MATCH=[
+ {who:"太陽",say:"烏雲可以遮住我，雲比我強",char:"☀️"},
+ {who:"雲",say:"風可以把我吹得丟來丟去，風比我強",char:"☁️"},
+ {who:"風",say:"既使我多麼用力吹，牆都不會動，牆比我強",char:"💨"},
+ {who:"牆",say:"老鼠會在我身上咬洞，老鼠比我強",char:"🧱"},
+ {who:"老鼠",say:"我們要把女兒嫁給最強大的對象",char:"🐭"}
+];
+/* 比較強弱 */
+var STRONG=[
+ {s:"太陽說＿＿比他強。",a:"雲",o:["雲","風","牆"]},
+ {s:"雲說＿＿比他強。",a:"風",o:["風","牆","太陽"]},
+ {s:"風說＿＿比他強。",a:"牆",o:["牆","老鼠","雲"]},
+ {s:"牆說＿＿比他強。",a:"老鼠",o:["老鼠","太陽","風"]}
+];
+/* 民間故事特色 */
+var FOLK=[
+ {s:"這個故事是＿＿故事。",a:"民間",o:["民間","科學","歷史"]},
+ {s:"故事開頭常常用「＿＿」。",a:"從前",o:["從前","現在","以後"]},
+ {s:"故事裡的動物會＿＿。",a:"說話",o:["說話","飛行","游泳"]},
+ {s:"民間故事常常告訴我們一個＿＿。",a:"道理",o:["道理","笑話","秘密"]}
+];
+/* 時間詞語 */
+var TIME=[
+ {s:"＿＿是早上五點到七點。",a:"卯時",o:["卯時","午時","酉時"]},
+ {s:"＿＿就是一個時辰的開始。",a:"初刻",o:["初刻","正刻","末刻"]},
+ {s:"古時候一天分成十二個＿＿。",a:"時辰",o:["時辰","小時","分鐘"]}
+];
+
+function shuffle(a,rnd){rnd=rnd||Math.random;var b=a.slice();for(var i=b.length-1;i>0;i--){var j=Math.floor(rnd()*(i+1));var t=b[i];b[i]=b[j];b[j]=t;}return b;}
+function pick(a,n,rnd){return shuffle(a,rnd).slice(0,n);}
+function charBy(c){for(var i=0;i<CHARS.length;i++)if(CHARS[i].c===c)return CHARS[i];return null;}
+function uniq(a){var o=[];for(var i=0;i<a.length;i++)if(o.indexOf(a[i])<0)o.push(a[i]);return o;}
+function blank(s){return s.replace("＿＿",'<span class="blank">（　　）</span>');}
+/* 生字題：部首、總筆畫、注音 */
+function charQ(type,ch,rnd){
+ var opts,ans,q;
+ if(type==="bs"){ans=ch.bs;var all=uniq(CHARS.map(function(x){return x.bs;}).concat(["口","水","心","竹"]));
+  opts=[ans].concat(pick(all.filter(function(b){return b!==ans;}),2,rnd));q="「"+ch.c+"」的部首是什麼？";}
+ else if(type==="tot"){ans=String(ch.tot);var d=[ch.tot-2,ch.tot-1,ch.tot+1,ch.tot+2].filter(function(n){return n>0;});
+  opts=[ans].concat(pick(d,2,rnd).map(String));q="「"+ch.c+"」總共幾畫？";}
+ else {ans=ch.zy;var others=uniq(CHARS.filter(function(x){return x.c!==ch.c;}).map(function(x){return x.zy;})).filter(function(z){return z!==ans;});
+  opts=[ans].concat(pick(others,2,rnd));q="「"+ch.words[0]+"」的「"+ch.c+"」怎麼念？";}
+ return {type:type,c:ch.c,q:q,a:ans,o:shuffle(opts,rnd)};
+}
+function lookQ(l,rnd){return {type:"look",q:l.s.replace("＿",'<span class="blank">（　）</span>'),a:l.a,o:shuffle([l.a,l.b],rnd),tip:l.tip};}
+function wordQ(rnd){var w=pick(WORDS,1,rnd)[0],wo=pick(WORDS.filter(function(x){return x.w!==w.w;}),2,rnd);
+ return {type:"word",q:"「"+w.m+"」是哪個語詞？",a:w.w,o:shuffle([w.w,wo[0].w,wo[1].w],rnd)};}
+function fillQ(f,rnd){return {type:"fill",q:blank(f.s),a:f.a,o:shuffle(f.opts,rnd)};}
+function strongQ(s,rnd){return {type:"strong",q:blank(s.s),a:s.a,o:shuffle(s.o,rnd)};}
+function folkQ(f,rnd){return {type:"folk",q:blank(f.s),a:f.a,o:shuffle(f.o,rnd)};}
+function timeQ(t,rnd){return {type:"time",q:blank(t.s),a:t.a,o:shuffle(t.o,rnd)};}
+/* 綜合挑戰：10 題 */
+function makeChallenge(rnd){
+ rnd=rnd||Math.random;var out=[],chs=pick(CHARS,3,rnd);
+ out.push(charQ("bs",chs[0],rnd));out.push(charQ("tot",chs[1],rnd));out.push(charQ("zy",chs[2],rnd));
+ pick(LOOK,2,rnd).forEach(function(l){out.push(lookQ(l,rnd));});
+ out.push(wordQ(rnd));
+ out.push(strongQ(pick(STRONG,1,rnd)[0],rnd));
+ out.push(folkQ(pick(FOLK,1,rnd)[0],rnd));
+ pick(READ,2,rnd).forEach(function(r){out.push({type:"read",q:r.q,a:r.a,o:shuffle(r.o,rnd),tip:r.tip});});
+ return shuffle(out,rnd);
+}
+function check(q,ans){return q.a===ans;}
+function matchCheck(who,say){for(var i=0;i<CHARS_MATCH.length;i++)if(CHARS_MATCH[i].who===who)return CHARS_MATCH[i].say===say;return false;}
+function wordMatchCheck(word,meaning){for(var i=0;i<WORDS.length;i++)if(WORDS[i].w===word)return WORDS[i].m===meaning;return false;}
+function stars(correct,total){if(!total)return 0;var r=correct/total;return r>=1?3:r>=0.7?2:r>=0.4?1:0;}
+var PATS=["strong","folk","time"];
+var BADGES=[
+ {id:"read",n:"📖 閱讀小達人",d:"閱讀理解全對"},
+ {id:"chars",n:"✍️ 生字小書法家",d:"看完 15 張生字卡"},
+ {id:"write",n:"🖌️ 描紅練習生",d:"在描寫板練習 5 個字"},
+ {id:"words",n:"🧩 語詞配對王",d:"完成一次語詞配對"},
+ {id:"pattern",n:"🪄 句型小作家",d:"三個句型練習都完成"},
+ {id:"match",n:"🔄 角色配對王",d:"角色配對全對"},
+ {id:"champ",n:"🏆 挑戰王",d:"挑戰答對 9 題以上"}
+];
+function badges(st){
+ var g={};st=st||{};
+ if(st.readBest>=READ.length)g.read=1;
+ if(st.seen&&Object.keys(st.seen).length>=CHARS.length)g.chars=1;
+ if(st.wrote&&Object.keys(st.wrote).length>=5)g.write=1;
+ if(st.matchDone>=1)g.words=1;
+ if(st.pat&&PATS.every(function(k){return st.pat[k];}))g.pattern=1;
+ if(st.charMatchPerfect>=1)g.match=1;
+ if(st.chBest>=9)g.champ=1;
+ return g;
+}
+function lcg(seed){var s=seed>>>0;return function(){s=(s*1664525+1013904223)>>>0;return s/4294967296;};}
+return {CHARS:CHARS,LOOK:LOOK,WORDS:WORDS,IDIOMS:IDIOMS,FILL:FILL,READ:READ,CHARS_MATCH:CHARS_MATCH,
+ STRONG:STRONG,FOLK:FOLK,TIME:TIME,PATS:PATS,BADGES:BADGES,
+ shuffle:shuffle,pick:pick,charBy:charBy,charQ:charQ,lookQ:lookQ,wordQ:wordQ,fillQ:fillQ,strongQ:strongQ,folkQ:folkQ,timeQ:timeQ,
+ makeChallenge:makeChallenge,check:check,matchCheck:matchCheck,wordMatchCheck:wordMatchCheck,stars:stars,badges:badges,lcg:lcg};
+})();
+if(typeof module!=="undefined"&&module.exports)module.exports=Core;
+</script>
 <script>
-const Core = {
-  CHARS: [
-    {c:"促",zy:"ㄘㄨˋ",bs:"人",tot:9,ww:["急促","促進","催促"],ex:"急促的叫聲"},
-    {c:"頂",zy:"ㄉㄧㄥˇ",bs:"頁",tot:11,ww:["頂樓","頭頂","一頂帽子"],ex:"頭上還戴著白色毛帽"},
-    {c:"在",zy:"ㄗㄞˋ",bs:"土",tot:6,ww:["在家","存在","在乎"],ex:"在微亮的天色中"},
-    {c:"好",zy:"ㄏㄠˋ",bs:"女",tot:6,ww:["好奇","愛好","好像"],ex:"我很好奇"},
-    {c:"觀",zy:"ㄍㄨㄢ",bs:"見",tot:18,ww:["觀察","觀看","觀賞"],ex:"觀察了好幾天"},
-    {c:"偶",zy:"ㄡˇ",bs:"人",tot:11,ww:["求偶","偶爾","木偶"],ex:"白頭翁的求偶季節"},
-    {c:"者",zy:"ㄓㄜˇ",bs:"老",tot:8,ww:["作者","讀者","舞者"],ex:"林間的舞者"},
-    {c:"振",zy:"ㄓㄣˋ",bs:"手",tot:10,ww:["振動","振作","振奮"],ex:"快速振動雙翅"},
-    {c:"塑",zy:"ㄙㄨˋ",bs:"土",tot:13,ww:["塑膠","雕塑","可塑性"],ex:"一條細長的塑膠片"},
-    {c:"片",zy:"ㄆㄧㄢˋ",bs:"片",tot:4,ww:["碎片","片段","一片"],ex:"塑膠片"},
-    {c:"褐",zy:"ㄏㄜˊ",bs:"衣",tot:15,ww:["褐色","黃褐色"],ex:"黃褐色的鳥巢"},
-    {c:"巧",zy:"ㄑㄧㄠˇ",bs:"工",tot:5,ww:["巧克力","技巧","靈巧"],ex:"巧克力色斑點"},
-    {c:"繞",zy:"ㄖㄠˋ",bs:"糸",tot:18,ww:["繞圈","圍繞","環繞"],ex:"在空中繞圈"},
-    {c:"凶",zy:"ㄒㄩㄥ",bs:"凵",tot:4,ww:["凶猛","凶狠","凶惡"],ex:"阿白變得很凶"},
-    {c:"豐",zy:"ㄈㄥ",bs:"豆",tot:13,ww:["豐富","豐收","豐滿"],ex:"豐滿的羽毛"}
-  ],
-  PAT: [
-    {q:"安靜的清晨裡聽起來特別響亮,讓我_____起床。",a:"不得不",ex:"「不得不」表示沒辦法、只好這樣做"},
-    {q:"颱風來了,學校_____停課。",a:"不得不",ex:"因為颱風,沒辦法上課"},
-    {q:"天氣太熱,我_____開冷氣。",a:"不得不",ex:"熱到受不了,只好開冷氣"},
-    {q:"鬧鐘響了好多次,我_____起床了。",a:"不得不",ex:"再不起床會遲到"}
-  ],
-  READ: [
-    {q:"阿白是什麼鳥?",op:["白頭翁","麻雀","綠繡眼","鴿子"],a:0,ex:"課文中說阿白是白頭翁"},
-    {q:"阿白每天幾點唱歌?",op:["清晨五點半","中午十二點","傍晚六點","晚上九點"],a:0,ex:"每天清晨五點半準時唱歌"},
-    {q:"阿白的表演是為了什麼?",op:["練習飛行","求偶","找食物","築巢"],a:1,ex:"為了吸引母鳥,公鳥會賣力表演"},
-    {q:"鳥巢裡有幾顆蛋?",op:["一顆","兩顆","三顆","四顆"],a:2,ex:"鳥巢裡有三顆帶著巧克力色斑點的蛋"},
-    {q:"鳥巢外側夾著什麼?",op:["樹枝","羽毛","塑膠片","樹葉"],a:2,ex:"一條細長的塑膠片"},
-    {q:"有了幼鳥後,阿白的態度如何?",op:["更溫柔","變得很凶","更害羞","不唱歌了"],a:1,ex:"有了幼鳥後,阿白變得很凶"},
-    {q:"阿白會如何警告靠近的人?",op:["飛走","在空中繞圈大叫","躲起來","攻擊"],a:1,ex:"在空中繞圈,一邊唧唧唧的大聲叫"},
-    {q:"幼鳥什麼時候離開?",op:["春天","夏天結束","秋天","冬天"],a:1,ex:"夏天到了尾聲,幼鳥們長出豐滿的羽毛後離開"},
-    {q:"作者對阿白離開的心情是?",op:["很高興","鬆一口氣","想念牠們","生氣"],a:2,ex:"我卻忍不住想念觀察阿白帶來的樂趣"},
-    {q:"這篇文章主要在描寫什麼?",op:["養鳥的方法","觀察白頭翁的過程","鳥巢的構造","鳥類的種類"],a:1,ex:"文章記錄作者觀察白頭翁的整個過程"}
-  ],
-  BADGE: {
-    "觀察家":{emoji:"🔍",cond:"生字題全對"},
-    "鳥類通":{emoji:"🐦",cond:"課文理解全對"},
-    "全能王":{emoji:"🌟",cond:"挑戰滿分"}
-  }
-};
-
-let st = {mode:'poem', curr:0, ans:[], bestRec:null};
-try { st = JSON.parse(localStorage.getItem('zhBirdingV1') || '{}'); st.mode = st.mode || 'poem'; } catch(e) {}
-function save() { localStorage.setItem('zhBirdingV1', JSON.stringify(st)); }
-
-function showTab(t) {
-  document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-  event.target.classList.add('active');
-  document.getElementById(t).classList.add('active');
-  st.mode = t;
-  if (t === 'chars') renderGrid();
-  if (t === 'rec') renderRec();
-}
-
-function renderGrid() {
-  const g = document.getElementById('char-grid');
-  g.innerHTML = Core.CHARS.map(c => `<div class="char-card" onclick='showChar(${JSON.stringify(c)})'>${c.c}</div>`).join('');
-}
-
-function showChar(c) {
-  document.getElementById('char-detail').style.display = 'block';
-  document.getElementById('char-big').textContent = c.c;
-  document.getElementById('char-info').innerHTML = `
-    <p><strong>注音:</strong> ${c.zy}</p>
-    <p><strong>部首:</strong> ${c.bs}</p>
-    <p><strong>總筆畫:</strong> ${c.tot} 畫</p>
-    <p><strong>造詞:</strong> ${c.ww.join('、')}</p>
-    <p><strong>例句:</strong> ${c.ex}</p>
-  `;
-}
-
-function showPad() {
-  const p = document.getElementById('pad'), cb = document.getElementById('clear-btn');
-  p.style.display = 'block'; cb.style.display = 'inline-block';
-  const ctx = p.getContext('2d'); ctx.lineWidth = 3; ctx.lineCap = 'round'; ctx.strokeStyle = '#000';
-  let drawing = false;
-  p.onmousedown = p.ontouchstart = e => { e.preventDefault(); drawing = true; };
-  p.onmouseup = p.ontouchend = () => drawing = false;
-  p.onmousemove = p.ontouchmove = e => {
-    if (!drawing) return;
-    e.preventDefault();
-    const rect = p.getBoundingClientRect(), touch = e.touches ? e.touches[0] : e;
-    const x = (touch.clientX - rect.left) * (p.width / rect.width);
-    const y = (touch.clientY - rect.top) * (p.height / rect.height);
-    ctx.lineTo(x, y); ctx.stroke(); ctx.beginPath(); ctx.moveTo(x, y);
-  };
-}
-
-function clearPad() {
-  const p = document.getElementById('pad'), ctx = p.getContext('2d');
-  ctx.clearRect(0, 0, p.width, p.height); ctx.beginPath();
-}
-
-function runQuiz(type) {
-  const area = type === 'pattern' ? document.getElementById('pattern-quiz') : document.getElementById('quiz-area');
-  const items = type === 'pattern' ? Core.PAT : Core.READ;
-  st.curr = 0; st.ans = [];
-  const show = () => {
-    if (st.curr >= items.length) {
-      const score = st.ans.filter(a => a).length;
-      area.innerHTML = `<h3>完成!得分:${score}/${items.length}</h3>`;
-      if (type === 'main' && (!st.bestRec || score > st.bestRec.score)) {
-        st.bestRec = {score, date: new Date().toISOString()};
-        save();
-      }
-      return;
-    }
-    const it = items[st.curr];
-    if (type === 'pattern') {
-      area.innerHTML = `<div class="quiz-q"><p>${st.curr+1}. ${it.q}</p><input id="ans-input" style="width:100%; padding:8px; font-size:16px;"><button onclick="checkAns()">送出</button></div><div id="fb"></div>`;
-    } else {
-      area.innerHTML = `<div class="quiz-q"><p>${st.curr+1}. ${it.q}</p>${it.op.map((o,i) => `<div class="quiz-opt" onclick="pick(${i})">${i+1}. ${o}</div>`).join('')}</div><div id="fb"></div>`;
-    }
-  };
-  window.checkAns = () => {
-    const val = document.getElementById('ans-input').value.trim();
-    const it = items[st.curr];
-    const ok = val === it.a;
-    st.ans.push(ok);
-    document.getElementById('fb').innerHTML = `<p style="padding:10px; border-radius:8px; background:${ok?'#c8e6c9':'#ffcdd2'}">${ok?'✓ 答對了!':'✗ 答錯了'}<br>${it.ex}</p><button onclick="next()">下一題</button>`;
-  };
-  window.pick = i => {
-    const it = items[st.curr];
-    const ok = i === it.a;
-    st.ans.push(ok);
-    document.querySelectorAll('.quiz-opt')[i].classList.add(ok ? 'correct' : 'wrong');
-    if (!ok) document.querySelectorAll('.quiz-opt')[it.a].classList.add('correct');
-    document.getElementById('fb').innerHTML = `<p style="padding:10px; margin-top:10px;">${it.ex}</p><button onclick="next()">下一題</button>`;
-  };
-  window.next = () => { st.curr++; show(); };
-  show();
-}
-
-function renderRec() {
-  const r = document.getElementById('rec-area');
-  r.innerHTML = st.bestRec ? `<p>🎯 最佳分數: ${st.bestRec.score}/10</p><p>📅 日期: ${new Date(st.bestRec.date).toLocaleDateString()}</p>` : '<p>還沒有測驗紀錄</p>';
-}
-
-if (st.mode === 'chars') renderGrid();
+(function(){
+"use strict";
+var st=JSON.parse(localStorage.getItem("lesson10-mouse-wedding")||"{}");
+function save(){localStorage.setItem("lesson10-mouse-wedding",JSON.stringify(st));}
+function addScore(n){st.score=(st.score||0)+n;document.getElementById("score").textContent="⭐ "+st.score;
+ document.getElementById("score").classList.add("pop");setTimeout(function(){document.getElementById("score").classList.remove("pop");},500);save();}
+function burst(e){var x=e.clientX||window.innerWidth/2,y=e.clientY||window.innerHeight/2;
+ var emojis=["⭐","🌟","✨","🎉"];for(var i=0;i<5;i++){var d=document.createElement("div");d.className="burst";
+ d.textContent=emojis[Math.floor(Math.random()*emojis.length)];d.style.left=x+"px";d.style.top=y+"px";
+ var dx=(Math.random()-.5)*300,dy=(Math.random()-.5)*300;d.style.setProperty("--dx",dx+"px");d.style.setProperty("--dy",dy+"px");
+ document.body.appendChild(d);setTimeout(function(el){return function(){document.body.removeChild(el);};}(d),1100);}}
+document.getElementById("score").textContent="⭐ "+(st.score||0);
+var pages=document.querySelectorAll("section.page"),tabs=document.querySelectorAll("nav.tabs button");
+tabs.forEach(function(b){b.addEventListener("click",function(){
+ var pid=b.getAttribute("data-p");pages.forEach(function(p){p.classList.remove("active");});
+ document.getElementById(pid).classList.add("active");tabs.forEach(function(t){t.classList.remove("on");});b.classList.add("on");});});
+/* ============ 課文 ============ */
+var readState={q:0,ans:[],correct:0};
+function nextReadQ(){var box=document.getElementById("readQ");if(readState.q>=Core.READ.length){
+ var s=Core.stars(readState.correct,Core.READ.length);addScore(s);
+ box.innerHTML='<div class="done">✅ 完成閱讀理解！答對 '+readState.correct+' / '+Core.READ.length+' 題，得到 '+s+' 顆星！</div>';
+ st.readBest=Math.max(st.readBest||0,readState.correct);save();return;}
+ var item=Core.READ[readState.q],h='<div class="prog">';
+ for(var i=0;i<Core.READ.length;i++)h+='<i class="'+(i<readState.q?(readState.ans[i]?"ok":"no"):(i===readState.q?"cur":""))+'"></i>';
+ h+='</div><p class="q">'+item.q+'</p><div class="choices" id="readCh"></div><div class="fb" id="readFb"></div>';box.innerHTML=h;
+ document.getElementById("readCh").innerHTML=item.o.map(function(o){return '<button class="btn" data-a="'+o+'">'+o+'</button>';}).join("");
+ document.querySelectorAll("#readCh .btn").forEach(function(b){b.addEventListener("click",function(){
+  var a=b.getAttribute("data-a"),ok=Core.check(item,a);readState.ans.push(ok);if(ok)readState.correct++;
+  b.classList.add(ok?"ok":"no");document.querySelectorAll("#readCh .btn").forEach(function(x){x.disabled=true;});
+  var fb=document.getElementById("readFb");fb.className="fb show "+(ok?"good":"bad");
+  fb.innerHTML=(ok?"✅ 正確！":"❌ 正確答案是：<b>"+item.a+"</b>")+(item.tip?"<br>"+item.tip:"");
+  if(ok)burst(event);setTimeout(function(){readState.q++;nextReadQ();},ok?1200:2400);});});}
+nextReadQ();
+/* ============ 生字 ============ */
+var charGrid=document.getElementById("charGrid"),charDet=document.getElementById("charDet");
+st.seen=st.seen||{};
+Core.CHARS.forEach(function(ch){var b=document.createElement("button");b.textContent=ch.c;
+ if(st.seen[ch.c])b.classList.add("seen");b.addEventListener("click",function(){
+  if(!st.seen[ch.c]){st.seen[ch.c]=1;save();b.classList.add("seen");}
+  charGrid.querySelectorAll("button").forEach(function(x){x.classList.remove("on");});b.classList.add("on");showChar(ch);});charGrid.appendChild(b);});
+function showChar(ch){var bf=ch.bf||ch.bs,ex=ch.ex||0;
+ var h='<div class="bigc">'+ch.c+'</div><div class="zy">'+ch.zy.split("").join("<br>")+'</div><div class="cinfo">';
+ h+='<div><span class="chip">部首</span>'+ch.bs+(bf!==ch.bs?' <small>（寫成 '+bf+'）</small>':'')+'</div>';
+ h+='<div><span class="chip id">筆畫</span>部首外 '+ex+' 畫，總共 '+ch.tot+' 畫</div>';
+ h+='<div><span class="chip">造詞</span>'+ch.words.join("、")+'</div>';
+ if(ch.tx)h+='<div><small style="color:#888">課文：'+ch.tx+'</small></div>';
+ h+='<div style="margin-top:6px"><a class="ext" target="_blank" href="https://stroke-order.learningweb.moe.edu.tw/character_practice.do?word='+encodeURIComponent(ch.c)+'">📝 看筆順動畫</a></div>';
+ h+='</div>';charDet.innerHTML=h;document.getElementById("ghost").textContent=ch.c;}
+if(Core.CHARS.length>0)showChar(Core.CHARS[0]);
+var pad=document.getElementById("pad"),ctx=pad.getContext("2d"),drawing=false,lastX=0,lastY=0;
+st.wrote=st.wrote||{};
+function startDraw(e){e.preventDefault();drawing=true;var r=pad.getBoundingClientRect(),t=e.touches?e.touches[0]:e;
+ lastX=(t.clientX-r.left)*2;lastY=(t.clientY-r.top)*2;}
+function draw(e){if(!drawing)return;e.preventDefault();var r=pad.getBoundingClientRect(),t=e.touches?e.touches[0]:e,
+ x=(t.clientX-r.left)*2,y=(t.clientY-r.top)*2;ctx.strokeStyle="#2b2d42";ctx.lineWidth=8;ctx.lineCap="round";ctx.lineJoin="round";
+ ctx.beginPath();ctx.moveTo(lastX,lastY);ctx.lineTo(x,y);ctx.stroke();lastX=x;lastY=y;}
+function endDraw(){drawing=false;}
+pad.addEventListener("mousedown",startDraw);pad.addEventListener("mousemove",draw);pad.addEventListener("mouseup",endDraw);
+pad.addEventListener("touchstart",startDraw);pad.addEventListener("touchmove",draw);pad.addEventListener("touchend",endDraw);
+document.getElementById("padClear").addEventListener("click",function(){ctx.clearRect(0,0,520,520);
+ document.getElementById("padFb").className="fb";});
+document.getElementById("padDone").addEventListener("click",function(){var c=document.getElementById("ghost").textContent;
+ if(!st.wrote[c]){st.wrote[c]=1;save();addScore(1);}var fb=document.getElementById("padFb");
+ fb.className="fb show good";fb.innerHTML="✅ 寫得很好！多練習幾次會更熟練。";burst(event);});
+var cqState={t:"bs",q:0,ans:[],correct:0};
+document.querySelectorAll("#cqSeg button").forEach(function(b){b.addEventListener("click",function(){
+ document.querySelectorAll("#cqSeg button").forEach(function(x){x.classList.remove("on");});b.classList.add("on");
+ cqState.t=b.getAttribute("data-t");cqState.q=0;cqState.ans=[];cqState.correct=0;nextCQ();});});
+function nextCQ(){var box=document.getElementById("charQ");if(cqState.q>=5){
+ var s=Core.stars(cqState.correct,5);addScore(s);
+ box.innerHTML='<div class="done">✅ 完成！答對 '+cqState.correct+' / 5 題，得到 '+s+' 顆星！</div>';return;}
+ var ch=Core.pick(Core.CHARS,1)[0],item=Core.charQ(cqState.t,ch),h='<div class="prog">';
+ for(var i=0;i<5;i++)h+='<i class="'+(i<cqState.q?(cqState.ans[i]?"ok":"no"):(i===cqState.q?"cur":""))+'"></i>';
+ h+='</div><p class="q">'+item.q+'</p><div class="choices" id="cqCh"></div><div class="fb" id="cqFb"></div>';box.innerHTML=h;
+ document.getElementById("cqCh").innerHTML=item.o.map(function(o){return '<button class="btn" data-a="'+o+'">'+o+'</button>';}).join("");
+ document.querySelectorAll("#cqCh .btn").forEach(function(b){b.addEventListener("click",function(){
+  var a=b.getAttribute("data-a"),ok=Core.check(item,a);cqState.ans.push(ok);if(ok)cqState.correct++;
+  b.classList.add(ok?"ok":"no");document.querySelectorAll("#cqCh .btn").forEach(function(x){x.disabled=true;});
+  var fb=document.getElementById("cqFb");fb.className="fb show "+(ok?"good":"bad");
+  fb.innerHTML=ok?"✅ 正確！":"❌ 正確答案是：<b>"+item.a+"</b>";if(ok)burst(event);
+  setTimeout(function(){cqState.q++;nextCQ();},ok?1200:2400);});});}
+nextCQ();
+var lookState={q:0,ans:[],correct:0};
+function nextLookQ(){var box=document.getElementById("lookQ");if(lookState.q>=Core.LOOK.length){
+ var s=Core.stars(lookState.correct,Core.LOOK.length);addScore(s);
+ box.innerHTML='<div class="done">✅ 完成形近字！答對 '+lookState.correct+' / '+Core.LOOK.length+' 題，得到 '+s+' 顆星！</div>';return;}
+ var item=Core.LOOK[lookState.q],lq=Core.lookQ(item),h='<div class="prog">';
+ for(var i=0;i<Core.LOOK.length;i++)h+='<i class="'+(i<lookState.q?(lookState.ans[i]?"ok":"no"):(i===lookState.q?"cur":""))+'"></i>';
+ h+='</div><p class="q">'+lq.q+'</p><div class="choices" id="lookCh"></div><div class="fb" id="lookFb"></div>';box.innerHTML=h;
+ document.getElementById("lookCh").innerHTML=lq.o.map(function(o){return '<button class="btn" data-a="'+o+'">'+o+'</button>';}).join("");
+ document.querySelectorAll("#lookCh .btn").forEach(function(b){b.addEventListener("click",function(){
+  var a=b.getAttribute("data-a"),ok=Core.check(lq,a);lookState.ans.push(ok);if(ok)lookState.correct++;
+  b.classList.add(ok?"ok":"no");document.querySelectorAll("#lookCh .btn").forEach(function(x){x.disabled=true;});
+  var fb=document.getElementById("lookFb");fb.className="fb show "+(ok?"good":"bad");
+  fb.innerHTML=(ok?"✅ 正確！":"❌ 正確答案是：<b>"+lq.a+"</b>")+"<br>"+lq.tip;if(ok)burst(event);
+  setTimeout(function(){lookState.q++;nextLookQ();},ok?1200:2400);});});}
+nextLookQ();
+/* ============ 語詞 ============ */
+var matchState={left:null,pairs:[],done:false};
+function initMatch(){var box=document.getElementById("matchBox");if(matchState.done){
+ box.innerHTML='<div class="done">✅ 完成配對！</div>';return;}
+ var ws=Core.shuffle(Core.WORDS.slice()),ms=Core.shuffle(Core.WORDS.map(function(w){return w.m;}));
+ var h='<div class="match"><div class="col" id="matchL">'+ws.map(function(w){return '<button class="btn" data-w="'+w.w+'">'+w.w+'</button>';}).join("")+'</div>';
+ h+='<div class="col" id="matchR">'+ms.map(function(m){return '<button class="btn" data-m="'+m+'">'+m+'</button>';}).join("")+'</div></div>';
+ h+='<div class="fb" id="matchFb"></div>';box.innerHTML=h;
+ document.querySelectorAll("#matchL .btn").forEach(function(b){b.addEventListener("click",function(){
+  if(matchState.left)document.querySelectorAll("#matchL .btn").forEach(function(x){x.classList.remove("sel");});
+  matchState.left=b.getAttribute("data-w");b.classList.add("sel");});});
+ document.querySelectorAll("#matchR .btn").forEach(function(b){b.addEventListener("click",function(){
+  if(!matchState.left)return;var m=b.getAttribute("data-m"),ok=Core.wordMatchCheck(matchState.left,m);
+  if(ok){document.querySelector('#matchL [data-w="'+matchState.left+'"]').classList.add("ok");b.classList.add("ok");
+   matchState.pairs.push([matchState.left,m]);matchState.left=null;
+   var fb=document.getElementById("matchFb");fb.className="fb show good";fb.innerHTML="✅ 配對正確！";burst(event);
+   if(matchState.pairs.length===Core.WORDS.length){matchState.done=true;addScore(2);
+    setTimeout(function(){initMatch();},800);st.matchDone=(st.matchDone||0)+1;save();}}
+  else{var fb=document.getElementById("matchFb");fb.className="fb show bad";fb.innerHTML="❌ 這兩個不是一對，再試試看！";
+   b.classList.add("no");setTimeout(function(){b.classList.remove("no");},400);}});});}
+initMatch();
+var fillState={q:0,ans:[],correct:0};
+function nextFillQ(){var box=document.getElementById("fillQ");if(fillState.q>=10){
+ var s=Core.stars(fillState.correct,10);addScore(s);
+ box.innerHTML='<div class="done">✅ 完成選詞填空！答對 '+fillState.correct+' / 10 題，得到 '+s+' 顆星！</div>';return;}
+ var item=Core.FILL[fillState.q],fq=Core.fillQ(item),h='<div class="prog">';
+ for(var i=0;i<10;i++)h+='<i class="'+(i<fillState.q?(fillState.ans[i]?"ok":"no"):(i===fillState.q?"cur":""))+'"></i>';
+ h+='</div><p class="q">'+fq.q+'</p><div class="choices" id="fillCh"></div><div class="fb" id="fillFb"></div>';box.innerHTML=h;
+ document.getElementById("fillCh").innerHTML=fq.o.map(function(o){return '<button class="btn" data-a="'+o+'">'+o+'</button>';}).join("");
+ document.querySelectorAll("#fillCh .btn").forEach(function(b){b.addEventListener("click",function(){
+  var a=b.getAttribute("data-a"),ok=Core.check(fq,a);fillState.ans.push(ok);if(ok)fillState.correct++;
+  b.classList.add(ok?"ok":"no");document.querySelectorAll("#fillCh .btn").forEach(function(x){x.disabled=true;});
+  var fb=document.getElementById("fillFb");fb.className="fb show "+(ok?"good":"bad");
+  fb.innerHTML=ok?"✅ 正確！":"❌ 正確答案是：<b>"+fq.a+"</b>";if(ok)burst(event);
+  setTimeout(function(){fillState.q++;nextFillQ();},ok?1200:2400);});});}
+nextFillQ();
+var wh='';Core.WORDS.forEach(function(w){wh+='<div class="wcard"><b>'+w.w+'</b>'+w.m+'</div>';});
+document.getElementById("wordList").innerHTML=wh;
+var ih='';Core.IDIOMS.forEach(function(w){ih+='<div class="wcard"><b>'+w.w+'</b>'+w.m+'</div>';});
+document.getElementById("idiomList").innerHTML=ih;
+/* ============ 句型 ============ */
+st.pat=st.pat||{};
+var patKey="strong",patState={q:0,ans:[],correct:0};
+document.querySelectorAll("#patSeg button").forEach(function(b){b.addEventListener("click",function(){
+ document.querySelectorAll("#patSeg button").forEach(function(x){x.classList.remove("on");});b.classList.add("on");
+ patKey=b.getAttribute("data-k");patState.q=0;patState.ans=[];patState.correct=0;showPatIntro();nextPatQ();});});
+function showPatIntro(){var intro=document.getElementById("patIntro"),h="";
+ if(patKey==="strong")h='<h3>💪 比較強弱</h3><p class="lead">故事裡每個角色都說別人比自己強。</p><div class="tip">例如：太陽說「雲可以遮住我，雲比我強」。</div>';
+ else if(patKey==="folk")h='<h3>📚 民間故事特色</h3><p class="lead">民間故事常常用「從前」開頭，動物會說話，最後告訴我們一個道理。</p>';
+ else h='<h3>⏰ 時間詞語</h3><p class="lead">古時候用「時辰」計時，一天分成十二個時辰。卯時是早上五點到七點。</p>';
+ intro.innerHTML=h;}
+showPatIntro();
+function nextPatQ(){var box=document.getElementById("patQ"),arr=patKey==="strong"?Core.STRONG:(patKey==="folk"?Core.FOLK:Core.TIME);
+ if(patState.q>=arr.length){var s=Core.stars(patState.correct,patState.q);addScore(s);
+  box.innerHTML='<div class="done">✅ 完成！答對 '+patState.correct+' / '+patState.q+' 題，得到 '+s+' 顆星！</div>';
+  if(!st.pat[patKey]){st.pat[patKey]=1;save();}return;}
+ var item=arr[patState.q],pq=patKey==="strong"?Core.strongQ(item):(patKey==="folk"?Core.folkQ(item):Core.timeQ(item)),h='<div class="prog">';
+ for(var i=0;i<arr.length;i++)h+='<i class="'+(i<patState.q?(patState.ans[i]?"ok":"no"):(i===patState.q?"cur":""))+'"></i>';
+ h+='</div><p class="q">'+pq.q+'</p><div class="choices" id="patCh"></div><div class="fb" id="patFb"></div>';box.innerHTML=h;
+ document.getElementById("patCh").innerHTML=pq.o.map(function(o){return '<button class="btn" data-a="'+o+'">'+o+'</button>';}).join("");
+ document.querySelectorAll("#patCh .btn").forEach(function(b){b.addEventListener("click",function(){
+  var a=b.getAttribute("data-a"),ok=Core.check(pq,a);patState.ans.push(ok);if(ok)patState.correct++;
+  b.classList.add(ok?"ok":"no");document.querySelectorAll("#patCh .btn").forEach(function(x){x.disabled=true;});
+  var fb=document.getElementById("patFb");fb.className="fb show "+(ok?"good":"bad");
+  fb.innerHTML=ok?"✅ 正確！":"❌ 正確答案是：<b>"+pq.a+"</b>";if(ok)burst(event);
+  setTimeout(function(){patState.q++;nextPatQ();},ok?1200:2400);});});}
+nextPatQ();
+/* ============ 挑戰 ============ */
+var sortState={items:[],ans:{},done:0};
+function initSort(){var box=document.getElementById("sortBox");if(sortState.done>=5){
+ var perfect=sortState.done===5,s=perfect?3:Core.stars(sortState.done,5);addScore(s);
+ box.innerHTML='<div class="done">✅ 完成！答對 '+sortState.done+' / 5 題，得到 '+s+' 顆星！'+(perfect?"太厲害了！":"")+'</div>';
+ if(perfect){st.charMatchPerfect=(st.charMatchPerfect||0)+1;save();}return;}
+ sortState.items=Core.shuffle(Core.CHARS_MATCH.slice());sortState.ans={};
+ var h='<p class="small">這是誰說的話？點選角色。</p>';
+ h+='<div id="sortItems"></div><div class="btns cen" id="sortBtns">'+
+  Core.CHARS_MATCH.map(function(c){return '<button class="btn" data-k="'+c.who+'">'+c.char+' '+c.who+'</button>';}).join("")+'</div>';
+ h+='<div class="fb" id="sortFb"></div>';box.innerHTML=h;showSortItem();
+ document.querySelectorAll("#sortBtns .btn").forEach(function(b){b.addEventListener("click",function(){
+  if(!sortState.items.length)return;var k=b.getAttribute("data-k"),curr=sortState.items[0],ok=Core.matchCheck(k,curr.say);
+  sortState.ans[curr.who]=ok;if(ok)sortState.done++;document.getElementById("sortFb").className="fb show "+(ok?"good":"bad");
+  document.getElementById("sortFb").innerHTML=ok?"✅ 正確！":"❌ 不對喔，這是"+curr.who+"說的。";if(ok)burst(event);
+  setTimeout(function(){sortState.items.shift();if(sortState.items.length===0)initSort();else showSortItem();},ok?800:1600);});});}
+function showSortItem(){if(!sortState.items.length)return;
+ document.getElementById("sortItems").innerHTML='<p class="q">'+sortState.items[0].say+'</p>';}
+initSort();
+var chState={qs:[],q:0,ans:[],correct:0};
+function initCh(){var box=document.getElementById("chBox");if(chState.q>0){
+ var s=Core.stars(chState.correct,10);addScore(s);
+ box.innerHTML='<div class="done">✅ 挑戰完成！答對 '+chState.correct+' / 10 題，得到 '+s+' 顆星！'+(chState.correct>=9?"你是挑戰王！":"")+'</div>';
+ st.chBest=Math.max(st.chBest||0,chState.correct);save();return;}
+ chState.qs=Core.makeChallenge();chState.q=0;chState.ans=[];chState.correct=0;nextChQ();}
+function nextChQ(){var box=document.getElementById("chBox");if(chState.q>=chState.qs.length){initCh();return;}
+ var item=chState.qs[chState.q],h='<div class="prog">';
+ for(var i=0;i<10;i++)h+='<i class="'+(i<chState.q?(chState.ans[i]?"ok":"no"):(i===chState.q?"cur":""))+'"></i>';
+ h+='</div><p class="q">'+item.q+'</p><div class="choices" id="chCh"></div><div class="fb" id="chFb"></div>';box.innerHTML=h;
+ document.getElementById("chCh").innerHTML=item.o.map(function(o){return '<button class="btn" data-a="'+o+'">'+o+'</button>';}).join("");
+ document.querySelectorAll("#chCh .btn").forEach(function(b){b.addEventListener("click",function(){
+  var a=b.getAttribute("data-a"),ok=Core.check(item,a);chState.ans.push(ok);if(ok)chState.correct++;
+  b.classList.add(ok?"ok":"no");document.querySelectorAll("#chCh .btn").forEach(function(x){x.disabled=true;});
+  var fb=document.getElementById("chFb");fb.className="fb show "+(ok?"good":"bad");
+  fb.innerHTML=(ok?"✅ 正確！":"❌ 正確答案是：<b>"+item.a+"</b>")+(item.tip?"<br>"+item.tip:"");if(ok)burst(event);
+  setTimeout(function(){chState.q++;nextChQ();},ok?1200:2400);});});}
+initCh();
+/* ============ 紀錄 ============ */
+var bdg=Core.badges(st),bh='';Core.BADGES.forEach(function(b){
+ bh+='<div class="bdg '+(bdg[b.id]?"got":"")+'">'+b.n+'<small>'+b.d+'</small></div>';});
+document.getElementById("badges").innerHTML=bh;
+var stats='<div class="stat">總星星<b>'+(st.score||0)+'</b></div>';
+stats+='<div class="stat">生字卡<b>'+Object.keys(st.seen||{}).length+' / '+Core.CHARS.length+'</b></div>';
+stats+='<div class="stat">寫字練習<b>'+Object.keys(st.wrote||{}).length+'</b></div>';
+stats+='<div class="stat">閱讀最佳<b>'+(st.readBest||0)+' / '+Core.READ.length+'</b></div>';
+stats+='<div class="stat">挑戰最佳<b>'+(st.chBest||0)+' / 10</b></div>';
+document.getElementById("stats").innerHTML=stats;
+var mist="";if(!st.readBest||st.readBest<Core.READ.length)mist+="<p>• 閱讀理解還有進步空間</p>";
+if(!st.seen||Object.keys(st.seen).length<Core.CHARS.length)mist+="<p>• 有些生字還沒看過</p>";
+if(!st.matchDone)mist+="<p>• 還沒完成語詞配對</p>";
+if(!st.pat||!st.pat.strong||!st.pat.folk||!st.pat.time)mist+="<p>• 句型練習還沒全部完成</p>";
+if(!st.charMatchPerfect)mist+="<p>• 角色配對還沒全對過</p>";
+if(!st.chBest||st.chBest<9)mist+="<p>• 綜合挑戰還沒拿到挑戰王</p>";
+document.getElementById("mist").innerHTML=mist||"<p>✅ 沒有常錯的地方，太棒了！</p>";
+document.getElementById("resetBtn").addEventListener("click",function(){
+ if(confirm("確定要清除所有紀錄嗎？（無法復原）")){localStorage.removeItem("lesson10-mouse-wedding");location.reload();}});
+})();
 </script>
 </body>
 </html>
