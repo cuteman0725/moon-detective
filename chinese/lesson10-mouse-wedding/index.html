@@ -1,1 +1,249 @@
-<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><title>建置中</title></head><body><h1>📝 頁面建置中</h1><p>此課程頁面正在建置中,請稍後再訪。</p><p><a href="../">← 回國語課程列表</a></p></body></html>
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第九課 阿白觀察記 - 國語四上</title>
+<style>
+body { font-family: "Microsoft JhengHei", sans-serif; max-width: 600px; margin: 20px auto; padding: 0 16px; background: #f5f5f5; }
+h1 { color: #2b7a4f; font-size: 24px; margin: 20px 0 10px; }
+.tabs { display: flex; gap: 4px; flex-wrap: wrap; margin: 20px 0; }
+.tab { flex: 1; min-width: 80px; padding: 10px 8px; border: none; background: #ddd; cursor: pointer; border-radius: 8px 8px 0 0; font-size: 15px; }
+.tab.active { background: white; font-weight: bold; }
+.panel { display: none; background: white; padding: 20px; border-radius: 0 0 12px 12px; min-height: 300px; }
+.panel.active { display: block; }
+.char-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 10px; }
+.char-card { padding: 20px 10px; text-align: center; background: #e3f2fd; border-radius: 8px; cursor: pointer; font-size: 32px; }
+.char-card:hover { background: #bbdefb; }
+button { margin: 10px 5px 10px 0; padding: 10px 20px; font-size: 16px; border-radius: 8px; border: none; background: #2b7a4f; color: white; cursor: pointer; }
+button:hover { background: #1e5a3a; }
+#quiz-area { line-height: 1.8; }
+.quiz-q { margin: 15px 0; padding: 12px; background: #f0f7ff; border-radius: 8px; }
+.quiz-opt { display: block; margin: 5px 0; padding: 8px; cursor: pointer; background: #e8f4f8; border-radius: 4px; }
+.quiz-opt:hover { background: #d0e8f0; }
+.correct { background: #c8e6c9 !important; }
+.wrong { background: #ffcdd2 !important; }
+canvas { border: 2px solid #333; touch-action: none; }
+</style>
+</head>
+<body>
+<div style="text-align: center; margin-bottom: 10px;">
+  <a href="../" style="color: #2b7a4f; text-decoration: none; font-size: 14px;">← 回國語課程</a>
+</div>
+
+<h1>🐦 第九課 阿白觀察記</h1>
+<p style="color: #666; margin: 0 0 10px;">第參單元 小小觀察家 | 南一版四上 p.80-85</p>
+
+<div class="tabs">
+  <button class="tab active" onclick="showTab('poem')">課文</button>
+  <button class="tab" onclick="showTab('chars')">生字</button>
+  <button class="tab" onclick="showTab('words')">語詞</button>
+  <button class="tab" onclick="showTab('pattern')">句型</button>
+  <button class="tab" onclick="showTab('quiz')">挑戰</button>
+  <button class="tab" onclick="showTab('rec')">紀錄</button>
+</div>
+
+<div id="poem" class="panel active">
+  <h2>📖 課文導讀</h2>
+  <p style="line-height: 1.8;">每天清晨,熱情的阿白(白頭翁)總是準時在陽台唱歌,讓作者不得不起床。作者觀察到阿白不只是歌唱家,還是舞林高手!牠會放低身體、展開尾羽、快速振動雙翅,還會碎步走動。</p>
+  <p style="line-height: 1.8;">原來這是白頭翁的求偶季節。兩個月後,阿白身邊多了一個伴,牠們忙著築巢、孵蛋。作者用望遠鏡觀察鳥巢,發現三顆帶著巧克力色斑點的蛋,還有一條塑膠片。</p>
+  <p style="line-height: 1.8;">有了幼鳥後,阿白變得很凶,會在空中繞圈、大聲叫。夏天結束,幼鳥們長出豐滿的羽毛就不見了,阿白也不告而別。雖然少了擾人的「鬧鐘」,作者卻忍不住想念觀察阿白帶來的樂趣。</p>
+</div>
+
+<div id="chars" class="panel">
+  <h2>🔤 生字 (15個)</h2>
+  <div class="char-grid" id="char-grid"></div>
+  <div id="char-detail" style="display:none; margin-top: 20px; padding: 20px; background: #f9f9f9; border-radius: 8px;">
+    <h3 style="font-size: 48px; text-align: center; margin: 10px 0;" id="char-big"></h3>
+    <p id="char-info"></p>
+    <button onclick="document.getElementById('char-detail').style.display='none'">關閉</button>
+    <button onclick="showPad()">描寫板</button>
+  </div>
+  <canvas id="pad" width="300" height="300" style="display:none; margin: 20px auto; display: block;"></canvas>
+  <button id="clear-btn" onclick="clearPad()" style="display:none;">清除</button>
+</div>
+
+<div id="words" class="panel">
+  <h2>💬 重點語詞</h2>
+  <div style="line-height: 2;">
+    <p><strong>清晨</strong> ㄑㄧㄥ ㄔㄣˊ - 早上天剛亮的時候</p>
+    <p><strong>熱情</strong> ㄖㄜˋ ㄑㄧㄥˊ - 充滿活力、積極主動</p>
+    <p><strong>準時</strong> ㄓㄨㄣˇ ㄕˊ - 按時、不遲到</p>
+    <p><strong>不得不</strong> ㄅㄨˋ ㄉㄜˊ ㄅㄨˋ - 沒有辦法,只好這樣做</p>
+    <p><strong>振動</strong> ㄓㄣˋ ㄉㄨㄥˋ - 快速地動</p>
+    <p><strong>碎步</strong> ㄙㄨㄟˋ ㄅㄨˋ - 小小步快速走</p>
+    <p><strong>求偶</strong> ㄑㄧㄡˊ ㄡˇ - 找對象、找伴侶</p>
+    <p><strong>觀察</strong> ㄍㄨㄢ ㄔㄚˊ - 仔細看</p>
+    <p><strong>巧克力</strong> ㄑㄧㄠˇ ㄎㄜˋ ㄌㄧˋ - 咖啡色</p>
+    <p><strong>塑膠</strong> ㄙㄨˋ ㄐㄧㄠ - 一種人造材料</p>
+    <p><strong>繞圈</strong> ㄖㄠˋ ㄑㄩㄢ - 轉圈圈</p>
+    <p><strong>豐滿</strong> ㄈㄥ ㄇㄢˇ - 很飽滿、長得好</p>
+    <p><strong>擾人</strong> ㄖㄠˇ ㄖㄣˊ - 打擾人</p>
+  </div>
+</div>
+
+<div id="pattern" class="panel">
+  <h2>📝 句型練習:「不得不」</h2>
+  <p style="background: #fff3cd; padding: 12px; border-radius: 8px;">「不得不」表示「沒有辦法,只好這樣做」。</p>
+  <div id="pattern-quiz"></div>
+  <button onclick="runQuiz('pattern')">開始練習</button>
+</div>
+
+<div id="quiz" class="panel">
+  <h2>🎯 綜合挑戰</h2>
+  <p>測試你對課文的理解!</p>
+  <div id="quiz-area"></div>
+  <button onclick="runQuiz('main')">開始挑戰</button>
+</div>
+
+<div id="rec" class="panel">
+  <h2>⭐ 學習紀錄</h2>
+  <div id="rec-area"></div>
+</div>
+
+<script>
+const Core = {
+  CHARS: [
+    {c:"促",zy:"ㄘㄨˋ",bs:"人",tot:9,ww:["急促","促進","催促"],ex:"急促的叫聲"},
+    {c:"頂",zy:"ㄉㄧㄥˇ",bs:"頁",tot:11,ww:["頂樓","頭頂","一頂帽子"],ex:"頭上還戴著白色毛帽"},
+    {c:"在",zy:"ㄗㄞˋ",bs:"土",tot:6,ww:["在家","存在","在乎"],ex:"在微亮的天色中"},
+    {c:"好",zy:"ㄏㄠˋ",bs:"女",tot:6,ww:["好奇","愛好","好像"],ex:"我很好奇"},
+    {c:"觀",zy:"ㄍㄨㄢ",bs:"見",tot:18,ww:["觀察","觀看","觀賞"],ex:"觀察了好幾天"},
+    {c:"偶",zy:"ㄡˇ",bs:"人",tot:11,ww:["求偶","偶爾","木偶"],ex:"白頭翁的求偶季節"},
+    {c:"者",zy:"ㄓㄜˇ",bs:"老",tot:8,ww:["作者","讀者","舞者"],ex:"林間的舞者"},
+    {c:"振",zy:"ㄓㄣˋ",bs:"手",tot:10,ww:["振動","振作","振奮"],ex:"快速振動雙翅"},
+    {c:"塑",zy:"ㄙㄨˋ",bs:"土",tot:13,ww:["塑膠","雕塑","可塑性"],ex:"一條細長的塑膠片"},
+    {c:"片",zy:"ㄆㄧㄢˋ",bs:"片",tot:4,ww:["碎片","片段","一片"],ex:"塑膠片"},
+    {c:"褐",zy:"ㄏㄜˊ",bs:"衣",tot:15,ww:["褐色","黃褐色"],ex:"黃褐色的鳥巢"},
+    {c:"巧",zy:"ㄑㄧㄠˇ",bs:"工",tot:5,ww:["巧克力","技巧","靈巧"],ex:"巧克力色斑點"},
+    {c:"繞",zy:"ㄖㄠˋ",bs:"糸",tot:18,ww:["繞圈","圍繞","環繞"],ex:"在空中繞圈"},
+    {c:"凶",zy:"ㄒㄩㄥ",bs:"凵",tot:4,ww:["凶猛","凶狠","凶惡"],ex:"阿白變得很凶"},
+    {c:"豐",zy:"ㄈㄥ",bs:"豆",tot:13,ww:["豐富","豐收","豐滿"],ex:"豐滿的羽毛"}
+  ],
+  PAT: [
+    {q:"安靜的清晨裡聽起來特別響亮,讓我_____起床。",a:"不得不",ex:"「不得不」表示沒辦法、只好這樣做"},
+    {q:"颱風來了,學校_____停課。",a:"不得不",ex:"因為颱風,沒辦法上課"},
+    {q:"天氣太熱,我_____開冷氣。",a:"不得不",ex:"熱到受不了,只好開冷氣"},
+    {q:"鬧鐘響了好多次,我_____起床了。",a:"不得不",ex:"再不起床會遲到"}
+  ],
+  READ: [
+    {q:"阿白是什麼鳥?",op:["白頭翁","麻雀","綠繡眼","鴿子"],a:0,ex:"課文中說阿白是白頭翁"},
+    {q:"阿白每天幾點唱歌?",op:["清晨五點半","中午十二點","傍晚六點","晚上九點"],a:0,ex:"每天清晨五點半準時唱歌"},
+    {q:"阿白的表演是為了什麼?",op:["練習飛行","求偶","找食物","築巢"],a:1,ex:"為了吸引母鳥,公鳥會賣力表演"},
+    {q:"鳥巢裡有幾顆蛋?",op:["一顆","兩顆","三顆","四顆"],a:2,ex:"鳥巢裡有三顆帶著巧克力色斑點的蛋"},
+    {q:"鳥巢外側夾著什麼?",op:["樹枝","羽毛","塑膠片","樹葉"],a:2,ex:"一條細長的塑膠片"},
+    {q:"有了幼鳥後,阿白的態度如何?",op:["更溫柔","變得很凶","更害羞","不唱歌了"],a:1,ex:"有了幼鳥後,阿白變得很凶"},
+    {q:"阿白會如何警告靠近的人?",op:["飛走","在空中繞圈大叫","躲起來","攻擊"],a:1,ex:"在空中繞圈,一邊唧唧唧的大聲叫"},
+    {q:"幼鳥什麼時候離開?",op:["春天","夏天結束","秋天","冬天"],a:1,ex:"夏天到了尾聲,幼鳥們長出豐滿的羽毛後離開"},
+    {q:"作者對阿白離開的心情是?",op:["很高興","鬆一口氣","想念牠們","生氣"],a:2,ex:"我卻忍不住想念觀察阿白帶來的樂趣"},
+    {q:"這篇文章主要在描寫什麼?",op:["養鳥的方法","觀察白頭翁的過程","鳥巢的構造","鳥類的種類"],a:1,ex:"文章記錄作者觀察白頭翁的整個過程"}
+  ],
+  BADGE: {
+    "觀察家":{emoji:"🔍",cond:"生字題全對"},
+    "鳥類通":{emoji:"🐦",cond:"課文理解全對"},
+    "全能王":{emoji:"🌟",cond:"挑戰滿分"}
+  }
+};
+
+let st = {mode:'poem', curr:0, ans:[], bestRec:null};
+try { st = JSON.parse(localStorage.getItem('zhBirdingV1') || '{}'); st.mode = st.mode || 'poem'; } catch(e) {}
+function save() { localStorage.setItem('zhBirdingV1', JSON.stringify(st)); }
+
+function showTab(t) {
+  document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById(t).classList.add('active');
+  st.mode = t;
+  if (t === 'chars') renderGrid();
+  if (t === 'rec') renderRec();
+}
+
+function renderGrid() {
+  const g = document.getElementById('char-grid');
+  g.innerHTML = Core.CHARS.map(c => `<div class="char-card" onclick='showChar(${JSON.stringify(c)})'>${c.c}</div>`).join('');
+}
+
+function showChar(c) {
+  document.getElementById('char-detail').style.display = 'block';
+  document.getElementById('char-big').textContent = c.c;
+  document.getElementById('char-info').innerHTML = `
+    <p><strong>注音:</strong> ${c.zy}</p>
+    <p><strong>部首:</strong> ${c.bs}</p>
+    <p><strong>總筆畫:</strong> ${c.tot} 畫</p>
+    <p><strong>造詞:</strong> ${c.ww.join('、')}</p>
+    <p><strong>例句:</strong> ${c.ex}</p>
+  `;
+}
+
+function showPad() {
+  const p = document.getElementById('pad'), cb = document.getElementById('clear-btn');
+  p.style.display = 'block'; cb.style.display = 'inline-block';
+  const ctx = p.getContext('2d'); ctx.lineWidth = 3; ctx.lineCap = 'round'; ctx.strokeStyle = '#000';
+  let drawing = false;
+  p.onmousedown = p.ontouchstart = e => { e.preventDefault(); drawing = true; };
+  p.onmouseup = p.ontouchend = () => drawing = false;
+  p.onmousemove = p.ontouchmove = e => {
+    if (!drawing) return;
+    e.preventDefault();
+    const rect = p.getBoundingClientRect(), touch = e.touches ? e.touches[0] : e;
+    const x = (touch.clientX - rect.left) * (p.width / rect.width);
+    const y = (touch.clientY - rect.top) * (p.height / rect.height);
+    ctx.lineTo(x, y); ctx.stroke(); ctx.beginPath(); ctx.moveTo(x, y);
+  };
+}
+
+function clearPad() {
+  const p = document.getElementById('pad'), ctx = p.getContext('2d');
+  ctx.clearRect(0, 0, p.width, p.height); ctx.beginPath();
+}
+
+function runQuiz(type) {
+  const area = type === 'pattern' ? document.getElementById('pattern-quiz') : document.getElementById('quiz-area');
+  const items = type === 'pattern' ? Core.PAT : Core.READ;
+  st.curr = 0; st.ans = [];
+  const show = () => {
+    if (st.curr >= items.length) {
+      const score = st.ans.filter(a => a).length;
+      area.innerHTML = `<h3>完成!得分:${score}/${items.length}</h3>`;
+      if (type === 'main' && (!st.bestRec || score > st.bestRec.score)) {
+        st.bestRec = {score, date: new Date().toISOString()};
+        save();
+      }
+      return;
+    }
+    const it = items[st.curr];
+    if (type === 'pattern') {
+      area.innerHTML = `<div class="quiz-q"><p>${st.curr+1}. ${it.q}</p><input id="ans-input" style="width:100%; padding:8px; font-size:16px;"><button onclick="checkAns()">送出</button></div><div id="fb"></div>`;
+    } else {
+      area.innerHTML = `<div class="quiz-q"><p>${st.curr+1}. ${it.q}</p>${it.op.map((o,i) => `<div class="quiz-opt" onclick="pick(${i})">${i+1}. ${o}</div>`).join('')}</div><div id="fb"></div>`;
+    }
+  };
+  window.checkAns = () => {
+    const val = document.getElementById('ans-input').value.trim();
+    const it = items[st.curr];
+    const ok = val === it.a;
+    st.ans.push(ok);
+    document.getElementById('fb').innerHTML = `<p style="padding:10px; border-radius:8px; background:${ok?'#c8e6c9':'#ffcdd2'}">${ok?'✓ 答對了!':'✗ 答錯了'}<br>${it.ex}</p><button onclick="next()">下一題</button>`;
+  };
+  window.pick = i => {
+    const it = items[st.curr];
+    const ok = i === it.a;
+    st.ans.push(ok);
+    document.querySelectorAll('.quiz-opt')[i].classList.add(ok ? 'correct' : 'wrong');
+    if (!ok) document.querySelectorAll('.quiz-opt')[it.a].classList.add('correct');
+    document.getElementById('fb').innerHTML = `<p style="padding:10px; margin-top:10px;">${it.ex}</p><button onclick="next()">下一題</button>`;
+  };
+  window.next = () => { st.curr++; show(); };
+  show();
+}
+
+function renderRec() {
+  const r = document.getElementById('rec-area');
+  r.innerHTML = st.bestRec ? `<p>🎯 最佳分數: ${st.bestRec.score}/10</p><p>📅 日期: ${new Date(st.bestRec.date).toLocaleDateString()}</p>` : '<p>還沒有測驗紀錄</p>';
+}
+
+if (st.mode === 'chars') renderGrid();
+</script>
+</body>
+</html>
