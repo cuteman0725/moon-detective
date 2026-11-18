@@ -2,248 +2,344 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>第九課 阿白觀察記 - 國語四上</title>
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ff6b9a">
+<title>豆粥婆婆 🍲｜南一國語 4上 第十一課</title>
 <style>
-body { font-family: "Microsoft JhengHei", sans-serif; max-width: 600px; margin: 20px auto; padding: 0 16px; background: #f5f5f5; }
-h1 { color: #2b7a4f; font-size: 24px; margin: 20px 0 10px; }
-.tabs { display: flex; gap: 4px; flex-wrap: wrap; margin: 20px 0; }
-.tab { flex: 1; min-width: 80px; padding: 10px 8px; border: none; background: #ddd; cursor: pointer; border-radius: 8px 8px 0 0; font-size: 15px; }
-.tab.active { background: white; font-weight: bold; }
-.panel { display: none; background: white; padding: 20px; border-radius: 0 0 12px 12px; min-height: 300px; }
-.panel.active { display: block; }
-.char-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 10px; }
-.char-card { padding: 20px 10px; text-align: center; background: #e3f2fd; border-radius: 8px; cursor: pointer; font-size: 32px; }
-.char-card:hover { background: #bbdefb; }
-button { margin: 10px 5px 10px 0; padding: 10px 20px; font-size: 16px; border-radius: 8px; border: none; background: #2b7a4f; color: white; cursor: pointer; }
-button:hover { background: #1e5a3a; }
-#quiz-area { line-height: 1.8; }
-.quiz-q { margin: 15px 0; padding: 12px; background: #f0f7ff; border-radius: 8px; }
-.quiz-opt { display: block; margin: 5px 0; padding: 8px; cursor: pointer; background: #e8f4f8; border-radius: 4px; }
-.quiz-opt:hover { background: #d0e8f0; }
-.correct { background: #c8e6c9 !important; }
-.wrong { background: #ffcdd2 !important; }
-canvas { border: 2px solid #333; touch-action: none; }
+:root{--ink:#2b2d42;--org:#ff9f1c;--sun:#ffd166;--pink:#ff6b9a;--blue:#4d96ff;--teal:#2a9d8f;--purple:#9b5de5;--green:#52b788}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:#fff6f9;overflow-x:hidden}
+html,body{margin:0;padding:0}
+body{font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",system-ui,sans-serif;color:var(--ink);min-height:100vh;background:linear-gradient(180deg,#ffd6e4 0,#fff6f9 260px);padding-bottom:calc(92px + env(safe-area-inset-bottom))}
+header{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:8px;padding:10px 12px;padding-top:calc(10px + env(safe-area-inset-top));background:rgba(255,107,154,.97);color:#fff}
+header h1{font-size:clamp(17px,4.6vw,26px);margin:0;flex:1;letter-spacing:1px;min-width:0}
+.back{color:#fff;text-decoration:none;font-weight:800;background:rgba(255,255,255,.25);border-radius:999px;padding:8px 12px;font-size:15px;white-space:nowrap}
+.score{background:#fff;color:#b0154a;font-weight:900;border-radius:999px;padding:6px 12px;font-size:17px;white-space:nowrap;box-shadow:0 3px 0 #c2185b}
+.score.pop{animation:pop .5s}@keyframes pop{40%{transform:scale(1.3)}}
+main{max-width:1000px;margin:0 auto;padding:10px}
+section.page{display:none}section.page.active{display:block;animation:fadein .3s}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.card{background:#fff;border-radius:22px;padding:14px;margin:10px 0;box-shadow:0 6px 0 rgba(0,0,0,.1)}
+.card h2{margin:0 0 6px;font-size:clamp(20px,5vw,25px)}.card h3{margin:4px 0 6px;font-size:19px}
+.small{font-size:14px;color:#666;line-height:1.5}
+.lead{font-size:17px;line-height:1.75;margin:6px 0}
+.btn{appearance:none;border:none;border-radius:16px;padding:10px 14px;min-height:50px;font-size:17px;font-weight:800;cursor:pointer;background:var(--blue);color:#fff;box-shadow:0 4px 0 rgba(0,0,0,.22);font-family:inherit;touch-action:manipulation}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.22)}
+.btn.org{background:var(--org)}.btn.pink{background:var(--pink)}.btn.teal{background:var(--teal)}.btn.purple{background:var(--purple)}.btn.gray{background:#8d99ae}.btn.green{background:var(--green)}
+.btn.white{background:#fff;color:var(--ink);border:3px solid #ffd0df}.btn.on{outline:4px solid var(--pink);outline-offset:1px;background:#fff0f5}
+.btn.small{min-height:44px;font-size:15px;padding:6px 10px}
+.btn:disabled{opacity:.4}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0;align-items:center}.cen{justify-content:center}
+.seg{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
+.hidden{display:none!important}
+.fb{margin-top:8px;border-radius:14px;padding:8px 12px;font-size:17px;line-height:1.55;display:none}
+.fb.show{display:block}.fb.good{background:#d8f3dc}.fb.bad{background:#fff3cd}.fb.info{background:#f3e8ff}
+.done{background:linear-gradient(135deg,#d8f3dc,#fff1a8);border-radius:18px;padding:12px;font-size:18px;line-height:1.6;margin-top:10px}
+.tip{background:#fffbea;border:3px dashed var(--sun);border-radius:16px;padding:8px 12px;font-size:16px;line-height:1.6;margin-top:8px}
+.tip.more{background:#f3f7ff;border-color:#b9cdf5}
+.q{font-size:21px;line-height:1.6;font-weight:800;text-align:center;margin:6px 0;word-break:break-word}
+.q .hl{color:#c1121f;border-bottom:3px solid var(--pink)}
+.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin-top:8px}
+.choices .btn{background:#fff;color:var(--ink);border:3px solid #d6e4ff;font-size:19px;min-height:58px;line-height:1.4}
+.choices .btn.ok{background:#d8f3dc;border-color:#2ec4b6}.choices .btn.no{background:#ffd6dc;border-color:#ff6b9a;animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.prog{display:flex;gap:4px;justify-content:center;margin:4px 0;flex-wrap:wrap}
+.prog i{width:20px;height:10px;border-radius:6px;background:#eee;display:block}.prog i.ok{background:#2ec4b6}.prog i.no{background:#ff6b9a}.prog i.cur{background:var(--sun)}
+table.rec{border-collapse:collapse;width:100%;font-size:16px}
+table.rec td,table.rec th{padding:8px;border-bottom:1px solid #eee;text-align:left;vertical-align:top}
+.statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.stat{background:#ffe6ef;border-radius:16px;padding:10px;text-align:center}.stat b{display:block;font-size:28px;color:#b0154a}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.bdg{background:#eee;border-radius:14px;padding:6px 10px;font-weight:800;color:#999;font-size:15px}.bdg.got{background:linear-gradient(135deg,#ffd166,#ff9f1c);color:#5a3b00}
+.bdg small{display:block;font-weight:600;font-size:12px}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;justify-content:space-around;background:#fff;padding:6px 4px;padding-bottom:calc(6px + env(safe-area-inset-bottom));box-shadow:0 -4px 16px rgba(0,0,0,.15)}
+nav.tabs button{flex:1;min-width:0;border:none;background:none;font-family:inherit;font-size:13px;font-weight:800;color:#666;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 1px;border-radius:14px;cursor:pointer;min-height:60px;touch-action:manipulation}
+nav.tabs button span{font-size:24px;line-height:1}nav.tabs button.on{background:#ffe0eb;color:#b0154a}
+.burst{position:fixed;z-index:99;pointer-events:none;font-size:30px;animation:fly 1.1s ease-out forwards}
+@keyframes fly{to{transform:translate(var(--dx),var(--dy)) rotate(360deg);opacity:0}}
+.info{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:8px 0}
+.info div{background:#fff0f5;border-radius:14px;padding:8px 10px;font-size:16px}.info b{display:block;font-size:13px;color:#b0154a}
+.part{border:3px solid #ffd0df;border-radius:18px;padding:10px 12px;margin:8px 0;background:#fffafc}
+.part h4{margin:0 0 4px;font-size:18px;line-height:1.7}.part .tag{display:inline-block;background:var(--pink);color:#fff;border-radius:999px;padding:2px 10px;font-size:14px;margin-right:6px;line-height:1.5}
+.part .tag.t2{background:var(--teal)}
+.quote{background:#fff4c2;border-radius:8px;padding:2px 6px;font-weight:700;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.chargrid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;max-width:560px;margin:0 auto}
+.chargrid button{font-family:"BiauKai","DFKai-SB","TW-Kai","Kaiti TC",KaiTi,serif;font-size:clamp(30px,8vw,44px);aspect-ratio:1/1;min-height:56px;border-radius:16px;border:3px solid #ffd0df;background:#fff;color:var(--ink);cursor:pointer;position:relative;touch-action:manipulation;padding:0}
+.chargrid button.seen{background:#fff0f5}.chargrid button.seen:after{content:"✓";position:absolute;right:4px;top:0;font-size:14px;color:var(--teal);font-family:sans-serif}
+.chargrid button.on{outline:4px solid var(--pink)}
+.cdet{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start;margin-top:10px}
+.bigc{font-family:"BiauKai","DFKai-SB","TW-Kai","Kaiti TC",KaiTi,serif;font-size:96px;line-height:1;width:130px;height:130px;display:flex;align-items:center;justify-content:center;border:3px solid #ff6b9a;border-radius:12px;position:relative;
+ background-image:linear-gradient(#ffd0df,#ffd0df),linear-gradient(#ffd0df,#ffd0df);background-size:100% 2px,2px 100%;background-position:center;background-repeat:no-repeat;flex:0 0 130px}
+.zy{writing-mode:vertical-rl;font-size:18px;font-weight:800;color:#b0154a;letter-spacing:2px}
+.cinfo{flex:1;min-width:200px;font-size:17px;line-height:1.8}
+.chip{display:inline-block;background:#e6f0ff;border-radius:999px;padding:3px 12px;margin:2px 4px 2px 0;font-weight:700}
+.chip.id{background:#fff1d6}
+.padwrap{position:relative;width:260px;height:260px;margin:8px auto;border:3px solid #ff6b9a;border-radius:12px;background:#fff;touch-action:none}
+.padwrap .ghost{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:"BiauKai","DFKai-SB","TW-Kai","Kaiti TC",KaiTi,serif;font-size:210px;color:#f3d3de;pointer-events:none;line-height:1;
+ background-image:linear-gradient(#ffd0df,#ffd0df),linear-gradient(#ffd0df,#ffd0df);background-size:100% 2px,2px 100%;background-position:center;background-repeat:no-repeat}
+.padwrap canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none}
+.wlist{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px}
+.wcard{background:#fffafc;border:3px solid #ffd0df;border-radius:16px;padding:8px 12px;font-size:16px;line-height:1.5}.wcard b{font-size:20px;display:block}
+.wcard small{color:#888;font-size:13px}
+.match{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,3fr);gap:8px}
+.match .col{display:flex;flex-direction:column;gap:8px}
+.match .btn{background:#fff;color:var(--ink);border:3px solid #d6e4ff;font-size:16px;min-height:56px;line-height:1.35;padding:6px 8px}
+.match .btn.sel{border-color:var(--pink);background:#fff0f5}.match .btn.ok{background:#d8f3dc;border-color:#2ec4b6;opacity:.55}.match .btn.no{animation:shake .4s;border-color:#ff6b9a}
+.blank{display:inline-block;min-width:3em;border-bottom:3px solid var(--pink);color:#b0154a}
+@media (max-width:420px){.chargrid{gap:6px}.bigc{width:110px;height:110px;flex-basis:110px;font-size:80px}.match .btn{font-size:15px}}
 </style>
 </head>
 <body>
-<div style="text-align: center; margin-bottom: 10px;">
-  <a href="../" style="color: #2b7a4f; text-decoration: none; font-size: 14px;">← 回國語課程</a>
-</div>
+<header>
+  <a class="back" href="../">← 國語</a>
+  <h1>🍲 豆粥婆婆</h1>
+  <div class="score" id="score">⭐ 0</div>
+</header>
+<main>
 
-<h1>🐦 第九課 阿白觀察記</h1>
-<p style="color: #666; margin: 0 0 10px;">第參單元 小小觀察家 | 南一版四上 p.80-85</p>
-
-<div class="tabs">
-  <button class="tab active" onclick="showTab('poem')">課文</button>
-  <button class="tab" onclick="showTab('chars')">生字</button>
-  <button class="tab" onclick="showTab('words')">語詞</button>
-  <button class="tab" onclick="showTab('pattern')">句型</button>
-  <button class="tab" onclick="showTab('quiz')">挑戰</button>
-  <button class="tab" onclick="showTab('rec')">紀錄</button>
-</div>
-
-<div id="poem" class="panel active">
-  <h2>📖 課文導讀</h2>
-  <p style="line-height: 1.8;">每天清晨,熱情的阿白(白頭翁)總是準時在陽台唱歌,讓作者不得不起床。作者觀察到阿白不只是歌唱家,還是舞林高手!牠會放低身體、展開尾羽、快速振動雙翅,還會碎步走動。</p>
-  <p style="line-height: 1.8;">原來這是白頭翁的求偶季節。兩個月後,阿白身邊多了一個伴,牠們忙著築巢、孵蛋。作者用望遠鏡觀察鳥巢,發現三顆帶著巧克力色斑點的蛋,還有一條塑膠片。</p>
-  <p style="line-height: 1.8;">有了幼鳥後,阿白變得很凶,會在空中繞圈、大聲叫。夏天結束,幼鳥們長出豐滿的羽毛就不見了,阿白也不告而別。雖然少了擾人的「鬧鐘」,作者卻忍不住想念觀察阿白帶來的樂趣。</p>
-</div>
-
-<div id="chars" class="panel">
-  <h2>🔤 生字 (15個)</h2>
-  <div class="char-grid" id="char-grid"></div>
-  <div id="char-detail" style="display:none; margin-top: 20px; padding: 20px; background: #f9f9f9; border-radius: 8px;">
-    <h3 style="font-size: 48px; text-align: center; margin: 10px 0;" id="char-big"></h3>
-    <p id="char-info"></p>
-    <button onclick="document.getElementById('char-detail').style.display='none'">關閉</button>
-    <button onclick="showPad()">描寫板</button>
+<!-- ============ 課文 ============ -->
+<section class="page active" id="p-read">
+  <div class="card">
+    <h2>📖 第十一課 豆粥婆婆</h2>
+    <div class="info">
+      <div><b>版本</b>南一 國語 4上（第七冊）</div>
+      <div><b>單元</b>第肆單元 美好的祝福</div>
+      <div><b>作者</b>改寫自日本民間故事</div>
+      <div><b>文體</b>故事（民間故事）</div>
+    </div>
+    <div class="tip">🍲 <b>故事主題</b>：善良的婆婆分享豆粥給飢餓的時候物，得到神奇的回報。包含善良、分享、感恩的主題。</div>
+    <p class="small">這裡是用自己的話整理的「重點導讀」，只引用幾個短句；完整課文請看課本第 106～112 頁。</p>
   </div>
-  <canvas id="pad" width="300" height="300" style="display:none; margin: 20px auto; display: block;"></canvas>
-  <button id="clear-btn" onclick="clearPad()" style="display:none;">清除</button>
-</div>
 
-<div id="words" class="panel">
-  <h2>💬 重點語詞</h2>
-  <div style="line-height: 2;">
-    <p><strong>清晨</strong> ㄑㄧㄥ ㄔㄣˊ - 早上天剛亮的時候</p>
-    <p><strong>熱情</strong> ㄖㄜˋ ㄑㄧㄥˊ - 充滿活力、積極主動</p>
-    <p><strong>準時</strong> ㄓㄨㄣˇ ㄕˊ - 按時、不遲到</p>
-    <p><strong>不得不</strong> ㄅㄨˋ ㄉㄜˊ ㄅㄨˋ - 沒有辦法,只好這樣做</p>
-    <p><strong>振動</strong> ㄓㄣˋ ㄉㄨㄥˋ - 快速地動</p>
-    <p><strong>碎步</strong> ㄙㄨㄟˋ ㄅㄨˋ - 小小步快速走</p>
-    <p><strong>求偶</strong> ㄑㄧㄡˊ ㄡˇ - 找對象、找伴侶</p>
-    <p><strong>觀察</strong> ㄍㄨㄢ ㄔㄚˊ - 仔細看</p>
-    <p><strong>巧克力</strong> ㄑㄧㄠˇ ㄎㄜˋ ㄌㄧˋ - 咖啡色</p>
-    <p><strong>塑膠</strong> ㄙㄨˋ ㄐㄧㄠ - 一種人造材料</p>
-    <p><strong>繞圈</strong> ㄖㄠˋ ㄑㄩㄢ - 轉圈圈</p>
-    <p><strong>豐滿</strong> ㄈㄥ ㄇㄢˇ - 很飽滿、長得好</p>
-    <p><strong>擾人</strong> ㄖㄠˇ ㄖㄣˊ - 打擾人</p>
+  <div class="card">
+    <h3>🗺️ 課文導讀</h3>
+    <div class="part"><h4><span class="tag">開頭</span>婆婆煮豆粥</h4>
+      <p class="lead">從前有個善良的婆婆，每天用大鍋子煮豆粥。她的豆粥又香又好吃，村裡的人都喜歡吃。</p>
+    </div>
+    <div class="part"><h4><span class="tag">經過</span>分享給動物</h4>
+      <p class="lead">有一天，一隻飢餓的小鳥來求助，婆婆分給牠一碗豆粥。小鳥吃飽後，送婆婆一個神奇的木柄。婆婆不知道木柄的秘密。</p>
+      <p class="lead">後來，婆婆煮豆粥時不小心把木柄掉進鍋子裡。沒想到，鍋子裡的豆粥開始湧出來，越來越多！婆婆試著要停止，但豆粥停不下來。</p>
+    </div>
+    <div class="part"><h4><span class="tag">高潮</span>豆粥淹沒村莊</h4>
+      <p class="lead">豆粥像波浪一樣湧出來，淹沒了整個村莊。村民們驚慌失措，不知道該怎麼辦。小鳥看到了，趕緊飛回來教婆婆怎麼停止。</p>
+    </div>
+    <div class="part"><h4><span class="tag">結尾</span>得到祝福</h4>
+      <p class="lead">婆婆學會了使用木柄，豆粥終於停止了。從此以後，婆婆用這個神奇的木柄，煮出足夠的豆粥分享給大家。村裡的人都很感謝婆婆的善良。</p>
+    </div>
+    <div class="tip more">🔎 <b>故事的啟示</b>：分享和善良會得到美好的回報。婆婆因為願意幫助別人，得到了神奇的禮物。</div>
   </div>
-</div>
 
-<div id="pattern" class="panel">
-  <h2>📝 句型練習:「不得不」</h2>
-  <p style="background: #fff3cd; padding: 12px; border-radius: 8px;">「不得不」表示「沒有辦法,只好這樣做」。</p>
-  <div id="pattern-quiz"></div>
-  <button onclick="runQuiz('pattern')">開始練習</button>
-</div>
+  <div class="card">
+    <h3>🔍 閱讀理解小偵探</h3>
+    <div id="readQ"></div>
+  </div>
+</section>
 
-<div id="quiz" class="panel">
-  <h2>🎯 綜合挑戰</h2>
-  <p>測試你對課文的理解!</p>
-  <div id="quiz-area"></div>
-  <button onclick="runQuiz('main')">開始挑戰</button>
-</div>
+<!-- ============ 生字 ============ -->
+<section class="page" id="p-char">
+  <div class="card">
+    <h2>✍️ 我會寫的字（15 個）</h2>
+    <p class="small">點一個字，看注音、部首、筆畫和造詞。數字是「部首外筆畫／總筆畫」，依課本第 112 頁。</p>
+    <div class="chargrid" id="charGrid"></div>
+    <div class="cdet" id="charDet"></div>
+  </div>
+  <div class="card">
+    <h3>🖌️ 描寫板</h3>
+    <p class="small">用手指照著淡淡的字描一描。筆順可以按上面的「看筆順動畫」到教育部筆順學習網看。</p>
+    <div class="padwrap" id="padWrap"><div class="ghost" id="ghost">缸</div><canvas id="pad" width="520" height="520"></canvas></div>
+    <div class="btns cen"><button class="btn gray small" id="padClear">🧽 擦掉</button><button class="btn green" id="padDone">✅ 寫好了</button></div>
+    <div class="fb" id="padFb"></div>
+  </div>
+  <div class="card">
+    <h3>🧠 生字小測驗</h3>
+    <div class="seg" id="cqSeg">
+      <button class="btn white on" data-t="bs">部首</button>
+      <button class="btn white" data-t="tot">筆畫</button>
+      <button class="btn white" data-t="zy">注音</button>
+    </div>
+    <div id="charQ"></div>
+  </div>
+</section>
 
-<div id="rec" class="panel">
-  <h2>⭐ 學習紀錄</h2>
-  <div id="rec-area"></div>
-</div>
+<!-- ============ 語詞 ============ -->
+<section class="page" id="p-word">
+  <div class="card">
+    <h2>🧩 語詞配對</h2>
+    <p class="small">先點左邊的語詞，再點右邊正確的意思。</p>
+    <div id="matchBox"></div>
+  </div>
+  <div class="card">
+    <h3>📝 選詞填空</h3>
+    <div id="fillQ"></div>
+  </div>
+  <div class="card">
+    <h3>📚 語詞小卡</h3>
+    <p class="small">這些是課文裡重要的語詞。解釋是用自己的話寫的。</p>
+    <div class="wlist" id="wordList"></div>
+  </div>
+</section>
 
-<script>
-const Core = {
-  CHARS: [
-    {c:"促",zy:"ㄘㄨˋ",bs:"人",tot:9,ww:["急促","促進","催促"],ex:"急促的叫聲"},
-    {c:"頂",zy:"ㄉㄧㄥˇ",bs:"頁",tot:11,ww:["頂樓","頭頂","一頂帽子"],ex:"頭上還戴著白色毛帽"},
-    {c:"在",zy:"ㄗㄞˋ",bs:"土",tot:6,ww:["在家","存在","在乎"],ex:"在微亮的天色中"},
-    {c:"好",zy:"ㄏㄠˋ",bs:"女",tot:6,ww:["好奇","愛好","好像"],ex:"我很好奇"},
-    {c:"觀",zy:"ㄍㄨㄢ",bs:"見",tot:18,ww:["觀察","觀看","觀賞"],ex:"觀察了好幾天"},
-    {c:"偶",zy:"ㄡˇ",bs:"人",tot:11,ww:["求偶","偶爾","木偶"],ex:"白頭翁的求偶季節"},
-    {c:"者",zy:"ㄓㄜˇ",bs:"老",tot:8,ww:["作者","讀者","舞者"],ex:"林間的舞者"},
-    {c:"振",zy:"ㄓㄣˋ",bs:"手",tot:10,ww:["振動","振作","振奮"],ex:"快速振動雙翅"},
-    {c:"塑",zy:"ㄙㄨˋ",bs:"土",tot:13,ww:["塑膠","雕塑","可塑性"],ex:"一條細長的塑膠片"},
-    {c:"片",zy:"ㄆㄧㄢˋ",bs:"片",tot:4,ww:["碎片","片段","一片"],ex:"塑膠片"},
-    {c:"褐",zy:"ㄏㄜˊ",bs:"衣",tot:15,ww:["褐色","黃褐色"],ex:"黃褐色的鳥巢"},
-    {c:"巧",zy:"ㄑㄧㄠˇ",bs:"工",tot:5,ww:["巧克力","技巧","靈巧"],ex:"巧克力色斑點"},
-    {c:"繞",zy:"ㄖㄠˋ",bs:"糸",tot:18,ww:["繞圈","圍繞","環繞"],ex:"在空中繞圈"},
-    {c:"凶",zy:"ㄒㄩㄥ",bs:"凵",tot:4,ww:["凶猛","凶狠","凶惡"],ex:"阿白變得很凶"},
-    {c:"豐",zy:"ㄈㄥ",bs:"豆",tot:13,ww:["豐富","豐收","豐滿"],ex:"豐滿的羽毛"}
-  ],
-  PAT: [
-    {q:"安靜的清晨裡聽起來特別響亮,讓我_____起床。",a:"不得不",ex:"「不得不」表示沒辦法、只好這樣做"},
-    {q:"颱風來了,學校_____停課。",a:"不得不",ex:"因為颱風,沒辦法上課"},
-    {q:"天氣太熱,我_____開冷氣。",a:"不得不",ex:"熱到受不了,只好開冷氣"},
-    {q:"鬧鐘響了好多次,我_____起床了。",a:"不得不",ex:"再不起床會遲到"}
-  ],
-  READ: [
-    {q:"阿白是什麼鳥?",op:["白頭翁","麻雀","綠繡眼","鴿子"],a:0,ex:"課文中說阿白是白頭翁"},
-    {q:"阿白每天幾點唱歌?",op:["清晨五點半","中午十二點","傍晚六點","晚上九點"],a:0,ex:"每天清晨五點半準時唱歌"},
-    {q:"阿白的表演是為了什麼?",op:["練習飛行","求偶","找食物","築巢"],a:1,ex:"為了吸引母鳥,公鳥會賣力表演"},
-    {q:"鳥巢裡有幾顆蛋?",op:["一顆","兩顆","三顆","四顆"],a:2,ex:"鳥巢裡有三顆帶著巧克力色斑點的蛋"},
-    {q:"鳥巢外側夾著什麼?",op:["樹枝","羽毛","塑膠片","樹葉"],a:2,ex:"一條細長的塑膠片"},
-    {q:"有了幼鳥後,阿白的態度如何?",op:["更溫柔","變得很凶","更害羞","不唱歌了"],a:1,ex:"有了幼鳥後,阿白變得很凶"},
-    {q:"阿白會如何警告靠近的人?",op:["飛走","在空中繞圈大叫","躲起來","攻擊"],a:1,ex:"在空中繞圈,一邊唧唧唧的大聲叫"},
-    {q:"幼鳥什麼時候離開?",op:["春天","夏天結束","秋天","冬天"],a:1,ex:"夏天到了尾聲,幼鳥們長出豐滿的羽毛後離開"},
-    {q:"作者對阿白離開的心情是?",op:["很高興","鬆一口氣","想念牠們","生氣"],a:2,ex:"我卻忍不住想念觀察阿白帶來的樂趣"},
-    {q:"這篇文章主要在描寫什麼?",op:["養鳥的方法","觀察白頭翁的過程","鳥巢的構造","鳥類的種類"],a:1,ex:"文章記錄作者觀察白頭翁的整個過程"}
-  ],
-  BADGE: {
-    "觀察家":{emoji:"🔍",cond:"生字題全對"},
-    "鳥類通":{emoji:"🐦",cond:"課文理解全對"},
-    "全能王":{emoji:"🌟",cond:"挑戰滿分"}
-  }
-};
+<!-- ============ 句型 ============ -->
+<section class="page" id="p-pat">
+  <div class="card">
+    <h2>🪄 句型練習</h2>
+    <p class="lead">練習課文中的重要句型和表達方式。</p>
+  </div>
+  <div class="card"><div id="patQ"></div></div>
+</section>
 
-let st = {mode:'poem', curr:0, ans:[], bestRec:null};
-try { st = JSON.parse(localStorage.getItem('zhBirdingV1') || '{}'); st.mode = st.mode || 'poem'; } catch(e) {}
-function save() { localStorage.setItem('zhBirdingV1', JSON.stringify(st)); }
+<!-- ============ 挑戰 ============ -->
+<section class="page" id="p-game">
+  <div class="card">
+    <h2>🏆 第十一課綜合挑戰（10 題）</h2>
+    <p class="small">生字、語詞、閱讀理解通通有！答對 9 題以上拿「挑戰王」徽章。</p>
+    <div id="chBox"></div>
+  </div>
+</section>
 
-function showTab(t) {
-  document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-  event.target.classList.add('active');
-  document.getElementById(t).classList.add('active');
-  st.mode = t;
-  if (t === 'chars') renderGrid();
-  if (t === 'rec') renderRec();
+<!-- ============ 紀錄 ============ -->
+<section class="page" id="p-rec">
+  <div class="card"><h2>🏆 我的紀錄</h2><div class="statgrid" id="stats"></div><div class="badges" id="badges"></div></div>
+  <div class="card"><h3>🔎 常錯的地方</h3><div id="mist"></div></div>
+  <div class="card"><button class="btn gray" id="resetBtn">清除紀錄</button><p class="small">紀錄只存在這台平板的瀏覽器裡。</p>
+    <p class="small">資料來源：南一版國語 4上 課本——第 106～112 頁〈豆粥婆婆〉課文和「我會寫的字」。</p>
+    <p class="small">✏️ <b>自編說明：</b>課文導讀是用自己的話整理的。閱讀理解、語詞解釋、造詞和挑戰的題目與例句，都是為了練習自己編寫的，不是課本原文。</p></div>
+</section>
+</main>
+
+<nav class="tabs" id="tabs">
+  <button class="on" data-p="p-read"><span>📖</span>課文</button>
+  <button data-p="p-char"><span>✍️</span>生字</button>
+  <button data-p="p-word"><span>🧩</span>語詞</button>
+  <button data-p="p-pat"><span>🪄</span>句型</button>
+  <button data-p="p-game"><span>🎮</span>挑戰</button>
+  <button data-p="p-rec"><span>🏆</span>紀錄</button>
+</nav>
+
+<script id="core">
+var Core=(function(){
+"use strict";
+/* 生字資料：課本第 112 頁 */
+var CHARS=[
+ {c:"缸",zy:"ㄍㄤ",bs:"缶",ex:3,tot:9,words:["水缸","缸子","魚缸"],tx:"婆婆用大缸煮豆粥"},
+ {c:"曾",zy:"ㄘㄥˊ",bs:"曰",ex:8,tot:12,words:["曾經","未曾","何曾"],tx:"曾經有個善良的婆婆"},
+ {c:"婆",zy:"ㄆㄛˊ",bs:"女",ex:8,tot:11,words:["婆婆","外婆","老婆婆"],tx:"善良的婆婆"},
+ {c:"來",zy:"ㄌㄞˊ",bs:"木",ex:6,tot:11,words:["煮來","拿來","送來"],tx:"把豆粥煮來吃"},
+ {c:"柄",zy:"ㄅㄧㄥˇ",bs:"木",ex:5,tot:9,words:["木柄","刀柄","筆柄"],tx:"小鳥送了一個木柄"},
+ {c:"煥",zy:"ㄈㄢˊ",bs:"火",ex:9,tot:13,words:["飢煥","煥餓","飢煥難耐"],tx:"飢煥的小鳥"},
+ {c:"求",zy:"ㄑㄧㄡˊ",bs:"水",bf:"氵",ex:4,tot:7,words:["求助","要求","請求"],tx:"小鳥來求助"},
+ {c:"栗",zy:"ㄌㄧˋ",bs:"木",ex:6,tot:10,words:["栗子","板栗","栗色"],tx:"像栗子一樣的顏色"},
+ {c:"會",zy:"ㄏㄨㄟˋ",bs:"曰",ex:9,tot:13,words:["機會","學會","聚會"],tx:"學會使用木柄"},
+ {c:"湧",zy:"ㄩㄥˇ",bs:"水",bf:"氵",ex:9,tot:12,words:["湧出","湧現","湧入"],tx:"豆粥不斷湧出來"},
+ {c:"穗",zy:"ㄙㄨㄟˋ",bs:"禾",ex:11,tot:16,words:["稻穗","麥穗","穗狀"],tx:"稻穗成熟了"},
+ {c:"血",zy:"ㄒㄧㄝˇ",bs:"血",ex:0,tot:6,words:["血液","流血","血紅"],tx:"血紅色的豆粥"},
+ {c:"拚",zy:"ㄆㄢˋ",bs:"手",bf:"扌",ex:5,tot:8,words:["拚命","拚搏","拚盡全力"],tx:"拚命想辦法"},
+ {c:"解",zy:"ㄐㄧㄝˇ",bs:"角",ex:6,tot:13,words:["解決","理解","解答"],tx:"解決問題"},
+ {c:"哀",zy:"ㄞ",bs:"口",ex:6,tot:9,words:["悲哀","哀傷","哀求"],tx:"哀求的眼神"}
+];
+
+/* 語詞（自編） */
+var WORDS=[
+ {w:"水缸",m:"裝水用的大陶器"},
+ {w:"曾經",m:"以前，過去某個時候"},
+ {w:"婆婆",m:"年紀大的女性長輩"},
+ {w:"木柄",m:"木頭做的把手"},
+ {w:"飢煥",m:"肚子很餓"},
+ {w:"求助",m:"請別人幫忙"},
+ {w:"湧出",m:"大量地流出來"},
+ {w:"拚命",m:"用盡全力"},
+ {w:"解決",m:"把問題處理好"},
+ {w:"悲哀",m:"很傷心、難過"}
+];
+
+/* 閱讀理解（自編） */
+var READ=[
+ {q:"婆婆每天用什麼煮豆粥？",a:"大鍋子",o:["大鍋子","小碗","水缸"]},
+ {q:"誰來向婆婆求助？",a:"飢餓的小鳥",o:["飢餓的小鳥","村民","老爺爺"]},
+ {q:"小鳥送了婆婆什麼？",a:"木柄",o:["木柄","稻穗","栗子"]},
+ {q:"豆粥為什麼停不下來？",a:"木柄掉進鍋子裡",o:["木柄掉進鍋子裡","鍋子太大","婆婆煮太多"]},
+ {q:"豆粥湧出來後怎麼樣？",a:"淹沒了村莊",o:["淹沒了村莊","被喝光了","變涼了"]},
+ {q:"誰教婆婆怎麼停止豆粥？",a:"小鳥",o:["小鳥","村民","老爺爺"]},
+ {q:"這個故事告訴我們什麼？",a:"善良會得到回報",o:["善良會得到回報","不要煮太多粥","小心使用鍋子"]}
+];
+
+/* 選詞填空（自編） */
+var FILL=[
+ {s:"從前＿＿有一個善良的婆婆。",a:"曾經",opts:["曾經","湧出","解決"]},
+ {s:"飢餓的小鳥向婆婆＿＿。",a:"求助",opts:["求助","拚命","悲哀"]},
+ {s:"小鳥送給婆婆一個神奇的＿＿。",a:"木柄",opts:["木柄","水缸","稻穗"]},
+ {s:"豆粥不停地從鍋子裡＿＿。",a:"湧出",opts:["湧出","求助","解決"]},
+ {s:"婆婆＿＿想要停止豆粥。",a:"拚命",opts:["拚命","曾經","悲哀"]},
+ {s:"小鳥幫婆婆＿＿了問題。",a:"解決",opts:["解決","湧出","求助"]}
+];
+
+/* 句型練習（自編） */
+var PATTERNS=[
+ {q:"婆婆每天用大鍋子煮豆粥。<br>（＿＿每天用＿＿）",a:"媽媽每天用電鍋煮飯",o:["媽媽每天用電鍋煮飯","我喜歡吃豆粥","婆婆很善良"]},
+ {q:"小鳥因為飢餓來求助。<br>（＿＿因為＿＿）",a:"弟弟因為生病請假",o:["弟弟因為生病請假","小鳥很可愛","婆婆很善良"]},
+ {q:"豆粥像波浪一樣湧出來。<br>（＿＿像＿＿一樣＿＿）",a:"白雲像棉花一樣輕飄飄",o:["白雲像棉花一樣輕飄飄","豆粥很好吃","小鳥很餓"]},
+ {q:"婆婆的善良得到了回報。<br>（＿＿得到了＿＿）",a:"哥哥的努力得到了好成績",o:["哥哥的努力得到了好成績","婆婆很善良","小鳥很可愛"]}
+];
+
+function shuffle(a,rnd){rnd=rnd||Math.random;var b=a.slice();for(var i=b.length-1;i>0;i--){var j=Math.floor(rnd()*(i+1));var t=b[i];b[i]=b[j];b[j]=t;}return b;}
+function pick(a,n,rnd){return shuffle(a,rnd).slice(0,n);}
+function charBy(c){for(var i=0;i<CHARS.length;i++)if(CHARS[i].c===c)return CHARS[i];return null;}
+function uniq(a){var o=[];for(var i=0;i<a.length;i++)if(o.indexOf(a[i])<0)o.push(a[i]);return o;}
+function blank(s){return s.replace(/＿＿/g,'<span class="blank">（　　）</span>');}
+
+function charQ(type,ch,rnd){
+ var opts,ans,q;
+ if(type==="bs"){ans=ch.bs;var all=uniq(CHARS.map(function(x){return x.bs;}).concat(["口","木","土","手"]));
+  opts=[ans].concat(pick(all.filter(function(b){return b!==ans;}),2,rnd));q="「"+ch.c+"」的部首是什麼？";}
+ else if(type==="tot"){ans=String(ch.tot);var d=[ch.tot-2,ch.tot-1,ch.tot+1,ch.tot+2].filter(function(n){return n>0;});
+  opts=[ans].concat(pick(d,2,rnd).map(String));q="「"+ch.c+"」總共幾畫？";}
+ else {ans=ch.zy;var others=uniq(CHARS.filter(function(x){return x.c!==ch.c;}).map(function(x){return x.zy;})).filter(function(z){return z!==ans;});
+  opts=[ans].concat(pick(others,2,rnd));q="「"+ch.words[0]+"」的「"+ch.c+"」怎麼念？";}
+ return {type:type,c:ch.c,q:q,a:ans,o:shuffle(opts,rnd)};
 }
 
-function renderGrid() {
-  const g = document.getElementById('char-grid');
-  g.innerHTML = Core.CHARS.map(c => `<div class="char-card" onclick='showChar(${JSON.stringify(c)})'>${c.c}</div>`).join('');
+function wordQ(rnd){var w=pick(WORDS,1,rnd)[0],wo=pick(WORDS.filter(function(x){return x.w!==w.w;}),2,rnd);
+ return {type:"word",q:"「"+w.m+"」是哪個語詞？",a:w.w,o:shuffle([w.w,wo[0].w,wo[1].w],rnd)};}
+function fillQ(f,rnd){return {type:"fill",q:blank(f.s),a:f.a,o:shuffle(f.opts,rnd)};}
+function patQ(p,rnd){return {type:"pattern",q:p.q,a:p.a,o:shuffle(p.o,rnd)};}
+
+function makeChallenge(rnd){
+ rnd=rnd||Math.random;var out=[],chs=pick(CHARS,3,rnd);
+ out.push(charQ("bs",chs[0],rnd));out.push(charQ("tot",chs[1],rnd));out.push(charQ("zy",chs[2],rnd));
+ out.push(wordQ(rnd));out.push(wordQ(rnd));
+ pick(FILL,3,rnd).forEach(function(f){out.push(fillQ(f,rnd));});
+ pick(READ,2,rnd).forEach(function(r){out.push({type:"read",q:r.q,a:r.a,o:shuffle(r.o,rnd)});});
+ return shuffle(out,rnd);
 }
 
-function showChar(c) {
-  document.getElementById('char-detail').style.display = 'block';
-  document.getElementById('char-big').textContent = c.c;
-  document.getElementById('char-info').innerHTML = `
-    <p><strong>注音:</strong> ${c.zy}</p>
-    <p><strong>部首:</strong> ${c.bs}</p>
-    <p><strong>總筆畫:</strong> ${c.tot} 畫</p>
-    <p><strong>造詞:</strong> ${c.ww.join('、')}</p>
-    <p><strong>例句:</strong> ${c.ex}</p>
-  `;
+function check(q,ans){return q.a===ans;}
+function matchCheck(word,meaning){for(var i=0;i<WORDS.length;i++)if(WORDS[i].w===word)return WORDS[i].m===meaning;return false;}
+function stars(correct,total){if(!total)return 0;var r=correct/total;return r>=1?3:r>=0.7?2:r>=0.4?1:0;}
+
+var BADGES=[
+ {id:"read",n:"📖 閱讀小達人",d:"閱讀理解全對"},
+ {id:"chars",n:"✍️ 生字小書法家",d:"看完 15 張生字卡"},
+ {id:"write",n:"🖌️ 描紅練習生",d:"在描寫板練習 5 個字"},
+ {id:"words",n:"🧩 語詞配對王",d:"完成一次語詞配對"},
+ {id:"champ",n:"🏆 挑戰王",d:"挑戰答對 9 題以上"}
+];
+
+function badges(st){
+ var g={};st=st||{};
+ if(st.readBest>=READ.length)g.read=1;
+ if(st.seen&&Object.keys(st.seen).length>=CHARS.length)g.chars=1;
+ if(st.wrote&&Object.keys(st.wrote).length>=5)g.write=1;
+ if(st.matchDone>=1)g.words=1;
+ if(st.chBest>=9)g.champ=1;
+ return g;
 }
 
-function showPad() {
-  const p = document.getElementById('pad'), cb = document.getElementById('clear-btn');
-  p.style.display = 'block'; cb.style.display = 'inline-block';
-  const ctx = p.getContext('2d'); ctx.lineWidth = 3; ctx.lineCap = 'round'; ctx.strokeStyle = '#000';
-  let drawing = false;
-  p.onmousedown = p.ontouchstart = e => { e.preventDefault(); drawing = true; };
-  p.onmouseup = p.ontouchend = () => drawing = false;
-  p.onmousemove = p.ontouchmove = e => {
-    if (!drawing) return;
-    e.preventDefault();
-    const rect = p.getBoundingClientRect(), touch = e.touches ? e.touches[0] : e;
-    const x = (touch.clientX - rect.left) * (p.width / rect.width);
-    const y = (touch.clientY - rect.top) * (p.height / rect.height);
-    ctx.lineTo(x, y); ctx.stroke(); ctx.beginPath(); ctx.moveTo(x, y);
-  };
-}
-
-function clearPad() {
-  const p = document.getElementById('pad'), ctx = p.getContext('2d');
-  ctx.clearRect(0, 0, p.width, p.height); ctx.beginPath();
-}
-
-function runQuiz(type) {
-  const area = type === 'pattern' ? document.getElementById('pattern-quiz') : document.getElementById('quiz-area');
-  const items = type === 'pattern' ? Core.PAT : Core.READ;
-  st.curr = 0; st.ans = [];
-  const show = () => {
-    if (st.curr >= items.length) {
-      const score = st.ans.filter(a => a).length;
-      area.innerHTML = `<h3>完成!得分:${score}/${items.length}</h3>`;
-      if (type === 'main' && (!st.bestRec || score > st.bestRec.score)) {
-        st.bestRec = {score, date: new Date().toISOString()};
-        save();
-      }
-      return;
-    }
-    const it = items[st.curr];
-    if (type === 'pattern') {
-      area.innerHTML = `<div class="quiz-q"><p>${st.curr+1}. ${it.q}</p><input id="ans-input" style="width:100%; padding:8px; font-size:16px;"><button onclick="checkAns()">送出</button></div><div id="fb"></div>`;
-    } else {
-      area.innerHTML = `<div class="quiz-q"><p>${st.curr+1}. ${it.q}</p>${it.op.map((o,i) => `<div class="quiz-opt" onclick="pick(${i})">${i+1}. ${o}</div>`).join('')}</div><div id="fb"></div>`;
-    }
-  };
-  window.checkAns = () => {
-    const val = document.getElementById('ans-input').value.trim();
-    const it = items[st.curr];
-    const ok = val === it.a;
-    st.ans.push(ok);
-    document.getElementById('fb').innerHTML = `<p style="padding:10px; border-radius:8px; background:${ok?'#c8e6c9':'#ffcdd2'}">${ok?'✓ 答對了!':'✗ 答錯了'}<br>${it.ex}</p><button onclick="next()">下一題</button>`;
-  };
-  window.pick = i => {
-    const it = items[st.curr];
-    const ok = i === it.a;
-    st.ans.push(ok);
-    document.querySelectorAll('.quiz-opt')[i].classList.add(ok ? 'correct' : 'wrong');
-    if (!ok) document.querySelectorAll('.quiz-opt')[it.a].classList.add('correct');
-    document.getElementById('fb').innerHTML = `<p style="padding:10px; margin-top:10px;">${it.ex}</p><button onclick="next()">下一題</button>`;
-  };
-  window.next = () => { st.curr++; show(); };
-  show();
-}
-
-function renderRec() {
-  const r = document.getElementById('rec-area');
-  r.innerHTML = st.bestRec ? `<p>🎯 最佳分數: ${st.bestRec.score}/10</p><p>📅 日期: ${new Date(st.bestRec.date).toLocaleDateString()}</p>` : '<p>還沒有測驗紀錄</p>';
-}
-
-if (st.mode === 'chars') renderGrid();
+return {CHARS:CHARS,WORDS:WORDS,READ:READ,FILL:FILL,PATTERNS:PATTERNS,BADGES:BADGES,
+ shuffle:shuffle,pick:pick,charBy:charBy,charQ:charQ,wordQ:wordQ,fillQ:fillQ,patQ:patQ,
+ makeChallenge:makeChallenge,check:check,matchCheck:matchCheck,stars:stars,badges:badges};
+})();
 </script>
+<script src="app.js"></script>
 </body>
 </html>
