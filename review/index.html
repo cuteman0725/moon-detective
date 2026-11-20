@@ -404,6 +404,7 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
       body = '<p class="lead">新卡都學完了，到期的卡也都複習過了。太厲害了！</p>';
     } else {
       body = '<div class="plan"><div><b>' + p.dueTake.length + '</b><span>張要複習</span></div><div><b>' + p.newTake.length + '</b><span>張新卡</span></div><div><b>' + S.minutes(p.queue.length) + '</b><span>分鐘左右</span></div></div>'
+        + (p.mustTake && p.mustTake.length ? '<p class="small" style="background:#ffe3e3;color:#a11d1d;border-radius:12px;padding:8px 12px;font-weight:700">📝 其中 ' + p.mustTake.length + ' 張是考卷錯題，會排在最前面。</p>' : '')
         + '<div class="btns col"><button class="btn big" type="button" id="goBtn">▶️ 開始今天的複習</button></div>'
         + (Object.keys(st.cards).length ? '' : '<p class="small">第一次玩：先學幾張新卡，明天開始就會有「要複習」的卡了。</p>');
     }
@@ -690,6 +691,7 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
   function head(c, again) {
     var sb = SUB[c.s];
     return '<span class="chip" style="background:' + sb.bg + ';color:#333">' + sb.icon + ' ' + sb.name + '</span><span class="unit">' + esc(UNIT[c.u].name) + '</span>'
+      + (c.must ? ' <span class="chip" style="background:#ffe3e3;color:#a11d1d">📝 考卷錯題</span>' : '')
       + (again ? ' <span class="chip" style="background:#fff3e0;color:#8a4b00">🔁 再試一次</span>' : !st.cards[c.id] ? ' <span class="chip" style="background:#e3f8ec;color:#1b6b40">✨ 新卡</span>' : '')
       + (!again && S.isMonster(st, c) ? '<div class="monHead">' + monsterSVG(c, 40) + '<span>小怪物來了！答對就能打倒牠！</span></div>' : '');
   }

@@ -65,19 +65,21 @@
     var cards = bank.cards.filter(function (c) { return inScope(st, c); });
     var due = cards.filter(function (c) { var r = st.cards[c.id]; return r && r.b > 0 && r.due <= d; })
       .sort(function (a, b) { var ra = st.cards[a.id], rb = st.cards[b.id]; return (ra.due - rb.due) || (ra.b - rb.b); });
-    var fresh = cards.filter(function (c) { return !st.cards[c.id]; });
+    // 考卷錯題（卡片標 must）：還沒做過的一定要先複習，排在最前面，也不受「每天幾張新卡」的限制
+    var must = cards.filter(function (c) { return c.must && !st.cards[c.id]; });
+    var fresh = cards.filter(function (c) { return !c.must && !st.cards[c.id]; });
     // 新卡也各科輪流（每科照課次順序）
     var bySub = {}, subs = [];
     fresh.forEach(function (c) { if (!bySub[c.s]) { bySub[c.s] = []; subs.push(c.s); } bySub[c.s].push(c); });
     var freshMix = [], more = true;
     while (more) { more = false; subs.forEach(function (s) { if (bySub[s].length) { freshMix.push(bySub[s].shift()); more = true; } }); }
     var rec = st.days[d] || { nw: 0 };
-    var cap = st.set.cap, dueTake = due.slice(0, cap);
-    var newAllow = Math.max(0, Math.min(st.set.newPerDay - (rec.nw || 0), cap - dueTake.length));
-    var newTake = freshMix.slice(0, newAllow);
+    var cap = st.set.cap, mustTake = must.slice(0, cap), dueTake = due.slice(0, cap - mustTake.length);
+    var newAllow = Math.max(0, Math.min(st.set.newPerDay - (rec.nw || 0), cap - mustTake.length - dueTake.length));
+    var restTake = freshMix.slice(0, newAllow), newTake = mustTake.concat(restTake);
     return {
-      day: d, due: due.length, dueTake: dueTake, newTake: newTake, freshLeft: freshMix.length,
-      queue: interleave(dueTake.concat(newTake)), done: !!(st.days[d] && st.days[d].fin) && !dueTake.length && !newTake.length
+      day: d, due: due.length, dueTake: dueTake, newTake: newTake, mustTake: mustTake, freshLeft: freshMix.length + must.length - mustTake.length,
+      queue: interleave(mustTake).concat(interleave(dueTake.concat(restTake))), done: !!(st.days[d] && st.days[d].fin) && !dueTake.length && !newTake.length
     };
   }
   /* 額外加練：今天已完成，再多拿幾張新卡 */
@@ -105,7 +107,8 @@
     if (res === 'fail' && !wasMonster) day.mon = (day.mon || 0) + 1;
     if (res === 'ok' && wasMonster) { st.beat = (st.beat || 0) + 1; day.beat = (day.beat || 0) + 1; }
     // 新卡第一次就答對（上課已經學會）直接放 3 號盒，4 天後再考；之後每答對一次往後一盒
-    if (res === 'ok') { r.ok++; day.ok++; r.b = isNew ? 3 : Math.min(6, r.b + 1); r.due = d + INTERVAL[r.b]; }
+    // 考卷錯題（must）第一次答對只放 1 號盒，隔天再考一次，確定真的會了
+    if (res === 'ok') { r.ok++; day.ok++; r.b = isNew ? (card.must ? 1 : 3) : Math.min(6, r.b + 1); r.due = d + INTERVAL[r.b]; }
     else if (res === 'hard') { r.ng++; r.b = Math.max(1, isNew ? 1 : r.b); r.due = d + 1; }
     else { r.ng++; r.b = 1; r.due = d + 1; }
     save(st);
