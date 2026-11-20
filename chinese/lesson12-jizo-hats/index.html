@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ff6b9a">
+<title>戴斗笠的地藏 ⛄｜南一國語 4上 第十二課</title>
+<style>
+:root{--ink:#2b2d42;--org:#ff9f1c;--sun:#ffd166;--pink:#ff6b9a;--blue:#4d96ff;--teal:#2a9d8f;--purple:#9b5de5;--green:#52b788}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:#fff6f9;overflow-x:hidden}
+html,body{margin:0;padding:0}
+body{font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",system-ui,sans-serif;color:var(--ink);min-height:100vh;background:linear-gradient(180deg,#ffd6e4 0,#fff6f9 260px);padding-bottom:calc(92px + env(safe-area-inset-bottom))}
+header{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:8px;padding:10px 12px;padding-top:calc(10px + env(safe-area-inset-top));background:rgba(255,107,154,.97);color:#fff}
+header h1{font-size:clamp(17px,4.6vw,26px);margin:0;flex:1;letter-spacing:1px;min-width:0}
+.back{color:#fff;text-decoration:none;font-weight:800;background:rgba(255,255,255,.25);border-radius:999px;padding:8px 12px;font-size:15px;white-space:nowrap}
+.score{background:#fff;color:#b0154a;font-weight:900;border-radius:999px;padding:6px 12px;font-size:17px;white-space:nowrap;box-shadow:0 3px 0 #c2185b}
+.score.pop{animation:pop .5s}@keyframes pop{40%{transform:scale(1.3)}}
+main{max-width:1000px;margin:0 auto;padding:10px}
+section.page{display:none}section.page.active{display:block;animation:fadein .3s}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.card{background:#fff;border-radius:22px;padding:14px;margin:10px 0;box-shadow:0 6px 0 rgba(0,0,0,.1)}
+.card h2{margin:0 0 6px;font-size:clamp(20px,5vw,25px)}.card h3{margin:4px 0 6px;font-size:19px}
+.small{font-size:14px;color:#666;line-height:1.5}
+.lead{font-size:17px;line-height:1.75;margin:6px 0}
+.btn{appearance:none;border:none;border-radius:16px;padding:10px 14px;min-height:50px;font-size:17px;font-weight:800;cursor:pointer;background:var(--blue);color:#fff;box-shadow:0 4px 0 rgba(0,0,0,.22);font-family:inherit;touch-action:manipulation}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.22)}
+.btn.org{background:var(--org)}.btn.pink{background:var(--pink)}.btn.teal{background:var(--teal)}.btn.purple{background:var(--purple)}.btn.gray{background:#8d99ae}.btn.green{background:var(--green)}
+.btn.white{background:#fff;color:var(--ink);border:3px solid #ffd0df}.btn.on{outline:4px solid var(--pink);outline-offset:1px;background:#fff0f5}
+.btn.small{min-height:44px;font-size:15px;padding:6px 10px}
+.btn:disabled{opacity:.4}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0;align-items:center}.cen{justify-content:center}
+.seg{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
+.hidden{display:none!important}
+.fb{margin-top:8px;border-radius:14px;padding:8px 12px;font-size:17px;line-height:1.55;display:none}
+.fb.show{display:block}.fb.good{background:#d8f3dc}.fb.bad{background:#fff3cd}.fb.info{background:#f3e8ff}
+.done{background:linear-gradient(135deg,#d8f3dc,#fff1a8);border-radius:18px;padding:12px;font-size:18px;line-height:1.6;margin-top:10px}
+.tip{background:#fffbea;border:3px dashed var(--sun);border-radius:16px;padding:8px 12px;font-size:16px;line-height:1.6;margin-top:8px}
+.tip.more{background:#f3f7ff;border-color:#b9cdf5}
+.q{font-size:21px;line-height:1.6;font-weight:800;text-align:center;margin:6px 0;word-break:break-word}
+.q .hl{color:#c1121f;border-bottom:3px solid var(--pink)}
+.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin-top:8px}
+.choices .btn{background:#fff;color:var(--ink);border:3px solid #d6e4ff;font-size:19px;min-height:58px;line-height:1.4}
+.choices .btn.ok{background:#d8f3dc;border-color:#2ec4b6}.choices .btn.no{background:#ffd6dc;border-color:#ff6b9a;animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.prog{display:flex;gap:4px;justify-content:center;margin:4px 0;flex-wrap:wrap}
+.prog i{width:20px;height:10px;border-radius:6px;background:#eee;display:block}.prog i.ok{background:#2ec4b6}.prog i.no{background:#ff6b9a}.prog i.cur{background:var(--sun)}
+table.rec{border-collapse:collapse;width:100%;font-size:16px}
+table.rec td,table.rec th{padding:8px;border-bottom:1px solid #eee;text-align:left;vertical-align:top}
+.statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.stat{background:#ffe6ef;border-radius:16px;padding:10px;text-align:center}.stat b{display:block;font-size:28px;color:#b0154a}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.bdg{background:#eee;border-radius:14px;padding:6px 10px;font-weight:800;color:#999;font-size:15px}.bdg.got{background:linear-gradient(135deg,#ffd166,#ff9f1c);color:#5a3b00}
+.bdg small{display:block;font-weight:600;font-size:12px}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;justify-content:space-around;background:#fff;padding:6px 4px;padding-bottom:calc(6px + env(safe-area-inset-bottom));box-shadow:0 -4px 16px rgba(0,0,0,.15)}
+nav.tabs button{flex:1;min-width:0;border:none;background:none;font-family:inherit;font-size:13px;font-weight:800;color:#666;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 1px;border-radius:14px;cursor:pointer;min-height:60px;touch-action:manipulation}
+nav.tabs button span{font-size:24px;line-height:1}nav.tabs button.on{background:#ffe0eb;color:#b0154a}
+.burst{position:fixed;z-index:99;pointer-events:none;font-size:30px;animation:fly 1.1s ease-out forwards}
+@keyframes fly{to{transform:translate(var(--dx),var(--dy)) rotate(360deg);opacity:0}}
+.info{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:8px 0}
+.info div{background:#fff0f5;border-radius:14px;padding:8px 10px;font-size:16px}.info b{display:block;font-size:13px;color:#b0154a}
+.part{border:3px solid #ffd0df;border-radius:18px;padding:10px 12px;margin:8px 0;background:#fffafc}
+.part h4{margin:0 0 4px;font-size:18px;line-height:1.7}.part .tag{display:inline-block;background:var(--pink);color:#fff;border-radius:999px;padding:2px 10px;font-size:14px;margin-right:6px;line-height:1.5}
+.part .tag.t2{background:var(--teal)}
+.quote{background:#fff4c2;border-radius:8px;padding:2px 6px;font-weight:700;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.chargrid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;max-width:560px;margin:0 auto}
+.chargrid button{font-family:"BiauKai","DFKai-SB","TW-Kai","Kaiti TC",KaiTi,serif;font-size:clamp(30px,8vw,44px);aspect-ratio:1/1;min-height:56px;border-radius:16px;border:3px solid #ffd0df;background:#fff;color:var(--ink);cursor:pointer;position:relative;touch-action:manipulation;padding:0}
+.chargrid button.seen{background:#fff0f5}.chargrid button.seen:after{content:"✓";position:absolute;right:4px;top:0;font-size:14px;color:var(--teal);font-family:sans-serif}
+.chargrid button.on{outline:4px solid var(--pink)}
+.cdet{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start;margin-top:10px}
+.bigc{font-family:"BiauKai","DFKai-SB","TW-Kai","Kaiti TC",KaiTi,serif;font-size:96px;line-height:1;width:130px;height:130px;display:flex;align-items:center;justify-content:center;border:3px solid #ff6b9a;border-radius:12px;position:relative;
+ background-image:linear-gradient(#ffd0df,#ffd0df),linear-gradient(#ffd0df,#ffd0df);background-size:100% 2px,2px 100%;background-position:center;background-repeat:no-repeat;flex:0 0 130px}
+.zy{writing-mode:vertical-rl;font-size:18px;font-weight:800;color:#b0154a;letter-spacing:2px}
+.cinfo{flex:1;min-width:200px;font-size:17px;line-height:1.8}
+.chip{display:inline-block;background:#e6f0ff;border-radius:999px;padding:3px 12px;margin:2px 4px 2px 0;font-weight:700}
+.chip.id{background:#fff1d6}
+.padwrap{position:relative;width:260px;height:260px;margin:8px auto;border:3px solid #ff6b9a;border-radius:12px;background:#fff;touch-action:none}
+.padwrap .ghost{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:"BiauKai","DFKai-SB","TW-Kai","Kaiti TC",KaiTi,serif;font-size:210px;color:#f3d3de;pointer-events:none;line-height:1;
+ background-image:linear-gradient(#ffd0df,#ffd0df),linear-gradient(#ffd0df,#ffd0df);background-size:100% 2px,2px 100%;background-position:center;background-repeat:no-repeat}
+.padwrap canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none}
+.wlist{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px}
+.wcard{background:#fffafc;border:3px solid #ffd0df;border-radius:16px;padding:8px 12px;font-size:16px;line-height:1.5}.wcard b{font-size:20px;display:block}
+.wcard small{color:#888;font-size:13px}
+.match{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,3fr);gap:8px}
+.match .col{display:flex;flex-direction:column;gap:8px}
+.match .btn{background:#fff;color:var(--ink);border:3px solid #d6e4ff;font-size:16px;min-height:56px;line-height:1.35;padding:6px 8px}
+.match .btn.sel{border-color:var(--pink);background:#fff0f5}.match .btn.ok{background:#d8f3dc;border-color:#2ec4b6;opacity:.55}.match .btn.no{animation:shake .4s;border-color:#ff6b9a}
+.blank{display:inline-block;min-width:3em;border-bottom:3px solid var(--pink);color:#b0154a}
+@media (max-width:420px){.chargrid{gap:6px}.bigc{width:110px;height:110px;flex-basis:110px;font-size:80px}.match .btn{font-size:15px}}
+</style>
+</head>
+<body>
+<header>
+  <a class="back" href="../">← 國語</a>
+  <h1>⛄ 戴斗笠的地藏</h1>
+  <div class="score" id="score">⭐ 0</div>
+</header>
+<main>
+
+<!-- ============ 課文 ============ -->
+<section class="page active" id="p-read">
+  <div class="card">
+    <h2>📖 第十二課 戴斗笠的地藏</h2>
+    <div class="info">
+      <div><b>版本</b>南一 國語 4上（第七冊）</div>
+      <div><b>單元</b>第肆單元 美好的祝福</div>
+      <div><b>作者</b>改寫自日本民間故事</div>
+      <div><b>文體</b>故事（民間故事）</div>
+    </div>
+    <div class="tip">⛄ <b>故事主題</b>：老夫婦把自己編織的斗笠送給地藏菩薩，得到神奇的祝福。包含善良、感恩、分享的主題。</div>
+    <p class="small">這裡是用自己的話整理的「重點導讀」，只引用幾個短句；完整課文請看課本第 114～120 頁。</p>
+  </div>
+
+  <div class="card">
+    <h3>🗺️ 課文導讀 <small>(自編導讀)</small></h3>
+    <div class="part"><h4><span class="tag">開頭</span>老夫婦編斗笠</h4>
+      <p class="lead">(自編導讀) 從前有對善良的老夫婦，住在山腳下的小村莊。他們很窮，但很勤勞。快過年了，老爺爺編了五頂斗笠，打算拿到市集賣掉，好買些年貨。</p>
+    </div>
+    <div class="part"><h4><span class="tag">經過</span>斗笠送給地藏</h4>
+      <p class="lead">(自編導讀) 老爺爺出門賣斗笠，但一頂也沒賣掉。回家路上下起了大雪，他看見六尊地藏菩薩站在雪地裡，頭上和肩膀都是雪。老爺爺心疼地把五頂斗笠戴在五尊地藏頭上，第六尊沒有斗笠了，他就把自己的頭巾解下來給地藏戴上。</p>
+    </div>
+    <div class="part"><h4><span class="tag">高潮</span>地藏來送禮</h4>
+      <p class="lead">(自編導讀) 老爺爺回到家，老婆婆聽了很感動。半夜，老夫婦聽到外面有奇怪的聲音。他們打開門，看見六尊地藏菩薩抬著米、年糕、蔬菜和各種年貨，放在他們家門口！</p>
+    </div>
+    <div class="part"><h4><span class="tag">結尾</span>得到祝福</h4>
+      <p class="lead">(自編導讀) 地藏菩薩向老夫婦鞠躬道謝後就離開了。老夫婦非常感動，他們的善心得到了美好的回報。那一年的新年，他們過得特別溫暖幸福。</p>
+    </div>
+    <div class="tip more">🔎 <b>故事的啟示</b>：即使自己很貧窮，也願意幫助別人，這樣的善心會得到美好的祝福。</div>
+  </div>
+
+  <div class="card">
+    <h3>🔍 閱讀理解小偵探</h3>
+    <div id="readQ"></div>
+  </div>
+</section>
+
+<!-- ============ 生字 ============ -->
+<section class="page" id="p-char">
+  <div class="card">
+    <h2>✍️ 我會寫的字（15 個）</h2>
+    <p class="small">點一個字，看注音、部首、筆畫和造詞。數字是「部首外筆畫／總筆畫」，依課本第 120 頁。</p>
+    <div class="chargrid" id="charGrid"></div>
+    <div class="cdet" id="charDet"></div>
+  </div>
+  <div class="card">
+    <h3>🖌️ 描寫板</h3>
+    <p class="small">用手指照著淡淡的字描一描。筆順可以按上面的「看筆順動畫」到教育部筆順學習網看。</p>
+    <div class="padwrap" id="padWrap"><div class="ghost" id="ghost">傍</div><canvas id="pad" width="520" height="520"></canvas></div>
+    <div class="btns cen"><button class="btn gray small" id="padClear">🧽 擦掉</button><button class="btn green" id="padDone">✅ 寫好了</button></div>
+    <div class="fb" id="padFb"></div>
+  </div>
+  <div class="card">
+    <h3>🧠 生字小測驗</h3>
+    <div class="seg" id="cqSeg">
+      <button class="btn white on" data-t="bs">部首</button>
+      <button class="btn white" data-t="tot">筆畫</button>
+      <button class="btn white" data-t="zy">注音</button>
+    </div>
+    <div id="charQ"></div>
+  </div>
+</section>
+
+<!-- ============ 語詞 ============ -->
+<section class="page" id="p-word">
+  <div class="card">
+    <h2>🧩 語詞配對</h2>
+    <p class="small">先點左邊的語詞，再點右邊正確的意思。</p>
+    <div id="matchBox"></div>
+  </div>
+  <div class="card">
+    <h3>📝 選詞填空</h3>
+    <div id="fillQ"></div>
+  </div>
+  <div class="card">
+    <h3>📚 語詞小卡</h3>
+    <p class="small">這些是課文裡重要的語詞。解釋是用自己的話寫的。</p>
+    <div class="wlist" id="wordList"></div>
+  </div>
+</section>
+
+<!-- ============ 句型 ============ -->
+<section class="page" id="p-pat">
+  <div class="card">
+    <h2>🪄 句型練習</h2>
+    <p class="small">（自編說明）練習課文中的重要句型和表達方式。</p>
+  </div>
+  <div class="card"><div id="patQ"></div></div>
+</section>
+
+<!-- ============ 挑戰 ============ -->
+<section class="page" id="p-game">
+  <div class="card">
+    <h2>🏆 第十二課綜合挑戰（10 題）</h2>
+    <p class="small">生字、語詞、閱讀理解通通有！答對 9 題以上拿「挑戰王」徽章。</p>
+    <div id="chBox"></div>
+  </div>
+</section>
+
+<!-- ============ 紀錄 ============ -->
+<section class="page" id="p-rec">
+  <div class="card"><h2>🏆 我的紀錄</h2><div class="statgrid" id="stats"></div><div class="badges" id="badges"></div></div>
+  <div class="card"><h3>🔎 常錯的地方</h3><div id="mist"></div></div>
+  <div class="card"><button class="btn gray" id="resetBtn">清除紀錄</button><p class="small">紀錄只存在這台平板的瀏覽器裡。</p>
+    <p class="small">資料來源：南一版國語 4上 課本——第 114～120 頁〈戴斗笠的地藏〉課文和「我會寫的字」。</p>
+    <p class="small">✏️ <b>自編說明：</b>課文導讀是用自己的話整理的。閱讀理解、語詞解釋、造詞和挑戰的題目與例句，都是為了練習自己編寫的，不是課本原文。</p></div>
+</section>
+</main>
+
+<nav class="tabs" id="tabs">
+  <button class="on" data-p="p-read"><span>📖</span>課文</button>
+  <button data-p="p-char"><span>✍️</span>生字</button>
+  <button data-p="p-word"><span>🧩</span>語詞</button>
+  <button data-p="p-pat"><span>🪄</span>句型</button>
+  <button data-p="p-game"><span>🎮</span>挑戰</button>
+  <button data-p="p-rec"><span>🏆</span>紀錄</button>
+</nav>
+
+<script id="core">
+var Core=(function(){
+"use strict";
+/* 生字資料：課本第 120 頁 */
+var CHARS=[
+ {c:"貧",zy:"ㄆㄧㄣˊ",bs:"貝",ex:7,tot:11,words:["貧苦"],tx:"住著一對貧苦的老夫妻"},
+ {c:"繼",zy:"ㄐㄧˋ",bs:"糸",bf:"糹",ex:14,tot:20,words:["繼續"],tx:"接著,又繼續趕路"},
+ {c:"傍",zy:"ㄅㄤ",bs:"人",bf:"亻",ex:10,tot:12,words:["傍晚"],tx:"直到傍晚,都沒賣出一頂斗笠"},
+ {c:"妻",zy:"ㄑㄧ",bs:"女",ex:5,tot:8,words:["夫妻","老夫妻"],tx:"住著一對貧苦的老夫妻"},
+ {c:"續",zy:"ㄒㄩˋ",bs:"糸",bf:"糹",ex:15,tot:21,words:["繼續"],tx:"接著,又繼續趕路"},
+ {c:"隱",zy:"ㄧㄣˇ",bs:"阜",bf:"阝",ex:15,tot:17,words:["隱約"],tx:"隱約聽到有人說著"},
+ {c:"茫",zy:"ㄇㄤˊ",bs:"艸",bf:"艹",ex:7,tot:10,words:["白茫茫"],tx:"他的身影消失在白茫茫的風雪中"},
+ {c:"宜",zy:"ㄧˊ",bs:"宀",ex:5,tot:8,words:["便宜"],tx:"便宜又耐用的斗笠"},
+ {c:"託",zy:"ㄊㄨㄛ",bs:"言",bf:"訁",ex:3,tot:10,words:["託"],tx:"託老爺爺的福"},
+ {c:"算",zy:"ㄙㄨㄢˋ",bs:"竹",bf:"⺾",ex:8,tot:14,words:["打算"],tx:"老爺爺打算先到山腳下的村子碰運氣"},
+ {c:"耐",zy:"ㄋㄞˋ",bs:"而",ex:3,tot:9,words:["耐用"],tx:"便宜又耐用的斗笠"},
+ {c:"納",zy:"ㄋㄚˋ",bs:"糸",bf:"糹",ex:4,tot:10,words:["笑納"],tx:"門外這些東西請笑納"},
+ {c:"祈",zy:"ㄑㄧˊ",bs:"示",bf:"礻",ex:4,tot:8,words:["祈求"],tx:"他便向地藏祈求好運"},
+ {c:"離",zy:"ㄌㄧˊ",bs:"隹",ex:11,tot:19,words:["離開"],tx:"老爺爺失望的離開"},
+ {c:"漸",zy:"ㄐㄧㄢˋ",bs:"水",bf:"氵",ex:11,tot:14,words:["漸漸"],tx:"老夫妻只見遠處漸漸消失的身影"}
+];
+
+/* 語詞（自編） */
+var WORDS=[
+ {w:"傍晚",m:"太陽快下山的時候"},
+ {w:"繼續",m:"接著做下去，不停止"},
+ {w:"成員",m:"團體裡的每一個人"},
+ {w:"障礙",m:"擋住、妨礙的東西"},
+ {w:"覆蓋",m:"在上面蓋住"},
+ {w:"妻子",m:"丈夫的配偶，老婆"},
+ {w:"吐氣",m:"把氣呼出來"},
+ {w:"適宜",m:"很適合、很合適"},
+ {w:"連忙",m:"趕快、馬上"},
+ {w:"大約",m:"差不多、大概"},
+ {w:"耐心",m:"有耐性，能等待"},
+ {w:"離開",m:"從一個地方走開"},
+ {w:"祈禱",m:"向神明或菩薩祝禱、祈求"}
+];
+
+/* 閱讀理解（自編） */
+var READ=[
+ {q:"老爺爺編了幾頂斗笠？",a:"五頂",o:["五頂","六頂","七頂"]},
+ {q:"老爺爺為什麼要賣斗笠？",a:"買年貨",o:["買年貨","買衣服","蓋房子"]}
+];
+
+/* 選詞填空（自編） */
+var FILL=[
+ {s:"太陽快下山了，現在是＿＿。",a:"傍晚",opts:["傍晚","離開","祈禱"]},
+ {s:"下課鐘響了，老師說：「＿＿寫作業。」",a:"繼續",opts:["繼續","覆蓋","離開"]},
+ {s:"雪把整座山都＿＿了。",a:"覆蓋",opts:["覆蓋","吐氣","離開"]},
+ {s:"天氣變冷了，要穿外套比較＿＿。",a:"適宜",opts:["適宜","離開","耐心"]},
+ {s:"聽到敲門聲，我＿＿跑去開門。",a:"連忙",opts:["連忙","離開","祈禱"]},
+ {s:"這條路＿＿有三公里長。",a:"大約",opts:["大約","繼續","覆蓋"]},
+ {s:"媽媽去廟裡＿＿，祝願全家平安。",a:"祈禱",opts:["祈禱","離開","繼續"]}
+];
+
+/* 句型練習（自編） */
+var PATTERNS=[
+ {q:"住著一對貧苦的老夫妻。<br>（住著＿＿）",a:"住著一對貧苦的老夫妻",o:["住著一對貧苦的老夫妻","老爺爺很善良","斗笠很漂亮"]},
+ {q:"老爺爺打算先到山腳下的村子碰運氣。<br>（＿＿打算＿＿）",a:"老爺爺打算先到山腳下的村子碰運氣",o:["老爺爺打算先到山腳下的村子碰運氣","老爺爺很窮","地藏很感動"]}
+];
+
+function shuffle(a,rnd){rnd=rnd||Math.random;var b=a.slice();for(var i=b.length-1;i>0;i--){var j=Math.floor(rnd()*(i+1));var t=b[i];b[i]=b[j];b[j]=t;}return b;}
+function pick(a,n,rnd){return shuffle(a,rnd).slice(0,n);}
+function charBy(c){for(var i=0;i<CHARS.length;i++)if(CHARS[i].c===c)return CHARS[i];return null;}
+function uniq(a){var o=[];for(var i=0;i<a.length;i++)if(o.indexOf(a[i])<0)o.push(a[i]);return o;}
+function blank(s){return s.replace(/＿＿/g,'<span class="blank">（　　）</span>');}
+
+function charQ(type,ch,rnd){
+ var opts,ans,q;
+ if(type==="bs"){ans=ch.bs;var all=uniq(CHARS.map(function(x){return x.bs;}).concat(["口","木","土","手"]));
+  opts=[ans].concat(pick(all.filter(function(b){return b!==ans;}),2,rnd));q="「"+ch.c+"」的部首是什麼？";}
+ else if(type==="tot"){ans=String(ch.tot);var d=[ch.tot-2,ch.tot-1,ch.tot+1,ch.tot+2].filter(function(n){return n>0;});
+  opts=[ans].concat(pick(d,2,rnd).map(String));q="「"+ch.c+"」總共幾畫？";}
+ else {ans=ch.zy;var others=uniq(CHARS.filter(function(x){return x.c!==ch.c;}).map(function(x){return x.zy;})).filter(function(z){return z!==ans;});
+  opts=[ans].concat(pick(others,2,rnd));q="「"+ch.words[0]+"」的「"+ch.c+"」怎麼念？";}
+ return {type:type,c:ch.c,q:q,a:ans,o:shuffle(opts,rnd)};
+}
+
+function wordQ(rnd){var w=pick(WORDS,1,rnd)[0],wo=pick(WORDS.filter(function(x){return x.w!==w.w;}),2,rnd);
+ return {type:"word",q:"「"+w.m+"」是哪個語詞？",a:w.w,o:shuffle([w.w,wo[0].w,wo[1].w],rnd)};}
+function fillQ(f,rnd){return {type:"fill",q:blank(f.s),a:f.a,o:shuffle(f.opts,rnd)};}
+function patQ(p,rnd){return {type:"pattern",q:p.q,a:p.a,o:shuffle(p.o,rnd)};}
+
+function makeChallenge(rnd){
+ rnd=rnd||Math.random;var out=[],chs=pick(CHARS,3,rnd);
+ out.push(charQ("bs",chs[0],rnd));out.push(charQ("tot",chs[1],rnd));out.push(charQ("zy",chs[2],rnd));
+ out.push(wordQ(rnd));out.push(wordQ(rnd));
+ pick(FILL,3,rnd).forEach(function(f){out.push(fillQ(f,rnd));});
+ pick(READ,2,rnd).forEach(function(r){out.push({type:"read",q:r.q,a:r.a,o:shuffle(r.o,rnd)});});
+ return shuffle(out,rnd);
+}
+
+function check(q,ans){return q.a===ans;}
+function matchCheck(word,meaning){for(var i=0;i<WORDS.length;i++)if(WORDS[i].w===word)return WORDS[i].m===meaning;return false;}
+function stars(correct,total){if(!total)return 0;var r=correct/total;return r>=1?3:r>=0.7?2:r>=0.4?1:0;}
+
+var BADGES=[
+ {id:"read",n:"📖 閱讀小達人",d:"閱讀理解全對"},
+ {id:"chars",n:"✍️ 生字小書法家",d:"看完 15 張生字卡"},
+ {id:"write",n:"🖌️ 描紅練習生",d:"在描寫板練習 5 個字"},
+ {id:"words",n:"🧩 語詞配對王",d:"完成一次語詞配對"},
+ {id:"champ",n:"🏆 挑戰王",d:"挑戰答對 9 題以上"}
+];
+
+function badges(st){
+ var g={};st=st||{};
+ if(st.readBest>=READ.length)g.read=1;
+ if(st.seen&&Object.keys(st.seen).length>=CHARS.length)g.chars=1;
+ if(st.wrote&&Object.keys(st.wrote).length>=5)g.write=1;
+ if(st.matchDone>=1)g.words=1;
+ if(st.chBest>=9)g.champ=1;
+ return g;
+}
+
+return {CHARS:CHARS,WORDS:WORDS,READ:READ,FILL:FILL,PATTERNS:PATTERNS,BADGES:BADGES,
+ shuffle:shuffle,pick:pick,charBy:charBy,charQ:charQ,wordQ:wordQ,fillQ:fillQ,patQ:patQ,
+ makeChallenge:makeChallenge,check:check,matchCheck:matchCheck,stars:stars,badges:badges};
+})();
+</script>
+<script src="app.js"></script>
+</body>
+</html>
