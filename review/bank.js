@@ -28,6 +28,7 @@
     { k: 'cn10', s: 'cn', name: '第 10 課 老鼠嫁女兒', href: 'chinese/lesson10-mouse-wedding/' },
     { k: 'cn11', s: 'cn', name: '第 11 課 豆粥婆婆', href: 'chinese/lesson11-porridge-grandma/' },
     { k: 'cn12', s: 'cn', name: '第 12 課 戴斗笠的地藏', href: 'chinese/lesson12-jizo-hats/' },
+    { k: 'cnq', s: 'cn', name: '考卷錯題（第 5～8 課）', href: 'review/' },
     { k: 'ma1', s: 'ma', name: '一億以內的數', href: 'math/big-numbers/' },
     { k: 'ma2', s: 'ma', name: '整數的乘法', href: 'math/multiplication/' },
     { k: 'ma3', s: 'ma', name: '角度', href: 'math/angles/' },
@@ -350,6 +351,44 @@
       if (t === 0) return { q: '正三角形的每一個角是幾度？', fields: [{ pre: '', unit: '度' }], ans: [60], ex: '正三角形的 3 條邊一樣長，3 個角也一樣大，<b>都是 60°</b>。', dg: function (v) { return v[0] === 90 ? '正三角形沒有直角，每個角都是 60°。' : ''; } };
       if (t === 1) return { q: '正三角形的一條邊是 <b>' + x + ' 公分</b>，三條邊合起來（周長）是幾公分？', fields: [{ pre: '', unit: '公分' }], ans: [3 * x], ex: '正三角形 3 條邊一樣長：' + x + ' × 3 ＝ <b>' + (3 * x) + ' 公分</b>。', dg: function (v) { return v[0] === 2 * x ? '正三角形有 3 條邊，要乘 3。' : ''; } };
       return { q: '用一條 <b>' + (3 * x) + ' 公分</b>的繩子，剛好圍成一個正三角形。一條邊是幾公分？', fields: [{ pre: '', unit: '公分' }], ans: [x], ex: '3 條邊一樣長：' + (3 * x) + ' ÷ 3 ＝ <b>' + x + ' 公分</b>。', dg: function (v) { return v[0] === 3 * x * 3 ? '繩子是 3 條邊合起來的長度，要除以 3。' : ''; } };
+    },
+    /* 考卷錯題：看圖判斷銳角、直角、鈍角三角形（課本活動 3：用三角板的直角比比看）。
+       在最大的角上畫橘色虛線表示直角，比比看那個角比直角大還是小。 */
+    triLook: function () {
+      var r = Math.random(), t = r < .4 ? 1 : r < .75 ? 2 : 0, th, be, c;
+      if (t === 0) { th = 90; be = pick([30, 35, 40, 45, 50, 55, 60]); }
+      else if (t === 1) { c = pick([[100, 50], [105, 45], [110, 40], [100, 30], [120, 35], [130, 25], [105, 25]]); th = c[0]; be = c[1]; }
+      else { c = pick([[80, 75], [75, 70], [80, 60], [70, 65], [78, 78], [75, 60]]); th = c[0]; be = c[1]; }
+      var names = ['直角三角形', '鈍角三角形', '銳角三角形'];
+      return { kind: 'pick', q: '用<b>三角板的直角</b>比比看：橘色虛線和它旁邊的邊夾成直角。依「角」來分，這是什麼三角形？<div class="qimg">' + triLookSVG(th, be, pick([0, 35, 90, 150, 205, 270, 320]), Math.random() < .5) + '</div>',
+        opts: names, a: t,
+        ex: t === 0 ? '最大的角和三角板的直角一樣大（邊和虛線疊在一起），是直角。有 1 個直角的三角形是<b>直角三角形</b>。'
+          : t === 1 ? '最大的角比三角板的直角（虛線）還大，是鈍角。有 1 個鈍角的三角形是<b>鈍角三角形</b>。'
+          : '最大的角比三角板的直角（虛線）小，連最大的角都是銳角，所以 3 個角都是銳角，是<b>銳角三角形</b>。' };
+    },
+    /* 考卷錯題：畫正三角形的步驟（課本活動 4：畫邊 → 量角器量 60° → 另一邊畫一樣長 → 連起來） */
+    equiDraw: function () {
+      var L = ri(2, 8);
+      return { q: '要畫一個邊長 <b>' + L + ' 公分</b>的正三角形。先畫出一條 ' + L + ' 公分的邊，接下來：用量角器在一端量出幾度的角？再沿著這個角的另一邊畫幾公分？',
+        fields: [{ pre: '量出', unit: '度' }, { pre: '另一邊畫', unit: '公分' }], ans: [60, L],
+        ex: '正三角形 3 條邊一樣長，3 個角都是 60°。① 畫一條 ' + L + ' 公分的邊 ② 用量角器量出 <b>60°</b> 的角 ③ 沿著角的另一邊畫 <b>' + L + ' 公分</b> ④ 把兩個端點連起來。畫完用直尺量第三條邊，也要是 ' + L + ' 公分。',
+        dg: function (v) {
+          if (v[0] === L && v[1] === 60) return '兩格寫反了：前面是角度（60 度），後面是長度（' + L + ' 公分）。';
+          if (v[0] === 90) return '90° 是直角。正三角形的每個角都是 60°。';
+          if (v[0] !== 60) return '正三角形的 3 個角一樣大，每個角都是 60°。';
+          if (v[1] !== L) return '正三角形的 3 條邊一樣長，另一邊也要畫 ' + L + ' 公分。';
+          return '';
+        } };
+    },
+    /* 考卷錯題：找錯小偵探——畫正三角形，第一個錯的是哪一步？ */
+    spotEqui: function () {
+      var L = ri(3, 7), e = ri(0, 2), bad = pick([90, 45, 30]);
+      var parts = ['① 用直尺畫出一條長 ' + L + ' 公分的邊', '② 用量角器在邊的一端量出 60° 的角', '③ 用直尺沿著這個角的另一邊，畫出長 ' + L + ' 公分的邊', '④ 把兩個端點連起來'], fix;
+      if (e === 0) { parts[1] = '② 用量角器在邊的一端量出 ' + bad + '° 的角'; fix = '② 正三角形的每個角都是 <b>60°</b>，要量出 60° 的角，不是 ' + bad + '°。'; }
+      else if (e === 1) { parts[2] = '③ 用直尺沿著這個角的另一邊，畫出長 ' + (L + 1) + ' 公分的邊'; fix = '③ 正三角形的 3 條邊一樣長，另一邊也要畫 <b>' + L + ' 公分</b>。'; }
+      else { parts[2] = '③ 另一邊不用量，用看的畫到差不多的地方'; fix = '③ 另一邊一定要用直尺量出 <b>' + L + ' 公分</b>，不能用看的。'; }
+      return { kind: 'spot', block: true, q: '小明要畫邊長 <b>' + L + ' 公分</b>的正三角形。他第一個錯的是哪一步？', parts: parts, bad: e === 0 ? 1 : 2, fix: fix,
+        ex: '畫完要檢查：用直尺量第三條邊，也是 ' + L + ' 公分才對。' };
     },
     /* 找錯小偵探：小明的算法裡，第一個錯在哪一步？ */
     spotMul: function () {
@@ -1064,6 +1103,23 @@
   var DIG = '零一二三四五六七八九';
   function readD(h) { var s = fmtD(h), p = s.split('.'); return readNum(+p[0]) + (p[1] ? '點' + p[1].split('').map(function (c) { return DIG[+c]; }).join('') : ''); }
   // 百格板：k 格塗色（先一整條一整條塗，再塗零散的）
+  /* 三角形和「三角板的直角」：V 是最大的角（th 度），A 的角是 be 度。在 V 畫一條橘色虛線，和 VA 夾成直角，
+     讓孩子比比看最大的角比直角大還是小。rot 是整個圖轉幾度，flip 是左右翻。 */
+  function triLookSVG(th, be, rot, flip) {
+    var D = Math.PI / 180, ga = 180 - th - be, vb = Math.sin(be * D) / Math.sin(ga * D), len = Math.min(vb, 1.25);
+    function tr(q) { var x = flip ? -q[0] : q[0], y = q[1], c = Math.cos(rot * D), n = Math.sin(rot * D); return [x * c - y * n, x * n + y * c]; }
+    var V = tr([0, 0]), A = tr([1, 0]), B = tr([vb * Math.cos(th * D), vb * Math.sin(th * D)]), R = tr([0, len]);
+    var xs = [V[0], A[0], B[0], R[0]], ys = [V[1], A[1], B[1], R[1]];
+    var x0 = Math.min.apply(null, xs), x1 = Math.max.apply(null, xs), y0 = Math.min.apply(null, ys), y1 = Math.max.apply(null, ys);
+    var W = 300, H = 200, m = 20, k = Math.min((W - 2 * m) / (x1 - x0), (H - 2 * m) / (y1 - y0)), ox = (W - (x1 - x0) * k) / 2, oy = (H - (y1 - y0) * k) / 2;
+    function T(q) { return ((q[0] - x0) * k + ox).toFixed(1) + ',' + (H - ((q[1] - y0) * k + oy)).toFixed(1); }
+    var g = 15 / k, S1 = tr([g, 0]), S2 = tr([g, g]), S3 = tr([0, g]);
+    return '<svg viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" role="img" aria-label="三角形和三角板的直角">'
+      + '<path d="M' + T(V) + ' L' + T(A) + ' L' + T(B) + ' Z" fill="#eef6ff" stroke="#1d3557" stroke-width="2.6" stroke-linejoin="round"/>'
+      + '<path d="M' + T(V) + ' L' + T(R) + '" stroke="#f77f00" stroke-width="2.6" stroke-dasharray="7 5" stroke-linecap="round"/>'
+      + '<path d="M' + T(S1) + ' L' + T(S2) + ' L' + T(S3) + '" fill="none" stroke="#f77f00" stroke-width="2"/>'
+      + '<circle cx="' + T(V).split(',')[0] + '" cy="' + T(V).split(',')[1] + '" r="3.5" fill="#1d3557"/></svg>';
+  }
   /* 量角器和一個角：inner 為 true 時，角的一邊對齊右邊（內圈）的 0；否則對齊左邊（外圈）的 0。d 是角的度數。
      外圈（黑）從左到右 0～180，內圈（紅）從右到左 0～180，和課本的量角器一樣。 */
   function protSVG(inner, d) {
@@ -1302,7 +1358,7 @@
     {"l":12,"c":"離","zy":"ㄌㄧˊ","bs":"隹","tot":19,"w":["離開"],"tx":"老爺爺失望的離開"},
     {"l":12,"c":"漸","zy":"ㄐㄧㄢˋ","bs":"水","tot":14,"w":["漸漸"],"tx":"老夫妻只見遠處漸漸消失的身影"}
   ];
-  CHARS.forEachCHARS.forEachCHARS.forEach(function (c) { cards.push({ id: 'cn:' + c.c, s: 'cn', u: 'cn' + c.l, type: 'write', c: c.c, zy: c.zy, bs: c.bs, tot: c.tot, w: c.w, tx: c.tx }); });
+  CHARS.forEach(function (c) { cards.push({ id: 'cn:' + c.c, s: 'cn', u: 'cn' + c.l, type: 'write', c: c.c, zy: c.zy, bs: c.bs, tot: c.tot, w: c.w, tx: c.tx }); });
 
   // 國語：改錯字。把各課頁面列的形近字放進課文句子，點出寫錯的字（「紀錄／記錄」兩種寫法都常見，不出）
   var LOOK = [
@@ -1353,13 +1409,32 @@
       fix: '「' + x[2] + '」要改成「<b>' + x[1] + '</b>」：' + x[3], ex: '「' + x[1] + '」和「' + x[2] + '」長得很像，要看清楚。' });
   });
 
+  // 國語考卷錯題（第二次評量，第 5～8 課）：考卷上寫錯、漏字或可能被扣分的地方。這些卡標 must，一定要先複習。
+  // 找漏字：[id, 題型名稱, [把句子切成幾段], 漏字的那一段, 正確寫法, 說明]
+  [['mu-miss', '找漏字：目不轉睛', ['他', '目轉睛的', '看著', '平板。'], 1, '「目轉睛」少了「不」，要寫成「<b>目不轉睛</b>」：他目不轉睛的看著平板。', '目不轉睛：眼睛一動也不動，看得很專心。造句寫完要再唸一遍，檢查有沒有漏字。'],
+   ['chu-miss', '找漏字：除了……更……', ['他', '了是班長，', '更是', '大家的好朋友。'], 1, '少了「除」，要寫成「<b>除了</b>是班長」：他除了是班長，更是大家的好朋友。', '「除了……更……」的「除了」和「更」都要寫出來。寫完再唸一遍。']
+  ].forEach(function (x) {
+    cards.push({ id: 'cnq:' + x[0], s: 'cn', u: 'cnq', type: 'spot', must: true, label: x[1], q: '這句話<b>漏了一個字</b>，漏在哪一段？把它點出來。', parts: x[2], bad: x[3], fix: x[4], ex: x[5] });
+  });
+  // 選擇題：[id, 題型名稱, 題目, [選項], 正確答案的位置, 說明]
+  [['mu-pick', '語詞：目不轉睛', '下面哪一個語詞寫對了？', ['目不轉睛', '目不轉晴', '目轉睛'], 0, '<b>目不轉睛</b>有四個字，不能漏掉「不」。「睛」是眼睛的睛（目部），「晴」是晴天的晴（日部）。'],
+   ['chu-pick', '句型：除了……更……', '用「除了……更……」造句，哪一句寫對了？', ['妹妹除了會唱歌，更會跳舞。', '妹妹除了會唱歌，會跳舞。', '妹妹了會唱歌，更會跳舞。'], 0, '「除了」和「更」兩個都要有，一個字都不能漏。'],
+   ['not-fit', '題目問「不適合」', '操場上擠滿了來看表演的人。下面哪一個語詞<b>不適合</b>用來形容？', ['三三兩兩', '人山人海', '水洩不通'], 0, '題目問的是「<b>不</b>適合」。三三兩兩是人很少、零零散散；人山人海、水洩不通都是人很多。看到「不」「錯誤」，先圈起來再選。'],
+   ['sansan', '語詞：三三兩兩', '「三三兩兩」是什麼意思？', ['人不多，零零散散的', '人很多，擠得走不動', '大家排成三排'], 0, '三三兩兩：三個、兩個在一起，形容人很少、零零散散。人很多要用人山人海、水洩不通。'],
+   ['wanren', '語詞：萬人空巷', '「萬人空巷」是形容什麼？', ['大家都跑出來參加，非常熱鬧', '巷子裡沒有人，很冷清', '巷子很長，住了很多人'], 0, '大家都出門去看熱鬧，巷子才會空空的。所以「萬人空巷」是形容<b>人很多、很熱鬧</b>，不是冷清。'],
+   ['which-wrong', '題目問「錯誤」', '黃色小鴨以前來過臺灣，這次回到高雄的愛河灣，還搭配燈會一起展出。<br>下面哪一個說法是<b>錯誤</b>的？', ['這是黃色小鴨第一次來臺灣', '這次展出的地點在愛河灣', '這次搭配燈會展出'], 0, '題目問的是「<b>錯誤</b>」的。文章說「以前來過臺灣」，所以不是第一次。另外兩句和文章一樣，是對的，不能選。'],
+   ['piao', '造詞：飄', '「票」加「風」是「飄」。用「飄」造詞，哪一個是完整的語詞？', ['飄動', '飄下', '飄了'], 0, '飄動、飄揚、飄落都是完整的語詞。「飄下」「飄了」話還沒說完（要說成「飄下來」「飄走了」），造詞不要這樣寫。']
+  ].forEach(function (x) {
+    cards.push({ id: 'cnq:' + x[0], s: 'cn', u: 'cnq', type: 'pick', must: true, label: x[1], q: x[2], opts: x[3], ai: x[4], ex: x[5] });
+  });
+
   // 數學：一型一張卡
   [['ma1', 'place', '數字表示多少'], ['ma1', 'write', '大數寫成數字'], ['ma1', 'addsub', '大數加減'], ['ma1', 'seq', '依序加 1000、10000'], ['ma1', 'compose', '幾個萬、幾個千合起來'], ['ma1', 'wan', '用「萬」當單位'],
    ['ma2', 'mul41', '四位數 × 一位數'], ['ma2', 'mul22', '一、二位數 × 二位數'], ['ma2', 'mul32', '三位數 × 二位數'], ['ma2', 'mul42', '四位數 × 二位數'], ['ma2', 'quick', '補 0 快算'],
    ['ma3', 'angle', '角度計算'], ['ma3', 'protractor', '量角器內外圈'], ['ma3', 'angleKind', '角度分類'], ['ma3', 'clockDir', '順時針與逆時針'],
    ['ma4', 'div41', '四位數 ÷ 一位數'], ['ma4', 'div22', '二位數 ÷ 二位數'], ['ma4', 'div32', '三位數 ÷ 二位數'], ['ma4', 'div42', '四位數 ÷ 二位數'],
    ['ma5', 'km1', '公里換公尺'], ['ma5', 'km2', '公尺換公里'], ['ma5', 'km3', '公里公尺加減'],
-   ['ma6', 'triAngle', '以角分類三角形'], ['ma6', 'triSide', '以邊分類三角形'], ['ma6', 'triIso', '等腰三角形'], ['ma6', 'triEqui', '正三角形'],
+   ['ma6', 'triAngle', '以角分類三角形'], ['ma6', 'triSide', '以邊分類三角形'], ['ma6', 'triIso', '等腰三角形'], ['ma6', 'triEqui', '正三角形'], ['ma6', 'triLook', '看圖分銳角、直角、鈍角三角形'], ['ma6', 'equiDraw', '畫正三角形的步驟'],
    ['ma7', 'decGrid', '百格板讀小數'], ['ma7', 'decBuild', '幾個 1、0.1、0.01 合起來'], ['ma7', 'decSplit', '拆成幾個 1、0.1、0.01'], ['ma7', 'decCount', '幾個 0.01'], ['ma7', 'decPlace', '十分位、百分位的數字'],
    ['ma7', 'decRead', '小數的讀法和記法'], ['ma7', 'decCm', '公分換成公尺'], ['ma7', 'decM', '公尺換成公尺公分'], ['ma7', 'decCmp', '小數比大小'], ['ma7', 'decSeq', '小數依序加減'],
    ['ma7', 'decAdd', '小數加法'], ['ma7', 'decSub', '小數減法'], ['ma7', 'decWord', '小數應用題'],
@@ -1372,7 +1447,7 @@
    ['ma10', 'barCalc', '從長條圖算多幾、一共'], ['ma10', 'barHoriz', '橫式長條圖'], ['ma10', 'barDraw', '長條要畫幾格'], ['ma10', 'scalePick', '刻度要怎麼定'], ['ma10', 'lineRead', '讀折線圖'],
    ['ma10', 'lineTrend', '折線上升、下降、不變'], ['ma10', 'unitRead', '單位是千人的統計圖'], ['ma10', 'twoSeries', '兩組資料的長條圖'],
    // 找錯小偵探：看小明的算法，點出第一個錯的那一步
-   ['ma1', 'spotBig', '找錯：大數寫成數字'], ['ma2', 'spotMul', '找錯：乘法直式'], ['ma3', 'spotAngle', '找錯：平角計算'], ['ma5', 'spotKm', '找錯：公里換公尺'], ['ma7', 'spotDecAdd', '找錯：小數加法'], ['ma7', 'spotDecSub', '找錯：小數減法補 0'], ['ma8', 'spotOrd', '找錯：遞等式'], ['ma9', 'spotFrac', '找錯：分數'], ['ma10', 'spotChart', '找錯：讀統計圖']
+   ['ma6', 'spotEqui', '找錯：畫正三角形'], ['ma1', 'spotBig', '找錯：大數寫成數字'], ['ma2', 'spotMul', '找錯：乘法直式'], ['ma3', 'spotAngle', '找錯：平角計算'], ['ma5', 'spotKm', '找錯：公里換公尺'], ['ma7', 'spotDecAdd', '找錯：小數加法'], ['ma7', 'spotDecSub', '找錯：小數減法補 0'], ['ma8', 'spotOrd', '找錯：遞等式'], ['ma9', 'spotFrac', '找錯：分數'], ['ma10', 'spotChart', '找錯：讀統計圖']
   ].forEach(function (x) { var g = GEN[x[1]]; cards.push({ id: 'ma:' + x[1], s: 'ma', u: x[0], type: g().kind || 'num', gen: x[1], label: x[2] }); });
 
   // 自然：課本重點（先想再選）。n＝卡片 id 的後半；a＝正確答案；w＝其他選項
@@ -1839,6 +1914,9 @@
   // 還沒教的單元：卡片帶 later，排程才知道預設關掉
   var LATER = {}; UNITS.forEach(function (u) { if (u.later) LATER[u.k] = true; });
   cards.forEach(function (c) { if (LATER[c.u]) c.later = true; });
+  // 考卷錯題：一定要先複習（排程會排在最前面，不受每天新卡張數的限制；第一次答對也隔天再考）
+  var MUST = { 'ma:triLook': 1, 'ma:equiDraw': 1, 'ma:spotEqui': 1 };
+  cards.forEach(function (c) { if (MUST[c.id]) c.must = true; });
 
-  root.REVIEW_BANK = { renamed: RENAMED, subjects: SUBJECTS, units: UNITS, cards: cards, make: make, readNum: readNum, moonSVG: moonSVG, GEN: GEN, fmtD: fmtD, readD: readD, gridSVG: gridSVG, protSVG: protSVG, fq: fq, mx: mx, fracBars: fracBars, barSVG: barSVG, lineSVG: lineSVG, pictoHTML: pictoHTML, barChart: barChart };
+  root.REVIEW_BANK = { renamed: RENAMED, subjects: SUBJECTS, units: UNITS, cards: cards, make: make, readNum: readNum, moonSVG: moonSVG, GEN: GEN, fmtD: fmtD, readD: readD, gridSVG: gridSVG, protSVG: protSVG, triLookSVG: triLookSVG, fq: fq, mx: mx, fracBars: fracBars, barSVG: barSVG, lineSVG: lineSVG, pictoHTML: pictoHTML, barChart: barChart };
 })(typeof window !== 'undefined' ? window : this);
