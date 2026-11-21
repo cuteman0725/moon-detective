@@ -78,7 +78,8 @@ nav.tabs button span{font-size:24px;line-height:1}nav.tabs button.on{background:
 .cdet{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start;margin-top:10px}
 .bigc{font-family:"BiauKai","DFKai-SB","TW-Kai","Kaiti TC",KaiTi,serif;font-size:96px;line-height:1;width:130px;height:130px;display:flex;align-items:center;justify-content:center;border:3px solid #ff6b9a;border-radius:12px;position:relative;
  background-image:linear-gradient(#ffd0df,#ffd0df),linear-gradient(#ffd0df,#ffd0df);background-size:100% 2px,2px 100%;background-position:center;background-repeat:no-repeat;flex:0 0 130px}
-.zy{writing-mode:vertical-rl;font-size:18px;font-weight:800;color:#b0154a;letter-spacing:2px}
+.zy{display:flex;flex-direction:column;align-items:center;font-size:19px;font-weight:800;color:#b0154a;line-height:1.1;padding:2px 12px 0 0}
+.zy .zs{display:block;position:relative}.zy .zs i{position:absolute;left:100%;top:-.15em;font-style:normal;font-size:.9em}
 .cinfo{flex:1;min-width:200px;font-size:17px;line-height:1.8}
 .chip{display:inline-block;background:#e6f0ff;border-radius:999px;padding:3px 12px;margin:2px 4px 2px 0;font-weight:700}
 .chip.id{background:#fff1d6}
@@ -97,8 +98,19 @@ nav.tabs button span{font-size:24px;line-height:1}nav.tabs button.on{background:
 .formula span{border-radius:12px;padding:6px 10px;font-weight:800;font-size:17px}
 .f1{background:#ffd6dc}.f2{background:#cfe8ff}.f3{background:#d8f3dc}
 .blank{display:inline-block;min-width:3em;border-bottom:3px solid var(--pink);color:#b0154a}
+.locbtns{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:8px}
+.locbtns .btn{color:var(--ink);font-size:17px;min-height:64px;padding:6px 2px;line-height:1.3}
+.bins{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}
+.bin{border-radius:14px;padding:6px 8px;font-size:14px;line-height:1.5;min-height:48px;border:3px solid #ffd0df;background:#fffafc}
+.bin b{display:block;font-size:15px}
+.route{display:flex;flex-wrap:wrap;gap:4px 2px;align-items:center;justify-content:center;font-weight:800;font-size:16px;margin:6px 0}
+.route span{background:#fff0f5;border:2px solid #ffd0df;border-radius:999px;padding:2px 10px}
 a.ext{color:#1d4ed8;font-weight:800}
 @media (max-width:420px){.chargrid{gap:6px}.bigc{width:110px;height:110px;flex-basis:110px;font-size:80px}.match .btn{font-size:15px}}
+@media (max-width:350px){.chargrid button{min-height:0}}
+.part .tag.t3{background:var(--purple)}.part .tag.pn{background:#fff0f5;color:#b0154a}
+.locbtns .btn{font-size:16px}.nb{white-space:nowrap}
+@media (max-width:360px){.locbtns .btn{font-size:14px}}
 </style>
 </head>
 <body>
@@ -112,31 +124,48 @@ a.ext{color:#1d4ed8;font-weight:800}
 <!-- ============ 課文 ============ -->
 <section class="page active" id="p-read">
   <div class="card">
-    <h2>🐦 第九課 阿白觀察記</h2>
+    <h2>📖 第九課 阿白觀察記</h2>
     <div class="info">
       <div><b>版本</b>南一 國語 4上（第七冊）</div>
       <div><b>單元</b>第參單元 小小觀察家</div>
-      <div><b>文體</b>記敘文（觀察記錄）</div>
-      <div><b>頁碼</b>p.80～86</div>
+      <div><b>段落安排</b>因果式（課本第 90 頁）</div>
+      <div><b>主角</b>阿白，是一隻白頭翁</div>
     </div>
-    <div class="tip">📍 這篇課文是觀察記錄，記錄陽臺上的鳥「阿白」(白頭翁)築巢育雛的過程。</div>
-    <p class="small">這裡是用自己的話整理的「重點導讀」；完整課文請看課本第 80～86 頁，也可以掃課本第 80 頁的 QR code 聽課文朗讀。</p>
+    <div class="tip">📍 <b>課本第 82 頁的小註解</b>：白頭翁是常見的鳥類。牠和綠繡眼、麻雀，被戲稱為「都市三俠」。</div>
+    <div class="tip">📍 <b>課本第 63 頁</b>單元頁有個小遊戲「陽臺上的神祕房客」。讀完這一課，就知道神祕房客是誰了！</div>
+    <p class="small">這裡是用自己的話整理的「重點導讀」，只引用幾個短句；完整課文請看課本第 80～85 頁，也可以掃課本第 80 頁的 QR code 聽課文朗讀。</p>
   </div>
 
   <div class="card">
-    <h3>🐦 課文導讀 <small>(自編導讀)</small></h3>
-    <div class="part"><h4><span class="tag">外觀</span>阿白的樣子</h4>
-      <p class="lead">(自編導讀) 阿白穿著灰色上衣、灰綠色夾克，頭上戴著白色毛帽。每天清晨五點半會發出清亮而<b>急促</b>的叫聲「啾!啾!」，像是在唱「不理不理」。</p>
-    </div>
-    <div class="part"><h4><span class="tag">求偶</span>阿白的舞姿</h4>
-      <p class="lead">(自編導讀) 阿白站在細枝上快速<b>振動</b>微微張開的雙翅，雙腳<b>碎步</b>走動，看起來像林間的<b>舞者</b>。三到五月是白頭翁的<b>求偶</b>季節。</p>
-    </div>
-    <div class="part"><h4><span class="tag">築巢</span>阿白建鳥巢</h4>
-      <p class="lead">(自編導讀) 阿白在陽臺樹枝間建了一個<b>黃褐色</b>的鳥巢，裡頭有三顆帶著<b>巧克力色</b>斑點的蛋。鳥巢外側夾著一條細長的<b>塑膠</b>碎片。</p>
-    </div>
-    <div class="part"><h4><span class="tag">保護</span>阿白變得很凶</h4>
-      <p class="lead">(自編導讀) 有了幼鳥後，阿白變得很<b>凶</b>。牠會在空中<b>繞圈</b>，用短<b>促</b>的叫聲警告，好像要<b>衝</b>下來啄我，讓我不敢越<b>雷</b>池一步。幼鳥長出<b>豐滿</b>的羽毛後就飛走了。雖然少了<b>擾人</b>的「鬧鐘」，我卻忍不住想念觀察阿白帶來的樂趣。</p>
-    </div>
+    <h3>🐦 七段課文導讀</h3>
+    <p class="small">課本第 90 頁說，這一課照「起因 ➜ 經過 ➜ 結果」安排段落。每一段屬於哪一部分，是依課本的說明自己對照的。黃底的字是課文裡的短句。</p>
+    <div class="part"><h4><span class="tag">起因</span><span class="tag pn">第 1 段</span>🎵 清晨的歌聲</h4>
+      <p class="lead">春天的清晨，五點半一到，阿白就飛來陽臺唱歌。叫聲<span class="quote">清亮而急促</span>，「我」只好起床。作者把阿白的羽毛寫成衣服：身上是灰色和灰綠色，頭上像戴了<span class="quote">一頂白色毛帽</span>。牠的歌聽起來像<span class="quote">「不理不理」</span>。「我」很好奇，決定看看牠在做什麼。</p>
+      <button class="btn white small" data-say="0">🔊 聽導讀</button></div>
+    <div class="part"><h4><span class="tag t2">經過</span><span class="tag pn">第 2、3 段</span>💃 又唱又跳，原來在求偶</h4>
+      <p class="lead">「我」看了好幾天，發現阿白還很會跳舞！牠站在細細的樹枝上，壓低身體，張開尾羽，翅膀<span class="quote">快速振動</span>，腳踩著<b>碎步</b>。牠像<span class="quote">林間的舞者</span>，也像戰鬥機。「我」查了動物百科才知道：白頭翁的<b>求偶</b>季節是三月到五月。公鳥這麼努力表演，是想吸引母鳥。</p>
+      <button class="btn white small" data-say="1">🔊 聽導讀</button></div>
+    <div class="part"><h4><span class="tag t2">經過</span><span class="tag pn">第 4、5 段</span>🪺 築巢和下蛋</h4>
+      <p class="lead">過了兩個多月，阿白有伴了。兩隻鳥忙著用嘴咬乾草，在樹枝間穿來穿去。原來，牠們在陽臺的樹上做了<span class="quote">一個黃褐色的鳥巢</span>。有一天，趁阿白不在，「我」拿望遠鏡看，巢裡有三顆蛋，蛋上有<span class="quote">巧克力色斑點</span>。巢外面的樹枝，還夾著一條細細長長的<b>塑膠</b>碎片，「我」覺得怪怪的。</p>
+      <button class="btn white small" data-say="2">🔊 聽導讀</button></div>
+    <div class="part"><h4><span class="tag t2">經過</span><span class="tag pn">第 6 段</span>😠 保護幼鳥</h4>
+      <p class="lead">有了幼鳥，阿白的脾氣不一樣了，<span class="quote">變得很凶</span>。「我」才走近一點，牠就馬上飛起來，在空中<b>繞圈</b>，還大聲叫，好像要<b>衝</b>下來啄人。「我」嚇得<span class="quote">不敢越雷池一步</span>。</p>
+      <button class="btn white small" data-say="3">🔊 聽導讀</button></div>
+    <div class="part"><h4><span class="tag t3">結果</span><span class="tag pn">第 7 段</span>👋 不告而別</h4>
+      <p class="lead">夏天快結束了。阿白又唱起牠的<b>招牌</b>歌，一共三個音，聽起來像<span class="quote">「巧克力」</span>，和求偶的時候不一樣。幼鳥的羽毛長得<b>豐滿</b>以後，很快就飛走了。阿白也沒有說再見就離開。少了<span class="quote">擾人的「鬧鐘」</span>，「我」卻很想念牠們，也想念觀察的樂趣。</p>
+      <button class="btn white small" data-say="4">🔊 聽導讀</button></div>
+  </div>
+
+  <div class="card">
+    <h3>🦉 課本的提問</h3>
+    <div class="tip">課本第 85 頁問：作者觀察到哪些關於阿白的事？他是怎麼描寫的呢？</div>
+    <div class="tip more">🔎 <b>延伸（課本沒有寫答案，這是自己整理的）</b>：<br>・觀察到的事：外表、歌聲、舞姿、築巢、蛋、保護幼鳥，還有最後離開。<br>・怎麼描寫：不動的東西用<b>靜態描寫</b>，例如巢裡的蛋。正在動的樣子用<b>動態描寫</b>，例如阿白跳舞。課本第 87 頁有例子，可以到「句型」分頁練習。<br>你還發現什麼？說給爸媽聽聽看！</div>
+  </div>
+
+  <div class="card">
+    <h3>🗓️ 事情的順序排一排</h3>
+    <p class="small">課本第 90 頁「因果式」：照起因、經過、結果安排段落，可以看清楚事情的來龍去脈。課本舉的例子就是〈阿白觀察記〉。照課文的順序點一點！</p>
+    <div id="stepBox"></div>
   </div>
 
   <div class="card">
@@ -155,8 +184,8 @@ a.ext{color:#1d4ed8;font-weight:800}
   </div>
   <div class="card">
     <h3>🖌️ 描寫板</h3>
-    <p class="small">用手指照著淡淡的字描一描。筆順可以按上面的「看筆順動畫」到教育部筆順學習網看。</p>
-    <div class="padwrap" id="padWrap"><div class="ghost" id="ghost">垂</div><canvas id="pad" width="520" height="520"></canvas></div>
+    <p class="small">用手指照著淡淡的字描一描。筆順可以看課本第 86 頁，或按上面的「看筆順動畫」到教育部筆順學習網看。</p>
+    <div class="padwrap" id="padWrap"><div class="ghost" id="ghost">促</div><canvas id="pad" width="520" height="520"></canvas></div>
     <div class="btns cen"><button class="btn gray small" id="padClear">🧽 擦掉</button><button class="btn green" id="padDone">✅ 寫好了</button></div>
     <div class="fb" id="padFb"></div>
   </div>
@@ -170,8 +199,17 @@ a.ext{color:#1d4ed8;font-weight:800}
     <div id="charQ"></div>
   </div>
   <div class="card">
-    <h3>👀 形近字選一選</h3>
-    <p class="small">垂／睡、褐／渴、窩／過、巧／考、偶／遇，長得很像。選出句子裡正確的那一個。（字的配對和句子是自編的）</p>
+    <h3>🔤 多音字：衝</h3>
+    <div class="tip">課本最前面「給教師與家長的話」說：課文裡的生字如果是多音字，注音會印成<b>紅色</b>。這一課有一個：<br><b>衝</b> ㄔㄨㄥ（課本第 84 頁）<br>「衝下來」的「衝」就念這個音。這一課先記住它。</div>
+    <div class="tip more">🔎 <b>延伸（這一課沒有教）</b>：「芥末的味道很衝」的「衝」念 ㄔㄨㄥˋ。</div>
+    <div class="tip">📍 <b>小心兩個很像的字</b>（都在課本第 84 頁）：<br>「一飛<b>沖</b>天」是三點水的「沖」。<br>「<b>衝</b>下來」是「行」部的「衝」。</div>
+  </div>
+  <div class="card">
+    <h3>➕ 加一加，比一比：碎和翠</h3>
+    <div class="tip">課本第 87 頁「加一加，比一比」：<br><b>卒</b> ＋ 石 ➜ <b>碎</b> ㄙㄨㄟˋ：破碎、碎花<br><b>卒</b> ＋ 羽 ➜ <b>翠</b> ㄘㄨㄟˋ：翠綠、青翠</div>
+    <p class="small">小提示（自編）：「碎」有「石」，石頭敲破了會變成碎片。「翠」有「羽」，可以想到青綠色的羽毛。</p>
+    <h3 style="margin-top:12px">👀 形近字選一選</h3>
+    <p class="small">碎／翠是課本第 87 頁的。促／捉、褐／渴、偶／遇、繞／澆、牌／脾、擾／優是自己找的形近字。句子都是自編的。</p>
     <div id="lookQ"></div>
   </div>
 </section>
@@ -189,10 +227,13 @@ a.ext{color:#1d4ed8;font-weight:800}
   </div>
   <div class="card">
     <h3>📚 語詞小卡</h3>
-    <p class="small">這些是課文裡的重要語詞。解釋是用自己的話寫的。</p>
+    <p class="small">這 15 個是課文裡藍色的語詞（課本第 81～85 頁）。課本沒有附解釋，解釋是用自己的話寫的。</p>
     <div class="wlist" id="wordList"></div>
-    <h3 style="margin-top:12px">💡 生字延伸語詞</h3>
-    <p class="small">🔎 延伸：這些語詞課本沒有，是多認識的。</p>
+    <h3 style="margin-top:12px">🪶 課文裡的四字語詞</h3>
+    <p class="small">這三個語詞都在課文裡。解釋是自編的。</p>
+    <div class="wlist" id="phraseList"></div>
+    <h3 style="margin-top:12px">💡 生字延伸成語</h3>
+    <p class="small">🔎 延伸：這些成語課本沒有，是多認識的。</p>
     <div class="wlist" id="idiomList"></div>
   </div>
 </section>
@@ -200,11 +241,11 @@ a.ext{color:#1d4ed8;font-weight:800}
 <!-- ============ 句型 ============ -->
 <section class="page" id="p-pat">
   <div class="card">
-    <h2>🪄 觀察記錄怎麼寫</h2>
+    <h2>🪄 句型和描寫</h2>
     <div class="seg" id="patSeg">
-      <button class="btn white on" data-k="look">觀察外觀</button>
-      <button class="btn white" data-k="action">觀察動作</button>
-      <button class="btn white" data-k="feel">寫出感受</button>
+      <button class="btn white on" data-k="bdb">不得不</button>
+      <button class="btn white" data-k="desc">靜態和動態</button>
+      <button class="btn white" data-k="cause">因果式</button>
     </div>
   </div>
   <div class="card" id="patIntro"></div>
@@ -214,13 +255,13 @@ a.ext{color:#1d4ed8;font-weight:800}
 <!-- ============ 挑戰 ============ -->
 <section class="page" id="p-game">
   <div class="card">
-    <h2>🐾 阿白分類大挑戰</h2>
-    <p class="small">這是在描寫阿白的什麼？（每次出 8 題）</p>
+    <h2>🐦 阿白分類大挑戰</h2>
+    <p class="small">這是阿白哪個時候的事？（句子是依課文改寫的，每次出 8 題）</p>
     <div id="sortBox"></div>
   </div>
   <div class="card">
     <h2>🏆 第九課綜合挑戰（10 題）</h2>
-    <p class="small">生字、形近字、語詞、觀察記錄通通有！答對 9 題以上拿「挑戰王」徽章。</p>
+    <p class="small">生字、形近字、語詞、不得不、靜態和動態描寫、因果式通通有！答對 9 題以上拿「挑戰王」徽章。</p>
     <div id="chBox"></div>
   </div>
 </section>
@@ -230,8 +271,8 @@ a.ext{color:#1d4ed8;font-weight:800}
   <div class="card"><h2>🏆 我的紀錄</h2><div class="statgrid" id="stats"></div><div class="badges" id="badges"></div></div>
   <div class="card"><h3>🔎 常錯的地方</h3><div id="mist"></div></div>
   <div class="card"><button class="btn gray" id="resetBtn">清除紀錄</button><p class="small">紀錄只存在這台平板的瀏覽器裡。</p>
-    <p class="small">資料來源：南一版國語 4上 課本——第 80～86 頁〈阿白觀察記〉課文、第 86 頁「我會寫的字」。</p>
-    <p class="small">✏️ <b>自編說明：</b>課文導讀是用自己的話整理的；閱讀理解、分類、選詞填空、形近字、句型練習和挑戰的題目與例句，都是為了練習自己編寫的，不是課本原文；語詞解釋、造詞（每個字的第一個語詞出自課文，其餘自編）也是用好懂的話寫的。考試以課本為主。</p></div>
+    <p class="small">資料來源：南一版國語 4上 課本——「給教師與家長的話」（多音字的注音印成紅色）、第 62～63 頁單元頁「小小觀察家」、第 80～85 頁〈阿白觀察記〉課文和小註解、第 86 頁「我會寫的字」、第 87 頁「加一加，比一比」「句子練習」「靜態描寫與動態描寫」、第 90～91 頁語文天地三「安排段落」（因果式在第 90 頁）、第 130 頁生字表。</p>
+    <p class="small">✏️ <b>自編說明：</b>課文導讀是用自己的話整理的，只引用短句；每一段屬於「起因、經過、結果」哪一部分，是依課本第 90 頁的說明自己對照的。閱讀理解、事情的順序、阿白分類、選詞填空、形近字、不得不後面幾題、靜態和動態描寫的例句，還有挑戰的題目，都是為了練習自己編寫的，不是課本原文。語詞解釋、造詞（每個字的第一個語詞出自課文，其餘自編）也是用好懂的話寫的。標「🔎 延伸」的內容（課本提問的想法、多音字的其他讀音、延伸成語）課本沒有，考試以課本為主。</p></div>
 </section>
 </main>
 
@@ -247,168 +288,249 @@ a.ext{color:#1d4ed8;font-weight:800}
 <script id="core">
 var Core=(function(){
 "use strict";
-/* 生字：注音、部首、部首外筆畫（ex）、總筆畫（tot）依南一版課本第 86 頁「我會寫的字」；順序依課本。
-   words 的第一個是課文裡的語詞，其餘自編；tx 是課文裡含這個字的短句；bf=部首在這個字裡的寫法 */
+/* 生字：注音、部首、部首外筆畫（ex）、總筆畫（tot）都依南一版課本第 86 頁「我會寫的字」。
+   順序也照課本：生字格由右到左、一行一行由上往下讀，和生字在課文裡出現的順序一樣（第 81～85 頁每頁下方的生字框也是這個順序）。
+   words 的第一個是課文裡的語詞或短句，其餘自編（多音字只放和生字格同一個讀音的詞）；
+   ph 是課文裡含這個字的語詞（出注音題用）；tx 是課文裡含這個字的短句（一定要和課本一字不差）；
+   bf=部首在這個字裡的寫法；look=形近字；
+   poly=多音字：課本把注音印成紅色（p 是課本頁碼）。now 是這一課的讀音，eg 是同音的例詞，more 是其他讀音（延伸，課本這一課沒有教） */
 var CHARS=[
- {c:"促",zy:"ㄘㄨˋ",bs:"人",bf:"亻",ex:7,tot:9,words:["急促","短促"],tx:"一陣陣清亮而急促的叫聲"},
- {c:"褐",zy:"ㄏㄜˊ",bs:"衣",bf:"衤",ex:9,tot:14,words:["黃褐色"],tx:"一個黃褐色的鳥巢正藏在陽臺的樹枝間"},
- {c:"衝",zy:"ㄔㄨㄥ",bs:"行",ex:9,tot:15,words:["衝","衝下來"],tx:"好像隨時要衝下來啄我"},
- {c:"振",zy:"ㄓㄣˋ",bs:"手",bf:"扌",ex:7,tot:10,words:["振動"],tx:"牠快速振動微微張開的雙翅"},
- {c:"巧",zy:"ㄑㄧㄠˇ",bs:"工",ex:2,tot:5,words:["巧克力色","巧克力"],tx:"驚喜的發現裡頭有三顆帶著巧克力色斑點的蛋",look:"考"},
- {c:"雷",zy:"ㄌㄟˊ",bs:"雨",ex:5,tot:13,words:["雷池"],tx:"讓我不敢越雷池一步"},
- {c:"碎",zy:"ㄙㄨㄟˋ",bs:"石",ex:8,tot:13,words:["碎步","碎片"],tx:"雙腳碎步走動"},
- {c:"塑",zy:"ㄙㄨˋ",bs:"土",ex:10,tot:13,words:["塑膠"],tx:"鳥巢外側的樹枝夾著一條細長的塑膠碎片"},
- {c:"牌",zy:"ㄆㄞˊ",bs:"片",ex:8,tot:12,words:["招牌"],tx:"阿白又唱回招牌三連音「巧克力」"},
- {c:"者",zy:"ㄓㄜˇ",bs:"老",ex:4,tot:8,words:["舞者"],tx:"看起來像林間的舞者"},
- {c:"凶",zy:"ㄒㄩㄥ",bs:"凵",ex:2,tot:4,words:["凶","很凶"],tx:"阿白變得很凶"},
- {c:"豐",zy:"ㄈㄥ",bs:"豆",ex:11,tot:18,words:["豐滿"],tx:"幼鳥們長出豐滿的羽毛後"},
- {c:"偶",zy:"ㄡˇ",bs:"人",bf:"亻",ex:9,tot:11,words:["求偶"],tx:"原來,三到五月是白頭翁的求偶季節",look:"遇"},
- {c:"繞",zy:"ㄖㄠˋ",bs:"糸",bf:"糹",ex:12,tot:18,words:["繞圈"],tx:"一邊在空中繞圈"},
- {c:"擾",zy:"ㄖㄠˇ",bs:"手",bf:"扌",ex:15,tot:18,words:["擾人"],tx:"雖然少了擾人的「鬧鐘」"}
+ {c:"促",zy:"ㄘㄨˋ",bs:"人",bf:"亻",ex:7,tot:9,words:["急促","短促","催促"],ph:"急促",tx:"清亮而急促的叫聲",look:"捉"},
+ {c:"振",zy:"ㄓㄣˋ",bs:"手",bf:"扌",ex:7,tot:10,words:["振動","振作","振翅"],ph:"振動",tx:"牠快速振動微微張開的雙翅"},
+ {c:"碎",zy:"ㄙㄨㄟˋ",bs:"石",ex:8,tot:13,words:["碎步","碎片","破碎"],ph:"碎步",tx:"雙腳碎步走動"},
+ {c:"者",zy:"ㄓㄜˇ",bs:"老",bf:"耂",ex:4,tot:8,words:["舞者","作者","讀者"],ph:"舞者",tx:"像林間的舞者"},
+ {c:"偶",zy:"ㄡˇ",bs:"人",bf:"亻",ex:9,tot:11,words:["求偶","偶爾","木偶"],ph:"求偶",tx:"白頭翁的求偶季節",look:"遇"},
+ {c:"褐",zy:"ㄏㄜˊ",bs:"衣",bf:"衤",ex:9,tot:14,words:["黃褐色","褐色","深褐色"],ph:"黃褐色",tx:"一個黃褐色的鳥巢",look:"渴"},
+ {c:"巧",zy:"ㄑㄧㄠˇ",bs:"工",ex:2,tot:5,words:["巧克力色","巧克力","巧妙"],ph:"巧克力色",tx:"帶著巧克力色斑點的蛋"},
+ {c:"塑",zy:"ㄙㄨˋ",bs:"土",ex:10,tot:13,words:["塑膠","塑膠袋","雕塑"],ph:"塑膠",tx:"一條細長的塑膠碎片"},
+ {c:"凶",zy:"ㄒㄩㄥ",bs:"凵",ex:2,tot:4,words:["很凶","凶猛","凶巴巴"],ph:"很凶",tx:"阿白變得很凶"},
+ {c:"繞",zy:"ㄖㄠˋ",bs:"糸",bf:"糹",ex:12,tot:18,words:["繞圈","繞路","圍繞"],ph:"繞圈",tx:"一邊在空中繞圈",look:"澆"},
+ {c:"衝",zy:"ㄔㄨㄥ",bs:"行",ex:9,tot:15,words:["衝下來","衝刺","衝浪"],ph:"衝下來",tx:"好像隨時要衝下來啄我",
+  poly:{p:84,now:"ㄔㄨㄥ",eg:"衝下來、衝刺",more:"「芥末的味道很衝」的「衝」念 ㄔㄨㄥˋ"}},
+ {c:"雷",zy:"ㄌㄟˊ",bs:"雨",ex:5,tot:13,words:["雷池","打雷","雷聲"],ph:"雷池",tx:"不敢越雷池一步"},
+ {c:"牌",zy:"ㄆㄞˊ",bs:"片",ex:8,tot:12,words:["招牌","牌子","撲克牌"],ph:"招牌",tx:"唱回招牌三連音",look:"脾"},
+ {c:"豐",zy:"ㄈㄥ",bs:"豆",ex:11,tot:18,words:["豐滿","豐富","豐收"],ph:"豐滿",tx:"長出豐滿的羽毛"},
+ {c:"擾",zy:"ㄖㄠˇ",bs:"手",bf:"扌",ex:15,tot:18,words:["擾人","打擾","干擾"],ph:"擾人",tx:"少了擾人的「鬧鐘」",look:"優"}
 ];
-/* 形近字（配對和句子都是自編的；每一題換成另一個字都不成詞） */
+/* 形近字：碎／翠是課本第 87 頁「加一加，比一比」，其餘配對是自己找的；句子都是自編的；每一題換成另一個字都不成詞 */
 var LOOK=[
- {s:"柳樹的枝條＿下來，隨風飄動。",a:"垂",b:"睡",tip:"「垂」是土部，垂下來、垂直。"},
- {s:"昨天晚上我很早就＿著了。",a:"睡",b:"垂",tip:"「睡」是目部，睡覺、睡著。"},
- {s:"熊有著＿色的毛。",a:"褐",b:"渴",tip:"「褐」是衣部（衤），褐色、黃褐色。"},
- {s:"運動後我覺得很口＿。",a:"渴",b:"褐",tip:"「渴」是水部（氵），口渴、乾渴。"},
- {s:"小鳥在樹上築＿。",a:"窩",b:"過",tip:"「窩」是穴部，鳥窩、狗窩。"},
- {s:"我＿了一個快樂的週末。",a:"過",b:"窩",tip:"「過」是辵部（辶），過日子、經過。"},
- {s:"她的手很＿，會做很多東西。",a:"巧",b:"考",tip:"「巧」是工部，巧妙、技巧。"},
- {s:"明天要＿數學，我要好好準備。",a:"考",b:"巧",tip:"「考」是老部（耂），考試、考題。"},
- {s:"我＿然在路上遇到老朋友。",a:"偶",b:"遇",tip:"「偶」是人部（亻），偶然、偶爾、木偶。"},
- {s:"今天我＿到一件有趣的事。",a:"遇",b:"偶",tip:"「遇」是辵部（辶），遇到、相遇。"}
+ {s:"杯子掉到地上，摔成了＿片。",a:"碎",b:"翠",tip:"卒＋石＝碎：破碎、碎片（課本第 87 頁）。"},
+ {s:"下過雨，山上的樹一片＿綠。",a:"翠",b:"碎",tip:"卒＋羽＝翠：翠綠、青翠（課本第 87 頁）。"},
+ {s:"上課鐘響了，老師催＿大家快進教室。",a:"促",b:"捉",tip:"「促」是人部（亻）：催促、急促。"},
+ {s:"小貓伸出腳，想＿住那隻蝴蝶。",a:"捉",b:"促",tip:"「捉」是手部（扌），用手抓：捉住、捉迷藏。"},
+ {s:"松鼠有一身＿色的毛。",a:"褐",b:"渴",tip:"「褐」是衣部（衤）：褐色、黃褐色。"},
+ {s:"跑完步好口＿，我想喝水。",a:"渴",b:"褐",tip:"「渴」是水部（氵），和水有關：口渴。"},
+ {s:"我＿爾會和爸爸去爬山。",a:"偶",b:"遇",tip:"「偶」是人部（亻）：偶爾、求偶、木偶。"},
+ {s:"放學的路上，我＿到了好朋友。",a:"遇",b:"偶",tip:"「遇」是辵部（辶），和走路有關：遇到、相遇。"},
+ {s:"前面的路不通，我們只好＿路走。",a:"繞",b:"澆",tip:"「繞」是糸部（糹）：繞路、繞圈。"},
+ {s:"我每天早上幫陽臺的花＿水。",a:"澆",b:"繞",tip:"「澆」是水部（氵），和水有關：澆水、澆花。"},
+ {s:"麵包店門口掛著新的招＿。",a:"牌",b:"脾",tip:"「牌」是片部：招牌、牌子。"},
+ {s:"弟弟今天＿氣不好，一直哭。",a:"脾",b:"牌",tip:"「脾」的左邊是「月」：脾氣。"},
+ {s:"哥哥在寫功課，不要去打＿他。",a:"擾",b:"優",tip:"「擾」是手部（扌）：打擾、擾人。"},
+ {s:"姐姐的成績一直很＿秀。",a:"優",b:"擾",tip:"「優」是人部（亻）：優秀、優點。"}
 ];
-/* 語詞：課文裡重要的語詞；課本沒有附解釋，這裡的解釋都是自己寫的兒童版說明 */
+/* 語詞：課文裡藍色的 15 個語詞（課本第 81～85 頁）；課本沒有附解釋，這裡的解釋都是自己寫的兒童版說明 */
 var WORDS=[
- {w:"垂下來",m:"從上面掛下來"},
- {w:"褐色",m:"像咖啡一樣的深棕色"},
- {w:"爪子",m:"動物腳上尖尖的部分，用來抓東西"},
- {w:"窩",m:"動物睡覺、休息的地方"},
- {w:"巧妙",m:"做事很聰明、很有技巧"},
- {w:"拆開",m:"把包起來或組合起來的東西分開"},
- {w:"牌子",m:"寫字或畫圖的板子；也指商品的品牌"},
- {w:"塑膠袋",m:"用塑膠做的袋子"},
- {w:"碎碎的",m:"很細小的、零散的"},
- {w:"豐富",m:"種類很多、很充足"},
- {w:"凶",m:"看起來很兇、很可怕"},
- {w:"肖",m:"很像（發音像「笑」）"},
- {w:"憂心",m:"擔心、煩惱"},
- {w:"繞圈",m:"在空中轉圈圈"},
- {w:"偶伴",m:"陪伴的朋友"}
+ {w:"急促",m:"又快又短，一聲接著一聲"},
+ {w:"振動",m:"很快的來回擺動"},
+ {w:"碎步",m:"又小又快的腳步"},
+ {w:"舞者",m:"跳舞的人"},
+ {w:"求偶",m:"動物想辦法吸引另一半"},
+ {w:"黃褐色",m:"黃色裡帶一點咖啡色"},
+ {w:"巧克力色",m:"很深很深的咖啡色"},
+ {w:"塑膠",m:"一種人造的材料，可以做成袋子、瓶子和吸管"},
+ {w:"凶",m:"態度很不客氣，樣子很可怕"},
+ {w:"繞圈",m:"圍著一個地方一直轉"},
+ {w:"衝",m:"用很快的速度直直過去"},
+ {w:"雷池",m:"古時候一個湖的名字，後來指不能超過的界線"},
+ {w:"招牌",m:"店門口寫著店名的牌子，也指最有名、最拿手的"},
+ {w:"豐滿",m:"長得又多又飽滿"},
+ {w:"擾人",m:"吵到別人，讓人不能好好休息"}
 ];
-/* 延伸語詞（課本沒有，自己選的） */
+/* 課文裡的四字語詞（p 是課本頁碼；解釋自編） */
+var PHRASES=[
+ {w:"忙進忙出",p:83,m:"一下進、一下出，忙個不停"},
+ {w:"一飛沖天",p:84,m:"一下子飛得很高。課文是說阿白馬上往上飛"},
+ {w:"不告而別",p:85,m:"沒有說一聲就離開了"}
+];
+/* 延伸成語（課本沒有，自己選的；解釋是用孩子看得懂的話寫的） */
 var IDIOMS=[
- {w:"垂直",m:"和地面成直角，筆直的往下"},
- {w:"技巧",m:"做事的方法和本領"},
- {w:"破碎",m:"碎成很多小塊"},
- {w:"豐收",m:"農作物收穫很多"},
- {w:"凶猛",m:"很兇、很強悍"},
- {w:"生肖",m:"用十二種動物代表出生年份，像鼠、牛、虎等"},
- {w:"憂慮",m:"擔心、煩惱"},
- {w:"圍繞",m:"在周圍轉來轉去"},
- {w:"木偶",m:"用木頭做的人偶"}
+ {w:"熟能生巧",m:"練習的次數多了，就會做得又快又好"},
+ {w:"橫衝直撞",m:"不看路，到處亂衝亂撞"},
+ {w:"豐衣足食",m:"穿的、吃的都很夠，日子過得很好"},
+ {w:"支離破碎",m:"破成一塊一塊，不完整了"}
 ];
-/* 選詞填空（句子自編，語詞是課文的重要語詞） */
+/* 選詞填空（句子自編，答案是課文的 15 個語詞；每一題只有一個選項放得進去） */
 var FILL=[
- {s:"衣服曬好了，＿＿在衣架上。",a:"垂下來",opts:["垂下來","拆開","繞圈"]},
- {s:"這件外套是深＿＿。",a:"褐色",opts:["褐色","碎碎的","豐富"]},
- {s:"貓的＿＿很尖，要小心不要被抓傷。",a:"爪子",opts:["爪子","窩","牌子"]},
- {s:"小狗在牠的＿裡睡得很香。",a:"窩",opts:["窩","塑膠袋","偶伴"]},
- {s:"他用＿＿的方法解決了這個難題。",a:"巧妙",opts:["巧妙","凶","肖"]},
- {s:"我把禮物的包裝紙＿＿。",a:"拆開",opts:["拆開","垂下來","繞圈"]},
- {s:"商店門口掛著一個大＿＿。",a:"牌子",opts:["牌子","窩","爪子"]},
- {s:"買東西時，店員給了我一個＿＿。",a:"塑膠袋",opts:["塑膠袋","窩","牌子"]},
- {s:"走在落葉上會發出＿＿聲音。",a:"碎碎的",opts:["碎碎的","褐色","豐富"]},
- {s:"這本書的內容很＿＿。",a:"豐富",opts:["豐富","凶","肖"]},
- {s:"那隻狗看起來很＿，但其實很溫馴。",a:"凶",opts:["凶","巧妙","憂心"]},
- {s:"妹妹長得和媽媽很＿。",a:"肖",opts:["肖","凶","豐富"]},
- {s:"媽媽＿＿弟弟的身體健康。",a:"憂心",opts:["憂心","拆開","肖"]},
- {s:"阿白一邊在空中＿＿。",a:"繞圈",opts:["繞圈","垂下來","拆開"]},
- {s:"小狗是我最好的＿＿。",a:"偶伴",opts:["偶伴","窩","牌子"]}
+ {s:"他跑完操場，呼吸變得很＿＿。",a:"急促",opts:["急促","豐滿","黃褐色"]},
+ {s:"手機在桌上＿＿，原來是有人打電話來。",a:"振動",opts:["振動","求偶","招牌"]},
+ {s:"小狗踩著小＿＿，跟在主人後面。",a:"碎步",opts:["碎步","雷池","塑膠"]},
+ {s:"臺上的＿＿跟著音樂轉身，跳得真美。",a:"舞者",opts:["舞者","招牌","塑膠"]},
+ {s:"公孔雀張開漂亮的尾巴，是為了＿＿。",a:"求偶",opts:["求偶","碎步","豐滿"]},
+ {s:"秋天到了，樹葉從綠色變成＿＿。",a:"黃褐色",opts:["黃褐色","急促","雷池"]},
+ {s:"蛋糕上面淋了一層醬，變成深深的＿＿。",a:"巧克力色",opts:["巧克力色","擾人","碎步"]},
+ {s:"寶特瓶和吸管都是＿＿做的。",a:"塑膠",opts:["塑膠","急促","雷池"]},
+ {s:"那隻大狗一直對著我叫，看起來好＿＿。",a:"凶",opts:["凶","碎步","招牌"]},
+ {s:"老鷹在天空中一直＿＿，好像在找食物。",a:"繞圈",opts:["繞圈","豐滿","塑膠"]},
+ {s:"下課鐘一響，同學們就＿＿出教室。",a:"衝",opts:["衝","凶","豐滿"]},
+ {s:"老師說不可以超過那條線，大家都不敢越＿＿一步。",a:"雷池",opts:["雷池","招牌","塑膠"]},
+ {s:"牛肉麵是這家店的＿＿菜，很多人專程來吃。",a:"招牌",opts:["招牌","雷池","急促"]},
+ {s:"小鳥的羽毛長得很＿＿，可以開始學飛了。",a:"豐滿",opts:["豐滿","急促","擾人"]},
+ {s:"半夜的狗叫聲很＿＿，害我睡不著。",a:"擾人",opts:["擾人","豐滿","巧克力色"]}
+];
+/* 事情的順序：照課文（第 81～85 頁）。g 是課本第 90 頁「因果式」的三個部分（哪一件事屬於哪一部分，是自己對照的） */
+var GROUPS={cause:"起因",mid:"經過",end:"結果"};
+var STEPS=[
+ {n:1,g:"cause",e:"🎵",t:"清晨的歌聲把作者吵醒",d:"作者很好奇，開始觀察"},
+ {n:2,g:"mid",e:"💃",t:"阿白又唱又跳",d:"原來是在求偶"},
+ {n:3,g:"mid",e:"🪺",t:"兩隻鳥一起築巢",d:"鳥巢就在陽臺的樹上"},
+ {n:4,g:"mid",e:"🥚",t:"巢裡有三顆蛋",d:"作者用望遠鏡看到的"},
+ {n:5,g:"mid",e:"🐣",t:"有了幼鳥，阿白變凶",d:"作者不敢靠近"},
+ {n:6,g:"end",e:"👋",t:"幼鳥長大，阿白離開",d:"作者很想念牠們"}
 ];
 /* 閱讀理解（依課文內容自編題目） */
 var READ=[
- {q:"阿白頭上戴著什麼？",a:"白色毛帽",o:["白色毛帽","紅色帽子","沒戴帽子"]},
- {q:"阿白唱歌的聲音是什麼樣的？",a:"清亮而急促",o:["清亮而急促","低沉緩慢","沙啞"]}
+ {q:"春天時，阿白每天清晨大約幾點來唱歌？",a:"五點半",o:["五點半","七點半","九點半"]},
+ {q:"作者說，阿白的頭上像戴了什麼？",a:"一頂白色毛帽",o:["一頂白色毛帽","一頂黃色草帽","一副黑色眼鏡"]},
+ {q:"春天的清晨，阿白唱的歌聽起來像什麼？",a:"不理不理",o:["不理不理","巧克力","咕咕咕"],tip:"到了夏天的尾聲，阿白才又唱回「巧克力」。"},
+ {q:"作者為什麼說阿白還是「舞林高手」？",a:"牠振動翅膀、踩著碎步，像在跳舞",o:["牠振動翅膀、踩著碎步，像在跳舞","牠在樹林裡飛得最高","牠會教別的鳥跳舞"]},
+ {q:"作者查了什麼，才知道白頭翁在三月到五月求偶？",a:"動物百科",o:["動物百科","電視新聞","學校的布告欄"]},
+ {q:"公鳥為什麼要賣力的表演？",a:"想吸引母鳥",o:["想吸引母鳥","想嚇走作者","想找東西吃"]},
+ {q:"兩隻鳥把鳥巢做在哪裡？",a:"陽臺的樹枝間",o:["陽臺的樹枝間","屋頂的煙囪裡","公園的草地上"]},
+ {q:"作者用望遠鏡看到鳥巢裡有什麼？",a:"三顆有斑點的蛋",o:["三顆有斑點的蛋","三隻剛出生的幼鳥","一堆巧克力"]},
+ {q:"鳥巢外側的什麼東西，讓作者覺得有點奇怪？",a:"細長的塑膠碎片",o:["細長的塑膠碎片","黃褐色的乾草","灰綠色的羽毛"]},
+ {q:"阿白什麼時候開始變得很凶？",a:"有了幼鳥以後",o:["有了幼鳥以後","剛來陽臺的時候","跳舞求偶的時候"]},
+ {q:"「讓我不敢越雷池一步」是說作者怎麼了？",a:"不敢再靠近鳥巢",o:["不敢再靠近鳥巢","不敢到池塘邊","不敢看閃電"]},
+ {q:"阿白離開以後，作者的心情是什麼？",a:"想念牠們，也想念觀察的樂趣",o:["想念牠們，也想念觀察的樂趣","很高興，終於可以睡到中午","很生氣，因為阿白沒有說再見"]}
 ];
-/* 分類：阿白的什麼？ */
-var CATS=[
- {k:"look",n:"外觀",e:"👀"},
- {k:"action",n:"動作習性",e:"🐾"},
- {k:"feel",n:"個性感受",e:"💭"}
+/* 阿白分類：這是哪個時候的事？（四個時候照課文的順序；句子依課文改寫，不是原文） */
+var STAGES=[
+ {k:"sing",w:"清晨唱歌",e:"🎵"},
+ {k:"dance",w:"跳舞求偶",e:"💃"},
+ {k:"nest",w:"築巢下蛋",e:"🪺"},
+ {k:"chick",w:"有了幼鳥",e:"🐣"}
 ];
 var SORT=[
- {t:"穿著灰色上衣,灰綠色夾克",s:"look"},
- {t:"頭上還戴著一頂白色毛帽",s:"look"},
- {t:"快速振動微微張開的雙翅",s:"action"},
- {t:"雙腳碎步走動",s:"action"},
- {t:"一邊在空中繞圈",s:"action"},
- {t:"看起來像林間的舞者",s:"feel"}
+ {t:"天剛亮，五點半就準時來唱歌",s:"sing"},
+ {t:"叫聲又清亮又急促，讓人睡不著",s:"sing"},
+ {t:"唱的歌聽起來像「不理不理」",s:"sing"},
+ {t:"作者被吵醒，決定看看牠在做什麼",s:"sing"},
+ {t:"站在細細的樹枝上，壓低身體，張開尾羽",s:"dance"},
+ {t:"快速振動翅膀，踩著小碎步",s:"dance"},
+ {t:"像林間的舞者，也像戰鬥機",s:"dance"},
+ {t:"公鳥賣力表演，想吸引母鳥",s:"dance"},
+ {t:"有了一個伴，兩隻鳥忙進忙出",s:"nest"},
+ {t:"咬著乾草，在樹枝間穿來穿去",s:"nest"},
+ {t:"巢裡有三顆帶著斑點的蛋",s:"nest"},
+ {t:"巢的外面夾著一條塑膠碎片",s:"nest"},
+ {t:"變得很凶，有人靠近就飛起來",s:"chick"},
+ {t:"一邊飛一邊繞圈，叫得好大聲",s:"chick"},
+ {t:"好像隨時要衝下來啄人",s:"chick"},
+ {t:"幼鳥的羽毛長好了，一下子就飛走了",s:"chick"}
 ];
-/* 觀察外觀練習 */
-var LOOK_P=[
- {s:"阿白總是穿著＿＿。",a:"灰色上衣,灰綠色夾克",o:["灰色上衣,灰綠色夾克","全黑色","全白色"]},
- {s:"阿白頭上還戴著一頂＿＿。",a:"白色毛帽",o:["白色毛帽","紅色帽子","沒戴帽子"]}
+/* 句子練習「不得不」（課本第 87 頁）。前兩題是課本的句子，第三題依課本的提問；其餘句子自編（每一題只有一個選項合理） */
+var BDB=[
+ {s:"課本的句子：在安靜的清晨，阿白的叫聲特別響亮，讓我不得不＿＿。",a:"起床",o:["起床","唱歌","跳舞"],tip:"課本第 87 頁。叫聲太響，沒辦法再睡，只好起床。"},
+ {s:"課本的句子：突如其來的大雨，讓運動會不得不＿＿。",a:"提早結束",o:["提早結束","多比幾場","延長一小時"],tip:"課本第 87 頁。雨太大，沒辦法比賽，只好提早結束。"},
+ {q:"「不得不」的意思和哪一個最接近？",a:"必須，只好這樣做",o:["必須，只好這樣做","不可以這樣做","很想這樣做"],tip:"課本第 87 頁問：在這樣的情況下，必須怎麼做？"},
+ {s:"腳踏車的輪胎破了，我不得不＿＿。",a:"牽著車走回家",o:["牽著車走回家","騎得更快","載弟弟去兜風"]},
+ {s:"明天就要考試了，哥哥不得不＿＿。",a:"留在家裡複習",o:["留在家裡複習","出門玩一整天","把課本送給別人"]},
+ {s:"外面下起大雨，我們不得不＿＿。",a:"取消野餐",o:["取消野餐","到草地上野餐","把雨傘收起來"]},
+ {s:"公車已經開走了，我不得不＿＿。",a:"等下一班車",o:["等下一班車","坐上那班車","在車上睡覺"]},
+ {q:"哪一個情況，會讓人「不得不穿上外套」？",a:"寒流來了，天氣好冷",o:["寒流來了，天氣好冷","太陽好大，流了好多汗","跑完步，全身發熱"]}
 ];
-/* 觀察動作練習 */
-var ACTION_P=[
- {s:"阿白快速＿＿微微張開的雙翅。",a:"振動",o:["振動","收起","展開"]},
- {s:"阿白雙腳＿＿走動。",a:"碎步",o:["碎步","大步","跳著"]},
- {s:"阿白一邊在空中＿＿。",a:"繞圈",o:["繞圈","飛高","往下衝"]}
+/* 靜態描寫與動態描寫（課本第 87 頁）。前三句依課本的例子改寫，第四句依課文第 84 頁改寫，其餘自編 */
+var DESC_O=["靜態描寫","動態描寫"];
+var DESC=[
+ {d:"巢裡有三顆蛋，蛋上有巧克力色的斑點。",a:0,why:"課本第 87 頁的例子：蛋靜靜的在巢裡，是靜態描寫。"},
+ {d:"鳥巢外面的樹枝，夾著細長的塑膠碎片。",a:0,why:"課本第 87 頁的例子：碎片夾在那裡不動，是靜態描寫。"},
+ {d:"阿白壓低身體，張開尾羽，快速振動翅膀。",a:1,why:"課本第 87 頁的例子：阿白正在動，是動態描寫。"},
+ {d:"阿白飛到空中繞圈，大聲的叫。",a:1,why:"阿白一邊飛、一邊叫，是動態描寫。"},
+ {d:"桌上放著一顆紅色的蘋果。",a:0,why:"蘋果放著不動，是靜態描寫。"},
+ {d:"小狗搖著尾巴，朝我跑過來。",a:1,why:"小狗在搖尾巴、在跑，是動態描寫。"},
+ {d:"校門口有一棵高高的大樹。",a:0,why:"寫大樹的樣子，沒有動作，是靜態描寫。"},
+ {d:"風一吹，樹葉一片一片飄下來。",a:1,why:"樹葉正在飄，是動態描寫。"},
+ {d:"牆上掛著一幅山水畫。",a:0,why:"畫掛著不動，是靜態描寫。"},
+ {d:"弟弟跳起來，把球投進籃框。",a:1,why:"弟弟在跳、在投球，是動態描寫。"}
 ];
-/* 感受練習 */
-var FEEL_P=[
- {s:"阿白看起來像＿＿。",a:"林間的舞者",o:["林間的舞者","一個戰士","一隻貓"]}
+var DESC_C=[
+ {q:"課本說，靜態描寫是描寫景物什麼樣的狀態？",a:"靜止的狀態",o:["靜止的狀態","活動變化","聲音的大小"],tip:"課本第 87 頁。"},
+ {q:"課本說，動態描寫是捕捉物體的什麼？",a:"活動變化",o:["活動變化","靜止的狀態","顏色和形狀"],tip:"課本第 87 頁。"}
+];
+/* 安排段落：因果式（課本第 90 頁；時間式、空間式在第 91 頁）。前三句是課本的說明，後三句是自己對照的 */
+var CAUSE_O=["起因","經過","結果"];
+var CAUSE=[
+ {d:"作者被白頭翁的叫聲吵醒，因為好奇，開始觀察牠",a:0,why:"課本第 90 頁：這是起因。"},
+ {d:"作者觀察白頭翁的過程",a:1,why:"課本第 90 頁：這是經過。"},
+ {d:"白頭翁離開了，作者想念觀察牠們的樂趣",a:2,why:"課本第 90 頁：這是結果。"},
+ {d:"阿白跳舞求偶，後來和伴一起築巢",a:1,why:"這些是作者觀察到的事，屬於經過。"},
+ {d:"巢裡有三顆蛋；有了幼鳥，阿白變得很凶",a:1,why:"這些是作者觀察到的事，屬於經過。"},
+ {d:"幼鳥飛走了，阿白也離開了",a:2,why:"事情最後變成這樣，屬於結果。"}
+];
+var CAUSE_C=[
+ {q:"課本第 90 頁說，〈阿白觀察記〉用哪一種方式安排段落？",a:"因果式",o:["因果式","時間式","空間式"],tip:"課本第 90 頁：因果式的例子就是〈阿白觀察記〉。"},
+ {q:"因果式照什麼順序安排段落？",a:"起因、經過、結果",o:["起因、經過、結果","早上、中午、下午","一個地點接著一個地點"],tip:"課本第 90 頁。"},
+ {q:"課本說，用因果順序安排段落，能清楚掌握事情的什麼？",a:"來龍去脈",o:["來龍去脈","顏色和形狀","地點和路線"],tip:"課本第 90 頁。"},
+ {q:"課本第 91 頁說，〈四季的頭髮〉用哪一種方式安排段落？",a:"時間式",o:["時間式","因果式","空間式"],tip:"課本第 91 頁：照夏、秋、冬、春的時間順序寫。"},
+ {q:"課本第 91 頁說，〈到此「藝」遊〉用哪一種方式安排段落？",a:"空間式",o:["空間式","因果式","時間式"],tip:"課本第 91 頁：跟著地點的移動來寫。"}
 ];
 
 function shuffle(a,rnd){rnd=rnd||Math.random;var b=a.slice();for(var i=b.length-1;i>0;i--){var j=Math.floor(rnd()*(i+1));var t=b[i];b[i]=b[j];b[j]=t;}return b;}
 function pick(a,n,rnd){return shuffle(a,rnd).slice(0,n);}
 function charBy(c){for(var i=0;i<CHARS.length;i++)if(CHARS[i].c===c)return CHARS[i];return null;}
 function uniq(a){var o=[];for(var i=0;i<a.length;i++)if(o.indexOf(a[i])<0)o.push(a[i]);return o;}
-function blank(s){return s.replace("＿＿",'<span class="blank">（　　）</span>');}
+/* 空格和後面的標點包在一起，換行時句號才不會自己掉到下一行 */
+function blank(s){return s.replace(/＿＿([，。！？、；]?)/,'<span class="nb"><span class="blank">（　　）</span>$1</span>');}
 /* 生字題：部首、總筆畫、注音 */
 function charQ(type,ch,rnd){
  var opts,ans,q;
- if(type==="bs"){ans=ch.bs;var all=uniq(CHARS.map(function(x){return x.bs;}).concat(["口","木","水","竹"]));
+ if(type==="bs"){ans=ch.bs;var all=uniq(CHARS.map(function(x){return x.bs;}).concat(["水","心","竹","木"]));
   opts=[ans].concat(pick(all.filter(function(b){return b!==ans;}),2,rnd));q="「"+ch.c+"」的部首是什麼？";}
  else if(type==="tot"){ans=String(ch.tot);var d=[ch.tot-2,ch.tot-1,ch.tot+1,ch.tot+2].filter(function(n){return n>0;});
   opts=[ans].concat(pick(d,2,rnd).map(String));q="「"+ch.c+"」總共幾畫？";}
  else {ans=ch.zy;var others=uniq(CHARS.filter(function(x){return x.c!==ch.c;}).map(function(x){return x.zy;})).filter(function(z){return z!==ans;});
-  opts=[ans].concat(pick(others,2,rnd));q="「"+ch.words[0]+"」的「"+ch.c+"」怎麼念？";}
+  opts=[ans].concat(pick(others,2,rnd));q="「"+(ch.ph||ch.words[0])+"」的「"+ch.c+"」怎麼念？";}
  return {type:type,c:ch.c,q:q,a:ans,o:shuffle(opts,rnd)};
 }
-function lookQ(l,rnd){return {type:"look",q:l.s.replace("＿",'<span class="blank">（　）</span>'),a:l.a,o:shuffle([l.a,l.b],rnd),tip:l.tip};}
+function lookQ(l,rnd){return {type:"look",q:l.s.replace(/＿(.)/,'<span class="nb"><span class="blank">（　）</span>$1</span>'),a:l.a,o:shuffle([l.a,l.b],rnd),tip:l.tip};}
 function wordQ(rnd){var w=pick(WORDS,1,rnd)[0],wo=pick(WORDS.filter(function(x){return x.w!==w.w;}),2,rnd);
  return {type:"word",q:"「"+w.m+"」是哪個語詞？",a:w.w,o:shuffle([w.w,wo[0].w,wo[1].w],rnd)};}
 function fillQ(f,rnd){return {type:"fill",q:blank(f.s),a:f.a,o:shuffle(f.opts,rnd)};}
-function lookPQ(p,rnd){return {type:"lookP",q:blank(p.s),a:p.a,o:shuffle(p.o,rnd)};}
-function actionPQ(p,rnd){return {type:"actionP",q:blank(p.s),a:p.a,o:shuffle(p.o,rnd)};}
-function feelPQ(p,rnd){return {type:"feelP",q:blank(p.s),a:p.a,o:shuffle(p.o,rnd)};}
-/* 綜合挑戰：10 題 */
+function readQ(r,rnd){return {type:"read",q:r.q,a:r.a,o:shuffle(r.o,rnd),tip:r.tip};}
+function bdbQ(x,rnd){return {type:"bdb",q:x.q||blank(x.s),a:x.a,o:shuffle(x.o,rnd),tip:x.tip};}
+function descQ(x,rnd){
+ if(x.q)return {type:"desc",q:x.q,a:x.a,o:shuffle(x.o,rnd),tip:x.tip};
+ return {type:"desc",q:"「"+x.d+"」<br>這是靜態描寫，還是動態描寫？",a:DESC_O[x.a],o:DESC_O.slice(),tip:x.why};}
+function causeQ(x,rnd){
+ if(x.q)return {type:"cause",q:x.q,a:x.a,o:shuffle(x.o,rnd),tip:x.tip};
+ return {type:"cause",q:"「"+x.d+"」<br>這是起因、經過，還是結果？",a:CAUSE_O[x.a],o:CAUSE_O.slice(),tip:x.why};}
+/* 綜合挑戰：10 題（不出延伸內容） */
 function makeChallenge(rnd){
  rnd=rnd||Math.random;var out=[],chs=pick(CHARS,3,rnd);
  out.push(charQ("bs",chs[0],rnd));out.push(charQ("tot",chs[1],rnd));out.push(charQ("zy",chs[2],rnd));
  pick(LOOK,2,rnd).forEach(function(l){out.push(lookQ(l,rnd));});
  out.push(wordQ(rnd));
- out.push(lookPQ(pick(LOOK_P,1,rnd)[0],rnd));
- out.push(actionPQ(pick(ACTION_P,1,rnd)[0],rnd));
- out.push(feelPQ(pick(FEEL_P,1,rnd)[0],rnd));
+ out.push(bdbQ(pick(BDB,1,rnd)[0],rnd));
+ out.push(descQ(pick(DESC.concat(DESC_C),1,rnd)[0],rnd));
+ out.push(rnd()<.5?causeQ(pick(CAUSE.concat(CAUSE_C),1,rnd)[0],rnd):readQ(pick(READ,1,rnd)[0],rnd));
  out.push(fillQ(pick(FILL,1,rnd)[0],rnd));
  return shuffle(out,rnd);
 }
 function check(q,ans){return q.a===ans;}
-function sortCheck(text,cat){for(var i=0;i<SORT.length;i++)if(SORT[i].t===text)return SORT[i].s===cat;return false;}
+function sortCheck(text,stage){for(var i=0;i<SORT.length;i++)if(SORT[i].t===text)return SORT[i].s===stage;return false;}
 function matchCheck(word,meaning){for(var i=0;i<WORDS.length;i++)if(WORDS[i].w===word)return WORDS[i].m===meaning;return false;}
+/* 事情的順序：依序點，回傳 true 表示這一步點對了 */
+function stepCheck(done,n){return n===done+1;}
 function stars(correct,total){if(!total)return 0;var r=correct/total;return r>=1?3:r>=0.7?2:r>=0.4?1:0;}
-var PATS=["look","action","feel"];
+var PATS=["bdb","desc","cause"];
 var BADGES=[
  {id:"read",n:"📖 閱讀小達人",d:"閱讀理解全對"},
  {id:"chars",n:"✍️ 生字小書法家",d:"看完 15 張生字卡"},
  {id:"write",n:"🖌️ 描紅練習生",d:"在描寫板練習 5 個字"},
  {id:"words",n:"🧩 語詞配對王",d:"完成一次語詞配對"},
- {id:"pattern",n:"🪄 觀察小作家",d:"三個觀察練習都完成"},
- {id:"sort",n:"🐾 阿白分類王",d:"分類全對"},
+ {id:"pattern",n:"🪄 小小觀察家",d:"三個句型練習都完成"},
+ {id:"step",n:"🗓️ 順序小偵探",d:"事情的順序一次排對"},
+ {id:"stage",n:"🐦 阿白分類王",d:"阿白分類全對"},
  {id:"champ",n:"🏆 挑戰王",d:"挑戰答對 9 題以上"}
 ];
 function badges(st){
@@ -418,239 +540,19 @@ function badges(st){
  if(st.wrote&&Object.keys(st.wrote).length>=5)g.write=1;
  if(st.matchDone>=1)g.words=1;
  if(st.pat&&PATS.every(function(k){return st.pat[k];}))g.pattern=1;
- if(st.sortPerfect>=1)g.sort=1;
+ if(st.stepPerfect>=1)g.step=1;
+ if(st.stagePerfect>=1)g.stage=1;
  if(st.chBest>=9)g.champ=1;
  return g;
 }
 function lcg(seed){var s=seed>>>0;return function(){s=(s*1664525+1013904223)>>>0;return s/4294967296;};}
-return {CHARS:CHARS,LOOK:LOOK,WORDS:WORDS,IDIOMS:IDIOMS,FILL:FILL,READ:READ,CATS:CATS,SORT:SORT,
- LOOK_P:LOOK_P,ACTION_P:ACTION_P,FEEL_P:FEEL_P,PATS:PATS,BADGES:BADGES,
- shuffle:shuffle,pick:pick,charBy:charBy,charQ:charQ,lookQ:lookQ,wordQ:wordQ,fillQ:fillQ,lookPQ:lookPQ,actionPQ:actionPQ,feelPQ:feelPQ,
- makeChallenge:makeChallenge,check:check,sortCheck:sortCheck,matchCheck:matchCheck,stars:stars,badges:badges,lcg:lcg};
+return {CHARS:CHARS,LOOK:LOOK,WORDS:WORDS,PHRASES:PHRASES,IDIOMS:IDIOMS,FILL:FILL,GROUPS:GROUPS,STEPS:STEPS,READ:READ,STAGES:STAGES,SORT:SORT,
+ BDB:BDB,DESC:DESC,DESC_C:DESC_C,DESC_O:DESC_O,CAUSE:CAUSE,CAUSE_C:CAUSE_C,CAUSE_O:CAUSE_O,PATS:PATS,BADGES:BADGES,
+ shuffle:shuffle,pick:pick,charBy:charBy,charQ:charQ,lookQ:lookQ,wordQ:wordQ,fillQ:fillQ,readQ:readQ,bdbQ:bdbQ,descQ:descQ,causeQ:causeQ,
+ makeChallenge:makeChallenge,check:check,sortCheck:sortCheck,matchCheck:matchCheck,stepCheck:stepCheck,stars:stars,badges:badges,lcg:lcg};
 })();
 if(typeof module!=="undefined"&&module.exports)module.exports=Core;
 </script>
-<script>
-(function(){
-"use strict";
-var st=JSON.parse(localStorage.getItem("lesson9-birding")||"{}");
-function save(){localStorage.setItem("lesson9-birding",JSON.stringify(st));}
-function addScore(n){st.score=(st.score||0)+n;document.getElementById("score").textContent="⭐ "+st.score;
- document.getElementById("score").classList.add("pop");setTimeout(function(){document.getElementById("score").classList.remove("pop");},500);save();}
-function burst(e){var x=e.clientX||window.innerWidth/2,y=e.clientY||window.innerHeight/2;
- var emojis=["⭐","🌟","✨","🎉"];for(var i=0;i<5;i++){var d=document.createElement("div");d.className="burst";
- d.textContent=emojis[Math.floor(Math.random()*emojis.length)];d.style.left=x+"px";d.style.top=y+"px";
- var dx=(Math.random()-.5)*300,dy=(Math.random()-.5)*300;d.style.setProperty("--dx",dx+"px");d.style.setProperty("--dy",dy+"px");
- document.body.appendChild(d);setTimeout(function(el){return function(){document.body.removeChild(el);};}(d),1100);}}
-document.getElementById("score").textContent="⭐ "+(st.score||0);
-var pages=document.querySelectorAll("section.page"),tabs=document.querySelectorAll("nav.tabs button");
-tabs.forEach(function(b){b.addEventListener("click",function(){
- var pid=b.getAttribute("data-p");pages.forEach(function(p){p.classList.remove("active");});
- document.getElementById(pid).classList.add("active");tabs.forEach(function(t){t.classList.remove("on");});b.classList.add("on");});});
-/* ============ 課文 ============ */
-var readState={q:0,ans:[],correct:0};
-function nextReadQ(){var box=document.getElementById("readQ");if(readState.q>=Core.READ.length){
- var s=Core.stars(readState.correct,Core.READ.length);addScore(s);
- box.innerHTML='<div class="done">✅ 完成閱讀理解！答對 '+readState.correct+' / '+Core.READ.length+' 題，得到 '+s+' 顆星！</div>';
- st.readBest=Math.max(st.readBest||0,readState.correct);save();return;}
- var item=Core.READ[readState.q],h='<div class="prog">';
- for(var i=0;i<Core.READ.length;i++)h+='<i class="'+(i<readState.q?(readState.ans[i]?"ok":"no"):(i===readState.q?"cur":""))+'"></i>';
- h+='</div><p class="q">'+item.q+'</p><div class="choices" id="readCh"></div><div class="fb" id="readFb"></div>';box.innerHTML=h;
- document.getElementById("readCh").innerHTML=item.o.map(function(o){return '<button class="btn" data-a="'+o+'">'+o+'</button>';}).join("");
- document.querySelectorAll("#readCh .btn").forEach(function(b){b.addEventListener("click",function(){
-  var a=b.getAttribute("data-a"),ok=Core.check(item,a);readState.ans.push(ok);if(ok)readState.correct++;
-  b.classList.add(ok?"ok":"no");document.querySelectorAll("#readCh .btn").forEach(function(x){x.disabled=true;});
-  var fb=document.getElementById("readFb");fb.className="fb show "+(ok?"good":"bad");
-  fb.innerHTML=(ok?"✅ 正確！":"❌ 正確答案是：<b>"+item.a+"</b>")+(item.tip?"<br>"+item.tip:"");
-  if(ok)burst(event);setTimeout(function(){readState.q++;nextReadQ();},ok?1200:2400);});});}
-nextReadQ();
-/* ============ 生字 ============ */
-var charGrid=document.getElementById("charGrid"),charDet=document.getElementById("charDet");
-st.seen=st.seen||{};
-Core.CHARS.forEach(function(ch){var b=document.createElement("button");b.textContent=ch.c;
- if(st.seen[ch.c])b.classList.add("seen");b.addEventListener("click",function(){
-  if(!st.seen[ch.c]){st.seen[ch.c]=1;save();b.classList.add("seen");}
-  charGrid.querySelectorAll("button").forEach(function(x){x.classList.remove("on");});b.classList.add("on");showChar(ch);});charGrid.appendChild(b);});
-function showChar(ch){var bf=ch.bf||ch.bs,ex=ch.ex||0;
- var h='<div class="bigc">'+ch.c+'</div><div class="zy">'+ch.zy.split("").join("<br>")+'</div><div class="cinfo">';
- h+='<div><span class="chip">部首</span>'+ch.bs+(bf!==ch.bs?' <small>（寫成 '+bf+'）</small>':'')+'</div>';
- h+='<div><span class="chip id">筆畫</span>部首外 '+ex+' 畫，總共 '+ch.tot+' 畫</div>';
- h+='<div><span class="chip">造詞</span>'+ch.words.join("、")+'</div>';
- h+='<div><small style="color:#888">課文：'+ch.tx+'</small></div>';
- h+='<div style="margin-top:6px"><a class="ext" target="_blank" href="https://stroke-order.learningweb.moe.edu.tw/character_practice.do?word='+encodeURIComponent(ch.c)+'">📝 看筆順動畫</a></div>';
- h+='</div>';charDet.innerHTML=h;document.getElementById("ghost").textContent=ch.c;}
-if(Core.CHARS.length>0)showChar(Core.CHARS[0]);
-var pad=document.getElementById("pad"),ctx=pad.getContext("2d"),drawing=false,lastX=0,lastY=0;
-st.wrote=st.wrote||{};
-function startDraw(e){e.preventDefault();drawing=true;var r=pad.getBoundingClientRect(),t=e.touches?e.touches[0]:e;
- lastX=(t.clientX-r.left)*2;lastY=(t.clientY-r.top)*2;}
-function draw(e){if(!drawing)return;e.preventDefault();var r=pad.getBoundingClientRect(),t=e.touches?e.touches[0]:e,
- x=(t.clientX-r.left)*2,y=(t.clientY-r.top)*2;ctx.strokeStyle="#2b2d42";ctx.lineWidth=8;ctx.lineCap="round";ctx.lineJoin="round";
- ctx.beginPath();ctx.moveTo(lastX,lastY);ctx.lineTo(x,y);ctx.stroke();lastX=x;lastY=y;}
-function endDraw(){drawing=false;}
-pad.addEventListener("mousedown",startDraw);pad.addEventListener("mousemove",draw);pad.addEventListener("mouseup",endDraw);
-pad.addEventListener("touchstart",startDraw);pad.addEventListener("touchmove",draw);pad.addEventListener("touchend",endDraw);
-document.getElementById("padClear").addEventListener("click",function(){ctx.clearRect(0,0,520,520);
- document.getElementById("padFb").className="fb";});
-document.getElementById("padDone").addEventListener("click",function(){var c=document.getElementById("ghost").textContent;
- if(!st.wrote[c]){st.wrote[c]=1;save();addScore(1);}var fb=document.getElementById("padFb");
- fb.className="fb show good";fb.innerHTML="✅ 寫得很好！多練習幾次會更熟練。";burst(event);});
-var cqState={t:"bs",q:0,ans:[],correct:0};
-document.querySelectorAll("#cqSeg button").forEach(function(b){b.addEventListener("click",function(){
- document.querySelectorAll("#cqSeg button").forEach(function(x){x.classList.remove("on");});b.classList.add("on");
- cqState.t=b.getAttribute("data-t");cqState.q=0;cqState.ans=[];cqState.correct=0;nextCQ();});});
-function nextCQ(){var box=document.getElementById("charQ");if(cqState.q>=5){
- var s=Core.stars(cqState.correct,5);addScore(s);
- box.innerHTML='<div class="done">✅ 完成！答對 '+cqState.correct+' / 5 題，得到 '+s+' 顆星！</div>';return;}
- var ch=Core.pick(Core.CHARS,1)[0],item=Core.charQ(cqState.t,ch),h='<div class="prog">';
- for(var i=0;i<5;i++)h+='<i class="'+(i<cqState.q?(cqState.ans[i]?"ok":"no"):(i===cqState.q?"cur":""))+'"></i>';
- h+='</div><p class="q">'+item.q+'</p><div class="choices" id="cqCh"></div><div class="fb" id="cqFb"></div>';box.innerHTML=h;
- document.getElementById("cqCh").innerHTML=item.o.map(function(o){return '<button class="btn" data-a="'+o+'">'+o+'</button>';}).join("");
- document.querySelectorAll("#cqCh .btn").forEach(function(b){b.addEventListener("click",function(){
-  var a=b.getAttribute("data-a"),ok=Core.check(item,a);cqState.ans.push(ok);if(ok)cqState.correct++;
-  b.classList.add(ok?"ok":"no");document.querySelectorAll("#cqCh .btn").forEach(function(x){x.disabled=true;});
-  var fb=document.getElementById("cqFb");fb.className="fb show "+(ok?"good":"bad");
-  fb.innerHTML=ok?"✅ 正確！":"❌ 正確答案是：<b>"+item.a+"</b>";if(ok)burst(event);
-  setTimeout(function(){cqState.q++;nextCQ();},ok?1200:2400);});});}
-nextCQ();
-var lookState={q:0,ans:[],correct:0};
-function nextLookQ(){var box=document.getElementById("lookQ");if(lookState.q>=Core.LOOK.length){
- var s=Core.stars(lookState.correct,Core.LOOK.length);addScore(s);
- box.innerHTML='<div class="done">✅ 完成形近字！答對 '+lookState.correct+' / '+Core.LOOK.length+' 題，得到 '+s+' 顆星！</div>';return;}
- var item=Core.LOOK[lookState.q],lq=Core.lookQ(item),h='<div class="prog">';
- for(var i=0;i<Core.LOOK.length;i++)h+='<i class="'+(i<lookState.q?(lookState.ans[i]?"ok":"no"):(i===lookState.q?"cur":""))+'"></i>';
- h+='</div><p class="q">'+lq.q+'</p><div class="choices" id="lookCh"></div><div class="fb" id="lookFb"></div>';box.innerHTML=h;
- document.getElementById("lookCh").innerHTML=lq.o.map(function(o){return '<button class="btn" data-a="'+o+'">'+o+'</button>';}).join("");
- document.querySelectorAll("#lookCh .btn").forEach(function(b){b.addEventListener("click",function(){
-  var a=b.getAttribute("data-a"),ok=Core.check(lq,a);lookState.ans.push(ok);if(ok)lookState.correct++;
-  b.classList.add(ok?"ok":"no");document.querySelectorAll("#lookCh .btn").forEach(function(x){x.disabled=true;});
-  var fb=document.getElementById("lookFb");fb.className="fb show "+(ok?"good":"bad");
-  fb.innerHTML=(ok?"✅ 正確！":"❌ 正確答案是：<b>"+lq.a+"</b>")+"<br>"+lq.tip;if(ok)burst(event);
-  setTimeout(function(){lookState.q++;nextLookQ();},ok?1200:2400);});});}
-nextLookQ();
-/* ============ 語詞 ============ */
-var matchState={left:null,pairs:[],done:false};
-function initMatch(){var box=document.getElementById("matchBox");if(matchState.done){
- box.innerHTML='<div class="done">✅ 完成配對！</div>';return;}
- var ws=Core.shuffle(Core.WORDS.slice()),ms=Core.shuffle(Core.WORDS.map(function(w){return w.m;}));
- var h='<div class="match"><div class="col" id="matchL">'+ws.map(function(w){return '<button class="btn" data-w="'+w.w+'">'+w.w+'</button>';}).join("")+'</div>';
- h+='<div class="col" id="matchR">'+ms.map(function(m){return '<button class="btn" data-m="'+m+'">'+m+'</button>';}).join("")+'</div></div>';
- h+='<div class="fb" id="matchFb"></div>';box.innerHTML=h;
- document.querySelectorAll("#matchL .btn").forEach(function(b){b.addEventListener("click",function(){
-  if(matchState.left)document.querySelectorAll("#matchL .btn").forEach(function(x){x.classList.remove("sel");});
-  matchState.left=b.getAttribute("data-w");b.classList.add("sel");});});
- document.querySelectorAll("#matchR .btn").forEach(function(b){b.addEventListener("click",function(){
-  if(!matchState.left)return;var m=b.getAttribute("data-m"),ok=Core.matchCheck(matchState.left,m);
-  if(ok){document.querySelector('#matchL [data-w="'+matchState.left+'"]').classList.add("ok");b.classList.add("ok");
-   matchState.pairs.push([matchState.left,m]);matchState.left=null;
-   var fb=document.getElementById("matchFb");fb.className="fb show good";fb.innerHTML="✅ 配對正確！";burst(event);
-   if(matchState.pairs.length===Core.WORDS.length){matchState.done=true;addScore(2);
-    setTimeout(function(){initMatch();},800);st.matchDone=(st.matchDone||0)+1;save();}}
-  else{var fb=document.getElementById("matchFb");fb.className="fb show bad";fb.innerHTML="❌ 這兩個不是一對，再試試看！";
-   b.classList.add("no");setTimeout(function(){b.classList.remove("no");},400);}});});}
-initMatch();
-var fillState={q:0,ans:[],correct:0};
-function nextFillQ(){var box=document.getElementById("fillQ");if(fillState.q>=10){
- var s=Core.stars(fillState.correct,10);addScore(s);
- box.innerHTML='<div class="done">✅ 完成選詞填空！答對 '+fillState.correct+' / 10 題，得到 '+s+' 顆星！</div>';return;}
- var item=Core.FILL[fillState.q],fq=Core.fillQ(item),h='<div class="prog">';
- for(var i=0;i<10;i++)h+='<i class="'+(i<fillState.q?(fillState.ans[i]?"ok":"no"):(i===fillState.q?"cur":""))+'"></i>';
- h+='</div><p class="q">'+fq.q+'</p><div class="choices" id="fillCh"></div><div class="fb" id="fillFb"></div>';box.innerHTML=h;
- document.getElementById("fillCh").innerHTML=fq.o.map(function(o){return '<button class="btn" data-a="'+o+'">'+o+'</button>';}).join("");
- document.querySelectorAll("#fillCh .btn").forEach(function(b){b.addEventListener("click",function(){
-  var a=b.getAttribute("data-a"),ok=Core.check(fq,a);fillState.ans.push(ok);if(ok)fillState.correct++;
-  b.classList.add(ok?"ok":"no");document.querySelectorAll("#fillCh .btn").forEach(function(x){x.disabled=true;});
-  var fb=document.getElementById("fillFb");fb.className="fb show "+(ok?"good":"bad");
-  fb.innerHTML=ok?"✅ 正確！":"❌ 正確答案是：<b>"+fq.a+"</b>";if(ok)burst(event);
-  setTimeout(function(){fillState.q++;nextFillQ();},ok?1200:2400);});});}
-nextFillQ();
-var wh='';Core.WORDS.forEach(function(w){wh+='<div class="wcard"><b>'+w.w+'</b>'+w.m+'</div>';});
-document.getElementById("wordList").innerHTML=wh;
-var ih='';Core.IDIOMS.forEach(function(w){ih+='<div class="wcard"><b>'+w.w+'</b>'+w.m+'</div>';});
-document.getElementById("idiomList").innerHTML=ih;
-/* ============ 句型 ============ */
-st.pat=st.pat||{};
-var patKey="look",patState={q:0,ans:[],correct:0};
-document.querySelectorAll("#patSeg button").forEach(function(b){b.addEventListener("click",function(){
- document.querySelectorAll("#patSeg button").forEach(function(x){x.classList.remove("on");});b.classList.add("on");
- patKey=b.getAttribute("data-k");patState.q=0;patState.ans=[];patState.correct=0;showPatIntro();nextPatQ();});});
-function showPatIntro(){var intro=document.getElementById("patIntro"),h="";
- if(patKey==="look")h='<h3>👀 觀察外觀</h3><p class="lead">寫觀察記錄時，先仔細看外觀：顏色、形狀、大小等。</p><div class="tip">例如：阿白有褐色和白色相間的毛，尾巴垂下來像毛茸茸的圍巾。</div>';
- else if(patKey==="action")h='<h3>🐾 觀察動作</h3><p class="lead">記錄觀察對象做了什麼事、有什麼習性。</p><div class="tip">例如：阿白喜歡在溫暖的窩裡睡覺，會把盒子拆開。</div>';
- else h='<h3>💭 寫出感受</h3><p class="lead">寫下觀察時的想法和感受，讓文章更有溫度。</p><div class="tip">例如：阿白是我的好偶伴，陪我度過許多快樂時光。</div>';
- intro.innerHTML=h;}
-showPatIntro();
-function nextPatQ(){var box=document.getElementById("patQ"),arr=patKey==="look"?Core.LOOK_P:(patKey==="action"?Core.ACTION_P:Core.FEEL_P);
- if(patState.q>=arr.length){var s=Core.stars(patState.correct,patState.q);addScore(s);
-  box.innerHTML='<div class="done">✅ 完成！答對 '+patState.correct+' / '+patState.q+' 題，得到 '+s+' 顆星！</div>';
-  if(!st.pat[patKey]){st.pat[patKey]=1;save();}return;}
- var item=arr[patState.q],pq=patKey==="look"?Core.lookPQ(item):(patKey==="action"?Core.actionPQ(item):Core.feelPQ(item)),h='<div class="prog">';
- for(var i=0;i<arr.length;i++)h+='<i class="'+(i<patState.q?(patState.ans[i]?"ok":"no"):(i===patState.q?"cur":""))+'"></i>';
- h+='</div><p class="q">'+pq.q+'</p><div class="choices" id="patCh"></div><div class="fb" id="patFb"></div>';box.innerHTML=h;
- document.getElementById("patCh").innerHTML=pq.o.map(function(o){return '<button class="btn" data-a="'+o+'">'+o+'</button>';}).join("");
- document.querySelectorAll("#patCh .btn").forEach(function(b){b.addEventListener("click",function(){
-  var a=b.getAttribute("data-a"),ok=Core.check(pq,a);patState.ans.push(ok);if(ok)patState.correct++;
-  b.classList.add(ok?"ok":"no");document.querySelectorAll("#patCh .btn").forEach(function(x){x.disabled=true;});
-  var fb=document.getElementById("patFb");fb.className="fb show "+(ok?"good":"bad");
-  fb.innerHTML=ok?"✅ 正確！":"❌ 正確答案是：<b>"+pq.a+"</b>";if(ok)burst(event);
-  setTimeout(function(){patState.q++;nextPatQ();},ok?1200:2400);});});}
-nextPatQ();
-/* ============ 挑戰 ============ */
-var sortState={items:[],ans:{},done:0};
-function initSort(){var box=document.getElementById("sortBox");if(sortState.done>=8){
- var perfect=sortState.done===8,s=perfect?3:Core.stars(sortState.done,8);addScore(s);
- box.innerHTML='<div class="done">✅ 完成！答對 '+sortState.done+' / 8 題，得到 '+s+' 顆星！'+(perfect?"太厲害了！":"")+'</div>';
- if(perfect){st.sortPerfect=(st.sortPerfect||0)+1;save();}return;}
- sortState.items=Core.pick(Core.SORT,Math.min(8,Core.SORT.length));sortState.ans={};
- var h='<p class="small">每一句是描寫阿白的什麼？</p><div class="btns cen" id="sortBtns">'+
-  Core.CATS.map(function(s){return '<button class="btn" data-k="'+s.k+'">'+s.e+' '+s.n+'</button>';}).join("")+'</div>';
- h+='<div id="sortItems"></div><div class="fb" id="sortFb"></div>';box.innerHTML=h;showSortItem();
- document.querySelectorAll("#sortBtns .btn").forEach(function(b){b.addEventListener("click",function(){
-  if(!sortState.items.length)return;var k=b.getAttribute("data-k"),t=sortState.items[0].t,ok=Core.sortCheck(t,k);
-  sortState.ans[t]=ok;if(ok)sortState.done++;document.getElementById("sortFb").className="fb show "+(ok?"good":"bad");
-  document.getElementById("sortFb").innerHTML=ok?"✅ 正確！":"❌ 不對喔，再想想看。";if(ok)burst(event);
-  setTimeout(function(){sortState.items.shift();if(sortState.items.length===0)initSort();else showSortItem();},ok?800:1600);});});}
-function showSortItem(){if(!sortState.items.length)return;
- document.getElementById("sortItems").innerHTML='<p class="q">'+sortState.items[0].t+'</p>';}
-initSort();
-var chState={qs:[],q:0,ans:[],correct:0};
-function initCh(){var box=document.getElementById("chBox");if(chState.q>0){
- var s=Core.stars(chState.correct,10);addScore(s);
- box.innerHTML='<div class="done">✅ 挑戰完成！答對 '+chState.correct+' / 10 題，得到 '+s+' 顆星！'+(chState.correct>=9?"你是挑戰王！":"")+'</div>';
- st.chBest=Math.max(st.chBest||0,chState.correct);save();return;}
- chState.qs=Core.makeChallenge();chState.q=0;chState.ans=[];chState.correct=0;nextChQ();}
-function nextChQ(){var box=document.getElementById("chBox");if(chState.q>=chState.qs.length){initCh();return;}
- var item=chState.qs[chState.q],h='<div class="prog">';
- for(var i=0;i<10;i++)h+='<i class="'+(i<chState.q?(chState.ans[i]?"ok":"no"):(i===chState.q?"cur":""))+'"></i>';
- h+='</div><p class="q">'+item.q+'</p><div class="choices" id="chCh"></div><div class="fb" id="chFb"></div>';box.innerHTML=h;
- document.getElementById("chCh").innerHTML=item.o.map(function(o){return '<button class="btn" data-a="'+o+'">'+o+'</button>';}).join("");
- document.querySelectorAll("#chCh .btn").forEach(function(b){b.addEventListener("click",function(){
-  var a=b.getAttribute("data-a"),ok=Core.check(item,a);chState.ans.push(ok);if(ok)chState.correct++;
-  b.classList.add(ok?"ok":"no");document.querySelectorAll("#chCh .btn").forEach(function(x){x.disabled=true;});
-  var fb=document.getElementById("chFb");fb.className="fb show "+(ok?"good":"bad");
-  fb.innerHTML=(ok?"✅ 正確！":"❌ 正確答案是：<b>"+item.a+"</b>")+(item.tip?"<br>"+item.tip:"");if(ok)burst(event);
-  setTimeout(function(){chState.q++;nextChQ();},ok?1200:2400);});});}
-initCh();
-/* ============ 紀錄 ============ */
-var bdg=Core.badges(st),bh='';Core.BADGES.forEach(function(b){
- bh+='<div class="bdg '+(bdg[b.id]?"got":"")+'">'+b.n+'<small>'+b.d+'</small></div>';});
-document.getElementById("badges").innerHTML=bh;
-var stats='<div class="stat">總星星<b>'+(st.score||0)+'</b></div>';
-stats+='<div class="stat">生字卡<b>'+Object.keys(st.seen||{}).length+' / '+Core.CHARS.length+'</b></div>';
-stats+='<div class="stat">寫字練習<b>'+Object.keys(st.wrote||{}).length+'</b></div>';
-stats+='<div class="stat">閱讀最佳<b>'+(st.readBest||0)+' / '+Core.READ.length+'</b></div>';
-stats+='<div class="stat">挑戰最佳<b>'+(st.chBest||0)+' / 10</b></div>';
-document.getElementById("stats").innerHTML=stats;
-var mist="";if(!st.readBest||st.readBest<Core.READ.length)mist+="<p>• 閱讀理解還有進步空間</p>";
-if(!st.seen||Object.keys(st.seen).length<Core.CHARS.length)mist+="<p>• 有些生字還沒看過</p>";
-if(!st.matchDone)mist+="<p>• 還沒完成語詞配對</p>";
-if(!st.pat||!st.pat.look||!st.pat.action||!st.pat.feel)mist+="<p>• 觀察練習還沒全部完成</p>";
-if(!st.sortPerfect)mist+="<p>• 分類還沒全對過</p>";
-if(!st.chBest||st.chBest<9)mist+="<p>• 綜合挑戰還沒拿到挑戰王</p>";
-document.getElementById("mist").innerHTML=mist||"<p>✅ 沒有常錯的地方，太棒了！</p>";
-document.getElementById("resetBtn").addEventListener("click",function(){
- if(confirm("確定要清除所有紀錄嗎？（無法復原）")){localStorage.removeItem("lesson9-birding");location.reload();}});
-})();
-</script>
+<script src="app.js"></script>
 </body>
 </html>
