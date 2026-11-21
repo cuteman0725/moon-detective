@@ -69,7 +69,7 @@ nav.tabs button span{font-size:24px;line-height:1}nav.tabs button.on{background:
 .steps .btn small{display:block;font-size:14px;font-weight:600;color:#555}
 .steps .btn.ok{opacity:.45}
 .stepdone{list-style:none;margin:8px 0;padding:0}
-.stepdone li{background:#fff4c2;border-radius:12px;padding:8px 12px;margin:6px 0;font-size:17px;font-weight:700}
+.stepdone li{background:#fff4c2;border-radius:12px;padding:8px 12px;margin:6px 0;font-size:17px;font-weight:700;line-height:1.6}
 .stepdone li b{display:inline-block;background:var(--pink);color:#fff;border-radius:999px;padding:1px 10px;margin-right:8px}
 .chargrid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;max-width:560px;margin:0 auto}
 .chargrid button{font-family:"BiauKai","DFKai-SB","TW-Kai","Kaiti TC",KaiTi,serif;font-size:clamp(30px,8vw,44px);aspect-ratio:1/1;min-height:56px;border-radius:16px;border:3px solid #ffd0df;background:#fff;color:var(--ink);cursor:pointer;position:relative;touch-action:manipulation;padding:0}
@@ -78,7 +78,8 @@ nav.tabs button span{font-size:24px;line-height:1}nav.tabs button.on{background:
 .cdet{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start;margin-top:10px}
 .bigc{font-family:"BiauKai","DFKai-SB","TW-Kai","Kaiti TC",KaiTi,serif;font-size:96px;line-height:1;width:130px;height:130px;display:flex;align-items:center;justify-content:center;border:3px solid #ff6b9a;border-radius:12px;position:relative;
  background-image:linear-gradient(#ffd0df,#ffd0df),linear-gradient(#ffd0df,#ffd0df);background-size:100% 2px,2px 100%;background-position:center;background-repeat:no-repeat;flex:0 0 130px}
-.zy{writing-mode:vertical-rl;font-size:18px;font-weight:800;color:#b0154a;letter-spacing:2px}
+.zy{display:flex;flex-direction:column;align-items:center;font-size:19px;font-weight:800;color:#b0154a;line-height:1.1;padding:2px 12px 0 0}
+.zy .zs{display:block;position:relative}.zy .zs i{position:absolute;left:100%;top:-.15em;font-style:normal;font-size:.9em}
 .cinfo{flex:1;min-width:200px;font-size:17px;line-height:1.8}
 .chip{display:inline-block;background:#e6f0ff;border-radius:999px;padding:3px 12px;margin:2px 4px 2px 0;font-weight:700}
 .chip.id{background:#fff1d6}
@@ -97,8 +98,19 @@ nav.tabs button span{font-size:24px;line-height:1}nav.tabs button.on{background:
 .formula span{border-radius:12px;padding:6px 10px;font-weight:800;font-size:17px}
 .f1{background:#ffd6dc}.f2{background:#cfe8ff}.f3{background:#d8f3dc}
 .blank{display:inline-block;min-width:3em;border-bottom:3px solid var(--pink);color:#b0154a}
+.locbtns{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:8px}
+.locbtns .btn{color:var(--ink);font-size:17px;min-height:64px;padding:6px 2px;line-height:1.3}
+.bins{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px}
+.bin{border-radius:14px;padding:6px 8px;font-size:14px;line-height:1.5;min-height:48px;border:3px solid #ffd0df;background:#fffafc;min-width:0}
+.bin b{display:block;font-size:15px}
+.route{display:flex;flex-wrap:wrap;gap:4px 2px;align-items:center;justify-content:center;font-weight:800;font-size:16px;margin:6px 0}
+.route span{background:#fff0f5;border:2px solid #ffd0df;border-radius:999px;padding:2px 10px}
+.rd{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;align-items:baseline;font-size:17px;line-height:1.7;margin:4px 0}
+.rd b{color:#b0154a;white-space:nowrap}
 a.ext{color:#1d4ed8;font-weight:800}
+@media (max-width:560px){.bins{grid-template-columns:1fr}}
 @media (max-width:420px){.chargrid{gap:6px}.bigc{width:110px;height:110px;flex-basis:110px;font-size:80px}.match .btn{font-size:15px}}
+@media (max-width:350px){.chargrid button{min-height:0}}
 </style>
 </head>
 <body>
@@ -115,35 +127,42 @@ a.ext{color:#1d4ed8;font-weight:800}
     <h2>📖 第十課 老鼠嫁女兒</h2>
     <div class="info">
       <div><b>版本</b>南一 國語 4上（第七冊）</div>
-      <div><b>單元</b>第肆單元 民間故事</div>
-      <div><b>文體</b>民間故事（改寫）</div>
-      <div><b>頁碼</b>p.96～104</div>
+      <div><b>單元</b>第肆單元 跟著故事跑</div>
+      <div><b>來源</b>改寫自臺灣民間故事（課本第 96 頁）</div>
+      <div><b>寫法</b>分成三幕，有旁白和角色說的話</div>
     </div>
-    <div class="tip">📍 這是一個臺灣民間故事，講述老鼠父母想把女兒嫁給最強大的對象，最後發現老鼠才是最適合的故事。</div>
-    <p class="small">這裡是用自己的話整理的「重點導讀」；完整課文請看課本第 96～104 頁，也可以掃課本第 96 頁的 QR code 聽課文朗讀。</p>
+    <div class="tip">📍 <b>課本第 94 頁</b>單元頁說：這個單元要「跟著故事跑」，讀亞洲各地的故事，到各國去旅行。地圖上，〈老鼠嫁女兒〉是臺灣的故事。</div>
+    <p class="small">這裡是用自己的話整理的「重點導讀」，只引用幾個短句；完整課文請看課本第 96～103 頁，也可以掃課本第 96 頁的 QR code 聽課文朗讀。</p>
   </div>
 
   <div class="card">
-    <h3>🐭 課文導讀 <small>(自編導讀)</small></h3>
-    <div class="part"><h4><span class="tag">開始</span>老鼠要嫁女兒</h4>
-      <p class="lead">(自編導讀) 從前有一對老鼠夫妻，他們想把女兒嫁給世界上最強大的對象。他們先去找太陽，因為太陽會發光、很強大。</p>
-    </div>
-    <div class="part"><h4><span class="tag t2">太陽</span>太陽說雲比我強</h4>
-      <p class="lead">(自編導讀) 太陽卻說：「我不是最強的，烏雲可以<b>遮</b>住我，讓我的光芒變<b>差</b>，雲比我強。」</p>
-    </div>
-    <div class="part"><h4><span class="tag">雲</span>雲說風比我強</h4>
-      <p class="lead">(自編導讀) 老鼠去找雲，雲說：「我不是最強的，風可以把我吹得<b>丟</b>來<b>丟</b>去，風比我強。」</p>
-    </div>
-    <div class="part"><h4><span class="tag t2">風</span>風說牆比我強</h4>
-      <p class="lead">(自編導讀) 老鼠去找風，風說：「我不是最強的，<b>既</b>使我多麼用力吹，牆都不會動，牆比我強。」</p>
-    </div>
-    <div class="part"><h4><span class="tag">牆</span>牆說老鼠比我強</h4>
-      <p class="lead">(自編導讀) 老鼠去找牆，牆說：「我不是最強的，老鼠會在我身上咬洞，老鼠比我強。」老鼠夫妻聽了很<b>欣</b>喜，<b>卯</b>時<b>初</b>刻就請<b>巫</b>師選個好日子，讓女兒<b>嫁</b>給<b>姞</b><b>郎</b>——另一隻老鼠。</p>
-    </div>
-    <div class="part"><h4><span class="tag t2">結局</span>熱鬧的婚禮</h4>
-      <p class="lead">(自編導讀) 到了婚禮那天，老鼠們敲鑼打鼓，抬著<b>轎</b>子，熱熱鬧鬧的送女兒出<b>嫁</b>。這真是一個<b>罕</b>見的<b>際</b>會！</p>
-    </div>
-    <div class="tip more">🔎 <b>這個故事告訴我們什麼？</b><br>每個人都有自己的長處和短處，不一定要找「最強的」，適合自己的才是最好的。老鼠最後發現，老鼠彼此最了解、最適合。</div>
+    <h3>🎭 三幕導讀</h3>
+    <p class="small">課文分成三幕。每一幕的開頭都寫了時間、地點和角色。</p>
+    <div class="part"><h4><span class="tag">第一幕</span><span class="tag t2">白天・鼠家村</span>🎉 綵球招親</h4>
+      <p class="lead">鼠爸的女兒<b>鼠妞</b>很漂亮。鼠爸想幫她找個好<b>丈夫</b>，辦了一場<span class="quote">綵球招親</span>。臺下<span class="quote">鬧哄哄</span>，大家都想接到綵球。鼠妞卻<b>害羞</b>的偷看<b>鼠郎</b>。忽然，黑貓跳了出來！老鼠們嚇得全逃走，招親也<span class="quote">泡湯了</span>。</p>
+      <button class="btn white small" data-say="0">🔊 聽導讀</button></div>
+    <div class="part"><h4><span class="tag">第二幕</span><span class="tag t2">幾天後的早上・村外</span>☀️ 誰最強？</h4>
+      <p class="lead">鼠爸和鼠媽想找世上<b>最強</b>的女婿，把女兒<b>嫁</b>給他。他們先問太陽。太陽說，烏雲一來，他就得躲起來。烏雲才說自己最強，就被風推走了。鼠媽稱讚風，說連烏雲都<span class="quote">招架不住</span>。風卻說，他碰到牆就過不去。到了牆邊，牆壁還沒回答，腳就被咬了一口。原來是鼠郎從牆洞爬出來！鼠爸這才發現自己<span class="quote">捨近求遠</span>，小看了老鼠的本事。</p>
+      <button class="btn white small" data-say="1">🔊 聽導讀</button></div>
+    <div class="part"><h4><span class="tag">第三幕</span><span class="tag t2">正月初三・鼠家村</span>🏮 鼠妞嫁鼠郎</h4>
+      <p class="lead">鼠爸告訴大家：老鼠一點也不比別人差。他讓鼠妞再選一次丈夫。鼠妞把綵球<b>丟</b>給鼠郎，鼠郎跳起來接住了。鼠媽說：<span class="quote">既然你們兩情相悅，就祝福你們吧！</span>到了晚上，鼠妞換上嫁衣，跟著<span class="quote">花轎隊伍</span>出嫁去。最後大家拍手唱歌，說誰都沒有老鼠打洞強！</p>
+      <button class="btn white small" data-say="2">🔊 聽導讀</button></div>
+    <div class="tip more">🔎 <b>延伸（課本沒有寫這個名稱）</b>：像這樣一幕一幕寫，先寫時間、地點、角色，再寫旁白和每個角色說的話，是「<b>劇本</b>」的寫法，可以拿來演戲。「△」後面寫舞臺上發生的事，（ ）裡寫角色的動作和表情。</div>
+    <div class="tip more">🔎 <b>延伸（課本沒有說明）</b>：民間傳說，正月初三的晚上是老鼠嫁女兒的日子。大家早早上床睡覺，不去吵老鼠。課文最後的歌唱到「年初三」和早睡，說的就是這個習俗。</div>
+  </div>
+
+  <div class="card">
+    <h3>🔗 找女婿排一排</h3>
+    <p class="small">第二幕，鼠爸和鼠媽一個一個問「你是世上最強的嗎？」。他們照什麼順序問？照順序點一點！</p>
+    <div id="stepBox"></div>
+  </div>
+
+  <div class="card">
+    <h3>🦉 課本的提問</h3>
+    <div class="tip">課本第 103 頁問：這則故事帶給你什麼樣的啟發？</div>
+    <div class="tip">課本第 105 頁「讀一讀，想一想」列了四句話，要你想一想，哪一句最接近這一課的啟發，再說出理由：<br>・天生我才必有用<br>・團結合作力量大<br>・心存善念有好報<br>・自信是成功的祕訣</div>
+    <div class="tip">課本第 122 頁（語文天地四「故事趣味多」）說，讀故事可以得到啟發。老鼠新郎和新娘的圖旁邊，寫的是「天生我才必有用」。</div>
+    <div class="tip more">🔎 <b>延伸（這是自己的想法，不是課本的答案）</b>：可以這樣想：<br>・太陽、烏雲、風和牆都很厲害，可是每一個都有害怕的對象。<br>・老鼠雖然小，卻會打洞，連牆都擋不住。每個人都有自己的長處。<br>・鼠爸跑到很遠的地方找，最好的女婿其實就在身邊。<br>你的想法是什麼？說給爸媽聽聽看！</div>
   </div>
 
   <div class="card">
@@ -156,14 +175,14 @@ a.ext{color:#1d4ed8;font-weight:800}
 <section class="page" id="p-char">
   <div class="card">
     <h2>✍️ 我會寫的字（15 個）</h2>
-    <p class="small">點一個字，看注音、部首、筆畫和造詞。數字是「部首外筆畫／總筆畫」，依課本第 104 頁。</p>
+    <p class="small">點一個字，看注音、部首、筆畫和造詞。數字是「部首外筆畫／總筆畫」，依課本第 104 頁。順序是字在課文裡出現的先後。</p>
     <div class="chargrid" id="charGrid"></div>
     <div class="cdet" id="charDet"></div>
   </div>
   <div class="card">
     <h3>🖌️ 描寫板</h3>
-    <p class="small">用手指照著淡淡的字描一描。筆順可以按上面的「看筆順動畫」到教育部筆順學習網看。</p>
-    <div class="padwrap" id="padWrap"><div class="ghost" id="ghost">丟</div><canvas id="pad" width="520" height="520"></canvas></div>
+    <p class="small">用手指照著淡淡的字描一描。筆順可以看課本第 104 頁，或按上面的「看筆順動畫」到教育部筆順學習網看。</p>
+    <div class="padwrap" id="padWrap"><div class="ghost" id="ghost">妞</div><canvas id="pad" width="520" height="520"></canvas></div>
     <div class="btns cen"><button class="btn gray small" id="padClear">🧽 擦掉</button><button class="btn green" id="padDone">✅ 寫好了</button></div>
     <div class="fb" id="padFb"></div>
   </div>
@@ -177,8 +196,17 @@ a.ext{color:#1d4ed8;font-weight:800}
     <div id="charQ"></div>
   </div>
   <div class="card">
+    <h3>🔤 多音字：強、哄</h3>
+    <div class="tip">課本最前面「給教師與家長的話」說：課文裡的生字如果是多音字，注音會印成<b>紅色</b>。</div>
+    <div class="tip"><b>強</b>：課本第 105 頁「比一比讀音」教了三個讀音。
+      <div class="rd"><b>ㄐㄧㄤˋ</b><span>倔強</span><b>ㄑㄧㄤˊ</b><span>強橫無理（課文的「最強」也念這個音）</span><b>ㄑㄧㄤˇ</b><span>強迫</span></div>
+      課本的句子：弟弟雖然倔<b>強</b>，卻不是<b>強</b>橫無理。與其<b>強</b>迫他接受意見，不如好好的說道理。</div>
+    <div class="tip"><b>哄</b> ㄏㄨㄥ：課文的「鬧哄哄」（課本第 97 頁，注音是紅色的）。<br>另外，課本第 102 頁「正月」的「<b>正</b>」念 ㄓㄥ，注音也是紅色的。「正」不是這一課的生字。</div>
+    <div class="tip more">🔎 <b>延伸（這一課沒有教）</b>：「哄小孩、哄騙」的「哄」念 ㄏㄨㄥˇ。平常「正確、正在」的「正」念 ㄓㄥˋ。</div>
+  </div>
+  <div class="card">
     <h3>👀 形近字選一選</h3>
-    <p class="small">丟／去、差／美、既／即、嫁／稼、架／駕，長得很像。選出句子裡正確的那一個。（字的配對和句子是自編的）</p>
+    <p class="small">課本這一課沒有「比一比字形」。嫁／稼、架／駕、既／即、轎／驕、丟／去、初／切、郎／朗、羞／差、哄／烘、伍／五，都是自己找的形近字。句子也是自編的。</p>
     <div id="lookQ"></div>
   </div>
 </section>
@@ -196,10 +224,16 @@ a.ext{color:#1d4ed8;font-weight:800}
   </div>
   <div class="card">
     <h3>📚 語詞小卡</h3>
-    <p class="small">這些是課文裡的重要語詞。解釋是用自己的話寫的。</p>
+    <p class="small">這 12 個語詞都出自課文（課本第 97～103 頁）。課文裡，有生字的語詞印成藍色；「綵球」和「女婿」印成綠色，是識讀語詞。課本只解釋了「女婿」（第 98 頁），其他解釋是用自己的話寫的。</p>
     <div class="wlist" id="wordList"></div>
-    <h3 style="margin-top:12px">💡 生字延伸語詞</h3>
-    <p class="small">🔎 延伸：這些語詞課本沒有，是多認識的。</p>
+    <h3 style="margin-top:12px">📖 課文裡的其他語詞</h3>
+    <p class="small">這些語詞也在課文裡。解釋是自編的。</p>
+    <div class="wlist" id="moreList"></div>
+    <h3 style="margin-top:12px">💬 課本第 105 頁的四句話</h3>
+    <p class="small">四句話出自課本第 105 頁「讀一讀，想一想」。意思是用自己的話寫的。</p>
+    <div class="wlist" id="mottoList"></div>
+    <h3 style="margin-top:12px">💡 生字延伸成語</h3>
+    <p class="small">🔎 延伸：這些成語課本沒有，是多認識的。</p>
     <div class="wlist" id="idiomList"></div>
   </div>
 </section>
@@ -207,11 +241,11 @@ a.ext{color:#1d4ed8;font-weight:800}
 <!-- ============ 句型 ============ -->
 <section class="page" id="p-pat">
   <div class="card">
-    <h2>🪄 句型練習</h2>
+    <h2>🪄 句型和讀音</h2>
     <div class="seg" id="patSeg">
-      <button class="btn white on" data-k="strong">比較強弱</button>
-      <button class="btn white" data-k="folk">民間故事</button>
-      <button class="btn white" data-k="time">時間詞語</button>
+      <button class="btn white on" data-k="jiran">既然……就……</button>
+      <button class="btn white" data-k="poly">比一比讀音</button>
+      <button class="btn white" data-k="play">🔎 劇本的寫法</button>
     </div>
   </div>
   <div class="card" id="patIntro"></div>
@@ -221,13 +255,18 @@ a.ext{color:#1d4ed8;font-weight:800}
 <!-- ============ 挑戰 ============ -->
 <section class="page" id="p-game">
   <div class="card">
-    <h2>🔄 角色配對大挑戰</h2>
-    <p class="small">這個角色說什麼？（每次出 5 題）</p>
+    <h2>🎭 這句話是誰說的？</h2>
+    <p class="small">句子是課文裡的短句。想一想，是哪個角色說的？（每次出 8 題）</p>
+    <div id="whoBox"></div>
+  </div>
+  <div class="card">
+    <h2>🗂️ 三幕分一分</h2>
+    <p class="small">這件事發生在第幾幕？（句子是依課文改寫的，每次出 9 題）</p>
     <div id="sortBox"></div>
   </div>
   <div class="card">
     <h2>🏆 第十課綜合挑戰（10 題）</h2>
-    <p class="small">生字、形近字、語詞、課文理解通通有！答對 9 題以上拿「挑戰王」徽章。</p>
+    <p class="small">生字、形近字、語詞、句型、讀音、課文內容通通有！答對 9 題以上拿「挑戰王」徽章。</p>
     <div id="chBox"></div>
   </div>
 </section>
@@ -237,8 +276,8 @@ a.ext{color:#1d4ed8;font-weight:800}
   <div class="card"><h2>🏆 我的紀錄</h2><div class="statgrid" id="stats"></div><div class="badges" id="badges"></div></div>
   <div class="card"><h3>🔎 常錯的地方</h3><div id="mist"></div></div>
   <div class="card"><button class="btn gray" id="resetBtn">清除紀錄</button><p class="small">紀錄只存在這台平板的瀏覽器裡。</p>
-    <p class="small">資料來源：南一版國語 4上 課本——第 96～104 頁〈老鼠嫁女兒〉課文、第 104 頁「我會寫的字」。</p>
-    <p class="small">✏️ <b>自編說明：</b>課文導讀是用自己的話整理的；閱讀理解、角色配對、選詞填空、形近字、句型練習和挑戰的題目與例句，都是為了練習自己編寫的，不是課本原文；語詞解釋、造詞（每個字的第一個語詞出自課文，其餘自編）也是用好懂的話寫的。考試以課本為主。</p></div>
+    <p class="small">資料來源：南一版國語 4上 課本——「給教師與家長的話」（多音字的注音印成紅色、綠色的識讀語詞）、第 94 頁單元頁「跟著故事跑」、第 96～103 頁〈老鼠嫁女兒〉課文、第 104 頁「我會寫的字」、第 105 頁「比一比讀音」「句子練習」「讀一讀，想一想」、第 122 頁語文天地四「故事趣味多」。</p>
+    <p class="small">✏️ <b>自編說明：</b>課文導讀是用自己的話整理的，只引用短句。閱讀理解、找女婿的順序、三幕分類、選詞填空、形近字、「既然……就……」的例句和挑戰的題目，都是為了練習自己編寫的，不是課本原文。語詞解釋、造詞（每個字的第一個語詞出自課文，其餘自編）也是用好懂的話寫的。標「🔎 延伸」的內容（劇本的寫法、正月初三的習俗、故事的想法、多音字的其他讀音、延伸成語）課本沒有，考試以課本為主。</p></div>
 </section>
 </main>
 
@@ -254,117 +293,198 @@ a.ext{color:#1d4ed8;font-weight:800}
 <script id="core">
 var Core=(function(){
 "use strict";
-/* 生字：注音、部首、部首外筆畫（ex）、總筆畫（tot）依南一版課本第 104 頁「我會寫的字」；順序依課本。
-   words 的第一個是課文裡的語詞，其餘自編；tx 是課文裡含這個字的短句；bf=部首在這個字裡的寫法 */
+/* 生字：注音、部首、部首外筆畫（ex）、總筆畫（tot）都依南一版課本第 104 頁「我會寫的字」；順序是字在課文裡出現的先後（第 104 頁由右到左、每一行由上到下）。
+   words 的第一個是課文裡的語詞，其餘自編（多音字只放和生字格同一個讀音的詞）；
+   ph 是課文裡含這個字的語詞（出注音題用）；tx 是課文裡含這個字的短句（一定要和課本一字不差，標點用全形）；
+   bf=部首在這個字裡的寫法；look=形近字；
+   poly=多音字：src 是課本哪裡標出來，now 是這一課的讀音，eg 是同音的例詞，more 是其他讀音（延伸，課本這一課沒有教） */
 var CHARS=[
- {c:"妞",zy:"ㄋㄧㄡ",bs:"女",ex:4,tot:7,words:["鼠妞"],tx:"他的女兒鼠妞很漂亮"},
- {c:"羞",zy:"ㄒㄧㄡ",bs:"羊",ex:5,tot:11,words:["害羞","羞答答"],tx:"眼睛卻害羞的看向臺下的鼠郎"},
- {c:"丟",zy:"ㄉㄧㄡ",bs:"一",ex:5,tot:6,words:["丟","丟了"],tx:"我要丟了!一、二……",look:"去"},
- {c:"郎",zy:"ㄌㄤˊ",bs:"邑",bf:"阝",ex:7,tot:9,words:["鼠郎"],tx:"眼睛卻害羞的看向臺下的鼠郎"},
- {c:"強",zy:"ㄑㄧㄤˇ",bs:"弓",ex:8,tot:11,words:["強","最強"],tx:"我們得找個最強的女婿才行"},
- {c:"既",zy:"ㄐㄧˋ",bs:"无",ex:5,tot:9,words:["既然"],tx:"既然你們兩情相悅,就祝福你們吧",look:"即"},
- {c:"丈",zy:"ㄓㄤˋ",bs:"一",ex:2,tot:3,words:["丈夫","鼠丈夫"],tx:"為了幫她找個好丈夫"},
- {c:"嫁",zy:"ㄐㄧㄚˋ",bs:"女",ex:10,tot:13,words:["嫁","嫁衣","出嫁"],tx:"我們想把女兒嫁給你",look:"稼"},
- {c:"轎",zy:"ㄐㄧㄠˋ",bs:"車",ex:12,tot:19,words:["花轎"],tx:"隨著花轎隊伍出嫁去"},
- {c:"哄",zy:"ㄏㄨㄥˇ",bs:"口",ex:6,tot:9,words:["鬧哄哄"],tx:"臺下鬧哄哄"},
- {c:"架",zy:"ㄐㄧㄚˋ",bs:"木",ex:5,tot:9,words:["招架不住"],tx:"連烏雲都招架不住呢",look:"駕"},
- {c:"隊",zy:"ㄉㄨㄟˋ",bs:"阜",bf:"阝",ex:10,tot:12,words:["隊伍"],tx:"隨著花轎隊伍出嫁去"},
- {c:"眾",zy:"ㄓㄨㄥˋ",bs:"目",ex:8,tot:11,words:["眾","眾鼠"],tx:"給我!給我!(眾鼠舉手喊著)"},
- {c:"初",zy:"ㄔㄨ",bs:"衣",ex:2,tot:7,words:["初三","年初三"],tx:"時間:正月初三"},
- {c:"伍",zy:"ㄨˇ",bs:"人",bf:"亻",ex:4,tot:6,words:["隊伍"],tx:"隨著花轎隊伍出嫁去"}
+ {c:"妞",zy:"ㄋㄧㄡ",bs:"女",ex:4,tot:7,words:["鼠妞","小妞"],ph:"鼠妞",tx:"他的女兒鼠妞很漂亮"},
+ {c:"郎",zy:"ㄌㄤˊ",bs:"邑",bf:"阝",ex:6,tot:9,words:["鼠郎","新郎","牛郎"],ph:"鼠郎",tx:"今晚鼠妞嫁鼠郎",look:"朗"},
+ {c:"丈",zy:"ㄓㄤˋ",bs:"一",ex:2,tot:3,words:["丈夫","姑丈","姨丈"],ph:"丈夫",tx:"為了幫她找個好丈夫"},
+ {c:"哄",zy:"ㄏㄨㄥ",bs:"口",ex:6,tot:9,words:["鬧哄哄","哄堂大笑"],ph:"鬧哄哄",tx:"臺下鬧哄哄",look:"烘",
+  poly:{src:"課本第 97 頁的注音是紅色的。",now:"ㄏㄨㄥ",eg:"鬧哄哄、哄堂大笑",more:"「哄小孩、哄騙」的「哄」念 ㄏㄨㄥˇ"}},
+ {c:"眾",zy:"ㄓㄨㄥˋ",bs:"目",bf:"罒",ex:6,tot:11,words:["眾鼠","觀眾","眾人"],ph:"眾鼠",tx:"眾鼠拍手叫好"},
+ {c:"羞",zy:"ㄒㄧㄡ",bs:"羊",ex:5,tot:11,words:["害羞","羞答答","怕羞"],ph:"害羞",tx:"眼睛卻害羞的看向臺下的鼠郎",look:"差"},
+ {c:"強",zy:"ㄑㄧㄤˊ",bs:"弓",ex:8,tot:11,words:["最強","強大","堅強"],ph:"最強",tx:"我們得找個最強的女婿才行",
+  poly:{src:"課本第 105 頁「比一比讀音」教了三個讀音：倔強 ㄐㄧㄤˋ、強橫 ㄑㄧㄤˊ、強迫 ㄑㄧㄤˇ。",now:"ㄑㄧㄤˊ",eg:"最強、強大、堅強"}},
+ {c:"嫁",zy:"ㄐㄧㄚˋ",bs:"女",ex:10,tot:13,words:["嫁給","出嫁","嫁衣"],ph:"嫁給",tx:"我們想把女兒嫁給你",look:"稼"},
+ {c:"架",zy:"ㄐㄧㄚˋ",bs:"木",ex:5,tot:9,words:["招架不住","書架","衣架"],ph:"招架不住",tx:"連烏雲都招架不住呢",look:"駕"},
+ {c:"初",zy:"ㄔㄨ",bs:"衣",bf:"衤",ex:2,tot:7,words:["初三","年初","當初"],ph:"初三",tx:"年初三，早上床",look:"切"},
+ {c:"丟",zy:"ㄉㄧㄡ",bs:"一",ex:5,tot:6,words:["丟了","丟掉","丟球"],ph:"丟了",tx:"我要丟了",look:"去"},
+ {c:"既",zy:"ㄐㄧˋ",bs:"无",ex:5,tot:9,words:["既然","既快又好"],ph:"既然",tx:"既然你們兩情相悅，就祝福你們吧",look:"即"},
+ {c:"轎",zy:"ㄐㄧㄠˋ",bs:"車",ex:12,tot:19,words:["花轎","轎子","轎車"],ph:"花轎",tx:"隨著花轎隊伍出嫁去",look:"驕"},
+ {c:"隊",zy:"ㄉㄨㄟˋ",bs:"阜",bf:"阝",ex:9,tot:12,words:["隊伍","排隊","球隊"],ph:"隊伍",tx:"隨著花轎隊伍出嫁去"},
+ {c:"伍",zy:"ㄨˇ",bs:"人",bf:"亻",ex:4,tot:6,words:["隊伍","入伍","落伍"],ph:"隊伍",tx:"隨著花轎隊伍出嫁去",look:"五"}
 ];
-/* 形近字（配對和句子都是自編的；每一題換成另一個字都不成詞） */
+/* 形近字：課本這一課沒有「比一比字形」，配對是自己找的；句子都是自編的；每一題換成另一個字都不成詞 */
 var LOOK=[
- {s:"不要把垃圾隨便＿在地上。",a:"丟",b:"去",tip:"「丟」是丿部，丟掉、丟失。"},
- {s:"我要＿學校上課。",a:"去",b:"丟",tip:"「去」也是丿部，但少一筆，去、來去。"},
- {s:"這次考試我考得很＿。",a:"差",b:"美",tip:"「差」是工部，差、差別、相差。"},
- {s:"她長得很＿麗。",a:"美",b:"差",tip:"「美」是羊部（下面是羊），美麗、美好。"},
- {s:"＿使天氣很冷，他還是去跑步。",a:"既",b:"即",tip:"「既」是无部，既然、既使。"},
- {s:"我＿將上臺表演。",a:"即",b:"既",tip:"「即」是卩部（單人旁右邊變卩），即將、立即。"},
- {s:"姊姊要＿人了。",a:"嫁",b:"稼",tip:"「嫁」是女部，嫁人、出嫁。"},
- {s:"農夫在田裡種＿。",a:"稼",b:"嫁",tip:"「稼」是禾部，莊稼、稼穡。"},
- {s:"書放在書＿上。",a:"架",b:"駕",tip:"「架」是木部，架子、書架。"},
- {s:"爸爸會開車，他有＿照。",a:"駕",b:"架",tip:"「駕」是馬部，駕駛、駕照。"}
+ {s:"姐姐下個月要出＿了，全家都很高興。",a:"嫁",b:"稼",tip:"「嫁」是女部：出嫁、嫁衣。"},
+ {s:"農夫辛苦的照顧田裡的莊＿。",a:"稼",b:"嫁",tip:"「稼」是禾部，和農作物有關：莊稼。"},
+ {s:"我把看完的書放回書＿上。",a:"架",b:"駕",tip:"「架」是木部：書架、衣架、招架不住。"},
+ {s:"公車司機很小心的＿駛公車。",a:"駕",b:"架",tip:"「駕」是馬部：駕駛。"},
+ {s:"＿然下雨了，我們就改天再去爬山。",a:"既",b:"即",tip:"「既」：既然。"},
+ {s:"聽到上課鐘聲，大家立＿回到座位。",a:"即",b:"既",tip:"「即」：立即、即將。"},
+ {s:"古時候的新娘坐著花＿出嫁。",a:"轎",b:"驕",tip:"「轎」是車部：花轎、轎子。"},
+ {s:"比賽贏了，也不可以＿傲。",a:"驕",b:"轎",tip:"「驕」是馬部：驕傲。它是第五課的生字。"},
+ {s:"他把用過的衛生紙＿進垃圾桶。",a:"丟",b:"去",tip:"「丟」比「去」多了最上面的一橫：丟掉、丟球。"},
+ {s:"放學後，我要＿圖書館借書。",a:"去",b:"丟",tip:"「去」：去學校、出去。"},
+ {s:"正月＿一，大家互相拜年。",a:"初",b:"切",tip:"「初」是衣部（衤）：初一、年初。"},
+ {s:"媽媽把蘋果＿成四塊。",a:"切",b:"初",tip:"「切」是刀部：切開、切菜。"},
+ {s:"婚禮上，新＿和新娘向大家敬酒。",a:"郎",b:"朗",tip:"「郎」的右邊是「阝」：新郎、鼠郎。"},
+ {s:"今天的天氣很晴＿，適合去郊遊。",a:"朗",b:"郎",tip:"「朗」的右邊是「月」：晴朗、開朗。"},
+ {s:"妹妹很害＿，看到客人就躲起來。",a:"羞",b:"差",tip:"「羞」的下面是「丑」：害羞、羞答答。"},
+ {s:"這兩枝筆的顏色＿不多。",a:"差",b:"羞",tip:"「差」的下面是「工」：差不多、差別。"},
+ {s:"聽了這個笑話，全班＿堂大笑。",a:"哄",b:"烘",tip:"「哄」是口部，和聲音有關：鬧哄哄、哄堂大笑。"},
+ {s:"下雨天，衣服要用機器＿乾。",a:"烘",b:"哄",tip:"「烘」是火部，和火、熱有關：烘乾。"},
+ {s:"運動會進場時，我們班的隊＿走得很整齊。",a:"伍",b:"五",tip:"「伍」有人字旁（亻）：隊伍。"}
 ];
-/* 語詞：課文裡重要的語詞；課本沒有附解釋，這裡的解釋都是自己寫的兒童版說明 */
+/* 語詞：都出自課文（課本第 97～103 頁）。k:"b"=課文印成藍色（有這一課的生字）；k:"g"=綠色的識讀語詞；沒有 k=課文裡的其他語詞。
+   課本只解釋了「女婿」（第 98 頁），其他解釋都是自己寫的兒童版說明 */
 var WORDS=[
- {w:"變差",m:"變得不好、變弱"},
- {w:"姞郎",m:"新郎、結婚的男方"},
- {w:"既使",m:"即使、就算是"},
- {w:"罕見",m:"很少見到、很稀奇"},
- {w:"轎子",m:"以前人坐的交通工具，用人抬著走"},
- {w:"出嫁",m:"女兒結婚、嫁人"},
- {w:"夫妻",m:"結婚的一對男女"},
- {w:"際會",m:"機會、時機"},
- {w:"卯時",m:"早上五點到七點"},
- {w:"巫師",m:"會做法術的人"},
- {w:"初刻",m:"一個時辰的開始"},
- {w:"欣喜",m:"高興、喜悅"}
+ {w:"丈夫",m:"結了婚的男生，是太太的另一半",k:"b"},
+ {w:"鬧哄哄",m:"很多人一起發出聲音，非常吵鬧",k:"b"},
+ {w:"害羞",m:"覺得不好意思，怕被別人看",k:"b"},
+ {w:"女婿",m:"女兒的丈夫",k:"g",note:"課本第 98 頁：女方家長對女兒丈夫的稱呼。"},
+ {w:"招架不住",m:"擋不住，應付不了",k:"b"},
+ {w:"初三",m:"農曆每個月的第三天",k:"b"},
+ {w:"既然",m:"已經是這樣了；後面常接「就」",k:"b"},
+ {w:"花轎",m:"以前結婚時，新娘坐在裡面、由人抬著走的轎子",k:"b",note:"課文寫的是「花轎隊伍」。"},
+ {w:"隊伍",m:"很多人排成的行列",k:"b",note:"課文寫的是「花轎隊伍」。"},
+ {w:"綵球",m:"用彩色的布紮成的球",k:"g"},
+ {w:"捨近求遠",m:"放著近的不要，偏偏跑去找遠的"},
+ {w:"兩情相悅",m:"兩個人互相喜歡"}
 ];
-/* 延伸語詞（課本沒有，自己選的） */
+/* 課文裡的其他語詞（解釋自編） */
+var MORE=[
+ {w:"招親",m:"公開找結婚的對象"},
+ {w:"泡湯",m:"事情沒辦成，落空了"},
+ {w:"愁容滿面",m:"滿臉都是煩惱的樣子"},
+ {w:"煙消雲散",m:"像煙和雲一樣散開，消失不見"},
+ {w:"意中人",m:"心裡喜歡的人"},
+ {w:"羞答答",m:"很害羞的樣子"}
+];
+/* 課本第 105 頁「讀一讀，想一想」的四句話（意思自編） */
+var MOTTO=[
+ {w:"天生我才必有用",m:"每個人都有自己的長處，一定有用得上的地方"},
+ {w:"團結合作力量大",m:"大家同心一起做，力量就很大"},
+ {w:"心存善念有好報",m:"心裡想著做好事，就會有好的結果"},
+ {w:"自信是成功的祕訣",m:"相信自己，是成功的好方法"}
+];
+/* 延伸成語（課本沒有，自己選的；解釋是用孩子看得懂的話寫的） */
 var IDIOMS=[
- {w:"丟臉",m:"不好意思、沒面子"},
- {w:"差別",m:"不同的地方"},
- {w:"稀罕",m:"覺得很少見、很珍貴"},
- {w:"新郎",m:"結婚的男方"},
- {w:"花轎",m:"結婚時新娘坐的轎子，很漂亮"},
- {w:"嫁妝",m:"女兒出嫁時帶的東西"},
- {w:"農夫",m:"種田的人"},
- {w:"國際",m:"世界各國之間"},
- {w:"書架",m:"放書的架子"},
- {w:"女巫",m:"會做法術的女人"},
- {w:"起初",m:"最開始的時候"},
- {w:"欣賞",m:"喜歡、讚美"}
+ {w:"哄堂大笑",m:"全場的人一起大笑"},
+ {w:"萬眾一心",m:"很多很多人一條心"},
+ {w:"成群結隊",m:"很多人聚在一起，排成一隊一隊的"},
+ {w:"丟三落四",m:"常常忘東忘西（這裡的「落」念 ㄌㄚˋ）"}
 ];
-/* 選詞填空（句子自編，語詞是課文的重要語詞） */
+/* 選詞填空（句子自編，答案是上面的 12 個語詞；每一題只有一個選項放得進去） */
 var FILL=[
- {s:"他生病後，體力＿＿了。",a:"變差",opts:["變差","出嫁","際會"]},
- {s:"新娘要嫁給＿＿。",a:"姞郎",opts:["姞郎","夫妻","巫師"]},
- {s:"＿＿很冷，我還是要去上學。",a:"既使",opts:["既使","罕見","初刻"]},
- {s:"這種花很＿＿，不常見到。",a:"罕見",opts:["罕見","變差","欣喜"]},
- {s:"古時候的新娘坐＿＿出嫁。",a:"轎子",opts:["轎子","夫妻","巫師"]},
- {s:"女兒長大了要＿＿。",a:"出嫁",opts:["出嫁","卯時","初刻"]},
- {s:"爸爸媽媽是一對＿＿。",a:"夫妻",opts:["夫妻","巫師","姞郎"]},
- {s:"這是難得的＿＿，要把握機會。",a:"際會",opts:["際會","卯時","變差"]},
- {s:"＿＿是早上五點到七點。",a:"卯時",opts:["卯時","出嫁","轎子"]},
- {s:"他們請＿＿來選好日子。",a:"巫師",opts:["巫師","夫妻","姞郎"]},
- {s:"＿＿就是一個時辰的開始。",a:"初刻",opts:["初刻","罕見","變差"]},
- {s:"聽到好消息，大家都很＿＿。",a:"欣喜",opts:["欣喜","既使","際會"]}
+ {s:"下課了，走廊上＿＿的，好熱鬧。",a:"鬧哄哄",opts:["鬧哄哄","招架不住","兩情相悅"]},
+ {s:"妹妹很＿＿，看到不認識的人就躲到媽媽後面。",a:"害羞",opts:["害羞","既然","隊伍"]},
+ {s:"阿姨結婚了，她的＿＿是一位老師。",a:"丈夫",opts:["丈夫","花轎","綵球"]},
+ {s:"外公很喜歡他的＿＿，也就是我的爸爸。",a:"女婿",opts:["女婿","花轎","隊伍"]},
+ {s:"對手的球又快又多，我們實在＿＿。",a:"招架不住",opts:["招架不住","兩情相悅","初三"]},
+ {s:"＿＿答應了別人，就要做到。",a:"既然",opts:["既然","害羞","初三"]},
+ {s:"以前的新娘坐著＿＿去結婚。",a:"花轎",opts:["花轎","綵球","女婿"]},
+ {s:"遊行的＿＿很長，從街頭排到街尾。",a:"隊伍",opts:["隊伍","丈夫","初三"]},
+ {s:"農曆正月＿＿，我們回外婆家拜年。",a:"初三",opts:["初三","隊伍","既然"]},
+ {s:"文具店就在學校旁邊，你卻跑到別的城市買筆，真是＿＿。",a:"捨近求遠",opts:["捨近求遠","兩情相悅","招架不住"]},
+ {s:"舞臺上掛著紅色的＿＿，看起來喜氣洋洋。",a:"綵球",opts:["綵球","丈夫","初三"]},
+ {s:"故事裡的王子和公主＿＿，最後結婚了。",a:"兩情相悅",opts:["兩情相悅","捨近求遠","鬧哄哄"]}
 ];
-/* 閱讀理解（依課文內容自編題目） */
+/* 三幕：時間、地點依課本第 97、98、102 頁 */
+var ACTS=[
+ {k:"a1",w:"第一幕",e:"🎉",time:"白天",place:"鼠家村"},
+ {k:"a2",w:"第二幕",e:"☀️",time:"幾天後的早上",place:"村外"},
+ {k:"a3",w:"第三幕",e:"🏮",time:"正月初三",place:"鼠家村"}
+];
+/* 第二幕找女婿的順序（課本第 99～101 頁）；t 是用自己的話寫的 */
+var STEPS=[
+ {n:1,k:"sun",w:"太陽",e:"☀️",t:"烏雲一來，他就只能躲起來"},
+ {n:2,k:"cloud",w:"烏雲",e:"☁️",t:"被風輕輕推走了"},
+ {n:3,k:"wind",w:"大風",e:"🌬️",t:"碰到牆就過不去"},
+ {n:4,k:"wall",w:"牆壁",e:"🧱",t:"被老鼠咬出牆洞"}
+];
+/* 閱讀理解（依課文內容自編題目；最後一題依課本第 96 頁） */
 var READ=[
- {q:"老鼠夫妻第一個去找誰？",a:"太陽",o:["太陽","雲","風"]},
- {q:"太陽說誰比他強？",a:"雲",o:["雲","風","牆"]},
- {q:"雲為什麼說他不是最強的？",a:"連烏雲都招架不住呢",o:["連烏雲都招架不住呢","太陽可以把雲曬乾","雨會把雲打散"]},
- {q:"風說誰比他強？",a:"牆",o:["牆","太陽","雲"]},
- {q:"牆說誰比他強？",a:"老鼠",o:["老鼠","人","貓"]}
+ {q:"鼠爸一開始用什麼方法幫鼠妞找丈夫？",a:"辦一場綵球招親",o:["辦一場綵球招親","請太陽來家裡作客","帶鼠妞到村外去找"]},
+ {q:"第一幕的招親為什麼泡湯了？",a:"黑貓跳出來，老鼠們全逃光了",o:["黑貓跳出來，老鼠們全逃光了","突然下大雨，大家都回家了","鼠妞把綵球弄丟了"]},
+ {q:"第二幕，鼠爸和鼠媽想找什麼樣的女婿？",a:"最強的",o:["最強的","最有錢的","最高的"]},
+ {q:"太陽說，誰一來他就只能躲起來？",a:"烏雲",o:["烏雲","大風","牆壁"]},
+ {q:"是誰把烏雲輕輕推出場？",a:"風",o:["風","太陽","黑貓"]},
+ {q:"大風說，他碰到什麼就哪兒都去不了？",a:"牆",o:["牆","烏雲","太陽"]},
+ {q:"是誰咬了牆壁的腳，又從牆洞爬出來？",a:"鼠郎",o:["鼠郎","黑貓","鼠妞"]},
+ {q:"鼠爸說自己「捨近求遠」。他發現了什麼？",a:"老鼠自己就很有本事",o:["老鼠自己就很有本事","太陽才是世上最強的","牆壁願意當他的女婿"]},
+ {q:"第三幕的開頭，寫的時間是什麼？",a:"正月初三",o:["正月初三","白天","幾天後的早上"],tip:"課本第 102 頁。「白天」是第一幕，「幾天後的早上」是第二幕。"},
+ {q:"第三幕，鼠妞把綵球丟給誰？",a:"鼠郎",o:["鼠郎","鼠爸","黑貓"]},
+ {q:"最後大家拍手齊唱，說誰打洞最強？",a:"老鼠",o:["老鼠","大風","太陽"]},
+ {q:"這一課是從哪裡的民間故事改寫的？",a:"臺灣",o:["臺灣","韓國","日本"],tip:"課本第 96 頁：改寫自臺灣民間故事。"}
 ];
-/* 角色配對：誰說的話 */
-var CHARS_MATCH=[
- {who:"太陽",say:"烏雲一來,我就只能躲起來",char:"☀️"},
- {who:"鼠媽",say:"連烏雲都招架不住呢",char:"🐭"},
- {who:"牆",say:"天下沒有老鼠穿不透的牆",char:"🧱"},
- {who:"鼠爸",say:"我們得找個最強的女婿才行",char:"🐭"}
+/* 這句話是誰說的：say 是課文裡的短句（一定要和課本一字不差），p 是課本頁碼 */
+var ROLES=["鼠爸","鼠媽","鼠妞","鼠郎","黑貓","太陽","烏雲","大風","牆壁"];
+var WHO=[
+ {who:"黑貓",say:"吃大餐時間到！",p:98},
+ {who:"鼠郎",say:"鼠妞，快跑！快跑！",p:98},
+ {who:"鼠爸",say:"我們得找個最強的女婿才行",p:98},
+ {who:"太陽",say:"烏雲一來，我就只能躲起來",p:99},
+ {who:"烏雲",say:"我來啦！誰在叫我？",p:99},
+ {who:"鼠媽",say:"連烏雲都招架不住呢！",p:100},
+ {who:"大風",say:"只要我一吹氣",p:100},
+ {who:"牆壁",say:"誰又咬我的腳？",p:101},
+ {who:"鼠郎",say:"天下沒有老鼠穿不透的牆",p:101},
+ {who:"鼠爸",say:"我真是捨近求遠！",p:101},
+ {who:"鼠妞",say:"我要丟了！",p:102},
+ {who:"鼠媽",say:"既然你們兩情相悅，就祝福你們吧！",p:103}
 ];
-/* 比較強弱 */
-var STRONG=[
- {s:"太陽說＿＿比他強。",a:"雲",o:["雲","風","牆"]},
- {s:"雲說＿＿比他強。",a:"風",o:["風","牆","太陽"]},
- {s:"風說＿＿比他強。",a:"牆",o:["牆","老鼠","雲"]},
- {s:"牆說＿＿比他強。",a:"老鼠",o:["老鼠","太陽","風"]}
+/* 三幕分一分（句子依課文改寫，不是原文） */
+var SORT=[
+ {t:"鼠爸第一次辦綵球招親",s:"a1"},
+ {t:"黑貓跳出來，老鼠們嚇得逃走",s:"a1"},
+ {t:"鼠郎拉著鼠妞往外逃",s:"a1"},
+ {t:"招親泡湯了",s:"a1"},
+ {t:"鼠爸和鼠媽一早走向村外",s:"a2"},
+ {t:"太陽說，烏雲一來他就得躲起來",s:"a2"},
+ {t:"風把烏雲推走了",s:"a2"},
+ {t:"風把鼠爸和鼠媽送到牆邊",s:"a2"},
+ {t:"鼠郎從牆洞爬出來",s:"a2"},
+ {t:"鼠爸說自己捨近求遠",s:"a2"},
+ {t:"鼠爸在高臺上說：老鼠不比別人差",s:"a3"},
+ {t:"鼠妞把綵球丟給鼠郎",s:"a3"},
+ {t:"鼠媽祝福鼠妞和鼠郎",s:"a3"},
+ {t:"鼠妞換上嫁衣，跟著花轎隊伍出嫁",s:"a3"},
+ {t:"大家拍手齊唱",s:"a3"}
 ];
-/* 民間故事特色 */
-var FOLK=[
- {s:"這個故事是＿＿故事。",a:"民間",o:["民間","科學","歷史"]},
- {s:"故事開頭常常用「＿＿」。",a:"從前",o:["從前","現在","以後"]},
- {s:"故事裡的動物會＿＿。",a:"說話",o:["說話","飛行","游泳"]},
- {s:"民間故事常常告訴我們一個＿＿。",a:"道理",o:["道理","笑話","秘密"]}
+/* 既然……就……（課本第 105 頁「句子練習」：用來連接事情的原因和結果）。前兩題依課本，其餘句子自編；每一題只有一個選項放得進去 */
+var JIRAN=[
+ {q:"課本說，「既然……就……」可以用來連接事情的什麼？",a:"原因和結果",o:["原因和結果","時間和地點","角色和旁白"],tip:"課本第 105 頁。"},
+ {q:"「既然你們兩情相悅，就祝福你們吧！」<br>哪一段是「結果」？",a:"祝福你們",o:["祝福你們","你們兩情相悅"],tip:"課本第 105 頁：「既然」的後面是原因，「就」的後面是結果。"},
+ {s:"既然下雨了，我們＿＿改天再去公園吧。",a:"就",o:["就","卻","才"]},
+ {s:"＿＿你已經寫完功課，就可以去玩了。",a:"既然",o:["既然","雖然","不但"]},
+ {s:"既然大家都到齊了，＿＿。",a:"就開始上課吧",o:["就開始上課吧","可是還沒下課","因為老師來了"]},
+ {s:"既然你這麼喜歡這本書，＿＿。",a:"就借你看吧",o:["就借你看吧","卻不想看","但是下雨了"]},
+ {s:"＿＿，就早點上床睡覺吧。",a:"既然你累了",o:["既然你累了","雖然你累了","不但你累了"]},
+ {s:"既然答應要幫忙，＿＿。",a:"就要把事情做好",o:["就要把事情做好","可是沒有時間","雖然很忙"]}
 ];
-/* 時間詞語 */
-var TIME=[
- {s:"＿＿是早上五點到七點。",a:"卯時",o:["卯時","午時","酉時"]},
- {s:"＿＿就是一個時辰的開始。",a:"初刻",o:["初刻","正刻","末刻"]},
- {s:"古時候一天分成十二個＿＿。",a:"時辰",o:["時辰","小時","分鐘"]}
+/* 比一比讀音：「強」的三個讀音和三個語詞出自課本第 105 頁；「哄」「正」依課文的注音（第 97、102 頁）。tip 裡的意思是自編的 */
+var QIANG_O=["ㄐㄧㄤˋ","ㄑㄧㄤˊ","ㄑㄧㄤˇ"];
+var POLY=[
+ {q:"「倔<span class=\"hl\">強</span>」的「強」怎麼念？",a:"ㄐㄧㄤˋ",o:QIANG_O,tip:"課本第 105 頁。倔強：脾氣硬，不肯聽別人的話。"},
+ {q:"「<span class=\"hl\">強</span>橫無理」的「強」怎麼念？",a:"ㄑㄧㄤˊ",o:QIANG_O,tip:"課本第 105 頁。強橫無理：很兇，不講道理。"},
+ {q:"「<span class=\"hl\">強</span>迫」的「強」怎麼念？",a:"ㄑㄧㄤˇ",o:QIANG_O,tip:"課本第 105 頁。強迫：硬要別人照著做。"},
+ {q:"課文「最<span class=\"hl\">強</span>的女婿」的「強」怎麼念？",a:"ㄑㄧㄤˊ",o:QIANG_O,tip:"課本第 98 頁。生字格的注音也是 ㄑㄧㄤˊ（第 104 頁）。"},
+ {q:"課文「老鼠打洞<span class=\"hl\">強</span>」的「強」怎麼念？",a:"ㄑㄧㄤˊ",o:QIANG_O,tip:"課本第 103 頁。"},
+ {q:"課文「鬧<span class=\"hl\">哄哄</span>」的「哄」怎麼念？",a:"ㄏㄨㄥ",o:["ㄏㄨㄥ","ㄏㄨㄥˇ","ㄏㄨㄥˋ"],tip:"課本第 97 頁，注音是紅色的。"},
+ {q:"課文「<span class=\"hl\">正</span>月初三」的「正」怎麼念？",a:"ㄓㄥ",o:["ㄓㄥ","ㄓㄥˋ","ㄓㄣ"],tip:"課本第 102 頁，注音是紅色的。"}
+];
+/* 延伸：劇本的寫法（課本沒有寫「劇本」這個名稱；題目依課文的寫法自編） */
+var PLAY=[
+ {q:"這一課的故事分成幾幕？",a:"三幕",o:["三幕","兩幕","五幕"],tip:"第一幕在第 97 頁，第二幕在第 98 頁，第三幕在第 102 頁。"},
+ {q:"每一幕的開頭，先寫了哪三樣？",a:"時間、地點、角色",o:["時間、地點、角色","天氣、心情、感想","題目、作者、頁碼"]},
+ {q:"誰負責說明故事的背景，不是故事裡的角色？",a:"旁白",o:["旁白","黑貓","大風"]},
+ {q:"「鼠爸：（抬頭大喊）太陽啊！」<br>括號裡的字是什麼？",a:"鼠爸的動作和表情",o:["鼠爸的動作和表情","鼠爸說出來的話","旁白說的話"],tip:"演的人要照著括號裡的字做動作。"},
+ {q:"第二幕的開頭，寫的地點是哪裡？",a:"村外",o:["村外","鼠家村","高臺上"],tip:"課本第 98 頁。"},
+ {q:"每一幕最後的「△幕落」表示什麼？",a:"這一幕演完了",o:["這一幕演完了","這一幕要開始了","大家要拍手"]}
 ];
 
 function shuffle(a,rnd){rnd=rnd||Math.random;var b=a.slice();for(var i=b.length-1;i>0;i--){var j=Math.floor(rnd()*(i+1));var t=b[i];b[i]=b[j];b[j]=t;}return b;}
@@ -375,44 +495,53 @@ function blank(s){return s.replace("＿＿",'<span class="blank">（　　）</s
 /* 生字題：部首、總筆畫、注音 */
 function charQ(type,ch,rnd){
  var opts,ans,q;
- if(type==="bs"){ans=ch.bs;var all=uniq(CHARS.map(function(x){return x.bs;}).concat(["口","水","心","竹"]));
+ if(type==="bs"){ans=ch.bs;var all=uniq(CHARS.map(function(x){return x.bs;}).concat(["水","心","竹","土"]));
   opts=[ans].concat(pick(all.filter(function(b){return b!==ans;}),2,rnd));q="「"+ch.c+"」的部首是什麼？";}
  else if(type==="tot"){ans=String(ch.tot);var d=[ch.tot-2,ch.tot-1,ch.tot+1,ch.tot+2].filter(function(n){return n>0;});
   opts=[ans].concat(pick(d,2,rnd).map(String));q="「"+ch.c+"」總共幾畫？";}
  else {ans=ch.zy;var others=uniq(CHARS.filter(function(x){return x.c!==ch.c;}).map(function(x){return x.zy;})).filter(function(z){return z!==ans;});
-  opts=[ans].concat(pick(others,2,rnd));q="「"+ch.words[0]+"」的「"+ch.c+"」怎麼念？";}
+  opts=[ans].concat(pick(others,2,rnd));q="「"+(ch.ph||ch.words[0])+"」的「"+ch.c+"」怎麼念？";}
  return {type:type,c:ch.c,q:q,a:ans,o:shuffle(opts,rnd)};
 }
 function lookQ(l,rnd){return {type:"look",q:l.s.replace("＿",'<span class="blank">（　）</span>'),a:l.a,o:shuffle([l.a,l.b],rnd),tip:l.tip};}
 function wordQ(rnd){var w=pick(WORDS,1,rnd)[0],wo=pick(WORDS.filter(function(x){return x.w!==w.w;}),2,rnd);
- return {type:"word",q:"「"+w.m+"」是哪個語詞？",a:w.w,o:shuffle([w.w,wo[0].w,wo[1].w],rnd)};}
+ return {type:"word",q:"「"+w.m+"」<br>是哪個語詞？",a:w.w,o:shuffle([w.w,wo[0].w,wo[1].w],rnd)};}
 function fillQ(f,rnd){return {type:"fill",q:blank(f.s),a:f.a,o:shuffle(f.opts,rnd)};}
-function strongQ(s,rnd){return {type:"strong",q:blank(s.s),a:s.a,o:shuffle(s.o,rnd)};}
-function folkQ(f,rnd){return {type:"folk",q:blank(f.s),a:f.a,o:shuffle(f.o,rnd)};}
-function timeQ(t,rnd){return {type:"time",q:blank(t.s),a:t.a,o:shuffle(t.o,rnd)};}
+function readQ(r,rnd){return {type:"read",q:r.q,a:r.a,o:shuffle(r.o,rnd),tip:r.tip};}
+function jiranQ(x,rnd){return {type:"jiran",q:x.q||blank(x.s),a:x.a,o:shuffle(x.o,rnd),tip:x.tip};}
+function polyQ(x){return {type:"poly",q:x.q,a:x.a,o:x.o.slice(),tip:x.tip};}
+function playQ(x,rnd){return {type:"play",q:x.q,a:x.a,o:shuffle(x.o,rnd),tip:x.tip};}
+/* 這句話是誰說的：正確的角色加上另外三個角色 */
+function whoQ(x,rnd){var others=pick(ROLES.filter(function(r){return r!==x.who;}),3,rnd);
+ return {type:"who",q:"「"+x.say+"」<br>這句話是誰說的？",a:x.who,o:shuffle([x.who].concat(others),rnd),tip:"課本第 "+x.p+" 頁。"};}
 /* 綜合挑戰：10 題 */
 function makeChallenge(rnd){
  rnd=rnd||Math.random;var out=[],chs=pick(CHARS,3,rnd);
  out.push(charQ("bs",chs[0],rnd));out.push(charQ("tot",chs[1],rnd));out.push(charQ("zy",chs[2],rnd));
  pick(LOOK,2,rnd).forEach(function(l){out.push(lookQ(l,rnd));});
  out.push(wordQ(rnd));
- out.push(strongQ(pick(STRONG,1,rnd)[0],rnd));
- out.push(folkQ(pick(FOLK,1,rnd)[0],rnd));
- pick(READ,2,rnd).forEach(function(r){out.push({type:"read",q:r.q,a:r.a,o:shuffle(r.o,rnd),tip:r.tip});});
+ out.push(jiranQ(pick(JIRAN,1,rnd)[0],rnd));
+ out.push(polyQ(pick(POLY,1,rnd)[0]));
+ out.push(whoQ(pick(WHO,1,rnd)[0],rnd));
+ out.push(rnd()<.5?fillQ(pick(FILL,1,rnd)[0],rnd):readQ(pick(READ,1,rnd)[0],rnd));
  return shuffle(out,rnd);
 }
 function check(q,ans){return q.a===ans;}
-function matchCheck(who,say){for(var i=0;i<CHARS_MATCH.length;i++)if(CHARS_MATCH[i].who===who)return CHARS_MATCH[i].say===say;return false;}
-function wordMatchCheck(word,meaning){for(var i=0;i<WORDS.length;i++)if(WORDS[i].w===word)return WORDS[i].m===meaning;return false;}
+function sortCheck(text,act){for(var i=0;i<SORT.length;i++)if(SORT[i].t===text)return SORT[i].s===act;return false;}
+function matchCheck(word,meaning){for(var i=0;i<WORDS.length;i++)if(WORDS[i].w===word)return WORDS[i].m===meaning;return false;}
+/* 找女婿的順序：依序點，回傳 true 表示這一步點對了 */
+function stepCheck(done,n){return n===done+1;}
 function stars(correct,total){if(!total)return 0;var r=correct/total;return r>=1?3:r>=0.7?2:r>=0.4?1:0;}
-var PATS=["strong","folk","time"];
+var PATS=["jiran","poly","play"];
 var BADGES=[
  {id:"read",n:"📖 閱讀小達人",d:"閱讀理解全對"},
  {id:"chars",n:"✍️ 生字小書法家",d:"看完 15 張生字卡"},
  {id:"write",n:"🖌️ 描紅練習生",d:"在描寫板練習 5 個字"},
  {id:"words",n:"🧩 語詞配對王",d:"完成一次語詞配對"},
- {id:"pattern",n:"🪄 句型小作家",d:"三個句型練習都完成"},
- {id:"match",n:"🔄 角色配對王",d:"角色配對全對"},
+ {id:"pattern",n:"🪄 句型小高手",d:"三個練習都完成"},
+ {id:"step",n:"🔗 找女婿小幫手",d:"找女婿的順序一次排對"},
+ {id:"who",n:"🎭 最佳小演員",d:"「誰說的」全對"},
+ {id:"act",n:"🗂️ 三幕小導演",d:"三幕分類全對"},
  {id:"champ",n:"🏆 挑戰王",d:"挑戰答對 9 題以上"}
 ];
 function badges(st){
@@ -422,240 +551,20 @@ function badges(st){
  if(st.wrote&&Object.keys(st.wrote).length>=5)g.write=1;
  if(st.matchDone>=1)g.words=1;
  if(st.pat&&PATS.every(function(k){return st.pat[k];}))g.pattern=1;
- if(st.charMatchPerfect>=1)g.match=1;
+ if(st.stepPerfect>=1)g.step=1;
+ if(st.whoPerfect>=1)g.who=1;
+ if(st.actPerfect>=1)g.act=1;
  if(st.chBest>=9)g.champ=1;
  return g;
 }
 function lcg(seed){var s=seed>>>0;return function(){s=(s*1664525+1013904223)>>>0;return s/4294967296;};}
-return {CHARS:CHARS,LOOK:LOOK,WORDS:WORDS,IDIOMS:IDIOMS,FILL:FILL,READ:READ,CHARS_MATCH:CHARS_MATCH,
- STRONG:STRONG,FOLK:FOLK,TIME:TIME,PATS:PATS,BADGES:BADGES,
- shuffle:shuffle,pick:pick,charBy:charBy,charQ:charQ,lookQ:lookQ,wordQ:wordQ,fillQ:fillQ,strongQ:strongQ,folkQ:folkQ,timeQ:timeQ,
- makeChallenge:makeChallenge,check:check,matchCheck:matchCheck,wordMatchCheck:wordMatchCheck,stars:stars,badges:badges,lcg:lcg};
+return {CHARS:CHARS,LOOK:LOOK,WORDS:WORDS,MORE:MORE,MOTTO:MOTTO,IDIOMS:IDIOMS,FILL:FILL,ACTS:ACTS,STEPS:STEPS,READ:READ,ROLES:ROLES,WHO:WHO,SORT:SORT,
+ JIRAN:JIRAN,POLY:POLY,PLAY:PLAY,PATS:PATS,BADGES:BADGES,
+ shuffle:shuffle,pick:pick,charBy:charBy,charQ:charQ,lookQ:lookQ,wordQ:wordQ,fillQ:fillQ,readQ:readQ,jiranQ:jiranQ,polyQ:polyQ,playQ:playQ,whoQ:whoQ,
+ makeChallenge:makeChallenge,check:check,sortCheck:sortCheck,matchCheck:matchCheck,stepCheck:stepCheck,stars:stars,badges:badges,lcg:lcg};
 })();
 if(typeof module!=="undefined"&&module.exports)module.exports=Core;
 </script>
-<script>
-(function(){
-"use strict";
-var st=JSON.parse(localStorage.getItem("lesson10-mouse-wedding")||"{}");
-function save(){localStorage.setItem("lesson10-mouse-wedding",JSON.stringify(st));}
-function addScore(n){st.score=(st.score||0)+n;document.getElementById("score").textContent="⭐ "+st.score;
- document.getElementById("score").classList.add("pop");setTimeout(function(){document.getElementById("score").classList.remove("pop");},500);save();}
-function burst(e){var x=e.clientX||window.innerWidth/2,y=e.clientY||window.innerHeight/2;
- var emojis=["⭐","🌟","✨","🎉"];for(var i=0;i<5;i++){var d=document.createElement("div");d.className="burst";
- d.textContent=emojis[Math.floor(Math.random()*emojis.length)];d.style.left=x+"px";d.style.top=y+"px";
- var dx=(Math.random()-.5)*300,dy=(Math.random()-.5)*300;d.style.setProperty("--dx",dx+"px");d.style.setProperty("--dy",dy+"px");
- document.body.appendChild(d);setTimeout(function(el){return function(){document.body.removeChild(el);};}(d),1100);}}
-document.getElementById("score").textContent="⭐ "+(st.score||0);
-var pages=document.querySelectorAll("section.page"),tabs=document.querySelectorAll("nav.tabs button");
-tabs.forEach(function(b){b.addEventListener("click",function(){
- var pid=b.getAttribute("data-p");pages.forEach(function(p){p.classList.remove("active");});
- document.getElementById(pid).classList.add("active");tabs.forEach(function(t){t.classList.remove("on");});b.classList.add("on");});});
-/* ============ 課文 ============ */
-var readState={q:0,ans:[],correct:0};
-function nextReadQ(){var box=document.getElementById("readQ");if(readState.q>=Core.READ.length){
- var s=Core.stars(readState.correct,Core.READ.length);addScore(s);
- box.innerHTML='<div class="done">✅ 完成閱讀理解！答對 '+readState.correct+' / '+Core.READ.length+' 題，得到 '+s+' 顆星！</div>';
- st.readBest=Math.max(st.readBest||0,readState.correct);save();return;}
- var item=Core.READ[readState.q],h='<div class="prog">';
- for(var i=0;i<Core.READ.length;i++)h+='<i class="'+(i<readState.q?(readState.ans[i]?"ok":"no"):(i===readState.q?"cur":""))+'"></i>';
- h+='</div><p class="q">'+item.q+'</p><div class="choices" id="readCh"></div><div class="fb" id="readFb"></div>';box.innerHTML=h;
- document.getElementById("readCh").innerHTML=item.o.map(function(o){return '<button class="btn" data-a="'+o+'">'+o+'</button>';}).join("");
- document.querySelectorAll("#readCh .btn").forEach(function(b){b.addEventListener("click",function(){
-  var a=b.getAttribute("data-a"),ok=Core.check(item,a);readState.ans.push(ok);if(ok)readState.correct++;
-  b.classList.add(ok?"ok":"no");document.querySelectorAll("#readCh .btn").forEach(function(x){x.disabled=true;});
-  var fb=document.getElementById("readFb");fb.className="fb show "+(ok?"good":"bad");
-  fb.innerHTML=(ok?"✅ 正確！":"❌ 正確答案是：<b>"+item.a+"</b>")+(item.tip?"<br>"+item.tip:"");
-  if(ok)burst(event);setTimeout(function(){readState.q++;nextReadQ();},ok?1200:2400);});});}
-nextReadQ();
-/* ============ 生字 ============ */
-var charGrid=document.getElementById("charGrid"),charDet=document.getElementById("charDet");
-st.seen=st.seen||{};
-Core.CHARS.forEach(function(ch){var b=document.createElement("button");b.textContent=ch.c;
- if(st.seen[ch.c])b.classList.add("seen");b.addEventListener("click",function(){
-  if(!st.seen[ch.c]){st.seen[ch.c]=1;save();b.classList.add("seen");}
-  charGrid.querySelectorAll("button").forEach(function(x){x.classList.remove("on");});b.classList.add("on");showChar(ch);});charGrid.appendChild(b);});
-function showChar(ch){var bf=ch.bf||ch.bs,ex=ch.ex||0;
- var h='<div class="bigc">'+ch.c+'</div><div class="zy">'+ch.zy.split("").join("<br>")+'</div><div class="cinfo">';
- h+='<div><span class="chip">部首</span>'+ch.bs+(bf!==ch.bs?' <small>（寫成 '+bf+'）</small>':'')+'</div>';
- h+='<div><span class="chip id">筆畫</span>部首外 '+ex+' 畫，總共 '+ch.tot+' 畫</div>';
- h+='<div><span class="chip">造詞</span>'+ch.words.join("、")+'</div>';
- if(ch.tx)h+='<div><small style="color:#888">課文：'+ch.tx+'</small></div>';
- h+='<div style="margin-top:6px"><a class="ext" target="_blank" href="https://stroke-order.learningweb.moe.edu.tw/character_practice.do?word='+encodeURIComponent(ch.c)+'">📝 看筆順動畫</a></div>';
- h+='</div>';charDet.innerHTML=h;document.getElementById("ghost").textContent=ch.c;}
-if(Core.CHARS.length>0)showChar(Core.CHARS[0]);
-var pad=document.getElementById("pad"),ctx=pad.getContext("2d"),drawing=false,lastX=0,lastY=0;
-st.wrote=st.wrote||{};
-function startDraw(e){e.preventDefault();drawing=true;var r=pad.getBoundingClientRect(),t=e.touches?e.touches[0]:e;
- lastX=(t.clientX-r.left)*2;lastY=(t.clientY-r.top)*2;}
-function draw(e){if(!drawing)return;e.preventDefault();var r=pad.getBoundingClientRect(),t=e.touches?e.touches[0]:e,
- x=(t.clientX-r.left)*2,y=(t.clientY-r.top)*2;ctx.strokeStyle="#2b2d42";ctx.lineWidth=8;ctx.lineCap="round";ctx.lineJoin="round";
- ctx.beginPath();ctx.moveTo(lastX,lastY);ctx.lineTo(x,y);ctx.stroke();lastX=x;lastY=y;}
-function endDraw(){drawing=false;}
-pad.addEventListener("mousedown",startDraw);pad.addEventListener("mousemove",draw);pad.addEventListener("mouseup",endDraw);
-pad.addEventListener("touchstart",startDraw);pad.addEventListener("touchmove",draw);pad.addEventListener("touchend",endDraw);
-document.getElementById("padClear").addEventListener("click",function(){ctx.clearRect(0,0,520,520);
- document.getElementById("padFb").className="fb";});
-document.getElementById("padDone").addEventListener("click",function(){var c=document.getElementById("ghost").textContent;
- if(!st.wrote[c]){st.wrote[c]=1;save();addScore(1);}var fb=document.getElementById("padFb");
- fb.className="fb show good";fb.innerHTML="✅ 寫得很好！多練習幾次會更熟練。";burst(event);});
-var cqState={t:"bs",q:0,ans:[],correct:0};
-document.querySelectorAll("#cqSeg button").forEach(function(b){b.addEventListener("click",function(){
- document.querySelectorAll("#cqSeg button").forEach(function(x){x.classList.remove("on");});b.classList.add("on");
- cqState.t=b.getAttribute("data-t");cqState.q=0;cqState.ans=[];cqState.correct=0;nextCQ();});});
-function nextCQ(){var box=document.getElementById("charQ");if(cqState.q>=5){
- var s=Core.stars(cqState.correct,5);addScore(s);
- box.innerHTML='<div class="done">✅ 完成！答對 '+cqState.correct+' / 5 題，得到 '+s+' 顆星！</div>';return;}
- var ch=Core.pick(Core.CHARS,1)[0],item=Core.charQ(cqState.t,ch),h='<div class="prog">';
- for(var i=0;i<5;i++)h+='<i class="'+(i<cqState.q?(cqState.ans[i]?"ok":"no"):(i===cqState.q?"cur":""))+'"></i>';
- h+='</div><p class="q">'+item.q+'</p><div class="choices" id="cqCh"></div><div class="fb" id="cqFb"></div>';box.innerHTML=h;
- document.getElementById("cqCh").innerHTML=item.o.map(function(o){return '<button class="btn" data-a="'+o+'">'+o+'</button>';}).join("");
- document.querySelectorAll("#cqCh .btn").forEach(function(b){b.addEventListener("click",function(){
-  var a=b.getAttribute("data-a"),ok=Core.check(item,a);cqState.ans.push(ok);if(ok)cqState.correct++;
-  b.classList.add(ok?"ok":"no");document.querySelectorAll("#cqCh .btn").forEach(function(x){x.disabled=true;});
-  var fb=document.getElementById("cqFb");fb.className="fb show "+(ok?"good":"bad");
-  fb.innerHTML=ok?"✅ 正確！":"❌ 正確答案是：<b>"+item.a+"</b>";if(ok)burst(event);
-  setTimeout(function(){cqState.q++;nextCQ();},ok?1200:2400);});});}
-nextCQ();
-var lookState={q:0,ans:[],correct:0};
-function nextLookQ(){var box=document.getElementById("lookQ");if(lookState.q>=Core.LOOK.length){
- var s=Core.stars(lookState.correct,Core.LOOK.length);addScore(s);
- box.innerHTML='<div class="done">✅ 完成形近字！答對 '+lookState.correct+' / '+Core.LOOK.length+' 題，得到 '+s+' 顆星！</div>';return;}
- var item=Core.LOOK[lookState.q],lq=Core.lookQ(item),h='<div class="prog">';
- for(var i=0;i<Core.LOOK.length;i++)h+='<i class="'+(i<lookState.q?(lookState.ans[i]?"ok":"no"):(i===lookState.q?"cur":""))+'"></i>';
- h+='</div><p class="q">'+lq.q+'</p><div class="choices" id="lookCh"></div><div class="fb" id="lookFb"></div>';box.innerHTML=h;
- document.getElementById("lookCh").innerHTML=lq.o.map(function(o){return '<button class="btn" data-a="'+o+'">'+o+'</button>';}).join("");
- document.querySelectorAll("#lookCh .btn").forEach(function(b){b.addEventListener("click",function(){
-  var a=b.getAttribute("data-a"),ok=Core.check(lq,a);lookState.ans.push(ok);if(ok)lookState.correct++;
-  b.classList.add(ok?"ok":"no");document.querySelectorAll("#lookCh .btn").forEach(function(x){x.disabled=true;});
-  var fb=document.getElementById("lookFb");fb.className="fb show "+(ok?"good":"bad");
-  fb.innerHTML=(ok?"✅ 正確！":"❌ 正確答案是：<b>"+lq.a+"</b>")+"<br>"+lq.tip;if(ok)burst(event);
-  setTimeout(function(){lookState.q++;nextLookQ();},ok?1200:2400);});});}
-nextLookQ();
-/* ============ 語詞 ============ */
-var matchState={left:null,pairs:[],done:false};
-function initMatch(){var box=document.getElementById("matchBox");if(matchState.done){
- box.innerHTML='<div class="done">✅ 完成配對！</div>';return;}
- var ws=Core.shuffle(Core.WORDS.slice()),ms=Core.shuffle(Core.WORDS.map(function(w){return w.m;}));
- var h='<div class="match"><div class="col" id="matchL">'+ws.map(function(w){return '<button class="btn" data-w="'+w.w+'">'+w.w+'</button>';}).join("")+'</div>';
- h+='<div class="col" id="matchR">'+ms.map(function(m){return '<button class="btn" data-m="'+m+'">'+m+'</button>';}).join("")+'</div></div>';
- h+='<div class="fb" id="matchFb"></div>';box.innerHTML=h;
- document.querySelectorAll("#matchL .btn").forEach(function(b){b.addEventListener("click",function(){
-  if(matchState.left)document.querySelectorAll("#matchL .btn").forEach(function(x){x.classList.remove("sel");});
-  matchState.left=b.getAttribute("data-w");b.classList.add("sel");});});
- document.querySelectorAll("#matchR .btn").forEach(function(b){b.addEventListener("click",function(){
-  if(!matchState.left)return;var m=b.getAttribute("data-m"),ok=Core.wordMatchCheck(matchState.left,m);
-  if(ok){document.querySelector('#matchL [data-w="'+matchState.left+'"]').classList.add("ok");b.classList.add("ok");
-   matchState.pairs.push([matchState.left,m]);matchState.left=null;
-   var fb=document.getElementById("matchFb");fb.className="fb show good";fb.innerHTML="✅ 配對正確！";burst(event);
-   if(matchState.pairs.length===Core.WORDS.length){matchState.done=true;addScore(2);
-    setTimeout(function(){initMatch();},800);st.matchDone=(st.matchDone||0)+1;save();}}
-  else{var fb=document.getElementById("matchFb");fb.className="fb show bad";fb.innerHTML="❌ 這兩個不是一對，再試試看！";
-   b.classList.add("no");setTimeout(function(){b.classList.remove("no");},400);}});});}
-initMatch();
-var fillState={q:0,ans:[],correct:0};
-function nextFillQ(){var box=document.getElementById("fillQ");if(fillState.q>=10){
- var s=Core.stars(fillState.correct,10);addScore(s);
- box.innerHTML='<div class="done">✅ 完成選詞填空！答對 '+fillState.correct+' / 10 題，得到 '+s+' 顆星！</div>';return;}
- var item=Core.FILL[fillState.q],fq=Core.fillQ(item),h='<div class="prog">';
- for(var i=0;i<10;i++)h+='<i class="'+(i<fillState.q?(fillState.ans[i]?"ok":"no"):(i===fillState.q?"cur":""))+'"></i>';
- h+='</div><p class="q">'+fq.q+'</p><div class="choices" id="fillCh"></div><div class="fb" id="fillFb"></div>';box.innerHTML=h;
- document.getElementById("fillCh").innerHTML=fq.o.map(function(o){return '<button class="btn" data-a="'+o+'">'+o+'</button>';}).join("");
- document.querySelectorAll("#fillCh .btn").forEach(function(b){b.addEventListener("click",function(){
-  var a=b.getAttribute("data-a"),ok=Core.check(fq,a);fillState.ans.push(ok);if(ok)fillState.correct++;
-  b.classList.add(ok?"ok":"no");document.querySelectorAll("#fillCh .btn").forEach(function(x){x.disabled=true;});
-  var fb=document.getElementById("fillFb");fb.className="fb show "+(ok?"good":"bad");
-  fb.innerHTML=ok?"✅ 正確！":"❌ 正確答案是：<b>"+fq.a+"</b>";if(ok)burst(event);
-  setTimeout(function(){fillState.q++;nextFillQ();},ok?1200:2400);});});}
-nextFillQ();
-var wh='';Core.WORDS.forEach(function(w){wh+='<div class="wcard"><b>'+w.w+'</b>'+w.m+'</div>';});
-document.getElementById("wordList").innerHTML=wh;
-var ih='';Core.IDIOMS.forEach(function(w){ih+='<div class="wcard"><b>'+w.w+'</b>'+w.m+'</div>';});
-document.getElementById("idiomList").innerHTML=ih;
-/* ============ 句型 ============ */
-st.pat=st.pat||{};
-var patKey="strong",patState={q:0,ans:[],correct:0};
-document.querySelectorAll("#patSeg button").forEach(function(b){b.addEventListener("click",function(){
- document.querySelectorAll("#patSeg button").forEach(function(x){x.classList.remove("on");});b.classList.add("on");
- patKey=b.getAttribute("data-k");patState.q=0;patState.ans=[];patState.correct=0;showPatIntro();nextPatQ();});});
-function showPatIntro(){var intro=document.getElementById("patIntro"),h="";
- if(patKey==="strong")h='<h3>💪 比較強弱</h3><p class="lead">故事裡每個角色都說別人比自己強。</p><div class="tip">例如：太陽說「雲可以遮住我，雲比我強」。</div>';
- else if(patKey==="folk")h='<h3>📚 民間故事特色</h3><p class="lead">民間故事常常用「從前」開頭，動物會說話，最後告訴我們一個道理。</p>';
- else h='<h3>⏰ 時間詞語</h3><p class="lead">古時候用「時辰」計時，一天分成十二個時辰。卯時是早上五點到七點。</p>';
- intro.innerHTML=h;}
-showPatIntro();
-function nextPatQ(){var box=document.getElementById("patQ"),arr=patKey==="strong"?Core.STRONG:(patKey==="folk"?Core.FOLK:Core.TIME);
- if(patState.q>=arr.length){var s=Core.stars(patState.correct,patState.q);addScore(s);
-  box.innerHTML='<div class="done">✅ 完成！答對 '+patState.correct+' / '+patState.q+' 題，得到 '+s+' 顆星！</div>';
-  if(!st.pat[patKey]){st.pat[patKey]=1;save();}return;}
- var item=arr[patState.q],pq=patKey==="strong"?Core.strongQ(item):(patKey==="folk"?Core.folkQ(item):Core.timeQ(item)),h='<div class="prog">';
- for(var i=0;i<arr.length;i++)h+='<i class="'+(i<patState.q?(patState.ans[i]?"ok":"no"):(i===patState.q?"cur":""))+'"></i>';
- h+='</div><p class="q">'+pq.q+'</p><div class="choices" id="patCh"></div><div class="fb" id="patFb"></div>';box.innerHTML=h;
- document.getElementById("patCh").innerHTML=pq.o.map(function(o){return '<button class="btn" data-a="'+o+'">'+o+'</button>';}).join("");
- document.querySelectorAll("#patCh .btn").forEach(function(b){b.addEventListener("click",function(){
-  var a=b.getAttribute("data-a"),ok=Core.check(pq,a);patState.ans.push(ok);if(ok)patState.correct++;
-  b.classList.add(ok?"ok":"no");document.querySelectorAll("#patCh .btn").forEach(function(x){x.disabled=true;});
-  var fb=document.getElementById("patFb");fb.className="fb show "+(ok?"good":"bad");
-  fb.innerHTML=ok?"✅ 正確！":"❌ 正確答案是：<b>"+pq.a+"</b>";if(ok)burst(event);
-  setTimeout(function(){patState.q++;nextPatQ();},ok?1200:2400);});});}
-nextPatQ();
-/* ============ 挑戰 ============ */
-var sortState={items:[],ans:{},done:0};
-function initSort(){var box=document.getElementById("sortBox");if(sortState.done>=5){
- var perfect=sortState.done===5,s=perfect?3:Core.stars(sortState.done,5);addScore(s);
- box.innerHTML='<div class="done">✅ 完成！答對 '+sortState.done+' / 5 題，得到 '+s+' 顆星！'+(perfect?"太厲害了！":"")+'</div>';
- if(perfect){st.charMatchPerfect=(st.charMatchPerfect||0)+1;save();}return;}
- sortState.items=Core.shuffle(Core.CHARS_MATCH.slice());sortState.ans={};
- var h='<p class="small">這是誰說的話？點選角色。</p>';
- h+='<div id="sortItems"></div><div class="btns cen" id="sortBtns">'+
-  Core.CHARS_MATCH.map(function(c){return '<button class="btn" data-k="'+c.who+'">'+c.char+' '+c.who+'</button>';}).join("")+'</div>';
- h+='<div class="fb" id="sortFb"></div>';box.innerHTML=h;showSortItem();
- document.querySelectorAll("#sortBtns .btn").forEach(function(b){b.addEventListener("click",function(){
-  if(!sortState.items.length)return;var k=b.getAttribute("data-k"),curr=sortState.items[0],ok=Core.matchCheck(k,curr.say);
-  sortState.ans[curr.who]=ok;if(ok)sortState.done++;document.getElementById("sortFb").className="fb show "+(ok?"good":"bad");
-  document.getElementById("sortFb").innerHTML=ok?"✅ 正確！":"❌ 不對喔，這是"+curr.who+"說的。";if(ok)burst(event);
-  setTimeout(function(){sortState.items.shift();if(sortState.items.length===0)initSort();else showSortItem();},ok?800:1600);});});}
-function showSortItem(){if(!sortState.items.length)return;
- document.getElementById("sortItems").innerHTML='<p class="q">'+sortState.items[0].say+'</p>';}
-initSort();
-var chState={qs:[],q:0,ans:[],correct:0};
-function initCh(){var box=document.getElementById("chBox");if(chState.q>0){
- var s=Core.stars(chState.correct,10);addScore(s);
- box.innerHTML='<div class="done">✅ 挑戰完成！答對 '+chState.correct+' / 10 題，得到 '+s+' 顆星！'+(chState.correct>=9?"你是挑戰王！":"")+'</div>';
- st.chBest=Math.max(st.chBest||0,chState.correct);save();return;}
- chState.qs=Core.makeChallenge();chState.q=0;chState.ans=[];chState.correct=0;nextChQ();}
-function nextChQ(){var box=document.getElementById("chBox");if(chState.q>=chState.qs.length){initCh();return;}
- var item=chState.qs[chState.q],h='<div class="prog">';
- for(var i=0;i<10;i++)h+='<i class="'+(i<chState.q?(chState.ans[i]?"ok":"no"):(i===chState.q?"cur":""))+'"></i>';
- h+='</div><p class="q">'+item.q+'</p><div class="choices" id="chCh"></div><div class="fb" id="chFb"></div>';box.innerHTML=h;
- document.getElementById("chCh").innerHTML=item.o.map(function(o){return '<button class="btn" data-a="'+o+'">'+o+'</button>';}).join("");
- document.querySelectorAll("#chCh .btn").forEach(function(b){b.addEventListener("click",function(){
-  var a=b.getAttribute("data-a"),ok=Core.check(item,a);chState.ans.push(ok);if(ok)chState.correct++;
-  b.classList.add(ok?"ok":"no");document.querySelectorAll("#chCh .btn").forEach(function(x){x.disabled=true;});
-  var fb=document.getElementById("chFb");fb.className="fb show "+(ok?"good":"bad");
-  fb.innerHTML=(ok?"✅ 正確！":"❌ 正確答案是：<b>"+item.a+"</b>")+(item.tip?"<br>"+item.tip:"");if(ok)burst(event);
-  setTimeout(function(){chState.q++;nextChQ();},ok?1200:2400);});});}
-initCh();
-/* ============ 紀錄 ============ */
-var bdg=Core.badges(st),bh='';Core.BADGES.forEach(function(b){
- bh+='<div class="bdg '+(bdg[b.id]?"got":"")+'">'+b.n+'<small>'+b.d+'</small></div>';});
-document.getElementById("badges").innerHTML=bh;
-var stats='<div class="stat">總星星<b>'+(st.score||0)+'</b></div>';
-stats+='<div class="stat">生字卡<b>'+Object.keys(st.seen||{}).length+' / '+Core.CHARS.length+'</b></div>';
-stats+='<div class="stat">寫字練習<b>'+Object.keys(st.wrote||{}).length+'</b></div>';
-stats+='<div class="stat">閱讀最佳<b>'+(st.readBest||0)+' / '+Core.READ.length+'</b></div>';
-stats+='<div class="stat">挑戰最佳<b>'+(st.chBest||0)+' / 10</b></div>';
-document.getElementById("stats").innerHTML=stats;
-var mist="";if(!st.readBest||st.readBest<Core.READ.length)mist+="<p>• 閱讀理解還有進步空間</p>";
-if(!st.seen||Object.keys(st.seen).length<Core.CHARS.length)mist+="<p>• 有些生字還沒看過</p>";
-if(!st.matchDone)mist+="<p>• 還沒完成語詞配對</p>";
-if(!st.pat||!st.pat.strong||!st.pat.folk||!st.pat.time)mist+="<p>• 句型練習還沒全部完成</p>";
-if(!st.charMatchPerfect)mist+="<p>• 角色配對還沒全對過</p>";
-if(!st.chBest||st.chBest<9)mist+="<p>• 綜合挑戰還沒拿到挑戰王</p>";
-document.getElementById("mist").innerHTML=mist||"<p>✅ 沒有常錯的地方，太棒了！</p>";
-document.getElementById("resetBtn").addEventListener("click",function(){
- if(confirm("確定要清除所有紀錄嗎？（無法復原）")){localStorage.removeItem("lesson10-mouse-wedding");location.reload();}});
-})();
-</script>
+<script src="app.js"></script>
 </body>
 </html>
