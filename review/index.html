@@ -745,8 +745,10 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
   }
   // 國語：看注音寫國字
   function renderWrite(it) {
-    var c = it.c, tx = c.tx || c.w[0], k = tx.indexOf(c.c);
-    var sent = esc(tx.slice(0, k)) + '<span class="slot" aria-label="注音 ' + esc(c.zy) + '"><span class="sq"></span>' + zyHTML(c.zy) + '</span>' + esc(tx.slice(k + 1));
+    var c = it.c, tx = c.tx || c.w[0];
+    // 同一個字在句子裡出現不只一次（例如「響聲陣陣」），每一個都挖空，答案才不會露在旁邊
+    var slot = '<span class="slot" aria-label="注音 ' + esc(c.zy) + '"><span class="sq"></span>' + zyHTML(c.zy) + '</span>';
+    var sent = tx.indexOf(c.c) < 0 ? slot + esc(tx) : tx.split(c.c).map(esc).join(slot);
     $('qCard').innerHTML = head(c, it.again) + '<p class="kicker">看注音，寫出國字</p><p class="sent">' + sent + '</p>'
       + '<div class="padrow"><div class="pad" id="pad"><div class="ghost" id="ghost" hidden>' + esc(c.c) + '</div><canvas id="cv"></canvas></div><div id="ansSide"></div></div>'
       + '<div class="btns" id="wBtns"><button class="btn white" type="button" id="clrBtn">🧽 擦掉重寫</button><button class="btn" type="button" id="seeBtn">👀 寫好了，看答案</button></div><div id="rateBox"></div>';
