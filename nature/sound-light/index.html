@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ff6b9a">
+<title>🔊 聲光世界真有趣｜翰林自然 4上 第四單元</title>
+<style>
+:root{--ink:#2b2d42;--pink:#ff6b9a;--deep:#c41e3a;--purple:#9b5de5;--sun:#ffb703;--blue:#4d96ff;--teal:#2a9d8f;--green:#52b788}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:#ffe6ef;overflow-x:hidden}
+html,body{margin:0;padding:0}
+body{font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",system-ui,sans-serif;color:var(--ink);min-height:100vh;background:linear-gradient(180deg,#ffd6e5,#ffe6ef 320px);padding-bottom:calc(92px + env(safe-area-inset-bottom))}
+header{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:8px;padding:10px 12px;padding-top:calc(10px + env(safe-area-inset-top));background:rgba(255,107,154,.97);color:#fff}
+header h1{font-size:clamp(17px,4.6vw,26px);margin:0;flex:1;letter-spacing:1px;min-width:0}
+.back{color:#fff;text-decoration:none;font-weight:800;background:rgba(255,255,255,.25);border-radius:999px;padding:10px 12px;font-size:15px;white-space:nowrap}
+.score{background:#fff;color:#c41e3a;font-weight:900;border-radius:999px;padding:6px 12px;font-size:17px;white-space:nowrap;box-shadow:0 3px 0 #e63946}
+.score.pop{animation:pop .5s}@keyframes pop{40%{transform:scale(1.3)}}
+main{max-width:860px;margin:0 auto;padding:10px}
+section.page{display:none}section.page.active{display:block;animation:fadein .3s}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.card{background:#fff;border-radius:22px;padding:14px;margin:10px 0;box-shadow:0 6px 0 rgba(0,0,0,.1)}
+.card h2{margin:0 0 6px;font-size:clamp(20px,5vw,25px)}
+.card h3{margin:4px 0 6px;font-size:19px}
+.lead{font-size:17px;line-height:1.7;margin:6px 0}
+.small{font-size:14px;color:#666;line-height:1.55;margin:4px 0}
+.pg{display:inline-block;background:#ffe6ef;color:var(--deep);border-radius:999px;padding:2px 10px;font-size:13px;font-weight:800}
+.extra{display:inline-block;background:#fff3cd;color:#8a5a00;border-radius:999px;padding:2px 10px;font-size:13px;font-weight:800}
+.btn{appearance:none;border:none;border-radius:16px;padding:10px 14px;min-height:50px;font-size:17px;font-weight:800;cursor:pointer;background:var(--pink);color:#fff;box-shadow:0 4px 0 rgba(0,0,0,.22);font-family:inherit;touch-action:manipulation}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.22)}
+.btn.sun{background:var(--sun);color:#5a3b00}.btn.pink{background:var(--pink)}.btn.teal{background:var(--teal)}.btn.blue{background:var(--blue)}.btn.purple{background:var(--purple)}
+.btn.white{background:#fff;color:var(--ink);border:3px solid #ffd6e5}.btn.small{min-height:44px;font-size:15px;padding:6px 10px}
+[hidden]{display:none!important}
+.btn:disabled{opacity:.4;cursor:default}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0;align-items:center}.cen{justify-content:center}
+.tip{background:#fff7d6;border:3px dashed var(--sun);border-radius:16px;padding:8px 12px;font-size:16px;line-height:1.6;margin:8px 0}
+.key{background:#ffe6ef;border-left:8px solid var(--pink);border-radius:14px;padding:8px 12px;font-size:17px;line-height:1.65;margin:8px 0}
+.key b,.lead b{color:var(--deep)}
+.warn{background:#ffe3e3;border-radius:14px;padding:8px 12px;font-size:16px;line-height:1.6;margin:8px 0}
+.bubble{background:#eef4ff;border-radius:18px;padding:10px 14px;font-size:18px;line-height:1.65;border:3px solid #d6e4ff;margin:8px 0}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:10px 0}
+.box{border-radius:16px;padding:10px 12px;font-size:16px;line-height:1.6}
+.box b{display:block;font-size:17px;margin-bottom:2px}
+.box ul,.list{margin:4px 0;padding-left:1.3em;font-size:16px;line-height:1.7}
+.fb{margin-top:8px;border-radius:14px;padding:8px 12px;font-size:17px;line-height:1.6;min-height:24px}
+.fb:empty{display:none}
+.fb.good{background:#d8f3dc}.fb.bad{background:#fff3cd}.fb.info{background:#eef4ff}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;justify-content:space-around;background:#fff;padding:6px 4px;padding-bottom:calc(6px + env(safe-area-inset-bottom));box-shadow:0 -4px 16px rgba(0,0,0,.15)}
+nav.tabs button{flex:1;min-width:0;border:none;background:none;font-family:inherit;font-size:13px;font-weight:800;color:#666;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 1px;border-radius:14px;cursor:pointer;min-height:60px;touch-action:manipulation;white-space:nowrap}
+nav.tabs button span{font-size:24px;line-height:1}nav.tabs button.on{background:#ffe6ef;color:#c41e3a}
+.burst{position:fixed;z-index:99;pointer-events:none;font-size:28px;animation:fly 1.1s ease-out forwards}
+@keyframes fly{to{transform:translate(var(--dx),var(--dy)) rotate(360deg);opacity:0}}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+
+/* 卡片和籃子 */
+.chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:8px 0;min-height:50px}
+.chip{appearance:none;border:3px solid #ffd6e5;background:#fff;border-radius:14px;padding:6px 12px;min-height:46px;font-size:17px;font-weight:800;font-family:inherit;color:var(--ink);cursor:pointer;touch-action:manipulation;line-height:1.3}
+.chip.on{border-color:var(--pink);background:#ffe6ef;box-shadow:0 0 0 3px #ffd6e5}
+.chip.ok{border-color:#2ec4b6;background:#d8f3dc}.chip.no{border-color:var(--pink);background:#ffd6dc;animation:shake .4s}
+.chip:disabled{cursor:default}
+.baskets{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin:8px 0}
+.basket{appearance:none;border:3px dashed var(--pink);border-radius:16px;background:#fff5f8;min-height:92px;padding:8px;cursor:pointer;font-family:inherit;color:var(--ink);display:flex;flex-direction:column;gap:6px;align-items:center;touch-action:manipulation}
+.basket b{font-size:17px}.basket.no{border-color:var(--pink);background:#ffe3e9;animation:shake .4s}
+.basket .in{display:flex;flex-wrap:wrap;gap:4px;justify-content:center}
+.got{background:#d8f3dc;border-radius:10px;padding:3px 8px;font-size:14px;font-weight:800}
+.ordline{display:flex;flex-direction:column;gap:6px;margin:6px 0}
+.ordstep{display:flex;align-items:center;gap:8px;background:#ffe6ef;border-radius:12px;padding:6px 10px;font-weight:800;font-size:16px;line-height:1.4}
+.ordstep b{display:inline-flex;flex:none;width:28px;height:28px;border-radius:50%;background:var(--pink);color:#fff;align-items:center;justify-content:center}
+.ordstep small{font-weight:400;color:#555;margin-left:auto;font-size:13px;text-align:right;flex:none;max-width:38%}
+
+/* 小測驗 */
+.qhead{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.tagc{font-size:13px;font-weight:800;background:#ffe6ef;color:var(--deep);border-radius:999px;padding:3px 10px}
+.prog{display:flex;gap:4px;justify-content:center;margin:6px 0}
+.prog i{width:20px;height:10px;border-radius:6px;background:#eee;display:block}.prog i.ok{background:#2ec4b6}.prog i.no{background:var(--pink)}.prog i.cur{background:var(--sun)}
+.q{font-size:20px;line-height:1.6;font-weight:800;text-align:center;margin:8px 0}
+.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin-top:8px}
+.choices .btn{background:#fff;color:var(--ink);border:3px solid #ffd6e5;font-size:18px;min-height:56px;line-height:1.35}
+.choices .btn.ok{background:#d8f3dc;border-color:#2ec4b6}.choices .btn.no{background:#ffd6dc;border-color:var(--pink);animation:shake .4s}
+.choices .btn:disabled{opacity:1}
+.ex{background:#ffe6ef;border-radius:14px;padding:8px 12px;font-size:16px;line-height:1.6;margin-top:8px}
+.hint{background:#fff3cd;border-radius:14px;padding:8px 12px;font-size:17px;line-height:1.6;margin-top:8px}
+.good{background:#d8f3dc;border-radius:14px;padding:8px 12px;font-size:17px;line-height:1.6;margin-top:8px}
+.title{font-size:22px;font-weight:900;text-align:center;margin:4px 0 8px}
+.spotline{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;justify-content:center}
+.part{appearance:none;border:3px solid #ffd6e5;background:#fff;border-radius:14px;padding:8px 10px;min-height:48px;font-size:18px;font-weight:800;font-family:inherit;color:var(--ink);cursor:pointer;line-height:1.4;text-align:left;touch-action:manipulation}
+.part.ok{border-color:#2ec4b6;background:#d8f3dc}.part.no{border-color:#ddd;background:#f4f4f4;color:#888}.part.hl{border-color:var(--pink);background:#ffd6dc}
+.statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px}
+.stat{background:#ffe6ef;border-radius:16px;padding:10px;text-align:center;font-size:14px}.stat b{display:block;font-size:22px;color:var(--deep)}
+
+/* 探究步驟 */
+.inq{display:grid;grid-template-columns:auto 1fr;gap:8px 10px;margin:8px 0;font-size:16px;line-height:1.65;align-items:start}
+.inq>b{background:var(--ink);color:#fff;border-radius:10px;padding:2px 8px;font-size:14px;white-space:nowrap;margin-top:2px}
+.inq>div{min-width:0}
+.inq ol{margin:0;padding-left:1.3em}
+
+/* 集章卡 */
+.stamps{display:grid;gap:8px}
+.stamp{appearance:none;text-align:left;border:3px solid #ffd6e5;background:#fff5f8;border-radius:16px;padding:10px 12px;font-family:inherit;color:var(--ink);cursor:pointer;touch-action:manipulation}
+.stamp.all{border-color:#2ec4b6;background:#f1fbf5}
+.stamp b{font-size:17px;display:flex;justify-content:space-between;gap:8px;align-items:center}
+.stamp b span{font-size:14px;background:#fff;border-radius:999px;padding:2px 10px;white-space:nowrap}
+.stamp i{display:inline-block;font-style:normal;font-size:13px;margin:4px 6px 0 0;color:#888}
+.stamp i.y{color:#1b7a6e;font-weight:800}
+details summary{cursor:pointer;font-weight:800;font-size:16px;padding:8px 0}
+
+/* 4-1 振動觀察站 */
+.insts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:8px 0}
+.inst{border:3px solid #ffd6e5;border-radius:16px;background:#fff5f8;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;min-width:0}
+.inst svg{width:64px;height:64px;display:block}
+.inst b{font-size:15px}
+.inst .st{font-size:13px;min-height:52px;line-height:1.35;color:#555}
+.inst .btn{width:100%;padding:6px 2px;font-size:14px;min-height:44px}
+.inst.vib{border-color:var(--pink);background:#ffe6ef}
+.inst.vib svg{animation:vib .09s linear infinite}
+@keyframes vib{0%{transform:translateX(-2px)}50%{transform:translateX(2px)}100%{transform:translateX(-2px)}}
+
+/* 4-1 筷子實驗 */
+.tank{position:relative;max-width:480px;height:170px;margin:8px auto;border:3px solid #9bd0ff;border-radius:16px;background:#f4fbff;overflow:hidden}
+.tank .wt{position:absolute;left:0;right:0;bottom:0;height:52%;background:linear-gradient(#aee3f9,#6cc3ea)}
+.tank .lbl{position:absolute;right:8px;font-size:13px;font-weight:800;color:#345}
+.tank .stk{position:absolute;left:50%;margin-left:-22px;font-size:40px;line-height:1;top:14px;transition:top .8s}
+.tank[data-st="2"] .stk{top:104px}
+.tank .ring{position:absolute;left:50%;top:36px;width:30px;height:30px;margin:-15px 0 0 -15px;border:4px solid var(--pink);border-radius:50%;opacity:0}
+.tank[data-st="2"] .ring{top:126px}
+.tank.go .ring{animation:ripple 1.1s ease-out 2}
+.tank.go .ring.r2{animation-delay:.3s}
+@keyframes ripple{from{opacity:.9}to{width:190px;height:190px;margin:-95px 0 0 -95px;opacity:0}}
+.tank .ear{position:absolute;left:10px;top:8px;font-size:30px}
+
+/* 4-2 光的圖 */
+.scn{display:block;width:100%;max-width:480px;height:auto;margin:6px auto;border-radius:16px;border:3px solid #c9cfe6;background:#1d2340}
+.ray{stroke-dasharray:320;stroke-dashoffset:320;animation:draw .7s linear forwards}
+.ray.out{animation-delay:.7s}
+.fade{opacity:0;animation:show .3s linear 1.4s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes show{to{opacity:1}}
+
+/* 萬花筒 */
+.kal{display:block;width:230px;max-width:78%;height:auto;margin:8px auto;border-radius:50%;border:6px solid var(--purple);background:#161a33}
+.kal.turn{animation:kturn .5s ease-out}
+@keyframes kturn{from{transform:rotate(-60deg)}to{transform:rotate(0)}}
+.lamp{display:flex;align-items:center;gap:10px;justify-content:center;font-size:17px;font-weight:800;margin:8px 0;flex-wrap:wrap}
+.lamp span{font-size:44px;line-height:1}
+
+/* 圖解筆記 */
+.cloze{font-size:17px;line-height:2.2;margin:6px 0}
+.cloze h4{margin:10px 0 0;font-size:17px;color:var(--deep);line-height:1.5}
+.blank{appearance:none;border:none;border-bottom:3px solid var(--pink);background:#ffe6ef;border-radius:8px 8px 0 0;min-width:3em;min-height:36px;padding:0 8px;font-family:inherit;font-size:17px;font-weight:900;color:#aaa;cursor:pointer;touch-action:manipulation;vertical-align:baseline}
+.blank.open{background:#d8f3dc;border-color:#2ec4b6;color:var(--ink);cursor:default}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}.ray{stroke-dashoffset:0!important}.fade{opacity:1!important}}
+</style>
+</head>
+<body>
+<header>
+  <a class="back" href="../">← 自然</a>
+  <h1>🔊 聲光世界真有趣</h1>
+  <div class="score" id="score">⭐ 0</div>
+</header>
+<main>
+
+<!-- ============ 開始 ============ -->
+<section class="page active" id="p-intro">
+  <div class="card">
+    <h2>🔊 第四單元 聲光世界真有趣</h2>
+    <p class="small"><span class="pg">📖 翰林版自然 4上・課本 p.98～125</span></p>
+    <div class="bubble">🐦 美妙的音樂是怎麼傳到我們耳朵裡的呢？光又是如何前進的呢？</div>
+    <div class="grid2">
+      <div class="box" style="background:#e3f8ff"><b>✅ 我學過了</b><ul><li>陽光下玩踩影子遊戲：有光才有影子，影子都朝同一個方向。</li><li>太陽和影子的方位相反。</li></ul></div>
+      <div class="box" style="background:#fff7d6"><b>🎯 現在要學</b><ul><li>物體振動會產生聲音。</li><li>聲音怎麼傳播。</li><li>光是直線行進，還有光的反射現象。</li></ul></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🤔 先猜再學</h3>
+    <p class="lead">在游泳池的水裡游泳時，聽得到岸上的哨音嗎？</p>
+    <div class="chips" id="guess"></div>
+    <div class="fb" id="guessFb"></div>
+  </div>
+
+  <div class="card">
+    <h3>🗺️ 聲光實驗室集章卡</h3>
+    <p class="small">每完成一個活動，就蓋一個章。點一下就能到那一節。</p>
+    <div class="stamps" id="stamps"></div>
+  </div>
+
+  <div class="card">
+    <details>
+      <summary>👪 給爸媽</summary>
+      <p class="small">內容已對照孩子的翰林版國小自然 4 上課本第四單元「聲光世界真有趣」（p.98～125）：4-1 聲音的產生與傳播、4-2 光的直進與反射、4-3 聲音和光的應用，加上充電站「皎潔月光的祕密」、科學閱讀「萬花筒」、圖解筆記和科學大挑戰。說明是用自己的話改寫的，題目是自編的練習。</p>
+      <p class="small">課本的實驗要孩子把結論記在習作。這一頁的實驗結果，照課本後面的課文和 p.122～123 圖解筆記的說法：聲音可以透過空氣、水和固體傳播；軟管是直的，光可以通過，軟管彎曲，光無法通過。</p>
+      <p class="small">課本 p.118～119 這兩頁還沒有對照到。「聲音和光一起用」只放 p.123 圖解筆記有寫的例子：警車（警示燈＋鳴笛提示）和煙火（爆炸聲＋火光）。</p>
+      <p class="small">課本這個單元沒有聲音或光跑多快、回聲、折射、彩虹，也沒有「入射角、反射角」這些名詞，所以這一頁不出這些題目。小測驗的題目和「今天的複習」用同一套（review/bank.js）；這個單元在複習設定裡標「還沒教」，學校教到時再打勾。</p>
+      <p class="small">紀錄只存在這台平板的瀏覽器裡。</p>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 4-1 聲音的產生與傳播 ============ -->
+<section class="page" id="p-41">
+  <div class="card">
+    <h2>4-1 聲音的產生與傳播</h2>
+    <p class="small"><span class="pg">📖 課本 p.100～105</span>　活動 1 生活中的聲音・活動 2 聲音的傳播・活動 3 動物的聲音</p>
+    <p class="lead">生活中會聽到好多聲音：<b>鬧鐘的鈴響聲</b>、<b>風鈴</b>隨風擺動的聲音、<b>瀑布</b>的流水聲。聲音產生的時候，可以看到物體擺動、水流動。它們有什麼一樣的地方？</p>
+  </div>
+
+  <div class="card">
+    <h3>🔔 活動 1：振動觀察站</h3>
+    <p class="small"><span class="pg">📖 課本 p.101</span>　三樣都試試看。三角鐵要敲一下，再用手握住。</p>
+    <div class="insts">
+      <div class="inst" id="vTamb">
+        <svg viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="25" fill="#fff3d6" stroke="#c98a3c" stroke-width="7"/><ellipse cx="40" cy="12" rx="7" ry="4" fill="#b8bcc8"/><ellipse cx="40" cy="68" rx="7" ry="4" fill="#b8bcc8"/><ellipse cx="12" cy="40" rx="4" ry="7" fill="#b8bcc8"/><ellipse cx="68" cy="40" rx="4" ry="7" fill="#b8bcc8"/></svg>
+        <b>鈴鼓</b><div class="st">還沒有聲音。</div>
+        <button type="button" class="btn sun" id="vTambBtn">👋 拍一下</button>
+      </div>
+      <div class="inst" id="vThroat">
+        <svg viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="26" r="20" fill="#ffe0bd" stroke="#d9a066" stroke-width="3"/><circle cx="33" cy="22" r="2.5" fill="#333"/><circle cx="47" cy="22" r="2.5" fill="#333"/><ellipse cx="40" cy="33" rx="6" ry="5" fill="#c1121f"/><rect x="33" y="44" width="14" height="14" fill="#ffe0bd" stroke="#d9a066" stroke-width="3"/><path d="M14 80q0 -22 26 -22t26 22z" fill="#ff6b9a"/><path d="M22 60q10 -14 20 -8" fill="none" stroke="#d9a066" stroke-width="6" stroke-linecap="round"/></svg>
+        <b>喉嚨</b><div class="st">把手輕輕放在喉嚨上。</div>
+        <button type="button" class="btn sun" id="vThroatBtn">🗣️ 說話</button>
+      </div>
+      <div class="inst" id="vTri">
+        <svg viewBox="0 0 80 80" aria-hidden="true"><path d="M40 4v8" stroke="#c1121f" stroke-width="4" stroke-linecap="round"/><path d="M33 26L40 12L68 66H12L27 38" fill="none" stroke="#8a93a6" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <b>三角鐵</b><div class="st">還沒有聲音。</div>
+        <button type="button" class="btn sun" id="vTriBtn">🥢 敲一下</button>
+        <button type="button" class="btn blue" id="vTriHold" disabled>✋ 握住</button>
+      </div>
+    </div>
+    <div class="btns cen"><button type="button" class="btn white small" id="muteBtn">🔈 聲音：開</button></div>
+    <div class="fb info" id="vibFb">選一樣試試看。</div>
+    <div class="tip">🔍 <b>自己試試看：</b>選生活中常見的物品，例如<b>墊板</b>、<b>木魚</b>。看看它們發出聲音的時候，是不是也有振動的現象。</div>
+    <div class="key">當物體發出聲音時，發出聲音的部位會有<b>振動</b>的現象。<br>當<b>振動停止</b>，聲音也就<b>消失</b>了。</div>
+  </div>
+
+  <div class="card">
+    <h3>🏊 活動 2：聲音的傳播</h3>
+    <p class="small"><span class="pg">📖 課本 p.102～103</span>　跟著探究的步驟做一次。</p>
+    <div class="inq">
+      <b>👀 觀察現象</b><div>平時說話，聲音透過<b>空氣</b>傳播，我們才聽得見。在岸上聽得到哨音。在<b>水中</b>，也聽得到岸上的哨音。</div>
+      <b>❓ 提出問題</b><div>為什麼在水中仍然能聽到岸上的哨音？</div>
+      <b>🔍 蒐集資料</b><div>查科學書籍知道：聲音必須透過<b>物質</b>才能傳播。空氣是一種物質，水也是一種物質。</div>
+      <b>✏️ 提出假設</b><div>聲音可以透過<b>水</b>傳播。</div>
+      <b>🧪 設計實作</b><div><ol><li>分組討論在水中製造聲音的方法，準備材料。例如：把<b>不鏽鋼筷</b>完全伸入水中互相敲擊，或是用兩個<b>硬幣</b>在水裡互相敲擊。</li><li>先用準備的材料測試：發出的聲音，能不能在<b>空氣</b>中傳播。</li><li>再用相同的材料和方法，在<b>水中</b>操作，觀察聲音的傳播情形。</li></ol></div>
+    </div>
+    <div class="tank" id="tank" data-st="0" role="img" aria-label="筷子實驗：上面是空氣，下面是水">
+      <div class="wt"></div><div class="lbl" style="top:8px">空氣</div><div class="lbl" style="bottom:8px">水</div>
+      <div class="ear">👂</div><div class="stk">🥢</div><div class="ring"></div><div class="ring r2"></div>
+    </div>
+    <div class="btns cen">
+      <button type="button" class="btn sun" id="cp1">② 在空氣中敲筷子</button>
+      <button type="button" class="btn blue" id="cp2" disabled>③ 在水中敲筷子</button>
+    </div>
+    <div class="fb info" id="cpFb">先按 ②。</div>
+    <div id="cpAsk"></div>
+    <div class="inq" id="cpEnd" hidden>
+      <b>💡 分析驗證</b><div>聲音可以透過<b>空氣</b>傳播，也可以透過<b>水</b>傳播。結果和假設一樣。<br><span class="small">課本提醒：如果結果和假設不一樣，要重新提出假設。</span></div>
+      <b>✅ 結論</b><div>照你做的假設和實作結果，把結論寫在習作。</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🧺 聲音透過什麼傳播？</h3>
+    <p class="small"><span class="pg">📖 課本 p.104</span>　聲音除了可以在空氣和水中傳播，還能透過什麼傳播呢？把例子放到對的籃子。</p>
+    <div id="sMedium"></div>
+    <div class="key">聲音可以透過<b>物質</b>傳播。這些物質可以是<b>氣體</b>、<b>液體</b>或<b>固體</b>。</div>
+  </div>
+
+  <div class="card">
+    <h3>🐺 活動 3：動物的聲音</h3>
+    <p class="small"><span class="pg">📖 課本 p.105</span>　許多動物都會發出聲音。這些聲音代表什麼意思？</p>
+    <div id="sAnimal"></div>
+    <div class="key">不同動物會發出不同聲音，牠們有不同的<b>目的</b>。例如：<b>求偶</b>、<b>警告</b>，或是<b>同類間的溝通</b>。</div>
+  </div>
+
+  <div class="card">
+    <h3>✏️ 4-1 小測驗（5 題）</h3>
+    <p class="small">先在心裡想好答案，再看選項。</p>
+    <div id="q41"></div>
+  </div>
+</section>
+
+<!-- ============ 4-2 光的直進與反射 ============ -->
+<section class="page" id="p-42">
+  <div class="card">
+    <h2>4-2 光的直進與反射</h2>
+    <p class="small"><span class="pg">📖 課本 p.106～115</span>　活動 1 黑暗中的光源・活動 2 光怎麼行進・活動 3 光的反射</p>
+  </div>
+
+  <div class="card">
+    <h3>💡 活動 1：黑暗中的光源</h3>
+    <p class="small"><span class="pg">📖 課本 p.106</span></p>
+    <p class="lead">白天的陽光讓我們看清楚四周。太陽下山的夜晚，就要借助其他<b>照明</b>。用手電筒照明，就可以在黑暗中看見物體。</p>
+    <div class="key">太陽、明亮的電燈、燭火等，都是能<b>發出光</b>的<b>光源</b>。</div>
+    <p class="lead">下面有三個是光源。把它們找出來。</p>
+    <div class="chips" id="src"></div>
+    <div class="fb" id="srcFb"></div>
+  </div>
+
+  <div class="card">
+    <h3>🔦 活動 2：影子觀察站</h3>
+    <p class="small"><span class="pg">📖 課本 p.107</span>　光照到物體時，會產生影子。光和影子有什麼關係？</p>
+    <svg id="shSvg" class="scn" viewBox="0 0 320 150" role="img" aria-label="燈、瓶子和影子"></svg>
+    <div class="btns cen">
+      <button type="button" class="btn sun" id="shL">💡 燈在左邊</button>
+      <button type="button" class="btn sun" id="shR">💡 燈在右邊</button>
+      <button type="button" class="btn white small" id="shObj">把瓶子拿走</button>
+    </div>
+    <div class="fb info" id="shFb">瓶子是不透明的物體。把燈放到左邊和右邊，看影子在哪一邊。</div>
+    <div class="key">光被<b>不透明的物體</b>阻擋時，會形成<b>影子</b>。<br>影子和光源的方向<b>相反</b>。影子的形狀和物體的形狀<b>相似</b>。</div>
+  </div>
+
+  <div class="card">
+    <h3>🎤 光怎麼行進？</h3>
+    <p class="small"><span class="pg">📖 課本 p.108～109</span>　跟著探究的步驟做一次。</p>
+    <div class="inq">
+      <b>👀 觀察現象</b><div>舞臺上的燈照出來的光，看起來都是<b>一直線</b>的。</div>
+      <b>❓ 提出問題</b><div>舞臺上為什麼沒有彎彎曲曲的光？</div>
+      <b>🔍 蒐集資料</b><div>上網看「光的行進」科學實驗影片：<b>雷射筆</b>發出的光線通過<b>煙箱</b>時，行進路線是直的。</div>
+      <b>✏️ 提出假設</b><div>燈所照射出來的光，都是<b>直線前進</b>。</div>
+      <b>🧪 設計實作</b><div><ol><li>準備長度大約 <b>30 公分</b>的<b>排水軟管</b>，在軟管的一端連接<b>手電筒</b>。</li><li>軟管是<b>直線</b>的時候，觀察光能不能通過軟管。</li><li>軟管<b>彎曲</b>的時候，觀察光能不能通過軟管。</li></ol></div>
+    </div>
+    <svg id="hsSvg" class="scn" viewBox="0 0 320 130" role="img" aria-label="手電筒接著排水軟管，右邊是一面牆"></svg>
+    <div class="btns cen">
+      <button type="button" class="btn sun" id="hs1">② 軟管拉直</button>
+      <button type="button" class="btn blue" id="hs2">③ 軟管彎曲</button>
+    </div>
+    <div class="fb info" id="hsFb">按按鈕，看光能不能通過軟管，照到右邊的牆。</div>
+    <div id="hsAsk"></div>
+    <div class="inq" id="hsEnd" hidden>
+      <b>💡 分析驗證</b><div>軟管是直線的時候，光<b>可以通過</b>。軟管彎曲的時候，光<b>無法通過</b>。所以光是<b>直線前進</b>的，結果和假設一樣。</div>
+      <b>✅ 結論</b><div>舞臺上的燈、手電筒和雷射筆等，它們所發出的光都是<b>直線前進</b>的。</div>
+    </div>
+    <p class="lead">生活中也看得到光是直線前進（課本 p.110）：<b>汽車的燈光</b>、<b>門縫中透出的燈光</b>、<b>樹林間透出的光線</b>。</p>
+  </div>
+
+  <div class="card">
+    <h3>✨ 活動 3：光的反射</h3>
+    <p class="small"><span class="pg">📖 課本 p.111～112</span></p>
+    <p class="lead">水面或玻璃本身<b>不是光源</b>，可是有時候會在它們的表面看到光。例如：汽車車身反光、玻璃帷幕上看見陽光、波光粼粼的水面上看見閃閃發光的陽光。</p>
+    <p class="lead">哪些物品容易看到<b>反光</b>？分分看。</p>
+    <div id="sShiny"></div>
+    <div class="key">表面<b>光滑</b>的物品容易<b>反光</b>。</div>
+  </div>
+
+  <div class="card">
+    <h3>🪞 光的反射實驗</h3>
+    <p class="small"><span class="pg">📖 課本 p.113～114</span>　光遇到表面光滑的物品，很容易反光。這和光的行進有關嗎？</p>
+    <ol class="list">
+      <li>分組討論製造<b>縫隙</b>的方法。例如：在紙板上剪出一道縫隙，或是用兩片紙板製造縫隙。（模擬門縫透出的光，比較容易觀察。）</li>
+      <li>把<b>鏡子</b>和<b>手電筒</b>分別放在紙板的兩側。打開手電筒，觀察光的行進路線。</li>
+      <li>改變手電筒照射的方向，再觀察光的行進路線。</li>
+    </ol>
+    <svg id="mrSvg" class="scn" viewBox="0 0 320 200" role="img" aria-label="手電筒的光照到左邊的鏡子"></svg>
+    <div class="btns cen">
+      <button type="button" class="btn sun" id="mr1">↙️ 從上面照</button>
+      <button type="button" class="btn sun" id="mr2">↖️ 從下面照</button>
+      <button type="button" class="btn white small" id="mr3">換個角度</button>
+    </div>
+    <div class="fb info" id="mrFb">按按鈕，讓手電筒從不同方向照鏡子。箭號是光的行進方向。</div>
+    <div class="key">光照射在表面比較<b>光滑</b>的鏡子上時，會<b>改變行進的方向</b>而產生反射，稱為<b>光的反射現象</b>。<br>反射的光也是<b>直線前進</b>。從不同方向照到鏡子，反射的方向也會不同。</div>
+    <p class="small">可以把實驗結果畫下來，用箭號表示光的行進方向。你會發現光的反射有一定的方向。</p>
+  </div>
+
+  <div class="card">
+    <h3>🌕 充電站：皎潔月光的祕密</h3>
+    <p class="small"><span class="pg">📖 課本 p.114</span></p>
+    <p class="lead">月球本身<b>不會發光</b>。我們看到的月光，其實是月球表面<b>反射太陽光</b>而來。</p>
+    <div class="tip">和強烈的陽光不同，反射而來的月光比較<b>柔和</b>，可以直接用眼睛觀察。</div>
+  </div>
+
+  <div class="card">
+    <h3>🚗 利用光的反射設計的物品</h3>
+    <p class="small"><span class="pg">📖 課本 p.115</span>　生活中有哪些物品，是利用光的反射現象設計的？把用處放到對的物品。</p>
+    <div id="sUse"></div>
+  </div>
+
+  <div class="card">
+    <h3>✏️ 4-2 小測驗（5 題）</h3>
+    <p class="small">先在心裡想好答案，再看選項。</p>
+    <div id="q42"></div>
+  </div>
+</section>
+
+<!-- ============ 4-3 聲音和光的應用 ============ -->
+<section class="page" id="p-43">
+  <div class="card">
+    <h2>4-3 聲音和光的應用</h2>
+    <p class="small"><span class="pg">📖 課本 p.116～119</span>　活動 1 聲音和光的功能與應用</p>
+    <p class="lead">生活中各式各樣的聲音和光，會帶給我們不同的感受，有時候也有不同的<b>功能</b>。</p>
+  </div>
+
+  <div class="card">
+    <h3>🎤 聲音和光的功能</h3>
+    <p class="small"><span class="pg">📖 課本 p.116～117</span></p>
+    <div class="grid2">
+      <div class="box" style="background:#ffe6ef"><b>🔊 聲音</b><ul><li><b>歌聲</b>可以傳遞情感。</li><li><b>語音輸入</b>可以搜尋資料或編輯文件。</li><li><b>火災警報器</b>會發出警鈴，提醒住戶注意消防安全。</li></ul></div>
+      <div class="box" style="background:#fff7d6"><b>💡 光</b><ul><li><b>燈塔的燈光</b>可以指引船隻航行。</li><li><b>交通號誌燈</b>可以管制交通。</li><li><b>植物</b>被陽光照射，可以製造生長所需的養分。</li></ul></div>
+    </div>
+    <p class="lead"><b>太陽能路燈</b>有太陽能光電板。按按鈕，看白天和夜間有什麼不同。</p>
+    <div class="lamp"><span id="solIcon">☀️</span><b id="solTxt">白天：太陽能光電板把陽光轉換成電，儲存下來。</b><button type="button" class="btn blue small" id="solBtn">🌙 換成夜間</button></div>
+    <h3 style="margin-top:12px">🧩 它有什麼功能？</h3>
+    <div id="sFunc"></div>
+  </div>
+
+  <div class="card">
+    <h3>🧺 用的是聲音，還是光？</h3>
+    <p class="small"><span class="pg">📖 課本 p.123 圖解筆記</span>　有些東西只用聲音，有些只用光，有些兩種一起用。</p>
+    <div id="sKind"></div>
+  </div>
+
+  <div class="card">
+    <h3>📚 科學閱讀：萬花筒</h3>
+    <p class="small"><span class="pg">📖 課本 p.120～121</span>　這一篇由老師彈性教學。</p>
+    <p class="lead">萬花筒是一種有趣的光學玩具。它利用光的<b>反射</b>來形成影像。稍微轉一下，就出現另一種圖案，所以叫「萬花筒」。</p>
+    <p class="lead">蘇格蘭物理學家<b>布魯斯特</b>用好幾面鏡子研究光。他發現經過<b>多次反射</b>的影像很有趣，就在鏡子之間放了一些紙花，看到<b>對稱</b>的圖案。後來他把<b>三面鏡子</b>圍成三角形，放進圓筒，再放進紙花。圓筒轉動、紙花移動，影像就不斷變化。</p>
+    <svg id="kal" class="kal" viewBox="-120 -120 240 240" role="img" aria-label="萬花筒裡的對稱圖案"></svg>
+    <div class="btns cen"><button type="button" class="btn purple" id="kalBtn">🔄 轉一下圓筒</button></div>
+    <div class="fb info" id="kalFb">轉三次，看圖案怎麼變。（這是示意圖。）</div>
+    <div class="key">我們可以看見自己不發光的物體，是因為這些物體被光照射後，一部分的光<b>反射到眼睛</b>，形成影像。</div>
+  </div>
+
+  <div class="card">
+    <h3>🔬 科學大挑戰：自製簡易萬花筒</h3>
+    <p class="small"><span class="pg">📖 課本 p.124～125</span>　利用課餘時間做做看。材料：鏡面紙、透明夾鏈袋、碎紙花。</p>
+    <p class="lead">鏡子能夠反射光線。萬花筒透過多面鏡子，讓影像重複出現。照順序點出四個步驟。</p>
+    <div id="oKal"></div>
+    <div class="warn">⚠️ 三角柱的底部要有光線可以透入，不能放在桌子上觀察。</div>
+    <p class="small">💭 想一想：鏡子是利用光的哪種現象來產生影像？哪些方法可以讓萬花筒裡的花樣產生變化？</p>
+  </div>
+
+  <div class="card">
+    <h3>✏️ 4-3 小測驗（5 題）</h3>
+    <p class="small">先在心裡想好答案，再看選項。</p>
+    <div id="q43"></div>
+  </div>
+</section>
+
+<!-- ============ 挑戰 ============ -->
+<section class="page" id="p-game">
+  <div class="card">
+    <h2>🏆 挑戰</h2>
+    <p class="small">三節都看過了嗎？來這裡把整個單元再想一次。</p>
+  </div>
+
+  <div class="card">
+    <h3>📝 圖解筆記：先想，再點開</h3>
+    <p class="small"><span class="pg">📖 課本 p.122～123</span>　先在心裡說出答案，再點格子對答案。</p>
+    <div class="cloze" id="cz">
+      <h4>聲音的產生與傳播</h4>
+      物體發出聲音時，發聲部位會<button type="button" class="blank" data-a="振動">？</button>。
+      聲音可以透過<button type="button" class="blank" data-a="氣體">？</button>、<button type="button" class="blank" data-a="液體">？</button>或<button type="button" class="blank" data-a="固體">？</button>來傳播。<br>
+      看電視：聲音透過<button type="button" class="blank" data-a="空氣">？</button>傳播。
+      游泳：聲音透過<button type="button" class="blank" data-a="水">？</button>傳播。
+      趴在桌上：聲音透過<button type="button" class="blank" data-a="桌面">？</button>傳播。
+      <h4>動物的聲音</h4>
+      不同動物發出不同的聲音，各有不同的目的，例如：<button type="button" class="blank" data-a="求偶">？</button>、<button type="button" class="blank" data-a="警告">？</button>或集結同伴。
+      <h4>光是直線前進</h4>
+      軟管是直的，光<button type="button" class="blank" data-a="可以">？</button>通過。
+      軟管彎曲，光<button type="button" class="blank" data-a="無法">？</button>通過。<br>
+      光照射在光滑的物體上，會形成「光的<button type="button" class="blank" data-a="反射">？</button>現象」。
+      <h4>聲音和光的應用</h4>
+      語音輸入、警鈴用的是<button type="button" class="blank" data-a="聲音">？</button>。
+      燈塔的燈光、交通號誌用的是<button type="button" class="blank" data-a="光">？</button>。<br>
+      警車有警示燈和<button type="button" class="blank" data-a="鳴笛">？</button>。
+      煙火有爆炸聲和<button type="button" class="blank" data-a="火光">？</button>。
+    </div>
+    <div class="fb" id="czFb"></div>
+  </div>
+
+  <div class="card">
+    <h3>🕵️ 找錯小偵探（5 句）</h3>
+    <p class="small">每句話有一個地方跟課本不一樣。把它點出來。</p>
+    <div id="spot"></div>
+  </div>
+
+  <div class="card">
+    <h3>🎮 大考驗：三節混合（10 題）</h3>
+    <p class="small">全部第一次就答對，多送 3 顆星！</p>
+    <div id="qmix"></div>
+  </div>
+
+  <div class="card">
+    <h3>🏅 我的紀錄</h3>
+    <div class="statgrid" id="stats"></div>
+    <h3 style="margin-top:12px">🔎 常錯的地方</h3>
+    <div id="mist"></div>
+    <h3 style="margin-top:12px">🕘 最近錯的題目</h3>
+    <div id="recent"></div>
+    <div class="btns"><button type="button" class="btn white small" id="resetBtn">清除紀錄</button></div>
+    <p class="small">紀錄只存在這台平板的瀏覽器裡。</p>
+  </div>
+</section>
+</main>
+
+<nav class="tabs" id="tabs">
+  <button type="button" class="on" data-p="p-intro"><span>🏠</span>開始</button>
+  <button type="button" data-p="p-41"><span>🔊</span>4-1 聲音</button>
+  <button type="button" data-p="p-42"><span>💡</span>4-2 光</button>
+  <button type="button" data-p="p-43"><span>🚦</span>4-3 應用</button>
+  <button type="button" data-p="p-game"><span>🏆</span>挑戰</button>
+</nav>
+
+<script src="../../review/bank.js"></script>
+<script>
+/* 自然 4上 第四單元 聲光世界真有趣（翰林，課本 p.98～125）
+   - 小測驗和找錯的題目來自 review/bank.js 的 na4 卡片（id 開頭 s1＝4-1、s2＝4-2、s3＝4-3）
+   - 紀錄存在這台裝置：localStorage「natureSoundLightV1」 */
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function ri(a, b) { return a + Math.floor(Math.random() * (b - a + 1)); }
+  function each(sel, fn, root) { Array.prototype.forEach.call((root || document).querySelectorAll(sel), fn); }
+
+  /* ---------- 紀錄 ---------- */
+  var KEY = 'natureSoundLightV1';
+  function fresh() { return { stars: 0, n: 0, ok: 0, best: {}, bad: {}, recent: [], done: {}, guess: -1, mute: false }; }
+  function load() {
+    try {
+      var s = JSON.parse(localStorage.getItem(KEY) || 'null');
+      if (s && typeof s === 'object') { var f = fresh(); for (var k in f) if (!(k in s) || typeof s[k] !== typeof f[k]) s[k] = f[k]; return s; }
+    } catch (e) {}
+    return fresh();
+  }
+  var store = load();
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(store)); } catch (e) {} if ($('p-game').classList.contains('active')) renderRec(); }
+  function renderScore(pop) { var s = $('score'); s.textContent = '⭐ ' + store.stars; if (pop) { s.classList.remove('pop'); void s.offsetWidth; s.classList.add('pop'); } }
+  function burst(el) {
+    if (!el || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+    var r = el.getBoundingClientRect();
+    for (var i = 0; i < 6; i++) {
+      var b = document.createElement('div'); b.className = 'burst'; b.textContent = ['⭐', '✨', '🌟'][i % 3];
+      b.style.left = Math.min(window.innerWidth - 40, Math.max(4, r.left + r.width / 2)) + 'px'; b.style.top = (r.top + r.height / 2) + 'px';
+      b.style.setProperty('--dx', ri(-90, 90) + 'px'); b.style.setProperty('--dy', ri(-140, -30) + 'px');
+      document.body.appendChild(b); setTimeout(function (x) { x.remove(); }.bind(null, b), 1200);
+    }
+  }
+  function star(n, el) { store.stars += n; save(); renderScore(true); burst(el); }
+  /* 完成一個活動：蓋章，加 2 顆星 */
+  function finish(k, el) { store.done[k] = (store.done[k] || 0) + 1; star(2, el); renderStamps(); }
+
+  /* ---------- 聲音（平板靜音或不支援時就不出聲） ---------- */
+  var actx = null;
+  function tone(f, dur, type) {
+    if (store.mute) return null;
+    try {
+      var AC = window.AudioContext || window.webkitAudioContext; if (!AC) return null;
+      actx = actx || new AC();
+      if (actx.state === 'suspended') { var pr = actx.resume(); if (pr && pr.catch) pr.catch(function () {}); }
+      var o = actx.createOscillator(), g = actx.createGain(), t = actx.currentTime;
+      o.type = type || 'sine'; o.frequency.value = f;
+      g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.14, t + 0.01); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+      o.connect(g); g.connect(actx.destination); o.start(t); o.stop(t + dur + 0.05);
+      return { stop: function () { try { g.gain.cancelScheduledValues(actx.currentTime); g.gain.setValueAtTime(0.0001, actx.currentTime); o.stop(actx.currentTime + 0.03); } catch (e) {} } };
+    } catch (e) { return null; }
+  }
+
+  /* ---------- 分頁 ---------- */
+  function goTab(p) {
+    each('#tabs button', function (x) { x.classList.toggle('on', x.getAttribute('data-p') === p); });
+    each('section.page', function (s) { s.classList.toggle('active', s.id === p); });
+    if (p === 'p-game') renderRec();
+    if (p === 'p-intro') renderStamps();
+    window.scrollTo(0, 0);
+  }
+  each('#tabs button', function (b) { b.addEventListener('click', function () { goTab(b.getAttribute('data-p')); }); });
+
+  /* ---------- 集章卡 ---------- */
+  var ACTS = [
+    ['p-41', '🔊 4-1 聲音的產生與傳播', [['vib', '振動觀察站'], ['chop', '筷子實驗'], ['medium', '透過什麼傳播'], ['animal', '動物的聲音'], ['q41', '小測驗']]],
+    ['p-42', '💡 4-2 光的直進與反射', [['src', '光源找找看'], ['shadow', '影子觀察站'], ['hose', '軟管實驗'], ['shiny', '容易反光嗎'], ['mirror', '鏡子反射實驗'], ['use', '反射的用處'], ['q42', '小測驗']]],
+    ['p-43', '🚦 4-3 聲音和光的應用', [['func', '它有什麼功能'], ['kind', '聲音還是光'], ['kal', '萬花筒'], ['diy', '做萬花筒'], ['q43', '小測驗']]],
+    ['p-game', '🏆 挑戰', [['cloze', '圖解筆記'], ['spot', '找錯小偵探'], ['mix', '大考驗']]]
+  ];
+  function renderStamps() {
+    $('stamps').innerHTML = ACTS.map(function (a) {
+      var got = a[2].filter(function (x) { return store.done[x[0]]; }).length;
+      return '<button type="button" class="stamp' + (got === a[2].length ? ' all' : '') + '" data-p="' + a[0] + '"><b>' + a[1] + '<span>' + (got === a[2].length ? '🎉 ' : '') + got + ' / ' + a[2].length + '</span></b>'
+        + a[2].map(function (x) { return '<i class="' + (store.done[x[0]] ? 'y' : '') + '">' + (store.done[x[0]] ? '✅' : '⬜') + ' ' + x[1] + '</i>'; }).join('') + '</button>';
+    }).join('');
+    each('#stamps .stamp', function (b) { b.addEventListener('click', function () { goTab(b.getAttribute('data-p')); }); });
+  }
+
+  /* ---------- 先猜再學 ---------- */
+  var GUESS = ['聽得到', '聽不到', '浮出水面才聽得到'];
+  function renderGuess() {
+    $('guess').innerHTML = GUESS.map(function (g, i) { return '<button type="button" class="chip' + (store.guess === i ? ' on' : '') + '" data-i="' + i + '">' + g + '</button>'; }).join('');
+    each('#guess .chip', function (b) {
+      b.addEventListener('click', function () { store.guess = +b.getAttribute('data-i'); save(); renderGuess(); });
+    });
+    var f = $('guessFb');
+    if (store.guess < 0) { f.className = 'fb'; f.innerHTML = ''; return; }
+    f.className = 'fb info';
+    f.innerHTML = '你猜：「' + GUESS[store.guess] + '」。猜錯也沒關係！到「4-1 聲音」做筷子實驗，就知道答案。 <button type="button" class="btn sun small" id="goSound">去做實驗 ➜</button>';
+    $('goSound').addEventListener('click', function () { goTab('p-41'); });
+  }
+
+  /* ---------- 分類籃子：先點卡片，再點籃子 ----------
+     sorter(id, key, { baskets: [...], items: [[文字, 第幾個籃子, 放對後的說明]], done }) */
+  function sorter(id, key, o) {
+    var root = $(id), sel = null, left;
+    function start() {
+      left = o.items.length; sel = null;
+      var items = shuffle(o.items.map(function (x, i) { return [x, i]; }));
+      root.innerHTML = '<div class="chips">' + items.map(function (p) { return '<button type="button" class="chip" data-i="' + p[1] + '">' + esc(p[0][0]) + '</button>'; }).join('') + '</div>'
+        + '<div class="baskets">' + o.baskets.map(function (b, k) { return '<button type="button" class="basket" data-k="' + k + '"><b>' + esc(b) + '</b><span class="in"></span></button>'; }).join('') + '</div>'
+        + '<div class="fb info">先點一張卡片，再點它要放的籃子。</div>';
+      var fb = root.querySelector('.fb');
+      each('.chip', function (c) { c.addEventListener('click', function () { each('.chip', function (x) { x.classList.toggle('on', x === c); }, root); sel = +c.getAttribute('data-i'); }); }, root);
+      each('.basket', function (b) {
+        b.addEventListener('click', function () {
+          if (sel === null) { fb.className = 'fb info'; fb.textContent = '先點一張卡片喔。'; return; }
+          var it = o.items[sel], k = +b.getAttribute('data-k'), chip = root.querySelector('.chip[data-i="' + sel + '"]');
+          if (it[1] === k) {
+            chip.remove(); var t = document.createElement('span'); t.className = 'got'; t.textContent = it[0]; b.querySelector('.in').appendChild(t);
+            sel = null; left--;
+            fb.className = 'fb good'; fb.innerHTML = '✅ ' + esc(it[0]) + (it[2] ? '：' + esc(it[2]) : '，放對了！');
+            if (!left) {
+              fb.innerHTML = '🎉 全部放對了！' + esc(o.done || '') + ' <button type="button" class="btn white small again">再玩一次</button>';
+              fb.querySelector('.again').addEventListener('click', start); finish(key, b);
+            }
+          } else {
+            chip.classList.add('no'); b.classList.add('no'); setTimeout(function () { chip.classList.remove('no'); b.classList.remove('no'); }, 500);
+            fb.className = 'fb bad'; fb.innerHTML = '🤔 「' + esc(it[0]) + '」不是放在「' + esc(o.baskets[k]) + '」。再想想。';
+          }
+        });
+      }, root);
+    }
+    start();
+  }
+  /* 排順序：照順序一個一個點 */
+  function orderer(id, key, o) {
+    var root = $(id), nxt;
+    function start() {
+      nxt = 0; var items = shuffle(o.items.map(function (x, i) { return [x, i]; }));
+      root.innerHTML = '<div class="ordline"></div><div class="chips">' + items.map(function (p) { return '<button type="button" class="chip" data-i="' + p[1] + '">' + esc(p[0]) + '</button>'; }).join('') + '</div><div class="fb info">第 1 步是哪一個？</div>';
+      var fb = root.querySelector('.fb');
+      each('.chip', function (c) {
+        c.addEventListener('click', function () {
+          var i = +c.getAttribute('data-i');
+          if (i === nxt) {
+            c.remove(); var t = document.createElement('div'); t.className = 'ordstep'; t.innerHTML = '<b>' + (nxt + 1) + '</b>' + esc(o.items[i]) + '<small>' + esc(o.labels[i]) + '</small>'; root.querySelector('.ordline').appendChild(t); nxt++;
+            if (nxt === o.items.length) { fb.className = 'fb good'; fb.innerHTML = '🎉 順序全對！' + esc(o.done || '') + ' <button type="button" class="btn white small again">再玩一次</button>'; fb.querySelector('.again').addEventListener('click', start); finish(key, root); }
+            else { fb.className = 'fb good'; fb.textContent = '對了！第 ' + (nxt + 1) + ' 步呢？'; }
+          } else { c.classList.add('no'); setTimeout(function () { c.classList.remove('no'); }, 500); fb.className = 'fb bad'; fb.textContent = '🤔 這一步還沒輪到喔。'; }
+        });
+      }, root);
+    }
+    start();
+  }
+  /* 找一找：把對的全部點出來。pickAll(id, fbId, key, { right, wrong: [[文字, 說明]], more, done }) */
+  function pickAll(id, fbId, key, o) {
+    var root = $(id), fb = $(fbId), left;
+    function start() {
+      left = o.right.length; fb.className = 'fb'; fb.innerHTML = '';
+      root.innerHTML = shuffle(o.right.map(function (t) { return [t, '']; }).concat(o.wrong)).map(function (x) { return '<button type="button" class="chip" data-w="' + esc(x[1]) + '">' + esc(x[0]) + '</button>'; }).join('');
+      each('.chip', function (c) {
+        c.addEventListener('click', function () {
+          var t = c.textContent, w = c.getAttribute('data-w');
+          if (!w) {
+            c.classList.add('ok'); c.disabled = true; left--;
+            if (left) { fb.className = 'fb good'; fb.textContent = '✅ 對，「' + t + '」' + o.more + '還有 ' + left + ' 個。'; }
+            else {
+              each('.chip', function (x) { x.disabled = true; }, root);
+              fb.className = 'fb good'; fb.innerHTML = '🎉 找到了！' + o.done + ' <button type="button" class="btn white small again">再玩一次</button>';
+              fb.querySelector('.again').addEventListener('click', start); finish(key, root);
+            }
+          } else { c.classList.add('no'); setTimeout(function () { c.classList.remove('no'); }, 500); fb.className = 'fb bad'; fb.textContent = '🤔 ' + w; }
+        });
+      }, root);
+    }
+    start();
+  }
+
+  /* ---------- 題庫 ---------- */
+  var BANK = (window.REVIEW_BANK && window.REVIEW_BANK.cards) || [];
+  var SEC = {
+    s1: ['🔊 4-1 聲音的產生與傳播', '物體發出聲音時，發出聲音的部位會振動；振動停止，聲音也消失。聲音可以透過氣體、液體或固體傳播。狼嚎叫是集結同伴，五色鳥和蛙是求偶，獅子吼叫是警告敵人。'],
+    s2: ['💡 4-2 光的直進與反射', '太陽、明亮的電燈、燭火是光源。光是直線前進的；被不透明的物體阻擋會形成影子。光照到光滑的鏡子會改變行進的方向，這是光的反射現象。月球本身不會發光。'],
+    s3: ['🚦 4-3 聲音和光的應用', '歌聲、語音輸入、警鈴是聲音的應用；燈塔的燈光、太陽能路燈、交通號誌燈是光的應用；警車、煙火同時有聲音和光。萬花筒利用光的反射。']
+  };
+  function secOf(c) { var m = /^na[x]?:(s\d)/.exec(c.id); return m ? m[1] : ''; }
+  function pool(type, sec) { return BANK.filter(function (c) { return c.u === 'na4' && c.type === type && (!sec || secOf(c) === sec); }); }
+  function miss(sec, txt) {
+    if (sec) store.bad[sec] = (store.bad[sec] || 0) + 1;
+    store.recent.unshift({ p: txt, k: sec }); store.recent = store.recent.slice(0, 8);
+  }
+
+  /* quiz({ el, key, n, sec })：一回合 n 題選擇題。先想好，再看選項；第一次答錯可以再選一次 */
+  function quiz(o) {
+    var root = $(o.el), S;
+    function start() {
+      var cards = shuffle(pool('pick', o.sec)).slice(0, o.n);
+      if (!cards.length) { root.innerHTML = '<p class="small">題目載入不了。請重新整理這一頁再試一次。</p>'; return; }
+      S = { i: 0, ok: 0, res: [], cards: cards }; next();
+    }
+    function next() {
+      if (S.i >= S.cards.length) return end();
+      var c = S.cards[S.i], opts = shuffle([c.a].concat(c.w)), sec = secOf(c), n = S.cards.length, dots = '';
+      S.Q = { q: c.q, opts: opts, a: opts.indexOf(c.a), ex: c.ex, sec: sec }; S.tries = 0; S.lock = false;
+      for (var k = 0; k < n; k++) dots += '<i class="' + (S.res[k] === 1 ? 'ok' : S.res[k] === 0 ? 'no' : k === S.i ? 'cur' : '') + '"></i>';
+      root.innerHTML = '<div class="qhead"><span class="small">第 ' + (S.i + 1) + ' / ' + n + ' 題</span>' + (SEC[sec] ? '<span class="tagc">' + SEC[sec][0] + '</span>' : '') + '</div><div class="prog">' + dots + '</div>'
+        + '<div class="q">' + c.q + '</div><div class="btns cen"><button type="button" class="btn sun think">💭 我想好了，看選項</button></div><div class="choices" hidden>'
+        + opts.map(function (t, j) { return '<button type="button" class="btn" data-j="' + j + '">' + esc(t) + '</button>'; }).join('') + '</div><div class="qfb" aria-live="polite"></div>';
+      root.querySelector('.think').addEventListener('click', function () { this.parentNode.hidden = true; root.querySelector('.choices').hidden = false; });
+      each('.choices button', function (b) { b.addEventListener('click', function () { choose(+b.getAttribute('data-j'), b); }); }, root);
+    }
+    function fb(h) { root.querySelector('.qfb').innerHTML = h; }
+    function choose(j, btn) {
+      if (S.lock) return;
+      var Q = S.Q;
+      if (j === Q.a) {
+        btn.classList.add('ok'); var first = S.tries === 0;
+        store.n++; if (first) { store.ok++; S.ok++; } S.res[S.i] = first ? 1 : 0; save();
+        if (first) star(1, btn);
+        fb('<div class="good">' + (first ? '✅ 答對了！' : '✅ 這次對了！') + '</div>' + (Q.ex ? '<div class="ex">' + Q.ex + '</div>' : '') + nextBtn()); return lock();
+      }
+      S.tries++; btn.classList.add('no'); btn.disabled = true;
+      if (S.tries === 1) miss(Q.sec, Q.q);
+      if (S.tries === 1 && Q.opts.length > 2) { save(); fb('<div class="hint">🤔 再想想看，還可以再選一次。</div>'); return; }
+      store.n++; S.res[S.i] = 0; save();
+      each('.choices button', function (b) { if (+b.getAttribute('data-j') === Q.a) b.classList.add('ok'); }, root);
+      fb('<div class="hint">正確答案是「<b>' + esc(Q.opts[Q.a]) + '</b>」。</div>' + (Q.ex ? '<div class="ex">' + Q.ex + '</div>' : '') + nextBtn()); lock();
+    }
+    function nextBtn() { return '<div class="btns cen"><button type="button" class="btn nextQ">' + (S.i + 1 >= S.cards.length ? '看結果 🏁' : '下一題 ➜') + '</button></div>'; }
+    function lock() {
+      S.lock = true; each('.choices button', function (b) { b.disabled = true; }, root);
+      root.querySelector('.nextQ').addEventListener('click', function () { S.i++; next(); });
+    }
+    function end() {
+      var n = S.cards.length, all = S.ok === n;
+      if (S.ok > (store.best[o.key] || 0)) store.best[o.key] = S.ok; save();
+      root.innerHTML = '<div class="title">' + (all ? '🏆 全對！' : S.ok >= n * .7 ? '🎉 很棒！' : '💪 再練一次會更好') + '</div><p class="lead" style="text-align:center">第一次就答對 <b>' + S.ok + ' / ' + n + '</b> 題' + (all ? '，多送 3 顆星！' : '。') + '</p><div class="btns cen"><button type="button" class="btn again">再玩一次</button></div>';
+      root.querySelector('.again').addEventListener('click', start);
+      if (all) star(3, root);
+      finish(o.key, root);
+    }
+    start();
+  }
+
+  /* 找錯小偵探：點出跟課本不一樣的那一段。點錯一次可以再找一次 */
+  function spotGame(el, key, n) {
+    var root = $(el), S;
+    function start() {
+      var cards = shuffle(pool('spot')).slice(0, n);
+      if (!cards.length) { root.innerHTML = '<p class="small">題目載入不了。請重新整理這一頁再試一次。</p>'; return; }
+      S = { i: 0, ok: 0, cards: cards }; next();
+    }
+    function next() {
+      if (S.i >= S.cards.length) return end();
+      var c = S.cards[S.i]; S.tries = 0; S.lock = false;
+      root.innerHTML = '<div class="qhead"><span class="small">第 ' + (S.i + 1) + ' / ' + S.cards.length + ' 句</span>' + (SEC[secOf(c)] ? '<span class="tagc">' + SEC[secOf(c)][0] + '</span>' : '') + '</div>'
+        + '<div class="spotline">' + c.parts.map(function (x, j) { return '<button type="button" class="part" data-j="' + j + '">' + esc(x) + '</button>'; }).join('') + '</div><div class="qfb" aria-live="polite"></div>';
+      each('.part', function (b) {
+        b.addEventListener('click', function () {
+          if (S.lock) return;
+          var j = +b.getAttribute('data-j'), nb = '<div class="btns cen"><button type="button" class="btn nextQ">' + (S.i + 1 >= S.cards.length ? '看結果 🏁' : '下一句 ➜') + '</button></div>';
+          if (j === c.bad) {
+            b.classList.add('ok'); var first = S.tries === 0; store.n++; if (first) { store.ok++; S.ok++; star(1, b); } save();
+            root.querySelector('.qfb').innerHTML = '<div class="good">✅ 找到了！</div><div class="ex">' + c.fix + '</div>' + nb; done();
+          } else {
+            S.tries++; b.classList.add('no'); b.disabled = true;
+            if (S.tries === 1) miss(secOf(c), c.parts.join(''));
+            if (S.tries === 1 && c.parts.length > 2) { save(); root.querySelector('.qfb').innerHTML = '<div class="hint">🤔 這一段和課本一樣。再找找看。</div>'; return; }
+            store.n++; save(); root.querySelector('.part[data-j="' + c.bad + '"]').classList.add('hl');
+            root.querySelector('.qfb').innerHTML = '<div class="hint">不一樣的是紅色那一段。</div><div class="ex">' + c.fix + '</div>' + nb; done();
+          }
+        });
+      }, root);
+    }
+    function done() { S.lock = true; each('.part', function (b) { b.disabled = true; }, root); root.querySelector('.nextQ').addEventListener('click', function () { S.i++; next(); }); }
+    function end() {
+      var n = S.cards.length;
+      if (S.ok > (store.best[key] || 0)) store.best[key] = S.ok; save();
+      root.innerHTML = '<div class="title">' + (S.ok === n ? '🏆 全部一次就找到！' : '🎉 偵探任務完成！') + '</div><p class="lead" style="text-align:center">第一次就找到 <b>' + S.ok + ' / ' + n + '</b> 句。</p><div class="btns cen"><button type="button" class="btn again">再玩一次</button></div>';
+      root.querySelector('.again').addEventListener('click', start);
+      finish(key, root);
+    }
+    start();
+  }
+
+  /* ---------- 4-1 振動觀察站 ---------- */
+  (function () {
+    var fb = $('vibFb'), seen = {}, got = false, triT = null, triSnd = null;
+    function st(id, t) { $(id).querySelector('.st').innerHTML = t; }
+    function check(el) { if (!got && seen.tamb && seen.throat && seen.hold) { got = true; finish('vib', el); } }
+    function shake(id, ms, onMsg, offMsg, k) {
+      var el = $(id); el.classList.add('vib'); st(id, onMsg);
+      setTimeout(function () { el.classList.remove('vib'); st(id, offMsg); seen[k] = 1; check(el); }, ms);
+    }
+    $('vTambBtn').addEventListener('click', function () {
+      tone(520, 0.2, 'triangle'); tone(3100, 0.4, 'triangle');
+      shake('vTamb', 900, '🔊 鼓面和金屬片在<b>振動</b>。', '🔇 振動停了，聲音也消失了。', 'tamb');
+      fb.className = 'fb good'; fb.innerHTML = '拍打鈴鼓發出聲音時，鈴鼓的<b>鼓面</b>和<b>金屬片</b>在振動。';
+    });
+    $('vThroatBtn').addEventListener('click', function () {
+      tone(190, 1.1, 'sawtooth');
+      shake('vThroat', 1200, '🔊 手感覺到<b>振動</b>。', '🔇 不說話，就沒有振動。', 'throat');
+      fb.className = 'fb good'; fb.innerHTML = '把手輕輕放在喉嚨上，說話時會有<b>振動</b>的感覺。';
+    });
+    function triStop(held) {
+      clearTimeout(triT); if (triSnd) triSnd.stop(); triSnd = null;
+      $('vTri').classList.remove('vib'); $('vTriHold').disabled = true; $('vTriBtn').disabled = false;
+      if (held) {
+        st('vTri', '🔇 從振動變成<b>靜止</b>。'); seen.hold = 1;
+        fb.className = 'fb good'; fb.innerHTML = '用手握住三角鐵，三角鐵從<b>振動</b>變成<b>靜止</b>，聲音就停止了。';
+        check($('vTri'));
+      } else { st('vTri', '聲音慢慢變小了。'); fb.className = 'fb info'; fb.textContent = '再敲一次。這次在它還在響的時候，用手握住它。'; }
+    }
+    $('vTriBtn').addEventListener('click', function () {
+      triSnd = tone(1900, 6, 'sine'); $('vTri').classList.add('vib'); $('vTriBtn').disabled = true; $('vTriHold').disabled = false;
+      st('vTri', '🔊 一直響，三角鐵在<b>振動</b>。');
+      fb.className = 'fb info'; fb.textContent = '三角鐵還在響。按「握住」，看看會怎樣。';
+      clearTimeout(triT); triT = setTimeout(function () { triStop(false); }, 6000);
+    });
+    $('vTriHold').addEventListener('click', function () { triStop(true); });
+    function paintMute() { $('muteBtn').textContent = store.mute ? '🔇 聲音：關' : '🔈 聲音：開'; }
+    $('muteBtn').addEventListener('click', function () { store.mute = !store.mute; if (store.mute && triSnd) { triSnd.stop(); triSnd = null; } save(); paintMute(); });
+    paintMute();
+  })();
+
+  /* ---------- 4-1 筷子實驗 ---------- */
+  (function () {
+    var tank = $('tank'), fb = $('cpFb'), ask = $('cpAsk'), got = false;
+    function knock(st) {
+      tank.setAttribute('data-st', st); tank.classList.remove('go'); void tank.offsetWidth; tank.classList.add('go');
+      tone(st === 2 ? 900 : 1500, 0.12, 'triangle'); setTimeout(function () { tone(st === 2 ? 900 : 1500, 0.12, 'triangle'); }, 260);
+    }
+    function reset() { tank.setAttribute('data-st', '0'); tank.classList.remove('go'); fb.className = 'fb info'; fb.textContent = '先按 ②。'; ask.innerHTML = ''; $('cpEnd').hidden = true; $('cp1').disabled = false; $('cp2').disabled = true; }
+    $('cp1').addEventListener('click', function () {
+      knock(1); $('cp1').disabled = true; $('cp2').disabled = false;
+      fb.className = 'fb good'; fb.innerHTML = '② 在空氣中敲不鏽鋼筷，聽得到敲擊聲。聲音可以透過<b>空氣</b>傳播。接著按 ③。';
+    });
+    $('cp2').addEventListener('click', function () {
+      $('cp2').disabled = true; tank.setAttribute('data-st', '2');
+      ask.innerHTML = '<p class="lead" style="text-align:center">③ 把不鏽鋼筷完全伸入水中互相敲擊。你覺得聽得到聲音嗎？</p><div class="chips">' + ['聽得到', '聽不到'].map(function (t, i) { return '<button type="button" class="chip" data-i="' + i + '">' + t + '</button>'; }).join('') + '</div>';
+      each('.chip', function (c) {
+        c.addEventListener('click', function () {
+          var right = c.getAttribute('data-i') === '0', g = store.guess;
+          knock(2);
+          fb.className = 'fb good';
+          fb.innerHTML = (right ? '✅ 你猜對了！' : '🔎 來看看結果：') + '在水中敲擊，也聽得到聲音。聲音可以透過<b>水</b>傳播。'
+            + (g >= 0 ? '<br><span class="small">你在「開始」頁猜的是「' + GUESS[g] + '」' + (g === 0 ? '，猜對了！' : '。現在知道了：在水中也聽得到岸上的哨音。') + '</span>' : '');
+          ask.innerHTML = '<div class="btns cen"><button type="button" class="btn white small" id="cpRe">再做一次</button></div>';
+          $('cpRe').addEventListener('click', reset); $('cpEnd').hidden = false;
+          if (!got) { got = true; finish('chop', tank); }
+        });
+      }, ask);
+    });
+    reset();
+  })();
+
+  sorter('sMedium', 'medium', { baskets: ['🌬️ 空氣（氣體）', '💧 水（液體）', '🪵 固體'], items: [
+    ['平時說話的聲音', 0, '聲音透過空氣傳播，我們才聽得見。'], ['看電視聽到的聲音', 0, '圖解筆記：聲音透過空氣傳播。'],
+    ['在水中聽到岸上的哨音', 1, '聲音可以透過水傳播。'], ['不鏽鋼筷在水裡敲擊的聲音', 1, '聲音可以透過水傳播。'],
+    ['趴在桌上，聽見敲擊桌面的聲音', 2, '聲音透過桌面傳播。'], ['耳朵貼在門板上，聽到門外的聲音', 2, '門板是固體。'],
+    ['搬動家具的聲音傳到樓下', 2, '透過地板傳到樓下。課本說，這是聲音透過固體和空氣傳播的例子。'], ['腳步聲傳到樓下', 2, '透過地板傳到樓下。']],
+    done: '聲音可以透過氣體、液體或固體傳播。' });
+
+  sorter('sAnimal', 'animal', { baskets: ['💕 求偶', '⚠️ 警告敵人', '📣 集結同伴'], items: [
+    ['狼的嚎叫聲', 2, '狼會利用嚎叫聲來集結同伴。'], ['五色鳥的叫聲', 0, '五色鳥會利用叫聲來求偶。'],
+    ['蛙的鳴叫聲', 0, '蛙用鳴叫聲來求偶。'], ['獅子的吼叫聲', 1, '獅子會利用吼叫聲來警告敵人。']],
+    done: '不同動物發出不同的聲音，各有不同的目的。' });
+
+  /* ---------- 4-2 光源找找看 ---------- */
+  pickAll('src', 'srcFb', 'src', { right: ['太陽', '明亮的電燈', '燭火'], more: '是光源。',
+    wrong: [['水面', '水面本身不是光源。有時候會在水面看到光，那是反光。'], ['玻璃', '玻璃本身不是光源。有時候會在玻璃表面看到光，那是反光。'], ['月球', '月球本身不會發光。月光是月球表面反射太陽光而來。']],
+    done: '<b>太陽、明亮的電燈、燭火</b>都是能發出光的光源。' });
+
+  /* ---------- 4-2 影子觀察站 ---------- */
+  (function () {
+    var side = 'L', obj = true, seen = {}, got = false, fb = $('shFb');
+    function draw() {
+      var R = side === 'R', lx = R ? 262 : 58, near = R ? 172 : 148, far = R ? 148 : 172, tip = R ? 26 : 294, h = '';
+      h += '<rect width="320" height="150" fill="#1d2340"/><path d="M' + lx + ' 14 L8 130 H312Z" fill="#ffe97a" opacity=".22"/><rect y="130" width="320" height="20" fill="#d9c7a3"/>';
+      if (obj) {
+        h += '<path d="M' + far + ' 70 L' + tip + ' 130 H' + far + 'Z" fill="#1d2340"/><path d="M' + near + ' 130 H' + tip + ' L' + (R ? tip - 6 : tip + 6) + ' 142 H' + near + 'Z" fill="#4a4230" opacity=".85"/>';
+        h += '<rect x="148" y="70" width="24" height="60" rx="5" fill="#8ecae6" stroke="#457b9d" stroke-width="3"/><rect x="153" y="60" width="14" height="12" rx="3" fill="#457b9d"/>';
+        h += '<text x="' + (R ? 60 : 200) + '" y="124" font-size="13" font-weight="800" fill="#fff">影子</text>';
+      }
+      h += '<circle cx="' + lx + '" cy="14" r="20" fill="#fff6c8" opacity=".35"/><circle cx="' + lx + '" cy="14" r="10" fill="#ffe566"/><text x="' + (R ? lx - 62 : lx + 16) + '" y="20" font-size="13" font-weight="800" fill="#fff">光源</text>';
+      $('shSvg').innerHTML = h;
+      $('shObj').textContent = obj ? '把瓶子拿走' : '把瓶子放回來';
+    }
+    function say() {
+      if (!obj) { fb.className = 'fb info'; fb.textContent = '沒有東西擋住光，就沒有影子。把瓶子放回來試試看。'; return; }
+      seen[side] = 1;
+      fb.className = 'fb good'; fb.innerHTML = '燈在' + (side === 'L' ? '左' : '右') + '邊，影子在' + (side === 'L' ? '右' : '左') + '邊。影子和光源的方向<b>相反</b>。';
+      if (!got && seen.L && seen.R) { got = true; finish('shadow', $('shSvg')); }
+    }
+    $('shL').addEventListener('click', function () { side = 'L'; draw(); say(); });
+    $('shR').addEventListener('click', function () { side = 'R'; draw(); say(); });
+    $('shObj').addEventListener('click', function () { obj = !obj; draw(); say(); });
+    draw();
+  })();
+
+  /* ---------- 4-2 排水軟管實驗 ---------- */
+  (function () {
+    var fb = $('hsFb'), ask = $('hsAsk'), seen = {}, got = false;
+    function draw(bent, lit) {
+      var d = bent ? 'M60 65 H130 Q168 65 184 44 Q200 24 250 24' : 'M60 65 H250', h = '';
+      h += '<rect width="320" height="130" fill="#1d2340"/><rect x="284" y="16" width="26" height="98" rx="4" fill="#565c78"/><text x="288" y="126" font-size="11" fill="#cfd8e6">牆</text>';
+      h += '<path d="' + d + '" stroke="#0b0c14" stroke-width="30" fill="none"/><path d="' + d + '" stroke="#33364f" stroke-width="24" fill="none" stroke-dasharray="5 5"/>';
+      if (lit && !bent) h += '<path class="ray" d="M60 65 H284" stroke="#ffe566" stroke-width="7" fill="none"/><circle class="fade" style="animation-delay:.7s" cx="286" cy="65" r="13" fill="#fff3a0"/>';
+      if (lit && bent) h += '<path class="ray" d="M60 65 H166" stroke="#ffe566" stroke-width="7" fill="none"/><circle class="fade" style="animation-delay:.5s" cx="168" cy="63" r="7" fill="#fff3a0" opacity=".8"/>';
+      h += '<rect x="6" y="52" width="42" height="26" rx="6" fill="#3d7bd9"/><rect x="46" y="47" width="16" height="36" rx="4" fill="#f0b429"/><text x="6" y="100" font-size="11" fill="#cfd8e6">手電筒</text>';
+      $('hsSvg').innerHTML = h;
+    }
+    function done(k) {
+      seen[k] = 1;
+      if (seen.s && seen.b) { $('hsEnd').hidden = false; if (!got) { got = true; finish('hose', $('hsSvg')); } }
+    }
+    $('hs1').addEventListener('click', function () {
+      ask.innerHTML = ''; draw(false, true);
+      fb.className = 'fb good'; fb.innerHTML = '② 軟管是<b>直線</b>的：光<b>可以通過</b>軟管，牆上有亮點。'; done('s');
+    });
+    $('hs2').addEventListener('click', function () {
+      draw(true, false); fb.className = 'fb info'; fb.textContent = '③ 軟管彎曲了。';
+      ask.innerHTML = '<p class="lead" style="text-align:center">你覺得光能通過彎曲的軟管嗎？</p><div class="chips">' + ['無法通過', '可以通過'].map(function (t, i) { return '<button type="button" class="chip" data-i="' + i + '">' + t + '</button>'; }).join('') + '</div>';
+      each('.chip', function (c) {
+        c.addEventListener('click', function () {
+          var right = c.getAttribute('data-i') === '0';
+          draw(true, true); ask.innerHTML = '';
+          fb.className = 'fb good'; fb.innerHTML = (right ? '✅ 你猜對了！' : '🔎 來看看結果：') + '軟管<b>彎曲</b>的時候，光<b>無法通過</b>，牆上沒有亮點。光不會跟著軟管轉彎。'; done('b');
+        });
+      }, ask);
+    });
+    draw(false, false);
+  })();
+
+  sorter('sShiny', 'shiny', { baskets: ['✨ 容易看到反光', '🌫️ 不容易看到反光'], items: [
+    ['不鏽鋼餐具', 0, '表面很光滑，容易看到反光情形。'], ['資料夾透明內頁', 0, '也有反光的情形，看起來亮亮的。'],
+    ['鏡子', 0, '鏡子的反光情形很明顯。'], ['橡皮擦', 1, '摸起來不光滑，不容易看到反光情形。']],
+    done: '表面光滑的物品容易反光。' });
+
+  /* ---------- 4-2 鏡子反射實驗 ---------- */
+  (function () {
+    var DIRS = { up: [200, 30], down: [200, 170], a: [120, 20], b: [250, 150] }, seen = {}, got = false, alt = 0, fb = $('mrFb');
+    function head(p, q, t) { // 在線段 p→q 的 t 位置畫一個箭頭
+      var x = p[0] + (q[0] - p[0]) * t, y = p[1] + (q[1] - p[1]) * t, a = Math.atan2(q[1] - p[1], q[0] - p[0]) * 180 / Math.PI;
+      return '<path class="fade" d="M0 0 L-12 -7 V7Z" fill="#ffe566" transform="translate(' + x.toFixed(1) + ' ' + y.toFixed(1) + ') rotate(' + a.toFixed(1) + ')"/>';
+    }
+    function draw(k) {
+      var M = [44, 100], h = '<rect width="320" height="200" fill="#1d2340"/><rect x="28" y="14" width="6" height="172" fill="#7a8599"/><rect x="34" y="14" width="10" height="172" rx="3" fill="#dfe7f5"/><text x="50" y="192" font-size="13" font-weight="800" fill="#dfe7f5">鏡子</text><path d="M44 100 H306" stroke="#8892b0" stroke-width="2" stroke-dasharray="5 6"/>';
+      if (k) {
+        var p = DIRS[k], q = [p[0], 200 - p[1]];
+        h += '<path class="ray" d="M' + p[0] + ' ' + p[1] + ' L44 100" stroke="#ffe566" stroke-width="5" fill="none"/><path class="ray out" d="M44 100 L' + q[0] + ' ' + q[1] + '" stroke="#ffe566" stroke-width="5" fill="none"/>';
+        h += head(p, M, 0.5) + head(M, q, 0.6);
+        h += '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="12" fill="#3d7bd9" stroke="#f0b429" stroke-width="4"/><text x="' + (p[0] + 18) + '" y="' + (p[1] + 5) + '" font-size="13" font-weight="800" fill="#fff">手電筒</text>';
+        h += '<text class="fade" x="' + Math.min(q[0] + 8, 222) + '" y="' + (q[1] + (q[1] > 100 ? 16 : -8)) + '" font-size="13" font-weight="800" fill="#ffe566">反射出來的光</text>';
+      }
+      $('mrSvg').innerHTML = h;
+    }
+    function go(k, msg) {
+      draw(k); seen[k] = 1;
+      fb.className = 'fb good'; fb.innerHTML = msg + '光照到鏡子，<b>改變行進的方向</b>，產生反射。反射的光也是直線前進。';
+      if (!got && seen.up && seen.down) { got = true; finish('mirror', $('mrSvg')); }
+    }
+    $('mr1').addEventListener('click', function () { go('up', '手電筒從上面照：反射的光往下走。'); });
+    $('mr2').addEventListener('click', function () { go('down', '手電筒從下面照：反射的光往上走。'); });
+    $('mr3').addEventListener('click', function () { alt = 1 - alt; go(alt ? 'a' : 'b', '照射的方向不同，反射的方向也不同。'); });
+    draw('');
+  })();
+
+  sorter('sUse', 'use', { baskets: ['🚗 汽車遮陽板', '🚧 路上的反光裝置', '📷 反光板', '🦺 反光背心'], items: [
+    ['反射陽光，減少陽光直射車內的量', 0, '汽車遮陽板可反射陽光。'], ['提醒用路人，避免發生事故', 1, '路上的反光裝置可以提醒用路人。'],
+    ['拍攝照片時，用來調整光線', 2, '可以拍出好看的圖照。'], ['身上的反光條有警示效果，保護人們的安全', 3, '反光背心上有反光條。']],
+    done: '這些物品都是利用光的反射現象設計的。' });
+
+  /* ---------- 4-3 ---------- */
+  (function () {
+    var night = false;
+    $('solBtn').addEventListener('click', function () {
+      night = !night;
+      $('solIcon').textContent = night ? '🌙' : '☀️';
+      $('solTxt').textContent = night ? '夜間：用儲存下來的電，讓路燈發光，照亮道路。' : '白天：太陽能光電板把陽光轉換成電，儲存下來。';
+      $('solBtn').textContent = night ? '☀️ 換成白天' : '🌙 換成夜間'; $('solBtn').className = 'btn small ' + (night ? 'sun' : 'blue');
+    });
+  })();
+
+  sorter('sFunc', 'func', { baskets: ['傳遞情感', '提醒注意消防安全', '指引船隻航行', '管制交通'], items: [
+    ['歌聲', 0, '歌聲可以傳遞情感。'], ['火災警報器的警鈴', 1, '提醒住戶注意消防安全。'],
+    ['燈塔的燈光', 2, '燈塔的燈光可以指引船隻航行。'], ['交通號誌燈', 3, '交通號誌燈可以管制交通。']],
+    done: '聲音和光有不同的功能。' });
+
+  sorter('sKind', 'kind', { baskets: ['🔊 聲音', '💡 光', '🔊＋💡 聲音和光'], items: [
+    ['歌聲', 0, '傳遞情感。'], ['語音輸入', 0, '用說的來搜尋資料或編輯文件。'], ['火災警報器的警鈴', 0, '提醒住戶注意消防安全。'],
+    ['燈塔的燈光', 1, '指引船隻航行。'], ['交通號誌燈', 1, '管制交通。'], ['太陽能路燈', 1, '夜間發光，照亮道路。'],
+    ['警車', 2, '警示燈＋鳴笛提示。'], ['煙火', 2, '爆炸聲＋火光。']],
+    done: '警車和煙火，聲音和光兩種都有。' });
+
+  /* 萬花筒（示意圖）：一小片圖案，照鏡子一樣翻轉、重複 12 次 */
+  (function () {
+    var COL = ['#ff6b9a', '#ffb703', '#4d96ff', '#2ec4b6', '#9b5de5', '#ffffff', '#ff9f1c', '#52b788'], n = 0, got = false, svg = $('kal');
+    function make() {
+      var g = '', i, k;
+      for (i = 0; i < 10; i++) {
+        var r = 14 + Math.random() * 92, a = Math.random() * 30 * Math.PI / 180, x = (r * Math.cos(a)).toFixed(1), y = (r * Math.sin(a)).toFixed(1), s = (5 + Math.random() * 11).toFixed(1), c = COL[ri(0, COL.length - 1)];
+        if (i % 3 === 0) g += '<circle cx="' + x + '" cy="' + y + '" r="' + s + '" fill="' + c + '"/>';
+        else if (i % 3 === 1) g += '<rect x="' + x + '" y="' + y + '" width="' + s + '" height="' + (s * 1.6).toFixed(1) + '" fill="' + c + '" transform="rotate(' + ri(0, 80) + ' ' + x + ' ' + y + ')"/>';
+        else g += '<path d="M' + x + ' ' + y + ' l' + s + ' ' + (s * 0.4).toFixed(1) + ' l-' + (s * 0.5).toFixed(1) + ' ' + s + 'Z" fill="' + c + '"/>';
+      }
+      var h = '<defs><clipPath id="kalClip"><circle r="113"/></clipPath><g id="kalW">' + g + '</g></defs><g clip-path="url(#kalClip)"><circle r="113" fill="#161a33"/>';
+      for (k = 0; k < 6; k++) h += '<use href="#kalW" transform="rotate(' + k * 60 + ')"/><use href="#kalW" transform="rotate(' + k * 60 + ') scale(1 -1)"/>';
+      svg.innerHTML = h + '</g>';
+    }
+    $('kalBtn').addEventListener('click', function () {
+      make(); n++; svg.classList.remove('turn'); void svg.getBoundingClientRect(); svg.classList.add('turn');
+      var f = $('kalFb');
+      if (n >= 3) { f.className = 'fb good'; f.textContent = '每轉一下，紙花移動，圖案就跟著變化。圖案是對稱的。'; if (!got) { got = true; finish('kal', svg); } }
+      else { f.className = 'fb info'; f.textContent = '圖案變了！再轉 ' + (3 - n) + ' 次。'; }
+    });
+    make();
+  })();
+
+  orderer('oKal', 'diy', { items: ['把鏡面紙依三等分摺成三角柱形，用膠帶固定', '把廢紙剪成碎紙花，放入透明夾鏈袋', '把夾鏈袋對著三角柱的底部，從上端開口觀察', '轉動夾鏈袋或三角柱，看花樣有什麼改變'],
+    labels: ['用鏡面紙', '用夾鏈袋', '底部要有光', '花樣會變'], done: '鏡子利用光的反射產生影像。' });
+
+  /* ---------- 挑戰 ---------- */
+  (function () {
+    var got = false;
+    each('#cz .blank', function (b) {
+      b.addEventListener('click', function () {
+        if (b.classList.contains('open')) return;
+        b.textContent = b.getAttribute('data-a'); b.classList.add('open');
+        var left = document.querySelectorAll('#cz .blank:not(.open)').length;
+        if (!left && !got) { got = true; $('czFb').className = 'fb good'; $('czFb').textContent = '🎉 圖解筆記全部想過一遍了！'; finish('cloze', b); }
+      });
+    });
+  })();
+
+  function renderRec() {
+    var st = [['⭐', store.stars, '星星'], ['📝', store.n, '作答題數'], ['🎯', store.n ? Math.round(store.ok / store.n * 100) + '%' : '—', '第一次就答對'],
+      ['🔊', (store.best.q41 || 0) + ' / 5', '4-1 最佳'], ['💡', (store.best.q42 || 0) + ' / 5', '4-2 最佳'], ['🚦', (store.best.q43 || 0) + ' / 5', '4-3 最佳'], ['🕵️', (store.best.spot || 0) + ' / 5', '找錯最佳'], ['🎮', (store.best.mix || 0) + ' / 10', '大考驗最佳']];
+    $('stats').innerHTML = st.map(function (s) { return '<div class="stat"><b>' + s[0] + ' ' + s[1] + '</b>' + s[2] + '</div>'; }).join('');
+    var ks = Object.keys(store.bad).filter(function (k) { return SEC[k]; }).sort(function (a, b) { return store.bad[b] - store.bad[a]; });
+    $('mist').innerHTML = ks.length ? ks.map(function (k) { return '<div class="tip"><b>' + SEC[k][0] + '</b>（' + store.bad[k] + ' 次）<br>' + SEC[k][1] + '</div>'; }).join('') : '<p class="small">還沒有錯題，好棒！</p>';
+    $('recent').innerHTML = store.recent.length ? '<ul class="list">' + store.recent.map(function (r) { return '<li>' + esc(r.p) + '</li>'; }).join('') + '</ul>' : '<p class="small">沒有最近的錯題。</p>';
+  }
+  $('resetBtn').addEventListener('click', function () {
+    if (!confirm('確定要清除這一頁的紀錄嗎？')) return;
+    store = fresh(); save(); location.reload();
+  });
+
+  quiz({ el: 'q41', key: 'q41', n: 5, sec: 's1' });
+  quiz({ el: 'q42', key: 'q42', n: 5, sec: 's2' });
+  quiz({ el: 'q43', key: 'q43', n: 5, sec: 's3' });
+  quiz({ el: 'qmix', key: 'mix', n: 10 });
+  spotGame('spot', 'spot', 5);
+
+  renderScore(); renderStamps(); renderGuess();
+  var H = { '#41': 'p-41', '#42': 'p-42', '#43': 'p-43', '#game': 'p-game' };
+  if (H[location.hash]) goTab(H[location.hash]);
+})();
+</script>
+</body>
+</html>
