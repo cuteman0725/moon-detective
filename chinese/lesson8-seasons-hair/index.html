@@ -78,7 +78,8 @@ nav.tabs button span{font-size:24px;line-height:1}nav.tabs button.on{background:
 .cdet{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start;margin-top:10px}
 .bigc{font-family:"BiauKai","DFKai-SB","TW-Kai","Kaiti TC",KaiTi,serif;font-size:96px;line-height:1;width:130px;height:130px;display:flex;align-items:center;justify-content:center;border:3px solid #ff6b9a;border-radius:12px;position:relative;
  background-image:linear-gradient(#ffd0df,#ffd0df),linear-gradient(#ffd0df,#ffd0df);background-size:100% 2px,2px 100%;background-position:center;background-repeat:no-repeat;flex:0 0 130px}
-.zy{writing-mode:vertical-rl;font-size:18px;font-weight:800;color:#b0154a;letter-spacing:2px}
+.zy{display:flex;flex-direction:column;align-items:center;font-size:19px;font-weight:800;color:#b0154a;line-height:1.1;padding:2px 12px 0 0}
+.zy .zs{display:block;position:relative}.zy .zs i{position:absolute;left:100%;top:-.15em;font-style:normal;font-size:.9em}
 .cinfo{flex:1;min-width:200px;font-size:17px;line-height:1.8}
 .chip{display:inline-block;background:#e6f0ff;border-radius:999px;padding:3px 12px;margin:2px 4px 2px 0;font-weight:700}
 .chip.id{background:#fff1d6}
@@ -97,8 +98,16 @@ nav.tabs button span{font-size:24px;line-height:1}nav.tabs button.on{background:
 .formula span{border-radius:12px;padding:6px 10px;font-weight:800;font-size:17px}
 .f1{background:#ffd6dc}.f2{background:#cfe8ff}.f3{background:#d8f3dc}
 .blank{display:inline-block;min-width:3em;border-bottom:3px solid var(--pink);color:#b0154a}
+.locbtns{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:8px}
+.locbtns .btn{color:var(--ink);font-size:17px;min-height:64px;padding:6px 2px;line-height:1.3}
+.bins{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}
+.bin{border-radius:14px;padding:6px 8px;font-size:14px;line-height:1.5;min-height:48px;border:3px solid #ffd0df;background:#fffafc}
+.bin b{display:block;font-size:15px}
+.route{display:flex;flex-wrap:wrap;gap:4px 2px;align-items:center;justify-content:center;font-weight:800;font-size:16px;margin:6px 0}
+.route span{background:#fff0f5;border:2px solid #ffd0df;border-radius:999px;padding:2px 10px}
 a.ext{color:#1d4ed8;font-weight:800}
 @media (max-width:420px){.chargrid{gap:6px}.bigc{width:110px;height:110px;flex-basis:110px;font-size:80px}.match .btn{font-size:15px}}
+@media (max-width:350px){.chargrid button{min-height:0}}
 </style>
 </head>
 <body>
@@ -116,41 +125,42 @@ a.ext{color:#1d4ed8;font-weight:800}
     <div class="info">
       <div><b>版本</b>南一 國語 4上（第七冊）</div>
       <div><b>單元</b>第參單元 小小觀察家</div>
-      <div><b>文體</b>童詩</div>
-      <div><b>作者</b>林世仁</div>
+      <div><b>文體</b>詩（一共四節）</div>
+      <div><b>作者</b>林世仁（課本第 72 頁）</div>
     </div>
-    <div class="tip">📍 這是一首以「擬人法」寫成的童詩，把大地當成一個人，四季就是他換的頭髮。</div>
-    <p class="small">這裡是用自己的話整理的「重點導讀」，只引用部分詞句；完整課文請看課本第 72～77 頁，也可以掃課本第 72 頁的 QR code 聽課文朗讀。</p>
+    <div class="tip">📍 <b>課本第 91 頁</b>：這首詩照「時間」順序安排段落，一季一季寫：夏 ➜ 秋 ➜ 冬 ➜ 春。</div>
+    <div class="tip">📍 <b>課本第 62 頁</b>單元頁有個小遊戲「被偷走的季節」。讀完這一課，就能猜出怪盜偷走的是哪個季節！</div>
+    <p class="small">這裡是用自己的話整理的「重點導讀」，只引用幾個短句；完整的詩請看課本第 72～77 頁，也可以掃課本第 72 頁的 QR code 聽課文朗讀。</p>
   </div>
 
   <div class="card">
     <h3>🍃 四節詩導讀</h3>
-    <p class="small">這首詩共四節，分別描寫夏、秋、冬、春四個季節。每一節都用「X天的頭髮在哪裡？X風吹來，找哇找……」開頭。</p>
-    <div class="part"><h4><span class="tag">第一節</span>夏天的頭髮</h4>
-      <p class="lead">（自編導讀）南風找到了夏天的頭髮——西北雨！它<span class="quote">又急又長,響聲陣陣</span>，<span class="quote">一披下來,就遮住天空,嚇得大地一下溼了眼眶</span>。</p>
+    <p class="small">一節寫一個季節。每一節的寫法都一樣：先問頭髮在哪裡，再請風來找，大叫一聲「啊——」，最後說出答案，再寫它的樣子。</p>
+    <div class="part"><h4><span class="tag">第一節</span><span class="tag t2">夏天</span>🌧️ 西北雨</h4>
+      <p class="lead"><b>南風</b>吹來，幫忙找夏天的頭髮。找到了，是<b>西北雨</b>！雨下得又急又長，聲音一陣一陣的。雨<span class="quote">一披下來</span>，天空就被遮住了，大地也嚇得<span class="quote">溼了眼眶</span>。</p>
       <button class="btn white small" data-say="0">🔊 聽導讀</button></div>
-    <div class="part"><h4><span class="tag">第二節</span>秋天的頭髮</h4>
-      <p class="lead">（自編導讀）西風找到了秋天的頭髮——滿山的芒草！它們<span class="quote">乘著風搖,學著雲舞</span>，<span class="quote">比誰先親到天空的臉龐</span>。</p>
+    <div class="part"><h4><span class="tag">第二節</span><span class="tag t2">秋天</span>🌾 芒草</h4>
+      <p class="lead"><b>西風</b>吹來，幫忙找秋天的頭髮。找到了，是滿山的<b>芒草</b>！芒草<span class="quote">乘著風搖</span>，還學雲跳舞。它們一根一根比誰高、比誰美，還搶著去親天空的<b>臉龐</b>。</p>
       <button class="btn white small" data-say="1">🔊 聽導讀</button></div>
-    <div class="part"><h4><span class="tag">第三節</span>冬天的頭髮</h4>
-      <p class="lead">（自編導讀）北風找到了冬天的頭髮——山頂上的白雪！它<span class="quote">冰涼涼、冷絲絲</span>，<span class="quote">最愛滑雪板來幫它梳出一條一條長辮子</span>。</p>
+    <div class="part"><h4><span class="tag">第三節</span><span class="tag t2">冬天</span>❄️ 白雪</h4>
+      <p class="lead"><b>北風</b>吹來，幫忙找冬天的頭髮。找到了，是山頂上的<b>白雪</b>！白雪<span class="quote">冰涼涼、冷絲絲</span>。它最愛<b>滑雪板</b>來幫忙梳頭，梳出好幾條長<b>辮子</b>。</p>
       <button class="btn white small" data-say="2">🔊 聽導讀</button></div>
-    <div class="part"><h4><span class="tag">第四節</span>春天的頭髮</h4>
-      <p class="lead">（自編導讀）東風找到了春天的頭髮——冒出來的小青草！它們<span class="quote">踮起腳尖,挺起腰</span>，<span class="quote">一散千里……</span></p>
+    <div class="part"><h4><span class="tag">第四節</span><span class="tag t2">春天</span>🌱 小青草</h4>
+      <p class="lead"><b>東風</b>吹來，幫忙找春天的頭髮。找到了，是剛冒出來的<b>小青草</b>！小青草<span class="quote">踮起腳尖，挺起腰</span>，<span class="quote">一散千里</span>，長到好遠的地方。聽，它們說：短頭髮最好看！</p>
       <button class="btn white small" data-say="3">🔊 聽導讀</button></div>
-    <div class="tip more">🔎 <b>延伸（自編導讀）</b>：這首詩用了「擬人法」，把大地比喻成一個人，四季就是他換的頭髮。夏天的頭髮是西北雨、秋天是芒草、冬天是白雪、春天是小青草。每一節用重複的句式「X天的頭髮在哪裡？X風吹來，找哇找……」</div>
+    <div class="tip more">🔎 <b>延伸（課本沒有寫，是自己的想法）</b>：為什麼它們像頭髮？<br>・西北雨：雨絲又長又密，從天上披下來。<br>・芒草：細細長長的，風一吹就搖來搖去。<br>・白雪：蓋在山頂上。滑雪板滑過去，留下一條一條的線，就像辮子。<br>・小青草：剛長出來，短短的。</div>
   </div>
 
   <div class="card">
-    <h3>🎨 認識擬人法</h3>
-    <p class="small">擬人法就是把東西當成人來寫，讓它有人的動作、表情或想法。課文把大地當成人，四季就是他的頭髮變化。</p>
-    <div class="part">
-      <p class="lead">（自編說明）例如：</p>
-      <p class="lead">• 西北雨會「披下來」——像人的頭髮</p>
-      <p class="lead">• 芒草會「學著雲舞」——像人會學跳舞</p>
-      <p class="lead">• 白雪「最愛」滑雪板梳辮子——像人有喜好</p>
-      <p class="lead">• 小青草會「踮起腳尖、挺起腰」——像人的動作</p>
-    </div>
+    <h3>🦉 課本的提問</h3>
+    <div class="tip">課本第 76 頁問：你認為作者為何將春天放在最後？</div>
+    <div class="tip more">🔎 <b>延伸（課本沒有答案，這是自己的想法）</b>：這一題沒有標準答案，說得出理由就可以。可以這樣想：<br>・春天的小草剛冒出來，是新的開始。放在最後，讀完覺得很有希望。<br>・前面的頭髮都長長的，最後出現短短的小青草，很可愛，也讓人驚喜。<br>你的想法是什麼？說給爸媽聽聽看！</div>
+  </div>
+
+  <div class="card">
+    <h3>🗓️ 四季排一排</h3>
+    <p class="small">課本第 91 頁「時間式」：照時間順序安排段落，可以看到事物在不同時間的差別。課本舉的例子就是〈四季的頭髮〉。這首詩先寫哪個季節？照順序點一點！</p>
+    <div id="stepBox"></div>
   </div>
 
   <div class="card">
@@ -169,8 +179,8 @@ a.ext{color:#1d4ed8;font-weight:800}
   </div>
   <div class="card">
     <h3>🖌️ 描寫板</h3>
-    <p class="small">用手指照著淡淡的字描一描。筆順可以按上面的「看筆順動畫」到教育部筆順學習網看。</p>
-    <div class="padwrap" id="padWrap"><div class="ghost" id="ghost">挺</div><canvas id="pad" width="520" height="520"></canvas></div>
+    <p class="small">用手指照著淡淡的字描一描。筆順可以看課本第 78 頁，或按上面的「看筆順動畫」到教育部筆順學習網看。</p>
+    <div class="padwrap" id="padWrap"><div class="ghost" id="ghost">陣</div><canvas id="pad" width="520" height="520"></canvas></div>
     <div class="btns cen"><button class="btn gray small" id="padClear">🧽 擦掉</button><button class="btn green" id="padDone">✅ 寫好了</button></div>
     <div class="fb" id="padFb"></div>
   </div>
@@ -184,8 +194,16 @@ a.ext{color:#1d4ed8;font-weight:800}
     <div id="charQ"></div>
   </div>
   <div class="card">
-    <h3>👀 形近字選一選</h3>
-    <p class="small">挺／艇、散／敗、披／坡、板／版、赫／嚇，長得很像。選出句子裡正確的那一個。（字的配對和句子是自編的）</p>
+    <h3>🔤 多音字：嚇、乘、散</h3>
+    <div class="tip">課本最前面「給教師與家長的話」說：課文裡的生字如果是多音字，注音會印成<b>紅色</b>。這一課有三個：<br><b>嚇</b> ㄒㄧㄚˋ（課本第 73 頁）<br><b>乘</b> ㄔㄥˊ（課本第 74 頁）<br><b>散</b> ㄙㄢˋ（課本第 76 頁）<br>這一課先記住這三個讀音。</div>
+    <div class="tip more">🔎 <b>延伸（這一課沒有教）</b>：「恐嚇」的「嚇」念 ㄏㄜˋ。「散文、鬆散」的「散」念 ㄙㄢˇ。「乘」的另一個音 ㄕㄥˋ 很少用。</div>
+  </div>
+  <div class="card">
+    <h3>👀 比一比字形：辮和辦</h3>
+    <div class="tip">課本第 79 頁「比一比字形」：<br><b>辮</b> ㄅㄧㄢˋ　<b>辦</b> ㄅㄢˋ<br>課本的句子：那位把頭髮綁成髮<b>辮</b>，坐在<b>辦</b>公桌前工作的人，是我的媽媽。</div>
+    <p class="small">小提示（自編）：「辮」的中間是「糹」，和線、頭髮有關；「辦」的中間是「力」，和做事有關。</p>
+    <h3 style="margin-top:12px">形近字選一選</h3>
+    <p class="small">辮／辦是課本第 79 頁的。眶／框、披／坡、板／版、乘／乖、挺／艇、龐／寵是自己找的形近字。句子都是自編的。</p>
     <div id="lookQ"></div>
   </div>
 </section>
@@ -203,10 +221,13 @@ a.ext{color:#1d4ed8;font-weight:800}
   </div>
   <div class="card">
     <h3>📚 語詞小卡</h3>
-    <p class="small">這些是課文裡的重要語詞。解釋是用自己的話寫的。</p>
+    <p class="small">這 12 個是課文裡藍色的語詞（課本第 73～76 頁）。課本沒有附解釋，解釋是用自己的話寫的。</p>
     <div class="wlist" id="wordList"></div>
-    <h3 style="margin-top:12px">💡 生字延伸語詞</h3>
-    <p class="small">🔎 延伸：這些語詞課本沒有，是多認識的。</p>
+    <h3 style="margin-top:12px">🎵 疊字詞</h3>
+    <p class="small">課本第 79 頁「讀一讀疊字詞」列了這六個。前兩個在課文裡出現過。解釋是自編的。</p>
+    <div class="wlist" id="overlapList"></div>
+    <h3 style="margin-top:12px">💡 生字延伸成語</h3>
+    <p class="small">🔎 延伸：這些成語課本沒有，是多認識的。</p>
     <div class="wlist" id="idiomList"></div>
   </div>
 </section>
@@ -214,11 +235,11 @@ a.ext{color:#1d4ed8;font-weight:800}
 <!-- ============ 句型 ============ -->
 <section class="page" id="p-pat">
   <div class="card">
-    <h2>🪄 句型練習</h2>
+    <h2>🪄 詩的寫法</h2>
     <div class="seg" id="patSeg">
-      <button class="btn white on" data-k="person">擬人法</button>
-      <button class="btn white" data-k="season">季節描寫</button>
-      <button class="btn white" data-k="color">感覺詞語</button>
+      <button class="btn white on" data-k="overlap">疊字詞</button>
+      <button class="btn white" data-k="arr">時間順序</button>
+      <button class="btn white" data-k="person">🔎 當成人來寫</button>
     </div>
   </div>
   <div class="card" id="patIntro"></div>
@@ -229,12 +250,12 @@ a.ext{color:#1d4ed8;font-weight:800}
 <section class="page" id="p-game">
   <div class="card">
     <h2>🌸 季節分類大挑戰</h2>
-    <p class="small">這是描寫哪個季節的？（每次出 8 題）</p>
+    <p class="small">這是詩裡哪個季節的內容？（句子是依課文改寫的，每次出 8 題）</p>
     <div id="sortBox"></div>
   </div>
   <div class="card">
     <h2>🏆 第八課綜合挑戰（10 題）</h2>
-    <p class="small">生字、形近字、語詞、擬人法、季節描寫通通有！答對 9 題以上拿「挑戰王」徽章。</p>
+    <p class="small">生字、形近字、語詞、疊字詞、四季的順序通通有！答對 9 題以上拿「挑戰王」徽章。</p>
     <div id="chBox"></div>
   </div>
 </section>
@@ -244,8 +265,8 @@ a.ext{color:#1d4ed8;font-weight:800}
   <div class="card"><h2>🏆 我的紀錄</h2><div class="statgrid" id="stats"></div><div class="badges" id="badges"></div></div>
   <div class="card"><h3>🔎 常錯的地方</h3><div id="mist"></div></div>
   <div class="card"><button class="btn gray" id="resetBtn">清除紀錄</button><p class="small">紀錄只存在這台平板的瀏覽器裡。</p>
-    <p class="small">資料來源：南一版國語 4上 課本——第 70 頁單元頁「小小觀察家」、第 72～77 頁〈四季的頭髮〉課文、第 78 頁「我會寫的字」。</p>
-    <p class="small">✏️ <b>自編說明：</b>課文導讀是用自己的話整理的，只引用短句；閱讀理解、季節分類、選詞填空、形近字、句型練習和挑戰的題目與例句，都是為了練習自己編寫的，不是課本原文；語詞解釋、造詞（每個字的第一個語詞出自課文，其餘自編）也是用好懂的話寫的。標「🔎 延伸」的內容課本沒有，考試以課本為主。</p></div>
+    <p class="small">資料來源：南一版國語 4上 課本——「給教師與家長的話」（多音字的注音印成紅色）、第 62 頁單元頁「小小觀察家」、第 72～77 頁〈四季的頭髮〉課文、第 78 頁「我會寫的字」、第 79 頁「比一比字形」「讀一讀疊字詞」、第 88～91 頁語文天地三「安排段落」（時間式在第 91 頁）。</p>
+    <p class="small">✏️ <b>自編說明：</b>課文導讀是用自己的話整理的，只引用短句。閱讀理解、四季順序、季節分類、選詞填空、形近字、疊字詞和挑戰的題目與例句，都是為了練習自己編寫的，不是課本原文。語詞解釋、造詞（每個字的第一個語詞出自課文，其餘自編）也是用好懂的話寫的。標「🔎 延伸」的內容（景物為什麼像頭髮、春天放最後的想法、多音字的其他讀音、把景物當成人來寫、延伸成語）課本沒有，考試以課本為主。</p></div>
 </section>
 </main>
 
@@ -261,134 +282,163 @@ a.ext{color:#1d4ed8;font-weight:800}
 <script id="core">
 var Core=(function(){
 "use strict";
-/* 生字：注音、部首、部首外筆畫（ex）、總筆畫（tot）依南一版課本第 78 頁「我會寫的字」；順序依課文出現先後。
-   words 的第一個是課文裡的語詞，其餘自編；tx 是課文裡含這個字的短句；bf=部首在這個字裡的寫法 */
+/* 生字：注音、部首、部首外筆畫（ex）、總筆畫（tot）和順序都依南一版課本第 78 頁「我會寫的字」。
+   words 的第一個是課文裡的語詞或短句，其餘自編（多音字只放和生字格同一個讀音的詞）；
+   ph 是課文裡含這個字的語詞（出注音題用）；tx 是課文裡含這個字的短句（一定要和課本一字不差）；
+   bf=部首在這個字裡的寫法；look=形近字；
+   poly=多音字：課本把注音印成紅色（p 是課本頁碼）。now 是這一課的讀音，eg 是同音的例詞，more 是其他讀音（延伸，課本這一課沒有教） */
 var CHARS=[
- {c:"陣",zy:"ㄓㄣˋ",bs:"阜",bf:"阝",ex:8,tot:10,words:["陣陣"],tx:"又急又長,響聲陣陣"},
- {c:"龐",zy:"ㄆㄤˊ",bs:"广",ex:16,tot:19,words:["臉龐"],tx:"比誰先親到天空的臉龐"},
- {c:"挺",zy:"ㄊㄧㄥˇ",bs:"手",bf:"扌",ex:7,tot:10,words:["挺","挺起腰"],tx:"踮起腳尖,挺起腰",look:"艇"},
- {c:"披",zy:"ㄆㄧ",bs:"手",bf:"扌",ex:5,tot:8,words:["披","披下來"],tx:"一披下來,就遮住天空",look:"坡"},
- {c:"絲",zy:"ㄙ",bs:"糸",bf:"糹",ex:6,tot:12,words:["冷絲絲"],tx:"冰涼涼、冷絲絲"},
- {c:"散",zy:"ㄙㄢˋ",bs:"攴",ex:8,tot:12,words:["一散千里"],tx:"一散千里……",look:"敗"},
- {c:"嚇",zy:"ㄒㄧㄚˋ",bs:"口",ex:14,tot:17,words:["嚇","嚇得"],tx:"嚇得大地一下溼了眼眶",look:"赫"},
- {c:"板",zy:"ㄅㄢˇ",bs:"木",ex:4,tot:8,words:["滑雪板"],tx:"最愛滑雪板來幫它",look:"版"},
- {c:"里",zy:"ㄌㄧˇ",bs:"里",ex:0,tot:7,words:["一散千里"],tx:"一散千里……"},
- {c:"眶",zy:"ㄎㄨㄤ",bs:"目",ex:6,tot:11,words:["眼眶"],tx:"嚇得大地一下溼了眼眶"},
- {c:"辮",zy:"ㄅㄧㄢˋ",bs:"糸",bf:"糹",ex:14,tot:20,words:["辮子"],tx:"梳出一條一條長辮子"},
- {c:"乘",zy:"ㄔㄥˊ",bs:"丿",ex:9,tot:10,words:["乘","乘著"],tx:"乘著風搖,學著雲舞"},
- {c:"踮",zy:"ㄉㄧㄢˋ",bs:"足",ex:8,tot:15,words:["踮","踮起腳尖"],tx:"踮起腳尖,挺起腰"}
+ {c:"陣",zy:"ㄓㄣˋ",bs:"阜",bf:"阝",ex:7,tot:10,words:["陣陣","一陣風","陣雨"],ph:"陣陣",tx:"響聲陣陣"},
+ {c:"龐",zy:"ㄆㄤˊ",bs:"广",ex:16,tot:19,words:["臉龐","龐大"],ph:"臉龐",tx:"親到天空的臉龐",look:"寵"},
+ {c:"挺",zy:"ㄊㄧㄥˇ",bs:"手",bf:"扌",ex:7,tot:10,words:["挺起腰","挺直","抬頭挺胸"],ph:"挺起腰",tx:"踮起腳尖，挺起腰",look:"艇"},
+ {c:"披",zy:"ㄆㄧ",bs:"手",bf:"扌",ex:5,tot:8,words:["披下來","披風","披肩"],ph:"披下來",tx:"一披下來，就遮住天空",look:"坡"},
+ {c:"絲",zy:"ㄙ",bs:"糸",bf:"糹",ex:6,tot:12,words:["冷絲絲","絲瓜","絲線"],ph:"冷絲絲",tx:"冰涼涼、冷絲絲"},
+ {c:"散",zy:"ㄙㄢˋ",bs:"攴",bf:"攵",ex:8,tot:12,words:["一散千里","散步","散開"],ph:"一散千里",tx:"一散千里……",
+  poly:{p:76,now:"ㄙㄢˋ",eg:"散步、散開",more:"「散文、鬆散」的「散」念 ㄙㄢˇ"}},
+ {c:"嚇",zy:"ㄒㄧㄚˋ",bs:"口",ex:14,tot:17,words:["嚇一跳","驚嚇","嚇人"],ph:"嚇得",tx:"嚇得大地一下溼了眼眶",
+  poly:{p:73,now:"ㄒㄧㄚˋ",eg:"嚇一跳、驚嚇",more:"「恐嚇」的「嚇」念 ㄏㄜˋ"}},
+ {c:"板",zy:"ㄅㄢˇ",bs:"木",ex:4,tot:8,words:["滑雪板","黑板","木板"],ph:"滑雪板",tx:"最愛滑雪板",look:"版"},
+ {c:"里",zy:"ㄌㄧˇ",bs:"里",ex:0,tot:7,words:["一散千里","公里","里長"],ph:"一散千里",tx:"一散千里……"},
+ {c:"眶",zy:"ㄎㄨㄤ",bs:"目",ex:6,tot:11,words:["眼眶","熱淚盈眶"],ph:"眼眶",tx:"嚇得大地一下溼了眼眶",look:"框"},
+ {c:"辮",zy:"ㄅㄧㄢˋ",bs:"糸",bf:"糹",ex:14,tot:20,words:["辮子","髮辮"],ph:"辮子",tx:"一條一條長辮子",look:"辦"},
+ {c:"乘",zy:"ㄔㄥˊ",bs:"丿",ex:9,tot:10,words:["乘著","乘客","乘法"],ph:"乘著",tx:"乘著風搖",look:"乖",
+  poly:{p:74,now:"ㄔㄥˊ",eg:"乘客、乘法",more:"另一個音 ㄕㄥˋ 很少用"}},
+ {c:"踮",zy:"ㄉㄧㄢˋ",bs:"足",ex:8,tot:15,words:["踮起腳尖","踮腳"],ph:"踮起腳尖",tx:"踮起腳尖，挺起腰"}
 ];
-/* 形近字（配對和句子都是自編的；每一題換成另一個字都不成詞） */
+/* 形近字：辮／辦是課本第 79 頁「比一比字形」，其餘配對是自己找的；句子都是自編的；每一題換成另一個字都不成詞 */
 var LOOK=[
- {s:"春天的草＿直的立在地上。",a:"挺",b:"艇",tip:"「挺」是手部（扌），挺直、挺立。"},
- {s:"我們坐遊＿在湖上欣賞風景。",a:"艇",b:"挺",tip:"「艇」是舟部，是一種船：遊艇、汽艇。"},
- {s:"秋天的落葉被風吹＿了。",a:"散",b:"敗",tip:"「散」是攴部，吹散、散開。"},
- {s:"我們這一隊輸了，打＿仗回來。",a:"敗",b:"散",tip:"「敗」是攴部，打敗、失敗。"},
- {s:"她＿著長髮走過來。",a:"披",b:"坡",tip:"「披」是手部（扌），披頭散髮、披風。"},
- {s:"爺爺家在山＿上。",a:"坡",b:"披",tip:"「坡」是土部，山坡、斜坡。"},
- {s:"老師在黑＿上寫字。",a:"板",b:"版",tip:"「板」是木部，黑板、木板、板凳。"},
- {s:"這本書是最新＿。",a:"版",b:"板",tip:"「版」是片部，版本、出版。"},
- {s:"突然的雷聲把我＿了一跳。",a:"嚇",b:"赫",tip:"「嚇」是口部，嚇一跳、驚嚇。"},
- {s:"他＿然發現自己走錯路了。",a:"赫",b:"嚇",tip:"「赫」是赤部，赫然、赫赫有名。"}
+ {s:"妹妹把頭髮綁成兩條＿子。",a:"辮",b:"辦",tip:"「辮」的中間是「糹」：辮子、髮辮（課本第 79 頁）。"},
+ {s:"爸爸每天到＿公室上班。",a:"辦",b:"辮",tip:"「辦」的中間是「力」：辦公室、辦法（課本第 79 頁）。"},
+ {s:"他難過得眼＿都紅了。",a:"眶",b:"框",tip:"「眶」是目部，和眼睛有關：眼眶。"},
+ {s:"我把畫好的圖放進相＿裡。",a:"框",b:"眶",tip:"「框」是木部：相框、畫框。"},
+ {s:"天氣變冷了，媽媽幫我＿上外套。",a:"披",b:"坡",tip:"「披」是手部（扌）：披上、披風。"},
+ {s:"我們騎腳踏車爬上山＿。",a:"坡",b:"披",tip:"「坡」是土部：山坡、斜坡。"},
+ {s:"老師在黑＿上寫字。",a:"板",b:"版",tip:"「板」是木部：黑板、木板、滑雪板。"},
+ {s:"這本書出＿以後，很多人買。",a:"版",b:"板",tip:"「版」是片部：出版、版本。"},
+ {s:"我們＿坐火車去花蓮玩。",a:"乘",b:"乖",tip:"「乘」：乘坐、乘客、乘著。"},
+ {s:"弟弟很＿，自己把玩具收好了。",a:"乖",b:"乘",tip:"「乖」：很乖、乖巧。"},
+ {s:"哥哥抬頭＿胸的走進教室。",a:"挺",b:"艇",tip:"「挺」是手部（扌）：挺胸、挺直、挺起腰。"},
+ {s:"我們坐遊＿在湖上看風景。",a:"艇",b:"挺",tip:"「艇」是舟部，是一種船：遊艇。"},
+ {s:"小寶寶有一張圓圓的臉＿。",a:"龐",b:"寵",tip:"「龐」是广部：臉龐、龐大。"},
+ {s:"小狗是我們家的＿物。",a:"寵",b:"龐",tip:"「寵」是宀部：寵物、寵愛。"}
 ];
-/* 語詞：課文裡重要的語詞；課本沒有附解釋，這裡的解釋都是自己寫的兒童版說明 */
+/* 語詞：課文裡藍色的 12 個語詞（課本第 73～76 頁）；課本沒有附解釋，這裡的解釋都是自己寫的兒童版說明 */
 var WORDS=[
- {w:"西北雨",m:"夏天午後的雷陣雨"},
- {w:"陣陣",m:"一陣一陣的"},
- {w:"披下來",m:"從上面垂下來、掛下來"},
- {w:"眼眶",m:"眼睛周圍的部分"},
- {w:"芒草",m:"一種會長白色花穗的草"},
- {w:"乘著",m:"坐在某個東西上面移動"},
- {w:"臉龐",m:"臉的樣子"},
- {w:"冷絲絲",m:"有一點冷的感覺"},
- {w:"辮子",m:"把頭髮編成一條一條的"},
- {w:"踮起腳尖",m:"用腳尖站立"},
- {w:"挺起腰",m:"把腰桿挺直"},
- {w:"一散千里",m:"散開到很遠的地方"}
+ {w:"陣陣",m:"一次接著一次，連續不斷"},
+ {w:"披",m:"蓋在或搭在上面，例如把外套搭在肩上"},
+ {w:"嚇",m:"突然覺得很害怕"},
+ {w:"眼眶",m:"眼睛四周的邊緣"},
+ {w:"乘",m:"順著、藉著，例如順著風飛；也有搭車、坐車的意思"},
+ {w:"臉龐",m:"面孔，也就是整張臉"},
+ {w:"冷絲絲",m:"有一點冷，涼涼的感覺"},
+ {w:"滑雪板",m:"滑雪的時候，踩在腳下的長板子"},
+ {w:"辮子",m:"把頭髮分成幾束，編成長長的一條"},
+ {w:"踮",m:"抬起腳跟，只用腳尖站著"},
+ {w:"挺",m:"伸直、撐直，例如把腰伸直"},
+ {w:"一散千里",m:"一下子就鋪開來，到很遠很遠的地方"}
 ];
-/* 延伸語詞（課本沒有，自己選的） */
+/* 延伸成語（課本沒有，自己選的；解釋是用孩子看得懂的話寫的） */
 var IDIOMS=[
- {w:"挺拔",m:"樹木或建築物高高的直立著"},
- {w:"散步",m:"慢慢的走路，放鬆心情"},
- {w:"分辨",m:"看出不同的地方"},
- {w:"興旺",m:"很興盛、很熱鬧"},
- {w:"手舞足蹈",m:"高興得又跳又舞"}
+ {w:"熱淚盈眶",m:"太感動了，眼眶裡都是眼淚"},
+ {w:"抬頭挺胸",m:"抬起頭、挺起胸，很有精神的樣子"},
+ {w:"龐然大物",m:"形容又高又大的東西"},
+ {w:"乘風破浪",m:"船順著風、衝過浪往前走，比喻不怕困難"},
+ {w:"千里迢迢",m:"形容路途非常遠"}
 ];
-/* 選詞填空（句子自編，語詞是課文的重要語詞） */
+/* 選詞填空（句子自編，答案是課文的 12 個語詞；每一題只有一個選項放得進去） */
 var FILL=[
- {s:"夏天午後常下＿＿。",a:"西北雨",opts:["西北雨","芒草","辮子"]},
- {s:"雷聲＿＿響起。",a:"陣陣",opts:["陣陣","冷絲絲","臉龐"]},
- {s:"她的長髮＿＿，像瀑布一樣。",a:"披下來",opts:["披下來","挺起腰","踮起腳尖"]},
- {s:"她哭得＿＿都紅了。",a:"眼眶",opts:["眼眶","臉龐","辮子"]},
- {s:"山上長滿了白色的＿＿。",a:"芒草",opts:["芒草","西北雨","辮子"]},
- {s:"我們＿＿小船遊湖。",a:"乘著",opts:["乘著","披下來","挺起腰"]},
- {s:"她有一張圓圓的＿＿。",a:"臉龐",opts:["臉龐","眼眶","辮子"]},
- {s:"冬天的風吹來＿＿的。",a:"冷絲絲",opts:["冷絲絲","陣陣","臉龐"]},
- {s:"她把頭髮綁成兩條＿＿。",a:"辮子",opts:["辮子","芒草","眼眶"]},
- {s:"跳芭蕾舞要＿＿。",a:"踮起腳尖",opts:["踮起腳尖","挺起腰","披下來"]},
- {s:"升旗的時候要＿＿。",a:"挺起腰",opts:["挺起腰","踮起腳尖","乘著"]},
- {s:"草原＿＿，一望無際。",a:"一散千里",opts:["一散千里","陣陣","冷絲絲"]}
+ {s:"遠處傳來＿＿雷聲，快要下雨了。",a:"陣陣",opts:["陣陣","辮子","臉龐"]},
+ {s:"姐姐把外套＿＿在肩膀上。",a:"披",opts:["披","踮","乘"]},
+ {s:"突然打雷，弟弟＿＿得躲進被子裡。",a:"嚇",opts:["嚇","挺","披"]},
+ {s:"聽到好消息，他感動得＿＿都紅了。",a:"眼眶",opts:["眼眶","辮子","滑雪板"]},
+ {s:"風箏＿＿著風，越飛越高。",a:"乘",opts:["乘","踮","嚇"]},
+ {s:"媽媽親了一下小寶寶圓圓的＿＿。",a:"臉龐",opts:["臉龐","辮子","滑雪板"]},
+ {s:"山上的風吹過來＿＿的，要多穿一件衣服。",a:"冷絲絲",opts:["冷絲絲","滑雪板","辮子"]},
+ {s:"冬天到了，叔叔帶著＿＿到雪地去玩。",a:"滑雪板",opts:["滑雪板","眼眶","臉龐"]},
+ {s:"妹妹的頭髮很長，媽媽幫她綁成兩條＿＿。",a:"辮子",opts:["辮子","眼眶","滑雪板"]},
+ {s:"書放得太高，我＿＿起腳尖才拿得到。",a:"踮",opts:["踮","披","乘"]},
+ {s:"升旗的時候，大家都＿＿直身體站好。",a:"挺",opts:["挺","踮","嚇"]},
+ {s:"蒲公英的種子被風一吹，就＿＿，飛到好遠的地方。",a:"一散千里",opts:["一散千里","冷絲絲","滑雪板"]}
 ];
-/* 閱讀理解（依課文內容自編題目） */
+/* 詩裡的四季：照課文的順序（課本第 73～76 頁，第 91 頁的圖也是夏→秋→冬→春） */
+var STEPS=[
+ {n:1,k:"summer",w:"夏天",e:"🌧️",t:"西北雨",wind:"南風"},
+ {n:2,k:"autumn",w:"秋天",e:"🌾",t:"滿山的芒草",wind:"西風"},
+ {n:3,k:"winter",w:"冬天",e:"❄️",t:"山頂上的白雪",wind:"北風"},
+ {n:4,k:"spring",w:"春天",e:"🌱",t:"冒出來的小青草",wind:"東風"}
+];
+/* 閱讀理解（依課文內容自編題目；最後一題依課本第 91 頁） */
 var READ=[
- {q:"夏天的頭髮是什麼？",a:"西北雨",o:["西北雨","芒草","白雪"]},
- {q:"南風吹來找到什麼？",a:"西北雨",o:["西北雨","芒草","小青草"]},
- {q:"西北雨的特色是什麼？",a:"又急又長,響聲陣陣",o:["又急又長,響聲陣陣","冰涼涼、冷絲絲","踮起腳尖,挺起腰"]},
- {q:"秋天的頭髮是什麼？",a:"滿山的芒草",o:["滿山的芒草","西北雨","山頂上的白雪"]},
- {q:"芒草在做什麼？",a:"乘著風搖,學著雲舞",o:["乘著風搖,學著雲舞","冰涼涼、冷絲絲","又急又長,響聲陣陣"]},
- {q:"冬天的頭髮是什麼？",a:"山頂上的白雪",o:["山頂上的白雪","滿山的芒草","小青草"]},
- {q:"白雪最愛什麼？",a:"滑雪板來幫它梳出一條一條長辮子",o:["滑雪板來幫它梳出一條一條長辮子","乘著風搖,學著雲舞","又急又長,響聲陣陣"]},
- {q:"春天的頭髮是什麼？",a:"冒出來的小青草",o:["冒出來的小青草","西北雨","滿山的芒草"]},
- {q:"小青草做了什麼動作？",a:"踮起腳尖,挺起腰",o:["踮起腳尖,挺起腰","乘著風搖,學著雲舞","冰涼涼、冷絲絲"]},
- {q:"小青草說了什麼？",a:"短短的頭髮最好看",o:["短短的頭髮最好看","又急又長","冰涼涼"]},
- {q:"這首詩用了什麼修辭法？",a:"擬人法",o:["擬人法","譬喻法","排比法"],tip:"把大地當成人，四季的變化就像人在換頭髮。"}
+ {q:"這首詩裡，夏天的頭髮是什麼？",a:"西北雨",o:["西北雨","滿山的芒草","山頂上的白雪"]},
+ {q:"哪一種風幫忙找到夏天的頭髮？",a:"南風",o:["南風","北風","西風"]},
+ {q:"西北雨一披下來，發生了什麼事？",a:"遮住天空，大地溼了眼眶",o:["遮住天空，大地溼了眼眶","小青草冒出來了","山頂變成一片白色"]},
+ {q:"秋天的頭髮是什麼？",a:"滿山的芒草",o:["滿山的芒草","冒出來的小青草","西北雨"]},
+ {q:"哪一種風幫忙找到秋天的頭髮？",a:"西風",o:["西風","東風","南風"]},
+ {q:"一根根芒草在比什麼？",a:"比高、比美",o:["比高、比美","比誰跑得快","比誰聲音大"]},
+ {q:"冬天的頭髮是什麼？",a:"山頂上的白雪",o:["山頂上的白雪","滿山的芒草","西北雨"]},
+ {q:"哪一種風幫忙找到冬天的頭髮？",a:"北風",o:["北風","南風","東風"]},
+ {q:"白雪最愛誰來幫它梳出長辮子？",a:"滑雪板",o:["滑雪板","西北雨","小青草"]},
+ {q:"春天的頭髮是什麼？",a:"冒出來的小青草",o:["冒出來的小青草","山頂上的白雪","滿山的芒草"]},
+ {q:"哪一種風幫忙找到春天的頭髮？",a:"東風",o:["東風","西風","北風"]},
+ {q:"小青草說，什麼樣的頭髮最好看？",a:"短短的頭髮",o:["短短的頭髮","長長的頭髮","捲捲的頭髮"]},
+ {q:"這首詩照什麼順序寫四季？",a:"夏天、秋天、冬天、春天",o:["夏天、秋天、冬天、春天","春天、夏天、秋天、冬天","冬天、春天、夏天、秋天"],tip:"課本第 91 頁的圖也是：夏 ➜ 秋 ➜ 冬 ➜ 春。"}
 ];
-/* 季節分類（依課文改寫） */
-var SEASONS=[
- {k:"spring",n:"春天",e:"🌸"},
- {k:"summer",n:"夏天",e:"☀️"},
- {k:"autumn",n:"秋天",e:"🍂"},
- {k:"winter",n:"冬天",e:"❄️"}
-];
+/* 季節分類（句子依課文改寫，不是原文） */
 var SORT=[
- {t:"南風吹來,找哇找",s:"summer"},
- {t:"夏天的頭髮是西北雨",s:"summer"},
- {t:"又急又長,響聲陣陣",s:"summer"},
- {t:"一披下來,就遮住天空",s:"summer"},
- {t:"西風吹來,找哇找",s:"autumn"},
- {t:"秋天的頭髮是滿山的芒草",s:"autumn"},
- {t:"乘著風搖,學著雲舞",s:"autumn"},
- {t:"比誰先親到天空的臉龐",s:"autumn"},
- {t:"北風吹來,找哇找",s:"winter"},
- {t:"冬天的頭髮是山頂上的白雪",s:"winter"},
- {t:"冰涼涼、冷絲絲",s:"winter"},
- {t:"最愛滑雪板來幫它梳出一條一條長辮子",s:"winter"},
- {t:"東風吹來,找哇找",s:"spring"},
- {t:"春天的頭髮是冒出來的小青草",s:"spring"},
- {t:"踮起腳尖,挺起腰",s:"spring"},
- {t:"一散千里",s:"spring"}
+ {t:"南風吹來，幫忙找頭髮",s:"summer"},
+ {t:"頭髮是西北雨",s:"summer"},
+ {t:"又急又長，還有陣陣的響聲",s:"summer"},
+ {t:"一披下來，天空就被遮住了",s:"summer"},
+ {t:"西風吹來，幫忙找頭髮",s:"autumn"},
+ {t:"頭髮是滿山的芒草",s:"autumn"},
+ {t:"一根一根比誰高、比誰美",s:"autumn"},
+ {t:"想搶先親到天空的臉龐",s:"autumn"},
+ {t:"北風吹來，幫忙找頭髮",s:"winter"},
+ {t:"頭髮是山頂上的白雪",s:"winter"},
+ {t:"摸起來冰涼涼、冷絲絲",s:"winter"},
+ {t:"滑雪板幫它梳出長辮子",s:"winter"},
+ {t:"東風吹來，幫忙找頭髮",s:"spring"},
+ {t:"頭髮是剛冒出來的小青草",s:"spring"},
+ {t:"踮起腳尖、挺起腰",s:"spring"},
+ {t:"說短頭髮最好看",s:"spring"}
 ];
-/* 擬人法練習 */
+/* 疊字詞（課本第 79 頁「讀一讀疊字詞」列了這六個；意思和句子是自編的）；inText=1 表示課文裡出現過 */
+var OVERLAP=[
+ {w:"冰涼涼",m:"摸起來很冰、很涼",inText:1},
+ {w:"冷絲絲",m:"有一點冷，涼涼的感覺",inText:1},
+ {w:"灰濛濛",m:"灰灰暗暗的，看不清楚"},
+ {w:"白茫茫",m:"一大片白色，看不到邊"},
+ {w:"毛茸茸",m:"長滿細細軟軟的毛"},
+ {w:"滑溜溜",m:"很滑，不容易抓住"}
+];
+/* 疊字詞練習：前兩題依課本和課文，其餘句子自編（每一題只有一個選項放得進去） */
+var OVERLAP_Q=[
+ {q:"課文用哪兩個疊字詞寫白雪？",a:"冰涼涼、冷絲絲",o:["冰涼涼、冷絲絲","灰濛濛、白茫茫","毛茸茸、滑溜溜"],tip:"課本第 75 頁。"},
+ {q:"課本說：善用疊字詞，可以讓詩讀起來更有什麼？",a:"節奏感",o:["節奏感","距離感","重量感"],tip:"課本第 79 頁。"},
+ {s:"夏天吃一口＿＿的冰棒，好舒服。",a:"冰涼涼",o:["冰涼涼","毛茸茸","灰濛濛"]},
+ {s:"冬天的早晨，風吹在臉上＿＿的。",a:"冷絲絲",o:["冷絲絲","毛茸茸","滑溜溜"]},
+ {s:"快下雨了，天空＿＿的，一點陽光也沒有。",a:"灰濛濛",o:["灰濛濛","毛茸茸","滑溜溜"]},
+ {s:"大霧來了，眼前＿＿的一片，看不到遠方的山。",a:"白茫茫",o:["白茫茫","毛茸茸","滑溜溜"]},
+ {s:"小貓的身體＿＿的，摸起來好軟。",a:"毛茸茸",o:["毛茸茸","灰濛濛","白茫茫"]},
+ {s:"盤子沾了洗碗精，＿＿的，差一點拿不住。",a:"滑溜溜",o:["滑溜溜","毛茸茸","白茫茫"]}
+];
+/* 安排段落（課本第 90～91 頁「寫作小學堂——安排段落」；第 89 頁有「早上→中午→下午」的例子）；說明是用自己的話改寫的 */
+var ARR_O=["時間式","空間式","因果式"];
+var ARR=[
+ {d:"照時間的先後安排段落，可以看到事物在不同時間的差別",a:0,why:"課本第 91 頁：這是時間式。"},
+ {d:"跟著地點的移動來寫，讀的人好像跟著一起走",a:1,why:"課本第 91 頁：這是空間式。"},
+ {d:"照起因、經過、結果來寫，可以看清楚事情的來龍去脈",a:2,why:"課本第 90 頁：這是因果式，例子是第九課〈阿白觀察記〉。"},
+ {d:"〈四季的頭髮〉：夏天、秋天、冬天、春天，一季一季寫",a:0,why:"課本第 91 頁：時間式的例子就是〈四季的頭髮〉。"},
+ {d:"〈到此「藝」遊〉：園區、魯班街、臨水劇場、月河、文昌街，一站一站寫",a:1,why:"課本第 91 頁：空間式的例子是〈到此「藝」遊〉。"},
+ {d:"寫一天的旅遊：早上、中午、下午",a:0,why:"課本第 89 頁：依照時間描寫，例子是「早上→中午→下午」。"}
+];
+/* 延伸：把景物當成人來寫（課本這一課沒有教「擬人」；題目依課文內容自編） */
 var PERSON=[
- {s:"西北雨一＿下來,就遮住天空",a:"披",o:["披","倒","掉"],tip:"擬人法：把西北雨當成頭髮，會披下來。"},
- {s:"芒草＿著風搖,學著雲舞",a:"乘",o:["乘","推","拉"],tip:"擬人法：把芒草當成人，會乘著風搖。"},
- {s:"白雪最愛滑雪板來幫它＿出長辮子",a:"梳",o:["梳","剪","洗"],tip:"擬人法：把白雪當成頭髮，喜歡被梳理。"},
- {s:"小青草＿起腳尖,挺起腰",a:"踮",o:["踮","跳","飛"],tip:"擬人法：把小青草當成人，會踮起腳尖。"},
- {s:"大地一下＿了眼眶",a:"溼",o:["溼","閉","睜"],tip:"擬人法：把大地當成人，會有眼眶。"}
-];
-/* 季節描寫 */
-var SEASON_D=[
- {q:"夏天的頭髮是什麼？",a:"西北雨",o:["西北雨","芒草","白雪"],tip:"課文：夏天的頭髮是西北雨"},
- {q:"秋天的頭髮是什麼？",a:"滿山的芒草",o:["滿山的芒草","西北雨","小青草"],tip:"課文：秋天的頭髮是滿山的芒草"},
- {q:"冬天的頭髮是什麼？",a:"山頂上的白雪",o:["山頂上的白雪","芒草","西北雨"],tip:"課文：冬天的頭髮是山頂上的白雪"},
- {q:"春天的頭髮是什麼？",a:"冒出來的小青草",o:["冒出來的小青草","西北雨","白雪"],tip:"課文：春天的頭髮是冒出來的小青草"}
-];
-/* 顏色和感覺詞語 */
-var COLOR=[
- {s:"西北雨＿＿,響聲陣陣。",a:"又急又長",o:["又急又長","冰涼涼","冷絲絲"]},
- {s:"白雪＿＿、冷絲絲。",a:"冰涼涼",o:["冰涼涼","又急又長","響聲陣陣"]},
- {s:"白雪冰涼涼、＿＿。",a:"冷絲絲",o:["冷絲絲","又急又長","冰涼涼"]},
- {s:"西北雨又急又長，＿＿。",a:"響聲陣陣",o:["響聲陣陣","冰涼涼","冷絲絲"]}
+ {q:"詩裡，誰被嚇得溼了眼眶？",a:"大地",o:["大地","天空","南風"],tip:"詩把大地當成人，會害怕，也有眼眶。"},
+ {q:"詩裡，誰學雲跳舞，還想親到天空的臉？",a:"芒草",o:["芒草","白雪","小青草"],tip:"詩把芒草當成人，會跳舞，也會比賽。"},
+ {q:"詩裡，誰最愛滑雪板來幫它梳辮子？",a:"白雪",o:["白雪","芒草","西北雨"],tip:"詩把白雪當成人，有自己喜歡的事。"},
+ {q:"詩裡，誰踮起腳尖，又挺起腰？",a:"小青草",o:["小青草","白雪","西北雨"],tip:"詩把小青草當成人，有腳尖，也有腰。"},
+ {q:"詩裡，誰說短頭髮最好看？",a:"小青草",o:["小青草","芒草","滑雪板"],tip:"詩把小青草當成人，會說話。"}
 ];
 
 function shuffle(a,rnd){rnd=rnd||Math.random;var b=a.slice();for(var i=b.length-1;i>0;i--){var j=Math.floor(rnd()*(i+1));var t=b[i];b[i]=b[j];b[j]=t;}return b;}
@@ -399,44 +449,59 @@ function blank(s){return s.replace("＿＿",'<span class="blank">（　　）</s
 /* 生字題：部首、總筆畫、注音 */
 function charQ(type,ch,rnd){
  var opts,ans,q;
- if(type==="bs"){ans=ch.bs;var all=uniq(CHARS.map(function(x){return x.bs;}).concat(["口","水","心","竹"]));
+ if(type==="bs"){ans=ch.bs;var all=uniq(CHARS.map(function(x){return x.bs;}).concat(["水","心","竹","土"]));
   opts=[ans].concat(pick(all.filter(function(b){return b!==ans;}),2,rnd));q="「"+ch.c+"」的部首是什麼？";}
  else if(type==="tot"){ans=String(ch.tot);var d=[ch.tot-2,ch.tot-1,ch.tot+1,ch.tot+2].filter(function(n){return n>0;});
   opts=[ans].concat(pick(d,2,rnd).map(String));q="「"+ch.c+"」總共幾畫？";}
  else {ans=ch.zy;var others=uniq(CHARS.filter(function(x){return x.c!==ch.c;}).map(function(x){return x.zy;})).filter(function(z){return z!==ans;});
-  opts=[ans].concat(pick(others,2,rnd));q="「"+ch.words[0]+"」的「"+ch.c+"」怎麼念？";}
+  opts=[ans].concat(pick(others,2,rnd));q="「"+(ch.ph||ch.words[0])+"」的「"+ch.c+"」怎麼念？";}
  return {type:type,c:ch.c,q:q,a:ans,o:shuffle(opts,rnd)};
 }
 function lookQ(l,rnd){return {type:"look",q:l.s.replace("＿",'<span class="blank">（　）</span>'),a:l.a,o:shuffle([l.a,l.b],rnd),tip:l.tip};}
 function wordQ(rnd){var w=pick(WORDS,1,rnd)[0],wo=pick(WORDS.filter(function(x){return x.w!==w.w;}),2,rnd);
  return {type:"word",q:"「"+w.m+"」是哪個語詞？",a:w.w,o:shuffle([w.w,wo[0].w,wo[1].w],rnd)};}
 function fillQ(f,rnd){return {type:"fill",q:blank(f.s),a:f.a,o:shuffle(f.opts,rnd)};}
-function personQ(p,rnd){return {type:"person",q:blank(p.s),a:p.a,o:shuffle(p.o,rnd),tip:p.tip};}
-function seasonQ(s,rnd){return {type:"season",q:s.q,a:s.a,o:shuffle(s.o,rnd),tip:s.tip};}
-function colorQ(c,rnd){return {type:"color",q:blank(c.s),a:c.a,o:shuffle(c.o,rnd)};}
+function overlapBy(w){for(var i=0;i<OVERLAP.length;i++)if(OVERLAP[i].w===w)return OVERLAP[i].m;return "";}
+function overlapQ(x,rnd){
+ if(x.q)return {type:"overlap",q:x.q,a:x.a,o:shuffle(x.o,rnd),tip:x.tip};
+ return {type:"overlap",q:blank(x.s),a:x.a,o:shuffle(x.o,rnd),tip:"「"+x.a+"」："+overlapBy(x.a)+"。"};}
+function arrQ(p){return {type:"arr",q:"「"+p.d+"」<br>這是哪一種安排段落的方式？",a:ARR_O[p.a],o:ARR_O.slice(),tip:p.why};}
+function personQ(p,rnd){return {type:"person",q:p.q,a:p.a,o:shuffle(p.o,rnd),tip:p.tip};}
+/* 哪個季節的頭髮是什麼、哪一種風來找 */
+function hairQ(rnd){rnd=rnd||Math.random;var k=Math.floor(rnd()*STEPS.length),s=STEPS[k],wind=rnd()<.5;
+ var rest=STEPS.filter(function(x){return x.k!==s.k;}),two=pick(rest,2,rnd);
+ if(wind)return {type:"hair",q:"哪一種風幫忙找到"+s.w+"的頭髮？",a:s.wind,o:shuffle([s.wind,two[0].wind,two[1].wind],rnd),tip:"詩裡的風：夏天南風、秋天西風、冬天北風、春天東風。"};
+ return {type:"hair",q:"這首詩裡，"+s.w+"的頭髮是什麼？",a:s.t,o:shuffle([s.t,two[0].t,two[1].t],rnd)};}
+/* 第幾節寫哪個季節 */
+function orderQ(rnd){rnd=rnd||Math.random;var k=Math.floor(rnd()*STEPS.length),s=STEPS[k];
+ var o=[s.w].concat(pick(STEPS.filter(function(x){return x.k!==s.k;}),2,rnd).map(function(x){return x.w;}));
+ return {type:"step",q:"這首詩的第 "+(k+1)+" 節寫的是哪個季節？",a:s.w,o:shuffle(o,rnd),tip:"順序是：夏天、秋天、冬天、春天（課本第 91 頁）。"};}
 /* 綜合挑戰：10 題 */
 function makeChallenge(rnd){
  rnd=rnd||Math.random;var out=[],chs=pick(CHARS,3,rnd);
  out.push(charQ("bs",chs[0],rnd));out.push(charQ("tot",chs[1],rnd));out.push(charQ("zy",chs[2],rnd));
  pick(LOOK,2,rnd).forEach(function(l){out.push(lookQ(l,rnd));});
  out.push(wordQ(rnd));
- out.push(personQ(pick(PERSON,1,rnd)[0],rnd));
- out.push(seasonQ(pick(SEASON_D,1,rnd)[0],rnd));
- out.push(colorQ(pick(COLOR,1,rnd)[0],rnd));
+ out.push(overlapQ(pick(OVERLAP_Q,1,rnd)[0],rnd));
+ out.push(rnd()<.5?arrQ(pick(ARR,1,rnd)[0]):orderQ(rnd));
+ out.push(hairQ(rnd));
  out.push(fillQ(pick(FILL,1,rnd)[0],rnd));
  return shuffle(out,rnd);
 }
 function check(q,ans){return q.a===ans;}
 function sortCheck(text,season){for(var i=0;i<SORT.length;i++)if(SORT[i].t===text)return SORT[i].s===season;return false;}
 function matchCheck(word,meaning){for(var i=0;i<WORDS.length;i++)if(WORDS[i].w===word)return WORDS[i].m===meaning;return false;}
+/* 四季順序：依序點，回傳 true 表示這一步點對了 */
+function stepCheck(done,n){return n===done+1;}
 function stars(correct,total){if(!total)return 0;var r=correct/total;return r>=1?3:r>=0.7?2:r>=0.4?1:0;}
-var PATS=["person","season","color"];
+var PATS=["overlap","arr","person"];
 var BADGES=[
  {id:"read",n:"📖 閱讀小達人",d:"閱讀理解全對"},
  {id:"chars",n:"✍️ 生字小書法家",d:"看完 13 張生字卡"},
  {id:"write",n:"🖌️ 描紅練習生",d:"在描寫板練習 5 個字"},
  {id:"words",n:"🧩 語詞配對王",d:"完成一次語詞配對"},
- {id:"pattern",n:"🪄 句型小作家",d:"三個句型練習都完成"},
+ {id:"pattern",n:"🪄 小詩人",d:"三個寫法練習都完成"},
+ {id:"step",n:"🗓️ 四季小管家",d:"四季順序一次排對"},
  {id:"season",n:"🌸 季節分類王",d:"季節分類全對"},
  {id:"champ",n:"🏆 挑戰王",d:"挑戰答對 9 題以上"}
 ];
@@ -447,248 +512,19 @@ function badges(st){
  if(st.wrote&&Object.keys(st.wrote).length>=5)g.write=1;
  if(st.matchDone>=1)g.words=1;
  if(st.pat&&PATS.every(function(k){return st.pat[k];}))g.pattern=1;
+ if(st.stepPerfect>=1)g.step=1;
  if(st.seasonPerfect>=1)g.season=1;
  if(st.chBest>=9)g.champ=1;
  return g;
 }
 function lcg(seed){var s=seed>>>0;return function(){s=(s*1664525+1013904223)>>>0;return s/4294967296;};}
-return {CHARS:CHARS,LOOK:LOOK,WORDS:WORDS,IDIOMS:IDIOMS,FILL:FILL,READ:READ,SEASONS:SEASONS,SORT:SORT,
- PERSON:PERSON,SEASON_D:SEASON_D,COLOR:COLOR,PATS:PATS,BADGES:BADGES,
- shuffle:shuffle,pick:pick,charBy:charBy,charQ:charQ,lookQ:lookQ,wordQ:wordQ,fillQ:fillQ,personQ:personQ,seasonQ:seasonQ,colorQ:colorQ,
- makeChallenge:makeChallenge,check:check,sortCheck:sortCheck,matchCheck:matchCheck,stars:stars,badges:badges,lcg:lcg};
+return {CHARS:CHARS,LOOK:LOOK,WORDS:WORDS,IDIOMS:IDIOMS,FILL:FILL,STEPS:STEPS,READ:READ,SORT:SORT,
+ OVERLAP:OVERLAP,OVERLAP_Q:OVERLAP_Q,ARR:ARR,ARR_O:ARR_O,PERSON:PERSON,PATS:PATS,BADGES:BADGES,
+ shuffle:shuffle,pick:pick,charBy:charBy,charQ:charQ,lookQ:lookQ,wordQ:wordQ,fillQ:fillQ,overlapQ:overlapQ,arrQ:arrQ,personQ:personQ,hairQ:hairQ,orderQ:orderQ,
+ makeChallenge:makeChallenge,check:check,sortCheck:sortCheck,matchCheck:matchCheck,stepCheck:stepCheck,stars:stars,badges:badges,lcg:lcg};
 })();
 if(typeof module!=="undefined"&&module.exports)module.exports=Core;
 </script>
-<script>
-(function(){
-"use strict";
-var st=JSON.parse(localStorage.getItem("lesson8-seasons-hair")||"{}");
-function save(){localStorage.setItem("lesson8-seasons-hair",JSON.stringify(st));}
-function addScore(n){st.score=(st.score||0)+n;document.getElementById("score").textContent="⭐ "+st.score;
- document.getElementById("score").classList.add("pop");setTimeout(function(){document.getElementById("score").classList.remove("pop");},500);save();}
-function burst(e){var x=e.clientX||window.innerWidth/2,y=e.clientY||window.innerHeight/2;
- var emojis=["⭐","🌟","✨","🎉"];for(var i=0;i<5;i++){var d=document.createElement("div");d.className="burst";
- d.textContent=emojis[Math.floor(Math.random()*emojis.length)];d.style.left=x+"px";d.style.top=y+"px";
- var dx=(Math.random()-.5)*300,dy=(Math.random()-.5)*300;d.style.setProperty("--dx",dx+"px");d.style.setProperty("--dy",dy+"px");
- document.body.appendChild(d);setTimeout(function(el){return function(){document.body.removeChild(el);};}(d),1100);}}
-document.getElementById("score").textContent="⭐ "+(st.score||0);
-var pages=document.querySelectorAll("section.page"),tabs=document.querySelectorAll("nav.tabs button");
-tabs.forEach(function(b){b.addEventListener("click",function(){
- var pid=b.getAttribute("data-p");pages.forEach(function(p){p.classList.remove("active");});
- document.getElementById(pid).classList.add("active");tabs.forEach(function(t){t.classList.remove("on");});b.classList.add("on");});});
-/* ============ 課文 ============ */
-var sayTexts=[
- "南風吹來，找哇找……夏天的頭髮是西北雨！又急又長，響聲陣陣。一披下來，就遮住天空，嚇得大地一下溼了眼眶。",
- "西風吹來，找哇找……秋天的頭髮是滿山的芒草！乘著風搖，學著雲舞，比誰先親到天空的臉龐。",
- "北風吹來，找哇找……冬天的頭髮是山頂上的白雪！冰涼涼、冷絲絲，最愛滑雪板來幫它梳出一條一條長辮子。",
- "東風吹來，找哇找……春天的頭髮是冒出來的小青草！踮起腳尖，挺起腰，一散千里……聽，它們在說：短短的頭髮最好看！"
-];
-document.querySelectorAll("[data-say]").forEach(function(b){b.addEventListener("click",function(){
- var i=parseInt(b.getAttribute("data-say"));if(window.speechSynthesis){var u=new SpeechSynthesisUtterance(sayTexts[i]);
- u.lang="zh-TW";u.rate=0.9;window.speechSynthesis.speak(u);}});});
-var readState={q:0,ans:[],correct:0};
-function nextReadQ(){var box=document.getElementById("readQ");if(readState.q>=Core.READ.length){
- var s=Core.stars(readState.correct,Core.READ.length);addScore(s);
- box.innerHTML='<div class="done">✅ 完成閱讀理解！答對 '+readState.correct+' / '+Core.READ.length+' 題，得到 '+s+' 顆星！</div>';
- st.readBest=Math.max(st.readBest||0,readState.correct);save();return;}
- var item=Core.READ[readState.q],h='<div class="prog">';
- for(var i=0;i<Core.READ.length;i++)h+='<i class="'+(i<readState.q?(readState.ans[i]?"ok":"no"):(i===readState.q?"cur":""))+'"></i>';
- h+='</div><p class="q">'+item.q+'</p><div class="choices" id="readCh"></div><div class="fb" id="readFb"></div>';box.innerHTML=h;
- document.getElementById("readCh").innerHTML=item.o.map(function(o){return '<button class="btn" data-a="'+o+'">'+o+'</button>';}).join("");
- document.querySelectorAll("#readCh .btn").forEach(function(b){b.addEventListener("click",function(){
-  var a=b.getAttribute("data-a"),ok=Core.check(item,a);readState.ans.push(ok);if(ok)readState.correct++;
-  b.classList.add(ok?"ok":"no");document.querySelectorAll("#readCh .btn").forEach(function(x){x.disabled=true;});
-  var fb=document.getElementById("readFb");fb.className="fb show "+(ok?"good":"bad");
-  fb.innerHTML=(ok?"✅ 正確！":"❌ 正確答案是：<b>"+item.a+"</b>")+(item.tip?"<br>"+item.tip:"");
-  if(ok)burst(event);setTimeout(function(){readState.q++;nextReadQ();},ok?1200:2400);});});}
-nextReadQ();
-/* ============ 生字 ============ */
-var charGrid=document.getElementById("charGrid"),charDet=document.getElementById("charDet");
-st.seen=st.seen||{};
-Core.CHARS.forEach(function(ch){var b=document.createElement("button");b.textContent=ch.c;
- if(st.seen[ch.c])b.classList.add("seen");b.addEventListener("click",function(){
-  if(!st.seen[ch.c]){st.seen[ch.c]=1;save();b.classList.add("seen");}
-  charGrid.querySelectorAll("button").forEach(function(x){x.classList.remove("on");});b.classList.add("on");showChar(ch);});charGrid.appendChild(b);});
-function showChar(ch){var bf=ch.bf||ch.bs,ex=ch.ex||0;
- var h='<div class="bigc">'+ch.c+'</div><div class="zy">'+ch.zy.split("").join("<br>")+'</div><div class="cinfo">';
- h+='<div><span class="chip">部首</span>'+ch.bs+(bf!==ch.bs?' <small>（寫成 '+bf+'）</small>':'')+'</div>';
- h+='<div><span class="chip id">筆畫</span>部首外 '+ex+' 畫，總共 '+ch.tot+' 畫</div>';
- h+='<div><span class="chip">造詞</span>'+ch.words.join("、")+'</div>';
- h+='<div><small style="color:#888">課文：'+ch.tx+'</small></div>';
- h+='<div style="margin-top:6px"><a class="ext" target="_blank" href="https://stroke-order.learningweb.moe.edu.tw/character_practice.do?word='+encodeURIComponent(ch.c)+'">📝 看筆順動畫</a></div>';
- h+='</div>';charDet.innerHTML=h;document.getElementById("ghost").textContent=ch.c;}
-if(Core.CHARS.length>0)showChar(Core.CHARS[0]);
-var pad=document.getElementById("pad"),ctx=pad.getContext("2d"),drawing=false,lastX=0,lastY=0;
-st.wrote=st.wrote||{};
-function startDraw(e){e.preventDefault();drawing=true;var r=pad.getBoundingClientRect(),t=e.touches?e.touches[0]:e;
- lastX=(t.clientX-r.left)*2;lastY=(t.clientY-r.top)*2;}
-function draw(e){if(!drawing)return;e.preventDefault();var r=pad.getBoundingClientRect(),t=e.touches?e.touches[0]:e,
- x=(t.clientX-r.left)*2,y=(t.clientY-r.top)*2;ctx.strokeStyle="#2b2d42";ctx.lineWidth=8;ctx.lineCap="round";ctx.lineJoin="round";
- ctx.beginPath();ctx.moveTo(lastX,lastY);ctx.lineTo(x,y);ctx.stroke();lastX=x;lastY=y;}
-function endDraw(){drawing=false;}
-pad.addEventListener("mousedown",startDraw);pad.addEventListener("mousemove",draw);pad.addEventListener("mouseup",endDraw);
-pad.addEventListener("touchstart",startDraw);pad.addEventListener("touchmove",draw);pad.addEventListener("touchend",endDraw);
-document.getElementById("padClear").addEventListener("click",function(){ctx.clearRect(0,0,520,520);
- document.getElementById("padFb").className="fb";});
-document.getElementById("padDone").addEventListener("click",function(){var c=document.getElementById("ghost").textContent;
- if(!st.wrote[c]){st.wrote[c]=1;save();addScore(1);}var fb=document.getElementById("padFb");
- fb.className="fb show good";fb.innerHTML="✅ 寫得很好！多練習幾次會更熟練。";burst(event);});
-var cqState={t:"bs",q:0,ans:[],correct:0};
-document.querySelectorAll("#cqSeg button").forEach(function(b){b.addEventListener("click",function(){
- document.querySelectorAll("#cqSeg button").forEach(function(x){x.classList.remove("on");});b.classList.add("on");
- cqState.t=b.getAttribute("data-t");cqState.q=0;cqState.ans=[];cqState.correct=0;nextCQ();});});
-function nextCQ(){var box=document.getElementById("charQ");if(cqState.q>=5){
- var s=Core.stars(cqState.correct,5);addScore(s);
- box.innerHTML='<div class="done">✅ 完成！答對 '+cqState.correct+' / 5 題，得到 '+s+' 顆星！</div>';return;}
- var ch=Core.pick(Core.CHARS,1)[0],item=Core.charQ(cqState.t,ch),h='<div class="prog">';
- for(var i=0;i<5;i++)h+='<i class="'+(i<cqState.q?(cqState.ans[i]?"ok":"no"):(i===cqState.q?"cur":""))+'"></i>';
- h+='</div><p class="q">'+item.q+'</p><div class="choices" id="cqCh"></div><div class="fb" id="cqFb"></div>';box.innerHTML=h;
- document.getElementById("cqCh").innerHTML=item.o.map(function(o){return '<button class="btn" data-a="'+o+'">'+o+'</button>';}).join("");
- document.querySelectorAll("#cqCh .btn").forEach(function(b){b.addEventListener("click",function(){
-  var a=b.getAttribute("data-a"),ok=Core.check(item,a);cqState.ans.push(ok);if(ok)cqState.correct++;
-  b.classList.add(ok?"ok":"no");document.querySelectorAll("#cqCh .btn").forEach(function(x){x.disabled=true;});
-  var fb=document.getElementById("cqFb");fb.className="fb show "+(ok?"good":"bad");
-  fb.innerHTML=ok?"✅ 正確！":"❌ 正確答案是：<b>"+item.a+"</b>";if(ok)burst(event);
-  setTimeout(function(){cqState.q++;nextCQ();},ok?1200:2400);});});}
-nextCQ();
-var lookState={q:0,ans:[],correct:0};
-function nextLookQ(){var box=document.getElementById("lookQ");if(lookState.q>=Core.LOOK.length){
- var s=Core.stars(lookState.correct,Core.LOOK.length);addScore(s);
- box.innerHTML='<div class="done">✅ 完成形近字！答對 '+lookState.correct+' / '+Core.LOOK.length+' 題，得到 '+s+' 顆星！</div>';return;}
- var item=Core.LOOK[lookState.q],lq=Core.lookQ(item),h='<div class="prog">';
- for(var i=0;i<Core.LOOK.length;i++)h+='<i class="'+(i<lookState.q?(lookState.ans[i]?"ok":"no"):(i===lookState.q?"cur":""))+'"></i>';
- h+='</div><p class="q">'+lq.q+'</p><div class="choices" id="lookCh"></div><div class="fb" id="lookFb"></div>';box.innerHTML=h;
- document.getElementById("lookCh").innerHTML=lq.o.map(function(o){return '<button class="btn" data-a="'+o+'">'+o+'</button>';}).join("");
- document.querySelectorAll("#lookCh .btn").forEach(function(b){b.addEventListener("click",function(){
-  var a=b.getAttribute("data-a"),ok=Core.check(lq,a);lookState.ans.push(ok);if(ok)lookState.correct++;
-  b.classList.add(ok?"ok":"no");document.querySelectorAll("#lookCh .btn").forEach(function(x){x.disabled=true;});
-  var fb=document.getElementById("lookFb");fb.className="fb show "+(ok?"good":"bad");
-  fb.innerHTML=(ok?"✅ 正確！":"❌ 正確答案是：<b>"+lq.a+"</b>")+"<br>"+lq.tip;if(ok)burst(event);
-  setTimeout(function(){lookState.q++;nextLookQ();},ok?1200:2400);});});}
-nextLookQ();
-/* ============ 語詞 ============ */
-var matchState={left:null,pairs:[],done:false};
-function initMatch(){var box=document.getElementById("matchBox");if(matchState.done){
- box.innerHTML='<div class="done">✅ 完成配對！</div>';return;}
- var ws=Core.shuffle(Core.WORDS.slice()),ms=Core.shuffle(Core.WORDS.map(function(w){return w.m;}));
- var h='<div class="match"><div class="col" id="matchL">'+ws.map(function(w){return '<button class="btn" data-w="'+w.w+'">'+w.w+'</button>';}).join("")+'</div>';
- h+='<div class="col" id="matchR">'+ms.map(function(m){return '<button class="btn" data-m="'+m+'">'+m+'</button>';}).join("")+'</div></div>';
- h+='<div class="fb" id="matchFb"></div>';box.innerHTML=h;
- document.querySelectorAll("#matchL .btn").forEach(function(b){b.addEventListener("click",function(){
-  if(matchState.left)document.querySelectorAll("#matchL .btn").forEach(function(x){x.classList.remove("sel");});
-  matchState.left=b.getAttribute("data-w");b.classList.add("sel");});});
- document.querySelectorAll("#matchR .btn").forEach(function(b){b.addEventListener("click",function(){
-  if(!matchState.left)return;var m=b.getAttribute("data-m"),ok=Core.matchCheck(matchState.left,m);
-  if(ok){document.querySelector('#matchL [data-w="'+matchState.left+'"]').classList.add("ok");b.classList.add("ok");
-   matchState.pairs.push([matchState.left,m]);matchState.left=null;
-   var fb=document.getElementById("matchFb");fb.className="fb show good";fb.innerHTML="✅ 配對正確！";burst(event);
-   if(matchState.pairs.length===Core.WORDS.length){matchState.done=true;addScore(2);
-    setTimeout(function(){initMatch();},800);st.matchDone=(st.matchDone||0)+1;save();}}
-  else{var fb=document.getElementById("matchFb");fb.className="fb show bad";fb.innerHTML="❌ 這兩個不是一對，再試試看！";
-   b.classList.add("no");setTimeout(function(){b.classList.remove("no");},400);}});});}
-initMatch();
-var fillState={q:0,ans:[],correct:0};
-function nextFillQ(){var box=document.getElementById("fillQ");if(fillState.q>=8){
- var s=Core.stars(fillState.correct,8);addScore(s);
- box.innerHTML='<div class="done">✅ 完成選詞填空！答對 '+fillState.correct+' / 8 題，得到 '+s+' 顆星！</div>';return;}
- var item=Core.FILL[fillState.q],fq=Core.fillQ(item),h='<div class="prog">';
- for(var i=0;i<8;i++)h+='<i class="'+(i<fillState.q?(fillState.ans[i]?"ok":"no"):(i===fillState.q?"cur":""))+'"></i>';
- h+='</div><p class="q">'+fq.q+'</p><div class="choices" id="fillCh"></div><div class="fb" id="fillFb"></div>';box.innerHTML=h;
- document.getElementById("fillCh").innerHTML=fq.o.map(function(o){return '<button class="btn" data-a="'+o+'">'+o+'</button>';}).join("");
- document.querySelectorAll("#fillCh .btn").forEach(function(b){b.addEventListener("click",function(){
-  var a=b.getAttribute("data-a"),ok=Core.check(fq,a);fillState.ans.push(ok);if(ok)fillState.correct++;
-  b.classList.add(ok?"ok":"no");document.querySelectorAll("#fillCh .btn").forEach(function(x){x.disabled=true;});
-  var fb=document.getElementById("fillFb");fb.className="fb show "+(ok?"good":"bad");
-  fb.innerHTML=ok?"✅ 正確！":"❌ 正確答案是：<b>"+fq.a+"</b>";if(ok)burst(event);
-  setTimeout(function(){fillState.q++;nextFillQ();},ok?1200:2400);});});}
-nextFillQ();
-var wh='';Core.WORDS.forEach(function(w){wh+='<div class="wcard"><b>'+w.w+'</b>'+w.m+'</div>';});
-document.getElementById("wordList").innerHTML=wh;
-var ih='';Core.IDIOMS.forEach(function(w){ih+='<div class="wcard"><b>'+w.w+'</b>'+w.m+'</div>';});
-document.getElementById("idiomList").innerHTML=ih;
-/* ============ 句型 ============ */
-st.pat=st.pat||{};
-var patKey="person",patState={q:0,ans:[],correct:0};
-document.querySelectorAll("#patSeg button").forEach(function(b){b.addEventListener("click",function(){
- document.querySelectorAll("#patSeg button").forEach(function(x){x.classList.remove("on");});b.classList.add("on");
- patKey=b.getAttribute("data-k");patState.q=0;patState.ans=[];patState.correct=0;showPatIntro();nextPatQ();});});
-function showPatIntro(){var intro=document.getElementById("patIntro"),h="";
- if(patKey==="person")h='<h3>🪄 認識擬人法</h3><p class="lead">擬人法就是把東西當成人來寫，讓它有人的動作、表情或想法。</p><div class="tip">例如：「小青草踮起腳尖，挺起腰」——把小青草當成人，會有動作。</div>';
- else if(patKey==="season")h='<h3>🌸 季節描寫</h3><p class="lead">詩裡用不同的景象描寫四季：夏天是西北雨、秋天是芒草、冬天是白雪、春天是小青草。</p>';
- else h='<h3>🎨 感覺詞語</h3><p class="lead">詩裡用了很多形容感覺的詞語，例如「又急又長」「冰涼涼、冷絲絲」。</p>';
- intro.innerHTML=h;}
-showPatIntro();
-function nextPatQ(){var box=document.getElementById("patQ"),arr=patKey==="person"?Core.PERSON:(patKey==="season"?Core.SEASON_D:Core.COLOR);
- if(patState.q>=Math.min(5,arr.length)){var s=Core.stars(patState.correct,patState.q);addScore(s);
-  box.innerHTML='<div class="done">✅ 完成！答對 '+patState.correct+' / '+patState.q+' 題，得到 '+s+' 顆星！</div>';
-  if(!st.pat[patKey]){st.pat[patKey]=1;save();}return;}
- var item=arr[patState.q],pq=patKey==="person"?Core.personQ(item):(patKey==="season"?Core.seasonQ(item):Core.colorQ(item)),h='<div class="prog">';
- for(var i=0;i<Math.min(5,arr.length);i++)h+='<i class="'+(i<patState.q?(patState.ans[i]?"ok":"no"):(i===patState.q?"cur":""))+'"></i>';
- h+='</div><p class="q">'+pq.q+'</p><div class="choices" id="patCh"></div><div class="fb" id="patFb"></div>';box.innerHTML=h;
- document.getElementById("patCh").innerHTML=pq.o.map(function(o){return '<button class="btn" data-a="'+o+'">'+o+'</button>';}).join("");
- document.querySelectorAll("#patCh .btn").forEach(function(b){b.addEventListener("click",function(){
-  var a=b.getAttribute("data-a"),ok=Core.check(pq,a);patState.ans.push(ok);if(ok)patState.correct++;
-  b.classList.add(ok?"ok":"no");document.querySelectorAll("#patCh .btn").forEach(function(x){x.disabled=true;});
-  var fb=document.getElementById("patFb");fb.className="fb show "+(ok?"good":"bad");
-  fb.innerHTML=(ok?"✅ 正確！":"❌ 正確答案是：<b>"+pq.a+"</b>")+(pq.tip?"<br>"+pq.tip:"");if(ok)burst(event);
-  setTimeout(function(){patState.q++;nextPatQ();},ok?1200:2400);});});}
-nextPatQ();
-/* ============ 挑戰 ============ */
-var sortState={items:[],ans:{},done:0};
-function initSort(){var box=document.getElementById("sortBox");if(sortState.done>=10){
- var perfect=sortState.done===Core.SORT.length,s=perfect?3:Core.stars(sortState.done,Core.SORT.length);addScore(s);
- box.innerHTML='<div class="done">✅ 完成！答對 '+sortState.done+' / '+Core.SORT.length+' 題，得到 '+s+' 顆星！'+(perfect?"太厲害了！":"")+'</div>';
- if(perfect){st.seasonPerfect=(st.seasonPerfect||0)+1;save();}return;}
- sortState.items=Core.pick(Core.SORT,Math.min(8,Core.SORT.length-sortState.done));sortState.ans={};
- var h='<p class="small">每一句是描寫哪個季節？</p><div class="btns cen" id="sortBtns">'+
-  Core.SEASONS.map(function(s){return '<button class="btn" data-k="'+s.k+'">'+s.e+' '+s.n+'</button>';}).join("")+'</div>';
- h+='<div id="sortItems"></div><div class="fb" id="sortFb"></div>';box.innerHTML=h;showSortItem();
- document.querySelectorAll("#sortBtns .btn").forEach(function(b){b.addEventListener("click",function(){
-  if(!sortState.items.length)return;var k=b.getAttribute("data-k"),t=sortState.items[0].t,ok=Core.sortCheck(t,k);
-  sortState.ans[t]=ok;if(ok)sortState.done++;document.getElementById("sortFb").className="fb show "+(ok?"good":"bad");
-  document.getElementById("sortFb").innerHTML=ok?"✅ 正確！":"❌ 不對喔，再想想看。";if(ok)burst(event);
-  setTimeout(function(){sortState.items.shift();if(sortState.items.length===0)initSort();else showSortItem();},ok?800:1600);});});}
-function showSortItem(){if(!sortState.items.length)return;
- document.getElementById("sortItems").innerHTML='<p class="q">'+sortState.items[0].t+'</p>';}
-initSort();
-var chState={qs:[],q:0,ans:[],correct:0};
-function initCh(){var box=document.getElementById("chBox");if(chState.q>0){
- var s=Core.stars(chState.correct,10);addScore(s);
- box.innerHTML='<div class="done">✅ 挑戰完成！答對 '+chState.correct+' / 10 題，得到 '+s+' 顆星！'+(chState.correct>=9?"你是挑戰王！":"")+'</div>';
- st.chBest=Math.max(st.chBest||0,chState.correct);save();return;}
- chState.qs=Core.makeChallenge();chState.q=0;chState.ans=[];chState.correct=0;nextChQ();}
-function nextChQ(){var box=document.getElementById("chBox");if(chState.q>=chState.qs.length){initCh();return;}
- var item=chState.qs[chState.q],h='<div class="prog">';
- for(var i=0;i<10;i++)h+='<i class="'+(i<chState.q?(chState.ans[i]?"ok":"no"):(i===chState.q?"cur":""))+'"></i>';
- h+='</div><p class="q">'+item.q+'</p><div class="choices" id="chCh"></div><div class="fb" id="chFb"></div>';box.innerHTML=h;
- document.getElementById("chCh").innerHTML=item.o.map(function(o){return '<button class="btn" data-a="'+o+'">'+o+'</button>';}).join("");
- document.querySelectorAll("#chCh .btn").forEach(function(b){b.addEventListener("click",function(){
-  var a=b.getAttribute("data-a"),ok=Core.check(item,a);chState.ans.push(ok);if(ok)chState.correct++;
-  b.classList.add(ok?"ok":"no");document.querySelectorAll("#chCh .btn").forEach(function(x){x.disabled=true;});
-  var fb=document.getElementById("chFb");fb.className="fb show "+(ok?"good":"bad");
-  fb.innerHTML=(ok?"✅ 正確！":"❌ 正確答案是：<b>"+item.a+"</b>")+(item.tip?"<br>"+item.tip:"");if(ok)burst(event);
-  setTimeout(function(){chState.q++;nextChQ();},ok?1200:2400);});});}
-initCh();
-/* ============ 紀錄 ============ */
-var bdg=Core.badges(st),bh='';Core.BADGES.forEach(function(b){
- bh+='<div class="bdg '+(bdg[b.id]?"got":"")+'">'+b.n+'<small>'+b.d+'</small></div>';});
-document.getElementById("badges").innerHTML=bh;
-var stats='<div class="stat">總星星<b>'+(st.score||0)+'</b></div>';
-stats+='<div class="stat">生字卡<b>'+Object.keys(st.seen||{}).length+' / '+Core.CHARS.length+'</b></div>';
-stats+='<div class="stat">寫字練習<b>'+Object.keys(st.wrote||{}).length+'</b></div>';
-stats+='<div class="stat">閱讀最佳<b>'+(st.readBest||0)+' / '+Core.READ.length+'</b></div>';
-stats+='<div class="stat">挑戰最佳<b>'+(st.chBest||0)+' / 10</b></div>';
-document.getElementById("stats").innerHTML=stats;
-var mist="";if(!st.readBest||st.readBest<Core.READ.length)mist+="<p>• 閱讀理解還有進步空間</p>";
-if(!st.seen||Object.keys(st.seen).length<Core.CHARS.length)mist+="<p>• 有些生字還沒看過</p>";
-if(!st.matchDone)mist+="<p>• 還沒完成語詞配對</p>";
-if(!st.pat||!st.pat.person||!st.pat.season||!st.pat.color)mist+="<p>• 句型練習還沒全部完成</p>";
-if(!st.seasonPerfect)mist+="<p>• 季節分類還沒全對過</p>";
-if(!st.chBest||st.chBest<9)mist+="<p>• 綜合挑戰還沒拿到挑戰王</p>";
-document.getElementById("mist").innerHTML=mist||"<p>✅ 沒有常錯的地方，太棒了！</p>";
-document.getElementById("resetBtn").addEventListener("click",function(){
- if(confirm("確定要清除所有紀錄嗎？（無法復原）")){localStorage.removeItem("lesson8-seasons-hair");location.reload();}});
-})();
-</script>
+<script src="app.js"></script>
 </body>
 </html>
