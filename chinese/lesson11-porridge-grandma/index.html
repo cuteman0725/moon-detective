@@ -64,6 +64,14 @@ nav.tabs button span{font-size:24px;line-height:1}nav.tabs button.on{background:
 .part h4{margin:0 0 4px;font-size:18px;line-height:1.7}.part .tag{display:inline-block;background:var(--pink);color:#fff;border-radius:999px;padding:2px 10px;font-size:14px;margin-right:6px;line-height:1.5}
 .part .tag.t2{background:var(--teal)}
 .quote{background:#fff4c2;border-radius:8px;padding:2px 6px;font-weight:700;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.own{background:#e6f0ff;border-radius:8px;padding:2px 6px;font-weight:700;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:8px 0}
+.steps .btn{color:var(--ink);text-align:left;min-height:56px;font-size:17px;line-height:1.4}
+.steps .btn small{display:block;font-size:14px;font-weight:600;color:#555}
+.steps .btn.ok{opacity:.45}
+.stepdone{list-style:none;margin:8px 0;padding:0}
+.stepdone li{background:#fff4c2;border-radius:12px;padding:8px 12px;margin:6px 0;font-size:17px;font-weight:700;line-height:1.6}
+.stepdone li b{display:inline-block;background:var(--pink);color:#fff;border-radius:999px;padding:1px 10px;margin-right:8px}
 .chargrid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;max-width:560px;margin:0 auto}
 .chargrid button{font-family:"BiauKai","DFKai-SB","TW-Kai","Kaiti TC",KaiTi,serif;font-size:clamp(30px,8vw,44px);aspect-ratio:1/1;min-height:56px;border-radius:16px;border:3px solid #ffd0df;background:#fff;color:var(--ink);cursor:pointer;position:relative;touch-action:manipulation;padding:0}
 .chargrid button.seen{background:#fff0f5}.chargrid button.seen:after{content:"✓";position:absolute;right:4px;top:0;font-size:14px;color:var(--teal);font-family:sans-serif}
@@ -71,7 +79,8 @@ nav.tabs button span{font-size:24px;line-height:1}nav.tabs button.on{background:
 .cdet{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start;margin-top:10px}
 .bigc{font-family:"BiauKai","DFKai-SB","TW-Kai","Kaiti TC",KaiTi,serif;font-size:96px;line-height:1;width:130px;height:130px;display:flex;align-items:center;justify-content:center;border:3px solid #ff6b9a;border-radius:12px;position:relative;
  background-image:linear-gradient(#ffd0df,#ffd0df),linear-gradient(#ffd0df,#ffd0df);background-size:100% 2px,2px 100%;background-position:center;background-repeat:no-repeat;flex:0 0 130px}
-.zy{writing-mode:vertical-rl;font-size:18px;font-weight:800;color:#b0154a;letter-spacing:2px}
+.zy{display:flex;flex-direction:column;align-items:center;font-size:19px;font-weight:800;color:#b0154a;line-height:1.1;padding:2px 12px 0 0}
+.zy .zs{display:block;position:relative}.zy .zs i{position:absolute;left:100%;top:-.15em;font-style:normal;font-size:.9em}
 .cinfo{flex:1;min-width:200px;font-size:17px;line-height:1.8}
 .chip{display:inline-block;background:#e6f0ff;border-radius:999px;padding:3px 12px;margin:2px 4px 2px 0;font-weight:700}
 .chip.id{background:#fff1d6}
@@ -86,8 +95,23 @@ nav.tabs button span{font-size:24px;line-height:1}nav.tabs button.on{background:
 .match .col{display:flex;flex-direction:column;gap:8px}
 .match .btn{background:#fff;color:var(--ink);border:3px solid #d6e4ff;font-size:16px;min-height:56px;line-height:1.35;padding:6px 8px}
 .match .btn.sel{border-color:var(--pink);background:#fff0f5}.match .btn.ok{background:#d8f3dc;border-color:#2ec4b6;opacity:.55}.match .btn.no{animation:shake .4s;border-color:#ff6b9a}
+.formula{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:6px 0}
+.formula span{border-radius:12px;padding:6px 10px;font-weight:800;font-size:17px}
+.f1{background:#ffd6dc}.f2{background:#cfe8ff}.f3{background:#d8f3dc}
 .blank{display:inline-block;min-width:3em;border-bottom:3px solid var(--pink);color:#b0154a}
+.locbtns{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:8px}
+.locbtns .btn{color:var(--ink);font-size:17px;min-height:64px;padding:6px 2px;line-height:1.3}
+.bins{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px}
+.bin{border-radius:14px;padding:6px 8px;font-size:14px;line-height:1.5;min-height:48px;border:3px solid #ffd0df;background:#fffafc;min-width:0}
+.bin b{display:block;font-size:15px}
+.route{display:flex;flex-wrap:wrap;gap:4px 2px;align-items:center;justify-content:center;font-weight:800;font-size:16px;margin:6px 0}
+.route span{background:#fff0f5;border:2px solid #ffd0df;border-radius:999px;padding:2px 10px}
+.rd{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;align-items:baseline;font-size:17px;line-height:1.7;margin:4px 0}
+.rd b{color:#b0154a;white-space:nowrap}
+a.ext{color:#1d4ed8;font-weight:800}
+@media (max-width:560px){.bins{grid-template-columns:1fr}}
 @media (max-width:420px){.chargrid{gap:6px}.bigc{width:110px;height:110px;flex-basis:110px;font-size:80px}.match .btn{font-size:15px}}
+@media (max-width:350px){.chargrid button{min-height:0}}
 </style>
 </head>
 <body>
@@ -104,30 +128,41 @@ nav.tabs button span{font-size:24px;line-height:1}nav.tabs button.on{background:
     <h2>📖 第十一課 豆粥婆婆</h2>
     <div class="info">
       <div><b>版本</b>南一 國語 4上（第七冊）</div>
-      <div><b>單元</b>第肆單元 美好的祝福</div>
-      <div><b>作者</b>改寫自日本民間故事</div>
-      <div><b>文體</b>故事（民間故事）</div>
+      <div><b>單元</b>第肆單元 跟著故事跑</div>
+      <div><b>來源</b>改寫自韓國民間故事（課本第 106 頁）</div>
+      <div><b>寫法</b>故事裡有很多角色說的話</div>
     </div>
-    <div class="tip">🍲 <b>故事主題</b>：善良的婆婆分享豆粥給飢餓的時候物，得到神奇的回報。包含善良、分享、感恩的主題。</div>
-    <p class="small">這裡是用自己的話整理的「重點導讀」，只引用幾個短句；完整課文請看課本第 106～112 頁。</p>
+    <div class="tip">📍 <b>課本第 94 頁</b>單元頁說：這個單元要「跟著故事跑」，讀亞洲各地的故事，到各國去旅行。地圖上，〈豆粥婆婆〉是韓國的故事。課本第 107 頁還有一張小地圖，標出韓國在哪裡。</div>
+    <p class="small">這裡是用自己的話整理的「重點導讀」，只引用幾個語詞（黃色底）；完整課文請看課本第 106～110 頁，也可以掃課本第 106 頁的 QR code 聽課文朗讀。</p>
   </div>
 
   <div class="card">
-    <h3>🗺️ 課文導讀 <small>(自編導讀)</small></h3>
-    <div class="part"><h4><span class="tag">開頭</span>婆婆煮豆粥</h4>
-      <p class="lead">(自編導讀) 從前有個善良的婆婆，每天用大鍋子煮豆粥。她的豆粥又香又好吃，村裡的人都喜歡吃。</p>
-    </div>
-    <div class="part"><h4><span class="tag">經過</span>分享給動物</h4>
-      <p class="lead">(自編導讀) 有一天，一隻飢餓的小鳥來求助，婆婆分給牠一碗豆粥。小鳥吃飽後，送婆婆一個神奇的木柄。婆婆不知道木柄的秘密。</p>
-      <p class="lead">(自編導讀) 後來，婆婆煮豆粥時不小心把木柄掉進鍋子裡。沒想到，鍋子裡的豆粥開始湧出來，越來越多！婆婆試著要停止，但豆粥停不下來。</p>
-    </div>
-    <div class="part"><h4><span class="tag">高潮</span>豆粥淹沒村莊</h4>
-      <p class="lead">(自編導讀) 豆粥像波浪一樣湧出來，淹沒了整個村莊。村民們驚慌失措，不知道該怎麼辦。小鳥看到了，趕緊飛回來教婆婆怎麼停止。</p>
-    </div>
-    <div class="part"><h4><span class="tag">結尾</span>得到祝福</h4>
-      <p class="lead">(自編導讀) 婆婆學會了使用木柄，豆粥終於停止了。從此以後，婆婆用這個神奇的木柄，煮出足夠的豆粥分享給大家。村裡的人都很感謝婆婆的善良。</p>
-    </div>
-    <div class="tip more">🔎 <b>故事的啟示</b>：分享和善良會得到美好的回報。婆婆因為願意幫助別人，得到了神奇的禮物。</div>
+    <h3>🗺️ 課文導讀</h3>
+    <p class="small">課文印在課本第 107、108、110 頁。下面照這三頁，用自己的話說一次。</p>
+    <div class="part"><h4><span class="tag">第 107 頁</span><span class="tag t2">有一天・田裡</span>🐯 遇到老虎</h4>
+      <p class="lead">故事發生在韓國。有位<b>婆婆</b>種紅豆，也很會煮豆粥。她的粥讓人<span class="quote">齒頰留香</span>，人人都喊她「豆粥婆婆」。某一天，她在田裡工作，回頭一看，一隻大老虎站在面前！老虎的牙齒<b>陰森森</b>的，婆婆嚇到<span class="quote">面無血色</span>。她<span class="quote">苦苦哀求</span>：能不能等冬至到了，讓她先喝一碗豆粥？老虎也想<b>品嘗</b>豆粥的味道，就點頭了。</p>
+      <button class="btn white small" data-say="0">🔊 聽導讀</button></div>
+    <div class="part"><h4><span class="tag">第 108 頁</span><span class="tag t2">冬至那天・婆婆家</span>🥣 大家來幫忙</h4>
+      <p class="lead">冬至這一天，豆粥煮好了，婆婆卻在<b>草蓆</b>上哭個不停。家裡的東西一個一個過來關心：蛋和<b>栗子</b>、木背架、<b>藍蟹</b>、白年糕和泡菜<b>缸</b>，還有草蓆。知道老虎要來吃婆婆，木背架好生氣。藍蟹說老虎太<b>橫</b>了，牠們才不怕。大家都說有辦法。婆婆不哭了，開心的把粥分給大家喝。大夥兒七嘴八舌，想好了辦法，就各自躲好，等老虎上門。</p>
+      <button class="btn white small" data-say="1">🔊 聽導讀</button></div>
+    <div class="part"><h4><span class="tag">第 110 頁</span><span class="tag t2">天剛黑・婆婆家</span>💥 趕走老虎</h4>
+      <p class="lead">天才黑，老虎就來了。屋子裡<span class="quote">黑漆漆</span>的，一點聲音也沒有。栗子、蛋和熱年糕輪流出手，害老虎滿臉<span class="quote">黏答答</span>。老虎把頭伸進水缸，鼻子卻被藍蟹夾得好<b>痛</b>。牠才跳了幾下，又被草蓆整個捲住，只好<b>拚命</b>往外衝。木背架在門口絆了牠一腳，牠一頭栽進泡菜缸。缸子滾啊滾，把老虎帶到好遠的地方。後來，老虎不敢再來找婆婆了。</p>
+      <button class="btn white small" data-say="2">🔊 聽導讀</button></div>
+    <div class="tip more">🔎 <b>延伸（課本沒有解釋）</b>：「木背架」是背在背上、用來搬東西的木頭架子。課本第 124 頁的圖裡，像梯子、有眼睛和嘴巴的木架子就是它。</div>
+    <div class="tip more">🔎 <b>延伸（課本沒有說明）</b>：冬至是一年裡白天最短的一天，大約在國曆 12 月 22 日前後。在臺灣，很多人冬至會吃湯圓。</div>
+  </div>
+
+  <div class="card">
+    <h3>🔗 趕老虎排一排</h3>
+    <p class="small">天黑以後，大家一個接一個對付老虎（課本第 110 頁）。誰先？誰後？照順序點一點！</p>
+    <div id="stepBox"></div>
+  </div>
+
+  <div class="card">
+    <h3>🦉 課本怎麼說這個故事</h3>
+    <div class="tip">課本第 122 頁（語文天地四「故事趣味多」）說：讀故事<b>能獲得新知</b>。它問：讀完這個單元的故事，你知道韓國冬至吃什麼東西嗎？<br>讀了這一課就知道：婆婆在冬至煮的是<b>豆粥</b>。</div>
+    <div class="tip">課本第 122 頁也說：讀故事<b>可以得到啟發</b>。豆粥婆婆的圖旁邊，寫的是「<b>團結合作力量大</b>」。</div>
+    <div class="tip more">🔎 <b>延伸（這是自己的想法，不是課本的答案）</b>：可以這樣想：<br>・栗子、蛋、年糕、螃蟹，每一個都很小，單獨打不過老虎。<br>・大家先商量，再照自己的本事分工，就把老虎趕走了。<br>・老虎又大又兇，可是大家團結起來，就不怕牠了。<br>你的想法是什麼？說給爸媽聽聽看！</div>
   </div>
 
   <div class="card">
@@ -140,14 +175,14 @@ nav.tabs button span{font-size:24px;line-height:1}nav.tabs button.on{background:
 <section class="page" id="p-char">
   <div class="card">
     <h2>✍️ 我會寫的字（15 個）</h2>
-    <p class="small">點一個字，看注音、部首、筆畫和造詞。數字是「部首外筆畫／總筆畫」，依課本第 112 頁。</p>
+    <p class="small">點一個字，看注音、部首、筆畫和造詞。數字是「部首外筆畫／總筆畫」，依課本第 112 頁。順序是字在課文裡出現的先後。</p>
     <div class="chargrid" id="charGrid"></div>
     <div class="cdet" id="charDet"></div>
   </div>
   <div class="card">
     <h3>🖌️ 描寫板</h3>
-    <p class="small">用手指照著淡淡的字描一描。筆順可以按上面的「看筆順動畫」到教育部筆順學習網看。</p>
-    <div class="padwrap" id="padWrap"><div class="ghost" id="ghost">缸</div><canvas id="pad" width="520" height="520"></canvas></div>
+    <p class="small">用手指照著淡淡的字描一描。筆順可以看課本第 112 頁，或按上面的「看筆順動畫」到教育部筆順學習網看。</p>
+    <div class="padwrap" id="padWrap"><div class="ghost" id="ghost">婆</div><canvas id="pad" width="520" height="520"></canvas></div>
     <div class="btns cen"><button class="btn gray small" id="padClear">🧽 擦掉</button><button class="btn green" id="padDone">✅ 寫好了</button></div>
     <div class="fb" id="padFb"></div>
   </div>
@@ -160,6 +195,17 @@ nav.tabs button span{font-size:24px;line-height:1}nav.tabs button.on{background:
     </div>
     <div id="charQ"></div>
   </div>
+  <div class="card">
+    <h3>🔤 多音字：橫</h3>
+    <div class="tip">課本最前面「給教師與家長的話」說：課文裡的生字如果是多音字，注音會印成<b>紅色</b>。這一課只有「橫」的注音是紅色的。</div>
+    <div class="tip"><b>橫</b> ㄏㄥˋ：課文的<span class="quote">比我們還橫</span>（課本第 108 頁，藍蟹說的話）。生字格的注音也是 ㄏㄥˋ（第 112 頁）。<br>第十課「比一比讀音」的「強<b>橫</b>無理」（課本第 105 頁），「橫」也念 ㄏㄥˋ。</div>
+    <div class="tip more">🔎 <b>延伸（這一課沒有教）</b>：念 ㄏㄥˋ 的「橫」，是很兇、不講道理的意思，例如「蠻橫」。<br>「橫線、橫寫」的「橫」念 ㄏㄥˊ，是左右方向的意思。</div>
+  </div>
+  <div class="card">
+    <h3>👀 形近字選一選</h3>
+    <p class="small">課本這一課沒有「比一比字形」。血／皿、哀／衷、嘗／當、頰／峽、蟹／解、缸／紅、漆／膝、栗／票、痛／桶、婆／波，都是自己找的形近字。句子也是自編的。</p>
+    <div id="lookQ"></div>
+  </div>
 </section>
 
 <!-- ============ 語詞 ============ -->
@@ -171,29 +217,57 @@ nav.tabs button span{font-size:24px;line-height:1}nav.tabs button.on{background:
   </div>
   <div class="card">
     <h3>📝 選詞填空</h3>
+    <p class="small">句子是自編的，答案是下面語詞小卡裡的語詞。</p>
     <div id="fillQ"></div>
   </div>
   <div class="card">
+    <h3>📖 語詞辨別：虎口</h3>
+    <div class="tip">課本第 113 頁「語詞辨別」說，「虎口」有兩個意思：<br>① 虎嘴。比喻非常危險的地方。<br>② 大拇指與食指相連的部位。<br>課本的例句：<span class="quote">馬路如虎口，經過時一定要小心。</span>課本問：例句中的「虎口」是什麼意思？</div>
+    <p class="small">前三題依課本和課文（只引用語詞），後三題的句子是自編的。</p>
+    <div id="hukouQ"></div>
+  </div>
+  <div class="card">
     <h3>📚 語詞小卡</h3>
-    <p class="small">這些是課文裡重要的語詞。解釋是用自己的話寫的。</p>
+    <p class="small">這 12 個語詞都出自課文（課本第 107～110 頁），都有這一課的生字，課文裡印成藍色。課文裡還有三個藍色語詞：婆婆、藍蟹、好痛。「韓國」印成綠色，是識讀語詞。課本沒有解釋這些語詞，下面的解釋是用自己的話寫的。</p>
     <div class="wlist" id="wordList"></div>
+    <h3 style="margin-top:12px">📖 課文裡的其他語詞</h3>
+    <p class="small">這些語詞也在課文裡。解釋是自編的。</p>
+    <div class="wlist" id="moreList"></div>
+    <h3 style="margin-top:12px">💡 生字延伸成語</h3>
+    <p class="small">🔎 延伸：這些成語課本沒有，是多認識的。</p>
+    <div class="wlist" id="idiomList"></div>
   </div>
 </section>
 
 <!-- ============ 句型 ============ -->
 <section class="page" id="p-pat">
   <div class="card">
-    <h2>🪄 句型練習</h2>
-    <p class="small">（自編說明）練習課文中的重要句型和表達方式。</p>
+    <h2>🪄 句型和寫作重點</h2>
+    <div class="seg" id="patSeg">
+      <button class="btn white on" data-k="seq">先……接著……最後……</button>
+      <button class="btn white" data-k="tone">對話的語氣</button>
+      <button class="btn white" data-k="tell">說故事的方法</button>
+    </div>
   </div>
+  <div class="card" id="patIntro"></div>
   <div class="card"><div id="patQ"></div></div>
 </section>
 
 <!-- ============ 挑戰 ============ -->
 <section class="page" id="p-game">
   <div class="card">
+    <h2>🎭 這是誰？</h2>
+    <p class="small">有黃色底的是課文裡的短句，其他是用自己的話問的。想一想，是誰？（每次出 8 題）</p>
+    <div id="whoBox"></div>
+  </div>
+  <div class="card">
+    <h2>🗂️ 三段分一分</h2>
+    <p class="small">這件事發生在故事的哪一段？（句子是依課文改寫的，每次出 9 題）</p>
+    <div id="sortBox"></div>
+  </div>
+  <div class="card">
     <h2>🏆 第十一課綜合挑戰（10 題）</h2>
-    <p class="small">生字、語詞、閱讀理解通通有！答對 9 題以上拿「挑戰王」徽章。</p>
+    <p class="small">生字、形近字、語詞、句型、語氣、課文內容通通有！答對 9 題以上拿「挑戰王」徽章。</p>
     <div id="chBox"></div>
   </div>
 </section>
@@ -203,8 +277,8 @@ nav.tabs button span{font-size:24px;line-height:1}nav.tabs button.on{background:
   <div class="card"><h2>🏆 我的紀錄</h2><div class="statgrid" id="stats"></div><div class="badges" id="badges"></div></div>
   <div class="card"><h3>🔎 常錯的地方</h3><div id="mist"></div></div>
   <div class="card"><button class="btn gray" id="resetBtn">清除紀錄</button><p class="small">紀錄只存在這台平板的瀏覽器裡。</p>
-    <p class="small">資料來源：南一版國語 4上 課本——第 106～112 頁〈豆粥婆婆〉課文和「我會寫的字」。</p>
-    <p class="small">✏️ <b>自編說明：</b>課文導讀是用自己的話整理的。閱讀理解、語詞解釋、造詞和挑戰的題目與例句，都是為了練習自己編寫的，不是課本原文。</p></div>
+    <p class="small">資料來源：南一版國語 4上 課本——「給教師與家長的話」（多音字的注音印成紅色）、第 94 頁單元頁「跟著故事跑」、第 106～110 頁〈豆粥婆婆〉課文、第 112 頁「我會寫的字」、第 113 頁「語詞辨別」「句子練習」「對話的語氣」、第 122 頁語文天地四「故事趣味多」、第 124～125 頁「說故事的方法」、第 131 頁生字表。</p>
+    <p class="small">✏️ <b>自編說明：</b>課文導讀是用自己的話整理的，只引用幾個語詞。課本第 113 頁的例句沒有照抄，改用自己的話說明，原句請看課本。閱讀理解、趕老虎的順序、三段分類、選詞填空、形近字、句型和語氣的練習句、挑戰的題目，都是為了練習自己編寫的，不是課本原文。只有黃色底的字是課文原文。語詞解釋和造詞也是用好懂的話寫的（每個字的第一個語詞出自課文；「橫」在課文裡是單獨用的，語詞是自編的）。標「🔎 延伸」的內容（木背架、冬至、故事的想法、多音字的其他讀音、延伸成語）課本沒有，考試以課本為主。</p></div>
 </section>
 </main>
 
@@ -220,118 +294,284 @@ nav.tabs button span{font-size:24px;line-height:1}nav.tabs button.on{background:
 <script id="core">
 var Core=(function(){
 "use strict";
-/* 生字資料：課本第 112 頁 */
+/* 生字：注音、部首、部首外筆畫（ex）、總筆畫（tot）都依南一版課本第 112 頁「我會寫的字」，並和第 131 頁生字表核對過；
+   順序是字在課文裡出現的先後（第 112 頁由右到左、每一行由上到下）。
+   words 的第一個是課文裡的語詞，其餘自編（多音字只放和生字格同一個讀音的詞）；「橫」在課文裡單獨用，語詞是自編的；
+   ph 是課文裡含這個字的語詞（出注音題用）；tx 是課文裡含這個字的短語（一定要和課本一字不差，標點用全形；為了少引用課文，只取幾個字）；
+   bf=部首在這個字裡的寫法；look=形近字；zo=注音題指定的錯誤選項；
+   poly=多音字：src 是課本哪裡標出來，now 是這一課的讀音，eg 是同音的例詞，more 是其他讀音（延伸，課本這一課沒有教） */
 var CHARS=[
- {c:"婆",zy:"ㄆㄛˊ",bs:"女",ex:8,tot:11,words:["婆婆","豆粥婆婆","老婆婆"],tx:"韓國有位種紅豆的婆婆"},
- {c:"嘗",zy:"ㄔㄤˊ",bs:"口",ex:11,tot:14,words:["品嘗"],tx:"老虎也想在冬至品嘗熱呼呼的豆粥"},
- {c:"缸",zy:"ㄍㄤ",bs:"缶",ex:3,tot:9,words:["水缸","泡菜缸"],tx:"藍蟹們紛紛爬出水缸"},
- {c:"頰",zy:"ㄐㄧㄚˊ",bs:"頁",ex:10,tot:16,words:["齒頰留香"],tx:"煮的豆粥令人齒頰留香"},
- {c:"蓆",zy:"ㄒㄧˊ",bs:"艸",bf:"艹",ex:11,tot:14,words:["草蓆"],tx:"就坐在草蓆上放聲大哭"},
- {c:"漆",zy:"ㄑㄧ",bs:"水",bf:"氵",ex:11,tot:14,words:["黑漆漆"],tx:"屋內黑漆漆、靜悄悄的"},
- {c:"陰",zy:"ㄧㄣ",bs:"阜",bf:"阝",ex:9,tot:11,words:["陰森森"],tx:"閃閃發光的虎眼和陰森森的虎牙就在眼前"},
- {c:"栗",zy:"ㄌㄧˋ",bs:"木",ex:6,tot:10,words:["栗子"],tx:"蛋和栗子滾動著身子問"},
- {c:"黏",zy:"ㄋㄧㄢˊ",bs:"黍",ex:5,tot:17,words:["黏答答"],tx:"滿臉熱呼呼、黏答答"},
- {c:"血",zy:"ㄒㄧㄝˇ",bs:"血",ex:0,tot:6,words:["面無血色"],tx:"嚇得她面無血色"},
- {c:"橫",zy:"ㄏㄥˊ",bs:"木",ex:12,tot:16,words:["橫"],tx:"竟然比我們還橫"},
- {c:"痛",zy:"ㄊㄨㄥˋ",bs:"疒",ex:7,tot:12,words:["好痛","痛得"],tx:"「好痛!」老虎痛得在草蓆上直跳腳"},
- {c:"哀",zy:"ㄞ",bs:"口",ex:6,tot:9,words:["苦苦哀求"],tx:"但是她仍然苦苦哀求"},
- {c:"蟹",zy:"ㄒㄧㄝˋ",bs:"虫",ex:13,tot:19,words:["藍蟹"],tx:"藍蟹們紛紛爬出水缸"},
- {c:"拚",zy:"ㄆㄢˋ",bs:"手",bf:"扌",ex:5,tot:8,words:["拚命"],tx:"嚇得牠拚命奔逃"}
+ {c:"婆",zy:"ㄆㄛˊ",bs:"女",ex:8,tot:11,words:["婆婆","老婆婆","外婆"],ph:"婆婆",tx:"豆粥婆婆",look:"波"},
+ {c:"頰",zy:"ㄐㄧㄚˊ",bs:"頁",ex:7,tot:16,words:["齒頰留香","臉頰"],ph:"齒頰留香",tx:"齒頰留香",look:"峽"},
+ {c:"陰",zy:"ㄧㄣ",bs:"阜",bf:"阝",ex:8,tot:11,words:["陰森森","陰天","陰涼"],ph:"陰森森",tx:"陰森森的虎牙"},
+ {c:"血",zy:"ㄒㄧㄝˇ",bs:"血",ex:0,tot:6,words:["面無血色","流血","血液"],ph:"面無血色",tx:"面無血色",look:"皿"},
+ {c:"哀",zy:"ㄞ",bs:"口",ex:6,tot:9,words:["苦苦哀求","悲哀","哀傷"],ph:"苦苦哀求",tx:"苦苦哀求",look:"衷"},
+ {c:"嘗",zy:"ㄔㄤˊ",bs:"口",ex:11,tot:14,words:["品嘗","嘗試","嘗一嘗"],ph:"品嘗",tx:"品嘗熱呼呼的豆粥",look:"當"},
+ {c:"蓆",zy:"ㄒㄧˊ",bs:"艸",bf:"艹",ex:10,tot:14,words:["草蓆","涼蓆","竹蓆"],ph:"草蓆",tx:"痛得在草蓆上直跳腳"},
+ {c:"栗",zy:"ㄌㄧˋ",bs:"木",ex:6,tot:10,words:["栗子","糖炒栗子"],ph:"栗子",tx:"蛋和栗子",look:"票"},
+ {c:"橫",zy:"ㄏㄥˋ",bs:"木",ex:12,tot:16,words:["蠻橫","強橫"],ph:"比我們還橫",tx:"比我們還橫",zo:["ㄏㄥˊ","ㄏㄥ"],
+  poly:{src:"課本第 108 頁的注音是紅色的。",now:"ㄏㄥˋ",eg:"蠻橫、強橫",more:"「橫線、橫寫」的「橫」念 ㄏㄥˊ"}},
+ {c:"蟹",zy:"ㄒㄧㄝˋ",bs:"虫",ex:13,tot:19,words:["藍蟹","螃蟹"],ph:"藍蟹",tx:"藍蟹們紛紛爬出水缸",look:"解"},
+ {c:"缸",zy:"ㄍㄤ",bs:"缶",ex:3,tot:9,words:["水缸","泡菜缸","魚缸"],ph:"水缸",tx:"藍蟹們紛紛爬出水缸",look:"紅"},
+ {c:"漆",zy:"ㄑㄧ",bs:"水",bf:"氵",ex:11,tot:14,words:["黑漆漆","油漆"],ph:"黑漆漆",tx:"屋內黑漆漆",look:"膝"},
+ {c:"黏",zy:"ㄋㄧㄢˊ",bs:"黍",ex:5,tot:17,words:["黏答答","黏土","黏貼"],ph:"黏答答",tx:"黏答答"},
+ {c:"痛",zy:"ㄊㄨㄥˋ",bs:"疒",ex:7,tot:12,words:["好痛","頭痛","痛苦"],ph:"好痛",tx:"痛得在草蓆上直跳腳",look:"桶"},
+ {c:"拚",zy:"ㄆㄢˋ",bs:"手",bf:"扌",ex:5,tot:8,words:["拚命","打拚"],ph:"拚命",tx:"拚命奔逃",look:"拼"}
 ];
-
-/* 語詞（自編） */
+/* 形近字：課本這一課沒有「比一比字形」，配對是自己找的；句子都是自編的；每一題換成另一個字都不成詞 */
+var LOOK=[
+ {s:"他跌倒了，膝蓋流了一點＿。",a:"血",b:"皿",tip:"「血」的上面多一撇：流血、面無血色。"},
+ {s:"洗好的碗盤等器＿，要放回櫃子裡。",a:"皿",b:"血",tip:"「皿」是裝東西的用具：器皿。"},
+ {s:"小狗走失了，他看起來很悲＿。",a:"哀",b:"衷",tip:"「哀」的中間是「口」：悲哀、苦苦哀求。"},
+ {s:"謝謝老師的幫忙，我由＿的感謝您。",a:"衷",b:"哀",tip:"「衷」的中間是「中」：由衷，就是從心裡發出來的。"},
+ {s:"這是我做的餅乾，請你＿一口。",a:"嘗",b:"當",tip:"「嘗」的下面是「旨」：品嘗、嘗一口。"},
+ {s:"我長大以後想＿老師。",a:"當",b:"嘗",tip:"「當」的下面是「田」：當老師、當然。"},
+ {s:"天氣好冷，妹妹的臉＿紅通通的。",a:"頰",b:"峽",tip:"「頰」是頁部，和頭、臉有關：臉頰。"},
+ {s:"臺灣海＿在臺灣的西邊。",a:"峽",b:"頰",tip:"「峽」是山部：海峽、峽谷。"},
+ {s:"螃＿有八隻腳和兩隻大螯。",a:"蟹",b:"解",tip:"「蟹」的下面有「虫」：螃蟹、藍蟹。"},
+ {s:"這一題我不會，請老師＿釋給我聽。",a:"解",b:"蟹",tip:"「解」：解釋、了解。"},
+ {s:"魚＿裡有三條金魚。",a:"缸",b:"紅",tip:"「缸」是缶部，是裝東西的容器：魚缸、水缸。"},
+ {s:"蘋果熟了，變成＿色的。",a:"紅",b:"缸",tip:"「紅」是糸部：紅色、紅豆。"},
+ {s:"爸爸用油＿把牆壁刷成白色。",a:"漆",b:"膝",tip:"「漆」是水部（氵）：油漆、黑漆漆。"},
+ {s:"他跑步跌倒，＿蓋擦破皮了。",a:"膝",b:"漆",tip:"「膝」是肉部（月），是身體的一部分：膝蓋。"},
+ {s:"秋天的糖炒＿子又香又甜。",a:"栗",b:"票",tip:"「栗」的下面是「木」：栗子。"},
+ {s:"看電影以前，要先買＿。",a:"票",b:"栗",tip:"「票」的下面是「示」：買票、車票。"},
+ {s:"吃了太多冰，我的肚子好＿。",a:"痛",b:"桶",tip:"「痛」是疒部，和生病、不舒服有關：肚子痛。"},
+ {s:"請把垃圾丟進垃圾＿。",a:"桶",b:"痛",tip:"「桶」是木部：垃圾桶、水桶。"},
+ {s:"外＿煮的菜最好吃。",a:"婆",b:"波",tip:"「婆」的下面有「女」：外婆、婆婆。"},
+ {s:"石頭丟進池塘，水面出現一圈圈的＿紋。",a:"波",b:"婆",tip:"「波」是水部（氵）：波紋、水波。"}
+];
+/* 語詞：都出自課文（課本第 107～110 頁），都有這一課的生字，課文裡印成藍色。課本沒有解釋，解釋都是自己寫的兒童版說明 */
 var WORDS=[
- {w:"水缸",m:"裝水用的大陶器"},
- {w:"曾經",m:"以前，過去某個時候"},
- {w:"婆婆",m:"年紀大的女性長輩"},
- {w:"木柄",m:"木頭做的把手"},
- {w:"飢煥",m:"肚子很餓"},
- {w:"求助",m:"請別人幫忙"},
- {w:"湧出",m:"大量地流出來"},
- {w:"拚命",m:"用盡全力"},
- {w:"解決",m:"把問題處理好"},
- {w:"悲哀",m:"很傷心、難過"}
+ {w:"齒頰留香",m:"東西很好吃，吃完嘴裡還留著香味"},
+ {w:"陰森森",m:"看起來又冷又可怕，讓人害怕",note:"課文寫的是「陰森森的虎牙」。"},
+ {w:"面無血色",m:"臉色發白，常用來形容嚇壞了"},
+ {w:"苦苦哀求",m:"很可憐的一直求別人"},
+ {w:"品嘗",m:"仔細的吃一吃，嘗嘗味道"},
+ {w:"草蓆",m:"用草編成的墊子，可以坐也可以躺"},
+ {w:"栗子",m:"一種果實，外面有硬殼，煮熟或烤熟可以吃"},
+ {w:"橫",m:"很兇，不講道理",note:"念 ㄏㄥˋ。課文寫的是「比我們還橫」。"},
+ {w:"水缸",m:"裝水用的大容器"},
+ {w:"黑漆漆",m:"非常黑，什麼都看不見"},
+ {w:"黏答答",m:"黏黏的，沾上了很難弄掉"},
+ {w:"拚命",m:"用盡全部的力氣去做"}
 ];
-
-/* 閱讀理解（自編） */
-var READ=[
- {q:"婆婆煮的豆粥怎麼樣？",a:"令人齒頰留香",o:["令人齒頰留香","很難吃","沒人要吃"]},
- {q:"誰教婆婆怎麼停止豆粥？",a:"小鳥",o:["小鳥","村民","老爺爺"]}
+/* 課文裡的其他語詞（解釋自編） */
+var MORE=[
+ {w:"飛砂走石",m:"風很大，把砂子和小石頭都吹起來"},
+ {w:"虎口逃生",m:"從很危險的地方逃出來"},
+ {w:"放聲大哭",m:"大聲的哭出來"},
+ {w:"淚流滿面",m:"哭得滿臉都是眼淚"},
+ {w:"氣呼呼",m:"很生氣的樣子"},
+ {w:"各自就位",m:"每一個都到自己該在的位置"},
+ {w:"靜悄悄",m:"非常安靜，一點聲音也沒有"}
 ];
-
-/* 選詞填空（自編） */
+/* 延伸成語（課本沒有，自己選的；解釋是用孩子看得懂的話寫的） */
+var IDIOMS=[
+ {w:"一針見血",m:"說話很直接，一下子就說到重點"},
+ {w:"痛哭流涕",m:"哭得很傷心，眼淚和鼻涕一起流"},
+ {w:"臥薪嘗膽",m:"睡在柴草上，還嘗苦苦的膽；比喻吃苦努力，不忘記目標"}
+];
+/* 選詞填空（句子自編，答案是上面的語詞；每一題只有一個選項放得進去） */
 var FILL=[
- {s:"從前＿＿有一個善良的婆婆。",a:"曾經",opts:["曾經","湧出","解決"]},
- {s:"飢餓的小鳥向婆婆＿＿。",a:"求助",opts:["求助","拚命","悲哀"]},
- {s:"小鳥送給婆婆一個神奇的＿＿。",a:"木柄",opts:["木柄","水缸","稻穗"]},
- {s:"豆粥不停地從鍋子裡＿＿。",a:"湧出",opts:["湧出","求助","解決"]},
- {s:"婆婆＿＿想要停止豆粥。",a:"拚命",opts:["拚命","曾經","悲哀"]},
- {s:"小鳥幫婆婆＿＿了問題。",a:"解決",opts:["解決","湧出","求助"]}
+ {s:"這碗牛肉麵好好吃，讓人＿＿。",a:"齒頰留香",opts:["齒頰留香","面無血色","苦苦哀求"]},
+ {s:"半夜的山洞＿＿的，沒有人敢走進去。",a:"陰森森",opts:["陰森森","齒頰留香","苦苦哀求"]},
+ {s:"弟弟看到大蜘蛛，嚇得＿＿。",a:"面無血色",opts:["面無血色","齒頰留香","黏答答"]},
+ {s:"妹妹＿＿，媽媽才答應讓她再玩十分鐘。",a:"苦苦哀求",opts:["苦苦哀求","面無血色","齒頰留香"]},
+ {s:"這是外婆做的點心，請你慢慢＿＿。",a:"品嘗",opts:["品嘗","拚命","水缸"]},
+ {s:"夏天好熱，爺爺喜歡躺在＿＿上睡午覺。",a:"草蓆",opts:["草蓆","水缸","栗子"]},
+ {s:"以前沒有水龍頭，家裡用＿＿裝水。",a:"水缸",opts:["水缸","草蓆","栗子"]},
+ {s:"停電了，房間裡＿＿的，什麼都看不見。",a:"黑漆漆",opts:["黑漆漆","黏答答","齒頰留香"]},
+ {s:"糖果融化了，弄得我滿手＿＿的。",a:"黏答答",opts:["黏答答","陰森森","面無血色"]},
+ {s:"快遲到了，他＿＿的往學校跑。",a:"拚命",opts:["拚命","品嘗","草蓆"]},
+ {s:"秋天到了，路邊有人在賣香噴噴的糖炒＿＿。",a:"栗子",opts:["栗子","水缸","草蓆"]}
 ];
-
-/* 句型練習（自編） */
-var PATTERNS=[
- {q:"韓國有位種紅豆的婆婆。<br>（＿＿有位＿＿）",a:"韓國有位種紅豆的婆婆",o:["韓國有位種紅豆的婆婆","我喜歡吃豆粥","婆婆很善良"]},
- {q:"藍蟹們紛紛爬出水缸。<br>（＿＿紛紛＿＿）",a:"藍蟹們紛紛爬出水缸",o:["藍蟹們紛紛爬出水缸","小鳥很可愛","婆婆很善良"]}
+/* 語詞辨別：虎口（課本第 113 頁）。兩個意思照課本寫；前三題的句子出自課本和課文，後三題自編 */
+var HUKOU_O=["① 虎嘴。比喻非常危險的地方","② 大拇指與食指相連的部位"];
+var HUKOU=[
+ {q:"「馬路如<span class=\"hl\">虎口</span>，經過時一定要小心。」<br>這裡的「虎口」是哪一個意思？",a:HUKOU_O[0],tip:"課本第 113 頁的例句。馬路上車子多，很危險。"},
+ {q:"課文的「<span class=\"hl\">虎口</span>逃生」<br>這裡的「虎口」是哪一個意思？",a:HUKOU_O[0],tip:"課本第 107 頁。婆婆想從老虎的嘴邊逃走。"},
+ {q:"課文說熱年糕「封住<span class=\"hl\">虎口</span>」<br>這裡的「虎口」是哪一個意思？",a:HUKOU_O[0],tip:"課本第 110 頁。年糕封住的是老虎的嘴。"},
+ {q:"「寫了好久的字，我的<span class=\"hl\">虎口</span>有點痠。」<br>這裡的「虎口」是哪一個意思？",a:HUKOU_O[1],tip:"自編句。握筆的時候，筆靠在大拇指和食指中間。"},
+ {q:"「握球拍時，要用<span class=\"hl\">虎口</span>對準拍子的邊。」<br>這裡的「虎口」是哪一個意思？",a:HUKOU_O[1],tip:"自編句。說的是手上的部位。"},
+ {q:"「小羊從大野狼的嘴邊逃走，真是<span class=\"hl\">虎口</span>餘生。」<br>這裡的「虎口」是哪一個意思？",a:HUKOU_O[0],tip:"自編句。虎口餘生：從很危險的地方活下來。"}
+];
+/* 故事的三段：時間依課文（課本第 107、108、110 頁），名稱自編 */
+var ACTS=[
+ {k:"s1",w:"遇到老虎",e:"🐯",time:"有一天",place:"田裡"},
+ {k:"s2",w:"大家幫忙",e:"🥣",time:"冬至那天",place:"婆婆家"},
+ {k:"s3",w:"趕走老虎",e:"💥",time:"天剛黑",place:"婆婆家"}
+];
+/* 趕老虎的順序（課本第 110 頁）；t 和 hint 是用自己的話寫的 */
+var STEPS=[
+ {n:1,w:"栗子",e:"🌰",t:"往老虎的頭敲了一下",hint:"課本第 113 頁的例句裡，誰「先」出手？"},
+ {n:2,w:"蛋",e:"🥚",t:"打中老虎的眼睛",hint:"誰和栗子一起滾過來，問婆婆為什麼哭？"},
+ {n:3,w:"熱年糕",e:"🍡",t:"跳起來，封住老虎的嘴",hint:"什麼東西又熱又黏？"},
+ {n:4,w:"藍蟹",e:"🦀",t:"一起夾住老虎的鼻子",hint:"老虎把頭泡進水缸。水缸裡住著誰？"},
+ {n:5,w:"草蓆",e:"🌾",t:"翻身把老虎捲起來",hint:"老虎痛得跳腳的時候，腳下踩著什麼？"},
+ {n:6,w:"木背架",e:"🎒",t:"伸出腳，害老虎摔倒",hint:"老虎拚命往外逃。門邊站著誰？"},
+ {n:7,w:"泡菜缸",e:"🏺",t:"一滾，把老虎滾得好遠",hint:"老虎摔進了哪裡？"}
+];
+/* 閱讀理解（依課文內容自編題目；第一題依課本第 106 頁，最後一題依課本第 122 頁） */
+var READ=[
+ {q:"這一課是從哪裡的民間故事改寫的？",a:"韓國",o:["韓國","日本","臺灣"],tip:"課本第 106 頁：改寫自韓國民間故事。"},
+ {q:"大家為什麼叫她「豆粥婆婆」？",a:"她煮的豆粥非常好吃",o:["她煮的豆粥非常好吃","她每天只吃豆粥","她住在豆粥店旁邊"]},
+ {q:"婆婆在哪裡遇到老虎？",a:"紅豆田裡",o:["紅豆田裡","廚房裡","市場裡"]},
+ {q:"婆婆請老虎等到什麼時候再吃她？",a:"冬至，她喝過豆粥以後",o:["冬至，她喝過豆粥以後","過年，她吃過年糕以後","隔天早上"]},
+ {q:"老虎為什麼答應婆婆？",a:"牠也想嘗嘗熱呼呼的豆粥",o:["牠也想嘗嘗熱呼呼的豆粥","牠覺得婆婆很可憐","牠那天肚子不餓"]},
+ {q:"冬至那天，婆婆為什麼大哭？",a:"喝完粥以後，老虎會來吃她",o:["喝完粥以後，老虎會來吃她","豆粥煮壞了","沒有人來喝粥"]},
+ {q:"誰最先問婆婆為什麼哭？",a:"蛋和栗子",o:["蛋和栗子","木背架","草蓆"]},
+ {q:"老虎進門時，屋子裡是什麼樣子？",a:"又黑又安靜",o:["又黑又安靜","燈點得很亮","大家在唱歌"]},
+ {q:"是誰夾住了老虎的鼻子？",a:"藍蟹",o:["藍蟹","栗子","草蓆"]},
+ {q:"老虎最後是怎麼離開的？",a:"掉進泡菜缸，被滾到很遠的地方",o:["掉進泡菜缸，被滾到很遠的地方","被婆婆用掃把趕走","喝完豆粥自己走了"]},
+ {q:"故事的結局是什麼？",a:"老虎不敢再來找婆婆",o:["老虎不敢再來找婆婆","老虎和婆婆變成好朋友","婆婆搬到別的地方住"]},
+ {q:"課本第 122 頁，豆粥婆婆的圖旁邊寫了哪一句話？",a:"團結合作力量大",o:["團結合作力量大","天生我才必有用","心存善念有好報"],tip:"課本第 122 頁「故事趣味多」：讀故事可以得到啟發。"}
+];
+/* 這是誰：say 是課文裡的短句（一定要和課本一字不差，只留很短的三句）；t 是用自己的話問的；p 是課本頁碼 */
+var ROLES=["婆婆","老虎","蛋和栗子","木背架","藍蟹","泡菜缸和白年糕","草蓆"];
+var WHO=[
+ {who:"婆婆",t:"誰求老虎等一等，讓她先喝冬至的豆粥？",p:107},
+ {who:"老虎",say:"嗯，好吧！",p:107},
+ {who:"蛋和栗子",t:"誰最先滾過來，問婆婆怎麼哭了？",p:108},
+ {who:"婆婆",t:"誰流著眼淚說，喝完粥老虎就要來吃她？",p:108},
+ {who:"木背架",t:"誰聽了氣呼呼的，說怎麼可以有這種事？",p:108},
+ {who:"藍蟹",say:"竟然比我們還橫！",p:108},
+ {who:"泡菜缸和白年糕",t:"誰滾過來要婆婆放心，說他們有辦法？",p:108},
+ {who:"草蓆",t:"誰抱怨大家在他身上跳來跳去，又說自己也有法子？",p:108},
+ {who:"老虎",t:"誰天一黑就進門，大聲說他來了？",p:110},
+ {who:"老虎",say:"好痛！",p:110}
+];
+/* 三段分一分（句子依課文改寫，不是原文） */
+var SORT=[
+ {t:"婆婆在田裡彎腰看紅豆",s:"s1"},
+ {t:"老虎突然出現，婆婆嚇壞了",s:"s1"},
+ {t:"婆婆求老虎等到冬至",s:"s1"},
+ {t:"老虎答應了婆婆",s:"s1"},
+ {t:"豆粥煮好了，婆婆卻哭了起來",s:"s2"},
+ {t:"蛋和栗子問婆婆為什麼哭",s:"s2"},
+ {t:"藍蟹們爬出水缸，說牠們不怕",s:"s2"},
+ {t:"草蓆說它也有法子",s:"s2"},
+ {t:"大家喝著粥，一起想辦法",s:"s2"},
+ {t:"老虎走進黑漆漆的屋子",s:"s3"},
+ {t:"熱年糕封住老虎的嘴",s:"s3"},
+ {t:"藍蟹夾住老虎的鼻子",s:"s3"},
+ {t:"草蓆把老虎捲起來",s:"s3"},
+ {t:"老虎掉進泡菜缸，被滾到很遠的地方",s:"s3"}
+];
+/* 先……接著……最後……（課本第 113 頁「句子練習」，三個詞印成紅色）。課本的例句不照抄，前三題只問例句的內容；其餘句子自編；每一題只有一個選項放得進去 */
+var SEQ=[
+ {q:"課本第 113 頁的例句裡，誰「先」出手？",a:"栗子",o:["栗子","蛋","熱年糕"],tip:"課本第 113 頁。栗子最先敲了老虎的頭。"},
+ {q:"課本的例句裡，「接著」輪到誰？",a:"蛋",o:["蛋","栗子","熱年糕"],tip:"課本第 113 頁。蛋打中了牠的眼睛。"},
+ {q:"課本的例句裡，「最後」出場的是誰？",a:"熱年糕",o:["熱年糕","栗子","蛋"],tip:"課本第 113 頁。熱年糕把老虎的嘴封住了。"},
+ {s:"回到家，我＿＿洗手。接著，把功課寫完。最後，才去看書。",a:"先",o:["先","最後","接著"]},
+ {s:"媽媽先把菜洗乾淨。＿＿，把菜切好。最後，下鍋炒一炒。",a:"接著",o:["接著","最後","首先"]},
+ {s:"做勞作時，我先畫圖。接著，塗上顏色。＿＿，用剪刀剪下來。",a:"最後",o:["最後","首先","先"]},
+ {s:"刷牙時，我先擠牙膏。接著，＿＿。最後，用水漱口。",a:"把牙齒刷乾淨",o:["把牙齒刷乾淨","穿上鞋子出門","打開電視"]},
+ {q:"哪一個的順序最合理？",a:"我先穿襪子。接著，穿鞋子。最後，走出門。",o:["我先穿襪子。接著，穿鞋子。最後，走出門。","我先走出門。接著，穿鞋子。最後，穿襪子。","我先穿鞋子。接著，穿襪子。最後，走出門。"]}
+];
+/* 對話的語氣（課本第 113 頁）。課本的兩個例子不照抄，用自己的話說；前四題依課本，第五、六題只引用課文的語詞，最後兩題的句子自編 */
+var TONE_O=["難過、悲傷","溫柔、堅定","開心、得意"];
+var TONE=[
+ {q:"課本的例子：婆婆流著眼淚，說老虎要來吃她。<br>課本說這是什麼語氣？",a:"難過、悲傷",o:TONE_O,tip:"課本第 113 頁：從人物表情、動作得知。"},
+ {q:"課本的例子：泡菜缸和白年糕要婆婆放心，說他們有辦法。<br>課本說這是什麼語氣？",a:"溫柔、堅定",o:TONE_O,tip:"課本第 113 頁：從對話內容可知。"},
+ {q:"課本說，婆婆「難過、悲傷」的語氣，是從哪裡看出來的？",a:"人物的表情、動作",o:["人物的表情、動作","故事的題目","句子的長短"],tip:"課本第 113 頁。婆婆流眼淚，是她的表情。"},
+ {q:"課本說，要更精準的掌握語氣，可以看什麼？",a:"說話時的情境或所說的話",o:["說話時的情境或所說的話","字的筆畫多不多","句子印在第幾頁"],tip:"課本第 113 頁。"},
+ {q:"課文說木背架「氣呼呼」的。<br>他說話時是什麼語氣？",a:"生氣",o:["生氣","害怕","難過"],tip:"自編題。課本第 108 頁。「氣呼呼」是很生氣的樣子。"},
+ {q:"課文說婆婆對老虎「苦苦哀求」。<br>她說話時是什麼語氣？",a:"害怕、請求",o:["害怕、請求","生氣、命令","開心、得意"],tip:"自編題。課本第 107 頁。「苦苦哀求」是很可憐的一直求。"},
+ {q:"「太好了，明天要去動物園！」妹妹高興得跳起來。<br>這是什麼語氣？",a:"開心、興奮",o:["開心、興奮","難過、悲傷","生氣"],tip:"自編題。從動作「高興得跳起來」知道。"},
+ {q:"「對不起，我不是故意的。」弟弟低著頭小聲說。<br>這是什麼語氣？",a:"抱歉、不好意思",o:["抱歉、不好意思","開心、得意","生氣"],tip:"自編題。從動作「低著頭小聲說」和說的話知道。"}
+];
+/* 說故事的方法（語文天地四，課本第 124～125 頁）。前五題依課本（例子不照抄）；後兩題的句子自編 */
+var TELL_O=["敘述方式","對話方式"];
+var TELL=[
+ {q:"課本比了哪兩種說故事的方法？",a:"敘述方式和對話方式",o:["敘述方式和對話方式","唱歌方式和跳舞方式","畫圖方式和寫字方式"],tip:"課本第 124～125 頁「說故事的方法」。"},
+ {q:"課本說，用「敘述方式」說故事有什麼特色？",a:"能夠簡潔的說明事件",o:["能夠簡潔的說明事件","彷彿身在現場","句子一定比較長"],tip:"課本第 124 頁。"},
+ {q:"課本說，用「對話方式」說故事，讀的人有什麼感覺？",a:"彷彿身在現場",o:["彷彿身在現場","像站在旁邊看","覺得故事很短"],tip:"課本第 125 頁。「像站在旁邊看」是敘述方式的特色。"},
+ {q:"課本第 124 頁的例子，只用一兩句話說大家都發表了意見。<br>這是哪一種方式？",a:"敘述方式",o:TELL_O,tip:"課本第 124 頁。沒有寫出誰說了什麼話。"},
+ {q:"課文第 108 頁，把蛋、栗子、木背架說的話都寫出來。<br>這是哪一種方式？",a:"對話方式",o:TELL_O,tip:"課本第 125 頁用這一段當例子。把角色說的話直接寫出來。"},
+ {q:"弟弟跟媽媽說他想養狗，媽媽答應了。<br>這是哪一種方式？",a:"敘述方式",o:TELL_O,tip:"自編題。只說發生了什麼事。"},
+ {q:"「媽，我想養狗！」「好，可是你要自己照顧牠。」<br>這是哪一種方式？",a:"對話方式",o:TELL_O,tip:"自編題。寫出兩個人說的話。"}
 ];
 
 function shuffle(a,rnd){rnd=rnd||Math.random;var b=a.slice();for(var i=b.length-1;i>0;i--){var j=Math.floor(rnd()*(i+1));var t=b[i];b[i]=b[j];b[j]=t;}return b;}
 function pick(a,n,rnd){return shuffle(a,rnd).slice(0,n);}
 function charBy(c){for(var i=0;i<CHARS.length;i++)if(CHARS[i].c===c)return CHARS[i];return null;}
 function uniq(a){var o=[];for(var i=0;i<a.length;i++)if(o.indexOf(a[i])<0)o.push(a[i]);return o;}
-function blank(s){return s.replace(/＿＿/g,'<span class="blank">（　　）</span>');}
-
+function blank(s){return s.replace("＿＿",'<span class="blank">（　　）</span>');}
+/* 生字題：部首、總筆畫、注音 */
 function charQ(type,ch,rnd){
  var opts,ans,q;
- if(type==="bs"){ans=ch.bs;var all=uniq(CHARS.map(function(x){return x.bs;}).concat(["口","木","土","手"]));
+ if(type==="bs"){ans=ch.bs;var all=uniq(CHARS.map(function(x){return x.bs;}).concat(["心","竹","土","火"]));
   opts=[ans].concat(pick(all.filter(function(b){return b!==ans;}),2,rnd));q="「"+ch.c+"」的部首是什麼？";}
  else if(type==="tot"){ans=String(ch.tot);var d=[ch.tot-2,ch.tot-1,ch.tot+1,ch.tot+2].filter(function(n){return n>0;});
   opts=[ans].concat(pick(d,2,rnd).map(String));q="「"+ch.c+"」總共幾畫？";}
  else {ans=ch.zy;var others=uniq(CHARS.filter(function(x){return x.c!==ch.c;}).map(function(x){return x.zy;})).filter(function(z){return z!==ans;});
-  opts=[ans].concat(pick(others,2,rnd));q="「"+ch.words[0]+"」的「"+ch.c+"」怎麼念？";}
+  opts=[ans].concat(ch.zo?ch.zo.slice(0,2):pick(others,2,rnd));q="「"+(ch.ph||ch.words[0])+"」的「"+ch.c+"」怎麼念？";}
  return {type:type,c:ch.c,q:q,a:ans,o:shuffle(opts,rnd)};
 }
-
+function lookQ(l,rnd){return {type:"look",q:l.s.replace("＿",'<span class="blank">（　）</span>'),a:l.a,o:shuffle([l.a,l.b],rnd),tip:l.tip};}
 function wordQ(rnd){var w=pick(WORDS,1,rnd)[0],wo=pick(WORDS.filter(function(x){return x.w!==w.w;}),2,rnd);
- return {type:"word",q:"「"+w.m+"」是哪個語詞？",a:w.w,o:shuffle([w.w,wo[0].w,wo[1].w],rnd)};}
+ return {type:"word",q:"「"+w.m+"」<br>是哪個語詞？",a:w.w,o:shuffle([w.w,wo[0].w,wo[1].w],rnd)};}
 function fillQ(f,rnd){return {type:"fill",q:blank(f.s),a:f.a,o:shuffle(f.opts,rnd)};}
-function patQ(p,rnd){return {type:"pattern",q:p.q,a:p.a,o:shuffle(p.o,rnd)};}
-
+function readQ(r,rnd){return {type:"read",q:r.q,a:r.a,o:shuffle(r.o,rnd),tip:r.tip};}
+function hukouQ(x){return {type:"hukou",q:x.q,a:x.a,o:HUKOU_O.slice(),tip:x.tip};}
+function seqQ(x,rnd){return {type:"seq",q:x.q||blank(x.s),a:x.a,o:shuffle(x.o,rnd),tip:x.tip};}
+function toneQ(x,rnd){return {type:"tone",q:x.q,a:x.a,o:shuffle(x.o,rnd),tip:x.tip};}
+function tellQ(x,rnd){return {type:"tell",q:x.q,a:x.a,o:x.o===TELL_O?x.o.slice():shuffle(x.o,rnd),tip:x.tip};}
+/* 這是誰：正確的角色加上另外三個角色。say 是課文短句（畫面上用黃色底），t 是自己的話 */
+function whoQ(x,rnd){var others=pick(ROLES.filter(function(r){return r!==x.who;}),3,rnd);
+ return {type:"who",q:x.say?'<span class="quote">'+x.say+'</span><br>這句話是誰說的？':x.t,a:x.who,o:shuffle([x.who].concat(others),rnd),tip:"課本第 "+x.p+" 頁。"};}
+/* 綜合挑戰：10 題 */
 function makeChallenge(rnd){
- rnd=rnd||Math.random;var out=[],chs=pick(CHARS,3,rnd);
+ rnd=rnd||Math.random;var out=[],chs=pick(CHARS,3,rnd),r;
  out.push(charQ("bs",chs[0],rnd));out.push(charQ("tot",chs[1],rnd));out.push(charQ("zy",chs[2],rnd));
- out.push(wordQ(rnd));out.push(wordQ(rnd));
- pick(FILL,3,rnd).forEach(function(f){out.push(fillQ(f,rnd));});
- pick(READ,2,rnd).forEach(function(r){out.push({type:"read",q:r.q,a:r.a,o:shuffle(r.o,rnd)});});
+ pick(LOOK,2,rnd).forEach(function(l){out.push(lookQ(l,rnd));});
+ out.push(wordQ(rnd));
+ out.push(seqQ(pick(SEQ,1,rnd)[0],rnd));
+ out.push(toneQ(pick(TONE,1,rnd)[0],rnd));
+ out.push(whoQ(pick(WHO,1,rnd)[0],rnd));
+ r=rnd();
+ out.push(r<.3?fillQ(pick(FILL,1,rnd)[0],rnd):r<.6?readQ(pick(READ,1,rnd)[0],rnd):r<.8?hukouQ(pick(HUKOU,1,rnd)[0]):tellQ(pick(TELL,1,rnd)[0],rnd));
  return shuffle(out,rnd);
 }
-
 function check(q,ans){return q.a===ans;}
+function sortCheck(text,act){for(var i=0;i<SORT.length;i++)if(SORT[i].t===text)return SORT[i].s===act;return false;}
 function matchCheck(word,meaning){for(var i=0;i<WORDS.length;i++)if(WORDS[i].w===word)return WORDS[i].m===meaning;return false;}
+/* 趕老虎的順序：依序點，回傳 true 表示這一步點對了 */
+function stepCheck(done,n){return n===done+1;}
 function stars(correct,total){if(!total)return 0;var r=correct/total;return r>=1?3:r>=0.7?2:r>=0.4?1:0;}
-
+var PATS=["seq","tone","tell"];
 var BADGES=[
  {id:"read",n:"📖 閱讀小達人",d:"閱讀理解全對"},
  {id:"chars",n:"✍️ 生字小書法家",d:"看完 15 張生字卡"},
  {id:"write",n:"🖌️ 描紅練習生",d:"在描寫板練習 5 個字"},
  {id:"words",n:"🧩 語詞配對王",d:"完成一次語詞配對"},
+ {id:"pattern",n:"🪄 句型小高手",d:"三個練習都完成"},
+ {id:"step",n:"🔗 趕老虎小隊長",d:"趕老虎的順序一次排對"},
+ {id:"who",n:"🎭 最佳小演員",d:"「這是誰」全對"},
+ {id:"act",n:"🗂️ 故事小導演",d:"三段分類全對"},
  {id:"champ",n:"🏆 挑戰王",d:"挑戰答對 9 題以上"}
 ];
-
 function badges(st){
  var g={};st=st||{};
  if(st.readBest>=READ.length)g.read=1;
  if(st.seen&&Object.keys(st.seen).length>=CHARS.length)g.chars=1;
  if(st.wrote&&Object.keys(st.wrote).length>=5)g.write=1;
  if(st.matchDone>=1)g.words=1;
+ if(st.pat&&PATS.every(function(k){return st.pat[k];}))g.pattern=1;
+ if(st.stepPerfect>=1)g.step=1;
+ if(st.whoPerfect>=1)g.who=1;
+ if(st.actPerfect>=1)g.act=1;
  if(st.chBest>=9)g.champ=1;
  return g;
 }
-
-return {CHARS:CHARS,WORDS:WORDS,READ:READ,FILL:FILL,PATTERNS:PATTERNS,BADGES:BADGES,
- shuffle:shuffle,pick:pick,charBy:charBy,charQ:charQ,wordQ:wordQ,fillQ:fillQ,patQ:patQ,
- makeChallenge:makeChallenge,check:check,matchCheck:matchCheck,stars:stars,badges:badges};
+function lcg(seed){var s=seed>>>0;return function(){s=(s*1664525+1013904223)>>>0;return s/4294967296;};}
+return {CHARS:CHARS,LOOK:LOOK,WORDS:WORDS,MORE:MORE,IDIOMS:IDIOMS,FILL:FILL,HUKOU:HUKOU,HUKOU_O:HUKOU_O,ACTS:ACTS,STEPS:STEPS,READ:READ,ROLES:ROLES,WHO:WHO,SORT:SORT,
+ SEQ:SEQ,TONE:TONE,TELL:TELL,PATS:PATS,BADGES:BADGES,
+ shuffle:shuffle,pick:pick,charBy:charBy,charQ:charQ,lookQ:lookQ,wordQ:wordQ,fillQ:fillQ,readQ:readQ,hukouQ:hukouQ,seqQ:seqQ,toneQ:toneQ,tellQ:tellQ,whoQ:whoQ,
+ makeChallenge:makeChallenge,check:check,sortCheck:sortCheck,matchCheck:matchCheck,stepCheck:stepCheck,stars:stars,badges:badges,lcg:lcg};
 })();
+if(typeof module!=="undefined"&&module.exports)module.exports=Core;
 </script>
 <script src="app.js"></script>
 </body>
