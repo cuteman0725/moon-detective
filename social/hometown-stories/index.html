@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2a9d8f">
+<title>家鄉故事導覽員 🚩｜翰林社會 4上 探究與實作</title>
+<style>
+
+:root{--ink:#2b2d42;--org:#ff9f1c;--sun:#ffd166;--pink:#ff6b9a;--blue:#4d96ff;--teal:#2a9d8f;--purple:#9b5de5;--wan:#9b5de5;--ge:#2a9d8f;--cw:clamp(30px,8.6vw,46px)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:#fff8ec;overflow-x:hidden}
+html,body{margin:0;padding:0}
+body{font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",system-ui,sans-serif;color:var(--ink);min-height:100vh;background:linear-gradient(180deg,#ffe8c2 0,#fff8ec 260px);padding-bottom:calc(92px + env(safe-area-inset-bottom))}
+header{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:8px;padding:10px 12px;padding-top:calc(10px + env(safe-area-inset-top));background:rgba(255,159,28,.97);color:#fff}
+header h1{font-size:clamp(17px,4.6vw,26px);margin:0;flex:1;letter-spacing:1px}
+.back{color:#fff;text-decoration:none;font-weight:800;background:rgba(255,255,255,.25);border-radius:999px;padding:8px 12px;font-size:15px;white-space:nowrap}
+.score{background:#fff;color:#a65c00;font-weight:900;border-radius:999px;padding:6px 12px;font-size:17px;white-space:nowrap;box-shadow:0 3px 0 #c97a00}
+.score.pop{animation:pop .5s}@keyframes pop{40%{transform:scale(1.3)}}
+main{max-width:1000px;margin:0 auto;padding:10px}
+section.page{display:none}section.page.active{display:block;animation:fadein .3s}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.card{background:#fff;border-radius:22px;padding:14px;margin:10px 0;box-shadow:0 6px 0 rgba(0,0,0,.1)}
+.card h2{margin:0 0 6px;font-size:clamp(20px,5vw,25px)}.card h3{margin:4px 0 6px;font-size:19px}
+.small{font-size:14px;color:#666;line-height:1.5}
+.lead{font-size:17px;line-height:1.65;margin:6px 0}
+.btn{appearance:none;border:none;border-radius:16px;padding:10px 14px;min-height:50px;font-size:17px;font-weight:800;cursor:pointer;background:var(--blue);color:#fff;box-shadow:0 4px 0 rgba(0,0,0,.22);font-family:inherit;touch-action:manipulation}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.22)}
+.btn.org{background:var(--org)}.btn.pink{background:var(--pink)}.btn.teal{background:var(--teal)}.btn.purple{background:var(--purple)}.btn.gray{background:#8d99ae}
+.btn.white{background:#fff;color:var(--ink);border:3px solid #ffe0b0}.btn.on{outline:4px solid var(--org);outline-offset:1px;background:#fff3dc}
+.btn.small{min-height:44px;font-size:15px;padding:6px 10px}
+.btn:disabled{opacity:.4}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0;align-items:center}
+.levels{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
+.title{font-size:22px;font-weight:900;text-align:center;margin:4px 0 8px}
+.bubble{background:#eef4ff;border-radius:18px;padding:12px 14px;font-size:18px;line-height:1.65;min-height:64px;border:3px solid #d6e4ff}
+.bubble b{color:#c1121f}
+.fb{margin-top:8px;border-radius:14px;padding:8px 12px;font-size:17px;line-height:1.55;display:none}
+.fb.show{display:block}.fb.good{background:#d8f3dc}.fb.bad{background:#fff3cd}.fb.info{background:#f3e8ff}
+.done{background:linear-gradient(135deg,#d8f3dc,#fff1a8);border-radius:18px;padding:12px;font-size:18px;line-height:1.6;margin-top:10px;display:none}
+.done.show{display:block}
+/* ---- quiz ---- */
+.q{font-size:22px;line-height:1.6;font-weight:800;text-align:center;margin:6px 0}
+.q .num{font-size:clamp(28px,7vw,40px);font-variant-numeric:tabular-nums;letter-spacing:2px}
+.q .red{color:#e63946;text-decoration:underline;text-decoration-thickness:4px}
+.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin-top:8px}
+.choices .btn{background:#fff;color:var(--ink);border:3px solid #d6e4ff;font-size:19px;min-height:58px}
+.choices .btn.ok{background:#d8f3dc;border-color:#2ec4b6}.choices .btn.no{background:#ffd6dc;border-color:#ff6b9a;animation:shake .4s}
+.cmp{display:flex;gap:10px;justify-content:center;margin-top:8px}.cmp .btn{font-size:34px;min-width:84px;min-height:70px}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.ansbox{font-size:30px;font-weight:900;text-align:center;border:3px solid #9db8ff;background:#f1f5ff;border-radius:16px;min-height:56px;padding:6px;font-variant-numeric:tabular-nums;letter-spacing:2px;margin:8px auto;max-width:420px}
+.pad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px auto 0;max-width:420px}
+.pad button{min-height:56px;font-size:26px;font-weight:900;border-radius:16px;background:#fff;box-shadow:0 4px 0 #e3c48f;border:3px solid #ffe0b0;font-family:inherit;color:var(--ink);cursor:pointer;touch-action:manipulation}
+.pad button:active{transform:translateY(3px);box-shadow:0 1px 0 #e3c48f}
+.pad button.fn{font-size:18px;background:#fff3dc}
+.prog{display:flex;gap:4px;justify-content:center;margin:4px 0}
+.prog i{width:22px;height:10px;border-radius:6px;background:#eee;display:block}.prog i.ok{background:#2ec4b6}.prog i.no{background:#ff6b9a}.prog i.cur{background:var(--sun)}
+/* ---- 紀錄 ---- */
+table.rec{border-collapse:collapse;width:100%;font-size:16px}
+table.rec td,table.rec th{padding:8px;border-bottom:1px solid #eee;text-align:left;vertical-align:top}
+.statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.stat{background:#fff3dc;border-radius:16px;padding:10px;text-align:center}.stat b{display:block;font-size:28px;color:#a65c00}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.bdg{background:#eee;border-radius:14px;padding:6px 10px;font-weight:800;color:#999;font-size:15px}.bdg.got{background:linear-gradient(135deg,#ffd166,#ff9f1c);color:#5a3b00}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;justify-content:space-around;background:#fff;padding:6px 4px;padding-bottom:calc(6px + env(safe-area-inset-bottom));box-shadow:0 -4px 16px rgba(0,0,0,.15)}
+nav.tabs button{flex:1;border:none;background:none;font-family:inherit;font-size:13px;font-weight:800;color:#666;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;border-radius:14px;cursor:pointer;min-height:60px;touch-action:manipulation}
+nav.tabs button span{font-size:26px;line-height:1}nav.tabs button.on{background:#ffe8c2;color:#8a4b00}
+.burst{position:fixed;z-index:99;pointer-events:none;font-size:30px;animation:fly 1.1s ease-out forwards}
+@keyframes fly{to{transform:translate(var(--dx),var(--dy)) rotate(360deg);opacity:0}}
+.tip{background:#fffbea;border:3px dashed var(--sun);border-radius:16px;padding:8px 12px;font-size:16px;line-height:1.6;margin-top:8px}
+
+.seg{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+.hidden{display:none!important}
+
+/* ---- 新單元共用 ---- */
+.fq{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1.05;margin:0 3px;font-variant-numeric:tabular-nums}
+.fq b{font-weight:900}.fq i{display:block;align-self:stretch;height:3px;background:currentColor;border-radius:2px;margin:2px 0}
+.mx{display:inline-flex;align-items:center;gap:2px;vertical-align:middle}
+.qbox{text-align:center}
+.fields{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:center;font-size:22px;font-weight:800;margin:8px 0}
+.kbox{appearance:none;font-size:28px;font-weight:900;min-width:3.6em;min-height:56px;padding:6px 10px;border:3px solid #9db8ff;border-radius:14px;background:#f1f5ff;font-family:inherit;color:var(--ink);text-align:center;cursor:pointer;font-variant-numeric:tabular-nums}
+.kbox.sm{min-width:2.2em}
+.kbox.on{border-color:var(--org);box-shadow:0 0 0 3px #ffe0b0;background:#fff}
+.kbox.ok{border-color:#2ec4b6;background:#d8f3dc}.kbox.no{border-color:#ff6b9a;background:#ffd6dc}
+.kbox:empty::after{content:"？";color:#aab}
+.frin{display:inline-flex;flex-direction:column;align-items:center;gap:4px}.frin i{display:block;width:100%;height:4px;background:var(--ink);border-radius:2px}
+.pad .dot{font-size:34px}.pad .wide{grid-column:1/-1}
+.ex{background:#f3e8ff;border-radius:14px;padding:8px 12px;font-size:17px;line-height:1.6;margin-top:8px}
+.ex b{color:#6a1fb8}
+.hint{background:#fff3cd;border-radius:14px;padding:8px 12px;font-size:17px;line-height:1.6;margin-top:8px}
+.good{background:#d8f3dc;border-radius:14px;padding:8px 12px;font-size:17px;line-height:1.6;margin-top:8px}
+.qhead{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.qhead .tagc{font-size:14px;font-weight:800;background:#fff3dc;color:#8a4b00;border-radius:999px;padding:3px 10px}
+.lsvg{display:block;width:100%;max-width:520px;height:auto;margin:6px auto}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 10px;font-size:17px;line-height:1.5;margin:6px 0}.kv b{color:#a65c00;white-space:nowrap}
+.steps{margin:6px 0;padding-left:1.4em;font-size:17px;line-height:1.7}
+.mono{font-family:"SFMono-Regular",Menlo,Consolas,monospace;font-variant-numeric:tabular-nums}
+.chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:6px 0}
+.chip{appearance:none;border:3px solid #ffe0b0;background:#fff;border-radius:14px;padding:6px 12px;min-height:48px;font-size:20px;font-weight:900;font-family:inherit;color:var(--ink);cursor:pointer;touch-action:manipulation}
+.chip.on{border-color:var(--org);background:#fff3dc}.chip.ok{border-color:#2ec4b6;background:#d8f3dc}.chip.no{border-color:#ff6b9a;background:#ffd6dc;animation:shake .4s}
+.chip:disabled{cursor:default}
+.range{width:100%;max-width:520px;display:block;margin:8px auto;accent-color:var(--org);height:36px}
+.big{font-size:clamp(30px,8vw,46px);font-weight:900;text-align:center;font-variant-numeric:tabular-nums;margin:6px 0}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+.seq{font-size:clamp(20px,5.4vw,26px);margin:8px 0;font-weight:800;line-height:1.6}
+.blank{display:inline-block;min-width:1.6em;border-bottom:3px solid var(--org);color:var(--org)}
+.qimg{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:flex-end;margin:8px 0}.qimg svg{max-width:100%;height:auto}
+.q2{font-size:1.25em;text-align:center;margin:8px 0;letter-spacing:1px}
+.q .num{font-variant-numeric:tabular-nums}
+.choices .btn{font-weight:800}
+.spk{appearance:none;border:none;background:#fff3dc;border-radius:999px;padding:4px 10px;font-size:18px;cursor:pointer;min-height:40px}
+.frin .fden{font-size:28px;font-weight:900;line-height:1.2}
+.chart{max-width:100%;height:auto;background:#fff;border-radius:10px}
+.picto{display:inline-block;text-align:left;background:#fff;border:2px solid #e3dcff;border-radius:12px;padding:8px 10px;font-size:15px;max-width:100%}
+.picto .pkey{font-size:13px;background:#f7f5ff;border-radius:8px;padding:3px 8px;margin-bottom:6px}
+.picto .prow{display:flex;gap:8px;align-items:center;padding:3px 0;border-bottom:1px dashed #eee}.picto .prow b{min-width:3em;font-size:14px}.picto .prow span{font-size:22px;letter-spacing:1px}.picto .prow small{font-size:15px}
+.picto .ptitle{text-align:center;font-size:13px;font-weight:800;margin-top:6px}
+
+/* ---- 社會頁：綠色主題、分類籃子、排順序 ---- */
+html{background:#effaf6}
+body{background:linear-gradient(180deg,#d8f3dc 0,#f3fbf7 260px)}
+header{background:rgba(42,157,143,.97)}
+.score{color:#1b5e52;box-shadow:0 3px 0 #1b7a6e}
+nav.tabs button.on{background:#d8f3dc;color:#1b5e52}
+.stat{background:#e3f6ee}.stat b{color:#1b7a6e}
+.srt-items{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:8px 0;min-height:52px}
+.srt-items .chip{font-size:17px;min-height:46px}
+.srt-baskets{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin:8px 0}
+.srt-b{appearance:none;border:3px dashed #2a9d8f;border-radius:16px;background:#f3fbf7;min-height:96px;padding:8px;cursor:pointer;font-family:inherit;color:var(--ink);display:flex;flex-direction:column;gap:6px;align-items:center}
+.srt-b b{font-size:17px}.srt-b.no{border-color:#ff6b9a;background:#ffe3e9;animation:shake .4s}
+.srt-in{display:flex;flex-wrap:wrap;gap:4px;justify-content:center}
+.srt-got{background:#d8f3dc;border-radius:10px;padding:3px 8px;font-size:14px;font-weight:800}
+.srt-fb{text-align:center;min-height:24px;line-height:1.6}
+.ord-line{display:flex;flex-direction:column;gap:6px;margin:6px 0}
+.ord-step{display:flex;align-items:center;gap:8px;background:#e3f6ee;border-radius:12px;padding:6px 10px;font-weight:800}
+.ord-step b{display:inline-flex;width:28px;height:28px;border-radius:50%;background:#2a9d8f;color:#fff;align-items:center;justify-content:center}
+.ord-step small{font-weight:400;color:#555;margin-left:auto;font-size:13px}
+table.tb{border-collapse:collapse;width:100%;font-size:15px;margin:6px 0}
+table.tb th,table.tb td{border:2px solid #cfeee2;padding:6px 8px;text-align:left;vertical-align:top}
+table.tb th{background:#e3f6ee;font-size:14px;white-space:nowrap}
+.flip{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
+.flip button{appearance:none;border:3px solid #cfeee2;border-radius:16px;background:#fff;min-height:96px;padding:8px;font-family:inherit;font-size:17px;font-weight:900;color:var(--ink);cursor:pointer}
+.flip button span{display:none;font-weight:400;font-size:15px;line-height:1.5;margin-top:6px}
+.flip button.open{background:#f3fbf7;border-color:#2a9d8f}.flip button.open span{display:block}
+.note{font-size:13px;color:#666}
+
+/* ---- 家鄉故事導覽員：這一頁自己的樣式（六個步驟、寫字的格子、留下或拿掉、地圖檢查、任務卡、徽章） ---- */
+.back{display:inline-flex;align-items:center;min-height:44px}
+.seg6{grid-template-columns:repeat(2,1fr)}
+@media (min-width:640px){.seg6{grid-template-columns:repeat(3,1fr)}}
+.seg6 .btn{font-size:15px;line-height:1.35;padding:8px 6px;min-height:56px;word-break:keep-all}
+table.nw1 td:first-child{white-space:nowrap}
+.bline{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin:8px 0;font-size:15px;font-weight:800}
+.bline i{font-style:normal;font-size:19px;filter:grayscale(1);opacity:.3}.bline i.got{filter:none;opacity:1}
+.golink{display:inline-flex;align-items:center;min-height:44px;color:#1b7a6e;font-weight:800;padding:0 4px}
+.ta{display:block;width:100%;min-height:96px;border:3px solid #cfeee2;border-radius:14px;padding:10px;font-size:17px;font-family:inherit;color:var(--ink);background:#fbfffd;line-height:1.6;resize:vertical;margin:6px 0 0}
+.ta.one{min-height:48px;height:48px;resize:none}
+.ta:focus{outline:3px solid #2a9d8f;outline-offset:1px}
+.lock{font-size:13px;color:#555;background:#f3fbf7;border-radius:10px;padding:6px 10px;margin-top:8px;line-height:1.5}
+.ideas{justify-content:flex-start}
+.ideas .chip{font-size:16px;min-height:46px;padding:6px 10px;font-weight:800}
+.ideas .chip.on{border-color:#2a9d8f;background:#d8f3dc}
+.fld{margin:12px 0 2px;font-weight:900;font-size:17px}
+.fld small{font-weight:400;color:#666;font-size:13px;margin-left:6px}
+.sum{background:#f3fbf7;border:3px dashed #2a9d8f;border-radius:16px;padding:10px 12px;font-size:16px;line-height:1.7;margin-top:12px;overflow-wrap:anywhere}
+.sum .kv{font-size:16px;margin:4px 0 0}.sum .kv b{color:#1b7a6e}
+.say{background:#eef4ff;border:3px solid #d6e4ff;border-radius:16px;padding:10px 12px;font-size:17px;line-height:1.8;margin-top:8px;overflow-wrap:anywhere}
+.say u{text-decoration:none;background:#fff1a8;border-radius:6px;padding:0 4px;font-weight:800}
+.kcard{background:#fffbea;border:3px solid var(--sun);border-radius:18px;padding:14px 12px;text-align:center;font-size:20px;font-weight:900;line-height:1.5;margin:8px 0}
+.kcard span{display:block;font-size:40px;line-height:1.2}
+.kbtns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.kbtns .btn{min-height:58px;font-size:19px}
+.kbtns .btn.pickd:disabled{opacity:1;outline:4px solid var(--org);outline-offset:1px}
+.crow{border:3px solid #cfeee2;border-radius:14px;padding:8px 10px;margin:8px 0;background:#fff}
+.crow p{margin:0 0 6px;font-size:17px;font-weight:800;line-height:1.5}
+.crow .btns{margin:0}.crow .btn{flex:1}
+.crow .btn.on:disabled{opacity:1}
+.crow.ok{background:#d8f3dc;border-color:#2ec4b6}.crow.no{background:#fff3cd;border-color:#ffd166}
+.crow .why{font-size:15px;line-height:1.5}.crow .why:not(:empty){margin-top:6px}
+.mapsvg{background:#fff;border-radius:16px;max-width:560px}
+.mp-add{animation:mpop 1s ease-out}
+@keyframes mpop{0%{opacity:0}35%{opacity:1}55%{opacity:.25}100%{opacity:1}}
+.mcard{background:linear-gradient(135deg,#fff8dc,#d8f3dc);border:3px dashed #2a9d8f;border-radius:18px;padding:12px 14px;font-size:17px;line-height:1.7;margin-top:12px;overflow-wrap:anywhere}
+.mcard h4{margin:0 0 4px;font-size:20px;text-align:center}
+.mcard .kv b{color:#1b7a6e}
+.mcard label{display:flex;gap:10px;align-items:flex-start;min-height:44px;padding:8px 0;cursor:pointer}
+.mcard input[type=checkbox]{width:26px;height:26px;flex:0 0 26px;margin:2px 0 0;accent-color:#2a9d8f}
+.toast{position:fixed;left:12px;right:12px;bottom:calc(84px + env(safe-area-inset-bottom));z-index:60;background:linear-gradient(135deg,#ffd166,#ff9f1c);color:#5a3b00;font-weight:900;font-size:17px;text-align:center;border-radius:16px;padding:10px 12px;box-shadow:0 6px 16px rgba(0,0,0,.25);animation:fadein .3s;pointer-events:none}
+.cert{background:linear-gradient(135deg,#fff1a8,#d8f3dc);border:3px solid var(--sun);border-radius:18px;padding:12px;text-align:center;font-size:18px;font-weight:800;line-height:1.6;margin-top:10px}
+.bdg small{display:block;font-weight:400;font-size:12px}
+table.rec td{overflow-wrap:anywhere}table.rec td:first-child{white-space:nowrap;font-weight:800;color:#1b7a6e}
+
+</style>
+</head>
+<body data-key="socStoryV1">
+<header>
+  <a class="back" href="../">← 社會</a>
+  <h1>🚩 家鄉故事導覽員</h1>
+  <div class="score" id="score">⭐ 0</div>
+</header>
+<main>
+<!-- ============ 學習：照課本的六個步驟 ============ -->
+<section class="page active" id="p-learn">
+  <div class="card">
+    <h2>📖 探究與實作：家鄉故事導覽員</h2>
+    <p class="small">翰林 4上 社會「探究與實作」（課本 p.86～97）。這學期學會看地圖，也認識了節慶與禮俗；現在換你當<b>家鄉特派員</b>：蒐集資料、訪問長輩，把家鄉的故事記在地圖上，再分享給大家。這裡練的是<b>方法</b>，有些問題沒有標準答案，放心回答。</p>
+    <div class="bline" id="bdgLine"></div>
+    <div class="seg seg6" id="seg">
+      <button class="btn white on" type="button" data-s="61" data-label="① 回顧所學">① 回顧所學</button>
+      <button class="btn white" type="button" data-s="62" data-label="② 我所知道的&#8203;家鄉故事">② 我所知道的&#8203;家鄉故事</button>
+      <button class="btn white" type="button" data-s="63" data-label="③ 蒐集資料與&#8203;說明感受">③ 蒐集資料與&#8203;說明感受</button>
+      <button class="btn white" type="button" data-s="64" data-label="④ 整理分析">④ 整理分析</button>
+      <button class="btn white" type="button" data-s="65" data-label="⑤ 將故事種&#8203;在地圖上">⑤ 將故事種&#8203;在地圖上</button>
+      <button class="btn white" type="button" data-s="66" data-label="⑥ 故事地圖&#8203;導覽員">⑥ 故事地圖&#8203;導覽員</button>
+    </div>
+  </div>
+
+  <!-- ① 回顧所學 -->
+  <div id="l61">
+    <div class="card">
+      <h3>🔁 我們學過什麼？</h3>
+      <p class="lead">把這學期學過的兩件事<b>合起來</b>，就能畫出一張<b>家鄉故事地圖</b>。</p>
+      <div class="kv">
+        <b>🧭 第一單元</b><span>學過<b>閱讀地圖的方法</b>。<br><a class="golink" href="../reading-maps/">複習：地圖探險王 ➜</a></span>
+        <b>🏮 第五單元</b><span>學到家鄉<b>節慶與禮俗</b>的歷史。<br><a class="golink" href="../festivals/">複習：節慶禮俗月曆 ➜</a></span>
+        <b>➕ 合起來</b><span>畫出「家鄉故事地圖」，再當導覽員介紹給大家。</span>
+      </div>
+    </div>
+    <div class="card">
+      <h3>🎯 這個單元會學到</h3>
+      <ol class="steps"><li>怎麼蒐集家鄉的資料</li><li>怎麼規畫一場訪問活動</li><li>怎麼整理蒐集到的資料</li><li>怎麼畫家鄉故事地圖</li><li>怎麼分享家鄉故事地圖</li></ol>
+    </div>
+    <div class="card">
+      <h3>🧩 六個步驟排排看</h3>
+      <p class="small">當家鄉故事導覽員，要先做什麼、再做什麼？</p>
+      <div id="stepOrd"></div>
+      <p class="note">📖 課本 p.87 的架構圖列了五項；「將故事種在地圖上」是 p.94～95 的標題，接在「整理分析」後面。</p>
+    </div>
+    <div class="btns" style="justify-content:center"><button type="button" class="btn teal" data-go="62">下一步：② 我所知道的家鄉故事 ➜</button></div>
+  </div>
+
+  <!-- ② 我所知道的家鄉故事 -->
+  <div id="l62" class="hidden">
+    <div class="card">
+      <h3>💬 課本裡的同學發現的故事線索</h3>
+      <p class="lead">家鄉的故事常常藏在<b>地名、廟、老樹和長輩的回憶</b>裡。點卡片看看課本的例子：</p>
+      <div class="flip" id="clueFlip"></div>
+      <div class="tip">💡 透過<b>調查活動</b>，可以知道更多家鄉的故事。</div>
+    </div>
+    <div class="card">
+      <h3>✍️ 想一想：我的家鄉有什麼故事？</h3>
+      <p class="small">這一題<b>沒有標準答案</b>。先點點看你想調查什麼（可以選很多個）：</p>
+      <div class="chips ideas" id="ideas"></div>
+      <p class="small" style="margin-top:12px">我曾經聽過的家鄉故事（想寫再寫，也可以請家人說給你聽）：</p>
+      <textarea class="ta" id="heard" maxlength="300" aria-label="我曾經聽過的家鄉故事" placeholder="例如：聽阿媽說，以前這裡有一棵很大的樹……"></textarea>
+      <div class="lock">🔒 只存在這台裝置，不會上傳。不用寫真實姓名、住址或學校名稱。</div>
+      <div class="srt-fb small" id="storyFb" aria-live="polite"></div>
+    </div>
+    <div class="btns" style="justify-content:center"><button type="button" class="btn teal" data-go="63">下一步：③ 蒐集資料與說明感受 ➜</button></div>
+  </div>
+
+  <!-- ③ 蒐集資料與說明感受 -->
+  <div id="l63" class="hidden">
+    <div class="card">
+      <h3>🔍 四種蒐集資料的方法</h3>
+      <table class="tb nw1"><tr><th>方法</th><th>怎麼做</th></tr>
+        <tr><td>🚶 實地走訪</td><td>親自走到家鄉有故事的景點看一看</td></tr>
+        <tr><td>💻 網路查詢</td><td>上網查景點的相關資料</td></tr>
+        <tr><td>📚 查閱書籍</td><td>到圖書館讀和家鄉有關的書</td></tr>
+        <tr><td>🎤 訪問長輩</td><td>請長輩說說家鄉的故事</td></tr></table>
+      <p class="small">想知道這些事，要用哪一種方法？把卡片放進對的籃子：</p>
+      <div id="methodSort"></div>
+    </div>
+    <div class="card">
+      <h3>💗 蒐集資料時，會有什麼感受？</h3>
+      <p class="small">課本問：想知道家鄉的故事可以怎麼做？又會有什麼感受？<b>感受沒有對錯</b>，點點看（可以選很多個）：</p>
+      <div class="chips ideas" id="feel"></div>
+      <div class="srt-fb small" id="feelFb" aria-live="polite"></div>
+    </div>
+    <div class="card">
+      <h3>📋 訪問前的工作準備表</h3>
+      <p class="lead">出發訪問前，先做好<b>行前準備規畫</b>，活動會更順利。準備表有五格：</p>
+      <div class="kv">
+        <b>👤 人</b><span>想訪問誰、他的身分、怎麼聯絡他（電話、電子信件、親自拜訪）</span>
+        <b>🕒 時</b><span>預定訪問的時間</span>
+        <b>📍 地</b><span>預定訪問的地點</span>
+        <b>❓ 事</b><span>想問的題目，例如：家鄉為什麼會叫這個地名？</span>
+        <b>🎒 物</b><span>要先準備的物品：感謝卡、筆和筆記本、拍照或錄音設備</span>
+      </div>
+      <p class="small">把卡片放進「人、時、地、事、物」：</p>
+      <div id="prepSort"></div>
+    </div>
+    <div class="card">
+      <h3>🗓️ 我的訪問準備表</h3>
+      <p class="small">假裝你要去訪問一位長輩，規畫看看。<b>沒有標準答案</b>，用點的就可以。</p>
+      <div id="planBox"></div>
+      <div id="planOut" aria-live="polite"></div>
+      <div class="lock">🔒 只存在這台裝置，不會上傳。這裡不用填名字、電話或地址；真的要聯絡時，請和老師或家人一起準備。</div>
+    </div>
+    <div class="btns" style="justify-content:center"><button type="button" class="btn teal" data-go="64">下一步：④ 整理分析 ➜</button></div>
+  </div>
+
+  <!-- ④ 整理分析 -->
+  <div id="l64" class="hidden">
+    <div class="card">
+      <h3>🗂️ 第一件事：決定適合呈現的資料</h3>
+      <p class="lead">蒐集到的資料很多，全部混在一起會看不出重點。可以依照<b>主題</b>，以及資料的<b>重要程度</b>，來判斷要不要保留。</p>
+      <p class="small">主題是「我們的家鄉故事地圖」。下面的資料要<b>留下</b>還是<b>拿掉</b>？</p>
+      <div id="keepBox"></div>
+      <p class="note">📖 土地公陪考的故事、鬼故事是課本的例子；其他卡片是照同樣的原則出的練習。</p>
+    </div>
+    <div class="card">
+      <h3>🖼️ 第二件事：討論資料呈現方式</h3>
+      <svg class="lsvg" viewBox="0 0 320 132" role="img" aria-label="兩種呈現方式：左邊是把便條紙浮貼在地圖上，右邊是把故事寫在地圖外，在地圖上用編號標示">
+        <rect x="6" y="8" width="140" height="92" rx="8" fill="#cdeeb9" stroke="#7a9a5c" stroke-width="2"/>
+        <path d="M7 74 H145" stroke="#fff" stroke-width="10"/><path d="M52 9 V99" stroke="#fff" stroke-width="10"/>
+        <g transform="rotate(-6 104 40)"><rect x="74" y="18" width="60" height="42" fill="#fff1a8" stroke="#e0b400" stroke-width="1.5"/><path d="M81 30 H127 M81 39 H127 M81 48 H112" stroke="#b08900" stroke-width="2.5" stroke-linecap="round"/></g>
+        <text x="76" y="122" text-anchor="middle" font-size="14" font-weight="700" fill="#2b2d42">便條紙浮貼</text>
+        <rect x="170" y="8" width="88" height="92" rx="8" fill="#cdeeb9" stroke="#7a9a5c" stroke-width="2"/>
+        <path d="M171 74 H257" stroke="#fff" stroke-width="10"/><path d="M214 9 V99" stroke="#fff" stroke-width="10"/>
+        <circle cx="192" cy="36" r="10" fill="#2a9d8f"/><text x="192" y="41" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">1</text>
+        <circle cx="238" cy="88" r="10" fill="#2a9d8f"/><text x="238" y="93" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">2</text>
+        <rect x="264" y="12" width="50" height="84" rx="6" fill="#fff" stroke="#9aa5b1" stroke-width="1.5"/>
+        <circle cx="274" cy="26" r="6" fill="#2a9d8f"/><path d="M284 24 H308 M270 37 H308 M270 46 H300" stroke="#9aa5b1" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="274" cy="64" r="6" fill="#2a9d8f"/><path d="M284 62 H308 M270 75 H308 M270 84 H296" stroke="#9aa5b1" stroke-width="2.5" stroke-linecap="round"/>
+        <text x="242" y="122" text-anchor="middle" font-size="14" font-weight="700" fill="#2b2d42">寫在地圖外＋編號</text>
+      </svg>
+      <p class="small">點卡片看看課本裡同學討論的結果：</p>
+      <div class="flip" id="showFlip"></div>
+      <p class="small" style="margin-top:12px">🎬 課本還問：如果有<b>影音資料</b>要怎麼辦？這題留給大家討論，<b>沒有標準答案</b>。你的想法是：</p>
+      <textarea class="ta" id="av" maxlength="200" aria-label="如果有影音資料，我的想法" placeholder="寫下你的想法，例如：可以請老師幫忙……"></textarea>
+      <div class="lock">🔒 只存在這台裝置，不會上傳。</div>
+    </div>
+    <div class="btns" style="justify-content:center"><button type="button" class="btn teal" data-go="65">下一步：⑤ 將故事種在地圖上 ➜</button></div>
+  </div>
+
+  <!-- ⑤ 將故事種在地圖上 -->
+  <div id="l65" class="hidden">
+    <div class="card">
+      <h3>🖍️ 把故事「種」到地圖上</h3>
+      <ol class="steps">
+        <li><b>決定地圖範圍和方位</b>：參考地圖和蒐集到的故事來決定。</li>
+        <li><b>標示主要道路</b>：拿一張白紙，畫出主要道路，寫上道路名稱。</li>
+        <li><b>加入重要地點</b>：想一想這條街上有什麼。</li>
+        <li><b>把故事畫到地圖上</b>：故事和解說配上插圖，貼在地圖對應的位置。</li>
+        <li><b>檢查</b>：用清單看看地圖有沒有缺東西。</li>
+      </ol>
+      <p class="small">記住了嗎？不看上面，照順序點點看：</p>
+      <div id="drawOrd"></div>
+    </div>
+    <div class="card">
+      <h3>📍 加入重要地點：三種景觀</h3>
+      <p class="small">課本把街道上的景觀分成三類，畫地圖時至少選一項。把卡片放進對的籃子：</p>
+      <div id="placeSort"></div>
+    </div>
+    <div class="card">
+      <h3>✅ 故事地圖檢查清單</h3>
+      <ol class="steps"><li>地圖上有附近的<b>主要道路</b></li><li>地圖上的<b>故事可以清楚閱讀</b></li><li>在地圖上找得到<b>學校</b></li><li>看得出哪邊是<b>北方</b></li><li>包含我們所列的<b>景點故事</b></li></ol>
+      <p class="small">有三張同學畫的地圖等你檢查：</p>
+      <div class="btns" style="justify-content:center"><button type="button" class="btn org" data-tab="p-game">🕵️ 去當故事地圖檢查員 ➜</button></div>
+    </div>
+    <div class="btns" style="justify-content:center"><button type="button" class="btn teal" data-go="66">下一步：⑥ 故事地圖導覽員 ➜</button></div>
+  </div>
+
+  <!-- ⑥ 故事地圖導覽員 -->
+  <div id="l66" class="hidden">
+    <div class="card">
+      <h3>📣 讓更多人認識家鄉故事地圖</h3>
+      <p class="lead">地圖完成了！想讓更多人藉由這張地圖認識家鄉，課本提到<b>四種方法</b>。把做法放進對的方法：</p>
+      <div id="shareSort"></div>
+    </div>
+    <div class="card">
+      <h3>🎫 導覽員任務卡</h3>
+      <p class="small">選一種你最想試的方法，做一張自己的任務卡。<b>沒有標準答案</b>。</p>
+      <div id="misBox"></div>
+      <div id="misOut" aria-live="polite"></div>
+      <div class="lock">🔒 任務卡只存在這台裝置，不會上傳。</div>
+    </div>
+    <div class="card">
+      <p class="lead" style="text-align:center">六個步驟都看完了！考考自己，或是看看拿到幾個徽章。</p>
+      <div class="btns" style="justify-content:center"><button type="button" class="btn org" data-tab="p-prac">✏️ 去練習</button><button type="button" class="btn purple" data-tab="p-rec">🏆 看徽章</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 練習 ============ -->
+<section class="page" id="p-prac">
+  <div class="card">
+    <h2>✏️ 練習（每組 8 題）</h2>
+    <p class="small">題目和「今天的複習」用同一套，都照課本的說法。考的是步驟和方法。</p>
+  </div>
+  <div class="card"><div id="qp1"></div></div>
+</section>
+
+<!-- ============ 挑戰 ============ -->
+<section class="page" id="p-game">
+  <div class="card"><h2>🎮 挑戰：故事地圖檢查員</h2><p class="small">有三張同學畫的故事地圖，每一張都<b>缺了東西</b>。用課本的五項清單檢查，找出缺什麼，再把地圖修好！（地圖和路名是練習用的範例，不是真的地方。）</p></div>
+  <div class="card"><div id="chk"></div></div>
+</section>
+
+<!-- ============ 紀錄 ============ -->
+<section class="page" id="p-rec">
+  <div class="card"><h2>🏆 我的紀錄</h2><div class="statgrid" id="stats"></div></div>
+  <div class="card"><h3>🏅 我的徽章</h3><div class="badges" id="badges"></div><div id="cert"></div></div>
+  <div class="card"><h3>📒 我寫下的想法</h3><div id="myNotes"></div></div>
+  <div class="card"><h3>🔎 常錯的地方</h3><div id="mist"></div></div>
+  <div class="card"><h3>🕘 最近錯的題目</h3><div id="recent"></div></div>
+  <div class="card"><button class="btn gray" id="resetBtn" type="button">清除紀錄</button><p class="small">紀錄只存在這台平板的瀏覽器裡。清除紀錄會把星星、徽章，還有你在這一頁寫的想法一起清掉。</p></div>
+</section>
+</main>
+
+<nav class="tabs" id="tabs">
+  <button class="on" data-p="p-learn"><span>📖</span>學習</button><button data-p="p-prac"><span>✏️</span>練習</button><button data-p="p-game"><span>🎮</span>挑戰</button><button data-p="p-rec"><span>🏆</span>紀錄</button>
+</nav>
+
+<script src="../../review/bank.js"></script>
+<script id="core">
+/* =====================================================================
+   數學新單元共用程式（第 7～10 單元的頁面都用同一份）
+   - 分頁：學習／練習／挑戰／紀錄
+   - 題目：數字鍵盤（可打小數點、分數格）、選擇題、比大小
+   - 答錯第一次給提示再試一次；第二次才看答案和說明
+   - 紀錄存在這台裝置（localStorage），key 寫在 <body data-key>
+   ===================================================================== */
+var M = (function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  function ri(a, b) { return a + Math.floor(Math.random() * (b - a + 1)); }
+  function pick(a) { return a[Math.floor(Math.random() * a.length)]; }
+  function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function r2(x) { return Math.round(x * 100) / 100; }
+  function gcd(a, b) { return b ? gcd(b, a % b) : a; }
+  /* 分數的樣子：fq(3, 5) 是五分之三；mx(2, 3, 5) 是二又五分之三 */
+  function fq(n, d) { return '<span class="fq"><b>' + n + '</b><i></i><b>' + d + '</b></span>'; }
+  function mx(w, n, d) { return n === 0 ? String(w) : w ? '<span class="mx">' + w + fq(n, d) + '</span>' : fq(n, d); }
+
+  var KEY = document.body.dataset.key;
+  function fresh() { return { stars: 0, n: 0, ok: 0, best: {}, bad: {}, recent: [] }; }
+  function load() {
+    try { var s = JSON.parse(localStorage.getItem(KEY) || 'null'); if (s && typeof s === 'object') { var f = fresh(); for (var k in f) if (!(k in s)) s[k] = f[k]; return s; } } catch (e) {}
+    return fresh();
+  }
+  var store = load();
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(store)); } catch (e) {} }
+  function renderScore() { var s = $('score'); s.textContent = '⭐ ' + store.stars; s.classList.remove('pop'); void s.offsetWidth; s.classList.add('pop'); }
+  function burst(el, emo) {
+    if (!el || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+    var r = el.getBoundingClientRect();
+    for (var i = 0; i < 6; i++) {
+      var b = document.createElement('div'); b.className = 'burst'; b.textContent = emo || pick(['⭐', '✨', '🌟']);
+      b.style.left = (r.left + r.width / 2) + 'px'; b.style.top = (r.top + r.height / 2) + 'px';
+      b.style.setProperty('--dx', ri(-120, 120) + 'px'); b.style.setProperty('--dy', ri(-140, -30) + 'px');
+      document.body.appendChild(b); setTimeout(function (x) { x.remove(); }.bind(null, b), 1200);
+    }
+  }
+  function star(n, el) { store.stars += n; save(); renderScore(); burst(el); }
+
+  /* ---------- 分頁 ---------- */
+  var onTab = {};
+  function goTab(p) {
+    document.querySelectorAll('#tabs button').forEach(function (x) { x.classList.toggle('on', x.dataset.p === p); });
+    document.querySelectorAll('section.page').forEach(function (s) { s.classList.toggle('active', s.id === p); });
+    if (p === 'p-rec') renderRec();
+    if (onTab[p]) onTab[p]();
+    window.scrollTo(0, 0);
+  }
+  document.querySelectorAll('#tabs button').forEach(function (b) { b.addEventListener('click', function () { goTab(b.dataset.p); }); });
+  /* 學習頁的小節切換：按鈕 data-s="71" 會打開 id="l71" */
+  function segs(id, fn) {
+    var bs = document.querySelectorAll('#' + id + ' button');
+    bs.forEach(function (b) {
+      b.addEventListener('click', function () {
+        bs.forEach(function (x) { x.classList.toggle('on', x === b); var el = $('l' + x.dataset.s); if (el) el.classList.toggle('hidden', x !== b); });
+        if (fn) fn(b.dataset.s);
+      });
+    });
+  }
+
+  /* ---------- 題目 ----------
+     Q = { q: 題目 HTML, kind: 'num' | 'pick' | 'cmp',
+           num：fields [{pre, unit, fr:'w'|'n'|'d'}]、ans [數字…]、dec（可以打小數點）
+           pick：opts [HTML…]、a 正確的索引；cmp：a 是 '>' '<' '='
+           tag：錯題分類（給紀錄頁）、dg(vals)：答錯時可能錯在哪、ex：說明、ansText：正確答案怎麼寫 } */
+  var TIPS = {};
+  var ALL = []; // 頁面上所有的題組（實體鍵盤找看得到的那一組）
+  function fieldsHTML(Q, pfx) {
+    var box = function (f, j, cls) { return '<button type="button" class="kbox' + (cls || '') + '" id="' + pfx + j + '" data-j="' + j + '" aria-label="' + (f.pre || (f.fr === 'w' ? '整數' : f.fr === 'n' ? '分子' : f.fr === 'd' ? '分母' : '答案')) + (f.unit ? '（' + f.unit + '）' : '') + '"></button>'; };
+    var h = '';
+    for (var j = 0; j < Q.fields.length; j++) {
+      var f = Q.fields[j], g = Q.fields[j + 1];
+      if (f.pre) h += '<span>' + f.pre + '</span>';
+      if (f.fr === 'n' && g && g.fr === 'd') { h += '<span class="frin">' + box(f, j, ' sm') + '<i></i>' + box(g, j + 1, ' sm') + '</span>' + (g.unit ? '<span>' + g.unit + '</span>' : ''); j++; continue; }
+      if (f.fr === 'n' && f.den) { h += '<span class="frin">' + box(f, j, ' sm') + '<i></i><b class="fden">' + f.den + '</b></span>' + (f.unit ? '<span>' + f.unit + '</span>' : ''); continue; }
+      h += box(f, j, f.fr ? ' sm' : '') + (f.unit ? '<span>' + f.unit + '</span>' : '');
+    }
+    return h;
+  }
+  function ansText(Q) {
+    if (Q.ansText) return Q.ansText;
+    if (Q.kind === 'pick') return Q.opts[Q.a];
+    if (Q.kind === 'cmp') return Q.a;
+    return Q.ans.map(function (a, j) { var f = Q.fields[j]; return (f.pre ? f.pre + ' ' : '') + a + (f.unit ? ' ' + f.unit : ''); }).join('，');
+  }
+  function bad(Q, txt) {
+    if (Q.tag) store.bad[Q.tag] = (store.bad[Q.tag] || 0) + 1;
+    store.recent.unshift({ p: txt, k: Q.tag || '' }); store.recent = store.recent.slice(0, 8);
+  }
+
+  /* quiz({el, name, n, gen(i) → Q, title}) 一回合 n 題 */
+  function quiz(o) {
+    var root = $(o.el), S = null;
+    function start() { S = { i: 0, ok: 0, res: [] }; next(); }
+    function next() {
+      S.fin = false; if (S.i >= o.n) { S.fin = true; return end(); }
+      var Q = o.gen(S.i);
+      S.Q = Q; S.tries = 0; S.vals = Q.kind === 'num' ? Q.fields.map(function () { return ''; }) : null; S.cur = 0; S.done = false;
+      var dots = ''; for (var k = 0; k < o.n; k++) dots += '<i class="' + (S.res[k] === 1 ? 'ok' : S.res[k] === 0 ? 'no' : k === S.i ? 'cur' : '') + '"></i>';
+      var pf = o.el + 'in';
+      var h = '<div class="qhead"><span class="small">第 ' + (S.i + 1) + ' / ' + o.n + ' 題</span>' + (Q.tagName ? '<span class="tagc">' + Q.tagName + '</span>' : '') + '</div><div class="prog">' + dots + '</div>'
+        + '<div class="q">' + Q.q + '</div>';
+      if (Q.kind === 'num') {
+        var keys = Q.dec ? ['1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '0', 'del'] : ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'del', '0', 'ok'];
+        h += '<div class="fields">' + fieldsHTML(Q, pf) + '</div><div class="pad">' + keys.map(function (k) { return '<button type="button" data-k="' + k + '" class="' + (k === 'del' || k === 'ok' ? 'fn' : k === '.' ? 'dot' : '') + '" aria-label="' + (k === 'del' ? '刪掉一個數字' : k === 'ok' ? '確定' : k === '.' ? '小數點' : k) + '">' + (k === 'del' ? '⌫' : k === 'ok' ? '✔ 確定' : k) + '</button>'; }).join('')
+          + (Q.dec ? '<button type="button" data-k="ok" class="fn wide" aria-label="確定">✔ 確定</button>' : '') + '</div>';
+      } else if (Q.kind === 'cmp') {
+        h += '<div class="cmp">' + ['>', '<', '='].map(function (c) { return '<button type="button" class="btn white" data-c="' + c + '">' + c + '</button>'; }).join('') + '</div>';
+      } else {
+        h += '<div class="choices">' + Q.opts.map(function (t, j) { return '<button type="button" class="btn" data-j="' + j + '">' + t + '</button>'; }).join('') + '</div>';
+      }
+      h += '<div class="qfb" aria-live="polite"></div>';
+      root.innerHTML = h;
+      if (Q.kind === 'num') {
+        root.querySelectorAll('.pad button').forEach(function (b) { b.addEventListener('click', function () { key(b.dataset.k); }); });
+        Q.fields.forEach(function (_, j) { $(pf + j).addEventListener('click', function () { if (!S.done) { S.cur = j; paint(); } }); });
+        paint();
+      } else if (Q.kind === 'cmp') {
+        root.querySelectorAll('.cmp button').forEach(function (b) { b.addEventListener('click', function () { choose(b.dataset.c, b); }); });
+      } else {
+        root.querySelectorAll('.choices button').forEach(function (b) { b.addEventListener('click', function () { choose(+b.dataset.j, b); }); });
+      }
+    }
+    function paint() { var pf = o.el + 'in'; S.Q.fields.forEach(function (_, j) { var el = $(pf + j); el.textContent = S.vals[j]; el.classList.toggle('on', j === S.cur && !S.done); }); }
+    function key(k) {
+      if (S.done || S.Q.kind !== 'num') return;
+      var v = S.vals[S.cur];
+      if (k === 'del') S.vals[S.cur] = v.slice(0, -1);
+      else if (k === 'ok') { submit(); return; }
+      else if (k === '.') { if (!S.Q.dec || v.indexOf('.') >= 0) return; S.vals[S.cur] = (v || '0') + '.'; }
+      else if (k === 'tab') { S.cur = (S.cur + 1) % S.Q.fields.length; }
+      else if (v.length < 9) S.vals[S.cur] = (v === '0' ? '' : v) + k;
+      paint();
+    }
+    function fb(html) { root.querySelector('.qfb').innerHTML = html; }
+    function submit() {
+      var Q = S.Q, pf = o.el + 'in';
+      var empty = S.vals.findIndex(function (v) { return v === '' || v === '0.'; });
+      if (empty >= 0) { S.cur = empty; paint(); fb('<div class="hint">每一格都要填喔。</div>'); return; }
+      var nums = S.vals.map(Number), right = nums.map(function (v, j) { return Math.abs(v - Q.ans[j]) < 1e-9; });
+      var ok = right.every(Boolean);
+      if (ok) { Q.fields.forEach(function (_, j) { $(pf + j).classList.add('ok'); }); return win(); }
+      S.tries++;
+      var why = Q.dg ? Q.dg(nums) : '';
+      if (S.tries === 1) {
+        bad(Q, Q.plain || stripTags(Q.q));
+        Q.fields.forEach(function (_, j) { $(pf + j).classList.toggle('no', !right[j]); });
+        fb('<div class="hint">🤔 再想想看。' + (why ? '<br>' + why : Q.hint ? '<br>' + Q.hint : '') + '</div>');
+        S.vals = S.vals.map(function (v, j) { return right[j] ? v : ''; }); S.cur = right.indexOf(false); setTimeout(function () { Q.fields.forEach(function (_, j) { $(pf + j).classList.remove('no'); }); paint(); }, 700);
+        return;
+      }
+      Q.fields.forEach(function (_, j) { $(pf + j).classList.add(right[j] ? 'ok' : 'no'); });
+      lose(why);
+    }
+    function choose(v, btn) {
+      if (S.done) return;
+      var Q = S.Q;
+      if (v === Q.a) { btn.classList.add('ok'); if (Q.kind === 'pick') btn.style.background = '#d8f3dc'; return win(); }
+      S.tries++; btn.classList.add('no'); btn.disabled = true;
+      if (Q.kind === 'pick') { btn.style.background = '#ffd6dc'; btn.style.color = 'var(--ink)'; }
+      var why = Q.dg ? Q.dg(v) : '';
+      if (S.tries === 1 && (Q.kind === 'cmp' ? true : Q.opts.length > 2)) {
+        bad(Q, Q.plain || stripTags(Q.q));
+        fb('<div class="hint">🤔 再想想看。' + (why ? '<br>' + why : Q.hint ? '<br>' + Q.hint : '') + '</div>');
+        return;
+      }
+      if (S.tries === 1) bad(Q, Q.plain || stripTags(Q.q));
+      lose(why);
+    }
+    function win() {
+      S.done = true; var first = S.tries === 0;
+      store.n++; if (first) store.ok++; save();
+      S.res[S.i] = first ? 1 : 0; if (first) S.ok++;
+      if (first) star(1, root.querySelector('.q'));
+      fb('<div class="good">' + (first ? '✅ 答對了！' : '✅ 這次對了！') + '</div>' + (S.Q.ex ? '<div class="ex">' + S.Q.ex + '</div>' : '') + nextBtn());
+      lock();
+    }
+    function lose(why) {
+      S.done = true; store.n++; save(); S.res[S.i] = 0;
+      fb('<div class="hint">正確答案是 <b>' + ansText(S.Q) + '</b>。' + (why ? '<br>🔎 ' + why : '') + '</div>' + (S.Q.ex ? '<div class="ex">' + S.Q.ex + '</div>' : '') + nextBtn());
+      lock();
+    }
+    function lock() {
+      root.querySelectorAll('.pad button,.cmp button,.choices button').forEach(function (b) { b.disabled = true; });
+      if (S.Q.kind === 'num') paint();
+      var nb = root.querySelector('.nextQ'); nb.addEventListener('click', function () { S.i++; next(); }); setTimeout(function () { try { nb.focus({ preventScroll: true }); } catch (e) {} }, 50);
+    }
+    function nextBtn() { return '<div class="btns" style="justify-content:center"><button type="button" class="btn org nextQ">' + (S.i + 1 >= o.n ? '看結果 🏁' : '下一題 ➜') + '</button></div>'; }
+    function end() {
+      var prev = store.best[o.name] || 0; if (S.ok > prev) store.best[o.name] = S.ok; save();
+      var all = S.ok === o.n; if (all) star(3, root);
+      root.innerHTML = '<div class="title">' + (all ? '🏆 全對！' : S.ok >= o.n * .7 ? '🎉 很棒！' : '💪 再練一次會更好') + '</div>'
+        + '<p class="lead" style="text-align:center">第一次就答對 <b>' + S.ok + ' / ' + o.n + '</b> 題' + (all ? '，多送 3 顆星！' : '。') + '</p>'
+        + '<div class="btns" style="justify-content:center"><button type="button" class="btn org againQ">再玩一次</button></div>';
+      root.querySelector('.againQ').addEventListener('click', start);
+      if (o.onDone) o.onDone(S.ok);
+    }
+    var api = { root: root, start: start, state: function () { return S; }, key: function (k) { key(k); } };
+    ALL.push(api); (window.__qs = window.__qs || {})[o.el] = api; start();
+    return api;
+  }
+  function stripTags(h) { var d = document.createElement('div'); d.innerHTML = h; return (d.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 60); }
+
+  /* ---------- 紀錄 ---------- */
+  var REC = { items: [] }; // 頁面設定：REC.items = [[圖示, 名稱, quiz 名稱, 題數]]
+  function renderRec() {
+    var st = [['⭐', store.stars, '星星'], ['📝', store.n, '作答題數'], ['🎯', store.n ? Math.round(store.ok / store.n * 100) + '%' : '—', '第一次就答對']];
+    REC.items.forEach(function (x) { st.push([x[0], (store.best[x[2]] || 0) + ' / ' + x[3], x[1] + '最佳']); });
+    $('stats').innerHTML = st.map(function (s) { return '<div class="stat"><b>' + s[0] + ' ' + s[1] + '</b><span>' + s[2] + '</span></div>'; }).join('');
+    var ks = Object.keys(store.bad).filter(function (k) { return TIPS[k]; }).sort(function (a, b) { return store.bad[b] - store.bad[a]; });
+    $('mist').innerHTML = ks.length ? ks.map(function (k) { return '<div class="tip"><b>' + TIPS[k][0] + '</b>（' + store.bad[k] + ' 次）<br>' + TIPS[k][1] + '</div>'; }).join('') : '<p class="small">還沒有錯題，好棒！</p>';
+    $('recent').innerHTML = store.recent.length ? '<ul>' + store.recent.map(function (r) { return '<li>' + esc(r.p) + (TIPS[r.k] ? ' <span class="small">— ' + TIPS[r.k][0] + '</span>' : '') + '</li>'; }).join('') + '</ul>' : '<p class="small">沒有最近的錯題。</p>';
+  }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  $('resetBtn').addEventListener('click', function () { if (!confirm('確定要清除這一頁的紀錄嗎？')) return; store = fresh(); save(); renderScore(); renderRec(); });
+
+  /* ---------- 實體鍵盤 ---------- */
+  document.addEventListener('keydown', function (e) {
+    var active = null; ALL.forEach(function (a) { if (!active && a.root.offsetParent && a.state() && !a.state().fin) active = a; });
+    if (!active || /input|textarea|select/i.test((e.target && e.target.tagName) || '')) return;
+    var S = active.state(), Q = S.Q, k = e.key;
+    if (/^[0-9]$/.test(k) || k === '.') active.key(k);
+    else if (k === 'Backspace') active.key('del');
+    else if (k === 'Enter') { var nb = active.root.querySelector('.nextQ'); if (nb && document.activeElement === nb) return; if (nb) { nb.click(); } else active.key('ok'); }
+    else if (k === 'Tab' && Q && Q.kind === 'num' && Q.fields.length > 1) active.key('tab');
+    else return;
+    e.preventDefault();
+  });
+
+  renderScore();
+  return { $: $, ri: ri, pick: pick, shuffle: shuffle, r2: r2, gcd: gcd, fq: fq, mx: mx, quiz: quiz, segs: segs, goTab: goTab, onTab: onTab, star: star, burst: burst, TIPS: TIPS, REC: REC, store: function () { return store; }, save: save };
+})();
+
+</script>
+<script>
+/* 社會新單元共用：點選分類（先點卡片，再點籃子）、排順序、從題庫抽社會題
+   （和 festivals、multicultural 頁同一份；這一頁多了 o.onDone：做完一輪會通知頁面，用來發徽章） */
+var SOC = (function () {
+  'use strict';
+  var $ = M.$;
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  /* sorter(id, { baskets: ['客家族群', …], items: [['炒粄條', 0, '客家族群的米製品'], …], done: '完成後的一句話', onDone }) */
+  function sorter(id, o) {
+    var root = $(id), sel = null, left;
+    function start() {
+      left = o.items.length; sel = null;
+      var items = M.shuffle(o.items.map(function (x, i) { return [x, i]; }));
+      root.innerHTML = '<div class="srt-items">' + items.map(function (p) { return '<button type="button" class="chip" data-i="' + p[1] + '">' + esc(p[0][0]) + '</button>'; }).join('') + '</div>'
+        + '<div class="srt-baskets">' + o.baskets.map(function (b, k) { return '<button type="button" class="srt-b" data-k="' + k + '"><b>' + esc(b) + '</b><span class="srt-in"></span></button>'; }).join('') + '</div><div class="srt-fb small">先點一張卡片，再點它要放的籃子。</div>';
+      root.querySelectorAll('.chip').forEach(function (c) { c.addEventListener('click', function () { if (c.disabled) return; root.querySelectorAll('.chip').forEach(function (x) { x.classList.toggle('on', x === c); }); sel = +c.dataset.i; }); });
+      root.querySelectorAll('.srt-b').forEach(function (b) { b.addEventListener('click', function () {
+        if (sel === null) { root.querySelector('.srt-fb').textContent = '先點一張卡片喔。'; return; }
+        var it = o.items[sel], k = +b.dataset.k, chip = root.querySelector('.chip[data-i="' + sel + '"]');
+        if (it[1] === k) {
+          chip.remove(); var t = document.createElement('span'); t.className = 'srt-got'; t.textContent = it[0]; b.querySelector('.srt-in').appendChild(t);
+          root.querySelector('.srt-fb').innerHTML = '✅ ' + esc(it[0]) + (it[2] ? '：' + esc(it[2]) : '') ; sel = null; left--;
+          if (!left) { root.querySelector('.srt-fb').innerHTML = '🎉 全部放對了！' + (o.done || '') + ' <button type="button" class="btn white small srt-again">再玩一次</button>'; M.star(2, b); root.querySelector('.srt-again').addEventListener('click', start); if (o.onDone) o.onDone(); }
+        } else { chip.classList.add('no'); b.classList.add('no'); setTimeout(function () { chip.classList.remove('no'); b.classList.remove('no'); }, 500); root.querySelector('.srt-fb').innerHTML = '🤔 ' + esc(it[0]) + ' 不是放在「' + esc(o.baskets[k]) + '」喔，再想想。' + (o.hint ? '<br>' + o.hint : ''); }
+      }); });
+    }
+    start();
+  }
+  /* orderer(id, { items: ['出生', '滿月', …]（正確順序）, labels: 可選的說明, done, onDone }) 依序點 */
+  function orderer(id, o) {
+    var root = $(id), nxt;
+    function start() {
+      nxt = 0; var items = M.shuffle(o.items.map(function (x, i) { return [x, i]; }));
+      root.innerHTML = '<div class="ord-line"></div><div class="srt-items">' + items.map(function (p) { return '<button type="button" class="chip" data-i="' + p[1] + '">' + esc(p[0]) + '</button>'; }).join('') + '</div><div class="srt-fb small">' + (o.ask || '照順序一個一個點。') + '</div>';
+      root.querySelectorAll('.chip').forEach(function (c) { c.addEventListener('click', function () {
+        var i = +c.dataset.i;
+        if (i === nxt) { c.remove(); var t = document.createElement('span'); t.className = 'ord-step'; t.innerHTML = '<b>' + (nxt + 1) + '</b>' + esc(o.items[i]) + (o.labels ? '<small>' + esc(o.labels[i]) + '</small>' : ''); root.querySelector('.ord-line').appendChild(t); nxt++;
+          if (nxt === o.items.length) { root.querySelector('.srt-fb').innerHTML = '🎉 順序全對！' + (o.done || '') + ' <button type="button" class="btn white small srt-again">再玩一次</button>'; M.star(2, root); root.querySelector('.srt-again').addEventListener('click', start); if (o.onDone) o.onDone(); }
+          else root.querySelector('.srt-fb').textContent = '對了！下一個呢？'; }
+        else { c.classList.add('no'); setTimeout(function () { c.classList.remove('no'); }, 500); root.querySelector('.srt-fb').innerHTML = '🤔 ' + esc(o.items[i]) + ' 還沒輪到喔。' + (o.hint || ''); }
+      }); });
+    }
+    start();
+  }
+  /* 從題庫抽某幾課的社會題（和今天的複習同一套），選項順序打亂 */
+  function deck(units, n, TIPS) {
+    var B = window.REVIEW_BANK, pool = B.cards.filter(function (c) { return units.indexOf(c.u) >= 0; }), d = [];
+    return function (i) {
+      if (i === 0 || !d.length) { d = M.shuffle(pool).slice(0, n); while (d.length < n) d = d.concat(M.shuffle(pool)); }
+      var c = d[i % d.length], Q = B.make(c), ord = M.shuffle(Q.opts.map(function (_, j) { return j; }));
+      return { kind: 'pick', q: Q.q, opts: ord.map(function (j) { return Q.opts[j]; }), a: ord.indexOf(Q.a), ex: Q.ex, tag: c.u, tagName: TIPS[c.u] ? TIPS[c.u][0] : '' };
+    };
+  }
+  return { sorter: sorter, orderer: orderer, deck: deck, esc: esc };
+})();
+
+/* 探究與實作 家鄉故事導覽員（課本 p.86～97）：
+   六個步驟的活動（排順序、方法配對、人時地事物、留下或拿掉、畫地圖順序、地點分類、分享方法、任務卡）、
+   挑戰（故事地圖檢查員）、練習（題目來自 review/bank.js 的 so13）。
+   開放題（聽過的故事、感受、自己的準備表、任務卡）不判對錯，只存在這台裝置：和星星同一份 localStorage 紀錄（M.store() 的 notes），不上傳。
+   不要求輸入真實姓名、住址、學校名稱。徽章存在 M.store() 的 acts。 */
+(function () {
+  'use strict';
+  var $ = M.$, esc = SOC.esc;
+  M.segs('seg');
+
+  /* ---------- 紀錄：徽章（acts）和她寫的想法（notes） ---------- */
+  function st() { var s = M.store(); if (!s.acts || typeof s.acts !== 'object') s.acts = {}; if (!s.notes || typeof s.notes !== 'object') s.notes = {}; return s; }
+  function arr(k) { var v = st().notes[k]; return Array.isArray(v) ? v : []; }
+  function txt(k) { var v = st().notes[k]; return typeof v === 'string' ? v : ''; }
+  function got(k) { return !!st().acts[k]; }
+  var BADGES = [
+    ['order', '🧩', '步驟小隊長', '第①步：六個步驟排順序'],
+    ['story', '🌱', '故事種子', '第②步：分享想調查或聽過的故事'],
+    ['method', '🔍', '資料蒐集員', '第③步：四種方法配對'],
+    ['prep', '📋', '訪問準備王', '第③步：人時地事物分類'],
+    ['plan', '🗓️', '訪問企畫師', '第③步：完成自己的準備表'],
+    ['keep', '🗂️', '資料整理師', '第④步：留下還是拿掉'],
+    ['draw', '🖍️', '地圖繪製師', '第⑤步：畫地圖的順序'],
+    ['place', '📍', '地點分類手', '第⑤步：重要地點分類'],
+    ['map', '🕵️', '地圖檢查員', '挑戰：檢查完三張地圖'],
+    ['share', '📣', '分享達人', '第⑥步：四種分享方法'],
+    ['mission', '🎫', '故事導覽員', '第⑥步：接下導覽任務'],
+    ['quiz', '✏️', '練習達人', '練習：做完一組題目']
+  ];
+  var STEP = { '61': ['order'], '62': ['story'], '63': ['method', 'prep', 'plan'], '64': ['keep'], '65': ['draw', 'place', 'map'], '66': ['share', 'mission'] };
+  function toast(html) { var t = document.createElement('div'); t.className = 'toast'; t.setAttribute('role', 'status'); t.innerHTML = html; document.body.appendChild(t); setTimeout(function () { t.remove(); }, 2600); }
+  function award(k) {
+    var s = st(); if (s.acts[k]) return false;
+    s.acts[k] = 1; M.save(); paintBadges();
+    var b = BADGES.filter(function (x) { return x[0] === k; })[0]; if (b) toast('🏅 得到徽章：' + b[1] + ' ' + b[2] + '！');
+    return true;
+  }
+  function paintBadges() {
+    var n = BADGES.filter(function (b) { return got(b[0]); }).length;
+    $('bdgLine').innerHTML = '<button type="button" class="btn white small" id="bdgGo">🏅 徽章 ' + n + ' / ' + BADGES.length + '</button>' + BADGES.map(function (b) { return '<i class="' + (got(b[0]) ? 'got' : '') + '" title="' + b[2] + '">' + b[1] + '</i>'; }).join('');
+    $('bdgGo').addEventListener('click', function () { M.goTab('p-rec'); });
+    document.querySelectorAll('#seg button').forEach(function (b) { var ks = STEP[b.dataset.s] || []; b.textContent = b.dataset.label + (ks.length && ks.every(got) ? ' ✅' : ''); });
+    $('badges').innerHTML = BADGES.map(function (b) { return '<span class="bdg' + (got(b[0]) ? ' got' : '') + '">' + b[1] + ' ' + b[2] + '<small>' + b[3] + '</small></span>'; }).join('');
+    $('cert').innerHTML = n === BADGES.length ? '<div class="cert">🎉 ' + BADGES.length + ' 個徽章全部到手！<br>你是合格的「家鄉故事導覽員」了！</div>' : '<p class="small">還有 ' + (BADGES.length - n) + ' 個徽章等你拿。灰色的徽章下面寫著要去哪裡拿。</p>';
+  }
+
+  /* ---------- 小工具：寫字的格子、可以點選的想法（都不判對錯） ---------- */
+  var REPAINT = [];
+  function bindText(id, key, after) {
+    var el = $(id);
+    function paint() { el.value = txt(key); }
+    el.addEventListener('input', function () { st().notes[key] = el.value.slice(0, 300); M.save(); if (after) after(); });
+    REPAINT.push(paint); paint();
+  }
+  function chipSet(id, key, list, single, after) {
+    var root = $(id);
+    function paint() {
+      var v = arr(key);
+      root.innerHTML = list.map(function (t, i) { var on = v.indexOf(t) >= 0; return '<button type="button" class="chip' + (on ? ' on' : '') + '" aria-pressed="' + on + '" data-i="' + i + '">' + esc(t) + '</button>'; }).join('');
+      root.querySelectorAll('.chip').forEach(function (c) { c.addEventListener('click', function () {
+        var t = list[+c.dataset.i], v2 = arr(key).slice(), k = v2.indexOf(t);
+        if (single) v2 = k >= 0 ? [] : [t]; else if (k >= 0) v2.splice(k, 1); else v2.push(t);
+        st().notes[key] = v2; M.save(); paint(); if (after) after(v2);
+      }); });
+    }
+    REPAINT.push(paint); paint();
+  }
+  function flip(id, list) {
+    $(id).innerHTML = list.map(function (f) { return '<button type="button">' + f[0] + '<span>' + f[1] + '</span></button>'; }).join('');
+    $(id).querySelectorAll('button').forEach(function (b) { b.addEventListener('click', function () { b.classList.toggle('open'); }); });
+  }
+  function goStep(s) { var b = document.querySelector('#seg button[data-s="' + s + '"]'); if (b) b.click(); window.scrollTo(0, 0); }
+  document.querySelectorAll('[data-go]').forEach(function (b) { b.addEventListener('click', function () { goStep(b.dataset.go); }); });
+  document.querySelectorAll('[data-tab]').forEach(function (b) { b.addEventListener('click', function () { M.goTab(b.dataset.tab); }); });
+
+  /* ---------- ① 回顧所學：六個步驟排順序 ---------- */
+  SOC.orderer('stepOrd', { items: ['回顧所學', '我所知道的家鄉故事', '蒐集資料與說明感受', '整理分析', '將故事種在地圖上', '故事地圖導覽員'],
+    labels: ['想想學過什麼', '說說聽過的', '四種方法', '決定留哪些', '動手畫地圖', '分享給大家'],
+    ask: '從第一步排到最後一步，依序點。', hint: '<br>想一想：要先蒐集到資料，才能整理；整理好，才能畫到地圖上。',
+    done: '先回顧、說故事、蒐集、整理、畫地圖，最後當導覽員！', onDone: function () { award('order'); } });
+
+  /* ---------- ② 我所知道的家鄉故事（開放題） ---------- */
+  flip('clueFlip', [
+    ['🏮 廟的屋頂', '同學發現土地公廟的屋頂是八角形的，想知道背後有什麼故事。'],
+    ['🏷️ 以前的地名', '同學問了阿公，才知道課本例子裡的「大雅」以前叫「壩仔」，這是原住民族對未開墾荒地的稱呼。'],
+    ['🌊 以前的大水', '阿媽說，以前颱風的時候，這裡曾經變成一片大河。'],
+    ['🌳 苦楝樹', '媽媽說，苦楝樹的果實成熟時，常常可以看到鳥兒聚在樹上。']
+  ]);
+  function storyCheck() {
+    if (arr('ideas').length || txt('heard').trim().length >= 2) {
+      if (award('story')) M.star(1, $('ideas'));
+      $('storyFb').textContent = '謝謝你的分享！這些都是很棒的故事線索，沒有對錯。';
+    } else $('storyFb').textContent = '';
+  }
+  chipSet('ideas', 'ideas', ['🏷️ 地名的由來', '🏮 廟的故事', '🌳 老樹', '🌉 橋和河流', '🏠 老房子', '🍜 有名的小吃', '🎉 節慶活動', '👤 有名的人物'], false, storyCheck);
+  bindText('heard', 'heard', storyCheck);
+
+  /* ---------- ③ 蒐集資料與說明感受 ---------- */
+  SOC.sorter('methodSort', { baskets: ['🚶 實地走訪', '💻 網路查詢', '📚 查閱書籍', '🎤 訪問長輩'], items: [
+    ['想親眼看看土地公廟的屋頂', 0, '親自走到有故事的景點看一看'],
+    ['走到苦楝樹下看鳥兒', 0, '親自到現場觀察'],
+    ['用電腦查景點的資料', 1, '上網查景點的相關資料'],
+    ['上網找廟的介紹', 1],
+    ['到圖書館找寫家鄉的書', 2, '讀和家鄉有關的書'],
+    ['翻一翻介紹家鄉的書', 2],
+    ['請阿公說以前的地名', 3, '請長輩說說家鄉的故事'],
+    ['聽阿媽說以前颱風的事', 3]
+  ], hint: '想一想：是自己走去看、上網查、看書，還是問長輩？', done: '課本說，調查方式包含這四種。', onDone: function () { award('method'); } });
+  chipSet('feel', 'feel', ['😆 很期待', '🤔 很好奇', '😳 有點緊張', '😊 很開心', '🥰 覺得家鄉很特別', '💪 想知道更多'], false, function (v) { $('feelFb').textContent = v.length ? '感受沒有對錯，謝謝你說出來！' : ''; });
+  SOC.sorter('prepSort', { baskets: ['👤 人', '🕒 時', '📍 地', '❓ 事', '🎒 物'], items: [
+    ['里長', 0, '想訪問的人'],
+    ['用電話聯絡他', 0, '怎麼聯絡對方，也寫在「人」這一格'],
+    ['星期五下午兩點半', 1, '預定訪問的時間'],
+    ['教室', 2, '預定訪問的地點'],
+    ['社區活動中心', 2, '預定訪問的地點'],
+    ['家鄉為什麼會叫這個地名？', 3, '想問的題目'],
+    ['家鄉有什麼有名的人物故事？', 3, '想問的題目'],
+    ['感謝卡', 4, '要先準備的物品'],
+    ['筆和筆記本', 4, '要先準備的物品'],
+    ['拍照或錄音設備', 4, '要先準備的物品']
+  ], hint: '人＝訪問誰、怎麼聯絡；時＝時間；地＝地點；事＝想問的題目；物＝要帶的東西。', done: '人、時、地、事、物都準備好，訪問會更順利。', onDone: function () { award('prep'); } });
+
+  /* 我的訪問準備表（開放題，用點的；不填名字、電話、地址） */
+  var PLAN = [
+    ['pl_who', '👤 人', '想訪問誰？', ['阿公', '阿媽', '外公', '外婆', '里長', '鄰居的長輩'], true],
+    ['pl_how', '📞 聯絡', '怎麼聯絡他？（也寫在「人」這一格）', ['電話', '電子信件', '親自拜訪'], true],
+    ['pl_when', '🕒 時', '什麼時候？', ['放學後', '星期六上午', '星期日下午'], true],
+    ['pl_where', '📍 地', '在哪裡？', ['家裡', '學校', '公園', '社區活動中心'], true],
+    ['pl_ask', '❓ 事', '想問什麼？（可以選很多個）', ['家鄉為什麼會叫這個地名？', '家鄉有什麼有名的人物故事？'], false],
+    ['pl_bring', '🎒 物', '要帶什麼？（可以選很多個）', ['感謝卡', '筆和筆記本', '拍照或錄音設備'], false]
+  ];
+  function planParts() {
+    var p = { who: arr('pl_who')[0], how: arr('pl_how')[0], when: arr('pl_when')[0], where: arr('pl_where')[0], ask: arr('pl_ask').slice(), bring: arr('pl_bring') };
+    if (txt('askMore').trim()) p.ask.push(txt('askMore').trim());
+    p.need = []; if (!p.who) p.need.push('人'); if (!p.when) p.need.push('時'); if (!p.where) p.need.push('地'); if (!p.ask.length) p.need.push('事'); if (!p.bring.length) p.need.push('物');
+    p.any = p.need.length < 5 || !!p.how;
+    p.rows = [];
+    if (p.who || p.how) p.rows.push(['👤 人', (p.who || '（還沒選要訪問誰）') + (p.how ? '（聯絡方式：' + p.how + '）' : '')]);
+    if (p.when) p.rows.push(['🕒 時', p.when]);
+    if (p.where) p.rows.push(['📍 地', p.where]);
+    if (p.ask.length) p.rows.push(['❓ 事', p.ask.join('　')]);
+    if (p.bring.length) p.rows.push(['🎒 物', p.bring.join('、')]);
+    return p;
+  }
+  function planPaint() {
+    var p = planParts(), h;
+    if (!p.any) h = '<p class="small">點上面的選項，下面會出現你的準備表。</p>';
+    else {
+      h = '<div class="sum"><b>📋 我的訪問準備表</b><div class="kv">' + p.rows.map(function (r) { return '<b>' + r[0] + '</b><span>' + esc(r[1]) + '</span>'; }).join('') + '</div></div>';
+      if (p.need.length) h += '<p class="small">還差：' + p.need.join('、') + '。</p>';
+      else h += '<div class="say">🗣️ 聯絡的時候可以這樣說：<br>「<u>' + esc(p.who) + '</u>您好，我是四年級的學生，想聽您說說家鄉以前的故事。時間想約在<u>' + esc(p.when) + '</u>，地點在<u>' + esc(p.where) + '</u>，不知道您方不方便？」</div>'
+        + '<p class="small">說話的順序：稱呼對方 → 介紹自己 → 說明原因 → 時間和地點 → 問對方方不方便。</p><div class="good">✅ 準備表完成了！五格都有，訪問會更順利。</div>';
+    }
+    $('planOut').innerHTML = h;
+    if (!p.need.length && award('plan')) M.star(2, $('planOut'));
+  }
+  $('planBox').innerHTML = PLAN.map(function (p) { return '<div class="fld">' + p[1] + '<small>' + p[2] + '</small></div><div class="chips ideas" id="' + p[0] + '"></div>' + (p[0] === 'pl_ask' ? '<input class="ta one" id="askMore" type="text" maxlength="40" aria-label="其他想問的題目" placeholder="其他想問的題目（可以不寫）">' : ''); }).join('');
+  PLAN.forEach(function (p) { chipSet(p[0], p[0], p[3], p[4], planPaint); });
+  bindText('askMore', 'askMore', planPaint);
+  REPAINT.push(planPaint); planPaint();
+
+  /* ---------- ④ 整理分析：留下還是拿掉 ---------- */
+  function keeper(id, cards) {
+    var root = $(id), S;
+    function start() { S = { ord: M.shuffle(cards.map(function (_, i) { return i; })), i: 0, ok: 0, res: [] }; show(); }
+    function show() {
+      var c = cards[S.ord[S.i]], dots = '';
+      for (var k = 0; k < cards.length; k++) dots += '<i class="' + (S.res[k] === 1 ? 'ok' : S.res[k] === 0 ? 'no' : k === S.i ? 'cur' : '') + '"></i>';
+      root.innerHTML = '<div class="prog">' + dots + '</div><div class="kcard"><span>' + c[0] + '</span>' + esc(c[1]) + '</div>'
+        + '<div class="kbtns"><button type="button" class="btn teal" data-v="1">📌 留下</button><button type="button" class="btn gray" data-v="0">🗑️ 拿掉</button></div><div class="kfb" aria-live="polite"></div>';
+      root.querySelectorAll('.kbtns button').forEach(function (b) { b.addEventListener('click', function () { choose(b, c); }); });
+    }
+    function choose(b, c) {
+      var right = +b.dataset.v === c[2];
+      root.querySelectorAll('.kbtns button').forEach(function (x) { x.disabled = true; }); b.classList.add('pickd');
+      S.res[S.i] = right ? 1 : 0; if (right) { S.ok++; M.burst(b); }
+      root.querySelector('.kfb').innerHTML = '<div class="' + (right ? 'good' : 'hint') + '">' + (right ? '✅ 判斷對了！' : '🤔 這一張應該<b>' + (c[2] ? '留下' : '拿掉') + '</b>。') + esc(c[3]) + '</div>'
+        + '<div class="btns" style="justify-content:center"><button type="button" class="btn org kNext">' + (S.i + 1 >= cards.length ? '看結果 🏁' : '下一張 ➜') + '</button></div>';
+      root.querySelector('.kNext').addEventListener('click', function () { S.i++; if (S.i >= cards.length) end(); else show(); });
+    }
+    function end() {
+      var all = S.ok === cards.length;
+      root.innerHTML = '<div class="title">' + (all ? '🏆 全部判斷對了！' : '🎉 資料整理好了！') + '</div><p class="lead" style="text-align:center">判斷對 <b>' + S.ok + ' / ' + cards.length + '</b> 張。<br>記得原則：看<b>主題</b>，也看資料的<b>重要程度</b>。</p>'
+        + '<div class="btns" style="justify-content:center"><button type="button" class="btn org kAgain">再玩一次</button></div>';
+      root.querySelector('.kAgain').addEventListener('click', start);
+      M.star(all ? 3 : 2, root); award('keep');
+    }
+    start();
+  }
+  keeper('keepBox', [
+    ['👴', '土地公陪考的故事', 1, '這是家鄉土地公廟的故事，又很有趣，課本裡的同學也決定放進來。'],
+    ['👻', '鬼故事', 0, '課本裡的同學討論後，覺得鬼故事不適合放在這張地圖上，決定拿掉。'],
+    ['🌳', '苦楝樹的果實成熟時，鳥兒會聚在樹上', 1, '這是家鄉景點的故事，符合主題。課本的地圖上也有苦楝樹。'],
+    ['🏷️', '家鄉以前的地名是怎麼來的', 1, '和家鄉的主題有關，也很重要，可以留下。'],
+    ['🎮', '我最近在玩的電動遊戲', 0, '這和「家鄉故事」的主題沒有關係，所以拿掉。'],
+    ['🏮', '土地公廟的屋頂為什麼是八角形', 1, '這是家鄉景點的故事，符合主題，可以留下。'],
+    ['🍱', '明天的營養午餐菜單', 0, '這和「家鄉故事」的主題沒有關係，也不是重要的資料，所以拿掉。']
+  ]);
+  flip('showFlip', [
+    ['🔖 標示出處', '不管是照片還是資料，都要「標示出處」，讓大家知道是從哪裡來的。'],
+    ['🗒️ 便條紙浮貼', '故事的字很多時，可以寫在便條紙上，再浮貼在地圖上。'],
+    ['🔢 用編號標示', '也可以把故事寫在地圖外面，在地圖上用編號標出位置。']
+  ]);
+  bindText('av', 'av');
+
+  /* ---------- ⑤ 將故事種在地圖上 ---------- */
+  SOC.orderer('drawOrd', { items: ['決定地圖範圍和方位', '標示主要道路', '加入重要地點', '把故事畫到地圖上', '用清單檢查'],
+    ask: '畫故事地圖的順序，依序點。', hint: '<br>想一想：要先決定畫多大、哪邊是北方，才能開始畫路。', done: '照這個順序，故事就種到地圖上了！', onDone: function () { award('draw'); } });
+  SOC.sorter('placeSort', { baskets: ['🏫 建築物', '🏪 商店種類', '🌿 生態環境'], items: [['學校', 0], ['寺廟', 0], ['住宅', 0], ['超商', 1], ['餐廳', 1], ['小吃店', 1], ['藥局', 1], ['路樹', 2], ['動物', 2], ['農作物', 2], ['河流', 2]],
+    done: '畫地圖時，三種景觀至少選一項加進去。', onDone: function () { award('place'); } });
+
+  /* ---------- 挑戰：故事地圖檢查員 ----------
+     地圖是這一頁自己畫的練習範例（路名是虛構的），景點用課本的例子：土地公廟、苦楝樹。
+     f：roads 主要道路、school 學校、north 方向標、card2 苦楝樹的故事紙卡、tiny 紙卡的字太小；hi：修好時要圈起來的地方 */
+  function ringSVG(d) { return '<' + d + ' fill="none" stroke="#ff9f1c" stroke-width="3" stroke-dasharray="6 5"/>'; }
+  function cardSVG(x, y, w, no, title, body, tiny) {
+    var cx = x + w / 2, T = '<text x="0" y="0" text-anchor="middle" font-size="12" font-weight="700" fill="#4a2f96">' + title + '</text><text x="0" y="15" text-anchor="middle" font-size="11" fill="#2b2d42">' + body + '</text>';
+    return '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="44" rx="5" fill="#fff" stroke="#6a4fb3" stroke-width="1.5"/>'
+      + '<g transform="translate(' + cx + ' ' + (y + (tiny ? 23 : 19)) + ')' + (tiny ? ' scale(.2)' : '') + '">' + T + '</g>'
+      + '<circle cx="' + (x + 3) + '" cy="' + (y + 2) + '" r="8" fill="#2a9d8f" stroke="#fff" stroke-width="1.5"/><text x="' + (x + 3) + '" y="' + (y + 6) + '" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">' + no + '</text>';
+  }
+  function mapSVG(f, hi) {
+    hi = hi || {};
+    function g(on, inner, ring) { return on ? '<g class="mp-add">' + inner + ringSVG(ring) + '</g>' : '<g>' + inner + '</g>'; }
+    var h = '<svg class="lsvg mapsvg" viewBox="0 0 340 250" role="img" aria-label="同學畫的家鄉故事地圖（練習用的範例）">'
+      + '<rect x="2" y="2" width="336" height="246" rx="14" fill="#cdeeb9"/>'
+      + '<path d="M206 3 C196 50 226 92 211 140 S191 214 201 247" fill="none" stroke="#74c7f2" stroke-width="13"/>';
+    if (f.roads) h += g(hi.roads,
+      '<path d="M3 190 H337 M105 3 V247" fill="none" stroke="#9a9a9a" stroke-width="22"/><path d="M3 190 H337 M105 3 V247" fill="none" stroke="#fff" stroke-width="18"/>'
+      + '<text x="270" y="194" text-anchor="middle" font-size="12" font-weight="700" fill="#555">大樹路</text>'
+      + '<text text-anchor="middle" font-size="12" font-weight="700" fill="#555"><tspan x="105" y="138">廟</tspan><tspan x="105" y="152">前</tspan><tspan x="105" y="166">路</tspan></text>',
+      'rect x="7" y="176" width="326" height="28" rx="10"');
+    h += '<path d="M28 238 L36 216 L44 238 Z M48 242 L56 222 L64 242 Z" fill="#3d8b5a"/><path d="M270 240 V227 L282 217 L294 227 V240 Z" fill="#f4a261" stroke="#a4453a" stroke-width="1.2"/>';
+    h += '<g><path d="M20 42 L50 20 L80 42 Z" fill="#d62828"/><rect x="28" y="42" width="44" height="22" fill="#f6bd60" stroke="#a4453a" stroke-width="1.5"/><rect x="44" y="48" width="12" height="16" fill="#8d3b1f"/><circle cx="34" cy="49" r="3.5" fill="#e63946"/><circle cx="66" cy="49" r="3.5" fill="#e63946"/>'
+      + '<text x="50" y="78" text-anchor="middle" font-size="11" font-weight="700" fill="#2b2d42">土地公廟</text></g>';
+    h += '<g>' + cardSVG(8, 88, 86, '1', '土地公陪考', '保佑考生平安', false) + '</g>';
+    if (f.school) h += g(hi.school,
+      '<path d="M156 50 V32" stroke="#555" stroke-width="1.5"/><path d="M156 32 L170 37 L156 42 Z" fill="#e63946"/><rect x="124" y="50" width="64" height="8" fill="#4a5d8a"/><rect x="128" y="58" width="56" height="30" fill="#e3ecfb" stroke="#4a5d8a" stroke-width="1.5"/>'
+      + '<rect x="133" y="63" width="12" height="9" fill="#9cc4f5"/><rect x="167" y="63" width="12" height="9" fill="#9cc4f5"/><rect x="133" y="76" width="12" height="8" fill="#9cc4f5"/><rect x="167" y="76" width="12" height="8" fill="#9cc4f5"/><rect x="151" y="70" width="10" height="18" fill="#4a5d8a"/>'
+      + '<text x="156" y="103" text-anchor="middle" font-size="12" font-weight="700" fill="#2b2d42">學校</text>',
+      'circle cx="156" cy="68" r="44"');
+    h += '<g><rect x="259" y="60" width="6" height="18" fill="#8d6e63"/><circle cx="262" cy="48" r="15" fill="#5aa469"/><circle cx="250" cy="57" r="9" fill="#5aa469"/><circle cx="274" cy="57" r="9" fill="#5aa469"/>'
+      + '<circle cx="256" cy="46" r="2" fill="#f4d35e"/><circle cx="266" cy="42" r="2" fill="#f4d35e"/><circle cx="270" cy="54" r="2" fill="#f4d35e"/><circle cx="252" cy="58" r="2" fill="#f4d35e"/><circle cx="262" cy="55" r="2" fill="#f4d35e"/>'
+      + '<text x="262" y="92" text-anchor="middle" font-size="11" font-weight="700" fill="#2b2d42">苦楝樹</text></g>';
+    if (f.card2) h += g(hi.card2 || hi.tiny, cardSVG(242, 106, 90, '2', '苦楝樹', '果實吸引小鳥', f.tiny), 'rect x="230" y="95" width="106" height="60" rx="10"');
+    if (f.north) h += g(hi.north,
+      '<circle cx="313" cy="34" r="17" fill="#fff" stroke="#c0392b" stroke-width="2"/><text x="313" y="31" text-anchor="middle" font-size="11" font-weight="700" fill="#c0392b">北</text><path d="M313 33 L319 47 L313 43.5 L307 47 Z" fill="#c0392b"/>',
+      'circle cx="313" cy="34" r="23"');
+    return h + '<rect x="2" y="2" width="336" height="246" rx="14" fill="none" stroke="#7a9a5c" stroke-width="3"/></svg>';
+  }
+  var CHECKS = ['地圖上有附近的主要道路', '地圖上的故事可以清楚閱讀', '在地圖上找得到學校', '看得出哪邊是北方', '清單上的景點故事都在地圖上'];
+  var FULL = { roads: 1, school: 1, north: 1, card2: 1, tiny: 0 };
+  var MAPS = [
+    { f: { roads: 1, school: 0, north: 0, card2: 1, tiny: 0 }, ans: [1, 1, 0, 0, 1], miss: '學校、方向標', hi: { school: 1, north: 1 },
+      why: ['兩條主要道路都畫了，也寫了路名。', '兩張故事紙卡的字都看得清楚。', '找不到學校！要把學校畫上去。', '沒有方向標，看不出哪邊是北方。', '清單上的兩個故事都有紙卡。'] },
+    { f: { roads: 0, school: 1, north: 1, card2: 0, tiny: 0 }, ans: [0, 1, 1, 1, 0], miss: '主要道路、苦楝樹的故事紙卡', hi: { roads: 1, card2: 1 },
+      why: ['只畫了河流，沒有主要道路，也沒有路名。', '紙卡上的字看得清楚。', '學校在地圖中間。', '右上角有方向標，知道哪邊是北方。', '清單上有兩個故事，可是少了苦楝樹的紙卡。'] },
+    { f: { roads: 1, school: 1, north: 0, card2: 1, tiny: 1 }, ans: [1, 0, 1, 0, 1], miss: '方向標；還有 2 號紙卡的字太小', hi: { north: 1, tiny: 1 },
+      why: ['主要道路和路名都有。', '2 號紙卡的字太小了，看不清楚。', '學校在地圖中間。', '沒有方向標，看不出哪邊是北方。', '兩個故事都有紙卡（只是 2 號要寫清楚）。'] }
+  ];
+  function checker(id) {
+    var root = $(id), S;
+    function start() { S = { m: 0, total: 0 }; show(); }
+    function show() {
+      var mp = MAPS[S.m]; S.done = 0; S.ok = 0;
+      root.innerHTML = '<div class="qhead"><span class="small">第 ' + (S.m + 1) + ' / ' + MAPS.length + ' 張地圖</span><span class="tagc">🕵️ 故事地圖檢查員</span></div>' + mapSVG(mp.f)
+        + '<p class="small" style="text-align:center">📝 我們列的景點故事有兩個：<br><b>① 土地公陪考的故事　② 苦楝樹</b></p><p class="small">看著地圖，一項一項檢查：</p>'
+        + CHECKS.map(function (c, i) { return '<div class="crow" data-i="' + i + '"><p>' + (i + 1) + '. ' + c + '</p><div class="btns"><button type="button" class="btn white small" data-v="1">✅ 有</button><button type="button" class="btn white small" data-v="0">❌ 沒有</button></div><div class="why"></div></div>'; }).join('')
+        + '<div class="cfb" aria-live="polite"></div>';
+      root.querySelectorAll('.crow button').forEach(function (b) { b.addEventListener('click', function () { judge(b); }); });
+    }
+    function judge(b) {
+      var row = b.closest('.crow'), i = +row.dataset.i, mp = MAPS[S.m];
+      if (row.dataset.done) return;
+      var right = +b.dataset.v === mp.ans[i];
+      row.dataset.done = '1'; row.querySelectorAll('button').forEach(function (x) { x.disabled = true; }); b.classList.add('on');
+      row.classList.add(right ? 'ok' : 'no'); if (right) S.ok++;
+      row.querySelector('.why').innerHTML = (right ? '✅ 對！' : '🤔 再看一次地圖：') + mp.why[i];
+      S.done++; if (S.done === CHECKS.length) result();
+    }
+    function result() {
+      var mp = MAPS[S.m], fb = root.querySelector('.cfb'), all = S.ok === CHECKS.length;
+      S.total += S.ok;
+      fb.innerHTML = '<div class="' + (all ? 'good' : 'hint') + '">' + (all ? '🎉 五項都判斷對了！' : '你判斷對 <b>' + S.ok + ' / ' + CHECKS.length + '</b> 項。') + '這張地圖的問題：<b>' + mp.miss + '</b>。</div>'
+        + '<div class="btns" style="justify-content:center"><button type="button" class="btn teal fixBtn">🔧 把地圖修好</button></div>';
+      fb.querySelector('.fixBtn').addEventListener('click', function () {
+        fb.innerHTML = '<div class="good">🔧 修好了！橘色虛線圈起來的，就是補上去的地方。</div>' + mapSVG(FULL, mp.hi)
+          + '<div class="btns" style="justify-content:center"><button type="button" class="btn org nextMap">' + (S.m + 1 >= MAPS.length ? '看結果 🏁' : '下一張地圖 ➜') + '</button></div>';
+        M.star(all ? 3 : 2, fb.querySelector('svg'));
+        fb.querySelector('.nextMap').addEventListener('click', function () { S.m++; if (S.m >= MAPS.length) end(); else { show(); window.scrollTo(0, 0); } });
+      });
+    }
+    function end() {
+      var max = MAPS.length * CHECKS.length, s = M.store();
+      if (S.total > (s.best.map || 0)) { s.best.map = S.total; M.save(); }
+      root.innerHTML = '<div class="title">' + (S.total === max ? '🏆 完美的檢查員！' : '🎉 三張地圖都修好了！') + '</div><p class="lead" style="text-align:center">一共判斷對 <b>' + S.total + ' / ' + max + '</b> 項。<br>自己畫故事地圖時，也用這五項檢查一次喔！</p>'
+        + '<div class="btns" style="justify-content:center"><button type="button" class="btn org cAgain">再玩一次</button><button type="button" class="btn teal cBack">回學習：⑥ 故事地圖導覽員 ➜</button></div>';
+      root.querySelector('.cAgain').addEventListener('click', function () { start(); window.scrollTo(0, 0); });
+      root.querySelector('.cBack').addEventListener('click', function () { M.goTab('p-learn'); goStep('66'); });
+      award('map'); window.scrollTo(0, 0);
+    }
+    start();
+  }
+  checker('chk');
+
+  /* ---------- ⑥ 故事地圖導覽員：四種分享方法、任務卡（開放題） ---------- */
+  var WAYS = [
+    ['📌', '將地圖張貼在公共場合', '把地圖貼在校園裡明顯的位置，讓大家閱讀。', ['找一個大家常經過、看得到的地方', '檢查地圖上的字夠不夠大、清不清楚', '貼好以後，請一個人看看，問他看懂了什麼']],
+    ['👥', '安排輪流解說', '安排時間，輪流去其他班級解說。', ['和組員排好誰先講、誰後講', '每個人負責介紹一個故事', '先對著家人練習一次']],
+    ['🎬', '錄製網路導覽', '錄下解說地圖的影片，放到網頁上讓更多人看到。', ['先想好要講的三句話', '請老師或家人幫忙錄影', '放上網路以前，先問過老師和家人']],
+    ['🚶', '實際帶領導覽活動', '規畫實地導覽，帶感興趣的人探訪家鄉。', ['選好要走的路線和景點', '每到一個景點，就講一個故事', '出門要有大人陪，注意安全']]
+  ];
+  var WAYN = WAYS.map(function (w) { return w[0] + ' ' + w[1]; }), STOS = ['土地公陪考的故事', '苦楝樹的故事', '我自己找到的家鄉故事'];
+  SOC.sorter('shareSort', { baskets: ['📌 張貼在公共場合', '👥 安排輪流解說', '🎬 錄製網路導覽', '🚶 實際帶領導覽'], items: [
+    ['把地圖貼在校園裡明顯的位置', 0, '讓大家都能閱讀'],
+    ['貼在大家都看得到的地方', 0],
+    ['排好時間，去其他班級解說', 1, '大家輪流當解說員'],
+    ['錄下解說地圖的影片', 2, '再放到網頁上，讓更多人看到'],
+    ['把導覽影片放到網頁上', 2],
+    ['帶感興趣的人探訪家鄉', 3, '規畫實地導覽'],
+    ['在土地公廟前講陪考的故事', 3, '實際到景點去導覽']
+  ], hint: '想一想：是貼出來、輪流講、錄影片，還是帶人實際去走？', done: '四種方法都能讓更多人認識家鄉！', onDone: function () { award('share'); } });
+  function misPaint() {
+    var n = st().notes, w = WAYN.indexOf(arr('mi_way')[0]), sto = arr('mi_story')[0], out = $('misOut');
+    if (w < 0 || !sto) { out.innerHTML = '<p class="small">選好方法和故事，任務卡就會出現。</p>'; return; }
+    var W = WAYS[w], done = Array.isArray(n.mi_done) ? n.mi_done : [];
+    out.innerHTML = '<div class="mcard"><h4>🎫 導覽員任務卡</h4><div class="kv"><b>方法</b><span>' + W[0] + ' ' + esc(W[1]) + '：' + esc(W[2]) + '</span><b>故事</b><span>' + esc(sto) + '</span></div>'
+      + '<div><b>三個小任務</b>（做到了就打勾）</div>' + W[3].map(function (t, i) { return '<label><input type="checkbox" data-i="' + i + '"' + (done[i] ? ' checked' : '') + '><span>' + esc(t) + '</span></label>'; }).join('')
+      + '<div class="say">🗣️ 開場白可以這樣說：<br>「大家好，我是家鄉故事導覽員，今天要介紹的是<u>' + esc(sto) + '</u>。」</div></div>'
+      + (n.mi_ok ? '<div class="good">✅ 你已經接下任務了，加油！完成的小任務記得打勾。</div>' : '<div class="btns" style="justify-content:center"><button type="button" class="btn org" id="misOk">🙋 我接下這個任務！</button></div>');
+    out.querySelectorAll('input').forEach(function (c) { c.addEventListener('change', function () { var d = Array.isArray(st().notes.mi_done) ? st().notes.mi_done.slice() : []; d[+c.dataset.i] = c.checked ? 1 : 0; st().notes.mi_done = d; M.save(); }); });
+    var ok = $('misOk'); if (ok) ok.addEventListener('click', function () { st().notes.mi_ok = 1; M.save(); if (award('mission')) M.star(2, ok); misPaint(); });
+  }
+  $('misBox').innerHTML = '<div class="fld">① 選一種方法</div><div class="chips ideas" id="mi_way"></div><div class="fld">② 選一個要介紹的故事</div><div class="chips ideas" id="mi_story"></div>';
+  chipSet('mi_way', 'mi_way', WAYN, true, function () { st().notes.mi_done = []; M.save(); misPaint(); });
+  chipSet('mi_story', 'mi_story', STOS, true, misPaint);
+  REPAINT.push(misPaint); misPaint();
+
+  /* ---------- 練習（題庫 so13）和紀錄 ---------- */
+  var TIPS = M.TIPS;
+  TIPS.so13 = ['🚩 家鄉故事導覽員', '蒐集資料有四種方法：實地走訪、網路查詢、查閱書籍、訪問長輩；訪問前準備人、時、地、事、物；依主題和重要程度決定資料；照片和資料要標示出處。'];
+  M.quiz({ el: 'qp1', name: 'p1', n: 8, gen: SOC.deck(['so13'], 8, TIPS), onDone: function () { award('quiz'); } });
+  M.REC.items = [['✏️', '練習', 'p1', 8], ['🕵️', '地圖檢查', 'map', MAPS.length * CHECKS.length]];
+  function notesHTML() {
+    var n = st().notes, rows = [], p = planParts();
+    if (arr('ideas').length) rows.push(['想調查的', esc(arr('ideas').join('、'))]);
+    if (txt('heard').trim()) rows.push(['聽過的故事', esc(txt('heard'))]);
+    if (arr('feel').length) rows.push(['我的感受', esc(arr('feel').join('、'))]);
+    if (p.any) rows.push(['訪問準備表', p.rows.map(function (r) { return esc(r[0] + '：' + r[1]); }).join('<br>')]);
+    if (txt('av').trim()) rows.push(['影音資料', esc(txt('av'))]);
+    if (arr('mi_way').length && arr('mi_story').length) rows.push(['任務卡', esc(arr('mi_way')[0] + '：' + arr('mi_story')[0] + (n.mi_ok ? '（已接下任務）' : ''))]);
+    return rows.length ? '<table class="rec">' + rows.map(function (r) { return '<tr><td>' + r[0] + '</td><td>' + r[1] + '</td></tr>'; }).join('') + '</table><p class="small">🔒 這些只存在這台裝置，不會上傳。</p>'
+      : '<p class="small">還沒有寫東西。到「學習」的第 ②、③、④、⑥ 步點點看、寫寫看！</p>';
+  }
+  function paintRec() { paintBadges(); $('myNotes').innerHTML = notesHTML(); }
+  M.onTab['p-rec'] = paintRec;
+  /* 清除紀錄（共用程式會把整份紀錄清掉）以後，把這一頁的徽章、寫字的格子也重畫一次 */
+  $('resetBtn').addEventListener('click', function () { REPAINT.forEach(function (f) { f(); }); storyCheck(); $('feelFb').textContent = ''; paintRec(); });
+  paintBadges(); storyCheck();
+})();
+
+</script>
+</body>
+</html>

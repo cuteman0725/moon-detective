@@ -29,6 +29,7 @@
   population-change/      人口變化偵探（第三單元 第2課 人口變化與發展）
   multicultural/          多元文化博覽會（第四單元 家鄉的多元文化）
   festivals/              節慶禮俗月曆（第五單元 家鄉的節慶與禮俗）
+  hometown-stories/       家鄉故事導覽員（探究與實作，課本 p.86～97）
 /math/                    數學（康軒版，第 1～10 單元）
   big-numbers/ multiplication/ angles/ division/ kilometers/ triangles/   第 1～6 單元
   decimals/               小數積木工廠（第 7 單元 小數）
