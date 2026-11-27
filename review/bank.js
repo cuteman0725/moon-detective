@@ -107,6 +107,26 @@
      找錯題：{ kind:'spot', q, parts:[...], bad:錯的那一格, block:是否一行一行排, fix, ex } */
   function p10(x) { return x >= 10 && /^10+$/.test(String(x)); } // 10、100、1000……
   var GEN = {
+    /* 國語：看國字選注音。每次從這一課的生字抽一個字，放在課文的語詞裡問；錯的選項是換聲調、或換成容易混的聲母／韻母 */
+    zhuyin: function (card) {
+      var list = CHARS.filter(function (c) { return c.l === card.l; }), c = pick(list), zy = c.zy;
+      var TN = { '': '一聲', 'ˊ': '二聲', 'ˇ': '三聲', 'ˋ': '四聲', '˙': '輕聲' }, base = zy.replace(/[ˊˇˋ˙]/g, ''), tone = (zy.match(/[ˊˇˋ˙]/) || [''])[0];
+      var show = function (b, t) { return (t === '˙' ? '˙' + b : b + t) + '（' + TN[t] + '）'; };
+      var SW = { 'ㄓ': 'ㄗ', 'ㄗ': 'ㄓ', 'ㄔ': 'ㄘ', 'ㄘ': 'ㄔ', 'ㄕ': 'ㄙ', 'ㄙ': 'ㄕ', 'ㄣ': 'ㄥ', 'ㄥ': 'ㄣ', 'ㄢ': 'ㄤ', 'ㄤ': 'ㄢ', 'ㄋ': 'ㄌ', 'ㄌ': 'ㄋ', 'ㄈ': 'ㄏ', 'ㄏ': 'ㄈ' };
+      var others = ['', 'ˊ', 'ˇ', 'ˋ'].filter(function (t) { return t !== tone; }).sort(function () { return Math.random() - .5; });
+      var sw = '', i; for (i = 0; i < base.length; i++) if (SW[base[i]]) { sw = base.slice(0, i) + SW[base[i]] + base.slice(i + 1); break; }
+      var opts = [show(base, tone), show(base, others[0]), sw ? show(sw, tone) : show(base, others[1])];
+      var word = c.w[0].indexOf(c.c) >= 0 ? c.w[0] : c.c;
+      return { kind: 'pick', q: '「' + word.replace(c.c, '<b>' + c.c + '</b>') + '」的「<b>' + c.c + '</b>」注音是哪一個？', opts: opts, a: 0, ex: '「' + word + '」的「' + c.c + '」念 <b>' + opts[0] + '</b>。' };
+    },
+    /* 國語第 8 課〈四季的頭髮〉：哪一種風找到哪一個季節的頭髮（課文的順序是夏、秋、冬、春） */
+    seasonWind: function () {
+      var P = [['夏天', '南風'], ['秋天', '西風'], ['冬天', '北風'], ['春天', '東風']];
+      return { kind: 'drag', mode: 'baskets', cols: 4, q: '〈四季的頭髮〉裡，是哪一種風幫忙找到每個季節的頭髮？把風放到對的季節。',
+        slots: P.map(function (x) { return { id: x[0], label: x[0] }; }),
+        items: P.map(function (x, i) { return { id: i + 1, html: x[1], slot: x[0] }; }).sort(function () { return Math.random() - .5; }), need: 4,
+        ex: '課文照夏、秋、冬、春的順序寫：<b>南風</b>找到夏天的頭髮，<b>西風</b>找到秋天的，<b>北風</b>找到冬天的，<b>東風</b>找到春天的。' };
+    },
     place: function () {
       var n, s, k, d;
       for (var t = 0; t < 100; t++) { n = bigNum(ri(7, 8), .3); s = String(n); k = ri(0, s.length - 2); d = s[k]; if (d !== '0' && s.split(d).length === 2) break; }
@@ -644,6 +664,133 @@
       else { steps[0] = '① ' + s(a) + ' 補 0，寫成 ' + Math.floor(a / 100) + '.0' + ((a % 100) / 10); fix = '① 0 要補在最後面：' + s(a) + '0（十分位的數字不能動）'; }
       return { kind: 'spot', block: true, q: '小明用直式算 <b class="num">' + s(a) + ' － ' + s(b) + '</b>，他第一個錯的是哪一步？', parts: steps, bad: e === 0 ? 1 : 0, fix: fix, ex: '正確答案是 <b>' + s(h) + '</b>。' };
     },
+    /* ---- 第 7 單元補充題型：照單元卷常見的出法自己出題（數字每次都換） ---- */
+    decName: function () {
+      var NM = ['十位', '個位', '十分位', '百分位'], t = ri(0, 2);
+      if (t === 0) {
+        var P = ['小數點<b>左邊第 2 位</b>', '小數點<b>左邊第 1 位</b>', '小數點<b>右邊第 1 位</b>', '小數點<b>右邊第 2 位</b>'], i = pick([0, 1, 2, 2, 3, 3]);
+        return { kind: 'pick', q: P[i] + '，位名是什麼？', opts: NM, a: i, ex: '從小數點往左是個位、十位；往右第 1 位是<b>十分位</b>，第 2 位是<b>百分位</b>。' };
+      }
+      if (t === 1) {
+        var V = [['0.1', 2], ['0.01', 3], ['1', 1]], v = pick(V);
+        return { kind: 'pick', q: '有幾個 <b class="num">' + v[0] + '</b>，要記在哪一位？', opts: NM.slice(1), a: v[1] - 1, ex: '幾個 1 記在個位，幾個 0.1 記在十分位，幾個 0.01 記在百分位。' };
+      }
+      var d; do { d = [ri(1, 9), ri(1, 9), ri(1, 9), ri(1, 9)]; } while (new Set(d).size < 4);
+      var h = d[0] * 1000 + d[1] * 100 + d[2] * 10 + d[3], k = pick([0, 1, 2, 2, 3, 3]);
+      return { kind: 'pick', q: '<b class="num">' + fmtD(h) + '</b> 裡的「<b>' + d[k] + '</b>」在哪一位？', opts: NM, a: k, ex: fmtD(h) + '：' + d[0] + ' 在十位、' + d[1] + ' 在個位、' + d[2] + ' 在十分位、' + d[3] + ' 在百分位。' };
+    },
+    decLongest: function () {
+      var w = ri(2, 9), x, y; do { x = ri(1, 9); y = ri(1, 9); } while (x === y);
+      var vals = [w * 100 + x * 10 + y, w * 100 + y * 10 + x, w * 100 + y, w * 100 + x];
+      var fm = [0, 1, 1, 2].sort(function () { return Math.random() - .5; }), long = Math.random() < .6;
+      var show = function (v, f) { return f === 0 ? v + ' 公分' : f === 1 ? fmtD(v) + ' 公尺' : Math.floor(v / 100) + ' 公尺 ' + (v % 100) + ' 公分'; };
+      var opts = vals.map(function (v, i) { return show(v, fm[i]); }), best = long ? Math.max.apply(null, vals) : Math.min.apply(null, vals);
+      return { kind: 'pick', q: '下面哪一個長度<b>最' + (long ? '長' : '短') + '</b>？', opts: opts, a: vals.indexOf(best),
+        ex: '單位不一樣不能直接比，先全部換成公分：' + vals.map(function (v, i) { return opts[i] + (fm[i] === 0 ? '' : ' ＝ ' + v + ' 公分'); }).join('、') + '。最' + (long ? '長' : '短') + '的是 <b>' + opts[vals.indexOf(best)] + '</b>。' };
+    },
+    decAlign: function () {
+      var a = ri(1, 9) * 10 + ri(1, 9), b = ri(10, 29) * 100 + ri(11, 99); if (b % 10 === 0) b += ri(1, 9);
+      var sa = fmtD(a * 10), sb = fmtD(b), sub = Math.random() < .4, op = sub ? '－' : '＋';
+      // 上面放長的那個數，下面放短的；shift＝短的數往右移幾格
+      var row = function (s, shift) { var out = []; for (var i = 0; i < 5; i++) out.push(s[i - shift] || ''); return out; };
+      var form = function (shift) { return vform(sb.split(''), row(sa, shift), null, op); };
+      return { kind: 'pick', q: '用直式算 <b class="num">' + sb + ' ' + op + ' ' + sa + '</b>，哪一個排對了？', opts: [form(1), form(2), form(0)], a: 0, ansText: '綠色框的那一個',
+        ex: '小數的直式要<b>小數點對齊</b>，這樣個位對個位、十分位對十分位。不是靠最右邊對齊，也不是靠最左邊對齊。' };
+    },
+    decFill: function () {
+      var t = ri(0, 3), w = pick([ri(1, 9), ri(10, 30)]), x = ri(2, 7), l = ri(1, 9), r = ri(1, 9), ok = [], d, q, why;
+      var L = w + '.' + x + l, box = '<span class="blank">□</span>';
+      if (t === 0) { q = L + ' ＞ ' + w + '.' + box + r; for (d = 0; d <= 9; d++) if (d < x || (d === x && l > r)) ok.push(d);
+        why = '□ 比 ' + x + ' 小，右邊就比較小，可以。□ 是 ' + x + ' 的時候再比百分位：' + l + (l > r ? ' 比 ' + r + ' 大，也可以' : l === r ? ' 和 ' + r + ' 一樣，兩個數一樣大，不行' : ' 比 ' + r + ' 小，不行') + '。'; }
+      else if (t === 1) { q = L + ' ＜ ' + w + '.' + box + r; for (d = 0; d <= 9; d++) if (d > x || (d === x && l < r)) ok.push(d);
+        why = '□ 比 ' + x + ' 大，右邊就比較大，可以。□ 是 ' + x + ' 的時候再比百分位：' + l + (l < r ? ' 比 ' + r + ' 小，也可以' : l === r ? ' 和 ' + r + ' 一樣，兩個數一樣大，不行' : ' 比 ' + r + ' 大，不行') + '。'; }
+      else if (t === 2) { q = L + ' ＜ ' + w + '.' + box; for (d = x + 1; d <= 9; d++) ok.push(d);
+        why = '右邊只有一位小數，想成 ' + w + '.' + box + '0。□ 是 ' + x + ' 的時候是 ' + w + '.' + x + '0，比 ' + L + ' 小，不行；所以 □ 要比 ' + x + ' 大。'; }
+      else { q = L + ' ＞ ' + w + '.' + box; for (d = 0; d <= x; d++) ok.push(d);
+        why = '右邊只有一位小數，想成 ' + w + '.' + box + '0。□ 是 ' + x + ' 的時候是 ' + w + '.' + x + '0，比 ' + L + ' 小，可以；所以 □ 可以是 ' + x + ' 或比 ' + x + ' 小的數字。'; }
+      var has = ok.indexOf(x) >= 0, alt = has ? ok.filter(function (v) { return v !== x; }) : ok.concat([x]).sort(function (m, n) { return m - n; });
+      var rest = []; for (d = 0; d <= 9; d++) if (ok.indexOf(d) < 0) rest.push(d);
+      var s = function (a) { return a.join('、'); };
+      return { kind: 'pick', q: '□ 裡可以填 0～9 的哪些數字？<div class="q2"><b class="num">' + q + '</b></div>', opts: [s(ok), s(alt), s(rest)], a: 0,
+        ex: '整數部分一樣，就從十分位開始比。' + why + '答案是 <b>' + s(ok) + '</b>。' };
+    },
+    decOrder: function () {
+      var p, q; do { p = ri(1, 9); q = ri(1, 9); } while (p === q);
+      var all = [p * 100 + q * 10, q * 100 + p, p * 100 + q, q * 10 + p, q * 100 + p * 10, p * 10 + q].sort(function () { return Math.random() - .5; }).slice(0, 4);
+      var big = Math.random() < .6, sorted = all.slice().sort(function (a, b) { return big ? b - a : a - b; });
+      var lab = big ? ['最大', '第 2 大', '第 3 大', '最小'] : ['最小', '第 2 小', '第 3 小', '最大'];
+      var one = all.filter(function (v) { return v % 10 === 0; })[0];
+      return { kind: 'drag', mode: 'baskets', cols: 4, q: '把這四個數<b>由' + (big ? '大到小' : '小到大') + '</b>排好。',
+        slots: lab.map(function (x, i) { return { id: 'p' + i, label: x }; }),
+        items: all.map(function (v, i) { return { id: i + 1, html: fmtD(v), slot: 'p' + sorted.indexOf(v) }; }), need: 4,
+        done: sorted.map(fmtD).join(big ? ' ＞ ' : ' ＜ '),
+        ex: '先比整數部分，整數部分一樣再比十分位，十分位一樣再比百分位。位數不一樣時，可以在後面補 0 再比' + (one ? '（例如 ' + fmtD(one) + ' 想成 ' + fmtD(one) + '0）' : '') + '。' };
+    },
+    decVert: function () {
+      var add = Math.random() < .5, a, b, h;
+      if (add) { a = ri(101, 899); b = ri(101, 899); h = a + b; } else { a = ri(301, 999); b = ri(101, a - 101); h = a - b; }
+      if (a % 10 === 0 && b % 10 === 0) return GEN.decVert();
+      var n = Math.max(String(a).length, String(b).length, String(h).length, 3);
+      var dg = function (x) { var s = String(x); while (s.length < 3) s = '0' + s; while (s.length < n) s = ' ' + s; return s.split(''); };
+      var R = [dg(a), dg(b), dg(h)];
+      // 兩個空格放在不同的位（每一位只有一個不知道的數字，答案才會只有一個）：加法是「加數一格、和一格」；減法是「減數兩格」或「減數一格、差一格」
+      var cols = [n - 1, n - 2, n - 3].sort(function () { return Math.random() - .5; }), two = !add && Math.random() < .5;
+      var blanks = two ? [[1, Math.min(cols[0], cols[1])], [1, Math.max(cols[0], cols[1])]] : [[1, cols[0]], [2, cols[1]]];
+      var ans = blanks.map(function (p) { return +R[p[0]][p[1]]; }), names = ['甲', '乙'];
+      var cells = R.map(function (row, ri2) { var out = row.map(function (ch, ci) { var k = -1; blanks.forEach(function (p, j) { if (p[0] === ri2 && p[1] === ci) k = j; }); return k >= 0 ? names[k] : (ch === ' ' ? '' : ch); }); out.splice(n - 2, 0, '.'); return out; });
+      var full = fmtD(a) + (add ? ' ＋ ' : ' － ') + fmtD(b) + ' ＝ ' + fmtD(h);
+      // 忘了進位／借位時會填出來的數字
+      var carryless = blanks.map(function (p) {
+        var c = p[1], A = +R[0][c] || 0, Bv = +R[1][c] || 0, H = +R[2][c] || 0;
+        if (p[0] === 1) return add ? (H - A + 10) % 10 : (A - H + 10) % 10;
+        return add ? (A + Bv) % 10 : (A - Bv + 10) % 10;
+      });
+      return { q: '直式裡的<b>甲</b>和<b>乙</b>各是哪一個數字？<div class="qimg">' + vform(cells[0], cells[1], cells[2], add ? '＋' : '－') + '</div>', fields: [{ pre: '甲 ＝', unit: '', sm: true }, { pre: '乙 ＝', unit: '', sm: true }], ans: ans,
+        ex: '從最右邊的百分位開始，一位一位想。完整的直式是 <b class="num">' + full + '</b>。',
+        dg: function (v) { for (var j = 0; j < 2; j++) if (v[j] !== ans[j] && v[j] === carryless[j]) return names[j] + '這一位要注意' + (add ? '右邊進上來的 1' : '有沒有被右邊借走 1') + '。'; return v[0] === ans[1] && v[1] === ans[0] ? '甲和乙填反了，看清楚哪一格是甲、哪一格是乙。' : ''; } };
+    },
+    decWord2: function () {
+      var t = ri(0, 5), h, q, ex, u, trap, tip;
+      if (t === 0) { var a0 = ri(120, 160), d0 = ri(6, 28); u = '公尺'; h = a0 - d0; trap = a0 + d0;
+        q = '哥哥的身高是 <b>' + fmtD(a0) + ' 公尺</b>，哥哥比妹妹高 <b>' + fmtD(d0) + ' 公尺</b>。妹妹的身高是幾公尺？';
+        ex = '哥哥比較高，妹妹比較矮，所以用減的：' + fmtD(a0) + ' － ' + fmtD(d0) + ' ＝ <b>' + fmtD(h) + ' 公尺</b>。'; tip = '「哥哥比妹妹高」，所以妹妹比哥哥矮，要用減法。'; }
+      else if (t === 1) { var tot = ri(180, 450), ad = ri(15, 95); if (ad % 10 === 0) ad += 5; u = '公升'; h = tot - ad; trap = tot + ad;
+        q = '媽媽在豆漿裡加了 <b>' + fmtD(ad) + ' 公升</b>的糖水，攪拌後一共有 <b>' + fmtD(tot) + ' 公升</b>。原來的豆漿有幾公升？';
+        ex = '一共的量裡面，已經包含加進去的糖水，要把它減掉：' + fmtD(tot) + ' － ' + fmtD(ad) + ' ＝ <b>' + fmtD(h) + ' 公升</b>。'; tip = fmtD(tot) + ' 公升已經是加完以後的量，原來的要比它少。'; }
+      else if (t === 2) { var r2 = ri(26, 59) * 10, d2 = ri(55, 195); if (d2 % 10 === 0) d2 += 5; u = '公尺'; var bl = r2 - d2; h = r2 + bl; trap = bl;
+        q = '紅緞帶長 <b>' + fmtD(r2) + ' 公尺</b>，藍緞帶比紅緞帶短 <b>' + fmtD(d2) + ' 公尺</b>。兩條緞帶合起來長幾公尺？';
+        ex = '先算藍緞帶：' + fmtD(r2) + ' － ' + fmtD(d2) + ' ＝ ' + fmtD(bl) + '（公尺）。再合起來：' + fmtD(r2) + ' ＋ ' + fmtD(bl) + ' ＝ <b>' + fmtD(h) + ' 公尺</b>。'; tip = fmtD(bl) + ' 公尺只是藍緞帶的長度，題目問的是兩條合起來。'; }
+      else if (t === 3) { var k3 = ri(11, 39) * 10, x3 = ri(2 * k3 + 150, 2 * k3 + 900), wrongSum = x3; u = ''; h = x3 - 2 * k3; trap = x3 - k3; if (x3 % 10 === 0) { wrongSum = x3 + 5; h += 5; trap += 5; }
+        q = '小安算數學時，把「某數<b>減</b> ' + fmtD(k3) + '」看成「某數<b>加</b> ' + fmtD(k3) + '」，算出來是 <b>' + fmtD(wrongSum) + '</b>。正確的答案應該是多少？';
+        ex = '先找出某數：' + fmtD(wrongSum) + ' － ' + fmtD(k3) + ' ＝ ' + fmtD(trap) + '。再照題目減一次：' + fmtD(trap) + ' － ' + fmtD(k3) + ' ＝ <b>' + fmtD(h) + '</b>。'; tip = fmtD(trap) + ' 是「某數」，還要再減一次 ' + fmtD(k3) + ' 才是正確的答案。'; }
+      else if (t === 4) { var p4 = ri(820, 1560), q4 = ri(620, 1350), ov = ri(45, 195); u = '公分'; h = ov; var all4 = p4 + q4 - ov; trap = p4 + q4;
+        var W = 280, s4 = W / all4, x2 = (p4 - ov) * s4;
+        var fig = '<svg viewBox="0 0 300 64" width="300" height="64" aria-hidden="true"><rect x="10" y="14" width="' + (p4 * s4).toFixed(1) + '" height="16" fill="#ffd166" stroke="#c98a00" stroke-width="1.5"/><rect x="' + (10 + x2).toFixed(1) + '" y="26" width="' + (q4 * s4).toFixed(1) + '" height="16" fill="#a8d8ff" stroke="#3a7bd5" stroke-width="1.5" opacity=".9"/>'
+          + '<path d="M10 52 H' + (10 + W) + '" stroke="#555" stroke-width="1.5"/><path d="M10 47 V57 M' + (10 + W) + ' 47 V57" stroke="#555" stroke-width="1.5"/><text x="150" y="63" text-anchor="middle" font-size="11" fill="#333">全長 ' + fmtD(all4) + ' 公分</text><text x="' + (10 + x2 + ov * s4 / 2).toFixed(1) + '" y="11" text-anchor="middle" font-size="11" fill="#c2362a">？</text></svg>';
+        q = '把一條長 <b>' + fmtD(p4) + ' 公分</b>的黃紙條，和一條長 <b>' + fmtD(q4) + ' 公分</b>的藍紙條黏在一起，黏好後全長 <b>' + fmtD(all4) + ' 公分</b>。重疊（黏住）的地方是幾公分？<div class="qimg">' + fig + '</div>';
+        ex = '兩條直接加起來是 ' + fmtD(p4) + ' ＋ ' + fmtD(q4) + ' ＝ ' + fmtD(p4 + q4) + '（公分），比黏好的全長多出來的，就是重疊的地方：' + fmtD(p4 + q4) + ' － ' + fmtD(all4) + ' ＝ <b>' + fmtD(h) + ' 公分</b>。'; tip = fmtD(p4 + q4) + ' 公分是兩條加起來的長度，還要減掉黏好後的全長。'; }
+      else { var cap = ri(2, 5) * 100, got = ri(105, cap - 15); if (got % 10 === 0) got += 4; u = '公升'; h = cap - got; trap = cap + got;
+        q = '水桶裝滿是 <b>' + fmtD(cap) + ' 公升</b>，現在已經裝了 <b>' + fmtD(got) + ' 公升</b>。再倒進幾公升的水，就剛好裝滿？';
+        ex = '還差多少用減法，' + fmtD(cap) + ' 想成 ' + fmtD(cap) + '.00：' + fmtD(cap) + ' － ' + fmtD(got) + ' ＝ <b>' + fmtD(h) + ' 公升</b>。'; tip = '問「還差多少才裝滿」，要用減法。'; }
+      return decQ(q, h, u, ex, function (r) { return r === trap ? tip : ''; });
+    },
+    decTable: function () {
+      var S = pick([['四種水果的重量', '公斤', '重', [['西瓜', 280, 520], ['鳳梨', 120, 240], ['哈密瓜', 150, 290], ['木瓜', 60, 140]]],
+        ['四個人立定跳遠的成績', '公尺', '遠', [['小安', 95, 185], ['小宇', 95, 185], ['小晴', 95, 185], ['小杰', 95, 185]]],
+        ['四瓶飲料的容量', '公升', '多', [['牛奶', 90, 200], ['豆漿', 45, 150], ['果汁', 30, 125], ['紅茶', 55, 190]]]]);
+      var vals, tries = 0; do { vals = S[3].map(function (x) { return ri(x[1], x[2]); }); tries++; } while ((new Set(vals).size < 4 || vals.every(function (v) { return v % 10 === 0; })) && tries < 50);
+      var names = S[3].map(function (x) { return x[0]; }), u = S[1];
+      var tab = '<table class="qtab"><caption>' + S[0] + '</caption><tr>' + names.map(function (x) { return '<th>' + x + '</th>'; }).join('') + '</tr><tr>' + vals.map(function (v) { return '<td>' + fmtD(v) + '</td>'; }).join('') + '</tr></table><p class="qnote">（單位：' + u + '）</p>';
+      var iMax = vals.indexOf(Math.max.apply(null, vals)), iMin = vals.indexOf(Math.min.apply(null, vals)), t = ri(0, 2), i = ri(0, 3), j; do { j = ri(0, 3); } while (j === i);
+      var hi = vals[i] > vals[j] ? i : j, lo = hi === i ? j : i, h, q, ex, trap;
+      if (t === 0) { h = vals[iMax] - vals[iMin]; trap = vals[iMax] + vals[iMin]; q = '最' + S[2] + '的和最' + (S[2] === '重' ? '輕' : S[2] === '遠' ? '近' : '少') + '的，相差幾' + u + '？';
+        ex = '最' + S[2] + '的是' + names[iMax] + '（' + fmtD(vals[iMax]) + '），另一個是' + names[iMin] + '（' + fmtD(vals[iMin]) + '）：' + fmtD(vals[iMax]) + ' － ' + fmtD(vals[iMin]) + ' ＝ <b>' + fmtD(h) + ' ' + u + '</b>。'; }
+      else if (t === 1) { h = vals[hi] - vals[lo]; trap = vals[hi] + vals[lo]; q = names[hi] + '比' + names[lo] + (S[2] === '重' ? '重' : S[2] === '遠' ? '多跳' : '多') + '幾' + u + '？';
+        ex = '比多少用減法：' + fmtD(vals[hi]) + ' － ' + fmtD(vals[lo]) + ' ＝ <b>' + fmtD(h) + ' ' + u + '</b>。'; }
+      else { h = vals[i] + vals[j]; trap = Math.abs(vals[i] - vals[j]); q = names[i] + '和' + names[j] + (S[2] === '遠' ? '的成績' : '') + '合起來是幾' + u + '？';
+        ex = '合起來用加法：' + fmtD(vals[i]) + ' ＋ ' + fmtD(vals[j]) + ' ＝ <b>' + fmtD(h) + ' ' + u + '</b>。'; }
+      return decQ('看表格回答：' + tab + q, h, u, ex, function (r) { return r === trap ? (t === 2 ? '「合起來」要用加法。' : '「相差」「比……多」要用減法。') : ''; });
+    },
     /* ===== 第 8 單元 整數四則計算（課本 p.99～114）：有括號先算括號；只有加減或只有乘除，由左往右；混合時先乘除後加減 ===== */
     ordAS: function () {
       var t = ri(0, 5), a, b, c, e, ans, lr, msg;
@@ -1159,6 +1306,15 @@
     if (r === h * 10 || r * 10 === h) return '小數點的位置差了一位：0.1 記在十分位（小數點後第 1 位），0.01 記在百分位（第 2 位）。';
     return '';
   }
+  /* 直式：top、bot、res 是一格一格的陣列（'.' 是小數點，'甲'、'乙' 是要填的空格，'' 是空白）；res 給 null 就只畫到橫線。
+     用 span 排成格子（不用 table），這樣也可以放進選項按鈕裡 */
+  function vform(top, bot, res, op) {
+    var n = Math.max(top.length, bot.length, res ? res.length : 0);
+    var padL = function (r) { r = r.slice(); while (r.length < n) r.unshift(''); return r; };
+    var cell = function (x) { return '<span class="' + (x === '甲' || x === '乙' ? 'vb' : x === '.' ? 'vd' : 'vc') + '">' + (x || '&nbsp;') + '</span>'; };
+    var row = function (lead, r) { return cell(lead) + padL(r).map(function (x) { return cell(x); }).join(''); };
+    return '<span class="vform" style="grid-template-columns:repeat(' + (n + 1) + ',1.3em)">' + row('', top) + row(op, bot) + '<span class="vline"></span>' + (res ? row('', res) : '') + '</span>';
+  }
   function decQ(q, h, unit, ex, dg) { return { q: q, fields: [{ pre: '', unit: unit || '' }], ans: [h / 100], dec: true, ex: ex, dg: function (v) { return (dg && dg(Math.round(v[0] * 100), v[0])) || decHint(v[0], h); } }; }
   /* 乘數是二位數的直式：第一行幾個一、第二行幾個十（課本 p.22～28） */
   function mulTwo(a, b) {
@@ -1461,6 +1617,8 @@
    ['ma7', 'decGrid', '百格板讀小數'], ['ma7', 'decBuild', '幾個 1、0.1、0.01 合起來'], ['ma7', 'decSplit', '拆成幾個 1、0.1、0.01'], ['ma7', 'decCount', '幾個 0.01'], ['ma7', 'decPlace', '十分位、百分位的數字'],
    ['ma7', 'decRead', '小數的讀法和記法'], ['ma7', 'decCm', '公分換成公尺'], ['ma7', 'decM', '公尺換成公尺公分'], ['ma7', 'decCmp', '小數比大小'], ['ma7', 'decSeq', '小數依序加減'],
    ['ma7', 'decAdd', '小數加法'], ['ma7', 'decSub', '小數減法'], ['ma7', 'decWord', '小數應用題'],
+   ['ma7', 'decName', '小數的位名'], ['ma7', 'decLongest', '哪一個長度最長'], ['ma7', 'decAlign', '小數直式怎麼對齊'], ['ma7', 'decFill', '□ 可以填哪些數字'],
+   ['ma7', 'decVert', '直式填空'], ['ma7', 'decWord2', '小數兩步驟應用題'], ['ma7', 'decTable', '看表格算小數'],
    ['ma8', 'ordAS', '加減兩步驟的併式'], ['ma8', 'ordMD', '乘除兩步驟的併式'], ['ma8', 'ordMix', '先乘除後加減'], ['ma8', 'ordMixP', '有括號先算括號'], ['ma8', 'ordSteps', '遞等式一步一步算'],
    ['ma8', 'ordFirst', '先算哪一段'], ['ma8', 'ordSame', '拿掉括號答案相同嗎'], ['ma8', 'ordWrite', '把問題用一個算式記下來'], ['ma8', 'ordWord', '兩步驟應用題'], ['ma8', 'ordPuzzle', '三個數字填符號'],
    ['ma9', 'fracPic', '看圖寫帶分數、假分數'], ['ma9', 'fracKind', '真分數、假分數、帶分數'], ['ma9', 'mixToImp', '帶分數換成假分數'], ['ma9', 'impToMix', '假分數換成帶分數'], ['ma9', 'fracCmp', '分數比大小'],
@@ -2002,6 +2160,92 @@
   cards.push({ id: 'nad:pond', s: 'na', u: 'na2', type: 'drag', gen: 'pondPlants', label: '水生植物住哪裡' });
   cards.push({ id: 'mad:tri', s: 'ma', u: 'ma6', type: 'drag', gen: 'triSort', label: '三角形分類籃子' });
   cards.push({ id: 'mad:angle', s: 'ma', u: 'ma3', type: 'drag', gen: 'angleSort', label: '角度分類籃子' });
+  cards.push({ id: 'mad:decOrder', s: 'ma', u: 'ma7', type: 'drag', gen: 'decOrder', label: '小數排大小' });
+
+  /* ===== 國語：考卷常考的另外幾種題型（第 7 課起） =====
+     隨堂卷除了寫國字、改錯字，還有選詞填寫、多音字／形近字、語詞意思和課文內容。這裡照這些題型自己出題：
+     語詞是課本的語詞，句子、解釋、題目都是自己寫的（和各課頁面用同一套說法），不照抄考卷。
+     F＝選詞填寫 [課, 語詞, 句子（＿＿是空格）, [其他選項]]
+     P＝多音字、形近字 [課, id, 題型名稱, 題目, 答案, [其他選項], 說明]
+     W＝語詞意思 [課, 語詞, 意思]（錯的選項用同一課其他語詞的意思）
+     R＝課文內容 [課, id, 題目, 答案, [其他選項], 說明] */
+  var CN_F = [
+    [7, '古色古香', '老街上有許多＿＿的老房子，走在裡面，好像回到很久以前。', ['喜氣洋洋', '五顏六色', '目不轉睛', '流連忘返']],
+    [7, '喜氣洋洋', '表姐結婚那天，大家穿得漂漂亮亮，每個人臉上都＿＿的。', ['古色古香', '五顏六色', '目不轉睛', '流連忘返']],
+    [7, '五顏六色', '花園裡開滿了＿＿的花，遠遠看去，好像一塊彩色的地毯。', ['古色古香', '喜氣洋洋', '目不轉睛', '流連忘返']],
+    [7, '目不轉睛', '弟弟＿＿的看著卡通，叫他都沒聽見。', ['古色古香', '喜氣洋洋', '五顏六色', '流連忘返']],
+    [7, '流連忘返', '動物園太好玩了，讓我們＿＿，不想回家。', ['古色古香', '喜氣洋洋', '五顏六色', '目不轉睛']],
+    [7, '不禁', '看到小狗被救起來，大家＿＿鬆了一口氣。', ['不只', '不但']],
+    [7, '值得', '這本書很有趣，＿＿一看再看。', ['傳統', '晴朗']],
+    [7, '傳統', '過年貼春聯是我們的＿＿習俗。', ['光芒', '陶器']],
+    [8, '冰涼涼', '夏天吃一口＿＿的冰棒，好舒服。', ['毛茸茸', '灰濛濛', '白茫茫']],
+    [8, '冷絲絲', '冬天的早晨，風吹在臉上＿＿的。', ['毛茸茸', '滑溜溜', '白茫茫']],
+    [8, '灰濛濛', '快下雨了，天空＿＿的，一點陽光也沒有。', ['毛茸茸', '滑溜溜', '冰涼涼']],
+    [8, '白茫茫', '大霧來了，眼前＿＿的一片，看不到遠方的山。', ['毛茸茸', '滑溜溜', '冷絲絲']],
+    [8, '毛茸茸', '小貓的身體＿＿的，摸起來好軟。', ['灰濛濛', '白茫茫', '冷絲絲']],
+    [8, '滑溜溜', '盤子沾了洗碗精，＿＿的，差一點拿不住。', ['毛茸茸', '白茫茫', '灰濛濛']],
+    [8, '一散千里', '蒲公英的種子被風一吹，就＿＿，飛到好遠的地方。', ['冷絲絲', '陣陣', '踮起腳尖']],
+    [8, '陣陣', '遠處傳來＿＿雷聲，快要下雨了。', ['辮子', '臉龐', '眼眶']]
+  ];
+  var CN_P = [
+    [7, '禁區', '多音字：禁', '「農夫不小心走進軍事<b>禁</b>區。」這個「禁」怎麼念？', 'ㄐㄧㄣˋ（四聲）', ['ㄐㄧㄣ（一聲）', 'ㄐㄧㄥˋ（四聲）'], '禁區是「不准進去的地方」，是制止、不准的意思，念 ㄐㄧㄣˋ。'],
+    [7, '不禁', '多音字：禁', '「大家不<b>禁</b>為他捏一把冷汗。」這個「禁」怎麼念？', 'ㄐㄧㄣ（一聲）', ['ㄐㄧㄣˋ（四聲）', 'ㄐㄧㄥ（一聲）'], '「不禁」是忍不住的意思，念 ㄐㄧㄣ。'],
+    [7, '禁止', '多音字：禁', '「圖書館裡<b>禁</b>止大聲說話。」這個「禁」怎麼念？', 'ㄐㄧㄣˋ（四聲）', ['ㄐㄧㄣ（一聲）', 'ㄐㄧㄥˋ（四聲）'], '「禁止」是不准的意思，念 ㄐㄧㄣˋ。'],
+    [7, '禁不住', '多音字：禁', '「聽到好消息，他<b>禁</b>不住笑了。」這個「禁」怎麼念？', 'ㄐㄧㄣ（一聲）', ['ㄐㄧㄣˋ（四聲）', 'ㄐㄧㄥ（一聲）'], '「禁不住」是忍不住，念 ㄐㄧㄣ。'],
+    [8, '勇敢', '形近字：散、敗、敢', '跌倒了不要哭，要勇＿的站起來。空格是哪一個字？', '敢', ['散', '敗'], '勇<b>敢</b>：不害怕。散是散步、散開；敗是失敗、打敗。'],
+    [8, '失敗', '形近字：散、敗、敢', '這次比賽雖然失＿了，但是大家都很努力。空格是哪一個字？', '敗', ['散', '敢'], '失<b>敗</b>：沒有成功。左邊是「貝」。'],
+    [8, '散步', '形近字：散、敗、敢', '吃完晚餐，爺爺喜歡到公園＿步。空格是哪一個字？', '散', ['敗', '敢'], '<b>散</b>步：隨意走走。課文的「一散千里」也是這個散。'],
+    [8, '分辨', '形近字：辮、辦、辨', '這兩隻小狗長得好像，我分＿不出來。空格是哪一個字？', '辨', ['辮', '辦'], '分<b>辨</b>：看出哪裡不一樣，中間是「一點一撇」。辮子的辮中間是「糹」，辦法的辦中間是「力」。']
+  ];
+  var CN_W = [
+    [7, '目不轉睛', '眼睛一直盯著看，動也不動'], [7, '流連忘返', '太喜歡了，捨不得離開'], [7, '不禁', '忍不住'], [7, '傳統', '從以前一代一代傳下來的'], [7, '紀念品', '留下來讓人記得一個地方或一件事的東西'],
+    [8, '臉龐', '面孔，也就是整張臉'], [8, '踮', '抬起腳跟，只用腳尖站著'], [8, '眼眶', '眼睛四周的邊緣'], [8, '一散千里', '一下子就鋪開來，到很遠很遠的地方'], [8, '陣陣', '一次接著一次，連續不斷']
+  ];
+  var CN_R = [
+    [7, 'where', '〈到此「藝」遊〉：戶外教育日，老師帶大家去哪裡？', '宜蘭傳藝園區', ['西螺大橋', '臺北一〇一'], '這一課寫的是到宜蘭傳藝園區的戶外教育。'],
+    [7, 'glass', '〈到此「藝」遊〉：在燈光下閃著七彩光芒的是什麼？', '琉璃', ['紅燈籠', '大旗'], '魯班街的傳習所裡，清透的琉璃閃著七彩光芒。'],
+    [7, 'flag', '〈到此「藝」遊〉：看表演時，作者最難忘的是什麼？', '演員揮舞赤紅色大旗', ['演員翻跟斗', '演員走鋼索'], '翻跟斗、走鋼索都很精采，但作者最難忘的是揮舞赤紅色大旗。'],
+    [7, 'joy', '〈到此「藝」遊〉：在文昌街，作者最後決定帶什麼回家？', '滿心喜悅', ['金魚造型香包', '五顏六色的捏麵人'], '同學買了香包、捏麵人，作者決定帶回家的是滿心喜悅。'],
+    [7, 'order', '〈到此「藝」遊〉是照什麼順序寫的？', '跟著地點移動（空間順序）', ['春、夏、秋、冬（時間順序）', '起因、經過、結果（因果順序）'], '園區 → 魯班街 → 劇場 → 月河 → 文昌街，一站一站寫，是空間順序。'],
+    [8, 'summer', '〈四季的頭髮〉：夏天的頭髮是什麼？', '西北雨', ['滿山的芒草', '山頂上的白雪'], '南風吹來，找到夏天的頭髮是又急又長的西北雨。'],
+    [8, 'autumn', '〈四季的頭髮〉：秋天的頭髮是什麼？', '滿山的芒草', ['冒出來的小青草', '西北雨'], '西風吹來，找到秋天的頭髮是滿山的芒草。'],
+    [8, 'ski', '〈四季的頭髮〉：白雪最愛誰來幫它梳出長辮子？', '滑雪板', ['西北雨', '小青草'], '滑雪板滑過雪地留下的痕跡，就像一條一條長辮子。'],
+    [8, 'short', '〈四季的頭髮〉：小青草說，什麼樣的頭髮最好看？', '短短的頭髮', ['長長的頭髮', '捲捲的頭髮'], '春天的頭髮是剛冒出來的小青草，它說短頭髮最好看。'],
+    [8, 'earth', '〈四季的頭髮〉：詩裡，誰被嚇得溼了眼眶？', '大地', ['天空', '南風'], '西北雨一披下來，大地就溼了。詩把大地當成人來寫，會害怕，也有眼眶。']
+  ];
+  var BLANK = '<span class="blank">＿＿</span>';
+  CN_F.forEach(function (x) { cards.push({ id: 'cnf' + x[0] + ':' + x[1], s: 'cn', u: 'cn' + x[0], type: 'pick', label: '選詞填寫：' + x[1], q: '選一個最適合的語詞：<br>' + x[2].replace('＿＿', BLANK), a: x[1], w: x[3], ex: x[2].replace('＿＿', '<b>' + x[1] + '</b>') }); });
+  CN_P.forEach(function (x) { cards.push({ id: 'cnp' + x[0] + ':' + x[1], s: 'cn', u: 'cn' + x[0], type: 'pick', label: x[2], q: x[3].replace('＿', BLANK), a: x[4], w: x[5], ex: x[6] }); });
+  CN_W.forEach(function (x) {
+    var same = CN_W.filter(function (y) { return y[0] === x[0] && y !== x; }), i = same.length ? (x[1].charCodeAt(0) + x[1].length) % same.length : 0;
+    cards.push({ id: 'cnw' + x[0] + ':' + x[1], s: 'cn', u: 'cn' + x[0], type: 'pick', label: '語詞意思：' + x[1], q: '「<b>' + x[1] + '</b>」是什麼意思？', a: x[2], w: [same[i][2], same[(i + 1) % same.length][2]], ex: '<b>' + x[1] + '</b>：' + x[2] + '。' });
+  });
+  CN_R.forEach(function (x) { cards.push({ id: 'cnr' + x[0] + ':' + x[1], s: 'cn', u: 'cn' + x[0], type: 'pick', label: '課文內容', q: x[2], a: x[3], w: x[4], ex: x[5] }); });
+  // 看國字選注音：每一課一張，每次從這一課的生字裡抽一個字（放在課文的語詞裡問）
+  for (var zl = 7; zl <= 12; zl++) cards.push({ id: 'cnz:' + zl, s: 'cn', u: 'cn' + zl, type: 'pick', gen: 'zhuyin', l: zl, label: '看國字選注音' });
+  cards.push({ id: 'cnd8:wind', s: 'cn', u: 'cn8', type: 'drag', gen: 'seasonWind', label: '四季和風' });
+
+  /* ===== 考卷闖關「魔王塔」：一張考卷一層，照考卷大題的順序出題（review/index.html 的「魔王塔」會用） =====
+     k＝樓層（也是單元代號）；boss＝魔王的名字；em＝畫在魔王肚子上的記號；
+     parts＝[大題名稱, 題數, [卡片]]。卡片可以寫完整的 id，或是「開頭幾個字＋*」（這個單元裡 id 開頭一樣的卡，隨機抽）。
+     出的都是題庫裡自己出的同類型題目（數字、句子每次會換），不是把考卷照抄上來。
+     還沒教的單元（later）要等爸媽在「給爸媽」打勾才會開；同一科全部打倒，才會出現 final 的期末大魔王。 */
+  var TOWER = [
+    { k: 'ma6', s: 'ma', boss: '三角尖尖龍', em: '🔺', parts: [['選選看', 4, ['ma:triAngle', 'ma:triSide', 'ma:triLook']], ['填填看', 4, ['ma:triIso', 'ma:triEqui']], ['畫圖和找錯', 2, ['ma:equiDraw', 'ma:spotEqui']], ['分類', 1, ['mad:tri']]] },
+    { k: 'ma7', s: 'ma', boss: '小數點點怪', em: '0.1', parts: [['選選看', 3, ['ma:decName', 'ma:decRead', 'ma:decLongest', 'ma:decAlign', 'ma:decCmp']], ['填填看', 4, ['ma:decSeq', 'ma:decPlace', 'ma:decBuild', 'ma:decCount', 'ma:decCm', 'ma:decM', 'ma:decFill', 'mad:decOrder']],
+      ['用直式算算看', 2, ['ma:decAdd', 'ma:decSub']], ['直式填空', 1, ['ma:decVert']], ['應用題', 2, ['ma:decWord', 'ma:decWord2', 'ma:decTable']]] },
+    { k: 'ma8', s: 'ma', boss: '括號大王', em: '( )', parts: [['選選看', 3, ['ma:ordFirst', 'ma:ordSame', 'ma:ordWrite', 'ma:ordPuzzle']], ['算算看', 5, ['ma:ordAS', 'ma:ordMD', 'ma:ordMix', 'ma:ordMixP', 'ma:ordSteps']], ['找錯', 1, ['ma:spotOrd']], ['應用題', 3, ['ma:ordWord', 'ma:ordWrite']]] },
+    { k: 'ma9', s: 'ma', boss: '披薩分分怪', em: '🍕', parts: [['選選看', 2, ['ma:fracKind', 'ma:fracCmp']], ['填填看', 3, ['ma:fracPic', 'ma:mixToImp', 'ma:impToMix']], ['算算看', 4, ['ma:fracAdd', 'ma:fracAddMix', 'ma:fracSub', 'ma:fracSubB', 'ma:fracMul', 'ma:fracMulMix']], ['找錯', 1, ['ma:spotFrac']], ['應用題', 2, ['ma:fracWord']]] },
+    { k: 'ma10', s: 'ma', boss: '長條圖巨人', em: '📊', parts: [['圖示和長條圖', 5, ['ma:picRead', 'ma:picMake', 'ma:barRead', 'ma:scaleUnit', 'ma:barMaxMin', 'ma:barCalc', 'ma:barHoriz']], ['畫統計圖', 2, ['ma:barDraw', 'ma:scalePick']], ['折線圖', 3, ['ma:lineRead', 'ma:lineTrend', 'ma:unitRead', 'ma:twoSeries']], ['找錯', 1, ['ma:spotChart']]] },
+    { k: 'maX', s: 'ma', final: true, boss: '數學大魔王', em: '👑', n: 15 },
+    { k: 'cn7', s: 'cn', boss: '捏麵怪', em: '🎭', parts: [['寫國字', 2, ['cn:*']], ['選注音', 1, ['cnz:7']], ['改錯字', 2, ['cnx7:*']], ['選詞填寫', 3, ['cnf7:*']], ['多音字', 1, ['cnp7:*']], ['語詞和課文', 3, ['cnw7:*', 'cnr7:*']]] },
+    { k: 'cn8', s: 'cn', boss: '亂髮風怪', em: '🍃', parts: [['寫國字', 2, ['cn:*']], ['選注音', 1, ['cnz:8']], ['改錯字', 2, ['cnx8:*']], ['選詞填寫', 3, ['cnf8:*']], ['形近字和連連看', 2, ['cnp8:*', 'cnd8:wind']], ['語詞和課文', 2, ['cnw8:*', 'cnr8:*']]] },
+    { k: 'cn9', s: 'cn', boss: '白頭翁隊長', em: '🐦', parts: [['寫國字', 4, ['cn:*']], ['選注音', 2, ['cnz:9']], ['改錯字', 3, ['cnx9:*']], ['部件拼字', 2, ['cnd:*']]] },
+    { k: 'cn10', s: 'cn', boss: '鼠大王', em: '🐭', parts: [['寫國字', 4, ['cn:*']], ['選注音', 2, ['cnz:10']], ['改錯字', 3, ['cnx10:*']], ['部件拼字', 2, ['cnd:*']]] },
+    { k: 'cn11', s: 'cn', boss: '貪吃虎', em: '🐯', parts: [['寫國字', 4, ['cn:*']], ['選注音', 2, ['cnz:11']], ['改錯字', 3, ['cnx11:*']], ['部件拼字', 2, ['cnd:*']]] },
+    { k: 'cn12', s: 'cn', boss: '暴風雪怪', em: '⛄', parts: [['寫國字', 4, ['cn:*']], ['選注音', 2, ['cnz:12']], ['改錯字', 3, ['cnx12:*']], ['部件拼字', 2, ['cnd:*']]] },
+    { k: 'cnX', s: 'cn', final: true, boss: '國語大魔王', em: '👑', n: 15 }
+  ];
 
   /* 出題：把卡片變成這一次要作答的題目 */
   function make(card) {
@@ -2030,5 +2274,5 @@
   var MUST = { 'ma:triLook': 1, 'ma:equiDraw': 1, 'ma:spotEqui': 1 };
   cards.forEach(function (c) { if (MUST[c.id]) c.must = true; });
 
-  root.REVIEW_BANK = { renamed: RENAMED, subjects: SUBJECTS, units: UNITS, cards: cards, make: make, readNum: readNum, moonSVG: moonSVG, GEN: GEN, fmtD: fmtD, readD: readD, gridSVG: gridSVG, protSVG: protSVG, triLookSVG: triLookSVG, fq: fq, mx: mx, fracBars: fracBars, barSVG: barSVG, lineSVG: lineSVG, pictoHTML: pictoHTML, barChart: barChart };
+  root.REVIEW_BANK = { tower: TOWER, renamed: RENAMED, subjects: SUBJECTS, units: UNITS, cards: cards, make: make, readNum: readNum, moonSVG: moonSVG, GEN: GEN, fmtD: fmtD, readD: readD, gridSVG: gridSVG, protSVG: protSVG, triLookSVG: triLookSVG, fq: fq, mx: mx, fracBars: fracBars, barSVG: barSVG, lineSVG: lineSVG, pictoHTML: pictoHTML, barChart: barChart };
 })(typeof window !== 'undefined' ? window : this);

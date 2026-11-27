@@ -114,12 +114,23 @@
     save(st);
     return r;
   }
-  /* 星星：只給努力，不看答對率。每天做完複習 ＋2，打倒一隻小怪物 ＋1；爸媽設定的獎勵用星星換 */
-  var STAR_DAY = 2, STAR_BEAT = 1;
+  /* 魔王塔（考卷闖關）裡的作答：新卡、到期的卡照平常記；還沒到期的卡答對了不往後排（只是多練一次），答錯一樣變成小怪物。
+     今天才變成的小怪物隔天才到期，所以不能「故意答錯、馬上重打」來賺打倒小怪物的星星。回傳 null 表示這次沒有改排程 */
+  function gradeTower(st, card, res, d) {
+    d = d === undefined ? dayNum() : d;
+    var r = st.cards[card.id];
+    if (r && r.due > d && res === 'ok') return null;
+    return grade(st, card, res, d);
+  }
+  /* 魔王塔的紀錄：st.tw = { f: { 樓層: { n 挑戰幾次, win 打倒幾次, best 打倒時最少掉幾顆心, hit 沒打倒時最多打掉幾滴血, d 最後一次是哪一天 } }, star: 在塔裡得到的星星 } */
+  function tw(st) { if (!st.tw || typeof st.tw !== 'object') st.tw = {}; if (!st.tw.f || typeof st.tw.f !== 'object') st.tw.f = {}; if (typeof st.tw.star !== 'number') st.tw.star = 0; return st.tw; }
+  /* 星星：只給努力，不看答對率。每天做完複習 ＋2，打倒一隻小怪物 ＋1；魔王塔每一層第一次打倒 ＋3（期末大魔王 ＋5），重打不再給；爸媽設定的獎勵用星星換 */
+  var STAR_DAY = 2, STAR_BEAT = 1, STAR_BOSS = 3, STAR_FINAL = 5;
   function stars(st) {
     var earned = 0;
     Object.keys(st.days).forEach(function (k) { if (st.days[k].fin) earned += STAR_DAY; });
     earned += (st.beat || 0) * STAR_BEAT;
+    earned += (st.tw && +st.tw.star) || 0;
     var spent = (st.rw && st.rw.spent) || 0;
     return { earned: earned, spent: spent, left: Math.max(0, earned - spent) };
   }
@@ -158,5 +169,5 @@
   }
   function minutes(n) { return Math.max(1, Math.round(n * 25 / 60)); }
 
-  root.SRS = { stars: stars, rw: rw, pinHash: pinHash, STAR_DAY: STAR_DAY, STAR_BEAT: STAR_BEAT, monsters: monsters, isMonster: isMonster, KEY: KEY, INTERVAL: INTERVAL, MASTER_BOX: MASTER_BOX, dayNum: dayNum, load: load, save: save, plan: plan, extra: extra, grade: grade, finish: finish, streak: streak, stats: stats, minutes: minutes, shuffle: shuffle, interleave: interleave, blank: blank, unitOn: unitOn, setUnit: setUnit };
+  root.SRS = { gradeTower: gradeTower, tw: tw, STAR_BOSS: STAR_BOSS, STAR_FINAL: STAR_FINAL, stars: stars, rw: rw, pinHash: pinHash, STAR_DAY: STAR_DAY, STAR_BEAT: STAR_BEAT, monsters: monsters, isMonster: isMonster, KEY: KEY, INTERVAL: INTERVAL, MASTER_BOX: MASTER_BOX, dayNum: dayNum, load: load, save: save, plan: plan, extra: extra, grade: grade, finish: finish, streak: streak, stats: stats, minutes: minutes, shuffle: shuffle, interleave: interleave, blank: blank, unitOn: unitOn, setUnit: setUnit };
 })(typeof window !== 'undefined' ? window : this);

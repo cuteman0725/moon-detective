@@ -251,6 +251,52 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
 .wrong{display:flex;flex-wrap:wrap;gap:6px}
 .wrong span{background:#fff3e0;border-radius:10px;padding:4px 10px;font-size:15px}
 .how li{margin:4px 0;font-size:17px;line-height:1.6}
+/* 直式、表格（題目裡用） */
+.vform{display:inline-grid;font-variant-numeric:tabular-nums;font-weight:800;font-size:1.15em;line-height:1.5;text-align:center}
+.vform span{display:block;min-height:1.5em}
+.vform .vline{grid-column:1/-1;min-height:0;height:3px;background:currentColor;border-radius:2px;margin:1px 0}
+.vform .vb{border:2px dashed #7b61ff;border-radius:6px;background:#f4f1ff;color:#5b4bc6;font-size:.78em;line-height:1.75;margin:1px}
+.opt .vform{font-size:1.2em;margin-left:8px}
+.qtab{border-collapse:collapse;margin:6px auto 2px;font-size:.8em;font-variant-numeric:tabular-nums}
+.qtab caption{font-weight:800;padding-bottom:4px}
+.qtab th,.qtab td{border:2px solid #c9bff2;padding:4px 8px;text-align:center}
+.qtab th{background:#f4f1ff}
+.qnote{font-size:.62em;color:#666;text-align:center;margin:0 0 6px}
+.dbaskets.c4{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}.dbaskets.c4 .dslot.basket{min-height:96px;padding:4px 2px}.dbaskets.c4 .dchip.in{min-width:0;padding:4px 6px;font-size:20px}
+/* 考卷魔王塔 */
+.twgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;align-items:end}
+.twcol{display:flex;flex-direction:column;gap:5px}
+.twtop{text-align:center;font-weight:800;font-size:16px;background:#4a3b7a;color:#fff;border-radius:16px 16px 4px 4px;padding:6px 4px}
+.twf{appearance:none;display:flex;align-items:center;gap:6px;width:100%;min-height:58px;padding:4px 6px;border:3px solid #d9c489;border-radius:10px;background:#fff8e6;font-family:inherit;color:var(--ink);cursor:pointer;text-align:left;box-shadow:0 3px 0 #d9c489}
+.twf:active{transform:translateY(2px);box-shadow:0 1px 0 #d9c489}
+.twi{flex:0 0 40px;display:flex;align-items:center;justify-content:center;line-height:0}
+.twq{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:#d9d4ea;color:#fff;font-size:22px;font-weight:800;line-height:1}
+.twt{min-width:0;display:flex;flex-direction:column;line-height:1.3}
+.twt b{font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.twt i{font-style:normal;font-size:12.5px;color:#8a5a00;font-weight:700}
+.twf.lock{background:#f1eff7;border-color:#d9d4ea;box-shadow:0 3px 0 #d9d4ea;color:#8b86a3}.twf.lock .twt i{color:#8b86a3}
+.twf.won{background:#eafaf0;border-color:#8fd3a8;box-shadow:0 3px 0 #8fd3a8}.twf.won .twt i{color:#1b6b40}
+.twf.fin:not(.lock):not(.won){background:#efeaff;border-color:#a898ff;box-shadow:0 3px 0 #a898ff}
+.twbase{height:10px;border-radius:4px;background:#b9a678}
+.twmsg{margin:8px 0 0;min-height:1.4em;color:#8a4b00;font-weight:700}
+.twhero{text-align:center}.twhero h2{margin:4px 0 2px}
+.twmedal{font-size:20px;font-weight:800;margin:4px 0 8px}
+.twparts{margin:2px 0 8px;padding-left:1.8em;font-size:17px;line-height:1.7}
+.twrule{margin:8px 0;padding-left:1.3em;font-size:16px;line-height:1.7}
+.bossbar{position:sticky;top:calc(64px + env(safe-area-inset-top));z-index:15;display:flex;align-items:center;gap:10px;background:#2f2550;color:#fff;border-radius:18px;padding:4px 12px 4px 8px;margin:6px 0;box-shadow:0 4px 0 rgba(0,0,0,.18)}
+.bossfig{flex:0 0 auto;line-height:0}
+.bossfig.hit{animation:bosshit .5s}
+@keyframes bosshit{20%{transform:translateX(-6px) rotate(-7deg)}50%{transform:translateX(6px) rotate(6deg);filter:brightness(1.5)}80%{transform:translateX(-3px)}}
+.bossinfo{flex:1;min-width:0}
+.bossname{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:16px}
+.bossname b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#bossHearts{white-space:nowrap;font-size:17px;letter-spacing:1px}
+#bossHearts.ouch{display:inline-block;animation:shake .4s}
+.hp{height:14px;border-radius:999px;background:rgba(255,255,255,.22);overflow:hidden;margin:4px 0}
+.hp i{display:block;height:100%;width:100%;background:linear-gradient(90deg,#ff6b6b,#ffb703);border-radius:999px;transition:width .5s}
+.bosssub{display:flex;justify-content:space-between;gap:8px;font-size:13px;opacity:.92;white-space:nowrap}
+.monHead.tw{display:block;background:#efeaff;color:#3b2db0}.monHead.tw.bad{background:#ffe3e3;color:#a11d1d}
+@media (prefers-reduced-motion: reduce){.hp i{transition:none}.bossfig.hit,#bossHearts.ouch{animation:none}}
 </style>
 </head>
 <body>
@@ -267,6 +313,11 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
   <div class="card" id="todayCard">
     <h2 id="todayTitle">今天要複習</h2>
     <div id="todayBody"></div>
+  </div>
+
+  <div class="card" id="twCard">
+    <h2>🏰 考卷魔王塔</h2>
+    <div id="twBox"></div>
   </div>
 
   <div class="card" id="monCard">
@@ -301,6 +352,7 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
       <li><b>英語</b>：會念給你聽，有拼字、聽音選意思和排句子。</li>
       <li><b>找錯小偵探</b>：有些卡要找出小明算錯的那一步，或是句子裡的錯字。找錯，比再寫一題更能練到腦袋。</li>
       <li><b>各科混著練</b>：國語、數學、自然、社會、英語輪流出，就像考試一樣，要先想「這題要用什麼方法」。</li>
+      <li><b>考卷魔王塔</b>：一層樓是一張考卷的題型。答對打魔王一下，答錯少一顆心；第一次打倒魔王可以得到 3 顆星星。想多練的時候再去挑戰，每天的複習還是最重要。</li>
       <li>每天做完就好，大約 5～10 分鐘。休息一天，連續天數不會斷。</li>
     </ul>
   </div>
@@ -346,6 +398,7 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
   <div class="card"><h2>📅 最近兩週</h2><div id="pCal"></div></div>
   <div class="card"><h2>📚 各科、各單元</h2><div id="pUnits"></div></div>
   <div class="card"><h2>👾 最常錯的卡</h2><div id="pWrong"></div></div>
+  <div class="card"><h2>🏰 魔王塔（考卷闖關）</h2><div id="pTower"></div></div>
   <div class="card"><h2>🎁 星星和兌換紀錄</h2><div id="pRw"></div></div>
   <div class="card"><h2>📋 複製文字摘要</h2><p class="small" style="margin:0">可以貼到 LINE 傳給家人或老師。</p><div class="btns"><button class="btn" type="button" id="copyBtn">📋 複製摘要</button></div><p class="small" id="copyMsg" aria-live="polite"></p><textarea class="copyBox" id="copyBox" readonly hidden></textarea></div>
   <p class="small">紀錄只存在這台裝置的瀏覽器裡。答對率只算每張卡當天的第一次作答。</p>
@@ -353,7 +406,15 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
 
 <!-- ===== 作答 ===== -->
 <section id="vRun" hidden>
-  <div class="runhead">
+  <div class="bossbar" id="bossBar" hidden>
+    <div class="bossfig" id="bossFig"></div>
+    <div class="bossinfo">
+      <div class="bossname"><b id="bossName"></b><span id="bossHearts"></span></div>
+      <div class="hp" aria-hidden="true"><i id="hpBar"></i></div>
+      <div class="bosssub"><span id="hpTxt"></span><span id="bossPart"></span></div>
+    </div>
+  </div>
+  <div class="runhead" id="runHead">
     <div class="prog" aria-hidden="true"><i id="progBar"></i></div>
     <span class="count" id="progTxt"></span>
   </div>
@@ -411,13 +472,13 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
     $('todayTitle').textContent = title; $('todayBody').innerHTML = body;
     if ($('goBtn')) $('goBtn').addEventListener('click', function () { start(p.queue, false); });
     if ($('moreBtn')) $('moreBtn').addEventListener('click', function () { start(S.extra(B, st, 5), true); });
-    renderMonsters(); renderRewards(); renderTree(); renderSubs(); renderSettings(); renderRwSet(); renderBackup();
+    renderTower(); renderMonsters(); renderRewards(); renderTree(); renderSubs(); renderSettings(); renderRwSet(); renderBackup();
   }
   /* ---- 星星和獎勵 ---- */
   var RW_SUGGEST = [['多玩 10 分鐘平板', 10], ['晚上多聽一個故事', 8], ['週末選一樣點心', 20], ['假日一起去公園', 30]];
   function fmtDay(d) { var t = dateOf(d); return t.m + '/' + t.dd; }
   function renderRewards() {
-    var sr = S.stars(st), R = S.rw(st), h = '<p class="starBig">⭐ ' + sr.left + ' 顆</p><p class="small" style="text-align:center;margin:0">每天做完複習 ＋' + S.STAR_DAY + ' ⭐・打倒一隻小怪物 ＋' + S.STAR_BEAT + ' ⭐</p>';
+    var sr = S.stars(st), R = S.rw(st), h = '<p class="starBig">⭐ ' + sr.left + ' 顆</p><p class="small" style="text-align:center;margin:0">每天做完複習 ＋' + S.STAR_DAY + ' ⭐・打倒一隻小怪物 ＋' + S.STAR_BEAT + ' ⭐・魔王塔第一次打倒一層 ＋' + S.STAR_BOSS + ' ⭐</p>';
     if (!R.items.length) h += '<p class="lead">爸媽還沒有設定獎勵。請爸媽到最下面的「給爸媽」設定可以換的獎勵。</p>';
     else h += '<div class="rwList">' + R.items.map(function (it, i) {
       var can = sr.left >= it.cost;
@@ -583,7 +644,7 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
     var wrong = S.monsters(B, st);
     $('wrongList').innerHTML = wrong.length ? wrong.map(function (c) { return '<span>' + SUB[c.s].icon + ' ' + esc(cardName(c)) + '</span>'; }).join('') : '<span>目前沒有 👍</span>';
   }
-  function cardName(c) { return c.s === 'cn' ? c.c + '（' + c.zy + '）' : c.label || (c.q ? c.q.replace(/<[^>]+>/g, '').slice(0, 16) + '…' : c.gen === 'moon' ? '看月相猜農曆' : '水域和生物'); }
+  function cardName(c) { return c.type === 'write' ? c.c + '（' + c.zy + '）' : c.label || (c.q ? c.q.replace(/<[^>]+>/g, '').slice(0, 16) + '…' : c.gen === 'moon' ? '看月相猜農曆' : '水域和生物'); }
   $('resetBtn').addEventListener('click', function () {
     if ($('resetBtn').dataset.sure !== '1') { $('resetBtn').dataset.sure = '1'; $('resetBtn').textContent = '⚠️ 真的要清除嗎？再按一次'; return; }
     try { localStorage.removeItem(S.KEY); } catch (e) {}
@@ -648,7 +709,8 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
     var sr = S.stars(st), R = S.rw(st);
     $('pRw').innerHTML = '<div class="tiles"><div><b>' + sr.earned + '</b><span>得到的星星</span></div><div><b>' + sr.spent + '</b><span>用掉的星星</span></div><div><b>' + sr.left + '</b><span>現在有</span></div></div>'
       + (R.log.length ? '<table class="ptable" style="margin-top:8px"><thead><tr><th>日期</th><th>兌換</th><th class="n">⭐</th></tr></thead><tbody>' + R.log.slice().reverse().slice(0, 20).map(function (l) { return '<tr><td>' + fmtDay(l.d) + '</td><td>' + esc(l.name) + '</td><td class="n">' + l.cost + '</td></tr>'; }).join('') + '</tbody></table>' : '<p class="small">還沒有兌換過。</p>')
-      + '<p class="small">星星只給努力：每天做完複習 ＋' + S.STAR_DAY + '，打倒一隻小怪物 ＋' + S.STAR_BEAT + '，跟答對率無關。</p>';
+      + '<p class="small">星星只給努力：每天做完複習 ＋' + S.STAR_DAY + '，打倒一隻小怪物 ＋' + S.STAR_BEAT + '，跟答對率無關。魔王塔每一層第一次打倒 ＋' + S.STAR_BOSS + '（期末大魔王 ＋' + S.STAR_FINAL + '），輸了可以一直重新挑戰，重打不再給。</p>';
+    $('pTower').innerHTML = twParentHTML();
     $('copyBox').hidden = true; $('copyMsg').textContent = '';
   }
   function summaryText() {
@@ -663,6 +725,7 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
       '・總共複習 ' + totN + ' 張，答對率 ' + pctTxt(totOk, totN) + '；記牢了 ' + master + ' 張',
       '・打倒小怪物 ' + (st.beat || 0) + ' 隻，還有 ' + S.monsters(B, st).length + ' 隻',
       '・各科答對率：' + subs,
+      twSummary(),
       weak ? '・最需要加強：' + weak.u.name + '（答對率 ' + pctTxt(weak.ok, weak.n) + '）' : '',
       mw.length ? '・最近常錯：' + mw.slice(0, 5).map(function (c) { return parentName(c, 14); }).join('、') : ''].filter(Boolean).join('\n');
   }
@@ -682,21 +745,26 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
     if (!queue.length) return;
     run = { q: queue.map(function (c) { return { c: c, again: false }; }), i: 0, total: queue.length, ok: 0, first: 0, fresh: 0, combo: 0, isExtra: isExtra, wrongIds: [], beat: 0, mon: 0, key: null };
     queue.forEach(function (c) { if (!st.cards[c.id]) run.fresh++; });
+    $('pauseBtn').textContent = '⏸️ 先休息，等一下再做';
     show('vRun'); next();
   }
   function progress() {
+    $('bossBar').hidden = !run.tw; $('runHead').hidden = !!run.tw;
+    if (run.tw) { twBar(); return; }
     $('progBar').style.width = Math.round(run.i / run.q.length * 100) + '%';
     $('progTxt').textContent = Math.min(run.i + 1, run.q.length) + ' / ' + run.q.length;
   }
   function head(c, again) {
     var sb = SUB[c.s];
+    if (run && run.tw) return '<span class="chip" style="background:' + sb.bg + ';color:#333">' + sb.icon + ' ' + sb.name + '</span><span class="unit">' + esc(UNIT[c.u].name) + '</span>' + (again ? ' <span class="chip" style="background:#fff3e0;color:#8a4b00">🔁 再試一次</span>' : '');
     return '<span class="chip" style="background:' + sb.bg + ';color:#333">' + sb.icon + ' ' + sb.name + '</span><span class="unit">' + esc(UNIT[c.u].name) + '</span>'
       + (c.must ? ' <span class="chip" style="background:#ffe3e3;color:#a11d1d">📝 考卷錯題</span>' : '')
       + (again ? ' <span class="chip" style="background:#fff3e0;color:#8a4b00">🔁 再試一次</span>' : !st.cards[c.id] ? ' <span class="chip" style="background:#e3f8ec;color:#1b6b40">✨ 新卡</span>' : '')
       + (!again && S.isMonster(st, c) ? '<div class="monHead">' + monsterSVG(c, 40) + '<span>小怪物來了！答對就能打倒牠！</span></div>' : '');
   }
   function next() {
-    if (run.i >= run.q.length) { finish(); return; }
+    if (run.tw && run.tw.hearts <= 0) { twEnd(false); return; }
+    if (run.i >= run.q.length) { if (run.tw) twEnd(true); else finish(); return; }
     progress();
     var it = run.q[run.i], c = it.c, Q = B.make(c);
     it.Q = Q;
@@ -705,6 +773,7 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
     else if (Q.kind === 'spell') renderSpell(it); else if (Q.kind === 'order') renderOrder(it); else if (Q.kind === 'drag') renderDrag(it); else renderPick(it);
   }
   function result(it, res, btnEl) {
+    if (run.tw) { twResult(it, res, btnEl); return; }
     // 第一次作答才改排程；「再試一次」只是練習
     var wasMon = !it.again && S.isMonster(st, it.c);
     it.msg = '';
@@ -723,9 +792,9 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
       if (res === 'fail' && !it.again && run.wrongIds.indexOf(it.c.id) < 0) { run.wrongIds.push(it.c.id); run.q.push({ c: it.c, again: true }); }
     }
   }
-  function comboTxt() { return run.combo >= 3 ? '<span class="combo">連對 ' + run.combo + ' 張！</span>' : ''; }
+  function comboTxt() { return run.combo >= 3 ? '<span class="combo">連對 ' + run.combo + (run.tw ? ' 題！' : ' 張！') + '</span>' : ''; }
   // wait：答錯時要等幾秒才能按下一張（看清楚解說，也避免亂猜）
-  function nextBtn(label, wait) { return '<div class="btns col"><button class="btn" type="button" id="nextBtn"' + (wait ? ' disabled data-wait="' + wait + '"' : '') + '>' + (label || '下一張 ➜') + '</button></div>' + (wait ? '<p class="wait" id="waitTxt">先看一下解說，' + wait + ' 秒後可以繼續</p>' : ''); }
+  function nextBtn(label, wait) { return '<div class="btns col"><button class="btn" type="button" id="nextBtn"' + (wait ? ' disabled data-wait="' + wait + '"' : '') + '>' + (label || (run && run.tw ? (run.tw.hp <= 0 || run.tw.hearts <= 0 ? '看結果 ➜' : '下一題 ➜') : '下一張 ➜')) + '</button></div>' + (wait ? '<p class="wait" id="waitTxt">先看一下解說，' + wait + ' 秒後可以繼續</p>' : ''); }
   function bindNext() {
     var b = $('nextBtn'), w = +b.dataset.wait || 0, me = run;
     b.addEventListener('click', function () { if (b.disabled) return; run.i++; next(); });
@@ -791,7 +860,7 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
       if (f.pre) h += '<span>' + f.pre + '</span>';
       if (f.fr === 'n' && g && g.fr === 'd') { h += '<span class="frin">' + box(f, j, ' sm') + '<i></i>' + box(g, j + 1, ' sm') + '</span>' + (g.unit ? '<span>' + g.unit + '</span>' : ''); j++; continue; }
       if (f.fr === 'n' && f.den) { h += '<span class="frin">' + box(f, j, ' sm') + '<i></i><b class="fden">' + f.den + '</b></span>' + (f.unit ? '<span>' + f.unit + '</span>' : ''); continue; }
-      h += box(f, j, f.fr ? ' sm' : '') + (f.unit ? '<span>' + f.unit + '</span>' : '');
+      h += box(f, j, f.fr || f.sm ? ' sm' : '') + (f.unit ? '<span>' + f.unit + '</span>' : '');
     }
     return h;
   }
@@ -1151,7 +1220,7 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
     var c = it.c, Q = it.Q, placed = 0, miss = 0, sel = null, done = false, h = '';
     if (Q.mode === 'char') h = '<div class="dchar ' + Q.lay + '">' + Q.slots.map(function (s) { return '<div class="dslot" data-s="' + s.id + '"><span class="ph">' + s.label + '</span></div>'; }).join('') + '</div>';
     else if (Q.mode === 'board') h = '<div class="dboard">' + boardArt(Q.board) + Q.slots.map(function (s) { return '<div class="dslot onb' + (s.label ? ' wide' : '') + '" data-s="' + s.id + '" style="left:' + s.x + '%;top:' + s.y + '%' + (s.w ? ';width:' + s.w + '%' : '') + '"><span class="ph">' + (s.label || '？') + '</span></div>'; }).join('') + '</div>';
-    else h = '<div class="dbaskets">' + Q.slots.map(function (s) { return '<div class="dslot basket" data-s="' + s.id + '"><b>' + s.label + '</b><div class="bin"></div></div>'; }).join('') + '</div>';
+    else h = '<div class="dbaskets' + (Q.cols === 4 ? ' c4' : '') + '">' + Q.slots.map(function (s) { return '<div class="dslot basket" data-s="' + s.id + '"><b>' + s.label + '</b><div class="bin"></div></div>'; }).join('') + '</div>';
     $('qCard').innerHTML = head(c, it.again) + '<p class="kicker">🧲 放到對的位置</p><div class="q">' + Q.q + '</div>' + h
       + '<div class="dtray" id="dTray">' + Q.items.map(function (x) { return '<button type="button" class="dchip' + (x.tri ? ' tri' : '') + (x.deg !== undefined ? ' deg' : '') + '" data-i="' + x.id + '">' + (x.tri ? triSVG(x.tri, 88) : x.deg !== undefined ? '<span class="degNum">' + x.deg + '°</span>' : esc(x.html)) + '</button>'; }).join('') + '</div>'
       + '<p class="game-msg small" id="dMsg" aria-live="polite">' + (Q.mode === 'char' ? '有兩塊是多出來的，只要放對的那兩塊。' : '') + '</p><div id="dFb"></div>';
@@ -1278,7 +1347,7 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
           Array.prototype.forEach.call(btns, function (x) { x.disabled = true; if (+x.dataset.j === Q.a) x.classList.add('ok'); });
           if (!ok) b.classList.add('no');
           result(it, ok ? 'ok' : 'fail', b);
-          $('pickFb').innerHTML = (!ok && Q.wi ? whatIf(Q, Q.opts[+b.dataset.j]) : '') + (it.msg || '') + '<div class="fb ' + (ok ? 'ok' : 'no') + '">' + (ok ? '✅ 答對了！' + comboTxt() : '❌ 答案是「' + Q.opts[Q.a] + '」。' + (it.again ? '' : '等一下會再考一次。')) + (Q.ex ? '<br>' + Q.ex : '') + '</div>' + nextBtn('', ok ? 0 : 3);
+          $('pickFb').innerHTML = (!ok && Q.wi ? whatIf(Q, Q.opts[+b.dataset.j]) : '') + (it.msg || '') + '<div class="fb ' + (ok ? 'ok' : 'no') + '">' + (ok ? '✅ 答對了！' + comboTxt() : '❌ 答案是' + (Q.ansText || '「' + Q.opts[Q.a] + '」') + '。' + (it.again ? '' : '等一下會再考一次。')) + (Q.ex ? '<br>' + Q.ex : '') + '</div>' + nextBtn('', ok ? 0 : 3);
           bindNext();
         });
       });
@@ -1296,6 +1365,174 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
     });
   }
   $('pauseBtn').addEventListener('click', function () { if (run && run.key) document.removeEventListener('keydown', run.key); run = null; renderHome(); show('vHome'); });
+
+  /* ---------------- 考卷闖關「魔王塔」 ----------------
+     一張考卷一層（樓層和每一大題出什麼，在 bank.js 的 TOWER）。答對打魔王一下；答錯少一顆心，那一題等一下換數字再來；
+     三顆心用完就輸了（可以換一批題目再挑戰）；連對 4 題補回一顆心。作答一樣記進排程（S.gradeTower），答錯的會變成小怪物。
+     紀錄在 st.tw（S.tw）；每一層第一次打倒才給星星，重打不給。 */
+  var TW = B.tower || [], TWK = {}, HEARTS = 3, REGEN = 4;
+  TW.forEach(function (f) { TWK[f.k] = f; });
+  function twRec(k) { var t = S.tw(st); return t.f[k] || (t.f[k] = { n: 0, win: 0 }); }
+  function twFloors(s) { return TW.filter(function (f) { return f.s === s && !f.final; }); }
+  function twWon(f) { var r = S.tw(st).f[f.k]; return !!(r && r.win); }
+  // 開了沒：一般樓層看這個單元有沒有在出題（還沒教的單元要爸媽打勾）；期末大魔王要同一科每一層都打倒
+  function twOpen(f) { if (f.final) return twFloors(f.s).every(twWon); var u = UNIT[f.k]; return !!u && S.unitOn(st, f.k, u.later); }
+  function twName(f) { if (f.final) return '期末大魔王'; var u = UNIT[f.k]; return f.s === 'cn' ? u.name.split(' ').slice(0, 3).join(' ') : u.name; }
+  function twCount(f) { return f.final ? f.n : f.parts.reduce(function (a, p) { return a + p[1]; }, 0); }
+  function medal(lost) { return lost === 0 ? '🥇' : lost <= 2 ? '🥈' : '🥉'; }
+  function medalTxt(lost) { return lost === 0 ? '🥇 一顆心都沒掉' : medal(lost) + ' 掉了 ' + lost + ' 顆心'; }
+  function twPool(f, pats) {
+    var out = [];
+    pats.forEach(function (p) {
+      if (p.slice(-1) === '*') { var pre = p.slice(0, -1); B.cards.forEach(function (c) { if (c.u === f.k && c.id.indexOf(pre) === 0) out.push(c); }); }
+      else if (CARD[p]) out.push(CARD[p]);
+    });
+    return out;
+  }
+  // 照大題抽題目：先不重複的抽；題數比卡片多的時候，只有「每次會換數字」的卡（有 gen）可以再出一次
+  function twQueue(f) {
+    if (f.final) {
+      var fl = twFloors(f.s), per = Math.ceil(f.n / fl.length), all = [];
+      fl.forEach(function (x) { S.shuffle(twQueue(x)).slice(0, per).forEach(function (it) { all.push({ c: it.c, part: twName(x) }); }); });
+      return S.shuffle(all).slice(0, f.n);
+    }
+    var q = [];
+    f.parts.forEach(function (p) {
+      var pool = S.shuffle(twPool(f, p[2])), take = pool.slice(0, p[1]), gens = pool.filter(function (c) { return c.gen; }), i = 0;
+      while (take.length < p[1] && gens.length) take.push(gens[i++ % gens.length]);
+      take.forEach(function (c) { q.push({ c: c, part: p[0] }); });
+    });
+    return q;
+  }
+  // 魔王：戴皇冠的大怪物，每一層顏色和角不一樣，肚子上畫這一層的記號。mood：'hurt' 被打到、'down' 被打倒
+  function bossSVG(f, size, mood) {
+    var i = Math.max(0, TW.indexOf(f)), col = f.final ? '#6c55e0' : ['#ff9f1c', '#f2667a', '#3fa7d6', '#4fb36a', '#b678e0', '#e58a3c'][i % 6], dark = '#3a2f6b', down = mood === 'down';
+    var horn = i % 3 === 0 ? '<path d="M-22 -30 L-33 -52 L-10 -36Z M22 -30 L33 -52 L10 -36Z" fill="' + col + '" stroke="' + dark + '" stroke-width="2.2" stroke-linejoin="round"/>'
+      : i % 3 === 1 ? '<circle cx="-27" cy="-30" r="11" fill="' + col + '" stroke="' + dark + '" stroke-width="2.2"/><circle cx="27" cy="-30" r="11" fill="' + col + '" stroke="' + dark + '" stroke-width="2.2"/>'
+        : '<path d="M-30 -22 Q-46 -30 -40 -50 Q-30 -40 -18 -34Z M30 -22 Q46 -30 40 -50 Q30 -40 18 -34Z" fill="' + col + '" stroke="' + dark + '" stroke-width="2.2" stroke-linejoin="round"/>';
+    var eyes = down ? '<path d="M-20 -14 L-8 -3 M-8 -14 L-20 -3 M8 -14 L20 -3 M20 -14 L8 -3" stroke="' + dark + '" stroke-width="3.4" stroke-linecap="round"/>'
+      : '<circle cx="-14" cy="-9" r="8.5" fill="#fff"/><circle cx="14" cy="-9" r="8.5" fill="#fff"/><circle cx="-12" cy="-8" r="4" fill="#2b2d42"/><circle cx="16" cy="-8" r="4" fill="#2b2d42"/><path d="M-25 -21 L-5 -16 M25 -21 L5 -16" stroke="' + dark + '" stroke-width="3.4" stroke-linecap="round"/>';
+    var mouth = down ? '<path d="M-10 9 q5 -6 10 0 q5 6 10 0" stroke="' + dark + '" stroke-width="2.8" fill="none" stroke-linecap="round"/>'
+      : mood === 'hurt' ? '<ellipse cx="0" cy="8" rx="6" ry="7" fill="' + dark + '"/>' : '<path d="M-12 3 Q0 16 12 3Z" fill="' + dark + '"/><path d="M-6 4.6 L-3 9 L0 4.9 L3 9 L6 4.6Z" fill="#fff"/>';
+    return '<svg viewBox="-48 -66 96 112" width="' + size + '" height="' + Math.round(size * 112 / 96) + '" aria-hidden="true">' + horn
+      + '<ellipse cx="-16" cy="40" rx="11" ry="5" fill="' + dark + '" opacity=".5"/><ellipse cx="16" cy="40" rx="11" ry="5" fill="' + dark + '" opacity=".5"/>'
+      + '<path d="M-38 30 Q-44 -36 0 -40 Q44 -36 38 30 Q19 42 0 32 Q-19 42 -38 30Z" fill="' + col + '" stroke="' + dark + '" stroke-width="2.4"' + (down ? ' opacity=".55"' : '') + '/>'
+      + '<path d="M-27 -24 Q-15 -32 -3 -30" stroke="#fff" stroke-width="4" fill="none" opacity=".45" stroke-linecap="round"/>'
+      + '<path d="M-16 -39 L-20 -58 L-9 -48 L0 -62 L9 -48 L20 -58 L16 -39Z" fill="#ffd166" stroke="#c98a00" stroke-width="2" stroke-linejoin="round"/>'
+      + eyes + mouth + '<text x="0" y="29" text-anchor="middle" font-size="' + (f.em.length > 2 ? 12 : 15) + '" font-weight="800" fill="#fff" stroke="' + dark + '" stroke-width="2.4" paint-order="stroke" stroke-linejoin="round">' + esc(f.em) + '</text></svg>';
+  }
+  // 首頁的塔：數學塔、國語塔並排，塔頂（期末大魔王）在最上面
+  function renderTower() {
+    if (!TW.length) { $('twCard').hidden = true; return; }
+    var T = S.tw(st);
+    var cols = ['ma', 'cn'].map(function (s) {
+      var fl = TW.filter(function (f) { return f.s === s; }).reverse();
+      return '<div class="twcol"><div class="twtop">' + SUB[s].icon + ' ' + SUB[s].name + '塔</div>' + fl.map(function (f) {
+        var open = twOpen(f), r = T.f[f.k], won = !!(r && r.win);
+        var txt = !open ? (f.final ? '🔒 先打倒每一層' : '🔒 還沒教') : won ? medal(r.best) + ' 打倒了' : r && r.n ? '⚔️ 再挑戰' : '⚔️ 來挑戰';
+        return '<button type="button" class="twf' + (open ? '' : ' lock') + (won ? ' won' : '') + (f.final ? ' fin' : '') + '" data-k="' + f.k + '"><span class="twi">' + (open ? bossSVG(f, 38, won ? 'down' : '') : '<span class="twq">？</span>') + '</span><span class="twt"><b>' + esc(twName(f)) + '</b><i>' + txt + '</i></span></button>';
+      }).join('') + '<div class="twbase"></div></div>';
+    }).join('');
+    $('twBox').innerHTML = '<p class="small" style="margin:0 0 8px">一層樓就是一張考卷。答對，打魔王一下；答錯，少一顆心 ❤️。把每一層的魔王都打倒吧！</p><div class="twgrid">' + cols + '</div><p class="small twmsg" id="twMsg" aria-live="polite"></p>';
+    Array.prototype.forEach.call($('twBox').querySelectorAll('.twf'), function (b) {
+      b.addEventListener('click', function () {
+        var f = TWK[b.dataset.k];
+        if (twOpen(f)) { twIntro(f); return; }
+        $('twMsg').textContent = f.final ? '把' + SUB[f.s].name + '塔每一層的魔王都打倒，期末大魔王才會出現。' : '「' + twName(f) + '」這一層還沒開。學校教到這裡以後，請爸媽到最下面的「給爸媽」，把這個單元打勾。';
+      });
+    });
+  }
+  function twHome() { renderHome(); show('vHome'); var el = $('twCard'); if (el) window.scrollTo(0, Math.max(0, el.offsetTop - 70)); }
+  function twIntro(f) {
+    var r = S.tw(st).f[f.k], n = twCount(f);
+    var parts = f.final ? '<p class="lead">' + SUB[f.s].name + '塔每一層的題目混在一起出，共 <b>' + n + '</b> 題。</p>'
+      : '<p class="lead">這一層像一張考卷，共 <b>' + n + '</b> 題：</p><ol class="twparts">' + f.parts.map(function (p) { return '<li>' + esc(p[0]) + '　' + p[1] + ' 題</li>'; }).join('') + '</ol>';
+    $('doneCard').innerHTML = '<div class="twhero">' + bossSVG(f, 120) + '<h2>' + esc(f.boss) + '</h2><p class="small" style="margin:0">' + SUB[f.s].icon + ' ' + esc(f.final ? SUB[f.s].name + '塔・期末大魔王' : UNIT[f.k].name) + '</p></div>' + parts
+      + '<ul class="twrule"><li>答對一題，打魔王一下。把魔王的血打完就贏了！</li><li>答錯一題，少一顆心 ❤️，那一題等一下會再出現。</li><li>三顆心都用完就要重來。<b>連對 ' + REGEN + ' 題</b>可以補回一顆心。</li><li>可以用草稿紙。慢慢想，不用趕。</li></ul>'
+      + (r && r.n ? '<p class="small">已經挑戰 ' + r.n + ' 次' + (r.win ? '，打倒 ' + r.win + ' 次（最好的一次：' + medalTxt(r.best) + '）' : r.hit ? '，最多打掉 ' + r.hit + ' 滴血' : '') + '。</p>' : '')
+      + '<div class="btns col"><button class="btn big" type="button" id="twGo">⚔️ 開始挑戰</button><button class="btn white" type="button" id="twBack">← 回魔王塔</button></div>';
+    show('vDone');
+    $('twGo').addEventListener('click', function () { startTower(f); });
+    $('twBack').addEventListener('click', twHome);
+  }
+  function startTower(f) {
+    st = S.load();
+    var q = twQueue(f); if (!q.length) return;
+    var rec = twRec(f.k); rec.n = (rec.n || 0) + 1; rec.d = S.dayNum(); S.save(st);
+    run = { q: q.map(function (x) { return { c: x.c, again: false, part: x.part }; }), i: 0, total: q.length, ok: 0, first: 0, fresh: 0, combo: 0, isExtra: true, wrongIds: [], beat: 0, mon: 0, key: null,
+      tw: { f: f, hp: q.length, hp0: q.length, hearts: HEARTS, lost: 0, streak: 0 } };
+    $('pauseBtn').textContent = '🏳️ 先撤退，下次再挑戰';
+    show('vRun'); next();
+  }
+  function twBar(mood, fx) {
+    var t = run.tw, it = run.q[run.i], hs = '';
+    for (var i = 0; i < HEARTS; i++) hs += i < t.hearts ? '❤️' : '🤍';
+    $('bossFig').innerHTML = bossSVG(t.f, 62, t.hp <= 0 ? 'down' : mood || '');
+    $('bossName').textContent = t.f.boss;
+    $('bossHearts').textContent = hs; $('bossHearts').setAttribute('aria-label', '還有 ' + t.hearts + ' 顆心');
+    $('hpBar').style.width = Math.round(t.hp / t.hp0 * 100) + '%';
+    $('hpTxt').textContent = '魔王的血 ' + t.hp + ' / ' + t.hp0;
+    $('bossPart').textContent = it && it.part ? '📝 ' + it.part : '';
+    if (fx && !REDUCE) { var el = $(fx === 'hit' ? 'bossFig' : 'bossHearts'); el.classList.remove(fx); void el.offsetWidth; el.classList.add(fx); }
+  }
+  function twResult(it, res, btnEl) {
+    var t = run.tw, wasMon = S.isMonster(st, it.c);
+    it.msg = '';
+    if (!it.again) {
+      var g = S.gradeTower(st, it.c, res);
+      run.first++; if (res === 'ok') run.ok++;
+      if (g && res === 'ok' && wasMon) run.beat++;
+      if (res === 'fail' && !wasMon) run.mon++;
+    }
+    if (res === 'ok') {
+      t.hp = Math.max(0, t.hp - 1); run.combo++; t.streak++;
+      if (btnEl) burst(btnEl);
+      var heal = t.streak % REGEN === 0 && t.hearts < HEARTS && t.hp > 0;
+      if (heal) t.hearts++;
+      it.msg = '<div class="monHead tw">' + (t.hp <= 0 ? '🎉 最後一擊！' + esc(t.f.boss) + '被打倒了！' : '💥 打中了！魔王還剩 ' + t.hp + ' 滴血。') + (heal ? '<br>💖 連對 ' + REGEN + ' 題，補回一顆心！' : '') + '</div>';
+      twBar('hurt', 'hit');
+    } else {
+      run.combo = 0; t.streak = 0;
+      run.q.push({ c: it.c, again: true, part: it.part });
+      if (res === 'fail') { t.hearts--; t.lost++; it.msg = '<div class="monHead tw bad">' + (t.hearts > 0 ? '💔 魔王反擊！少了一顆心，還有 ' + t.hearts + ' 顆。' : '💔 三顆心都用完了……') + '</div>'; twBar('', 'ouch'); }
+      else { it.msg = '<div class="monHead tw">🤏 差一點！魔王閃開了，這一題等一下再來一次。</div>'; twBar(); }
+    }
+  }
+  function twEnd(win) {
+    if (run.key) { document.removeEventListener('keydown', run.key); run.key = null; }
+    var t = run.tw, f = t.f, rec = twRec(f.k), first = win && !rec.win, gain = 0, T = S.tw(st);
+    if (win) { rec.win = (rec.win || 0) + 1; rec.best = typeof rec.best === 'number' ? Math.min(rec.best, t.lost) : t.lost; if (first) { gain = f.final ? S.STAR_FINAL : S.STAR_BOSS; T.star += gain; } }
+    else rec.hit = Math.max(rec.hit || 0, t.hp0 - t.hp);
+    rec.d = S.dayNum(); S.save(st); flame();
+    gain += run.beat * S.STAR_BEAT;
+    var fin = TW.filter(function (x) { return x.final && x.s === f.s; })[0], finNow = first && !f.final && fin && twOpen(fin);
+    var pct = run.first ? Math.round(run.ok / run.first * 100) : 0, h;
+    if (win) h = '<div class="twhero">' + bossSVG(f, 120, 'down') + '<h2>🎉 打倒「' + esc(f.boss) + '」了！</h2><p class="twmedal">' + medalTxt(t.lost) + '</p></div>'
+      + '<div class="doneBox">第一次就答對 <b>' + run.ok + '</b> / ' + run.first + ' 題（' + pct + '%）' + (gain ? '<br>⭐ 得到 <b>' + gain + '</b> 顆星星（現在有 ' + S.stars(st).left + ' 顆）' : '') + (run.beat ? '<br>💥 順便打倒了 <b>' + run.beat + '</b> 隻小怪物' : '') + (run.mon ? '<br>👾 有 <b>' + run.mon + '</b> 題變成小怪物，每天的複習會再考' : '') + '</div>'
+      + (finNow ? '<p class="lead" style="text-align:center">👑 ' + SUB[f.s].name + '塔每一層都打倒了，<b>期末大魔王</b>出現了！</p>' : first ? '' : '<p class="small" style="text-align:center">這一層已經打倒過，重打是練習，不會再給星星。</p>');
+    else h = '<div class="twhero">' + bossSVG(f, 120) + '<h2>💔 三顆心都用完了</h2></div>'
+      + '<div class="doneBox">「' + esc(f.boss) + '」還剩 <b>' + t.hp + '</b> 滴血，你已經打掉 <b>' + (t.hp0 - t.hp) + '</b> 滴！' + (run.mon ? '<br>👾 答錯的題目變成小怪物了，每天的複習會再考。' : '') + '</div>'
+      + '<p class="lead" style="text-align:center">沒關係，考卷本來就要多練幾次。剛剛的解說看過了，再挑戰一次會更厲害！</p>';
+    $('doneCard').innerHTML = h + '<div class="btns col">' + (win ? '<button class="btn" type="button" id="twBack">🏰 回魔王塔</button><button class="btn white" type="button" id="twAgain">🔁 再打一次（換新題目）</button>' : '<button class="btn" type="button" id="twAgain">🔁 再挑戰一次（換新題目）</button><button class="btn white" type="button" id="twBack">🏰 回魔王塔</button>') + '</div>';
+    run = null;
+    show('vDone');
+    $('twBack').addEventListener('click', twHome);
+    $('twAgain').addEventListener('click', function () { startTower(f); });
+  }
+  // 給爸媽看的魔王塔紀錄
+  function twParentHTML() {
+    var T = S.tw(st), rows = TW.filter(function (f) { return T.f[f.k] && T.f[f.k].n; });
+    if (!rows.length) return '<p class="small" style="margin:0">還沒有挑戰過。魔王塔在「今天的複習」首頁：一層樓是一張考卷的題型（題目是自己出的同類型題，每次會換），還沒教的單元要先在「給爸媽」打勾才會開。</p>';
+    return '<table class="ptable"><thead><tr><th>樓層</th><th class="n">挑戰</th><th class="n">打倒</th><th>最好的一次</th><th class="n">最近</th></tr></thead><tbody>' + rows.map(function (f) {
+      var r = T.f[f.k];
+      return '<tr><td>' + SUB[f.s].icon + ' ' + esc(twName(f)) + '</td><td class="n">' + r.n + '</td><td class="n">' + (r.win || 0) + '</td><td>' + (r.win ? medalTxt(r.best) : r.hit ? '打掉 ' + r.hit + ' / ' + twCount(f) + ' 滴血' : '—') + '</td><td class="n">' + (r.d ? fmtDay(r.d) : '') + '</td></tr>';
+    }).join('') + '</tbody></table><p class="small">一層大約 11～12 題；答錯三題就要重來，連對 4 題可以補回一顆心。答錯的題目會變成小怪物，在每天的複習再考。</p>';
+  }
+  function twSummary() {
+    var T = S.tw(st), tried = TW.filter(function (f) { return T.f[f.k] && T.f[f.k].n; }), won = tried.filter(function (f) { return T.f[f.k].win; });
+    if (!tried.length) return '';
+    return '・魔王塔：挑戰過 ' + tried.length + ' 層，打倒 ' + won.length + ' 層' + (won.length ? '（' + won.map(function (f) { return SUB[f.s].name + twName(f) + medal(T.f[f.k].best); }).join('、') + '）' : '');
+  }
 
   function finish() {
     if (run.key) { document.removeEventListener('keydown', run.key); run.key = null; }
@@ -1317,6 +1554,8 @@ details.parent summary{font-size:19px;font-weight:800;cursor:pointer;min-height:
 
   renderHome();
   if (location.hash === '#parent') { renderParent(); show('vParent'); }
+  // 從首頁的「考卷魔王塔」進來：直接捲到塔那一格
+  if (location.hash === '#tower') setTimeout(function () { var el = $('twCard'); if (el && !el.hidden) window.scrollTo(0, Math.max(0, el.offsetTop - 70)); }, 60);
   window.addEventListener('hashchange', function () { if (location.hash === '#parent' && !run) { renderParent(); show('vParent'); } });
 })();
 </script>
