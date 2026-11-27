@@ -62,7 +62,9 @@
     { k: 'en1', s: 'en', name: 'Unit 1 The Big Wind', href: 'english/lesson1-big-wind/' },
     { k: 'en2', s: 'en', name: 'Unit 2 Going Back Home', href: 'english/lesson2-going-back-home/' },
     { k: 'en3', s: 'en', name: 'Unit 3 Be Honest', href: 'english/lesson3-be-honest/' },
-    { k: 'en4', s: 'en', name: 'Unit 4 Earthquake Drill', href: 'english/lesson4-earthquake-drill/' }
+    { k: 'en4', s: 'en', name: 'Unit 4 Earthquake Drill', href: 'english/lesson4-earthquake-drill/' },
+    // later：萬聖節是文化單元，預設關掉，爸媽在「給爸媽」打勾才出題
+    { k: 'en5', s: 'en', name: 'Culture & Festivals: Halloween', href: 'english/halloween/', later: true }
   ];
 
   /* ---------------- 小工具 ---------------- */
@@ -2123,7 +2125,13 @@
     [4,"under","","在……底下","It's under the chair."],
     [4,"box","","盒子；箱子","Where's the box?"],
     [4,"chair","","椅子","It's on the chair."],
-    [4,"desk","","書桌","It's under the desk."]
+    [4,"desk","","書桌","It's under the desk."],
+    // Culture & Festivals: Halloween（課本 p.79）。課本只有 ghost 是「應用字彙」（要會拼）；mummy、vampire、witch 是「認識字彙」（聽得懂、看得懂就好），
+    // 第 6 欄寫 1 表示只出聽音卡、不出拼字卡。jack-o'-lantern 有小橫線和撇號，只放在頁面練習
+    [5,"ghost","👻","鬼魂","You're a ghost."],
+    [5,"mummy","","木乃伊","You're a mummy.",1],
+    [5,"vampire","🧛","吸血鬼","You're a vampire.",1],
+    [5,"witch","🧙‍♀️","女巫","She's a witch.",1]
   ];
   var EN_O = [
     [1,"How's the weather?"],
@@ -2152,10 +2160,17 @@
     [4,"It's on the desk."],
     [4,"It's in the box."],
     [4,"Where's my schoolbag?"],
-    [4,"Not on the desk."]
+    [4,"Not on the desk."],
+    [5,"Trick or treat!"],
+    [5,"Happy Halloween!"],
+    [5,"Let's go trick-or-treating!"],
+    [5,"You're a vampire."],
+    [5,"She's a witch."],
+    [5,"Here's some candy."],
+    [5,"Is that your grandpa's house?"]
   ];
   EN_W.forEach(function (x) {
-    cards.push({ id: 'ens:' + x[1], s: 'en', u: 'en' + x[0], type: 'spell', w: x[1], e: x[2], m: x[3], ex: x[4], label: '拼字：' + x[1] });
+    if (!x[5]) cards.push({ id: 'ens:' + x[1], s: 'en', u: 'en' + x[0], type: 'spell', w: x[1], e: x[2], m: x[3], ex: x[4], label: '拼字：' + x[1] });
     cards.push({ id: 'enl:' + x[1], s: 'en', u: 'en' + x[0], type: 'pick', label: '聽音：' + x[1], listen: x[1], e: x[2], m: x[3] });
   });
   EN_O.forEach(function (x) { cards.push({ id: 'eno:' + hid(x[1]), s: 'en', u: 'en' + x[0], type: 'order', sent: x[1], label: '排句子：' + x[1] }); });

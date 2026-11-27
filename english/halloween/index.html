@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#9b5de5">
+<title>Halloween 🎃｜康軒 Wonder World 3 Culture &amp; Festivals</title>
+<style>
+:root{--ink:#2b2d42;--org:#ff9f1c;--sun:#ffd166;--pink:#ff6b9a;--blue:#4d96ff;--teal:#2a9d8f;--purple:#9b5de5;--green:#52b788}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:#f8f3ff;overflow-x:hidden}
+html,body{margin:0;padding:0}
+body{font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",system-ui,sans-serif;color:var(--ink);min-height:100vh;background:linear-gradient(180deg,#e4d4ff 0,#f8f3ff 260px);padding-bottom:calc(92px + env(safe-area-inset-bottom))}
+header{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:8px;padding:10px 12px;padding-top:calc(10px + env(safe-area-inset-top));background:rgba(155,93,229,.97);color:#fff}
+header h1{font-size:clamp(17px,4.6vw,26px);margin:0;flex:1;letter-spacing:1px;min-width:0}
+.back{color:#fff;text-decoration:none;font-weight:800;background:rgba(255,255,255,.25);border-radius:999px;padding:8px 12px;font-size:15px;white-space:nowrap}
+.score{background:#fff;color:#5b2a9e;font-weight:900;border-radius:999px;padding:6px 12px;font-size:17px;white-space:nowrap;box-shadow:0 3px 0 #6a3ab0}
+.score.pop{animation:pop .5s}@keyframes pop{40%{transform:scale(1.3)}}
+main{max-width:1000px;margin:0 auto;padding:10px}
+section.page{display:none}section.page.active{display:block;animation:fadein .3s}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.card{background:#fff;border-radius:22px;padding:14px;margin:10px 0;box-shadow:0 6px 0 rgba(0,0,0,.1)}
+.card h2{margin:0 0 6px;font-size:clamp(20px,5vw,25px)}.card h3{margin:4px 0 6px;font-size:19px}
+.small{font-size:14px;color:#666;line-height:1.5}
+.lead{font-size:17px;line-height:1.75;margin:6px 0}
+.btn{appearance:none;border:none;border-radius:16px;padding:10px 14px;min-height:50px;font-size:17px;font-weight:800;cursor:pointer;background:var(--blue);color:#fff;box-shadow:0 4px 0 rgba(0,0,0,.22);font-family:inherit;touch-action:manipulation}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.22)}
+.btn.org{background:var(--org)}.btn.pink{background:var(--pink)}.btn.teal{background:var(--teal)}.btn.purple{background:var(--purple)}.btn.gray{background:#8d99ae}.btn.green{background:var(--green)}
+.btn.white{background:#fff;color:var(--ink);border:3px solid #dcc8ff}.btn.on{outline:4px solid var(--purple);outline-offset:1px;background:#f6efff}
+.btn.small{min-height:44px;font-size:15px;padding:6px 10px}
+.btn:disabled{opacity:.4}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0;align-items:center}.cen{justify-content:center}
+.seg{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
+.hidden{display:none!important}
+.bubble{background:#eef4ff;border-radius:18px;padding:12px 14px;font-size:18px;line-height:1.7;min-height:64px;border:3px solid #d6e4ff}
+.bubble b{color:#c1121f}
+.fb{margin-top:8px;border-radius:14px;padding:8px 12px;font-size:17px;line-height:1.55;display:none}
+.fb.show{display:block}.fb.good{background:#d8f3dc}.fb.bad{background:#fff3cd}.fb.info{background:#f3e8ff}
+.done{background:linear-gradient(135deg,#d8f3dc,#fff1a8);border-radius:18px;padding:12px;font-size:18px;line-height:1.6;margin-top:10px}
+.tip{background:#fffbea;border:3px dashed var(--sun);border-radius:16px;padding:8px 12px;font-size:16px;line-height:1.6;margin-top:8px}
+.q{font-size:21px;line-height:1.6;font-weight:800;text-align:center;margin:6px 0;word-break:break-word}
+.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin-top:8px}
+.choices .btn{background:#fff;color:var(--ink);border:3px solid #d6e4ff;font-size:19px;min-height:58px;line-height:1.4}
+.choices .btn.ok{background:#d8f3dc;border-color:#2ec4b6}.choices .btn.no{background:#ffd6dc;border-color:#ff6b9a;animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.prog{display:flex;gap:4px;justify-content:center;margin:4px 0;flex-wrap:wrap}
+.prog i{width:20px;height:10px;border-radius:6px;background:#eee;display:block}.prog i.ok{background:#2ec4b6}.prog i.no{background:#ff6b9a}.prog i.cur{background:var(--sun)}
+table.rec{border-collapse:collapse;width:100%;font-size:16px}
+table.rec td,table.rec th{padding:8px;border-bottom:1px solid #eee;text-align:left;vertical-align:top}
+.statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.stat{background:#f3e8ff;border-radius:16px;padding:10px;text-align:center}.stat b{display:block;font-size:28px;color:#5b2a9e}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.bdg{background:#eee;border-radius:14px;padding:6px 10px;font-weight:800;color:#999;font-size:15px}.bdg.got{background:linear-gradient(135deg,#ffd166,#ff9f1c);color:#5a3b00}
+.bdg small{display:block;font-weight:600;font-size:12px}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;justify-content:space-around;background:#fff;padding:6px 4px;padding-bottom:calc(6px + env(safe-area-inset-bottom));box-shadow:0 -4px 16px rgba(0,0,0,.15)}
+nav.tabs button{flex:1;min-width:0;border:none;background:none;font-family:inherit;font-size:13px;font-weight:800;color:#666;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 1px;border-radius:14px;cursor:pointer;min-height:60px;touch-action:manipulation}
+nav.tabs button span{font-size:24px;line-height:1}nav.tabs button.on{background:#efe3ff;color:#5b2a9e}
+.burst{position:fixed;z-index:99;pointer-events:none;font-size:30px;animation:fly 1.1s ease-out forwards}
+@keyframes fly{to{transform:translate(var(--dx),var(--dy)) rotate(360deg);opacity:0}}
+/* ---- 英語 ---- */
+.en{font-family:"Arial Rounded MT Bold","Nunito","Varela Round","Trebuchet MS",Arial,sans-serif;letter-spacing:.5px}
+.emo{font-size:54px;line-height:1.1}
+.info{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:8px 0}
+.info div{background:#f6efff;border-radius:14px;padding:8px 10px;font-size:16px}.info b{display:block;font-size:13px;color:#5b2a9e}
+.notice{background:#fff3cd;border:3px solid #ffd166;border-radius:16px;padding:8px 12px;font-size:16px;line-height:1.6;margin:8px 0}
+.slow{display:flex;align-items:center;gap:6px;font-size:15px;font-weight:700}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.vcard{appearance:none;font-family:inherit;background:#fff;border:3px solid #dcc8ff;border-radius:20px;padding:10px 6px;cursor:pointer;text-align:center;position:relative;touch-action:manipulation;box-shadow:0 4px 0 #dcc8ff;color:var(--ink)}
+.vcard:active{transform:translateY(3px);box-shadow:0 1px 0 #dcc8ff}
+.vcard .emo{font-size:58px;display:block}.vcard .w{display:block;font-size:26px;font-weight:900;margin-top:2px}.vcard .m{display:block;font-size:15px;color:#666;margin-top:2px}
+.vcard.heard:after{content:"✓";position:absolute;right:8px;top:4px;color:var(--teal);font-weight:900;font-size:18px}
+.vcard.ext{border-style:dashed}
+.pat{background:#f6efff;border-radius:18px;padding:10px 12px;margin:8px 0;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.pat .who{font-size:30px}.pat .line{flex:1;min-width:180px;font-size:22px;font-weight:800}.pat .zh{display:block;font-size:15px;font-weight:600;color:#666}
+.map{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin:8px 0}
+.city{appearance:none;font-family:inherit;border:3px solid #cfe8ff;background:#f0f8ff;border-radius:16px;padding:8px;text-align:center;cursor:pointer;color:var(--ink);min-height:96px;touch-action:manipulation}
+.city .emo{font-size:40px;display:block}.city b{display:block;font-size:19px}.city small{font-size:13px;color:#666}
+.city.on{border-color:var(--purple);background:#f6efff}
+.tiles{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:8px 0}
+.tiles .btn{min-width:54px;min-height:54px;font-size:24px;background:#fff;color:var(--ink);border:3px solid #dcc8ff;text-transform:none}
+.tiles .btn.used{visibility:hidden}
+.slots{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;min-height:60px;margin:8px 0}
+.slots span{min-width:46px;height:56px;border-bottom:4px solid var(--purple);font-size:30px;font-weight:900;display:flex;align-items:center;justify-content:center;padding:0 4px}
+.slots.words span{min-width:60px;font-size:22px;background:#f6efff;border-radius:10px;border-bottom:none;padding:0 10px}
+.big{font-size:30px;font-weight:900;text-align:center;margin:6px 0}
+.big .e{color:#c1121f;text-decoration:underline}
+.magic{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.magic .btn{min-width:150px;min-height:70px;font-size:26px;background:#fff;color:var(--ink);border:3px solid #dcc8ff}
+.magic .btn.lit{background:#fff1a8;border-color:#ffd166}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+.two .btn{min-height:80px;font-size:19px;color:var(--ink);border:3px solid #ddd}
+.sh{background:#e6f0ff!important;border-color:#4d96ff!important}.lo{background:#fff1d6!important;border-color:#ff9f1c!important}
+.bins{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin-top:10px}
+.bin{border-radius:14px;padding:6px 8px;font-size:17px;line-height:1.5;min-height:48px;border:3px solid #eee}
+.bin b{display:block;font-size:15px}
+.match{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.match .col{display:flex;flex-direction:column;gap:8px}
+.match .btn{background:#fff;color:var(--ink);border:3px solid #d6e4ff;font-size:22px;min-height:60px;line-height:1.2;padding:6px 8px}
+.match .btn.pic{font-size:36px}
+.match .btn.sel{border-color:var(--purple);background:#f6efff}.match .btn.ok{background:#d8f3dc;border-color:#2ec4b6;opacity:.55}.match .btn.no{animation:shake .4s;border-color:#ff6b9a}
+.choices .btn.emo{font-size:44px;min-height:76px}
+.chant{background:#fffbea;border-radius:16px;padding:10px 14px;font-size:20px;line-height:1.8;font-weight:700}
+a.ext{color:#1d4ed8;font-weight:800}
+@media (max-width:420px){.vgrid{grid-template-columns:repeat(2,1fr)}.magic .btn{min-width:120px}.tiles .btn{min-width:46px;min-height:50px;font-size:22px}.pat .line{font-size:19px}}
+/* ---- Unit 4 ---- */
+.pic{width:1em;height:1em;display:inline-block;vertical-align:middle}
+.choices .btn.emo .pic,.match .btn.pic .pic{width:1.1em;height:1.1em}
+.match .btn.pic{font-size:40px}
+svg.scene{display:block;width:100%;height:auto;margin:6px auto;border-radius:16px;border:3px solid #dcc8ff;background:#f4f1ff}
+.q svg.scene{max-width:420px}
+.hot{cursor:pointer;outline:none}
+.hot:hover rect,.hot:focus rect{fill:#ffd166;fill-opacity:.35}
+/* ---- Halloween ---- */
+.back{min-height:44px;display:inline-flex;align-items:center}
+.slow{min-height:44px}.slow input{width:22px;height:22px}
+.vcard .w{overflow-wrap:anywhere;line-height:1.15}
+.vcard .w.long{font-size:21px}
+.vcard .w small{font-size:.62em;font-weight:700;color:#8d99ae}
+.vcard .pic{width:1.25em;height:1.25em}
+.q .emo .pic{width:1.6em;height:1.6em}
+.choices .btn.emo .pic{width:1.35em;height:1.35em}
+svg.scene.night{background:#1e2a4a;border-color:#6a3ab0}
+.hot.gone{pointer-events:none}
+.slots.long span{min-width:28px;font-size:24px;padding:0 2px}
+.slots .fix{min-width:14px;border-bottom:none;color:#8d99ae;padding:0}
+.mem{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px;margin:8px auto;max-width:560px}
+.mem .btn{min-height:96px;background:linear-gradient(135deg,#9b5de5,#ff9f1c);color:#fff;font-size:34px;border:3px solid #6a3ab0;padding:4px;overflow-wrap:anywhere;line-height:1.15}
+.mem .btn.up{background:#fff;color:var(--ink);border-color:#dcc8ff;font-size:19px}
+.mem .btn.up .pic{width:66px;height:66px}
+.mem .btn.ok{background:#d8f3dc;border-color:#2ec4b6}
+.mem .btn:disabled{opacity:1}
+.candy{font-size:26px;text-align:center;min-height:36px;letter-spacing:2px}
+.say2{background:#fff8e1;border:3px solid #ffd166;border-radius:16px;padding:8px 12px;font-size:20px;font-weight:800;text-align:center;margin:6px 0}
+.extra{background:#eef7ff;border:3px dashed #9cc7ff;border-radius:16px;padding:8px 12px;font-size:16px;line-height:1.7}
+@media (max-width:480px){.slots.xlong{gap:4px}.slots.xlong span{min-width:18px;font-size:20px;height:46px;padding:0 1px}.slots.xlong .fix{min-width:8px;padding:0}}
+</style>
+</head>
+<body>
+<header>
+  <a class="back" href="../">← 英語</a>
+  <h1>🎃 <span class="en">Halloween</span></h1>
+  <div class="score" id="score">⭐ 0</div>
+</header>
+<main>
+<div class="notice hidden" id="voiceNote"></div>
+
+<!-- ============ 單字 ============ -->
+<section class="page active" id="p-word">
+  <div class="card">
+    <h2>🎃 <span class="en">Culture &amp; Festivals: Halloween</span>（萬聖節）</h2>
+    <div class="info">
+      <div><b>版本</b>康軒 Wonder World 3</div>
+      <div><b>單元</b>Culture &amp; Festivals</div>
+      <div><b>主題</b>萬聖節 Halloween</div>
+      <div><b>課本</b>第 79～83 頁</div>
+    </div>
+    <div class="btns"><label class="slow"><input type="checkbox" id="slowChk"> 🐢 慢速朗讀</label><button class="btn white small" id="testVoice">🔊 試聽聲音</button></div>
+    <p class="small">點一下卡片就會念英文。發音是平板的電腦語音，正確的念法還是以課本 CD／Super 電子書為準喔！</p>
+  </div>
+
+  <div class="card">
+    <h3>🃏 本課單字（點卡片聽發音）</h3>
+    <div class="vgrid" id="vGrid"></div>
+    <p class="small">課本的單字前面都有 <b class="en">a</b>：<b class="en">a ghost</b>（一個鬼魂）。<b class="en">ghost</b> 是要會拼的字，其他四個字看得懂、聽得懂就可以。</p>
+    <h3 style="margin-top:14px">➕ 故事和韻文裡的字</h3>
+    <div class="vgrid" id="xGrid"></div>
+    <p class="small">這些字出現在課本的故事和韻文裡，不放進單字測驗。韻文裡還有 <b class="en">some</b>（一些）。</p>
+  </div>
+
+  <div class="card">
+    <h3>🖼️ 看圖選字</h3>
+    <p class="small">看圖，選出對的英文單字。</p>
+    <div id="picQ"></div>
+  </div>
+
+  <div class="card">
+    <h3>📚 故事（課本第 80～82 頁）</h3>
+    <p class="lead">萬聖節的晚上，四個小朋友分別打扮成吸血鬼、女巫、鬼魂和木乃伊，要一起出門要糖果。走到路口遇到紅燈，大家趕快停下來。他們來到女巫（小女孩）爺爺的家，敲門大喊「不給糖就搗蛋！」門一打開，竟然跑出一隻紫色大怪獸，把大家嚇得大叫！原來那是爺爺扮的，他還準備了一籃糖果，最後大家開心地一起過萬聖節。</p>
+    <p class="small">故事裡的重要句子，點一下聽聽看。完整故事請跟著課本或 Super 電子書一起讀。</p>
+    <div class="btns"><button class="btn white small" data-say="Let's go trick-or-treating!">🔊 Let's go trick-or-treating!（我們一起去「不給糖就搗蛋」！）</button><button class="btn white small" data-say="Red light! Stop!">🔊 Red light! Stop!（紅燈！停！）</button><button class="btn white small" data-say="Is that your grandpa's house?">🔊 Is that your grandpa's house?（那是你爺爺的房子嗎？）</button><button class="btn white small" data-say="Trick or treat!">🔊 Trick or treat!（不給糖就搗蛋！）</button><button class="btn white small" data-say="Happy Halloween!">🔊 Happy Halloween!（萬聖節快樂！）</button></div>
+  </div>
+
+  <div class="card">
+    <h3>🎵 單字節奏念謠（自編）</h3>
+    <p class="small">課本的韻文是〈Knock, Knock, Trick or Treat!〉（第 83 頁），請聽課本 CD 跟著念。下面是另外寫的單字節奏練習，一邊拍手一邊念：</p>
+    <div class="chant en" id="chant"></div>
+    <div class="btns"><button class="btn purple" id="chantBtn">🔊 念給我聽</button></div>
+  </div>
+
+  <div class="card">
+    <h3>🔎 課外小知識</h3>
+    <div class="extra">下面是課本<b>沒有寫</b>的補充，不會考，知道了會更好玩：<br>🗓️ 萬聖節是每年的 10 月 31 日。<br>🍬 這一天晚上，小朋友會打扮成各種角色，到鄰居家敲門說 <b class="en">Trick or treat!</b>，大人就會給糖果。<br>🎃 <b class="en">jack-o'-lantern</b> 是把南瓜挖空、刻出眼睛和嘴巴，裡面再放蠟燭或小燈做成的。</div>
+  </div>
+</section>
+
+<!-- ============ 句型 ============ -->
+<section class="page" id="p-pat">
+  <div class="card">
+    <h2>💬 萬聖節要說的話</h2>
+    <div class="pat"><span class="who">🚪</span><span class="line en">Trick or treat!<span class="zh">不給糖就搗蛋！</span></span><button class="btn white small" data-say="Trick or treat!">🔊</button></div>
+    <div class="pat"><span class="who">🎉</span><span class="line en">Happy Halloween!<span class="zh">萬聖節快樂！</span></span><button class="btn white small" data-say="Happy Halloween!">🔊</button></div>
+    <div class="pat"><span class="who">👉</span><span class="line en">You're a vampire.<span class="zh">你是吸血鬼。</span></span><button class="btn white small" data-say="You're a vampire.">🔊</button></div>
+    <div class="pat"><span class="who">👧</span><span class="line en">She's a witch.<span class="zh">她是女巫。</span></span><button class="btn white small" data-say="She's a witch.">🔊</button></div>
+    <div class="pat"><span class="who">🍬</span><span class="line en">Here's some candy.<span class="zh">給你一些糖果。</span></span><button class="btn white small" data-say="Here's some candy.">🔊</button></div>
+    <div class="tip">💡 <b class="en">You're</b> = You are（你是），<b class="en">She's</b> = She is（她是），<b class="en">Here's</b> = Here is。<br>把 <b class="en">vampire</b> 換成 ghost、mummy、witch，就能說出每個人扮成什麼。單字前面要記得加 <b class="en">a</b>！</div>
+  </div>
+
+  <div class="card">
+    <h3>🎭 變裝派對：看圖選句子（自編練習）</h3>
+    <p class="small">👉 是你對著眼前的朋友說；👧 是你向別人介紹旁邊的女生。</p>
+    <div id="whoQ"></div>
+  </div>
+
+  <div class="card">
+    <h3>🗣️ 這時候要說什麼？</h3>
+    <div id="sayQ"></div>
+  </div>
+
+  <div class="card">
+    <h3>🧱 句子排排看</h3>
+    <p class="small">照順序點單字方塊，排出正確的句子。開頭要大寫、句尾有標點。</p>
+    <div id="orderBox"></div>
+  </div>
+</section>
+
+<!-- ============ 聽力 ============ -->
+<section class="page" id="p-listen">
+  <div class="card">
+    <h2>👂 聽音選圖</h2>
+    <p class="small">按 🔊 聽英文，選出正確的圖。可以一直重聽喔！</p>
+    <div id="listenQ"></div>
+  </div>
+  <div class="card">
+    <h3>👆 聽一聽，點點看（課本 <span class="en">Listen and Number</span> 同類型）</h3>
+    <p class="small">聽到哪一個角色，就在圖上點他。點對了，他的身上會出現號碼。</p>
+    <div id="tapBox"></div>
+  </div>
+  <div class="card">
+    <h3>📻 聽句子選意思</h3>
+    <div id="listen2Q"></div>
+  </div>
+</section>
+
+<!-- ============ 遊戲 ============ -->
+<section class="page" id="p-game">
+  <div class="card">
+    <h2>🚪 <span class="en">Knock, knock!</span> 送糖果遊戲</h2>
+    <p class="small">今天你是主人！有人敲門就開門，看看他扮成什麼，說對了就送他一顆糖果。</p>
+    <div id="doorBox"></div>
+  </div>
+  <div class="card">
+    <h2>🧠 翻翻牌</h2>
+    <p class="small">一次翻兩張，找出「圖」和「英文單字」是一對的牌。</p>
+    <div id="memBox"></div>
+  </div>
+  <div class="card">
+    <h2>🔡 拼字遊戲</h2>
+    <p class="small">看圖和中文，點字母方塊拼出英文單字（有 2 個是多出來的字母喔）。<b class="en">jack-o'-lantern</b> 的小橫線和撇號已經幫你放好了。</p>
+    <div id="spellBox"></div>
+  </div>
+</section>
+
+<!-- ============ 挑戰 ============ -->
+<section class="page" id="p-ch">
+  <div class="card">
+    <h2>🏆 萬聖節綜合挑戰（10 題）</h2>
+    <p class="small">單字、聽力、句子和情境通通有！答對 9 題以上拿「萬聖節挑戰王」徽章。</p>
+    <div id="chBox"></div>
+  </div>
+</section>
+
+<!-- ============ 紀錄 ============ -->
+<section class="page" id="p-rec">
+  <div class="card"><h2>🏆 我的紀錄</h2><div class="statgrid" id="stats"></div><div class="badges" id="badges"></div></div>
+  <div class="card"><h3>🔎 常錯的地方</h3><div id="mist"></div></div>
+  <div class="card"><button class="btn gray" id="resetBtn">清除紀錄</button><p class="small">紀錄只存在這台平板的瀏覽器裡。</p>
+    <p class="small">資料來源：本課單字（ghost 是應用字彙；jack-o'-lantern、mummy、vampire、witch 是認識字彙）、故事大意與重要句子（Let's go trick-or-treating! / Red light! Stop! / Is that your grandpa's house? / Trick or treat! / Happy Halloween!）、韻文〈Knock, Knock, Trick or Treat!〉裡的句型（You're a ….／She's a ….／Here's some candy.）和字彙（knock、some、candy、sweet），都依孩子使用的康軒 Wonder World 3 課本（Student Book）第 79～83 頁整理；中文意思參考課本第 102 頁的中譯表。</p>
+    <p class="small">✏️ <b>自編說明：</b>故事大意是用自己的話寫的摘要，課本的韻文沒有放上來（請聽課本 CD）；單字節奏念謠、變裝派對的看圖選句子、情境題、聽力題、聽一聽點點看的場景、送糖果遊戲、翻翻牌和所有測驗題目，都是為了練習自己編寫的，不是課本原文；五個角色的小圖和場景是自己畫的。「課外小知識」是課本沒有的補充，不會考。發音使用裝置的電腦語音，請以課本 CD／Super 電子書為準。</p></div>
+</section>
+</main>
+
+<nav class="tabs" id="tabs">
+  <button class="on" data-p="p-word"><span>🃏</span>單字</button>
+  <button data-p="p-pat"><span>💬</span>句型</button>
+  <button data-p="p-listen"><span>👂</span>聽力</button>
+  <button data-p="p-game"><span>🎮</span>遊戲</button>
+  <button data-p="p-ch"><span>🏆</span>挑戰</button>
+  <button data-p="p-rec"><span>📊</span>紀錄</button>
+</nav>
+
+<script id="core">
+var Core=(function(){
+"use strict";
+/* 圖示：五個角色都是自己畫的小圖（不是課本的圖） */
+var O='stroke="#2b2d42" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"';
+var SVG_GHOST='<svg class="pic" viewBox="0 0 64 64" aria-hidden="true"><path d="M12 57V28a20 20 0 0 1 40 0V57l-7-6-6 6-7-6-7 6-6-6Z" fill="#f4f8ff" '+O+'/><path d="M12 36l-7 5M52 36l7 5" fill="none" '+O+'/><circle cx="25" cy="27" r="3.6" fill="#2b2d42"/><circle cx="39" cy="27" r="3.6" fill="#2b2d42"/><ellipse cx="32" cy="38" rx="4" ry="5" fill="#ff8fab" stroke="#2b2d42" stroke-width="2"/></svg>';
+var SVG_JACK='<svg class="pic" viewBox="0 0 64 64" aria-hidden="true"><path d="M29 17q-2-9 6-12l4 4q-5 2-4 8Z" fill="#52b788" '+O+'/><ellipse cx="32" cy="38" rx="26" ry="21" fill="#ff9f1c" '+O+'/><path d="M32 17q-13 21 0 42M32 17q13 21 0 42" fill="none" stroke="#e07b00" stroke-width="2"/><path d="M16 32l9-7 2 10ZM48 32l-9-7-2 10Z" fill="#2b2d42"/><path d="M32 35l-3 5h6Z" fill="#2b2d42"/><path d="M15 43q17 15 34 0l-5 1-3 4-4-4-5 4-5-4-4 4-3-4Z" fill="#2b2d42"/></svg>';
+var SVG_MUMMY='<svg class="pic" viewBox="0 0 64 64" aria-hidden="true"><path d="M21 35L8 30M43 35l13-5" fill="none" stroke="#2b2d42" stroke-width="10" stroke-linecap="round"/><path d="M21 35L8 30M43 35l13-5" fill="none" stroke="#f1ede4" stroke-width="6" stroke-linecap="round"/><rect x="24" y="48" width="7" height="13" rx="3" fill="#f1ede4" '+O+'/><rect x="33" y="48" width="7" height="13" rx="3" fill="#f1ede4" '+O+'/><rect x="20" y="28" width="24" height="24" rx="7" fill="#f1ede4" '+O+'/><rect x="17" y="4" width="30" height="27" rx="13" fill="#f1ede4" '+O+'/><rect x="21" y="13" width="22" height="8" rx="4" fill="#2b2d42"/><circle cx="27" cy="17" r="2.4" fill="#ffd166"/><circle cx="37" cy="17" r="2.4" fill="#ffd166"/><path d="M19 10l26-3M18 25l28 2M21 36l22-3M21 43l22 3M25 55h5M34 57h5" fill="none" stroke="#a89f8d" stroke-width="1.8" stroke-linecap="round"/></svg>';
+var SVG_VAMPIRE='<svg class="pic" viewBox="0 0 64 64" aria-hidden="true"><path d="M6 60l8-28 10-6h16l10 6 8 28Z" fill="#2b2d42" '+O+'/><path d="M22 60l3-24h14l3 24Z" fill="#fff" stroke="#2b2d42" stroke-width="2"/><path d="M27 37l5 5 5-5 3 5-8 4-8-4Z" fill="#c1121f" stroke="#2b2d42" stroke-width="1.8" stroke-linejoin="round"/><path d="M13 33l5-19 9 12ZM51 33l-5-19-9 12Z" fill="#c1121f" '+O+'/><circle cx="32" cy="21" r="13" fill="#f6e7d8" '+O+'/><path d="M19 21q-2-15 13-15 15 0 13 15-5-8-13-3-8-5-13 3Z" fill="#2b2d42"/><circle cx="27" cy="22" r="2" fill="#2b2d42"/><circle cx="37" cy="22" r="2" fill="#2b2d42"/><path d="M26 28q6 4 12 0" fill="none" stroke="#2b2d42" stroke-width="2" stroke-linecap="round"/><path d="M28 29l1.5 4 1.5-3.4ZM33 29.6l1.5 3.4 1.5-4Z" fill="#fff" stroke="#2b2d42" stroke-width="1.2" stroke-linejoin="round"/></svg>';
+var SVG_WITCH='<svg class="pic" viewBox="0 0 64 64" aria-hidden="true"><path d="M55 14l-4 46" fill="none" stroke="#a0785a" stroke-width="3.5" stroke-linecap="round"/><path d="M46 50l10 1 3 11H43Z" fill="#ffd166" '+O+'/><path d="M12 61l8-25h18l8 25Z" fill="#9b5de5" '+O+'/><path d="M38 40l13 2" fill="none" stroke="#2b2d42" stroke-width="8" stroke-linecap="round"/><path d="M38 40l13 2" fill="none" stroke="#9b5de5" stroke-width="4.5" stroke-linecap="round"/><path d="M16 24q-5 12 1 17h24q6-5 1-17Z" fill="#ff9f1c" '+O+'/><circle cx="29" cy="29" r="10.5" fill="#ffe0c2" '+O+'/><circle cx="25" cy="29" r="1.8" fill="#2b2d42"/><circle cx="33" cy="29" r="1.8" fill="#2b2d42"/><path d="M25 34q4 3 8 0" fill="none" stroke="#2b2d42" stroke-width="2" stroke-linecap="round"/><path d="M17 20L31 1l10 19Z" fill="#2b2d42" '+O+'/><ellipse cx="29" cy="20" rx="19" ry="4.5" fill="#2b2d42" '+O+'/><path d="M20 16h19" stroke="#9b5de5" stroke-width="3.5"/><rect x="26" y="13.5" width="6" height="5" fill="none" stroke="#ffd166" stroke-width="1.8"/></svg>';
+var PIC={ghost:SVG_GHOST,"jack-o'-lantern":SVG_JACK,mummy:SVG_MUMMY,vampire:SVG_VAMPIRE,witch:SVG_WITCH,
+ "Trick or treat!":"🍬","Happy Halloween!":"🎉","red light":"🚦",knock:"✊",candy:"🍭",sweet:"😋"};
+function pic(w){return PIC[w]||"❓";}
+/* 單字：康軒 Wonder World 3 Culture & Festivals（課本第 79 頁）；中文意思參考課本第 102 頁中譯表 */
+var WORDS=[
+ {w:"ghost",m:"鬼魂",ex:"You're a ghost."},
+ {w:"jack-o'-lantern",m:"南瓜燈",ex:""},
+ {w:"mummy",m:"木乃伊",ex:"You're a mummy."},
+ {w:"vampire",m:"吸血鬼",ex:"You're a vampire."},
+ {w:"witch",m:"女巫",ex:"She's a witch."}
+];
+/* 故事和韻文裡的字（不放進測驗）；中文依課本頁尾的註解和中譯表 */
+var EXTRA=[
+ {w:"Trick or treat!",m:"不給糖就搗蛋！",ex:""},
+ {w:"Happy Halloween!",m:"萬聖節快樂！",ex:""},
+ {w:"red light",m:"紅燈",ex:"Red light! Stop!"},
+ {w:"knock",m:"敲",ex:"Knock, knock!"},
+ {w:"candy",m:"糖果",ex:"Here's some candy."},
+ {w:"sweet",m:"甜的",ex:"Nice and sweet."}
+];
+/* 可以扮的四個角色（南瓜燈不是扮裝） */
+var COSTUME=["ghost","mummy","vampire","witch"];
+/* 句子排排看：故事和韻文裡的句子，加上換單字的 You're a ghost.（自編組合） */
+var ORDER=["Trick or treat!","Happy Halloween!","Let's go trick-or-treating!","You're a vampire.","She's a witch.","Here's some candy.","Is that your grandpa's house?","You're a ghost."];
+/* 這時候要說什麼：句子是課本的，情境自編 */
+var SAY=[
+ {p:"Trick or treat!",m:"不給糖就搗蛋！",s:"萬聖節的晚上，你敲了鄰居家的門，門打開了。"},
+ {p:"Happy Halloween!",m:"萬聖節快樂！",s:"萬聖節那天，你遇到打扮成女巫的同學，想祝他節日快樂。"},
+ {p:"Here's some candy.",m:"給你一些糖果。",s:"小朋友來你家要糖果，你把糖果拿給他們。"},
+ {p:"Let's go trick-or-treating!",m:"我們一起去「不給糖就搗蛋」！",s:"大家都打扮好了，你想約朋友一起出門去要糖果。"},
+ {p:"Red light! Stop!",m:"紅燈！停！",s:"走到路口，燈號變成紅燈了，你要提醒大家。"}
+];
+/* 聽句子選意思 */
+var LSENT=SAY.map(function(x){return {p:x.p,m:x.m};}).concat([
+ {p:"You're a vampire.",m:"你是吸血鬼。"},{p:"She's a witch.",m:"她是女巫。"},{p:"You're a ghost.",m:"你是鬼魂。"},{p:"Is that your grandpa's house?",m:"那是你爺爺的房子嗎？"}]);
+/* 單字節奏念謠（自編，只用本課單字和 Trick or treat! / Happy Halloween!） */
+var CHANT=["Ghost, ghost, a ghost!","Mummy, mummy, a mummy!","Vampire, witch, jack-o'-lantern,","Trick or treat! Happy Halloween!"];
+function shuffle(a,rnd){rnd=rnd||Math.random;var b=a.slice();for(var i=b.length-1;i>0;i--){var j=Math.floor(rnd()*(i+1));var t=b[i];b[i]=b[j];b[j]=t;}return b;}
+function pick(a,n,rnd){return shuffle(a,rnd).slice(0,n);}
+function wordBy(w){var all=WORDS.concat(EXTRA);for(var i=0;i<all.length;i++)if(all[i].w===w)return all[i];return null;}
+function sentWho(p,w){return (p==="you"?"You're":"She's")+" a "+w+".";}
+function wordQ(kind,wd,rnd){
+ rnd=rnd||Math.random;var others=pick(WORDS.filter(function(x){return x.w!==wd.w;}),2,rnd),q,a,o;
+ if(kind==="pic"){q='<span class="emo">'+pic(wd.w)+'</span><br>這是哪個字？';a=wd.w;o=[wd.w].concat(others.map(function(x){return x.w;}));}
+ else if(kind==="zh"){q="「"+wd.m+"」的英文是？";a=wd.w;o=[wd.w].concat(others.map(function(x){return x.w;}));}
+ else {q="🔊 聽一聽，是哪一張圖？";a="pic:"+wd.w;o=[a].concat(others.map(function(x){return "pic:"+x.w;}));}
+ return {type:kind==="listen"?"listen":"word",kind:kind,w:wd.w,q:q,a:a,o:shuffle(o,rnd),speak:kind==="listen"?"a "+wd.w:null};
+}
+/* 變裝派對：You're a ... / She's a ...（干擾：代名詞錯、單字錯） */
+function whoQ(rnd,w,p){
+ rnd=rnd||Math.random;w=w||pick(COSTUME,1,rnd)[0];p=p||(rnd()<0.5?"you":"she");
+ if(w==="vampire")p="you"; /* 吸血鬼的小圖畫的是男生，不拿來出 She's */
+ var o=pick(COSTUME.filter(function(x){return x!==w;}),1,rnd)[0],a=sentWho(p,w);
+ return {type:"sent",w:w,q:'<span class="emo">'+pic(w)+'</span><br>'+(p==="you"?"👉 你對著眼前扮成這樣的朋友說：":"👧 你向朋友介紹旁邊這位女生："),a:a,
+  o:shuffle([a,sentWho(p==="you"?"she":"you",w),sentWho(p,o)],rnd),tip:p==="you"?"對著對方說「你是……」，用 You're。":"介紹一位女生「她是……」，用 She's。"};
+}
+function sayQ(rnd,d){
+ rnd=rnd||Math.random;d=d||pick(SAY,1,rnd)[0];var others=pick(SAY.filter(function(x){return x.p!==d.p;}),2,rnd);
+ return {type:"say",q:"情境："+d.s+"<br>這時候可以說什麼？",a:d.p,o:shuffle([d.p].concat(others.map(function(x){return x.p;})),rnd),tip:"（"+d.m+"）"};
+}
+function lsentQ(rnd,d){
+ rnd=rnd||Math.random;d=d||pick(LSENT,1,rnd)[0];var others=pick(LSENT.filter(function(x){return x.p!==d.p;}),2,rnd);
+ return {type:"listen",q:"🔊 聽一聽，這句話是什麼意思？",ask:"這句話是什麼意思？",a:d.m,o:shuffle([d.m].concat(others.map(function(x){return x.m;})),rnd),speak:d.p,tip:'<b class="en">'+d.p+'</b>'};
+}
+function makeChallenge(rnd){
+ rnd=rnd||Math.random;var ws=shuffle(WORDS,rnd),cs=shuffle(COSTUME,rnd),ss=pick(SAY,2,rnd),out=[];
+ out.push(wordQ("pic",ws[0],rnd));out.push(wordQ("pic",ws[1],rnd));out.push(wordQ("zh",ws[2],rnd));
+ out.push(wordQ("listen",ws[3],rnd));out.push(wordQ("listen",ws[4],rnd));
+ var sheW=cs.filter(function(x){return x!=="vampire";})[0],youW=cs.filter(function(x){return x!==sheW;})[0];
+ out.push(whoQ(rnd,youW,"you"));out.push(whoQ(rnd,sheW,"she"));
+ out.push(sayQ(rnd,ss[0]));out.push(sayQ(rnd,ss[1]));
+ out.push(lsentQ(rnd));
+ return shuffle(out,rnd);
+}
+/* 拼字：只拼字母，小橫線和撇號固定在格子裡 */
+function letters(word){return word.replace(/[^A-Za-z]/g,"");}
+function tiles(word,rnd){rnd=rnd||Math.random;var ls=letters(word).split(""),pool="abcdefghijklmnopqrstuvwxyz".split("").filter(function(c){return word.indexOf(c)<0;});
+ return shuffle(ls.concat(pick(pool,2,rnd)),rnd);}
+function tokens(s){return s.replace(/([?.!])$/," $1").split(" ");}
+function stars(correct,total){if(!total)return 0;var r=correct/total;return r>=1?3:r>=0.7?2:r>=0.4?1:0;}
+/* 萬聖節夜晚的場景（自己畫的）：order＝五個位置上的角色；done＝{單字:號碼} */
+var SX=[70,195,320,445,570],SB=[262,244,238,244,262];
+function scene(order,done,hot){
+ var s='<svg class="scene night" viewBox="0 0 640 330" role="img" aria-label="萬聖節的晚上，草地上站著五個角色">'+
+  '<rect width="640" height="330" fill="#1e2a4a"/><circle cx="566" cy="58" r="34" fill="#ffd95a"/><circle cx="552" cy="48" r="34" fill="#1e2a4a" fill-opacity=".18"/>'+
+  '<g fill="#fff"><circle cx="60" cy="40" r="2.5"/><circle cx="140" cy="84" r="2"/><circle cx="210" cy="30" r="2.5"/><circle cx="450" cy="36" r="2"/><circle cx="500" cy="120" r="2.5"/><circle cx="30" cy="130" r="2"/><circle cx="610" cy="150" r="2"/></g>'+
+  '<path d="M232 118L320 44l88 74Z" fill="#3b2a5c"/><rect x="250" y="116" width="140" height="120" fill="#5a3e85"/><rect x="268" y="132" width="32" height="36" rx="4" fill="#ffd166"/><rect x="340" y="132" width="32" height="36" rx="4" fill="#ffd166"/><path d="M284 132v36M268 150h32M356 132v36M340 150h32" stroke="#5a3e85" stroke-width="3"/><rect x="304" y="176" width="32" height="60" rx="4" fill="#2b2d42"/>'+
+  '<path d="M0 262Q320 176 640 262V330H0Z" fill="#3a7d44"/>';
+ order.forEach(function(w,i){var x=SX[i],b=SB[i],n=done&&done[w];
+  s+=pic(w).replace('<svg class="pic"','<svg x="'+(x-56)+'" y="'+(b-112)+'" width="112" height="112"');
+  if(n)s+='<circle cx="'+(x+36)+'" cy="'+(b-96)+'" r="19" fill="#ffd166" stroke="#2b2d42" stroke-width="3"/><text x="'+(x+36)+'" y="'+(b-88)+'" text-anchor="middle" font-size="24" font-weight="900" font-family="Arial,sans-serif" fill="#2b2d42">'+n+'</text>';
+  if(hot)s+='<g class="hot'+(n?" gone":"")+'"'+(n?'':' tabindex="0" role="button"')+' data-w="'+w+'" aria-label="第 '+(i+1)+' 個角色"><rect x="'+(x-60)+'" y="'+(b-118)+'" width="120" height="124" rx="14" fill="#fff" fill-opacity=".01"/></g>';});
+ return s+'</svg>';
+}
+/* 門（自己畫的）：我們在屋子裡，門打開會看到外面的小客人 */
+function door(open,w){
+ var s='<svg class="scene" viewBox="0 0 320 220" role="img" aria-label="'+(open?"門打開了，外面站著一位小客人":"門關著，有人在敲門")+'" style="max-width:360px">'+
+  '<rect width="320" height="220" fill="#f6efff"/><rect y="198" width="320" height="22" fill="#d9c6f2"/><rect x="94" y="20" width="132" height="180" rx="6" fill="#6b4e33"/>';
+ if(open){
+  s+='<rect x="104" y="30" width="112" height="170" fill="#1e2a4a"/><circle cx="196" cy="52" r="11" fill="#ffd95a"/><g fill="#fff"><circle cx="122" cy="48" r="2"/><circle cx="150" cy="70" r="1.8"/><circle cx="176" cy="42" r="1.8"/></g><path d="M104 176h112v24H104Z" fill="#3a7d44"/>'+
+   pic(w).replace('<svg class="pic"','<svg x="110" y="88" width="100" height="100"')+
+   '<path d="M104 30L62 46V214L104 200Z" fill="#a0785a" stroke="#2b2d42" stroke-width="3" stroke-linejoin="round"/><circle cx="72" cy="128" r="5" fill="#ffd166" stroke="#2b2d42" stroke-width="2"/>';
+ }else{
+  s+='<rect x="104" y="30" width="112" height="170" fill="#a0785a" stroke="#2b2d42" stroke-width="3"/><rect x="116" y="42" width="88" height="62" rx="4" fill="none" stroke="#7a5a3f" stroke-width="3"/><rect x="116" y="116" width="88" height="72" rx="4" fill="none" stroke="#7a5a3f" stroke-width="3"/><circle cx="202" cy="112" r="6" fill="#ffd166" stroke="#2b2d42" stroke-width="2"/>'+
+   '<path d="M238 62l16-9M242 84h18M238 106l16 9M82 62l-16-9M78 84H60M82 106l-16 9" fill="none" stroke="#ff9f1c" stroke-width="5" stroke-linecap="round"/>';
+ }
+ s+=SVG_JACK.replace('<svg class="pic"','<svg x="256" y="150" width="52" height="52"')+'<text x="34" y="192" font-size="34" text-anchor="middle">🍬</text>';
+ return s+'</svg>';
+}
+var BADGES=[
+ {id:"words",n:"🃏 單字收集家",d:"5 張單字卡都聽過"},
+ {id:"listen",n:"👂 順風耳",d:"聽音選圖全對"},
+ {id:"tap",n:"👆 點點看高手",d:"「聽一聽，點點看」全對"},
+ {id:"say",n:"🎭 變裝派對主持人",d:"看圖選句子全對"},
+ {id:"candy",n:"🍬 糖果大方送",d:"6 位小客人都說對"},
+ {id:"mem",n:"🧠 翻牌高手",d:"完成一次翻翻牌"},
+ {id:"spell",n:"🔡 拼字小高手",d:"5 個單字都拼對過"},
+ {id:"champ",n:"🏆 萬聖節挑戰王",d:"綜合挑戰答對 9 題以上"}
+];
+function badges(st){
+ var g={};st=st||{};
+ if(st.heard&&WORDS.every(function(w){return st.heard[w.w];}))g.words=1;
+ if(st.listenBest>=WORDS.length)g.listen=1;
+ if(st.tapPerfect>=1)g.tap=1;
+ if(st.whoPerfect>=1)g.say=1;
+ if(st.doorBest>=6)g.candy=1;
+ if(st.memDone>=1)g.mem=1;
+ if(st.spelled&&WORDS.every(function(w){return st.spelled[w.w];}))g.spell=1;
+ if(st.chBest>=9)g.champ=1;
+ return g;
+}
+return {PIC:PIC,pic:pic,WORDS:WORDS,EXTRA:EXTRA,COSTUME:COSTUME,ORDER:ORDER,SAY:SAY,LSENT:LSENT,CHANT:CHANT,BADGES:BADGES,
+ shuffle:shuffle,pick:pick,wordBy:wordBy,sentWho:sentWho,wordQ:wordQ,whoQ:whoQ,sayQ:sayQ,lsentQ:lsentQ,makeChallenge:makeChallenge,
+ letters:letters,tiles:tiles,tokens:tokens,stars:stars,scene:scene,door:door,badges:badges};
+})();
+if(typeof module!=="undefined"&&module.exports)module.exports=Core;
+</script>
+<script>
+(function(){
+"use strict";
+if(typeof document==="undefined")return;
+var $=function(id){return document.getElementById(id);};
+var C=Core,KEY="enWW3HWV1";
+function each(list,fn){Array.prototype.forEach.call(list,fn);}
+function fresh(){return {stars:0,heard:{},spelled:{},picBest:0,listenBest:0,tapDone:0,tapPerfect:0,whoPerfect:0,sayBest:0,doorBest:0,doorDone:0,memDone:0,memBest:0,orderDone:0,chBest:0,slow:false,bad:{}};}
+var store=fresh();
+try{var raw=localStorage.getItem(KEY);if(raw){var o=JSON.parse(raw);for(var k in o)store[k]=o[k];}}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
+var TN={word:"🃏 單字",listen:"👂 聽力",tap:"👆 聽一聽點點看",sent:"🎭 You're / She's",say:"🗣️ 這時候要說什麼",order:"🧱 句子排排看",door:"🚪 送糖果遊戲",spell:"🔡 拼字"};
+function miss(t){store.bad[t]=(store.bad[t]||0)+1;save();}
+function renderScore(){$("score").textContent="⭐ "+store.stars;}
+function addStars(n,el){if(n<=0)return;store.stars+=n;save();renderScore();var sc=$("score");sc.classList.remove("pop");void sc.offsetWidth;sc.classList.add("pop");
+  if(el&&el.getBoundingClientRect){var r=el.getBoundingClientRect();for(var i=0;i<6;i++){var s=document.createElement("div");s.className="burst";s.textContent=["⭐","✨","🌟"][i%3];
+    s.style.left=(r.left+r.width/2)+"px";s.style.top=(r.top+20)+"px";s.style.setProperty("--dx",(Math.random()*160-80)+"px");s.style.setProperty("--dy",(-60-Math.random()*120)+"px");
+    document.body.appendChild(s);setTimeout(function(x){return function(){if(x.parentNode)x.parentNode.removeChild(x);};}(s),1200);}}}
+var actx=null;function beep(good){try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();(good?[660,880]:[260]).forEach(function(f,i){var o=actx.createOscillator(),g=actx.createGain();o.frequency.value=f;o.type="triangle";g.gain.setValueAtTime(.08,actx.currentTime+i*.08);g.gain.exponentialRampToValueAtTime(.001,actx.currentTime+i*.08+.2);o.connect(g);g.connect(actx.destination);o.start(actx.currentTime+i*.08);o.stop(actx.currentTime+i*.08+.22);});}catch(e){}}
+
+/* ---------- 英文發音（en-US），沒有語音時優雅退回 ---------- */
+var canSpeak=!!(window.speechSynthesis&&window.SpeechSynthesisUtterance),enVoice=null;
+function note(msg){var n=$("voiceNote");if(!msg){n.className="notice hidden";return;}n.className="notice";n.innerHTML=msg;}
+function findVoice(){
+  if(!canSpeak)return;var vs=[];try{vs=speechSynthesis.getVoices()||[];}catch(e){}
+  if(!vs.length)return;enVoice=null;
+  for(var i=0;i<vs.length;i++){if(/^en[-_]US/i.test(vs[i].lang)){enVoice=vs[i];break;}}
+  if(!enVoice)for(var j=0;j<vs.length;j++){if(/^en/i.test(vs[j].lang)){enVoice=vs[j];break;}}
+  if(!enVoice)note("🔈 這台裝置好像沒有英文語音，念出來可能不標準。可以到平板的「設定 → 語言與輸入／朗讀」下載英文（美國）語音，或用課本 CD／Super 電子書聽發音。");
+  else note("");
+}
+if(!canSpeak)note("🔇 這個瀏覽器不能朗讀英文。聽力題會改成「看字作答」，發音請聽課本 CD／Super 電子書。");
+else{findVoice();try{speechSynthesis.onvoiceschanged=findVoice;}catch(e){}}
+function say(t){
+  if(!canSpeak)return false;
+  try{speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(String(t).replace(/<[^>]+>/g,""));u.lang="en-US";if(enVoice)u.voice=enVoice;u.rate=store.slow?.6:.85;speechSynthesis.speak(u);return true;}catch(e){return false;}
+}
+$("slowChk").checked=!!store.slow;
+$("slowChk").addEventListener("change",function(){store.slow=$("slowChk").checked;save();say("Trick or treat!");});
+$("testVoice").addEventListener("click",function(){if(!say("Hello! Happy Halloween!"))note("🔇 這個瀏覽器不能朗讀英文，請用課本 CD／Super 電子書聽發音。");});
+function bindSay(root){each((root||document).querySelectorAll("[data-say]"),function(b){if(b.getAttribute("data-bound"))return;b.setAttribute("data-bound","1");b.addEventListener("click",function(){say(b.getAttribute("data-say"));});});}
+
+function goTab(p){each(document.querySelectorAll("#tabs button"),function(x){x.classList.toggle("on",x.getAttribute("data-p")===p);});
+  each(document.querySelectorAll("section.page"),function(s){s.classList.toggle("active",s.id===p);});
+  if(p==="p-rec")renderRec();
+  var rb=document.querySelector("#"+p+" .rep");if(rb&&rb.textContent.indexOf("再聽")>=0)setTimeout(function(){rb.click();},300);window.scrollTo(0,0);}
+each(document.querySelectorAll("#tabs button"),function(b){b.addEventListener("click",function(){goTab(b.getAttribute("data-p"));});});
+
+/* ---------- 通用測驗（選項可以是圖：pic:單字） ---------- */
+var sayT=null;
+function runQuiz(boxId,make,opt){
+  var box=$(boxId),items=[],i=0,right=0,answered=false;
+  function start(){items=make();i=0;right=0;draw();}
+  function draw(){
+    clearTimeout(sayT);var it=items[i],h='<div class="prog">';
+    for(var k=0;k<items.length;k++)h+='<i class="'+(k<i?(items[k].ok?"ok":"no"):k===i?"cur":"")+'"></i>';
+    var q=it.q;
+    if(it.speak&&it.type==="listen"&&!canSpeak)q="👀 看字作答：<b class=\"en\">"+it.speak+"</b><br>"+(it.ask||"是哪一張圖？");
+    h+='</div><div class="q">'+q+'</div>';
+    if(it.speak&&canSpeak)h+='<div class="btns cen"><button class="btn purple rep">🔊 '+(it.type==="listen"?"再聽一次":"聽題目")+'</button></div>';
+    h+='<div class="choices"></div><div class="fb"></div><div class="btns cen"><button class="btn org hidden nx">下一題 ➜</button></div>';
+    box.innerHTML=h;answered=false;
+    var ch=box.querySelector(".choices");
+    it.o.forEach(function(op){var b=document.createElement("button");var isPic=op.indexOf("pic:")===0;b.className="btn"+(isPic?" emo":/^[A-Za-z]/.test(op)?" en":"");if(isPic){b.innerHTML=C.pic(op.slice(4));b.setAttribute("aria-label",C.wordBy(op.slice(4)).m);}else b.textContent=op;b.setAttribute("data-v",op);
+      b.addEventListener("click",function(){pickAns(b,op);});ch.appendChild(b);});
+    var rep=box.querySelector(".rep");if(rep)rep.addEventListener("click",function(){say(it.speak);});
+    if(it.speak&&it.type==="listen"&&opt.auto!==false&&canSpeak&&box.offsetParent)say(it.speak);
+    box.querySelector(".nx").addEventListener("click",function(){i++;if(i<items.length)draw();else finish();});
+  }
+  function pickAns(b,op){
+    if(answered)return;answered=true;var it=items[i],ok=op===it.a,f=box.querySelector(".fb");it.ok=ok;
+    each(box.querySelectorAll(".choices .btn"),function(x){var v=x.getAttribute("data-v");if(v===it.a)x.classList.add("ok");x.disabled=x!==b&&v!==it.a;});
+    var wd=it.w&&C.wordBy(it.w),extra=wd?' <b class="en">'+wd.w+'</b>（'+wd.m+'）':"";
+    var ans=it.a.indexOf("pic:")===0?C.wordBy(it.a.slice(4)).w:it.a;
+    if(ok){right++;b.classList.add("ok");beep(true);addStars(1,b);f.className="fb show good";f.innerHTML="✅ 答對了！"+extra+(it.tip?" "+it.tip:"");}
+    else{b.classList.add("no");beep(false);miss(it.type||opt.type);f.className="fb show bad";f.innerHTML="再想想：正確答案是「<b>"+ans+"</b>」。"+extra+(it.tip?" "+it.tip:"");}
+    clearTimeout(sayT);if(/^[A-Za-z]/.test(ans))sayT=setTimeout(function(){say(ans);},250);
+    var nx=box.querySelector(".nx");nx.textContent=i<items.length-1?"下一題 ➜":"看成績 🎉";nx.classList.remove("hidden");
+  }
+  function finish(){
+    var st=C.stars(right,items.length);addStars(st,box);
+    if(opt.onDone)opt.onDone(right,items.length);
+    box.innerHTML='<div class="done">🎉 答對 <b>'+right+'</b> / '+items.length+' 題　'+(st?"再加 "+st+" 顆星！":"")+'<br>'+(right===items.length?"全對！Happy Halloween!":"錯的地方再聽一次、看一次，再挑戰一次吧！")+'</div><div class="btns cen"><button class="btn purple again">🔄 再玩一次</button></div>';
+    box.querySelector(".again").addEventListener("click",start);
+  }
+  start();
+  return {restart:start};
+}
+
+/* ---------- 單字卡 ---------- */
+function cardHtml(w,ext){var long=w.w.length>9;return '<button class="vcard'+(ext?" ext":"")+(store.heard[w.w]?" heard":"")+'" data-w="'+w.w+'"><span class="emo">'+C.pic(w.w)+'</span><span class="w en'+(long?" long":"")+'">'+(ext?"":"<small>a</small> ")+w.w+'</span><span class="m">'+w.m+'</span></button>';}
+function renderCards(){
+  $("vGrid").innerHTML=C.WORDS.map(function(w){return cardHtml(w,false);}).join("");
+  $("xGrid").innerHTML=C.EXTRA.map(function(w){return cardHtml(w,true);}).join("");
+  each(document.querySelectorAll(".vcard"),function(b){b.addEventListener("click",function(){var w=C.wordBy(b.getAttribute("data-w")),main=C.WORDS.indexOf(w)>=0;say((main?"a "+w.w:w.w)+(w.ex?". "+w.ex:""));
+    if(!store.heard[w.w]){store.heard[w.w]=1;save();b.classList.add("heard");if(main&&C.WORDS.every(function(x){return store.heard[x.w];}))addStars(3,b);}});});
+}
+renderCards();
+runQuiz("picQ",function(){return C.shuffle(C.WORDS).map(function(w){return C.wordQ("pic",w);});},{type:"word",onDone:function(r){store.picBest=Math.max(store.picBest||0,r);save();}});
+$("chant").innerHTML=C.CHANT.join("<br>");
+$("chantBtn").addEventListener("click",function(){say(C.CHANT.join(" "));});
+bindSay();
+
+/* ---------- 句型 ---------- */
+runQuiz("whoQ",function(){var a=[];C.shuffle(C.COSTUME).forEach(function(w,k){a.push(C.whoQ(null,w,k%2?"she":"you"));});a.push(C.whoQ());a.push(C.whoQ());return C.shuffle(a);},{type:"sent",onDone:function(r,n){if(r===n){store.whoPerfect=(store.whoPerfect||0)+1;save();}}});
+runQuiz("sayQ",function(){return C.shuffle(C.SAY).map(function(d){return C.sayQ(null,d);});},{type:"say",onDone:function(r){store.sayBest=Math.max(store.sayBest||0,r);save();}});
+function startOrder(){
+  var list=C.shuffle(C.ORDER).slice(0,4),idx=0,errs=0,box=$("orderBox");
+  function draw(){
+    if(idx>=list.length){var st=errs===0?3:errs<=2?2:1;addStars(st,box);store.orderDone=(store.orderDone||0)+1;save();
+      box.innerHTML='<div class="done">🧱 4 個句子都排好了！錯 '+errs+' 次，得到 '+st+' 顆星。</div><div class="btns cen"><button class="btn purple" id="oAgain">🔄 再排一次</button></div>';
+      $("oAgain").addEventListener("click",startOrder);return;}
+    var target=C.tokens(list[idx]),got=[],pool=C.shuffle(target.map(function(t,i){return {t:t,i:i};}));
+    function paint(){
+      var h='<div class="prog">';for(var k=0;k<list.length;k++)h+='<i class="'+(k<idx?"ok":k===idx?"cur":"")+'"></i>';
+      h+='</div><div class="slots words en">'+target.map(function(t,k){return '<span>'+(k<got.length?got[k]:"")+'</span>';}).join("")+'</div><div class="tiles en">';
+      pool.forEach(function(p,k){h+='<button class="btn'+(p.used?" used":"")+'" data-k="'+k+'">'+p.t+'</button>';});
+      h+='</div><div class="fb" id="oFb"></div>';box.innerHTML=h;
+      each(box.querySelectorAll(".tiles .btn"),function(b){b.addEventListener("click",function(){var p=pool[+b.getAttribute("data-k")];if(p.used)return;
+        if(p.t===target[got.length]){p.used=true;got.push(p.t);beep(true);
+          if(got.length===target.length){say(list[idx]);paint();var f=$("oFb");f.className="fb show good";f.innerHTML='✅ <b class="en">'+list[idx]+'</b>';setTimeout(function(){idx++;draw();},1200);return;}
+          paint();}
+        else{beep(false);errs++;miss("order");var f=$("oFb");f.className="fb show bad";f.innerHTML="還不是這個字喔！句子第 "+(got.length+1)+" 個字是什麼？"+(got.length===0?"（句子開頭字母要大寫）":"");}});});
+    }
+    paint();
+  }
+  draw();
+}
+startOrder();
+
+/* ---------- 聽力 ---------- */
+runQuiz("listenQ",function(){return C.shuffle(C.WORDS).map(function(w){return C.wordQ("listen",w);});},{type:"listen",onDone:function(r){store.listenBest=Math.max(store.listenBest||0,r);save();}});
+runQuiz("listen2Q",function(){return C.shuffle(C.LSENT).slice(0,6).map(function(d){return C.lsentQ(null,d);});},{type:"listen"});
+/* 聽一聽，點點看：聽到角色就點，點對會編號（課本 Listen and Number 的同類型活動，場景自己畫） */
+function startTap(){
+  var box=$("tapBox"),order=C.shuffle(C.WORDS.map(function(w){return w.w;})),calls=C.shuffle(order),i=0,errs=0,done={};
+  function draw(msg,cls){
+    var h='<div class="prog">';for(var k=0;k<calls.length;k++)h+='<i class="'+(k<i?"ok":k===i?"cur":"")+'"></i>';h+='</div>';
+    if(i>=calls.length){var st=errs===0?3:errs<=2?2:1;addStars(st,box);store.tapDone=(store.tapDone||0)+1;if(errs===0)store.tapPerfect=(store.tapPerfect||0)+1;save();
+      box.innerHTML=h+C.scene(order,done,false)+'<div class="done">👆 5 個角色都找到了！錯 '+errs+' 次，得到 '+st+' 顆星。'+(errs===0?"全對，你是點點看高手！":"")+'</div><div class="btns cen"><button class="btn purple" id="tpAgain">🔄 再玩一次</button></div>';
+      $("tpAgain").addEventListener("click",startTap);return;}
+    var w=calls[i];
+    h+='<div class="q">第 '+(i+1)+' 個：'+(canSpeak?"聽到的是誰？":'👀 找出 <b class="en">a '+w+'</b>')+'</div>';
+    if(canSpeak)h+='<div class="btns cen"><button class="btn purple" id="tpSay">🔊 再聽一次</button></div>';
+    h+=C.scene(order,done,true)+'<div class="fb'+(msg?" show "+cls:"")+'" id="tpFb">'+(msg||"")+'</div>';
+    box.innerHTML=h;
+    if(canSpeak){if(box.offsetParent)say("a "+w);$("tpSay").addEventListener("click",function(){say("a "+w);});}
+    each(box.querySelectorAll(".hot"),function(g){if(g.classList.contains("gone"))return;var go=function(){var t=g.getAttribute("data-w"),wd=C.wordBy(w);
+        if(t===w){beep(true);done[w]=i+1;i++;draw('✅ <b class="en">a '+w+'</b>（'+wd.m+'）是第 '+done[w]+' 個！',"good");}
+        else{beep(false);errs++;miss("tap");var f=$("tpFb");f.className="fb show bad";f.innerHTML='那是 <b class="en">a '+t+'</b>（'+C.wordBy(t).m+'）喔！再聽一次，找找看。';}};
+      g.addEventListener("click",go);g.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();go();}});});
+  }
+  draw();
+}
+startTap();
+
+/* ---------- 送糖果遊戲：開門、說出他扮成什麼、送糖果 ---------- */
+function startDoor(){
+  var box=$("doorBox"),n=6,i=0,candy=0,list=C.shuffle(C.COSTUME).concat(C.pick(C.COSTUME,2));
+  function head(){var h='<div class="prog">';for(var k=0;k<n;k++)h+='<i class="'+(k<i?(list[k].ok?"ok":"no"):k===i?"cur":"")+'"></i>';return h+'</div><div class="candy" aria-label="送出 '+candy+' 顆糖果">'+(candy?new Array(candy+1).join("🍬"):"🧺")+'</div>';}
+  list=list.map(function(w){return {w:w};});
+  function closed(){
+    if(i>=n){var st=candy===n?4:candy>=4?2:1;addStars(st,box);store.doorDone=(store.doorDone||0)+1;store.doorBest=Math.max(store.doorBest||0,candy);save();
+      box.innerHTML=head()+'<div class="done">🎉 6 位小客人都來過了！你送出 <b>'+candy+'</b> 顆糖果，得到 '+st+' 顆星。'+(candy===n?"全部說對，Happy Halloween!":"")+'</div><div class="btns cen"><button class="btn purple" id="drAgain">🔄 再玩一次</button></div>';
+      $("drAgain").addEventListener("click",startDoor);return;}
+    box.innerHTML=head()+'<div class="say2 en">Knock, knock!</div>'+C.door(false)+'<div class="btns cen"><button class="btn org" id="drOpen">🚪 開門（第 '+(i+1)+' 位）</button></div>';
+    $("drOpen").addEventListener("click",opened);
+  }
+  function opened(){
+    var v=list[i],a=C.sentWho("you",v.w),os=C.shuffle([a].concat(C.pick(C.COSTUME.filter(function(x){return x!==v.w;}),2).map(function(x){return C.sentWho("you",x);}))),answered=false;
+    box.innerHTML=head()+'<div class="say2 en">Trick or treat!</div>'+C.door(true,v.w)+'<div class="q">他扮成什麼？選一句話對他說：</div><div class="choices"></div><div class="fb" id="drFb"></div><div class="btns cen"><button class="btn org hidden" id="drNext">'+(i<n-1?"下一位 ➜":"看成績 🎉")+'</button></div>';
+    say("Trick or treat!");
+    var ch=box.querySelector(".choices");
+    os.forEach(function(op){var b=document.createElement("button");b.className="btn en";b.textContent=op;b.addEventListener("click",function(){
+      if(answered)return;answered=true;var f=$("drFb"),wd=C.wordBy(v.w);
+      each(ch.querySelectorAll(".btn"),function(x){if(x.textContent===a)x.classList.add("ok");x.disabled=x!==b&&x.textContent!==a;});
+      if(op===a){v.ok=true;candy++;beep(true);addStars(1,b);b.classList.add("ok");f.className="fb show good";f.innerHTML='✅ <b class="en">'+a+' Here\'s some candy.</b> 🍬<br>小客人開心地說：<b class="en">Happy Halloween!</b>';say(a+" Here's some candy.");}
+      else{v.ok=false;beep(false);miss("door");b.classList.add("no");f.className="fb show bad";f.innerHTML='他扮的是 <b class="en">'+v.w+'</b>（'+wd.m+'），要說 <b class="en">'+a+'</b> 這次沒送出糖果，下一位加油！';say(a);}
+      box.querySelector(".candy").textContent=candy?new Array(candy+1).join("🍬"):"🧺";
+      $("drNext").classList.remove("hidden");});ch.appendChild(b);});
+    $("drNext").addEventListener("click",function(){i++;closed();});
+  }
+  closed();
+}
+startDoor();
+
+/* ---------- 翻翻牌：圖和英文單字配成一對 ---------- */
+function startMem(){
+  var box=$("memBox"),cards=[],open=[],left=C.WORDS.length,tries=0,lock=false;
+  C.WORDS.forEach(function(w){cards.push({w:w.w,k:"pic"});cards.push({w:w.w,k:"txt"});});cards=C.shuffle(cards);
+  box.innerHTML='<div class="mem"></div><div class="fb" id="mmFb"></div>';
+  var grid=box.querySelector(".mem");
+  function face(c){return c.k==="pic"?C.pic(c.w):c.w;}
+  cards.forEach(function(c,k){var b=document.createElement("button");b.className="btn en";b.textContent="?";b.setAttribute("aria-label","第 "+(k+1)+" 張牌");c.b=b;
+    b.addEventListener("click",function(){if(lock||c.up||c.ok)return;c.up=true;b.classList.add("up");b.innerHTML=face(c);b.setAttribute("aria-label",c.k==="pic"?C.wordBy(c.w).m+"的圖":c.w);say(c.w);open.push(c);
+      if(open.length<2)return;tries++;var a=open[0],d=open[1],f=$("mmFb");open=[];
+      if(a.w===d.w&&a.k!==d.k){a.ok=d.ok=true;a.b.classList.add("ok");d.b.classList.add("ok");a.b.disabled=d.b.disabled=true;beep(true);left--;f.className="fb show good";f.innerHTML='✅ <b class="en">'+a.w+'</b> '+C.wordBy(a.w).m;
+        if(!left){var st=tries<=8?3:tries<=12?2:1;addStars(st,box);store.memDone=(store.memDone||0)+1;store.memBest=store.memBest?Math.min(store.memBest,tries):tries;save();
+          box.insertAdjacentHTML("beforeend",'<div class="done">🎉 5 對都找到了！翻了 '+tries+' 次，得到 '+st+' 顆星。</div><div class="btns cen"><button class="btn purple" id="mmAgain">🔄 再玩一次</button></div>');$("mmAgain").addEventListener("click",startMem);}}
+      else{lock=true;beep(false);f.className="fb show bad";f.innerHTML="不是一對，記住它們的位置，再翻翻看！";
+        setTimeout(function(){[a,d].forEach(function(x){x.up=false;x.b.classList.remove("up");x.b.textContent="?";x.b.setAttribute("aria-label","蓋著的牌");});lock=false;},1000);}});
+    grid.appendChild(b);});
+}
+startMem();
+
+/* ---------- 拼字（小橫線和撇號固定） ---------- */
+function startSpell(){
+  var list=C.shuffle(C.WORDS),idx=0,errs=0,box=$("spellBox");
+  function draw(){
+    if(idx>=list.length){var st=errs===0?3:errs<=3?2:1;addStars(st,box);
+      box.innerHTML='<div class="done">🔡 5 個單字都拼好了！錯 '+errs+' 次，得到 '+st+' 顆星。</div><div class="btns cen"><button class="btn purple" id="spAgain">🔄 再玩一次</button></div>';
+      $("spAgain").addEventListener("click",startSpell);return;}
+    var w=list[idx],target=C.letters(w.w),got="",pool=C.tiles(w.w).map(function(t){return {t:t};});
+    function paint(){
+      var h='<div class="prog">';for(var k=0;k<list.length;k++)h+='<i class="'+(k<idx?"ok":k===idx?"cur":"")+'"></i>';
+      h+='</div><div class="big"><span class="emo">'+C.pic(w.w)+'</span><br>'+w.m+'</div><div class="btns cen"><button class="btn white small" id="spSay">🔊 聽發音</button></div><div class="slots en'+(w.w.length>10?" long xlong":w.w.length>6?" long":"")+'">';
+      for(var k2=0,li=0;k2<w.w.length;k2++){var c=w.w.charAt(k2);if(/[A-Za-z]/.test(c)){h+='<span>'+(li<got.length?got.charAt(li):"")+'</span>';li++;}else h+='<span class="fix">'+c+'</span>';}
+      h+='</div><div class="tiles en">';pool.forEach(function(p,k){h+='<button class="btn'+(p.used?" used":"")+'" data-k="'+k+'">'+p.t+'</button>';});
+      h+='</div><div class="btns cen"><button class="btn gray small" id="spBack">⌫ 退一格</button></div><div class="fb" id="spFb"></div>';box.innerHTML=h;
+      $("spSay").addEventListener("click",function(){say(w.w);});
+      $("spBack").addEventListener("click",function(){if(!got.length)return;var last=got.charAt(got.length-1);got=got.slice(0,-1);for(var k=pool.length-1;k>=0;k--)if(pool[k].used&&pool[k].t===last){pool[k].used=false;break;}paint();});
+      each(box.querySelectorAll(".tiles .btn"),function(b){b.addEventListener("click",function(){var p=pool[+b.getAttribute("data-k")];if(p.used||got.length>=target.length)return;p.used=true;got+=p.t;
+        if(got.length<target.length){paint();return;}
+        if(got===target){beep(true);say(w.w);store.spelled[w.w]=1;save();paint();var f=$("spFb");f.className="fb show good";f.innerHTML='✅ <b class="en">'+w.w+'</b> 拼對了！';setTimeout(function(){idx++;draw();},1100);}
+        else{beep(false);errs++;miss("spell");paint();var f2=$("spFb");f2.className="fb show bad";f2.innerHTML="拼得不太對，按「⌫ 退一格」改一改，或聽一次發音！";}});});
+    }
+    paint();
+  }
+  draw();
+}
+startSpell();
+
+/* ---------- 挑戰 ---------- */
+runQuiz("chBox",function(){return C.makeChallenge();},{type:"word",onDone:function(r){store.chBest=Math.max(store.chBest||0,r);save();}});
+
+/* ---------- 紀錄 ---------- */
+function renderRec(){
+  var s=store,g=C.badges(s),cnt=function(o){return C.WORDS.filter(function(w){return o&&o[w.w];}).length;};
+  $("stats").innerHTML='<div class="stat"><b>'+s.stars+'</b>⭐ 星星</div><div class="stat"><b>'+cnt(s.heard)+'/5</b>聽過的單字卡</div><div class="stat"><b>'+cnt(s.spelled)+'/5</b>拼對過的單字</div><div class="stat"><b>'+(s.picBest||0)+'/5</b>看圖選字最佳</div><div class="stat"><b>'+(s.listenBest||0)+'/5</b>聽音選圖最佳</div><div class="stat"><b>'+(s.doorBest||0)+'/6</b>送出的糖果最多</div><div class="stat"><b>'+(s.memBest||"—")+'</b>翻翻牌最少次數</div><div class="stat"><b>'+(s.tapDone||0)+'</b>點點看次數</div><div class="stat"><b>'+(s.chBest||0)+'/10</b>挑戰最佳</div>';
+  $("badges").innerHTML=C.BADGES.map(function(b){return '<div class="bdg'+(g[b.id]?" got":"")+'">'+b.n+'<small>'+b.d+'</small></div>';}).join("");
+  var ks=Object.keys(s.bad).sort(function(a,b){return s.bad[b]-s.bad[a];});
+  $("mist").innerHTML=ks.length?'<table class="rec">'+ks.map(function(k){return "<tr><td>"+(TN[k]||k)+"</td><td>錯 "+s.bad[k]+" 次</td></tr>";}).join("")+"</table>":'<p class="small">還沒有錯題，繼續加油！</p>';
+}
+$("resetBtn").addEventListener("click",function(){if(!confirm("確定要清除這一頁的所有紀錄嗎？"))return;var sl=store.slow;store=fresh();store.slow=sl;save();renderScore();renderCards();renderRec();});
+renderScore();
+})();
+</script>
+</body>
+</html>

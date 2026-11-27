@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#9b5de5">
+<title>Review 2 ＋ Let's Write 📝｜康軒 Wonder World 3</title>
+<style>
+:root{--ink:#2b2d42;--org:#ff9f1c;--sun:#ffd166;--pink:#ff6b9a;--blue:#4d96ff;--teal:#2a9d8f;--purple:#9b5de5;--green:#52b788}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:#f8f3ff;overflow-x:hidden}
+html,body{margin:0;padding:0}
+body{font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",system-ui,sans-serif;color:var(--ink);min-height:100vh;background:linear-gradient(180deg,#e4d4ff 0,#f8f3ff 260px);padding-bottom:calc(92px + env(safe-area-inset-bottom))}
+header{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:8px;padding:10px 12px;padding-top:calc(10px + env(safe-area-inset-top));background:rgba(155,93,229,.97);color:#fff}
+header h1{font-size:clamp(17px,4.6vw,26px);margin:0;flex:1;letter-spacing:1px;min-width:0}
+.back{color:#fff;text-decoration:none;font-weight:800;background:rgba(255,255,255,.25);border-radius:999px;padding:8px 12px;font-size:15px;white-space:nowrap}
+.score{background:#fff;color:#5b2a9e;font-weight:900;border-radius:999px;padding:6px 12px;font-size:17px;white-space:nowrap;box-shadow:0 3px 0 #6a3ab0}
+.score.pop{animation:pop .5s}@keyframes pop{40%{transform:scale(1.3)}}
+main{max-width:1000px;margin:0 auto;padding:10px}
+section.page{display:none}section.page.active{display:block;animation:fadein .3s}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.card{background:#fff;border-radius:22px;padding:14px;margin:10px 0;box-shadow:0 6px 0 rgba(0,0,0,.1)}
+.card h2{margin:0 0 6px;font-size:clamp(20px,5vw,25px)}.card h3{margin:4px 0 6px;font-size:19px}
+.small{font-size:14px;color:#666;line-height:1.5}
+.lead{font-size:17px;line-height:1.75;margin:6px 0}
+.btn{appearance:none;border:none;border-radius:16px;padding:10px 14px;min-height:50px;font-size:17px;font-weight:800;cursor:pointer;background:var(--blue);color:#fff;box-shadow:0 4px 0 rgba(0,0,0,.22);font-family:inherit;touch-action:manipulation}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.22)}
+.btn.org{background:var(--org)}.btn.pink{background:var(--pink)}.btn.teal{background:var(--teal)}.btn.purple{background:var(--purple)}.btn.gray{background:#8d99ae}.btn.green{background:var(--green)}
+.btn.white{background:#fff;color:var(--ink);border:3px solid #dcc8ff}.btn.on{outline:4px solid var(--purple);outline-offset:1px;background:#f6efff}
+.btn.small{min-height:44px;font-size:15px;padding:6px 10px}
+.btn:disabled{opacity:.4}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0;align-items:center}.cen{justify-content:center}
+.seg{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
+.hidden{display:none!important}
+.bubble{background:#eef4ff;border-radius:18px;padding:12px 14px;font-size:18px;line-height:1.7;min-height:64px;border:3px solid #d6e4ff}
+.bubble b{color:#c1121f}
+.fb{margin-top:8px;border-radius:14px;padding:8px 12px;font-size:17px;line-height:1.55;display:none}
+.fb.show{display:block}.fb.good{background:#d8f3dc}.fb.bad{background:#fff3cd}.fb.info{background:#f3e8ff}
+.done{background:linear-gradient(135deg,#d8f3dc,#fff1a8);border-radius:18px;padding:12px;font-size:18px;line-height:1.6;margin-top:10px}
+.tip{background:#fffbea;border:3px dashed var(--sun);border-radius:16px;padding:8px 12px;font-size:16px;line-height:1.6;margin-top:8px}
+.q{font-size:21px;line-height:1.6;font-weight:800;text-align:center;margin:6px 0;word-break:break-word}
+.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin-top:8px}
+.choices .btn{background:#fff;color:var(--ink);border:3px solid #d6e4ff;font-size:19px;min-height:58px;line-height:1.4}
+.choices .btn.ok{background:#d8f3dc;border-color:#2ec4b6}.choices .btn.no{background:#ffd6dc;border-color:#ff6b9a;animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.prog{display:flex;gap:4px;justify-content:center;margin:4px 0;flex-wrap:wrap}
+.prog i{width:20px;height:10px;border-radius:6px;background:#eee;display:block}.prog i.ok{background:#2ec4b6}.prog i.no{background:#ff6b9a}.prog i.cur{background:var(--sun)}
+table.rec{border-collapse:collapse;width:100%;font-size:16px}
+table.rec td,table.rec th{padding:8px;border-bottom:1px solid #eee;text-align:left;vertical-align:top}
+.statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.stat{background:#f3e8ff;border-radius:16px;padding:10px;text-align:center}.stat b{display:block;font-size:28px;color:#5b2a9e}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.bdg{background:#eee;border-radius:14px;padding:6px 10px;font-weight:800;color:#999;font-size:15px}.bdg.got{background:linear-gradient(135deg,#ffd166,#ff9f1c);color:#5a3b00}
+.bdg small{display:block;font-weight:600;font-size:12px}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;justify-content:space-around;background:#fff;padding:6px 4px;padding-bottom:calc(6px + env(safe-area-inset-bottom));box-shadow:0 -4px 16px rgba(0,0,0,.15)}
+nav.tabs button{flex:1;min-width:0;border:none;background:none;font-family:inherit;font-size:13px;font-weight:800;color:#666;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 1px;border-radius:14px;cursor:pointer;min-height:60px;touch-action:manipulation}
+nav.tabs button span{font-size:24px;line-height:1}nav.tabs button.on{background:#efe3ff;color:#5b2a9e}
+.burst{position:fixed;z-index:99;pointer-events:none;font-size:30px;animation:fly 1.1s ease-out forwards}
+@keyframes fly{to{transform:translate(var(--dx),var(--dy)) rotate(360deg);opacity:0}}
+/* ---- 英語 ---- */
+.en{font-family:"Arial Rounded MT Bold","Nunito","Varela Round","Trebuchet MS",Arial,sans-serif;letter-spacing:.5px}
+.emo{font-size:54px;line-height:1.1}
+.info{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:8px 0}
+.info div{background:#f6efff;border-radius:14px;padding:8px 10px;font-size:16px}.info b{display:block;font-size:13px;color:#5b2a9e}
+.notice{background:#fff3cd;border:3px solid #ffd166;border-radius:16px;padding:8px 12px;font-size:16px;line-height:1.6;margin:8px 0}
+.slow{display:flex;align-items:center;gap:6px;font-size:15px;font-weight:700}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.vcard{appearance:none;font-family:inherit;background:#fff;border:3px solid #dcc8ff;border-radius:20px;padding:10px 6px;cursor:pointer;text-align:center;position:relative;touch-action:manipulation;box-shadow:0 4px 0 #dcc8ff;color:var(--ink)}
+.vcard:active{transform:translateY(3px);box-shadow:0 1px 0 #dcc8ff}
+.vcard .emo{font-size:58px;display:block}.vcard .w{display:block;font-size:26px;font-weight:900;margin-top:2px}.vcard .m{display:block;font-size:15px;color:#666;margin-top:2px}
+.vcard.heard:after{content:"✓";position:absolute;right:8px;top:4px;color:var(--teal);font-weight:900;font-size:18px}
+.vcard.ext{border-style:dashed}
+.pat{background:#f6efff;border-radius:18px;padding:10px 12px;margin:8px 0;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.pat .who{font-size:30px}.pat .line{flex:1;min-width:180px;font-size:22px;font-weight:800}.pat .zh{display:block;font-size:15px;font-weight:600;color:#666}
+.map{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin:8px 0}
+.city{appearance:none;font-family:inherit;border:3px solid #cfe8ff;background:#f0f8ff;border-radius:16px;padding:8px;text-align:center;cursor:pointer;color:var(--ink);min-height:96px;touch-action:manipulation}
+.city .emo{font-size:40px;display:block}.city b{display:block;font-size:19px}.city small{font-size:13px;color:#666}
+.city.on{border-color:var(--purple);background:#f6efff}
+.tiles{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:8px 0}
+.tiles .btn{min-width:54px;min-height:54px;font-size:24px;background:#fff;color:var(--ink);border:3px solid #dcc8ff;text-transform:none}
+.tiles .btn.used{visibility:hidden}
+.slots{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;min-height:60px;margin:8px 0}
+.slots span{min-width:46px;height:56px;border-bottom:4px solid var(--purple);font-size:30px;font-weight:900;display:flex;align-items:center;justify-content:center;padding:0 4px}
+.slots.words span{min-width:60px;font-size:22px;background:#f6efff;border-radius:10px;border-bottom:none;padding:0 10px}
+.big{font-size:30px;font-weight:900;text-align:center;margin:6px 0}
+.big .e{color:#c1121f;text-decoration:underline}
+.magic{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.magic .btn{min-width:150px;min-height:70px;font-size:26px;background:#fff;color:var(--ink);border:3px solid #dcc8ff}
+.magic .btn.lit{background:#fff1a8;border-color:#ffd166}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+.two .btn{min-height:80px;font-size:19px;color:var(--ink);border:3px solid #ddd}
+.sh{background:#e6f0ff!important;border-color:#4d96ff!important}.lo{background:#fff1d6!important;border-color:#ff9f1c!important}
+.bins{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin-top:10px}
+.bin{border-radius:14px;padding:6px 8px;font-size:17px;line-height:1.5;min-height:48px;border:3px solid #eee}
+.bin b{display:block;font-size:15px}
+.match{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.match .col{display:flex;flex-direction:column;gap:8px}
+.match .btn{background:#fff;color:var(--ink);border:3px solid #d6e4ff;font-size:22px;min-height:60px;line-height:1.2;padding:6px 8px}
+.match .btn.pic{font-size:36px}
+.match .btn.sel{border-color:var(--purple);background:#f6efff}.match .btn.ok{background:#d8f3dc;border-color:#2ec4b6;opacity:.55}.match .btn.no{animation:shake .4s;border-color:#ff6b9a}
+.choices .btn.emo{font-size:44px;min-height:76px}
+.chant{background:#fffbea;border-radius:16px;padding:10px 14px;font-size:20px;line-height:1.8;font-weight:700}
+a.ext{color:#1d4ed8;font-weight:800}
+@media (max-width:420px){.vgrid{grid-template-columns:repeat(2,1fr)}.magic .btn{min-width:120px}.tiles .btn{min-width:46px;min-height:50px;font-size:22px}.pat .line{font-size:19px}}
+.vcard .num,.numbig{display:inline-block;font-size:40px;font-weight:900;color:#fff;background:linear-gradient(135deg,#9b5de5,#4cc9f0);border-radius:50%;width:76px;height:76px;line-height:76px;text-align:center;font-family:"Arial Rounded MT Bold",Arial,sans-serif}
+.numbig{width:96px;height:96px;line-height:96px;font-size:48px}
+.choices .btn.num{font-size:30px;font-weight:900;font-family:Arial,sans-serif;min-height:68px}
+.clkq{display:flex;justify-content:center;margin:2px 0 6px}
+.clkbox{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:center;margin:8px 0}
+.clkbox .ctl{display:grid;grid-template-columns:auto auto auto;gap:6px;align-items:center;justify-items:center}
+.clkbox .ctl .btn{min-width:56px;min-height:52px;font-size:22px;padding:4px 10px}
+.clkbox .ctl b{font-size:15px;color:#555}
+.digi{font-family:"Courier New",monospace;font-size:38px;font-weight:900;background:#2b2d42;color:#7CFC9A;border-radius:12px;padding:2px 14px;letter-spacing:2px;min-width:120px;text-align:center}
+.target{font-size:24px;font-weight:900;text-align:center;background:#fff8e1;border:3px dashed #ffd166;border-radius:14px;padding:8px;margin:6px 0}
+.world{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0}
+.world div{background:#f0f8ff;border:3px solid #cfe8ff;border-radius:16px;padding:10px;text-align:center}
+.world b{display:block;font-size:19px}.world .digi{display:inline-block;font-size:30px;margin-top:4px}
+.slots.long span{min-width:30px;font-size:24px}
+@media (max-width:420px){.slots.long span{min-width:24px;font-size:21px;height:48px}.digi{font-size:30px}.world .digi{font-size:24px}}
+/* ---- 期中複習 ---- */
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:8px 0}
+.trio .btn{background:#fff;color:var(--ink);border:3px solid #dcc8ff;font-size:24px;min-height:70px;position:relative}
+.trio .btn .no{position:absolute;left:6px;top:2px;font-size:15px;background:var(--purple);color:#fff;border-radius:50%;width:24px;height:24px;line-height:24px}
+.trio .btn.ok{background:#d8f3dc;border-color:#2ec4b6}
+.vow{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:8px 0}
+.vow div{border-radius:14px;padding:8px;text-align:center;font-size:16px;line-height:1.5}
+.vow b{display:block;font-size:22px}
+.dia{background:#f6efff;border-radius:16px;padding:10px 12px;font-size:20px;line-height:1.7;text-align:left;margin:6px 0}
+.dia .blank{display:inline-block;min-width:90px;border-bottom:3px solid var(--purple)}
+.two-say{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.two-say div{background:#f0f8ff;border:3px solid #cfe8ff;border-radius:14px;padding:8px;text-align:center;font-size:19px;font-weight:800}
+.two-say small{display:block;font-size:13px;color:#666;font-weight:600}
+.wr input{width:100%;font-size:22px;padding:10px 12px;border-radius:14px;border:3px solid #dcc8ff;font-family:inherit}
+.hint{display:inline-block;background:#fff1a8;border-radius:10px;padding:2px 10px;font-size:15px;font-weight:800;margin:4px 0}
+.wx{font-size:56px;line-height:1.1}
+table.qt{border-collapse:collapse;width:100%;font-size:17px;margin-top:6px}
+table.qt td,table.qt th{border:2px solid #e9dcff;padding:6px 8px;text-align:center}
+table.qt th{background:#f6efff}
+@media (max-width:420px){.trio .btn{font-size:20px;min-height:62px}.two-say{grid-template-columns:1fr}.dia{font-size:18px}}
+/* ---- Review 2 ＋ Let's Write ---- */
+.back{min-height:44px;display:inline-flex;align-items:center}
+.slow{min-height:44px}.slow input{width:22px;height:22px}
+.pic{width:1em;height:1em;display:inline-block;vertical-align:middle}
+.choices .btn.emo .pic{width:1.1em;height:1.1em}
+svg.scene{display:block;width:100%;height:auto;margin:6px auto;border-radius:16px;border:3px solid #dcc8ff;background:#f4f1ff}
+.q svg.scene{max-width:420px}
+.choices.duo{grid-template-columns:1fr 1fr}
+.choices.duo .btn{font-size:22px;min-height:66px}
+.riddle{background:#eef4ff;border:3px solid #d6e4ff;border-radius:18px;padding:10px 12px;font-size:20px;line-height:1.6;font-weight:700;margin:6px 0}
+.riddle .ask{color:#5b2a9e}
+.rooms{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px auto;max-width:680px}
+.rooms .btn{background:#fff;color:var(--ink);border:3px solid #d6e4ff;padding:5px;min-height:0;font-size:17px;line-height:1.3;min-width:0}
+.rooms .btn svg{display:block;width:100%;height:auto;border-radius:10px;margin-bottom:3px}
+.rooms .btn.ok{background:#d8f3dc;border-color:#2ec4b6}
+.rooms .btn.no{background:#ffd6dc;border-color:#ff6b9a;animation:shake .4s}
+.rooms .btn:disabled{opacity:.75}
+.four{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.four .btn{min-height:66px;font-size:17px;color:var(--ink);border:3px solid #ddd;line-height:1.3;padding:6px 4px}
+.so{background:#e6f0ff!important;border-color:#4d96ff!important}.oe{background:#fff1d6!important;border-color:#ff9f1c!important}
+.su{background:#e3f6e8!important;border-color:#52b788!important}.ue{background:#ffe6ef!important;border-color:#ff6b9a!important}
+.bins4{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.bingo{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px;margin:8px auto;max-width:560px}
+.bingo .btn{min-height:52px;min-width:0;padding:2px;font-size:18px;background:#fff;color:var(--ink);border:3px solid #dcc8ff;box-shadow:0 3px 0 #dcc8ff}
+.bingo .btn.mine{background:#ffd166;border-color:#ff9f1c;box-shadow:0 3px 0 #ff9f1c}
+.bingo .btn.win{background:#52b788;border-color:#2a9d8f;box-shadow:0 3px 0 #2a9d8f;color:#fff}
+.bingo .btn.no{animation:shake .4s;border-color:#ff6b9a}
+.bingo .btn:disabled{opacity:1}
+svg.town{display:block;width:100%;height:auto;border-radius:10px}
+.vcard .emo svg.town{width:118px;height:77px;margin:0 auto 4px}
+.frame{background:#fffbea;border:3px solid var(--sun);border-radius:18px;padding:10px 12px;font-size:20px;line-height:2.5;font-weight:700;margin:8px 0}
+.bl{appearance:none;font-family:inherit;font-size:19px;font-weight:800;min-height:44px;min-width:58px;padding:2px 10px;border-radius:10px;border:3px dashed #bbb;background:#fff;color:var(--ink);vertical-align:middle;touch-action:manipulation;cursor:pointer;line-height:1.2}
+.bl.empty{color:#aaa}
+.pk{border-color:#ff8fb3!important;background:#ffe6ef}.bu{border-color:#4d96ff!important;background:#e6f0ff}.gr{border-color:#52b788!important;background:#e3f6e8}.yl{border-color:#ffb703!important;background:#fff3c4}
+.bl.empty.pk,.bl.empty.bu,.bl.empty.gr,.bl.empty.yl{background:#fff}
+.bank{display:flex;flex-direction:column;gap:6px;margin:8px 0}
+.bank .grp{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.chip{appearance:none;font-family:inherit;font-size:18px;font-weight:800;min-height:46px;min-width:46px;padding:4px 12px;border-radius:12px;border:3px solid #ddd;color:var(--ink);touch-action:manipulation;cursor:pointer}
+.chip.on{outline:4px solid var(--purple);outline-offset:1px}
+.frame input{font-family:inherit;font-size:19px;font-weight:800;min-height:44px;padding:2px 8px;border-radius:10px;border:3px solid #bbb;max-width:100%;vertical-align:middle;color:var(--ink)}
+.msg{background:#eef4ff;border:3px solid #d6e4ff;border-radius:18px;padding:10px 12px;font-size:19px;line-height:1.6;font-weight:700;margin:6px 0}
+ul.msgs{margin:6px 0;padding:0;list-style:none}
+ul.msgs li{background:#f6efff;border-radius:14px;padding:8px 10px;margin:6px 0;font-size:16px;line-height:1.5}
+ul.msgs small{display:block;color:#777;font-size:12px}
+@media (max-width:420px){.bingo .btn{font-size:16px}.frame{font-size:18px}.riddle{font-size:18px}.bl{min-width:50px;padding:2px 7px}}
+</style>
+</head>
+<body>
+<header>
+  <a class="back" href="../">← 英語</a>
+  <h1>📝 <span class="en">Review 2</span> 複習</h1>
+  <div class="score" id="score">⭐ 0</div>
+</header>
+<main>
+<div class="notice hidden" id="voiceNote"></div>
+
+<!-- ============ 單字 ============ -->
+<section class="page active" id="p-word">
+  <div class="card">
+    <h2>📝 <span class="en">Review 2</span> ＋ <span class="en">Let's Write</span></h2>
+    <div class="info">
+      <div><b>版本</b>康軒 Wonder World 3</div>
+      <div><b>範圍</b>Unit 3、Unit 4、Review 2、Let's Write</div>
+      <div><b>課本</b>第 75～78、84～85 頁</div>
+      <div><b>發音</b>o / o_e、u / u_e</div>
+    </div>
+    <div class="btns"><label class="slow"><input type="checkbox" id="slowChk"> 🐢 慢速朗讀</label><button class="btn white small" id="testVoice">🔊 試聽聲音</button></div>
+    <p class="small">這一頁把 Unit 3（文具）和 Unit 4（位置）一起複習，最後還有課本的寫作任務。題目都是照課本的活動類型<b>自己編寫</b>的練習題。發音是平板的電腦語音，正確念法以課本 CD／Super 電子書為準。</p>
+  </div>
+
+  <div class="card">
+    <h3>✏️ Unit 3 文具（點卡片聽發音）</h3>
+    <div class="vgrid" id="vGrid3"></div>
+    <h3 style="margin-top:14px">🏫 Unit 4 位置和教室</h3>
+    <div class="vgrid" id="vGrid4"></div>
+  </div>
+
+  <div class="card">
+    <h3>🖼️ 單字快問快答</h3>
+    <p class="small">看圖、看中文或聽聲音，選出對的答案。</p>
+    <div id="wordQ"></div>
+  </div>
+
+  <div class="card">
+    <h3>🔡 拼字遊戲</h3>
+    <p class="small">看圖和中文，點字母方塊拼出英文單字（有 2 個是多出來的字母喔）。每次出 6 個字。</p>
+    <div id="spellBox"></div>
+  </div>
+</section>
+
+<!-- ============ 句型 ============ -->
+<section class="page" id="p-pat">
+  <div class="card">
+    <h2>💬 兩課的句型</h2>
+    <h3>✏️ Unit 3：這是你的……嗎？</h3>
+    <div class="pat"><span class="who">🙋</span><span class="line en">Is this your pencil?<span class="zh">這是你的鉛筆嗎？</span></span><button class="btn white small" data-say="Is this your pencil?">🔊</button></div>
+    <div class="pat"><span class="who">🙆</span><span class="line en">Yes, it is.<span class="zh">是的，它是。</span></span><button class="btn white small" data-say="Yes, it is.">🔊</button></div>
+    <div class="pat"><span class="who">🙅</span><span class="line en">No, it's not.<span class="zh">不，它不是。</span></span><button class="btn white small" data-say="No, it's not.">🔊</button></div>
+    <h3>🏫 Unit 4：……在哪裡？</h3>
+    <div class="pat"><span class="who">🙋</span><span class="line en">Where's the eraser?<span class="zh">橡皮擦在哪裡？</span></span><button class="btn white small" data-say="Where's the eraser?">🔊</button></div>
+    <div class="pat"><span class="who">👉</span><span class="line en">It's under the chair.<span class="zh">它在椅子底下。</span></span><button class="btn white small" data-say="It's under the chair.">🔊</button></div>
+    <div class="tip">💡 問「是不是你的」用 <b class="en">Is this your ...?</b>，回答 <b class="en">Yes, it is.</b> 或 <b class="en">No, it's not.</b><br>問「在哪裡」用 <b class="en">Where's ...?</b>，回答 <b class="en">It's in / on / under the ....</b><br>⚠️ 兩種問句的回答不一樣，別答錯了！</div>
+  </div>
+
+  <div class="card">
+    <h3>💬 對話接接看</h3>
+    <p class="small">看一句話，選出最適合的回應；有時候要選前面那一句。</p>
+    <div id="replyQ"></div>
+  </div>
+
+  <div class="card">
+    <h3>📖 讀一讀，選答案</h3>
+    <div id="gramQ"></div>
+  </div>
+
+  <div class="card">
+    <h3>🧱 句子重組</h3>
+    <p class="small">照順序點單字方塊，排出正確的句子。開頭要大寫、句尾有標點。</p>
+    <div id="orderBox"></div>
+  </div>
+
+  <div class="card">
+    <h3>🗣️ 生活用語</h3>
+    <div id="dailyList"></div>
+    <div id="dailyQ"></div>
+  </div>
+</section>
+
+<!-- ============ 聽讀 ============ -->
+<section class="page" id="p-lr">
+  <div class="card">
+    <h2>👂 聽一聽：一樣嗎？</h2>
+    <p class="small">課本 Review 2 的 <b class="en">Listen and Mark</b> 是聽句子，在圖上畫 ○ 或 ✕。這裡是同一種練習：聽到的句子和圖一樣選 ⭕，不一樣選 ❌。</p>
+    <div id="markQ"></div>
+  </div>
+  <div class="card">
+    <h2>📖 讀一讀：我在哪個房間？</h2>
+    <p class="small">課本的 <b class="en">Read and Match</b> 是讀句子、找房間。兩個句子都要對，才是那個房間喔！<br><b class="en">room</b> 房間、<b class="en">floor</b> 地板、<b class="en">toy car</b> 玩具車；顏色有 <b class="en">red</b> 紅、<b class="en">blue</b> 藍、<b class="en">pink</b> 粉紅。</p>
+    <div id="roomBox"></div>
+  </div>
+</section>
+
+<!-- ============ 發音 ============ -->
+<section class="page" id="p-phon">
+  <div class="card">
+    <h2>🔤 字母拼讀複習：o / o_e 和 u / u_e</h2>
+    <div class="vow">
+      <div class="so"><b class="en">o</b>短母音<br><span class="en">hop、rob、cod</span></div>
+      <div class="oe"><b class="en">o_e</b>念字母 O 的名字<br><span class="en">hope、robe、code</span></div>
+      <div class="su"><b class="en">u</b>短母音<br><span class="en">cub、cut、tub</span></div>
+      <div class="ue"><b class="en">u_e</b>念字母 U 的名字<br><span class="en">cube、cute、tube</span></div>
+    </div>
+    <p class="small">字尾有不發音的 <b>e</b>（Magic e）時，前面的母音會念出自己的名字。點下面的字聽一聽，比較加上 e 之前和之後：</p>
+    <div id="magicBox"></div>
+  </div>
+  <div class="card">
+    <h3>🧺 分一分：這個字是哪一種母音？</h3>
+    <p class="small">這些字都來自課本第 78 頁的 <b class="en">Play and Say</b>。看看字尾有沒有 Magic e，再看中間是 o 還是 u。</p>
+    <div id="sortBox"></div>
+  </div>
+  <div class="card">
+    <h3>👂 聽音二選一</h3>
+    <p class="small">兩個字只差一個 e，只會念其中一個。按 🔊 聽，選出聽到的字。</p>
+    <div id="pairQ"></div>
+  </div>
+  <div class="card">
+    <h3>🎯 三連線 <span class="en">Three in a Row</span></h3>
+    <p class="small">課本的 <b class="en">Play and Say</b> 是念對了就放一個籌碼，先連成三個的人贏。這裡改成：聽到哪個字就點它放籌碼，橫的、直的、斜的連成 3 個就過關！</p>
+    <div id="bingoBox"></div>
+  </div>
+</section>
+
+<!-- ============ 寫作 ============ -->
+<section class="page" id="p-write">
+  <div class="card">
+    <h2>✍️ <span class="en">Task: Let's Write</span>（課本第 84～85 頁）</h2>
+    <p class="lead">遇到災害的時候，要怎麼用英文求救？先認識這幾個字，再讀訊息、寫訊息。</p>
+    <div class="vgrid" id="lwGrid"></div>
+    <p class="small"><b class="en">earthquake</b> 是 Unit 4 故事裡的字。天氣的字是 Unit 1 學過的：</p>
+    <div class="btns"><button class="btn white small" data-say="rainy">🌧️ rainy</button><button class="btn white small" data-say="windy">🌬️ windy</button><button class="btn white small" data-say="cold">🥶 cold</button><button class="btn white small" data-say="hot">🥵 hot</button></div>
+  </div>
+
+  <div class="card">
+    <h3>📣 求救訊息的句型</h3>
+    <div class="pat"><span class="who">🆘</span><span class="line en">Help! There's a flood!<span class="zh">救命！有水災！</span></span><button class="btn white small" data-say="Help! There's a flood!">🔊</button></div>
+    <div class="pat"><span class="who">🌧️</span><span class="line en">It's rainy and cold now!<span class="zh">現在下著雨，又很冷！</span></span><button class="btn white small" data-say="It's rainy and cold now!">🔊</button></div>
+    <div class="pat"><span class="who">📍</span><span class="line en">Please hurry! I'm in Town A.<span class="zh">請快一點！我在 A 鎮。</span></span><button class="btn white small" data-say="Please hurry! I'm in Town A.">🔊</button></div>
+    <div class="tip">💡 <b class="en">There's</b> = There is（有……）。<br>🅰️ <b class="en">a</b> 還是 <b class="en">an</b>？字的開頭是母音的聲音（a、e、i、o、u）用 <b class="en">an</b>：<b class="en">an earthquake</b>；其他用 <b class="en">a</b>：<b class="en">a fire、a flood、a mudslide、a blackout</b>。</div>
+  </div>
+
+  <div class="card">
+    <h3>🔍 <span class="en">Look and Guess</span>：讀訊息，猜城鎮</h3>
+    <p class="small">有人傳來求救訊息！看看發生什麼事、現在的天氣，找出他在哪個城鎮。圖左上角的小圖示是天氣：🥵 hot、🥶 cold、🌧️ rainy、🌬️ windy、🌑 dark。</p>
+    <div id="guessBox"></div>
+  </div>
+
+  <div class="card">
+    <h3>✍️ <span class="en">Write and Guess</span>：寫求救訊息</h3>
+    <div class="btns" id="wModes"><button class="btn white small" data-m="tap">👆 點字卡填空</button><button class="btn white small" data-m="type">⌨️ 自己打字</button></div>
+    <p class="small">選一個城鎮，把訊息寫完整。寫好以後可以請家人猜猜看你在哪個城鎮。你寫的內容只會存在這台裝置，不會傳到別的地方。</p>
+    <div id="writeBox"></div>
+  </div>
+</section>
+
+<!-- ============ 小考 ============ -->
+<section class="page" id="p-ch">
+  <div class="card">
+    <h2>🏆 <span class="en">Review 2</span> 小考（12 題）</h2>
+    <p class="small">單字、對話、文法、生活用語、聽力、發音和求救訊息通通有！答對 11 題以上拿「Review 2 小考王」徽章。</p>
+    <div id="chBox"></div>
+  </div>
+</section>
+
+<!-- ============ 紀錄 ============ -->
+<section class="page" id="p-rec">
+  <div class="card"><h2>🏆 我的紀錄</h2><div class="statgrid" id="stats"></div><div class="badges" id="badges"></div></div>
+  <div class="card"><h3>✍️ 我寫的求救訊息</h3><div id="myMsgs"></div></div>
+  <div class="card"><h3>🔎 常錯的地方</h3><div id="mist"></div></div>
+  <div class="card"><button class="btn gray" id="resetBtn">清除紀錄</button><p class="small">紀錄和你寫的訊息只存在這台平板的瀏覽器裡。</p>
+    <p class="small">資料來源：Unit 3 單字（book, eraser, marker, pen, pencil, ruler）和句型（Is this your pencil? Yes, it is. / No, it's not.）、Unit 4 單字（in, on, under, box, chair, desk）和句型（Where's the eraser? It's under the chair.）、兩課的生活用語（What happened? / Nice! / Watch out! / Give me a hand, please.）、Review 2 的活動類型（Listen and Mark、Read and Match、Play and Say）、Read and Match 的句型和用字（The … is on / under the …. Where am I? You're in Room ….；room 房間、floor 地板、toy car、schoolbag；red、blue、pink）、Play and Say 的 25 個拼讀字，以及 Task: Let's Write 的字彙（there's = there is 有……、fire 火災、town 城鎮、blackout 停電、dark 暗的、flood 水災、mudslide 土石流）、字卡（a, an, earthquake, fire, flood, mudslide, rainy, windy, cold, hot, dark）和寫作句型（Help! There's a …! It's … now! Please hurry! I'm in Town ….），都依孩子使用的康軒 Wonder World 3 課本（Student Book）第 75～78、84～85 頁整理；Unit 3、Unit 4 單字的中文意思參考課本的中譯表。</p>
+    <p class="small">✏️ <b>自編說明：</b>所有題目（單字快問快答、對話接接看、讀一讀選答案、句子重組、生活用語的情境、「一樣嗎」的句子和圖、「我在哪個房間」的房間和句子、母音分一分、聽音二選一、三連線、讀訊息猜城鎮、小考）都是照課本的活動類型重新編寫的，東西的擺放、顏色、哪個城鎮發生什麼事都是每次隨機產生的，不是課本的題目和答案；教室、房間、城鎮和文具的小圖是自己畫的；Magic e 的配對是從課本的 25 個字裡自己挑的；城鎮圖左上角的天氣小圖示是為了方便作答加上去的。發音使用裝置的電腦語音，請以課本 CD／Super 電子書為準。</p></div>
+</section>
+</main>
+
+<nav class="tabs" id="tabs">
+  <button class="on" data-p="p-word"><span>🃏</span>單字</button>
+  <button data-p="p-pat"><span>💬</span>句型</button>
+  <button data-p="p-lr"><span>👂</span>聽讀</button>
+  <button data-p="p-phon"><span>🔤</span>發音</button>
+  <button data-p="p-write"><span>✍️</span>寫作</button>
+  <button data-p="p-ch"><span>🏆</span>小考</button>
+  <button data-p="p-rec"><span>📊</span>紀錄</button>
+</nav>
+
+<script id="core">
+var Core=(function(){
+"use strict";
+/* 圖示：和 Unit 3、Unit 4 頁面一樣，沒有合適 emoji 的用自己畫的小圖 */
+var BOXD='<rect x="10" y="30" width="44" height="26" rx="2" fill="#d4a373" stroke="#2b2d42" stroke-width="2.5"/>';
+var BALL=function(cx,cy){return '<circle cx="'+cx+'" cy="'+cy+'" r="9" fill="#ff6b9a" stroke="#2b2d42" stroke-width="2.2"/>';};
+var SVG_IN='<svg class="pic" viewBox="0 0 64 64" aria-hidden="true"><path d="M10 30 L18 22 H62 L54 30Z" fill="#e9c49a" stroke="#2b2d42" stroke-width="2.2"/>'+BALL(32,32)+'<rect x="10" y="30" width="44" height="26" rx="2" fill="#d4a373" fill-opacity=".92" stroke="#2b2d42" stroke-width="2.5"/></svg>';
+var SVG_ON='<svg class="pic" viewBox="0 0 64 64" aria-hidden="true">'+BOXD+BALL(32,20)+'</svg>';
+var SVG_UNDER='<svg class="pic" viewBox="0 0 64 64" aria-hidden="true"><rect x="6" y="16" width="52" height="8" rx="2" fill="#a0785a" stroke="#2b2d42" stroke-width="2.5"/><path d="M12 24 V58 M52 24 V58" stroke="#2b2d42" stroke-width="4" stroke-linecap="round"/>'+BALL(32,48)+'</svg>';
+var SVG_DESK='<svg class="pic" viewBox="0 0 64 64" aria-hidden="true"><rect x="4" y="18" width="56" height="8" rx="2" fill="#c08552" stroke="#2b2d42" stroke-width="2.5"/><rect x="34" y="26" width="22" height="14" fill="#e0b083" stroke="#2b2d42" stroke-width="2.2"/><path d="M42 33 h6" stroke="#2b2d42" stroke-width="2.5" stroke-linecap="round"/><path d="M9 26 V60 M55 40 V60" stroke="#2b2d42" stroke-width="4" stroke-linecap="round"/></svg>';
+var SVG_ERASER='<svg class="pic" viewBox="0 0 64 64" aria-hidden="true"><g transform="rotate(-20 32 32)"><rect x="8" y="22" width="48" height="20" rx="4" fill="#ff8fab" stroke="#2b2d42" stroke-width="2.5"/><rect x="28" y="20" width="26" height="24" rx="2" fill="#4d96ff" stroke="#2b2d42" stroke-width="2.5"/><path d="M33 26h16M33 32h16M33 38h10" stroke="#fff" stroke-width="2" stroke-linecap="round"/></g></svg>';
+var SVG_MARKER='<svg class="pic" viewBox="0 0 64 64" aria-hidden="true"><g transform="rotate(-35 32 32)"><path d="M6 32 L14 26 L14 38Z" fill="#9b5de5" stroke="#2b2d42" stroke-width="2.2" stroke-linejoin="round"/><rect x="14" y="25" width="28" height="14" rx="3" fill="#f4f4f4" stroke="#2b2d42" stroke-width="2.5"/><rect x="19" y="29" width="18" height="6" rx="2" fill="#9b5de5"/><rect x="42" y="23" width="16" height="18" rx="4" fill="#9b5de5" stroke="#2b2d42" stroke-width="2.5"/></g></svg>';
+var PIC={book:"📘",eraser:SVG_ERASER,marker:SVG_MARKER,pen:"🖊️",pencil:"✏️",ruler:"📏","in":SVG_IN,"on":SVG_ON,"under":SVG_UNDER,box:"📦",chair:"🪑",desk:SVG_DESK,dark:"🌑",town:"🏘️"};
+function pic(w){return disBy(w)?town({d:w,w:[]}):PIC[w]||"❓";}
+/* 單字：Unit 3、Unit 4 本課字彙；中文意思參考課本中譯表 */
+var WORDS=[
+ {w:"book",m:"書",ex:"Is this your book?",u:3},
+ {w:"eraser",m:"橡皮擦",ex:"Is this your eraser?",u:3},
+ {w:"marker",m:"簽字筆；彩色筆",ex:"Is this your marker?",u:3},
+ {w:"pen",m:"原子筆",ex:"Is this your pen?",u:3},
+ {w:"pencil",m:"鉛筆",ex:"Is this your pencil?",u:3},
+ {w:"ruler",m:"尺",ex:"Is this your ruler?",u:3},
+ {w:"in",m:"在……裡面",ex:"It's in the box.",u:4},
+ {w:"on",m:"在……上面",ex:"It's on the desk.",u:4},
+ {w:"under",m:"在……底下",ex:"It's under the chair.",u:4},
+ {w:"box",m:"盒子；箱子",ex:"Where's the box?",u:4},
+ {w:"chair",m:"椅子",ex:"It's on the chair.",u:4},
+ {w:"desk",m:"書桌",ex:"It's under the desk.",u:4}
+];
+/* Let's Write 的字（課本第 85 頁頁尾的註解；earthquake 是 Unit 4 故事裡的字） */
+var LW=[
+ {w:"fire",m:"火災",ex:"There's a fire!"},
+ {w:"blackout",m:"停電",ex:"There's a blackout!"},
+ {w:"flood",m:"水災",ex:"There's a flood!"},
+ {w:"mudslide",m:"土石流",ex:"There's a mudslide!"},
+ {w:"earthquake",m:"地震",ex:"There's an earthquake!"},
+ {w:"dark",m:"暗的",ex:"It's dark now!"},
+ {w:"town",m:"城鎮",ex:"I'm in Town A."}
+];
+function shuffle(a,rnd){rnd=rnd||Math.random;var b=a.slice();for(var i=b.length-1;i>0;i--){var j=Math.floor(rnd()*(i+1));var t=b[i];b[i]=b[j];b[j]=t;}return b;}
+function pick(a,n,rnd){return shuffle(a,rnd).slice(0,n);}
+function wordBy(w){var all=WORDS.concat(LW);for(var i=0;i<all.length;i++)if(all[i].w===w)return all[i];return null;}
+
+/* ---------- 對話、文法、句子、生活用語（全部自編，用 Unit 3、Unit 4 的句型） ---------- */
+var REPLY=[
+ {k:"b",a:"Is this your ruler?",ans:"Yes, it is.",o:["Yes, it is.","It's on the desk.","It's rainy."]},
+ {k:"b",a:"Is this your marker?",ans:"No, it's not.",o:["No, it's not.","It's under the chair.","It's seven o'clock."]},
+ {k:"b",a:"Where's the pencil?",ans:"It's in the box.",o:["It's in the box.","Yes, it is.","No, it's not."]},
+ {k:"b",a:"Where's my schoolbag?",ans:"It's on the chair.",o:["It's on the chair.","Yes, it is.","It's sunny."]},
+ {k:"b",a:"Where's the eraser?",ans:"It's under the desk.",o:["It's under the desk.","No, it's not.","It's my eraser."]},
+ {k:"a",b:"Yes, it is. Thank you.",ans:"Is this your eraser?",o:["Is this your eraser?","Where's the eraser?","What time is it?"]},
+ {k:"a",b:"It's under the desk.",ans:"Where's the book?",o:["Where's the book?","Is this your book?","How's the weather?"]},
+ {k:"a",b:"No, it's not. It's not my pen.",ans:"Is this your pen?",o:["Is this your pen?","Where's the pen?","What time is it?"]},
+ {k:"a",b:"It's on the desk.",ans:"Where's the marker?",o:["Where's the marker?","Is this your marker?","How's the weather?"]},
+ {k:"a",b:"It's in the box.",ans:"Where's the ruler?",o:["Where's the ruler?","Is this your ruler?","What time is it?"]}
+];
+var GRAM=[
+ {q:"A: _____ this your pencil?  B: Yes, it is.",a:"Is",o:["Is","Where's","It's"],t:"問「這是你的……嗎？」用 Is this your ...?"},
+ {q:"A: Is this your marker?  B: Yes, it _____.",a:"is",o:["is","not","on"],t:"是你的，回答 Yes, it is."},
+ {q:"A: Is this your pen?  B: No, it's _____.",a:"not",o:["not","is","under"],t:"不是你的，回答 No, it's not."},
+ {q:"A: _____ the eraser?  B: It's under the chair.",a:"Where's",o:["Where's","Is this","What time"],t:"問東西在哪裡，用 Where's（＝Where is）。"},
+ {q:"A: Where's the book?  B: _____ on the desk.",a:"It's",o:["It's","I'm","Yes"],t:"回答東西在哪裡，用 It's ＋ 位置。"},
+ {q:"The pencil is _____ the box.（鉛筆在盒子裡面）",a:"in",o:["in","on","under"],t:"在……裡面是 in。"},
+ {q:"The book is _____ the desk.（書在書桌上面）",a:"on",o:["on","in","under"],t:"在……上面是 on。"},
+ {q:"The ruler is _____ the chair.（尺在椅子底下）",a:"under",o:["under","on","in"],t:"在……底下是 under。"},
+ {q:"It's _____ pen.（這是我的筆）",a:"my",o:["my","your","not"],t:"我的＝my。"},
+ {q:"It's not _____ ruler.（這不是你的尺）",a:"your",o:["your","my","is"],t:"你的＝your。"},
+ {q:"A: Is this your ruler?  B: _____, it's not.",a:"No",o:["No","Yes","Not"],t:"後面是 it's not，所以前面是 No。"},
+ {q:"A: Where's my schoolbag?  B: It's on the _____.",a:"chair",o:["chair","under","where"],t:"on the 後面要接東西的名稱。"}
+];
+var ORDER=["Is this your eraser?","No, it's not.","Yes, it is.","Where's the pencil?","It's in the box.","It's under the desk.","It's on the chair.","The pen is on the desk.","Where's my ruler?","It's not my marker."];
+/* 生活用語：Unit 3 的 What happened? / Nice!，Unit 4 的 Watch out! / Give me a hand, please.；情境自編 */
+var DAILY=[
+ {p:"What happened?",m:"發生什麼事？",s:"教室後面突然「砰」的一聲，你想知道怎麼了。"},
+ {p:"Nice!",m:"太好了！",s:"同學幫你找到不見的橡皮擦，你覺得很棒。"},
+ {p:"Watch out!",m:"小心！",s:"地上有一灘水，同學快要踩到了。"},
+ {p:"Give me a hand, please.",m:"請幫我一下。",s:"你要把一大疊書搬到書桌上，一個人拿不動。"}
+];
+
+/* ---------- 教室場景（和 Unit 4 頁面同一個畫法）：聽一聽，一樣嗎？ ---------- */
+var POS=[
+ {k:"inbox",p:"in",o:"box",x:110,y:254,zh:"箱子裡面"},
+ {k:"ondesk",p:"on",o:"desk",x:320,y:146,zh:"書桌上面"},
+ {k:"underdesk",p:"under",o:"desk",x:320,y:270,zh:"書桌底下"},
+ {k:"onchair",p:"on",o:"chair",x:506,y:192,zh:"椅子上面"},
+ {k:"underchair",p:"under",o:"chair",x:506,y:272,zh:"椅子底下"}
+];
+var ITEMS=WORDS.filter(function(w){return w.u===3;});
+function where(item){return "Where's the "+item+"?";}
+function at(pos){return "It's "+pos.p+" the "+pos.o+".";}
+function isAt(item,pos){return "The "+item+" is "+pos.p+" the "+pos.o+".";}
+function itemAt(w,x,y){var p=PIC[w];
+ if(p.indexOf("<svg")===0)return p.replace('<svg class="pic"','<svg x="'+(x-26)+'" y="'+(y-26)+'" width="52" height="52"');
+ return '<text x="'+x+'" y="'+(y+2)+'" font-size="46" text-anchor="middle" dominant-baseline="middle">'+p+'</text>';}
+function scene(L){
+ var s='<svg class="scene" viewBox="0 0 640 330" role="img" aria-label="教室裡有箱子、書桌和椅子" style="max-width:420px">'+
+  '<rect width="640" height="300" fill="#f4f1ff"/><rect y="300" width="640" height="30" fill="#e0d4f7"/>'+
+  '<rect x="200" y="20" width="240" height="70" rx="6" fill="#2f6f5b" stroke="#6b4e33" stroke-width="5"/>'+
+  '<path d="M50 236 L70 214 H190 L170 236Z" fill="#e9c49a" stroke="#2b2d42" stroke-width="3"/>'+
+  '<rect x="214" y="170" width="212" height="16" rx="3" fill="#c08552" stroke="#2b2d42" stroke-width="3"/><rect x="340" y="186" width="70" height="34" fill="#e0b083" stroke="#2b2d42" stroke-width="3"/><path d="M362 203 h26" stroke="#2b2d42" stroke-width="3" stroke-linecap="round"/><path d="M228 186 V300 M412 220 V300" stroke="#2b2d42" stroke-width="8" stroke-linecap="round"/>'+
+  '<rect x="458" y="216" width="100" height="12" rx="3" fill="#7aa6ff" stroke="#2b2d42" stroke-width="3"/><rect x="540" y="130" width="14" height="88" rx="4" fill="#7aa6ff" stroke="#2b2d42" stroke-width="3"/><path d="M468 228 V300 M548 228 V300" stroke="#2b2d42" stroke-width="7" stroke-linecap="round"/>';
+ POS.forEach(function(p){var it=L&&L[p.k];if(!it)return;s+=itemAt(it,p.x,p.y);
+   if(p.k==="inbox")s+='<rect x="50" y="236" width="120" height="64" rx="3" fill="#d4a373" fill-opacity=".93" stroke="#2b2d42" stroke-width="3"/>';});
+ if(!(L&&L.inbox))s+='<rect x="50" y="236" width="120" height="64" rx="3" fill="#d4a373" stroke="#2b2d42" stroke-width="3"/>';
+ return s+'</svg>';
+}
+var YES="⭕ 一樣",NO="❌ 不一樣";
+function markQ(rnd){
+ rnd=rnd||Math.random;var it=pick(ITEMS,1,rnd)[0],p=pick(POS,1,rnd)[0],same=rnd()<0.5,sp=same?p:pick(POS.filter(function(x){return x.k!==p.k;}),1,rnd)[0],L={};L[p.k]=it.w;
+ var heard=rnd()<0.5?isAt(it.w,sp):where(it.w)+" "+at(sp);
+ return {type:"mark",lis:1,duo:1,pre:scene(L),q:"🔊 聽一聽，說的和圖一樣嗎？",ask:"說的和圖一樣嗎？",a:same?YES:NO,o:[YES,NO],speak:heard,same:same,
+  tip:'聽到的是 <b class="en">'+heard+'</b>'+(same?"":'<br>圖上是 <b class="en">'+isAt(it.w,p)+'</b>')};
+}
+
+/* ---------- 我在哪個房間（房間自己畫；句子每次隨機產生） ---------- */
+var RITEMS=[{k:"toy car",m:"玩具車"},{k:"schoolbag",m:"書包"},{k:"box",m:"盒子"},{k:"pen",m:"筆"},{k:"book",m:"書"}];
+var RCOLS=[{k:"red",m:"紅色",h:"#e63946"},{k:"blue",m:"藍色",h:"#3a86ff"},{k:"pink",m:"粉紅色",h:"#ff8fb3"}];
+var RPOS=[
+ {k:"ondesk",t:"on the desk",m:"書桌上面",x:38,y:66},
+ {k:"underdesk",t:"under the desk",m:"書桌底下",x:42,y:122},
+ {k:"onchair",t:"on the chair",m:"椅子上面",x:134,y:86},
+ {k:"underchair",t:"under the chair",m:"椅子底下",x:137,y:122},
+ {k:"onfloor",t:"on the floor",m:"地板上",x:180,y:138}
+];
+var WALL=["#fde2e4","#e2f0cb","#dfe7fd","#fff1c9"],LET=["A","B","C","D"];
+function by(list,k){for(var i=0;i<list.length;i++)if(list[i].k===k)return list[i];return null;}
+function ritem(k,h){var S='stroke="#2b2d42" stroke-width="1.6" stroke-linejoin="round"';
+ if(k==="toy car")return '<path d="M-15-4v-7h5l4-7h11l5 7h5v7Z" fill="'+h+'" '+S+'/><path d="M-4-11l2.5-5h7l3 5Z" fill="#fff" stroke="#2b2d42" stroke-width="1"/><circle cx="-8" cy="-4" r="4" fill="#2b2d42"/><circle cx="8" cy="-4" r="4" fill="#2b2d42"/>';
+ if(k==="box")return '<rect x="-13" y="-18" width="26" height="18" rx="2" fill="'+h+'" '+S+'/><path d="M-13-12h26" stroke="#2b2d42" stroke-width="1.6"/><rect x="-3" y="-14" width="6" height="4" fill="#fff" stroke="#2b2d42" stroke-width="1"/>';
+ if(k==="schoolbag")return '<path d="M-6-20q6-7 12 0" fill="none" stroke="#2b2d42" stroke-width="2.2"/><rect x="-11" y="-21" width="22" height="21" rx="6" fill="'+h+'" '+S+'/><rect x="-7" y="-11" width="14" height="8" rx="2" fill="#fff" fill-opacity=".6" stroke="#2b2d42" stroke-width="1.2"/>';
+ if(k==="pen")return '<g transform="translate(0,-9) rotate(-32)"><rect x="-13" y="-3" width="21" height="6" rx="1.5" fill="'+h+'" '+S+'/><path d="M8-3l7 3-7 3Z" fill="#ffe0c2" '+S+'/><rect x="-13" y="-3" width="4" height="6" fill="#2b2d42"/></g>';
+ return '<rect x="-14" y="-10" width="28" height="10" rx="1.5" fill="'+h+'" '+S+'/><rect x="-11" y="-8" width="22" height="3" fill="#fff"/>';
+}
+function room(cfg,idx){
+ var s='<svg class="room" viewBox="0 0 200 150" aria-hidden="true"><rect width="200" height="150" fill="'+WALL[idx%4]+'"/><rect y="118" width="200" height="32" fill="#e6ccb2"/><path d="M0 118h200" stroke="#b08968" stroke-width="2"/>'+
+  '<rect x="150" y="12" width="38" height="30" rx="3" fill="#bde0fe" stroke="#fff" stroke-width="3"/><path d="M169 12v30M150 27h38" stroke="#fff" stroke-width="2"/>'+
+  '<rect x="6" y="66" width="98" height="8" rx="2" fill="#c08552" stroke="#2b2d42" stroke-width="2"/><rect x="70" y="74" width="28" height="15" fill="#e0b083" stroke="#2b2d42" stroke-width="2"/><path d="M80 81h8" stroke="#2b2d42" stroke-width="2" stroke-linecap="round"/><path d="M12 74V118M98 89V118" stroke="#2b2d42" stroke-width="5" stroke-linecap="round"/>'+
+  '<rect x="112" y="86" width="48" height="7" rx="2" fill="#7aa6ff" stroke="#2b2d42" stroke-width="2"/><rect x="154" y="52" width="7" height="36" rx="2" fill="#7aa6ff" stroke="#2b2d42" stroke-width="2"/><path d="M117 93V118M157 93V118" stroke="#2b2d42" stroke-width="4" stroke-linecap="round"/>';
+ cfg.forEach(function(o){var p=by(RPOS,o.p);s+='<g transform="translate('+p.x+','+p.y+') scale(1.2)">'+ritem(o.i,by(RCOLS,o.c).h)+'</g>';});
+ return s+'</svg>';
+}
+function roomSent(o){return "The "+o.c+" "+o.i+" is "+by(RPOS,o.p).t+".";}
+function roomZh(o){return by(RCOLS,o.c).m+"的"+by(RITEMS,o.i).m+"在"+by(RPOS,o.p).m;}
+/* 換位置：「在地板上」的東西不能換到桌子、椅子底下（那樣也算在地板上，會有兩個答案） */
+function altPos(p,avoid,rnd){var c=RPOS.filter(function(x){return x.k!==p&&x.k!==avoid&&!(p==="onfloor"&&/^under/.test(x.k));});return pick(c,1,rnd)[0].k;}
+function altCol(c,rnd){return pick(RCOLS.filter(function(x){return x.k!==c;}),1,rnd)[0].k;}
+function roomRound(rnd){
+ rnd=rnd||Math.random;var its=pick(RITEMS,2,rnd),ps=pick(RPOS,2,rnd);
+ var t=[{i:its[0].k,c:pick(RCOLS,1,rnd)[0].k,p:ps[0].k},{i:its[1].k,c:pick(RCOLS,1,rnd)[0].k,p:ps[1].k}];
+ function cp(x){return [{i:x[0].i,c:x[0].c,p:x[0].p},{i:x[1].i,c:x[1].c,p:x[1].p}];}
+ var d1=cp(t),d2=cp(t),d3=cp(t),j=rnd()<0.5?0:1;
+ d1[0].p=altPos(t[0].p,t[1].p,rnd);d2[1].p=altPos(t[1].p,t[0].p,rnd);d3[j].c=altCol(t[j].c,rnd);
+ var rooms=shuffle([t,d1,d2,d3],rnd);
+ return {rooms:rooms,ans:rooms.indexOf(t),sents:[roomSent(t[0]),roomSent(t[1])],target:t};
+}
+function roomFits(cfg,t){return [0,1].every(function(j){return cfg[j].i===t[j].i&&cfg[j].c===t[j].c&&cfg[j].p===t[j].p;});}
+/* 選錯時的說明：這個房間哪裡跟句子不一樣 */
+function roomWhy(cfg,t,letter){for(var j=0;j<2;j++)if(cfg[j].c!==t[j].c||cfg[j].p!==t[j].p)return "Room "+letter+" 裡，"+roomZh(cfg[j])+"。句子說的是 <b class=\"en\">"+roomSent(t[j])+"</b>";return "";}
+
+/* ---------- 字母拼讀：課本第 78 頁 Play and Say 的 25 個字 ---------- */
+var PH=[
+ {w:"hop",v:"so"},{w:"rob",v:"so"},{w:"cod",v:"so"},{w:"pop",v:"so"},{w:"not",v:"so"},{w:"mom",v:"so"},
+ {w:"bone",v:"oe"},{w:"cone",v:"oe"},{w:"robe",v:"oe"},{w:"code",v:"oe"},{w:"joke",v:"oe"},{w:"hope",v:"oe"},
+ {w:"hug",v:"su"},{w:"duck",v:"su"},{w:"tub",v:"su"},{w:"gum",v:"su"},{w:"cub",v:"su"},{w:"cut",v:"su"},
+ {w:"tube",v:"ue"},{w:"mute",v:"ue"},{w:"cute",v:"ue"},{w:"puke",v:"ue"},{w:"mule",v:"ue"},{w:"tune",v:"ue"},{w:"cube",v:"ue"}
+];
+var VOW=[{k:"so",n:"短母音 o",ex:"hop 的 o"},{k:"oe",n:"長母音 o_e",ex:"hope 的 o"},{k:"su",n:"短母音 u",ex:"cub 的 u"},{k:"ue",n:"長母音 u_e",ex:"cube 的 u"}];
+/* 加 e 前後的配對（從上面 25 個字裡自己挑的） */
+var MAGIC=[{a:"hop",b:"hope"},{a:"rob",b:"robe"},{a:"cod",b:"code"},{a:"cub",b:"cube"},{a:"cut",b:"cute"},{a:"tub",b:"tube"}];
+function vowOf(w){for(var i=0;i<PH.length;i++)if(PH[i].w===w)return PH[i].v;return "";}
+function phonQ(rnd){
+ rnd=rnd||Math.random;var long=rnd()<0.5,isL=function(p){return p.v==="oe"||p.v==="ue";};
+ var a=pick(PH.filter(function(p){return isL(p)===long;}),1,rnd)[0],o=pick(PH.filter(function(p){return isL(p)!==long;}),2,rnd);
+ return {type:"phon",q:long?"哪一個字有 Magic e，母音念字母的名字？":"哪一個字的母音念短母音（字尾沒有 Magic e）？",a:a.w,o:shuffle([a.w,o[0].w,o[1].w],rnd)};
+}
+function pairQ(rnd,m){
+ rnd=rnd||Math.random;m=m||pick(MAGIC,1,rnd)[0];var a=rnd()<0.5?m.a:m.b;
+ return {type:"pair",lis:1,duo:1,q:"🔊 聽一聽，念的是哪一個字？",ask:"是這兩個字的哪一個？",a:a,o:shuffle([m.a,m.b],rnd),speak:a,tip:a===m.b?"（字尾有 Magic e，母音念字母的名字）":"（字尾沒有 e，母音念短短的）"};
+}
+/* 三連線：5×5 的格子裡，所有「連續三格」的組合 */
+function triples(){var t=[],r,c;for(r=0;r<5;r++)for(c=0;c<5;c++){if(c<3)t.push([r*5+c,r*5+c+1,r*5+c+2]);if(r<3)t.push([r*5+c,(r+1)*5+c,(r+2)*5+c]);if(r<3&&c<3){t.push([r*5+c,(r+1)*5+c+1,(r+2)*5+c+2]);t.push([r*5+c+2,(r+1)*5+c+1,(r+2)*5+c]);}}return t;}
+function lineOf(mine){var t=triples();for(var i=0;i<t.length;i++)if(mine[t[i][0]]&&mine[t[i][1]]&&mine[t[i][2]])return t[i];return null;}
+
+/* ---------- Let's Write：城鎮的圖自己畫；哪個城鎮發生什麼事每次隨機產生 ---------- */
+var DIS=[{k:"earthquake",art:"an",m:"地震"},{k:"fire",art:"a",m:"火災"},{k:"flood",art:"a",m:"水災"},{k:"mudslide",art:"a",m:"土石流"},{k:"blackout",art:"a",m:"停電"}];
+var WX=[{k:"rainy",m:"下雨的",e:"🌧️"},{k:"windy",m:"颳風的",e:"🌬️"},{k:"cold",m:"冷的",e:"🥶"},{k:"hot",m:"熱的",e:"🥵"},{k:"dark",m:"暗的",e:"🌑"}];
+function disBy(k){return by(DIS,k);}
+function wxBy(k){return by(WX,k);}
+/* 每一種災害可以搭配的天氣（一個或兩個） */
+var SCENES=[{d:"fire",w:["hot"]},{d:"fire",w:["windy"]},{d:"fire",w:["hot","windy"]},{d:"blackout",w:["dark"]},{d:"flood",w:["rainy"]},{d:"flood",w:["rainy","cold"]},
+ {d:"mudslide",w:["rainy"]},{d:"mudslide",w:["rainy","windy"]},{d:"earthquake",w:["cold"]},{d:"earthquake",w:["hot"]},{d:"earthquake",w:["windy"]}];
+var K='stroke="#2b2d42" stroke-width="2" stroke-linejoin="round"';
+var TART={
+ fire:'<rect y="104" width="200" height="26" fill="#9bc98a"/><path d="M118 34q14-6 20-20M140 40q16-2 26-14" fill="none" stroke="#8d99ae" stroke-width="7" stroke-linecap="round" stroke-opacity=".75"/>'+
+  '<rect x="68" y="62" width="64" height="44" fill="#e9c49a" '+K+'/><rect x="78" y="74" width="16" height="16" fill="#ffd166" '+K+'/><rect x="106" y="74" width="16" height="32" fill="#7a4a2a" '+K+'/>'+
+  '<path d="M60 64L100 36l40 28Z" fill="#a0522d" '+K+'/>'+
+  '<path d="M72 64q-9-20 4-34 1 12 9 14-3-20 11-32 2 18 12 24 4-9 1-18 16 16 10 46Z" fill="#ff5a1f" stroke="#c1121f" stroke-width="2" stroke-linejoin="round"/><path d="M86 64q-3-12 5-20 1 8 7 10-1-10 6-16 2 10 7 14 3 6 1 12Z" fill="#ffd166"/>'+
+  '<path d="M80 90q-3-8 2-13 1 5 4 6 0-6 4-9 1 6 4 9 1 4 0 7Z" fill="#ff5a1f"/>',
+ blackout:'<rect y="106" width="200" height="24" fill="#111a33"/><g fill="#fff"><circle cx="24" cy="18" r="1.6"/><circle cx="60" cy="10" r="1.3"/><circle cx="118" cy="14" r="1.6"/><circle cx="150" cy="24" r="1.3"/><circle cx="186" cy="12" r="1.6"/></g>'+
+  '<rect x="18" y="50" width="40" height="58" fill="#2f3a5f" stroke="#0b1020" stroke-width="2"/><rect x="66" y="30" width="48" height="78" fill="#354270" stroke="#0b1020" stroke-width="2"/><rect x="122" y="56" width="58" height="52" fill="#2f3a5f" stroke="#0b1020" stroke-width="2"/>'+
+  '<g fill="#0b1020"><rect x="25" y="58" width="10" height="12"/><rect x="41" y="58" width="10" height="12"/><rect x="25" y="78" width="10" height="12"/><rect x="41" y="78" width="10" height="12"/><rect x="74" y="38" width="12" height="13"/><rect x="94" y="38" width="12" height="13"/><rect x="74" y="59" width="12" height="13"/><rect x="74" y="80" width="12" height="13"/><rect x="94" y="80" width="12" height="13"/><rect x="130" y="64" width="12" height="12"/><rect x="148" y="64" width="12" height="12"/><rect x="130" y="84" width="12" height="12"/><rect x="148" y="84" width="12" height="12"/><rect x="164" y="64" width="10" height="12"/></g>'+
+  '<rect x="94" y="59" width="12" height="13" fill="#ffd166"/><rect x="98.5" y="65" width="3" height="7" fill="#fff"/><path d="M100 60q2.5 3 0 5-2.5-2 0-5Z" fill="#ff7b00"/>',
+ flood:'<rect x="22" y="54" width="52" height="50" fill="#ffd6a5" '+K+'/><path d="M16 56L48 32l32 24Z" fill="#c1121f" '+K+'/><rect x="34" y="64" width="14" height="14" fill="#bde0fe" '+K+'/>'+
+  '<rect x="114" y="60" width="58" height="46" fill="#caffbf" '+K+'/><path d="M108 62L143 38l35 24Z" fill="#6d597a" '+K+'/><rect x="134" y="68" width="14" height="14" fill="#bde0fe" '+K+'/>'+
+  '<path d="M0 88q12.5-9 25 0t25 0 25 0 25 0 25 0 25 0 25 0 25 0V130H0Z" fill="#3a86ff" stroke="#1d4ed8" stroke-width="2"/><path d="M10 106q8-5 16 0t16 0M96 114q8-5 16 0t16 0M150 104q8-5 16 0t16 0" fill="none" stroke="#bfdbfe" stroke-width="2.5" stroke-linecap="round"/>'+
+  '<path d="M82 86h22l-3-8h-14Z" fill="#ffd166" '+K+'/>',
+ mudslide:'<path d="M0 130V74Q56 22 126 40L200 92V130Z" fill="#74a57f"/><path d="M150 62l8-16 8 16ZM170 76l7-14 7 14ZM18 76l7-14 7 14Z" fill="#2d6a4f"/>'+
+  '<path d="M70 36Q104 58 96 84T128 130H34Q70 104 60 78T70 36Z" fill="#8b5e34" stroke="#5c3d1e" stroke-width="2" stroke-linejoin="round"/>'+
+  '<g fill="#9aa0a6" stroke="#2b2d42" stroke-width="1.5"><circle cx="78" cy="66" r="7"/><circle cx="70" cy="96" r="6"/><circle cx="96" cy="112" r="8"/><circle cx="56" cy="118" r="5"/></g>'+
+  '<g transform="rotate(9 140 112)"><rect x="118" y="94" width="38" height="28" fill="#ffd6a5" '+K+'/><path d="M112 96L137 76l25 20Z" fill="#c1121f" '+K+'/></g>',
+ earthquake:'<rect y="100" width="200" height="30" fill="#c9b79c"/><g transform="rotate(-9 60 102)"><rect x="38" y="44" width="44" height="58" fill="#bde0fe" '+K+'/><g fill="#fff" stroke="#2b2d42" stroke-width="1.2"><rect x="45" y="52" width="11" height="11"/><rect x="63" y="52" width="11" height="11"/><rect x="45" y="72" width="11" height="11"/><rect x="63" y="72" width="11" height="11"/></g></g>'+
+  '<g transform="rotate(8 142 102)"><rect x="120" y="60" width="46" height="42" fill="#ffd6a5" '+K+'/><path d="M114 62L143 40l29 22Z" fill="#c1121f" '+K+'/><rect x="136" y="78" width="13" height="24" fill="#7a4a2a" '+K+'/></g>'+
+  '<path d="M0 114l28-7 18 11 26-13 24 13 26-11 24 11 28-9 26 8" fill="none" stroke="#2b2d42" stroke-width="3.5" stroke-linejoin="round"/><path d="M96 118l-8 12M146 116l8 14" fill="none" stroke="#2b2d42" stroke-width="2.5"/>'+
+  '<path d="M20 46q-6 9 0 18M11 42q-9 13 0 26M180 50q6 9 0 18M189 46q9 13 0 26" fill="none" stroke="#2b2d42" stroke-width="2.5" stroke-linecap="round"/>'
+};
+function town(sc){
+ var w=sc.w||[],has=function(x){return w.indexOf(x)>=0;},dark=sc.d==="blackout",rain=has("rainy")||(!w.length&&(sc.d==="flood"||sc.d==="mudslide"));
+ var sky=dark?"#1b2340":rain?"#a9b8c8":has("hot")?"#ffe3b3":has("cold")?"#e3ecf9":"#cfe8ff";
+ var s='<svg class="town" viewBox="0 0 200 130" aria-hidden="true"><rect width="200" height="130" fill="'+sky+'"/>';
+ if(has("hot"))s+='<circle cx="176" cy="24" r="14" fill="#ff9f1c"/><path d="M176 4v-4M196 24h4M190 10l3-3M190 38l3 3M162 38l-3 3" stroke="#ff9f1c" stroke-width="3" stroke-linecap="round"/>';
+ s+=TART[sc.d];
+ if(rain)s+='<path d="M64 10l-5 12M92 6l-5 12M120 12l-5 12M150 6l-5 12M178 14l-5 12M194 40l-5 12M106 30l-5 12M162 34l-5 12M12 56l-5 12" stroke="#3a6ea5" stroke-width="2.5" stroke-linecap="round"/>';
+ if(has("cold"))s+='<g fill="#fff" stroke="#8fa8c9" stroke-width="1"><circle cx="70" cy="14" r="3.5"/><circle cx="104" cy="26" r="3"/><circle cx="136" cy="12" r="3.5"/><circle cx="170" cy="30" r="3"/><circle cx="190" cy="56" r="3.5"/><circle cx="14" cy="60" r="3"/><circle cx="100" cy="52" r="3"/></g>';
+ if(has("windy"))s+='<path d="M70 14h46q9 0 7-8M84 26h70q9 0 7 8M150 48h34q8 0 6-7" fill="none" stroke="#5b7fa6" stroke-width="3.5" stroke-linecap="round"/>';
+ if(w.length){s+='<rect x="4" y="4" width="'+(w.length*36+8)+'" height="40" rx="12" fill="#fff" fill-opacity=".93" stroke="#2b2d42" stroke-width="1.5"/>';
+  w.forEach(function(x,i){s+='<text x="'+(26+i*36)+'" y="34" font-size="28" text-anchor="middle">'+wxBy(x).e+'</text>';});}
+ return s+'</svg>';
+}
+function msgLines(sc,letter){var d=disBy(sc.d);return ["Help! There's "+d.art+" "+d.k+"!","It's "+sc.w.join(" and ")+" now!","Please hurry! I'm in Town "+(letter||"___")+"."];}
+function msgText(sc,letter){return msgLines(sc,letter).join(" ");}
+function sameScene(a,b){return a.d===b.d&&a.w.join()===b.w.join();}
+/* 這個城鎮符合訊息嗎：災害一樣，而且訊息說的天氣圖上都有 */
+function fits(sc,t){return sc.d===t.d&&t.w.every(function(x){return sc.w.indexOf(x)>=0;});}
+/* 讀訊息猜城鎮：3 個城鎮，只有一個符合 */
+function guessRound(rnd){
+ rnd=rnd||Math.random;var t=pick(SCENES,1,rnd)[0],ds=[];
+ var same=SCENES.filter(function(s){return s.d===t.d&&!fits(s,t);});
+ if(same.length&&rnd()<0.7)ds.push(pick(same,1,rnd)[0]);
+ shuffle(SCENES.filter(function(s){return s.d!==t.d;}),rnd).forEach(function(s){if(ds.length<2&&!ds.some(function(x){return x.d===s.d;}))ds.push(s);});
+ var towns=shuffle([t].concat(ds),rnd);
+ return {towns:towns,ans:towns.indexOf(t),target:t};
+}
+function guessWhy(sc,t,letter){var d=disBy(sc.d);
+ if(sc.d!==t.d)return "Town "+letter+" 發生的是"+d.m+"（"+d.k+"），訊息說的是 <b class=\"en\">"+t.d+"</b>（"+disBy(t.d).m+"）。";
+ var x=t.w.filter(function(k){return sc.w.indexOf(k)<0;})[0];return "Town "+letter+" 也是"+d.m+"，可是圖上沒有 <b class=\"en\">"+x+"</b>（"+wxBy(x).m+"）的小圖示。";}
+/* 寫訊息：4 個城鎮，災害都不一樣 */
+function writeTowns(rnd){rnd=rnd||Math.random;return pick(DIS,4,rnd).map(function(d){return pick(SCENES.filter(function(s){return s.d===d.k;}),1,rnd)[0];});}
+/* 把打字的天氣拆成單字：hot and windy → [hot, windy] */
+function parseWx(s){return String(s||"").toLowerCase().replace(/[.!,&]/g," ").split(/\s+/).filter(function(x){return x&&x!=="and";});}
+/* 檢查寫的訊息：回傳要提醒的地方（空陣列＝全對）。st={art,dis,wx:[],town} */
+function checkMsg(sc,letter,st){var e=[],d=disBy(st.dis);
+ if(!st.dis)e.push("還沒寫發生了什麼事（藍色的格子）。");
+ else if(!d)e.push("藍色格子的「"+st.dis+"」再檢查一下拼字，可以看上面的字卡。");
+ else{
+  if(st.dis!==sc.d)e.push("看看圖：這個城鎮發生的是"+disBy(sc.d).m+"，不是 "+st.dis+"（"+d.m+"）。");
+  if(!st.art)e.push("粉紅色的格子還沒寫 a 或 an。");
+  else if(st.art!=="a"&&st.art!=="an")e.push("粉紅色的格子只能寫 a 或 an。");
+  else if(st.art!==d.art)e.push(d.art==="an"?"earthquake 是母音 e 開頭，前面要用 an。":st.dis+" 前面要用 a（an 是給母音開頭的字用的）。");
+ }
+ if(!st.wx.length)e.push("還沒寫現在的天氣（綠色的格子）。");
+ else st.wx.forEach(function(x){if(!wxBy(x))e.push("綠色格子的「"+x+"」再檢查一下拼字。");else if(sc.w.indexOf(x)<0)e.push("圖上的小圖示沒有 "+x+"（"+wxBy(x).m+"），再看一次圖。");});
+ if(!st.town)e.push("還沒寫你在哪個城鎮（黃色的格子）。");
+ else if(st.town!==letter)e.push("你選的是 Town "+letter+"，不是 Town "+st.town+"。");
+ return e;}
+function helpQ(rnd){
+ rnd=rnd||Math.random;var t=pick(SCENES,1,rnd)[0],L=msgLines(t,"A"),askD=rnd()<0.6,o,a;
+ if(askD){a=disBy(t.d).m;o=[a].concat(pick(DIS.filter(function(d){return d.k!==t.d;}),2,rnd).map(function(d){return d.m;}));}
+ else{a=wxBy(t.w[0]).m;o=[a].concat(pick(WX.filter(function(x){return t.w.indexOf(x.k)<0;}),2,rnd).map(function(x){return x.m;}));}
+ return {type:"help",pre:'<div class="dia en">'+L[0]+'<br>'+L[1]+'</div>',q:askD?"發生了什麼事？":"現在的天氣（或亮暗）怎麼樣？"+(t.w.length>1?"（選一個對的）":""),a:a,o:shuffle(o,rnd),speak:L[0]+" "+L[1],tip:'<b class="en">'+(askD?t.d:t.w[0])+'</b>＝'+a};
+}
+
+/* ---------- 一般題目 ---------- */
+function wordQ(kind,wd,rnd){
+ rnd=rnd||Math.random;var others=pick(WORDS.filter(function(x){return x.w!==wd.w&&x.u===wd.u;}),2,rnd),q,a,o;
+ if(kind==="pic"){q='<span class="emo">'+pic(wd.w)+'</span><br>這是哪個字？';a=wd.w;o=[wd.w].concat(others.map(function(x){return x.w;}));}
+ else if(kind==="zh"){q="「"+wd.m+"」的英文是？";a=wd.w;o=[wd.w].concat(others.map(function(x){return x.w;}));}
+ else {q="🔊 聽一聽，是哪一張圖？";a="pic:"+wd.w;o=[a].concat(others.map(function(x){return "pic:"+x.w;}));}
+ return {type:kind==="listen"?"listen":"word",lis:kind==="listen"?1:0,ask:"是哪一張圖？",w:wd.w,q:q,a:a,o:shuffle(o,rnd),speak:kind==="listen"?wd.w:null};
+}
+function replyQ(rnd,r){rnd=rnd||Math.random;r=r||pick(REPLY,1,rnd)[0];
+ return {type:"reply",pre:r.k==="b"?'<div class="dia en">A: '+r.a+'<br>B: <span class="blank"></span></div>':'<div class="dia en">A: <span class="blank"></span><br>B: '+r.b+'</div>',q:r.k==="b"?"B 要怎麼回答？":"A 問了什麼？",a:r.ans,o:shuffle(r.o,rnd),speak:r.k==="b"?r.a:r.b};}
+function gramQ(rnd,g){rnd=rnd||Math.random;g=g||pick(GRAM,1,rnd)[0];
+ return {type:"gram",q:'<span class="en">'+g.q+'</span>',a:g.a,o:shuffle(g.o,rnd),tip:g.t};}
+function dailyQ(rnd,d){rnd=rnd||Math.random;d=d||pick(DAILY,1,rnd)[0];var others=pick(DAILY.filter(function(x){return x.p!==d.p;}),2,rnd);
+ return {type:"daily",q:"情境："+d.s+"<br>這時候可以說什麼？",a:d.p,o:shuffle([d.p].concat(others.map(function(x){return x.p;})),rnd),tip:"（"+d.m+"）"};}
+function makeChallenge(rnd){
+ rnd=rnd||Math.random;var out=[],w3=pick(WORDS.filter(function(w){return w.u===3;}),2,rnd),w4=pick(WORDS.filter(function(w){return w.u===4;}),1,rnd),r=pick(REPLY,2,rnd),g=pick(GRAM,2,rnd);
+ out.push(wordQ("pic",w3[0],rnd));out.push(wordQ("zh",w4[0],rnd));out.push(wordQ("listen",w3[1],rnd));
+ out.push(replyQ(rnd,r[0]));out.push(replyQ(rnd,r[1]));out.push(gramQ(rnd,g[0]));out.push(gramQ(rnd,g[1]));
+ out.push(dailyQ(rnd));out.push(markQ(rnd));out.push(phonQ(rnd));out.push(pairQ(rnd));out.push(helpQ(rnd));
+ return shuffle(out,rnd);
+}
+function tiles(word,rnd){rnd=rnd||Math.random;var letters=word.split(""),pool="abcdefghijklmnopqrstuvwxyz".split("").filter(function(c){return word.indexOf(c)<0;});
+ return shuffle(letters.concat(pick(pool,2,rnd)),rnd);}
+function tokens(s){return s.replace(/([?.!])$/," $1").split(" ");}
+function stars(correct,total){if(!total)return 0;var r=correct/total;return r>=1?3:r>=0.7?2:r>=0.4?1:0;}
+var BADGES=[
+ {id:"words",n:"🃏 單字收集家",d:"12 張單字卡都聽過"},
+ {id:"spell",n:"🔡 拼字小高手",d:"12 個單字都拼對過"},
+ {id:"reply",n:"💬 對話小達人",d:"對話接接看全對"},
+ {id:"gram",n:"📖 文法小偵探",d:"讀一讀選答案全對"},
+ {id:"mark",n:"⭕ 聽力小法官",d:"「一樣嗎」全對"},
+ {id:"room",n:"🏠 房間小偵探",d:"「我在哪個房間」全對"},
+ {id:"sort",n:"🪄 Magic e 魔法師",d:"母音分一分全對"},
+ {id:"bingo",n:"🎯 三連線高手",d:"完成一次三連線"},
+ {id:"guess",n:"🚒 救援小隊長",d:"讀訊息猜城鎮全對"},
+ {id:"write",n:"✍️ 求救小作家",d:"寫出 3 則求救訊息"},
+ {id:"champ",n:"🏆 Review 2 小考王",d:"小考答對 11 題以上"}
+];
+function badges(st){var g={};st=st||{};var p=st.perfect||{};
+ if(st.heard&&WORDS.every(function(w){return st.heard[w.w];}))g.words=1;
+ if(st.spelled&&WORDS.every(function(w){return st.spelled[w.w];}))g.spell=1;
+ ["reply","gram","mark","room","sort","guess"].forEach(function(k){if(p[k])g[k]=1;});
+ if(st.bingoDone>=1)g.bingo=1;if(st.writeDone>=3)g.write=1;if(st.chBest>=11)g.champ=1;return g;}
+return {PIC:PIC,pic:pic,WORDS:WORDS,LW:LW,REPLY:REPLY,GRAM:GRAM,ORDER:ORDER,DAILY:DAILY,POS:POS,ITEMS:ITEMS,RITEMS:RITEMS,RCOLS:RCOLS,RPOS:RPOS,LET:LET,PH:PH,VOW:VOW,MAGIC:MAGIC,DIS:DIS,WX:WX,SCENES:SCENES,BADGES:BADGES,YES:YES,NO:NO,
+ shuffle:shuffle,pick:pick,wordBy:wordBy,where:where,at:at,isAt:isAt,scene:scene,markQ:markQ,room:room,roomSent:roomSent,roomRound:roomRound,roomFits:roomFits,roomWhy:roomWhy,
+ vowOf:vowOf,phonQ:phonQ,pairQ:pairQ,triples:triples,lineOf:lineOf,disBy:disBy,wxBy:wxBy,town:town,msgLines:msgLines,msgText:msgText,sameScene:sameScene,fits:fits,guessRound:guessRound,guessWhy:guessWhy,
+ writeTowns:writeTowns,parseWx:parseWx,checkMsg:checkMsg,helpQ:helpQ,wordQ:wordQ,replyQ:replyQ,gramQ:gramQ,dailyQ:dailyQ,makeChallenge:makeChallenge,tiles:tiles,tokens:tokens,stars:stars,badges:badges};
+})();
+if(typeof module!=="undefined"&&module.exports)module.exports=Core;
+</script>
+<script>
+(function(){
+"use strict";
+if(typeof document==="undefined")return;
+var $=function(id){return document.getElementById(id);};
+var C=Core,KEY="enWW3R2V1";
+function each(list,fn){Array.prototype.forEach.call(list,fn);}
+function fresh(){return {stars:0,heard:{},spelled:{},perfect:{},best:{},orderDone:0,sortDone:0,bingoDone:0,bingoBest:0,writeDone:0,typeDone:0,famDone:0,msgs:[],wMode:"tap",chBest:0,slow:false,bad:{}};}
+var store=fresh();
+try{var raw=localStorage.getItem(KEY);if(raw){var o=JSON.parse(raw);for(var k in o)store[k]=o[k];}}catch(e){}
+if(!Array.isArray(store.msgs))store.msgs=[];
+function save(){try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
+var TN={word:"🃏 單字",listen:"👂 聽單字",spell:"🔡 拼字",reply:"💬 對話接接看",gram:"📖 讀一讀選答案",order:"🧱 句子重組",daily:"🗣️ 生活用語",mark:"⭕ 聽一聽：一樣嗎",room:"🏠 我在哪個房間",sort:"🧺 母音分一分",phon:"🔤 Magic e",pair:"👂 聽音二選一",bingo:"🎯 三連線",guess:"🔍 讀訊息猜城鎮",help:"🆘 求救訊息",write:"✍️ 寫求救訊息"};
+function miss(t){store.bad[t]=(store.bad[t]||0)+1;save();}
+function best(id,r,n){store.best[id]=Math.max(store.best[id]||0,r);if(r===n)store.perfect[id]=1;save();}
+function renderScore(){$("score").textContent="⭐ "+store.stars;}
+function addStars(n,el){if(n<=0)return;store.stars+=n;save();renderScore();var sc=$("score");sc.classList.remove("pop");void sc.offsetWidth;sc.classList.add("pop");
+  if(el&&el.getBoundingClientRect){var r=el.getBoundingClientRect();for(var i=0;i<6;i++){var s=document.createElement("div");s.className="burst";s.textContent=["⭐","✨","🌟"][i%3];
+    s.style.left=(r.left+r.width/2)+"px";s.style.top=(r.top+20)+"px";s.style.setProperty("--dx",(Math.random()*160-80)+"px");s.style.setProperty("--dy",(-60-Math.random()*120)+"px");
+    document.body.appendChild(s);setTimeout(function(x){return function(){if(x.parentNode)x.parentNode.removeChild(x);};}(s),1200);}}}
+var actx=null;function beep(good){try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();(good?[660,880]:[260]).forEach(function(f,i){var o=actx.createOscillator(),g=actx.createGain();o.frequency.value=f;o.type="triangle";g.gain.setValueAtTime(.08,actx.currentTime+i*.08);g.gain.exponentialRampToValueAtTime(.001,actx.currentTime+i*.08+.2);o.connect(g);g.connect(actx.destination);o.start(actx.currentTime+i*.08);o.stop(actx.currentTime+i*.08+.22);});}catch(e){}}
+
+/* ---------- 英文發音（en-US），沒有語音時優雅退回 ---------- */
+var canSpeak=!!(window.speechSynthesis&&window.SpeechSynthesisUtterance),enVoice=null;
+function note(msg){var n=$("voiceNote");if(!msg){n.className="notice hidden";return;}n.className="notice";n.innerHTML=msg;}
+function findVoice(){
+  if(!canSpeak)return;var vs=[];try{vs=speechSynthesis.getVoices()||[];}catch(e){}
+  if(!vs.length)return;enVoice=null;
+  for(var i=0;i<vs.length;i++){if(/^en[-_]US/i.test(vs[i].lang)){enVoice=vs[i];break;}}
+  if(!enVoice)for(var j=0;j<vs.length;j++){if(/^en/i.test(vs[j].lang)){enVoice=vs[j];break;}}
+  if(!enVoice)note("🔈 這台裝置好像沒有英文語音，念出來可能不標準。可以到平板的「設定 → 語言與輸入／朗讀」下載英文（美國）語音，或用課本 CD／Super 電子書聽發音。");
+  else note("");
+}
+if(!canSpeak)note("🔇 這個瀏覽器不能朗讀英文。聽力題會改成「看字作答」，發音請聽課本 CD／Super 電子書。");
+else{findVoice();try{speechSynthesis.onvoiceschanged=findVoice;}catch(e){}}
+function say(t){
+  if(!canSpeak)return false;
+  try{speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(String(t).replace(/<[^>]+>/g,""));u.lang="en-US";if(enVoice)u.voice=enVoice;u.rate=store.slow?.6:.85;speechSynthesis.speak(u);return true;}catch(e){return false;}
+}
+$("slowChk").checked=!!store.slow;
+$("slowChk").addEventListener("change",function(){store.slow=$("slowChk").checked;save();say("Where's the eraser?");});
+$("testVoice").addEventListener("click",function(){if(!say("Hello! Is this your pencil? Where's the eraser?"))note("🔇 這個瀏覽器不能朗讀英文，請用課本 CD／Super 電子書聽發音。");});
+function bindSay(root){each((root||document).querySelectorAll("[data-say]"),function(b){if(b.getAttribute("data-bound"))return;b.setAttribute("data-bound","1");b.addEventListener("click",function(){say(b.getAttribute("data-say"));});});}
+
+function goTab(p){each(document.querySelectorAll("#tabs button"),function(x){x.classList.toggle("on",x.getAttribute("data-p")===p);});
+  each(document.querySelectorAll("section.page"),function(s){s.classList.toggle("active",s.id===p);});
+  if(p==="p-rec")renderRec();
+  var rb=document.querySelector("#"+p+" .rep");if(rb&&rb.textContent.indexOf("再聽")>=0)setTimeout(function(){rb.click();},300);window.scrollTo(0,0);}
+each(document.querySelectorAll("#tabs button"),function(b){b.addEventListener("click",function(){goTab(b.getAttribute("data-p"));});});
+
+/* ---------- 通用測驗：選項可以是圖（pic:單字）；lis＝聽力題；pre＝題目上方的圖或對話；duo＝兩個選項排一排 ---------- */
+var sayT=null;
+function runQuiz(boxId,make,opt){
+  var box=$(boxId),items=[],i=0,right=0,answered=false;
+  function start(){items=make();i=0;right=0;draw();}
+  function draw(){
+    clearTimeout(sayT);var it=items[i],h='<div class="prog">';
+    for(var k=0;k<items.length;k++)h+='<i class="'+(k<i?(items[k].ok?"ok":"no"):k===i?"cur":"")+'"></i>';
+    var q=it.q;
+    if(it.speak&&it.lis&&!canSpeak)q="👀 看字作答：<b class=\"en\">"+it.speak+"</b><br>"+(it.ask||"是哪一個？");
+    h+='</div>'+(it.pre||"")+'<div class="q">'+q+'</div>';
+    if(it.speak&&canSpeak)h+='<div class="btns cen"><button class="btn purple rep">🔊 '+(it.lis?"再聽一次":"聽題目")+'</button></div>';
+    h+='<div class="choices'+(it.duo?" duo":"")+'"></div><div class="fb"></div><div class="btns cen"><button class="btn org hidden nx">下一題 ➜</button></div>';
+    box.innerHTML=h;answered=false;
+    var ch=box.querySelector(".choices");
+    it.o.forEach(function(op){var b=document.createElement("button");var isPic=op.indexOf("pic:")===0;b.className="btn"+(isPic?" emo":/^[A-Za-z]/.test(op)?" en":"");if(isPic){b.innerHTML=C.pic(op.slice(4));b.setAttribute("aria-label",C.wordBy(op.slice(4)).m);}else b.textContent=op;b.setAttribute("data-v",op);
+      b.addEventListener("click",function(){pickAns(b,op);});ch.appendChild(b);});
+    var rep=box.querySelector(".rep");if(rep)rep.addEventListener("click",function(){say(it.speak);});
+    if(it.speak&&it.lis&&canSpeak&&box.offsetParent)say(it.speak);
+    box.querySelector(".nx").addEventListener("click",function(){i++;if(i<items.length)draw();else finish();});
+  }
+  function pickAns(b,op){
+    if(answered)return;answered=true;var it=items[i],ok=op===it.a,f=box.querySelector(".fb");it.ok=ok;
+    each(box.querySelectorAll(".choices .btn"),function(x){var v=x.getAttribute("data-v");if(v===it.a)x.classList.add("ok");x.disabled=x!==b&&v!==it.a;});
+    var wd=it.w&&C.wordBy(it.w),extra=wd?' <b class="en">'+wd.w+'</b>（'+wd.m+'）':"";
+    var ans=it.a.indexOf("pic:")===0?C.wordBy(it.a.slice(4)).w:it.a;
+    if(ok){right++;b.classList.add("ok");beep(true);addStars(1,b);f.className="fb show good";f.innerHTML="✅ 答對了！"+extra+(it.tip?" "+it.tip:"");}
+    else{b.classList.add("no");beep(false);miss(it.type||opt.type);f.className="fb show bad";f.innerHTML="再想想：正確答案是「<b>"+ans+"</b>」。"+extra+(it.tip?" "+it.tip:"");}
+    clearTimeout(sayT);if(/^[A-Za-z]/.test(ans))sayT=setTimeout(function(){say(ans);},250);
+    var nx=box.querySelector(".nx");nx.textContent=i<items.length-1?"下一題 ➜":"看成績 🎉";nx.classList.remove("hidden");
+  }
+  function finish(){
+    var st=C.stars(right,items.length);addStars(st,box);
+    if(opt.id)best(opt.id,right,items.length);
+    if(opt.onDone)opt.onDone(right,items.length);
+    box.innerHTML='<div class="done">🎉 答對 <b>'+right+'</b> / '+items.length+' 題　'+(st?"再加 "+st+" 顆星！":"")+'<br>'+(right===items.length?"全對！Great job!":"錯的地方再聽一次、看一次，再挑戰一次吧！")+'</div><div class="btns cen"><button class="btn purple again">🔄 再玩一次</button></div>';
+    box.querySelector(".again").addEventListener("click",start);
+  }
+  start();
+  return {restart:start};
+}
+function nOf(fn,n){return function(){var a=[];for(var k=0;k<n;k++)a.push(fn());return a;};}
+function prog(n,i,arr){var h='<div class="prog">';for(var k=0;k<n;k++)h+='<i class="'+(k<i?(arr&&arr[k]===false?"no":"ok"):k===i?"cur":"")+'"></i>';return h+'</div>';}
+
+/* ---------- 單字卡 ---------- */
+function cardHtml(w,ext){return '<button class="vcard'+(ext?" ext":"")+(store.heard[w.w]?" heard":"")+'" data-w="'+w.w+'"><span class="emo">'+C.pic(w.w)+'</span><span class="w en">'+w.w+'</span><span class="m">'+w.m+'</span></button>';}
+function renderCards(){
+  $("vGrid3").innerHTML=C.WORDS.filter(function(w){return w.u===3;}).map(function(w){return cardHtml(w,false);}).join("");
+  $("vGrid4").innerHTML=C.WORDS.filter(function(w){return w.u===4;}).map(function(w){return cardHtml(w,false);}).join("");
+  $("lwGrid").innerHTML=C.LW.map(function(w){return cardHtml(w,true);}).join("");
+  each(document.querySelectorAll(".vcard"),function(b){b.addEventListener("click",function(){var w=C.wordBy(b.getAttribute("data-w")),main=C.WORDS.indexOf(w)>=0;say(w.w+". "+w.ex);
+    if(!store.heard[w.w]){store.heard[w.w]=1;save();b.classList.add("heard");if(main&&C.WORDS.every(function(x){return store.heard[x.w];}))addStars(3,b);}});});
+}
+renderCards();
+bindSay();
+runQuiz("wordQ",function(){var ws=C.shuffle(C.WORDS).slice(0,8);return ws.map(function(w,k){return C.wordQ(["pic","zh","listen"][k%3],w);});},{type:"word",id:"word"});
+
+/* ---------- 拼字（每次 6 個字，先出還沒拼對過的） ---------- */
+function startSpell(){
+  var todo=C.shuffle(C.WORDS.filter(function(w){return !store.spelled[w.w];})),rest=C.shuffle(C.WORDS.filter(function(w){return store.spelled[w.w];}));
+  var list=todo.concat(rest).slice(0,6),idx=0,errs=0,box=$("spellBox");
+  function draw(){
+    if(idx>=list.length){var st=errs===0?3:errs<=3?2:1;addStars(st,box);
+      box.innerHTML='<div class="done">🔡 6 個單字都拼好了！錯 '+errs+' 次，得到 '+st+' 顆星。</div><div class="btns cen"><button class="btn purple" id="spAgain">🔄 再拼 6 個</button></div>';
+      $("spAgain").addEventListener("click",startSpell);return;}
+    var w=list[idx],got="",pool=C.tiles(w.w).map(function(t){return {t:t};});
+    function paint(){
+      var h=prog(list.length,idx)+'<div class="big"><span class="emo">'+C.pic(w.w)+'</span><br>'+w.m+'</div><div class="btns cen"><button class="btn white small" id="spSay">🔊 聽發音</button></div><div class="slots en">';
+      for(var k2=0;k2<w.w.length;k2++)h+='<span>'+(k2<got.length?got.charAt(k2):"")+'</span>';
+      h+='</div><div class="tiles en">';pool.forEach(function(p,k){h+='<button class="btn'+(p.used?" used":"")+'" data-k="'+k+'">'+p.t+'</button>';});
+      h+='</div><div class="btns cen"><button class="btn gray small" id="spBack">⌫ 退一格</button></div><div class="fb" id="spFb"></div>';box.innerHTML=h;
+      $("spSay").addEventListener("click",function(){say(w.w);});
+      $("spBack").addEventListener("click",function(){if(!got.length)return;var last=got.charAt(got.length-1);got=got.slice(0,-1);for(var k=pool.length-1;k>=0;k--)if(pool[k].used&&pool[k].t===last){pool[k].used=false;break;}paint();});
+      each(box.querySelectorAll(".tiles .btn"),function(b){b.addEventListener("click",function(){var p=pool[+b.getAttribute("data-k")];if(p.used||got.length>=w.w.length)return;p.used=true;got+=p.t;
+        if(got.length<w.w.length){paint();return;}
+        if(got===w.w){beep(true);say(w.w);store.spelled[w.w]=1;save();paint();var f=$("spFb");f.className="fb show good";f.innerHTML='✅ <b class="en">'+w.w+'</b> 拼對了！';setTimeout(function(){idx++;draw();},1100);}
+        else{beep(false);errs++;miss("spell");paint();var f2=$("spFb");f2.className="fb show bad";f2.innerHTML="拼成 <b class=\"en\">"+got+"</b> 不太對，按「⌫ 退一格」改一改，或聽一次發音！";}});});
+    }
+    paint();
+  }
+  draw();
+}
+startSpell();
+
+/* ---------- 句型 ---------- */
+runQuiz("replyQ",function(){return C.shuffle(C.REPLY).slice(0,8).map(function(r){return C.replyQ(null,r);});},{type:"reply",id:"reply"});
+runQuiz("gramQ",function(){return C.shuffle(C.GRAM).slice(0,8).map(function(g){return C.gramQ(null,g);});},{type:"gram",id:"gram"});
+function startOrder(){
+  var list=C.shuffle(C.ORDER).slice(0,4),idx=0,errs=0,box=$("orderBox");
+  function draw(){
+    if(idx>=list.length){var st=errs===0?3:errs<=2?2:1;addStars(st,box);store.orderDone=(store.orderDone||0)+1;save();
+      box.innerHTML='<div class="done">🧱 4 個句子都排好了！錯 '+errs+' 次，得到 '+st+' 顆星。</div><div class="btns cen"><button class="btn purple" id="oAgain">🔄 再排一次</button></div>';
+      $("oAgain").addEventListener("click",startOrder);return;}
+    var target=C.tokens(list[idx]),got=[],pool=C.shuffle(target.map(function(t,i){return {t:t,i:i};}));
+    function paint(){
+      var h=prog(list.length,idx)+'<div class="slots words en">'+target.map(function(t,k){return '<span>'+(k<got.length?got[k]:"")+'</span>';}).join("")+'</div><div class="tiles en">';
+      pool.forEach(function(p,k){h+='<button class="btn'+(p.used?" used":"")+'" data-k="'+k+'">'+p.t+'</button>';});
+      h+='</div><div class="fb" id="oFb"></div>';box.innerHTML=h;
+      each(box.querySelectorAll(".tiles .btn"),function(b){b.addEventListener("click",function(){var p=pool[+b.getAttribute("data-k")];if(p.used)return;
+        if(p.t===target[got.length]){p.used=true;got.push(p.t);beep(true);
+          if(got.length===target.length){say(list[idx]);paint();var f=$("oFb");f.className="fb show good";f.innerHTML='✅ <b class="en">'+list[idx]+'</b>';setTimeout(function(){idx++;draw();},1200);return;}
+          paint();}
+        else{beep(false);errs++;miss("order");var f=$("oFb");f.className="fb show bad";f.innerHTML="還不是這個字喔！句子第 "+(got.length+1)+" 個字是什麼？"+(got.length===0?"（句子開頭字母要大寫）":"");}});});
+    }
+    paint();
+  }
+  draw();
+}
+startOrder();
+$("dailyList").innerHTML=C.DAILY.map(function(d){return '<div class="pat"><span class="who">🗣️</span><span class="line en">'+d.p+'<span class="zh">'+d.m+'</span></span><button class="btn white small" data-say="'+d.p.replace(/"/g,"&quot;")+'">🔊</button></div>';}).join("")+'<p class="small">前兩句是 Unit 3 的生活用語，後兩句是 Unit 4 的。情境是自編的。</p>';
+bindSay($("dailyList"));
+runQuiz("dailyQ",function(){return C.shuffle(C.DAILY).map(function(d){return C.dailyQ(null,d);});},{type:"daily",id:"daily"});
+
+/* ---------- 聽讀 ---------- */
+runQuiz("markQ",function(){var a=[],yes=0;for(var k=0;k<6;k++){var q=C.markQ();a.push(q);if(q.same)yes++;}
+  if(yes===0||yes===6)return [C.markQ(),C.markQ(),C.markQ(),C.markQ(),C.markQ(),C.markQ()];return a;},{type:"mark",id:"mark"});
+/* 我在哪個房間：讀兩個句子，點對的房間 */
+function startRoom(){
+  var box=$("roomBox"),n=5,i=0,right=0,res=[];
+  function draw(){
+    if(i>=n){var st=C.stars(right,n);addStars(st,box);best("room",right,n);
+      box.innerHTML=prog(n,i,res)+'<div class="done">🏠 答對 <b>'+right+'</b> / '+n+' 題　'+(st?"得到 "+st+" 顆星！":"")+'<br>'+(right===n?"全對，你是房間小偵探！":"記得兩個句子都要對：看顏色，也看 on、under 和 desk、chair、floor。")+'</div><div class="btns cen"><button class="btn purple" id="rmAgain">🔄 再玩一次</button></div>';
+      $("rmAgain").addEventListener("click",startRoom);return;}
+    var r=C.roomRound(),done=false,text=r.sents.join(" ")+" Where am I?";
+    var h=prog(n,i,res)+'<div class="riddle en">'+r.sents[0]+'<br>'+r.sents[1]+'<br><span class="ask">Where am I?</span></div><div class="btns cen"><button class="btn white small" id="rmSay">🔊 聽句子</button></div><div class="rooms">';
+    r.rooms.forEach(function(cfg,k){h+='<button class="btn en" data-k="'+k+'" aria-label="Room '+C.LET[k]+'">'+C.room(cfg,k)+'Room '+C.LET[k]+'</button>';});
+    h+='</div><div class="fb" id="rmFb"></div><div class="btns cen"><button class="btn org hidden" id="rmNext">'+(i<n-1?"下一題 ➜":"看成績 🎉")+'</button></div>';
+    box.innerHTML=h;
+    $("rmSay").addEventListener("click",function(){say(text);});
+    each(box.querySelectorAll(".rooms .btn"),function(b){b.addEventListener("click",function(){if(done)return;done=true;var k=+b.getAttribute("data-k"),f=$("rmFb"),ans="You're in Room "+C.LET[r.ans]+".";
+      each(box.querySelectorAll(".rooms .btn"),function(x){var kk=+x.getAttribute("data-k");if(kk===r.ans)x.classList.add("ok");x.disabled=kk!==r.ans&&x!==b;});
+      if(k===r.ans){right++;res[i]=true;beep(true);addStars(1,b);f.className="fb show good";f.innerHTML='✅ <b class="en">'+ans+'</b>';}
+      else{res[i]=false;b.classList.add("no");beep(false);miss("room");f.className="fb show bad";f.innerHTML=C.roomWhy(r.rooms[k],r.target,C.LET[k])+'<br>正確答案：<b class="en">'+ans+'</b>';}
+      say(ans);$("rmNext").classList.remove("hidden");});});
+    $("rmNext").addEventListener("click",function(){i++;draw();});
+  }
+  draw();
+}
+startRoom();
+
+/* ---------- 發音 ---------- */
+$("magicBox").innerHTML=C.MAGIC.map(function(m){return '<div class="magic" style="margin:6px 0"><button class="btn en" data-say="'+m.a+'">'+m.a+'</button><span style="font-size:28px;align-self:center">➜ +e ➜</span><button class="btn en lit" data-say="'+m.b+'">'+m.b+'</button></div>';}).join("");
+bindSay($("magicBox"));
+function startSort(){
+  var box=$("sortBox"),items=C.shuffle(C.PH).slice(0,10).map(function(p){return {w:p.w,v:p.v};}),i=0,errs=0,placed={so:[],oe:[],su:[],ue:[]};
+  function draw(){
+    var h='<div class="prog">';for(var k=0;k<items.length;k++)h+='<i class="'+(k<i?(items[k].ok?"ok":"no"):k===i?"cur":"")+'"></i>';h+='</div>';
+    if(i<items.length){h+='<div class="big en">'+items[i].w+'</div><div class="btns cen"><button class="btn white small" id="stSay">🔊 聽一聽</button></div><div class="four">'+
+      C.VOW.map(function(v){return '<button class="btn '+v.k+'" data-v="'+v.k+'">'+v.n+'<br><span class="en">'+v.ex+'</span></button>';}).join("")+'</div><div class="fb" id="stFb"></div>';}
+    h+='<div class="bins4">'+C.VOW.map(function(v){return '<div class="bin '+v.k+'"><b>'+v.n+'</b><span class="en">'+placed[v.k].join("、")+'</span></div>';}).join("")+'</div>';
+    if(i>=items.length){var st=errs===0?4:errs<=2?2:1;addStars(st,box);store.sortDone=(store.sortDone||0)+1;if(errs===0)store.perfect.sort=1;save();
+      h+='<div class="done">🎉 分類完成！錯 '+errs+' 次，得到 '+st+' 顆星。'+(errs===0?"全對，你是 Magic e 魔法師！":"")+'</div><div class="btns cen"><button class="btn purple" id="stAgain">🔄 再玩一次</button></div>';}
+    box.innerHTML=h;
+    if(i>=items.length){$("stAgain").addEventListener("click",startSort);return;}
+    var it=items[i];$("stSay").addEventListener("click",function(){say(it.w);});
+    each(box.querySelectorAll(".four .btn"),function(b){b.addEventListener("click",function(){var v=b.getAttribute("data-v");
+      if(v===it.v){beep(true);if(it.ok!==false)it.ok=true;placed[v].push(it.w);say(it.w);i++;draw();}
+      else{beep(false);errs++;it.ok=false;miss("sort");var f=$("stFb"),e=/e$/.test(it.w),mid=/o/.test(it.w)?"o":"u";f.className="fb show bad";
+        f.innerHTML=(e?"看看字尾：有 Magic e，所以是長母音。":"字尾沒有 e，所以是短母音。")+"中間的母音是 <b class=\"en\">"+mid+"</b>。";}});});
+  }
+  draw();
+}
+startSort();
+runQuiz("pairQ",function(){return C.shuffle(C.MAGIC).map(function(m){return C.pairQ(null,m);});},{type:"pair",id:"pair"});
+/* 三連線：聽到哪個字就點它放籌碼，連成 3 個就過關 */
+function startBingo(){
+  var box=$("bingoBox"),cells=C.shuffle(C.PH.map(function(p){return p.w;})),calls=C.shuffle(cells),ci=0,mine={},errs=0;
+  function draw(msg,cls,win){
+    var w=calls[ci],h="";
+    if(!win){h+='<div class="q">'+(canSpeak?"🔊 聽一聽，點出聽到的字":'👀 找出這個字：<b class="en">'+w+'</b>')+'</div>';
+      if(canSpeak)h+='<div class="btns cen"><button class="btn purple" id="bgSay">🔊 再聽一次</button></div>';}
+    h+='<div class="bingo en">'+cells.map(function(c,k){return '<button class="btn'+(mine[k]?" mine":"")+(win&&win.indexOf(k)>=0?" win":"")+'" data-k="'+k+'"'+(mine[k]||win?" disabled":"")+'>'+c+'</button>';}).join("")+'</div>';
+    h+='<div class="fb'+(msg?" show "+cls:"")+'" id="bgFb">'+(msg||"")+'</div>';
+    if(win){var n=Object.keys(mine).length,st=errs===0?4:errs<=2?2:1;addStars(st,box);store.bingoDone=(store.bingoDone||0)+1;store.bingoBest=store.bingoBest?Math.min(store.bingoBest,n):n;save();
+      h+='<div class="done">🎯 <b class="en">Three in a row!</b> 你用 '+n+' 個籌碼連成一線，點錯 '+errs+' 次，得到 '+st+' 顆星。</div><div class="btns cen"><button class="btn purple" id="bgAgain">🔄 再玩一次</button></div>';}
+    box.innerHTML=h;
+    if(win){$("bgAgain").addEventListener("click",startBingo);return;}
+    if(canSpeak){if(box.offsetParent)say(w);$("bgSay").addEventListener("click",function(){say(w);});}
+    each(box.querySelectorAll(".bingo .btn"),function(b){b.addEventListener("click",function(){var k=+b.getAttribute("data-k");if(mine[k])return;
+      if(cells[k]===w){mine[k]=1;ci++;beep(true);var line=C.lineOf(mine);
+        if(line)draw('✅ <b class="en">'+w+'</b>',"good",line);else draw('✅ <b class="en">'+w+'</b>　放上籌碼了，下一個！',"good");}
+      else{beep(false);errs++;miss("bingo");b.classList.remove("no");void b.offsetWidth;b.classList.add("no");var f=$("bgFb");f.className="fb show bad";f.innerHTML='你點的是 <b class="en">'+cells[k]+'</b>，不是聽到的字。再聽一次！';}});});
+  }
+  draw();
+}
+startBingo();
+
+/* ---------- Let's Write ---------- */
+function townBtns(towns,cls){return '<div class="rooms '+(cls||"")+'">'+towns.map(function(sc,k){return '<button class="btn en" data-k="'+k+'" aria-label="Town '+C.LET[k]+'">'+C.town(sc)+'Town '+C.LET[k]+'</button>';}).join("")+'</div>';}
+/* 讀訊息，猜城鎮（Look and Guess 同類型） */
+function startGuess(){
+  var box=$("guessBox"),n=5,i=0,right=0,res=[];
+  function draw(){
+    if(i>=n){var st=C.stars(right,n);addStars(st,box);best("guess",right,n);
+      box.innerHTML=prog(n,i,res)+'<div class="done">🚒 答對 <b>'+right+'</b> / '+n+' 題　'+(st?"得到 "+st+" 顆星！":"")+'<br>'+(right===n?"全對，救援隊都找到人了！":"先看發生什麼事，再看天氣的小圖示，兩個都要對。")+'</div><div class="btns cen"><button class="btn purple" id="gsAgain">🔄 再玩一次</button></div>';
+      $("gsAgain").addEventListener("click",startGuess);return;}
+    var r=C.guessRound(),L=C.msgLines(r.target,""),done=false;
+    var h=prog(n,i,res)+'<div class="msg en">'+L[0]+'<br>'+L[1]+'<br>Please hurry! I\'m in Town <span class="hint">?</span></div><div class="btns cen"><button class="btn white small" id="gsSay">🔊 聽訊息</button></div>'+townBtns(r.towns)+'<div class="fb" id="gsFb"></div><div class="btns cen"><button class="btn org hidden" id="gsNext">'+(i<n-1?"下一則 ➜":"看成績 🎉")+'</button></div>';
+    box.innerHTML=h;
+    $("gsSay").addEventListener("click",function(){say(L[0]+" "+L[1]+" Please hurry!");});
+    each(box.querySelectorAll(".rooms .btn"),function(b){b.addEventListener("click",function(){if(done)return;done=true;var k=+b.getAttribute("data-k"),f=$("gsFb"),ans="I'm in Town "+C.LET[r.ans]+".";
+      each(box.querySelectorAll(".rooms .btn"),function(x){var kk=+x.getAttribute("data-k");if(kk===r.ans)x.classList.add("ok");x.disabled=kk!==r.ans&&x!==b;});
+      if(k===r.ans){right++;res[i]=true;beep(true);addStars(1,b);f.className="fb show good";f.innerHTML='✅ 找到了！<b class="en">'+ans+'</b>';}
+      else{res[i]=false;b.classList.add("no");beep(false);miss("guess");f.className="fb show bad";f.innerHTML=C.guessWhy(r.towns[k],r.target,C.LET[k])+'<br>正確答案：<b class="en">'+ans+'</b>';}
+      say(ans);$("gsNext").classList.remove("hidden");});});
+    $("gsNext").addEventListener("click",function(){i++;draw();});
+  }
+  draw();
+}
+startGuess();
+/* 寫求救訊息（Write and Guess 同類型）：選城鎮 → 填空或打字 → 對對看 → 給家人猜 */
+function startWrite(){
+  var box=$("writeBox"),towns=C.writeTowns(),sel=-1,st={art:"",dis:"",wx:[],town:""},tries=0;
+  each(document.querySelectorAll("#wModes button"),function(b){b.classList.toggle("on",b.getAttribute("data-m")===store.wMode);});
+  function choose(){
+    box.innerHTML='<div class="q">1️⃣ 你在哪個城鎮？點一張圖</div>'+townBtns(towns);
+    each(box.querySelectorAll(".rooms .btn"),function(b){b.addEventListener("click",function(){sel=+b.getAttribute("data-k");st={art:"",dis:"",wx:[],town:""};tries=0;form();});});
+  }
+  function blank(k,cls,txt,ph){return '<button class="bl '+cls+(txt?"":" empty")+'" data-b="'+k+'" aria-label="'+ph+'">'+(txt||"＿＿")+'</button>';}
+  function form(msg,cls){
+    var sc=towns[sel],L=C.LET[sel],type=store.wMode==="type",h='<div class="q">2️⃣ 把 Town '+L+' 的求救訊息寫完整</div><div style="max-width:300px;margin:0 auto">'+C.town(sc)+'</div>';
+    if(type)h+='<div class="frame en">Help! There\'s <input id="iArt" class="pk" style="width:3.4em" aria-label="a 或 an" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"> <input id="iDis" class="bu" style="width:7.6em" aria-label="發生什麼事" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">!<br>It\'s <input id="iWx" class="gr" style="width:9.4em" aria-label="天氣" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"> now!<br>Please hurry! I\'m in Town <input id="iTown" class="yl" style="width:2.6em" maxlength="1" aria-label="城鎮的字母" autocomplete="off" autocorrect="off" spellcheck="false">.</div>';
+    else h+='<div class="frame en">Help! There\'s '+blank("art","pk",st.art,"a 或 an")+' '+blank("dis","bu",st.dis,"發生什麼事")+'!<br>It\'s '+blank("wx","gr",st.wx.join(" and "),"天氣")+' now!<br>Please hurry! I\'m in Town '+blank("town","yl",st.town,"城鎮的字母")+'.</div>';
+    h+='<div class="bank en"><div class="grp">'+["a","an"].map(function(x){return chip("art",x,"pk",!type&&st.art===x);}).join("")+'</div><div class="grp">'+C.DIS.map(function(d){return chip("dis",d.k,"bu",!type&&st.dis===d.k);}).join("")+'</div><div class="grp">'+C.WX.map(function(x){return chip("wx",x.k,"gr",!type&&st.wx.indexOf(x.k)>=0);}).join("")+'</div>'+(type?"":'<div class="grp">'+towns.map(function(t,k){return chip("town",C.LET[k],"yl",st.town===C.LET[k]);}).join("")+'</div>')+'</div>';
+    h+='<p class="small">'+(type?"字卡可以點來聽發音；照著字卡把字打進格子裡。天氣有兩個時，中間用 and：hot and windy。":"點字卡把格子填滿；點格子可以清掉重填。天氣最多可以放兩個（會自動加 and）。")+'</p>';
+    h+='<div class="btns cen"><button class="btn org" id="wChk">✔ 對對看</button><button class="btn white small" id="wBack">↩ 換城鎮</button></div><div class="fb'+(msg?" show "+cls:"")+'" id="wFb">'+(msg||"")+'</div>';
+    box.innerHTML=h;
+    if(type){$("iArt").value=st.art;$("iDis").value=st.dis;$("iWx").value=st.wx.join(" and ");$("iTown").value=st.town;
+      each(box.querySelectorAll(".chip"),function(c){c.addEventListener("click",function(){say(c.getAttribute("data-v"));});});
+      each(box.querySelectorAll(".frame input"),function(inp){inp.addEventListener("keydown",function(e){if(e.keyCode===13)$("wChk").click();});});}
+    else{
+      each(box.querySelectorAll(".chip"),function(c){c.addEventListener("click",function(){var g=c.getAttribute("data-g"),v=c.getAttribute("data-v");
+        if(g==="wx"){var at=st.wx.indexOf(v);if(at>=0)st.wx.splice(at,1);else{st.wx.push(v);if(st.wx.length>2)st.wx.shift();}}else st[g]=st[g]===v?"":v;
+        if(g!=="town")say(v);form();});});
+      each(box.querySelectorAll(".bl"),function(b){b.addEventListener("click",function(){var k=b.getAttribute("data-b");if(k==="wx")st.wx=[];else st[k]="";form();});});}
+    $("wBack").addEventListener("click",choose);
+    $("wChk").addEventListener("click",function(){
+      if(type){var az=function(s){return String(s).toLowerCase().replace(/[^a-z]/g,"");};
+        st={art:az($("iArt").value),dis:az($("iDis").value),wx:C.parseWx($("iWx").value).map(az).filter(function(x){return x;}),town:$("iTown").value.toUpperCase().replace(/[^A-Z]/g,"")};}
+      var errs=C.checkMsg(sc,L,st);tries++;
+      if(errs.length){beep(false);miss("write");form("再檢查一下：<br>・"+errs.join("<br>・"),"bad");try{$("wFb").scrollIntoView({block:"nearest"});}catch(e){}return;}
+      finish();});
+  }
+  function chip(g,v,cls,on){return '<button class="chip '+cls+(on?" on":"")+'" data-g="'+g+'" data-v="'+v+'">'+v+'</button>';}
+  function finish(){
+    var sc={d:st.dis,w:st.wx.slice()},L=C.LET[sel],text=C.msgText(sc,L),type=store.wMode==="type",n=(type?3:2)+(tries===1?1:0);
+    beep(true);store.writeDone=(store.writeDone||0)+1;if(type)store.typeDone=(store.typeDone||0)+1;
+    store.msgs.unshift({t:text,d:Date.now(),k:type?"type":"tap"});store.msgs=store.msgs.slice(0,10);save();
+    var Ls=C.msgLines(sc,L);
+    box.innerHTML='<div class="done">🎉 寫好了！得到 '+n+' 顆星。'+(type?"自己打字，很厲害！":"")+'</div><div class="msg en">'+Ls.join("<br>")+'</div><div class="btns cen"><button class="btn white small" id="wSay">🔊 念給我聽</button><button class="btn teal" id="wFam">👪 給家人猜猜看</button><button class="btn purple" id="wNew">✍️ 再寫一則</button></div>';
+    addStars(n,box);say(text);
+    $("wSay").addEventListener("click",function(){say(text);});
+    $("wNew").addEventListener("click",startWrite);
+    $("wFam").addEventListener("click",function(){family(sc);});
+  }
+  /* 給家人猜：看訊息（沒有城鎮），點出是哪個城鎮 */
+  function family(sc){
+    var Ls=C.msgLines(sc,""),won=false;
+    box.innerHTML='<div class="q">👪 請家人讀訊息，猜猜看寫的人在哪個城鎮</div><div class="msg en">'+Ls[0]+'<br>'+Ls[1]+'<br>Please hurry! I\'m in Town <span class="hint">?</span></div>'+townBtns(towns)+'<div class="fb" id="fmFb"></div><div class="btns cen"><button class="btn purple" id="wNew">✍️ 再寫一則</button></div>';
+    $("wNew").addEventListener("click",startWrite);
+    each(box.querySelectorAll(".rooms .btn"),function(b){b.addEventListener("click",function(){if(won)return;var k=+b.getAttribute("data-k"),f=$("fmFb");
+      if(k===sel){won=true;b.classList.add("ok");beep(true);store.famDone=(store.famDone||0)+1;save();addStars(1,b);f.className="fb show good";f.innerHTML='🎉 猜對了！<b class="en">I\'m in Town '+C.LET[sel]+'.</b>';say("I'm in Town "+C.LET[sel]+".");}
+      else{b.classList.remove("no");void b.offsetWidth;b.classList.add("no");beep(false);f.className="fb show bad";f.innerHTML="不是 Town "+C.LET[k]+" 喔，再讀一次訊息！";}});});
+  }
+  choose();
+}
+each(document.querySelectorAll("#wModes button"),function(b){b.addEventListener("click",function(){store.wMode=b.getAttribute("data-m");save();startWrite();});});
+startWrite();
+
+/* ---------- 小考 ---------- */
+runQuiz("chBox",function(){return C.makeChallenge();},{type:"word",onDone:function(r){store.chBest=Math.max(store.chBest||0,r);save();}});
+
+/* ---------- 紀錄 ---------- */
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function renderRec(){
+  var s=store,g=C.badges(s),b=s.best||{},cnt=function(o){return C.WORDS.filter(function(w){return o&&o[w.w];}).length;};
+  $("stats").innerHTML='<div class="stat"><b>'+s.stars+'</b>⭐ 星星</div><div class="stat"><b>'+cnt(s.heard)+'/12</b>聽過的單字卡</div><div class="stat"><b>'+cnt(s.spelled)+'/12</b>拼對過的單字</div><div class="stat"><b>'+(b.reply||0)+'/8</b>對話題最佳</div><div class="stat"><b>'+(b.gram||0)+'/8</b>文法最佳</div><div class="stat"><b>'+(b.mark||0)+'/6</b>「一樣嗎」最佳</div><div class="stat"><b>'+(b.room||0)+'/5</b>房間題最佳</div><div class="stat"><b>'+(s.bingoDone||0)+'</b>三連線次數</div><div class="stat"><b>'+(b.guess||0)+'/5</b>猜城鎮最佳</div><div class="stat"><b>'+(s.writeDone||0)+'</b>寫過的訊息</div><div class="stat"><b>'+(s.chBest||0)+'/12</b>小考最佳</div>';
+  $("badges").innerHTML=C.BADGES.map(function(x){return '<div class="bdg'+(g[x.id]?" got":"")+'">'+x.n+'<small>'+x.d+'</small></div>';}).join("");
+  $("myMsgs").innerHTML=s.msgs.length?'<ul class="msgs">'+s.msgs.map(function(m){var d=new Date(m.d);return '<li class="en">'+esc(m.t)+'<small>'+(d.getMonth()+1)+"/"+d.getDate()+"　"+(m.k==="type"?"⌨️ 自己打字":"👆 點字卡")+'</small></li>';}).join("")+'</ul><p class="small">只留最近 10 則，存在這台裝置。</p>':'<p class="small">還沒有寫過訊息。到「寫作」分頁寫一則吧！</p>';
+  var ks=Object.keys(s.bad).sort(function(a,c){return s.bad[c]-s.bad[a];});
+  $("mist").innerHTML=ks.length?'<table class="rec">'+ks.map(function(k){return "<tr><td>"+(TN[k]||k)+"</td><td>錯 "+s.bad[k]+" 次</td></tr>";}).join("")+"</table>":'<p class="small">還沒有錯題，繼續加油！</p>';
+}
+$("resetBtn").addEventListener("click",function(){if(!confirm("確定要清除這一頁的所有紀錄和你寫的訊息嗎？"))return;var sl=store.slow,wm=store.wMode;store=fresh();store.slow=sl;store.wMode=wm;save();renderScore();renderCards();renderRec();});
+renderScore();
+})();
+</script>
+</body>
+</html>
